@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+    <PackageReference Include="Google.Protobuf" Version="3.18.0" />
+
+    <PackageReference Include="Grpc.Core" Version="2.44.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.39.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.40.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MessagePack" Version="2.3.85" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="protobuf-net" Version="3.0.101" />
+    <PackageReference Include="protobuf-net.Core" Version="3.0.101" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>NierReincarnation</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="adrata\ud\.data.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="proto\data.proto">
+      <GrpcServices>Client</GrpcServices>
+    </None>
+    <None Update="proto\config.proto">
+      <GrpcServices>Client</GrpcServices>
+    </None>
+    <None Update="roots.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Protobuf Include="**/*.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="proto\battle.proto" />
+    <None Remove="proto\consumableitem.proto" />
+    <None Remove="proto\explore.proto" />
+    <None Remove="proto\gacha.proto" />
+    <None Remove="proto\quest.proto" />
+    <None Remove="proto\user.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AssetStudio\AssetStudio\AssetStudio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Update="proto\gacha.proto" GrpcServices="Client" />
+    <Protobuf Update="proto\user.proto" GrpcServices="Client" />
+    <Protobuf Update="proto\config.proto" GrpcServices="Client" />
+    <Protobuf Update="proto\data.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+</Project>

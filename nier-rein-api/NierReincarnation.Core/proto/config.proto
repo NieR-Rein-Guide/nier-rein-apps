@@ -1,0 +1,42 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Config";
+
+import "google/protobuf/empty.proto";
+
+package apb.api.config;
+
+// The greeting service definition.
+service ConfigService {
+	// Sends a greeting
+	rpc GetReviewServerConfig (google.protobuf.Empty) returns (GetReviewServerConfigResponse);
+}
+
+// The response message containing the greetings.
+message GetReviewServerConfigResponse {
+	ApiConfig api = 1;
+	OctoConfig octo = 2;
+	WebViewConfig webView = 3;
+	MasterDataConfig masterData = 4;
+}
+
+message ApiConfig {
+	string hostname = 1;
+	int32 port = 2;
+}
+
+message OctoConfig {
+	int32 version = 1;
+	int32 appId = 2;
+	string clientSecretKey = 3;
+	string aesKey = 4;
+	string url = 5;
+}
+
+message WebViewConfig {
+	string baseUrl = 1;
+}
+
+message MasterDataConfig {
+	string urlFormat = 1;
+}

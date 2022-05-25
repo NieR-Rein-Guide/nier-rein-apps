@@ -1,0 +1,23 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem";
+
+package apb.api.consumableitem;
+
+service ConsumableItemService {
+	rpc UseEffectItem (UseEffectItemRequest) returns (UseEffectItemResponse);
+}
+
+message UseEffectItemRequest {
+	int32 consumableItemId = 1;
+	int32 count = 2;
+}
+
+message UseEffectItemResponse {
+	map<string, DiffData> diffUserData = 99;
+}
+
+message DiffData {
+	string updateRecordsJson = 1;
+	string deleteKeysJson = 2;
+}

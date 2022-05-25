@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NierReincarnation.Core.Dark.Generated.Type
+{
+    public enum QuestReleaseConditionType
+    {
+        UNKNOWN = 0,
+        USER_LEVEL = 1,
+        CHARACTER_LEVEL = 2,
+        DECK_POWER = 3,
+        QUEST_CLEAR = 4,
+        WEAPON_ACQUISITION = 5,
+        BIG_HUNT_SCORE = 6
+    }
+}

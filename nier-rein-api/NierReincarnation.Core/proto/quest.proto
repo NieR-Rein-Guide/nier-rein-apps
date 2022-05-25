@@ -1,0 +1,79 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Quest";
+
+package apb.api.quest;
+
+service QuestService {
+	rpc StartEventQuest (StartEventQuestRequest) returns (StartEventQuestResponse);
+	rpc FinishEventQuest (FinishEventQuestRequest) returns (FinishEventQuestResponse);
+	rpc UpdateEventQuestSceneProgress (UpdateEventQuestSceneProgressRequest) returns (UpdateEventQuestSceneProgressResponse);
+}
+
+message StartEventQuestRequest {
+	int32 eventQuestChapterId = 1;
+	int32 questId = 2;
+	int32 userDeckNumber = 3;
+	bool isBattleOnly = 4;
+	int32 maxAutoOrbitCount = 5;
+}
+
+message StartEventQuestResponse {
+	repeated BattleDropReward battleDropReward = 1;
+	map<string,DiffData> diffUserData = 99;
+}
+
+message FinishEventQuestRequest {
+	int32 eventQuestChapterId = 1;
+	int32 questId = 2;
+	bool isRetired = 3;
+	bool isAnnihilated = 4;
+	bool isAutoOrbit = 5;
+	int32 storySkipType = 6;
+	string vt = 200;
+}
+
+message FinishEventQuestResponse {
+	repeated QuestReward dropReward = 1;
+	repeated QuestReward firstClearReward = 2;
+	repeated QuestReward missionClearReward = 3;
+	repeated QuestReward missionClearCompleteReward = 4;
+	repeated QuestReward autoOrbitResult = 5;
+	bool isBigWin = 6;
+	repeated int32 bigWinClearedQuestMissionIdList = 7;
+	map<string,DiffData> diffUserData = 99;
+}
+
+message UpdateEventQuestSceneProgressRequest {
+	int32 questSceneId = 1;
+}
+
+message UpdateEventQuestSceneProgressResponse {
+	map<string,DiffData> diffUserData = 99;
+}
+
+message BattleDropReward {
+	int32 questSceneId = 1;
+	int32 battleDropCategoryId = 2;
+	int32 battleDropEffectId = 3;
+}
+
+message QuestReward {
+	int32 possessionType = 1;
+	int32 possessionId = 2;
+	int32 count = 3;
+	int32 rewardEffectId = 4;
+	bool isAutoSale = 5;
+	bytes equipmentData = 6;
+	QuestReward.EquipmentDataOneofCase equipmentDataCase = 7;
+
+	enum EquipmentDataOneofCase {
+		None = 0;
+		Parts = 6;
+	}
+}
+
+message DiffData {
+	string updateRecordsJson = 1;
+	string deleteKeysJson = 2;
+}
