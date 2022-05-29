@@ -6,7 +6,7 @@ namespace nier_rein_gui.Resources
 {
     static class FontResources
     {
-        private const string FotRodinResource_ = "NierReinGui.Resources.Fonts.FOT-Rodin.otf";
+        private const string FotRodinResource_ = "nier-rein-gui.Resources.Fonts.FOT-Rodin.otf";
 
         public static void RegisterFotRodin(int size)
         {

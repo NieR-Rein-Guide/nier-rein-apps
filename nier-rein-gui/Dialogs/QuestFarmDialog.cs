@@ -17,19 +17,18 @@ using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using Size = ImGui.Forms.Models.Size;
 
 namespace nier_rein_gui.Dialogs
 {
-    class QuestFarmDialog : Modal
+    abstract class QuestFarmDialog : Modal
     {
         private static readonly TimeSpan TimerInterval_ = TimeSpan.FromSeconds(1);
+        private const string RentalDeck_ = "Has Rental Deck";
         private const string LimitText_ = "Request limit reached. Waiting {0:m\\:ss}...";
 
-        private readonly NierReinContexts _rein;
-        private readonly int _chapterId;
-        private readonly EventQuestData _quest;
+        private readonly int _questId;
+        private readonly bool _isRental;
+
         private readonly IDictionary<int, int> _rewardCache;
         private readonly IDictionary<int, Costume> _costumeCache;
 
@@ -47,11 +46,13 @@ namespace nier_rein_gui.Dialogs
         private TimeSpan _currentLimitTime;
         private Timer _timer;
 
-        public QuestFarmDialog(NierReinContexts rein, int chapterId, EventQuestData quest)
+        protected NierReinContexts ReinContexts { get; }
+
+        protected QuestFarmDialog(NierReinContexts rein, int questId, string questName)
         {
-            _rein = rein;
-            _chapterId = chapterId;
-            _quest = quest;
+            ReinContexts = rein;
+
+            _questId = questId;
             _rewardCache = new Dictionary<int, int>();
             _costumeCache = new Dictionary<int, Costume>();
 
@@ -59,8 +60,13 @@ namespace nier_rein_gui.Dialogs
             _timer.Elapsed += _timer_Elapsed;
 
             limitLabel = new Label { Caption = string.Empty, TextColor = Color.Firebrick };
-            decks = new ComboBox<DeckInfo>();
-            InitializeComboBox(decks);
+
+            _isRental = CalculatorDeck.IsRentalDeck(questId);
+            if (!_isRental)
+            {
+                decks = new ComboBox<DeckInfo>();
+                InitializeComboBox(decks);
+            }
 
             rewards = new DataTable<Reward>
             {
@@ -78,7 +84,7 @@ namespace nier_rein_gui.Dialogs
             {
                 IsSelectable = false,
                 IsResizable = true,
-                Size = new Size(1f,75),
+                Size = new ImGui.Forms.Models.Size(1f, 75),
                 Columns =
                 {
                     new DataTableColumn<Costume>(costume => costume.Name, nameof(Costume.Name)),
@@ -97,7 +103,7 @@ namespace nier_rein_gui.Dialogs
             startButton = new NierButton { Caption = "Start", Padding = new Vector2(2, 2) };
             startButton.Clicked += StartButton_Clicked;
 
-            Caption = "Farm";
+            Caption = "Farming";
             Size = new Vector2(270, 300);
             Content = new StackLayout
             {
@@ -105,15 +111,15 @@ namespace nier_rein_gui.Dialogs
                 ItemSpacing = 5,
                 Items =
                 {
-                    new Label {Caption = $"Quest: {quest.QuestName}"},
-                    new StackItem(null){Size = new Size(0,0)},
-                    decks,
+                    new Label { Caption = $"Quest: {questName}" },
+                    new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
+                    new StackItem(decks){Size = ImGui.Forms.Models.Size.Content},
                     rewards,
                     costumes,
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        Size = new Size(1f, -1),
+                        Size = new ImGui.Forms.Models.Size(1f, -1),
                         Items =
                         {
                             singleButton,
@@ -122,7 +128,7 @@ namespace nier_rein_gui.Dialogs
                                 Alignment = Alignment.Horizontal,
                                 HorizontalAlignment = HorizontalAlignment.Right,
                                 ItemSpacing = 5,
-                                Size = new Size(1f, -1),
+                                Size = new ImGui.Forms.Models.Size(1f, -1),
                                 Items =
                                 {
                                     cancelButton,
@@ -134,6 +140,8 @@ namespace nier_rein_gui.Dialogs
                 }
             };
         }
+
+        protected abstract Task<BattleResult> ExecuteQuest(DataDeck deck);
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -157,8 +165,9 @@ namespace nier_rein_gui.Dialogs
             rewards.Rows.Clear();
 
             // Prepare deck
-            var deckNumber = decks.SelectedItem.Content.DeckId;
-            var deck = _rein.Decks.GetQuestDeck(deckNumber, DeckType.QUEST);
+            var deck = _isRental ?
+                CalculatorDeck.CreateRentalDeck(_questId) :
+                ReinContexts.Decks.GetQuestDeck(decks.SelectedItem.Content.DeckId, DeckType.QUEST);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -175,17 +184,18 @@ namespace nier_rein_gui.Dialogs
             foreach (var costume in _costumeCache)
                 costumes.Rows.Add(new DataTableRow<Costume>(costume.Value));
 
-            _rein.Battles.BattleFinished += Battles_BattleFinished;
+            ReinContexts.Battles.BattleFinished += Battles_BattleFinished;
 
-            _rein.Battles.RequestRatioReached += (s, e) =>
+            ReinContexts.Battles.RequestRatioReached += (s, e) =>
             {
-                (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
+                (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
 
                 _currentLimitTime = BattleContext.RateTimeout;
                 _timer.Start();
             };
 
-            await _rein.Battles.ExecuteEventQuest(_chapterId, _quest, deck);
+            await ExecuteQuest(deck);
+            (Application.Instance.MainForm as MainForm).UpdateStamina();
 
             _isFarming = false;
             cancelButton.Enabled = false;
@@ -195,7 +205,7 @@ namespace nier_rein_gui.Dialogs
 
         private void InitializeComboBox(ComboBox<DeckInfo> deckBox)
         {
-            foreach (var deck in _rein.Decks.GetQuestDeckInfo())
+            foreach (var deck in ReinContexts.Decks.GetQuestDeckInfo())
             {
                 deckBox.Items.Add(new ComboBoxItem<DeckInfo>(new DeckInfo
                 {
@@ -219,7 +229,7 @@ namespace nier_rein_gui.Dialogs
             costumes.Rows.Clear();
             rewards.Rows.Clear();
 
-            var isSuccessful = await Farm(_chapterId, _quest);
+            var isSuccessful = await Farm();
             _isFarming = false;
 
             if (isSuccessful)
@@ -247,22 +257,23 @@ namespace nier_rein_gui.Dialogs
             return _isFarming;
         }
 
-        private async Task<bool> Farm(int chapterId, EventQuestData quest)
+        private async Task<bool> Farm()
         {
             // Prepare battle events
-            _rein.Battles.RequestRatioReached += (s, e) =>
+            ReinContexts.Battles.RequestRatioReached += (s, e) =>
             {
-                (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
+                (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
 
                 _currentLimitTime = BattleContext.RateTimeout;
                 _timer.Start();
             };
 
-            _rein.Battles.BattleFinished += Battles_BattleFinished;
+            ReinContexts.Battles.BattleFinished += Battles_BattleFinished;
 
             // Prepare deck
-            var deckNumber = decks.SelectedItem.Content.DeckId;
-            var deck = _rein.Decks.GetQuestDeck(deckNumber, DeckType.QUEST);
+            var deck = _isRental ?
+                CalculatorDeck.CreateRentalDeck(_questId) :
+                ReinContexts.Decks.GetQuestDeck(decks.SelectedItem.Content.DeckId, DeckType.QUEST);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -276,16 +287,16 @@ namespace nier_rein_gui.Dialogs
                         Rank = CalculatorCharacterRank.GetCharacterRank(actor.Costume.CharacterId)
                     };
 
-            foreach(var costume in _costumeCache)
+            foreach (var costume in _costumeCache)
                 costumes.Rows.Add(new DataTableRow<Costume>(costume.Value));
 
             // Execute farming
             var isCancelled = false;
             while (!_isCancel)
             {
-                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new Size(0, 0) };
+                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
 
-                var battleResult = await _rein.Battles.ExecuteEventQuest(chapterId, quest, deck);
+                var battleResult = await ExecuteQuest(deck);
                 (Application.Instance.MainForm as MainForm).UpdateStamina();
 
                 if (battleResult.Status == BattleStatus.OutOfStamina)
@@ -315,6 +326,9 @@ namespace nier_rein_gui.Dialogs
 
                 rewards.Rows[_rewardCache[dropReward.PossessionId]].Data.Count += dropReward.Count;
             }
+
+            if (_isRental)
+                return;
 
             foreach (var costume in _costumeCache)
             {

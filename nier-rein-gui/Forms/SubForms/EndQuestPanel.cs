@@ -67,8 +67,10 @@ namespace nier_rein_gui.Forms.SubForms
                     Caption = quest.QuestName,
                     SuggestedPower = quest.RecommendPower,
                     Stamina = quest.Quest.EntityQuest.Stamina,
+                    IsClear = quest.IsClearQuest,
                     SubFont = FontResources.FotRodin(12),
                     DailyFont = FontResources.FotRodin(9),
+                    ClearFont = FontResources.FotRodin(11),
                     Enabled = !quest.IsLock,
                     Padding = new Vector2(2, 2),
                     IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0
@@ -168,7 +170,7 @@ namespace nier_rein_gui.Forms.SubForms
             }
             else
             {
-                var farmDlg = new QuestFarmDialog(_rein, chapter.EventQuestChapterId, quest);
+                var farmDlg = new EventQuestFarmDialog(_rein, chapter.EventQuestChapterId, quest);
                 await farmDlg.ShowAsync();
             }
 

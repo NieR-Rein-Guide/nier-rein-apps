@@ -56,15 +56,25 @@ namespace nier_rein_gui.Dialogs
 
         private async void QuitButton_Clicked(object sender, System.EventArgs e)
         {
-            if (!_rein.Battles.HasRunningEventQuest())
-                return;
+	        if (_rein.Battles.HasRunningEventQuest())
+	        {
+		        var runningEventQuest = DatabaseDefine.User.EntityIUserEventQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
+		        await _rein.Battles.QuitEventQuest(runningEventQuest.CurrentEventQuestChapterId, CalculatorQuest.CreateEventQuestData(runningEventQuest.CurrentQuestId));
 
-            var runningEventQuest = DatabaseDefine.User.EntityIUserEventQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
-            await _rein.Battles.QuitEventQuest(runningEventQuest.CurrentEventQuestChapterId, CalculatorQuest.CreateEventQuestData(runningEventQuest.CurrentQuestId));
+                Close(DialogResult.Ok);
+            }
+
+	        if (_rein.Battles.HasRunningMainQuest())
+	        {
+		        var runningMainQuest = DatabaseDefine.User.EntityIUserMainQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
+		        await _rein.Battles.QuitMainQuest(CalculatorQuest.GenerateMainQuestData(runningMainQuest.CurrentQuestSceneId));
+
+		        Close(DialogResult.Ok);
+	        }
 
             // TODO: Implement other quest types
 
-            Close();
+            Close(DialogResult.Cancel);
         }
 
         private void ContinueButton_Clicked(object sender, System.EventArgs e)

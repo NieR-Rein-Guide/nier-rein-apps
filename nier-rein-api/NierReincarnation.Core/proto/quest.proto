@@ -6,8 +6,11 @@ package apb.api.quest;
 
 service QuestService {
 	rpc StartEventQuest (StartEventQuestRequest) returns (StartEventQuestResponse);
+	rpc StartMainQuest (StartMainQuestRequest) returns (StartMainQuestResponse);
 	rpc FinishEventQuest (FinishEventQuestRequest) returns (FinishEventQuestResponse);
+	rpc FinishMainQuest (FinishMainQuestRequest) returns (FinishMainQuestResponse);
 	rpc UpdateEventQuestSceneProgress (UpdateEventQuestSceneProgressRequest) returns (UpdateEventQuestSceneProgressResponse);
+	rpc UpdateMainQuestSceneProgress (UpdateMainQuestSceneProgressRequest) returns (UpdateMainQuestSceneProgressResponse);
 }
 
 message StartEventQuestRequest {
@@ -20,6 +23,21 @@ message StartEventQuestRequest {
 
 message StartEventQuestResponse {
 	repeated BattleDropReward battleDropReward = 1;
+	map<string,DiffData> diffUserData = 99;
+}
+
+message StartMainQuestRequest {
+	int32 questId = 1;
+	bool isMainFlow = 2;
+	int32 userDeckNumber = 3;
+	bool isBattleOnly = 4;
+	int32 maxAutoOrbitCount = 5;
+	bool isReplayFlow = 6;
+	CageMeasurableValues cageMeasurableValues = 7;
+}
+
+message StartMainQuestResponse {
+	repeated BattleDropReward BattleDropReward = 1;
 	map<string,DiffData> diffUserData = 99;
 }
 
@@ -44,11 +62,42 @@ message FinishEventQuestResponse {
 	map<string,DiffData> diffUserData = 99;
 }
 
+message FinishMainQuestRequest {
+	int32 questId = 1;
+	bool isRetired = 2;
+	bool isMainFlow = 3;
+	bool isAnnihilated = 4;
+	bool isAutoOrbit = 5;
+	int32 storySkipType = 6;
+	bool isReplayFlow = 7;
+	string vt = 200;
+}
+
+message FinishMainQuestResponse {
+	repeated QuestReward dropReward = 1;
+	repeated QuestReward firstClearReward = 2;
+	repeated QuestReward missionClearReward = 3;
+	repeated QuestReward missionClearCompleteReward = 4;
+	repeated QuestReward autoOrbitResult = 5;
+	bool isBigWin = 6;
+	repeated int32 bigWinClearedQuestMissionIdList = 7;
+	repeated QuestReward replayFlowFirstClearReward = 8;
+	map<string,DiffData> diffUserData = 99;
+}
+
 message UpdateEventQuestSceneProgressRequest {
 	int32 questSceneId = 1;
 }
 
 message UpdateEventQuestSceneProgressResponse {
+	map<string,DiffData> diffUserData = 99;
+}
+
+message UpdateMainQuestSceneProgressRequest {
+	int32 questSceneId = 1;
+}
+
+message UpdateMainQuestSceneProgressResponse {
 	map<string,DiffData> diffUserData = 99;
 }
 
@@ -71,6 +120,11 @@ message QuestReward {
 		None = 0;
 		Parts = 6;
 	}
+}
+
+message CageMeasurableValues {
+	int32 runningDistanceMeters = 1;
+	int32 mamaTappedCount = 2;
 }
 
 message DiffData {

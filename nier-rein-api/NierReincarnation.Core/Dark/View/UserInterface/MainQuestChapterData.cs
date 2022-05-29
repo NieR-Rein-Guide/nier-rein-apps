@@ -11,6 +11,8 @@ namespace NierReincarnation.Core.Dark.View.UserInterface
         // 0x18
         public string MainQuestChapterName { get; set; }
         // 0x20
+        public string MainQuestChapterNumberName { get; set; }
+        // 0x28
         public List<DifficultyType> MainQuestChapterDifficultyTypes { get; set; }
     }
 }

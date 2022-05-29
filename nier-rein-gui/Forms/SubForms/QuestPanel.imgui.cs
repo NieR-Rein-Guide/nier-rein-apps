@@ -56,9 +56,11 @@ namespace nier_rein_gui.Forms.SubForms
                     Padding = new Vector2(2, 2),
                     SubFont = FontResources.FotRodin(12),
                     DailyFont = FontResources.FotRodin(9),
+                    ClearFont = FontResources.FotRodin(11),
                     Caption = quest.QuestName,
                     Stamina = quest.Quest.EntityQuest.Stamina,
                     SuggestedPower = quest.RecommendPower,
+                    IsClear = quest.IsClearQuest,
                     Enabled = !quest.IsLock,
                     IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0
                 };

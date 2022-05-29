@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using NierReincarnation.Core.Dark.Calculator.Database;
+using NierReincarnation.Core.Dark.Calculator.Factory;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
@@ -118,6 +120,19 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                     actor.Power = CalculatorPower.CalculateDeckActorPower(userId, actor, deck);
 
             deck.Power = CalculatorPower.CalculateDeckPower(userId, deck);
+        }
+
+        public static bool IsRentalDeck(int questId)
+        {
+            return CalculatorMasterData.GetEntityMBattleRentalDeck(questId, QuestSceneType.FIELD) != null;
+        }
+
+        public static DataDeck CreateRentalDeck(int questId)
+        {
+            var rental = CalculatorMasterData.GetEntityMBattleRentalDeck(questId, QuestSceneType.FIELD);
+            var entityDeck = CalculatorQuestSetupBattleWithNpcUserEntity.CreateEntityIUserDeck(rental.BattleNpcId, DeckType.QUEST, rental.BattleNpcDeckNumber, true);
+
+            return CalculatorNpcDeck.CreateNpcDataDeck(entityDeck.UserId, entityDeck);
         }
     }
 }

@@ -158,7 +158,7 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async Task FightAsync(CharacterQuestChapterData chapter, EventQuestData quest)
         {
-            var farmDlg = new QuestFarmDialog(_rein, chapter.EventQuestChapterId, quest);
+            var farmDlg = new EventQuestFarmDialog(_rein, chapter.EventQuestChapterId, quest);
             await farmDlg.ShowAsync();
 
             SetQuestList(chapter);

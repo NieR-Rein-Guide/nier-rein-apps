@@ -9,6 +9,12 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 
         Task<FinishEventQuestResponse> FinishEventQuestAsync(FinishEventQuestRequest request);
 
+        Task<StartMainQuestResponse> StartMainQuestAsync(StartMainQuestRequest request);
+
+        Task<FinishMainQuestResponse> FinishMainQuestAsync(FinishMainQuestRequest request);
+
         Task<UpdateEventQuestSceneProgressResponse> UpdateEventQuestSceneProgressAsync(UpdateEventQuestSceneProgressRequest request);
+
+        Task<UpdateMainQuestSceneProgressResponse> UpdateMainQuestSceneProgressAsync(UpdateMainQuestSceneProgressRequest request);
     }
 }

@@ -14,7 +14,7 @@ namespace nier_rein_gui.Forms.SubForms
 
         protected override async Task FightAsync(EventQuestChapterData chapter, DifficultyType type, EventQuestData quest)
         {
-            var farmDlg = new QuestFarmDialog(ReinContexts, chapter.EventQuestChapterId, quest);
+            var farmDlg = new EventQuestFarmDialog(ReinContexts, chapter.EventQuestChapterId, quest);
             await farmDlg.ShowAsync();
 
             SetQuestList(chapter, type);

@@ -208,12 +208,36 @@ namespace NierReincarnation.Core.Adam.Framework.Network
                     new ResponseContext<FinishEventQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).FinishEventQuestAsync((FinishEventQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
+        public Task<StartMainQuestResponse> StartMainQuestAsync(StartMainQuestRequest request)
+        {
+	        var path = "QuestService/StartMainQuestAsync";
+	        return InvokeAsync<StartMainQuestResponse, StartMainQuestRequest>(path, request,
+		        ctx =>
+			        new ResponseContext<StartMainQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).StartMainQuestAsync((StartMainQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        public Task<FinishMainQuestResponse> FinishMainQuestAsync(FinishMainQuestRequest request)
+        {
+	        var path = "QuestService/FinishMainQuestAsync";
+	        return InvokeAsync<FinishMainQuestResponse, FinishMainQuestRequest>(path, request,
+		        ctx =>
+			        new ResponseContext<FinishMainQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).FinishMainQuestAsync((FinishMainQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
         public Task<UpdateEventQuestSceneProgressResponse> UpdateEventQuestSceneProgressAsync(UpdateEventQuestSceneProgressRequest request)
         {
             var path = "QuestService/UpdateEventQuestSceneProgressAsync";
             return InvokeAsync<UpdateEventQuestSceneProgressResponse, UpdateEventQuestSceneProgressRequest>(path, request,
                 ctx =>
                     new ResponseContext<UpdateEventQuestSceneProgressResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).UpdateEventQuestSceneProgressAsync((UpdateEventQuestSceneProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        public Task<UpdateMainQuestSceneProgressResponse> UpdateMainQuestSceneProgressAsync(UpdateMainQuestSceneProgressRequest request)
+        {
+	        var path = "QuestService/UpdateMainQuestSceneProgressAsync";
+	        return InvokeAsync<UpdateMainQuestSceneProgressResponse, UpdateMainQuestSceneProgressRequest>(path, request,
+		        ctx =>
+			        new ResponseContext<UpdateMainQuestSceneProgressResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).UpdateMainQuestSceneProgressAsync((UpdateMainQuestSceneProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         #endregion

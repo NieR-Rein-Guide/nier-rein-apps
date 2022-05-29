@@ -3,12 +3,10 @@ using System.Drawing;
 using System.Numerics;
 using ImGui.Forms;
 using ImGui.Forms.Controls;
-using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Extensions;
 using ImGui.Forms.Models;
 using ImGui.Forms.Resources;
 using ImGuiNET;
-using ImageResources = nier_rein_gui.Resources.ImageResources;
 using Rectangle = Veldrid.Rectangle;
 using Size = ImGui.Forms.Models.Size;
 

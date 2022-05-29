@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Calculator.Database
@@ -103,6 +104,22 @@ namespace NierReincarnation.Core.Dark.Calculator.Database
                 entityMCharacter = range[0];
 
             return range.Count != 0;
+        }
+
+        public static EntityMBattleRentalDeck GetEntityMBattleRentalDeck(int questId, QuestSceneType questSceneType)
+        {
+            var table = DatabaseDefine.Master.EntityMQuestSceneTable;
+            var scene = table.All.FirstOrDefault(x => x.QuestId == questId && x.QuestSceneType == questSceneType);
+            if (scene == null)
+                return null;
+
+            var table1 = DatabaseDefine.Master.EntityMQuestSceneBattleTable;
+            var sceneBattle = table1.FindByQuestSceneId(scene.QuestSceneId);
+            if (sceneBattle == null)
+	            return null;
+
+            var table2 = DatabaseDefine.Master.EntityMBattleRentalDeckTable;
+            return table2.FindByBattleGroupId(sceneBattle.BattleGroupId);
         }
     }
 }

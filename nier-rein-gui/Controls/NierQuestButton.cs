@@ -7,7 +7,6 @@ using ImGui.Forms.Extensions;
 using ImGui.Forms.Resources;
 using ImGuiNET;
 using NierReincarnation.Core.Dark.Localization;
-using ImageResources = nier_rein_gui.Resources.ImageResources;
 using Rectangle = Veldrid.Rectangle;
 using Size = ImGui.Forms.Models.Size;
 
@@ -20,11 +19,14 @@ namespace nier_rein_gui.Controls
         private const int SubPadding_ = 4;
         private const int SubDistanceX_ = 8;
         private const int SubDistanceY_ = 8;
+        private const int LabelDistance_ = 2;
         private const int DailyPadding_ = 2;
+        private const int ClearPadding_ = 2;
 
-        private static readonly string SuggestedForceIdent_ = "ui.Outgame.Quest.Confirmation.RecommendPower";
-        private static readonly string StaminaIdent_ = "ui.Outgame.Quest.Confirmation.Stamina";
-        private static readonly string DailyText_ = "1 time daily";
+        private const string SuggestedForceIdent_ = "ui.Outgame.Quest.Confirmation.RecommendPower";
+        private const string StaminaIdent_ = "ui.Outgame.Quest.Confirmation.Stamina";
+        private const string DailyText_ = "1 time daily";
+        private const string ClearText_ = "CLEAR";
 
         private static readonly uint BorderColor = Color.FromArgb(0x6B, 0x63, 0x60).ToUInt32();
         private static readonly uint BorderActiveColor = Color.FromArgb(0x74, 0x71, 0x6C).ToUInt32();
@@ -33,6 +35,8 @@ namespace nier_rein_gui.Controls
         private static readonly uint BoxBackgroundColor = Color.FromArgb(0xC0, 0x00, 0x00, 0x00).ToUInt32();
         private static readonly uint DailyBackgroundColor = Color.FromArgb(0xCC, 0x93, 0x93).ToUInt32();
         private static readonly uint DailyTextColor = Color.FromArgb(0x00, 0x00, 0x00).ToUInt32();
+        private static readonly uint ClearBackgroundColor = Color.FromArgb(0x70, 0x70, 0x90).ToUInt32();
+        private static readonly uint ClearTextColor = Color.FromArgb(0xF0, 0xF0, 0xF0).ToUInt32();
 
         #region Properties
 
@@ -44,11 +48,15 @@ namespace nier_rein_gui.Controls
 
         public FontResource DailyFont { get; set; }
 
+        public FontResource ClearFont { get; set; }
+
         public Vector2 Padding { get; set; }
 
         public int Stamina { get; set; }
 
         public int SuggestedPower { get; set; }
+
+        public bool IsClear { get; set; }
 
         public bool IsDaily { get; set; }
 
@@ -70,6 +78,12 @@ namespace nier_rein_gui.Controls
 
             var questNameSize = FontResource.MeasureText(Caption);
 
+            // Get clear text size
+            if (ClearFont != null)
+                ImGuiNET.ImGui.PushFont((ImFontPtr)ClearFont);
+
+            var clearSize = FontResource.MeasureText(ClearText_);
+
             // Get daily text size
             if (DailyFont != null)
                 ImGuiNET.ImGui.PushFont((ImFontPtr)DailyFont);
@@ -84,13 +98,17 @@ namespace nier_rein_gui.Controls
             var staminaSize = FontResource.MeasureText(StaminaIdent_.Localize()) + FontResource.MeasureText("000");
 
             // Calculate final size
-            var width = (int)Math.Max(questNameSize.X + dailySize.X + DailyPadding_ * 2, sugPowerSize.X + staminaSize.X + SubPadding_ * 4 + SubDistanceX_) + BorderDistance_ * 2 + BorderWidth_ * 2 + (int)Padding.X * 2;
+            var width = (int)Math.Max(questNameSize.X + clearSize.X + ClearPadding_ * 2 + LabelDistance_ + dailySize.X + DailyPadding_ * 2, sugPowerSize.X + staminaSize.X + SubPadding_ * 4 + SubDistanceX_) + BorderDistance_ * 2 + BorderWidth_ * 2 + (int)Padding.X * 2;
             var height = (int)(questNameSize.Y + FontResource.GetCurrentLineHeight() + SubPadding_ * 2 + SubDistanceY_ + BorderDistance_ * 2 + BorderWidth_ * 2 + Padding.Y * 2);
 
+            // Pop fonts
             if (SubFont != null)
                 ImGuiNET.ImGui.PopFont();
 
             if (DailyFont != null)
+                ImGuiNET.ImGui.PopFont();
+
+            if (ClearFont != null)
                 ImGuiNET.ImGui.PopFont();
 
             if (Font != null)
@@ -166,8 +184,16 @@ namespace nier_rein_gui.Controls
                 ImGuiNET.ImGui.PopFont();
 
             // Draw daily label
+            var clearOff = 0;
             if (IsDaily)
-                DrawDailyLabel(contentRect);
+            {
+                var dailyWidth = DrawDailyLabel(contentRect);
+                clearOff = dailyWidth + LabelDistance_;
+            }
+
+            // Draw clear label
+            if (IsClear)
+                DrawClearLabel(contentRect, clearOff);
 
             topLeft += new Vector2(0, questHeight + SubDistanceY_);
 
@@ -200,7 +226,7 @@ namespace nier_rein_gui.Controls
                 ImGuiNET.ImGui.PopFont();
         }
 
-        private void DrawDailyLabel(Rectangle contentRect)
+        private int DrawDailyLabel(Rectangle contentRect)
         {
             if (DailyFont != null)
                 ImGuiNET.ImGui.PushFont((ImFontPtr)DailyFont);
@@ -214,6 +240,25 @@ namespace nier_rein_gui.Controls
             ImGuiNET.ImGui.GetWindowDrawList().AddText(dailyTopLeft + new Vector2(DailyPadding_, DailyPadding_), DailyTextColor, DailyText_);
 
             if (DailyFont != null)
+                ImGuiNET.ImGui.PopFont();
+
+            return (int)(dailyBottomRight.X - dailyTopLeft.X);
+        }
+
+        private void DrawClearLabel(Rectangle contentRect, int offsetX)
+        {
+            if (ClearFont != null)
+                ImGuiNET.ImGui.PushFont((ImFontPtr)ClearFont);
+
+            var clearSize = FontResource.MeasureText(ClearText_);
+            var clearTopLeft = new Vector2(contentRect.X + contentRect.Width - BorderWidth_ - BorderDistance_ - clearSize.X - ClearPadding_ * 2 + offsetX,
+                contentRect.Y + BorderWidth_ + BorderDistance_);
+            var clearBottomRight = clearTopLeft + new Vector2(ClearPadding_ * 2 + clearSize.X + offsetX, ClearPadding_ * 2 + clearSize.Y);
+
+            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(clearTopLeft, clearBottomRight, ClearBackgroundColor, 0);
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(clearTopLeft + new Vector2(ClearPadding_, ClearPadding_), ClearTextColor, ClearText_);
+
+            if (ClearFont != null)
                 ImGuiNET.ImGui.PopFont();
         }
 

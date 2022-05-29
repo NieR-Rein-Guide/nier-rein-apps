@@ -45,6 +45,8 @@ namespace NierReincarnation.Core.Dark
         public EntityMBattleNpcWeaponTable EntityMBattleNpcWeaponTable { get; private set; }
         // 0x270
         public EntityMBattleQuestSceneBgmTable EntityMBattleQuestSceneBgmTable { get; private set; }
+        // 0x280
+        public EntityMBattleRentalDeckTable EntityMBattleRentalDeckTable { get; private set; }
         // 0x328
         public EntityMCatalogCompanionTable EntityMCatalogCompanionTable { get; private set; }
         // 0x330
@@ -258,6 +260,8 @@ namespace NierReincarnation.Core.Dark
             EntityMBattleNpcWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeapon[], EntityMBattleNpcWeaponTable>(weapons => new EntityMBattleNpcWeaponTable(weapons)));
             // ...
             EntityMBattleQuestSceneBgmTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleQuestSceneBgm[], EntityMBattleQuestSceneBgmTable>(bgms => new EntityMBattleQuestSceneBgmTable(bgms)));
+            // ...
+            EntityMBattleRentalDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleRentalDeck[], EntityMBattleRentalDeckTable>(decks => new EntityMBattleRentalDeckTable(decks)));
             // ...
             EntityMCatalogCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCompanion[], EntityMCatalogCompanionTable>(companions => new EntityMCatalogCompanionTable(companions)));
             EntityMCatalogCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCostume[], EntityMCatalogCostumeTable>(costumes => new EntityMCatalogCostumeTable(costumes)));

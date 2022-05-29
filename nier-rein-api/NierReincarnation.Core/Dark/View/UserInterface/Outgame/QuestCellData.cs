@@ -12,5 +12,8 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
         public QuestMissionData[] Missions { get; set; }
         public string UnlockQuestText { get; set; }
         public string QuestLevelText { get; set; }
+
+        // CUSTOM: Determines the scene Id
+        public int SceneId { get; set; }
 	}
 }

@@ -76,12 +76,13 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var chapters = chapterTable.All.Where(x => x.MainQuestRouteId == route.MainQuestRouteId);
             foreach (var chapter in chapters)
             {
-                var sequenceGroups = sequenceGroupTable.All.Where(x => x.MainQuestSequenceId == chapter.MainQuestSequenceGroupId);
+                var sequenceGroups = sequenceGroupTable.All.Where(x => x.MainQuestSequenceGroupId == chapter.MainQuestSequenceGroupId);
 
                 result.Add(new MainQuestChapterData
                 {
                     MainQuestChapterId = chapter.MainQuestChapterId,
                     MainQuestChapterName = GetMainQuestChapterName(GetMainQuestSeasonSortOrder(seasonId), route.SortOrder, chapter.SortOrder),
+                    MainQuestChapterNumberName = GetMainQuestChapterNumberName(GetMainQuestSeasonSortOrder(seasonId), route.SortOrder, chapter.SortOrder),
                     MainQuestChapterDifficultyTypes = sequenceGroups.Select(x => x.DifficultyType).ToList()
                 });
             }
@@ -199,32 +200,64 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var questTable = DatabaseDefine.Master.EntityMQuestTable;
             var routeTable = DatabaseDefine.Master.EntityMMainQuestRouteTable;
 
-            var mainChapter = chapterTable.FindByMainQuestChapterId(chapterId);
-            var mainSequenceGroup = sequenceGroupTable.FindByMainQuestSequenceGroupIdAndDifficultyType((mainChapter.MainQuestSequenceGroupId, difficulty));
-            var mainSequences = sequenceTable.All.Where(x => x.MainQuestSequenceId == mainSequenceGroup.MainQuestSequenceId).OrderBy(x => x.SortOrder);
+            var chapter = chapterTable.FindByMainQuestChapterId(chapterId);
+            var sequenceGroup = sequenceGroupTable.FindByMainQuestSequenceGroupIdAndDifficultyType((chapter.MainQuestSequenceGroupId, difficulty));
+            var mainSequences = sequenceTable.All.Where(x => x.MainQuestSequenceId == sequenceGroup.MainQuestSequenceId).OrderBy(x => x.SortOrder);
 
             var cellData = new List<QuestCellData>();
             foreach (var sequence in mainSequences)
             {
                 var quest = questTable.FindByQuestId(sequence.QuestId);
+                var sceneId = CreateQuestFieldSceneList(quest.QuestId).Select(x => x.QuestSceneId).FirstOrDefault();
 
-                cellData.Add(new QuestCellData
-                {
-                    Quest = new MainQuest(mainChapter, mainSequenceGroup, sequence, quest),
-                    QuestName = GetQuestName(quest.NameQuestTextId),
-                    Missions = GetMissionData(quest.QuestId, quest.QuestMissionGroupId, CalculatorStateUser.GetUserId())
-                });
+                cellData.Add(GenerateMainQuestData(chapter, sequenceGroup, sequence, quest, sceneId));
             }
 
-            var mainRoute = routeTable.FindByMainQuestRouteId(mainChapter.MainQuestRouteId);
+            var mainRoute = routeTable.FindByMainQuestRouteId(chapter.MainQuestRouteId);
             var mainSeasonSortOrder = GetMainQuestSeasonSortOrder(mainRoute.MainQuestSeasonId);
 
             return new ChapterQuestData
             {
-                ChapterNumberName = GetMainQuestChapterNumberName(mainChapter),
-                ChapterTitle = GetMainQuestChapterName(mainSeasonSortOrder, mainRoute.SortOrder, mainChapter.SortOrder),
-                ChapterSortOrder = mainChapter.SortOrder,
+                ChapterNumberName = GetMainQuestChapterNumberName(chapter),
+                ChapterTitle = GetMainQuestChapterName(mainSeasonSortOrder, mainRoute.SortOrder, chapter.SortOrder),
+                ChapterSortOrder = chapter.SortOrder,
                 QuestDataList = cellData
+            };
+        }
+
+        public static QuestCellData GenerateMainQuestData(int questSceneId)
+        {
+            var mainScene = DatabaseDefine.Master.EntityMQuestSceneTable.FindByQuestSceneId(questSceneId);
+            var quest = DatabaseDefine.Master.EntityMQuestTable.FindByQuestId(mainScene.QuestId);
+            var sequence = DatabaseDefine.Master.EntityMMainQuestSequenceTable.All.FirstOrDefault(x => x.QuestId == quest.QuestId);
+            if (sequence == null)
+                return null;
+
+            var sequenceGroup = DatabaseDefine.Master.EntityMMainQuestSequenceGroupTable.All.FirstOrDefault(x => x.MainQuestSequenceId == sequence.MainQuestSequenceId);
+            if (sequenceGroup == null)
+                return null;
+
+            var chapter = DatabaseDefine.Master.EntityMMainQuestChapterTable.All.FirstOrDefault(x => x.MainQuestSequenceGroupId == sequenceGroup.MainQuestSequenceGroupId);
+            if (chapter == null)
+                return null;
+
+            return GenerateMainQuestData(chapter, sequenceGroup, sequence, quest, questSceneId);
+        }
+
+        private static QuestCellData GenerateMainQuestData(EntityMMainQuestChapter chapter, EntityMMainQuestSequenceGroup sequenceGroup, EntityMMainQuestSequence sequence, EntityMQuest quest, int sceneId)
+        {
+            return new()
+            {
+                Quest = new MainQuest(chapter, sequenceGroup, sequence, quest),
+                QuestName = GetQuestName(quest.NameQuestTextId),
+                Missions = GetMissionData(quest.QuestId, quest.QuestMissionGroupId, CalculatorStateUser.GetUserId()),
+                IsStoryQuest = true,
+                IsLock = !IsUnlockedQuest(quest.QuestReleaseConditionListId, CalculatorStateUser.GetUserId()),
+                QuestOrder = sequence.SortOrder,
+
+                SceneId = sceneId
+                //UnlockQuestText = GetQuestUnlockText(quest.QuestReleaseConditionListId),
+                //QuestLevelText = 
             };
         }
 
@@ -246,7 +279,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return result;
         }
 
-        // CUSTOM: Create quest data from QuestId
+        // CUSTOM: Create event quest data from quest id
         public static EventQuestData CreateEventQuestData(int questId)
         {
             var questSequence = DatabaseDefine.Master.EntityMEventQuestSequenceTable.All.FirstOrDefault(x => x.QuestId == questId);
@@ -692,9 +725,29 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return table.FindByMainQuestSeasonId(mainQuestSeasonId);
         }
 
+        public static string GetQuestUnlockText(int releaseConditionQuestListId)
+        {
+            var condText = GetQuestUnlockConditionText(releaseConditionQuestListId);
+            return condText + UserInterfaceTextKey.Unlock.kUnLockBy.Localize();
+        }
+
+        private static string GetQuestUnlockConditionText(int releaseConditionQuestListId)
+        {
+            // TODO: Implement unlock condition localization
+            return string.Empty;
+        }
+
         #region Main Quest relevancy
 
-        //public static bool IsUnlockMainQuestChapter(long userId, int mainChapterId) { }
+        public static bool IsUnlockMainQuestChapter(long userId, int mainChapterId)
+        {
+            var masterChapter = DatabaseDefine.Master.EntityMMainQuestChapterTable.FindByMainQuestChapterId(mainChapterId);
+            var questSequenceGroup = DatabaseDefine.Master.EntityMMainQuestSequenceGroupTable.FindByMainQuestSequenceGroupIdAndDifficultyType((masterChapter.MainQuestSequenceGroupId, DifficultyType.NORMAL));
+            var sequences = DatabaseDefine.Master.EntityMMainQuestSequenceTable.All.Where(x => x.MainQuestSequenceId == questSequenceGroup.MainQuestSequenceId);
+            var quests = sequences.Select(x => DatabaseDefine.Master.EntityMQuestTable.FindByQuestId(x.QuestId));
+
+            return quests.Any(x => IsUnlockedQuest(x.QuestReleaseConditionListId, userId));
+        }
 
         //public static DifficultyType GetCurrentReleaseMaxDifficulty(int mainQuestChapterId) { }
 

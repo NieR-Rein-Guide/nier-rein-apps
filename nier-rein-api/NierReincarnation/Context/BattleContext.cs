@@ -43,10 +43,12 @@ namespace NierReincarnation.Context
         public bool HasRunningQuest()
         {
             // Check for event quest
-            return HasRunningEventQuest();
+            var result = HasRunningEventQuest();
+            if (result)
+                return true;
 
-            // TODO: Check for main quest
-            //return HasRunningMainQuest();
+            // Check for main quest
+            return HasRunningMainQuest();
 
             // TODO: Check for extra quest
             //var table2 = DatabaseDefine.User.EntityIUserExtraQuestProgressStatusTable;
@@ -54,17 +56,154 @@ namespace NierReincarnation.Context
             //return table2.FindByUserId(userId).CurrentQuestId != 0;
         }
 
-        //#region Main Quests
+        #region Main Quests
 
-        //public bool HasRunningMainQuest()
-        //{
-        //    var userId = CalculatorStateUser.GetUserId();
-        //    var table = DatabaseDefine.User.EntityIUserMainQuestProgressStatusTable;
+        public bool HasRunningMainQuest()
+        {
+            var userId = CalculatorStateUser.GetUserId();
+            var table = DatabaseDefine.User.EntityIUserMainQuestProgressStatusTable;
 
-        //    return table.FindByUserId(userId).CurrentQuestSceneId != 0;
-        //}
+            return table.FindByUserId(userId).CurrentQuestSceneId != 0;
+        }
 
-        //#endregion
+        public async Task<BattleResult> ExecuteMainQuest(QuestCellData quest, DataDeck deck)
+        {
+            // Ensure stamina
+            var currentStamina = _stamina.GetCurrentStamina();
+            if (currentStamina < quest.Quest.EntityQuest.Stamina)
+            {
+                var refillSuccess = await _stamina.RefillStamina(quest.Quest.EntityQuest.Stamina);
+                if (!refillSuccess)
+                    return new BattleResult(BattleStatus.OutOfStamina);
+            }
+
+            // Start battle
+            var (shouldQuit, shouldShutdown) = await StartMainBattle(quest, deck);
+            if (shouldShutdown)
+                return new BattleResult(BattleStatus.ForceShutdown);
+
+            if (shouldQuit)
+                return await QuitMainQuest(quest);
+
+            // Process waves
+            var waveDecks = CalculatorQuest.GetWaveDataList(quest.Quest.QuestId, out var npcId);
+            for (var waveIndex = 0; waveIndex < waveDecks.Count; waveIndex++)
+            {
+                var waveDeck = waveDecks[waveIndex];
+
+                // Start wave
+                await StartWave(deck, npcId, waveDeck);
+
+                // Finish wave
+                await FinishWave(deck, npcId, waveDeck, waveIndex + 1, waveDecks.Count, quest.SceneId);
+            }
+
+            // Finish battle
+            var rewards = await FinishMainBattle(quest.Quest.QuestId, quest.IsStoryQuest);
+
+            return new BattleResult(BattleStatus.Win, rewards);
+        }
+
+        public async Task<BattleResult> QuitMainQuest(QuestCellData quest)
+        {
+            await FinishMainBattle(quest.Quest.QuestId, true);
+            return new BattleResult(BattleStatus.Retire);
+        }
+
+        #region Start main battle
+
+        private async Task<(bool, bool)> StartMainBattle(QuestCellData quest, DataDeck deck)
+        {
+            // Start battle
+            var startRes = await TryRequest(async () =>
+            {
+                var startReq = GetStartMainBattleRequest(quest.Quest.QuestId, deck.UserDeckNumber);
+                return await _dc.QuestService.StartMainQuestAsync(startReq);
+            });
+
+            // Update local user database
+            foreach (var userData in startRes.DiffUserData)
+                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
+
+            // Update main quest progress
+            var progressRes = await TryRequest(async () =>
+            {
+                var progressReq = new UpdateMainQuestSceneProgressRequest { QuestSceneId = quest.SceneId };
+                return await _dc.UpdateMainQuestSceneProgressAsync(progressReq);
+            });
+
+            foreach (var userData in progressRes.DiffUserData)
+                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
+
+            OnStartBattle(startRes.BattleDropReward, out var retire, out var shutdown);
+
+            return (retire, shutdown);
+        }
+
+        private StartMainQuestRequest GetStartMainBattleRequest(int questId, int deckNumber)
+        {
+            return new()
+            {
+                QuestId = questId,
+                UserDeckNumber = deckNumber,
+                // Max auto battles, IF auto is activated. We disallow this here.
+                // HINT: Original logic used CalculatorQuest.GetMaxAutoOrbitCount()
+                //MaxAutoOrbitCount = 1,
+                // We're always battle-only for now
+                IsBattleOnly = true,
+
+                IsMainFlow = true,
+                //IsReplayFlow = true
+            };
+        }
+
+        #endregion
+
+        #region Finish main battle
+
+        private async Task<BattleDrops> FinishMainBattle(int questId, bool isStoryQuest, bool retire = false)
+        {
+            // Finish battle
+            var finishRes = await TryRequest(async () =>
+            {
+                var finishReq = GetFinishMainBattleRequest(questId, isStoryQuest, retire);
+                return await _dc.QuestService.FinishMainQuestAsync(finishReq);
+            });
+
+            foreach (var userData in finishRes.DiffUserData)
+                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
+
+            var rewards = CreateBattleDrops(finishRes.DropReward, finishRes.FirstClearReward, finishRes.MissionClearCompleteReward, finishRes.MissionClearReward);
+            OnFinishBattle(rewards);
+
+            return rewards;
+        }
+
+        private FinishMainQuestRequest GetFinishMainBattleRequest(int questId, bool isStoryQuest, bool retire)
+        {
+            var result = new FinishMainQuestRequest
+            {
+                QuestId = questId,
+
+                IsMainFlow = true,
+                //IsReplayFlow = true,
+
+                IsAnnihilated = false,  // Indicator if battle was won
+                IsAutoOrbit = false,    // If battle is part of an auto battler in-game
+                IsRetired = retire,  // Retire battle; Loses stamina
+
+                Vt = DarkClient.CreateVerifierToken()
+            };
+
+            if (isStoryQuest)
+	            result.StorySkipType = (int) QuestStorySkipType.SKIP_BY_BATTLE_ONLY_IN_SUB_FLOW;
+
+            return result;
+        }
+
+        #endregion
+
+        #endregion
 
         #region Event Quests
 
@@ -88,7 +227,7 @@ namespace NierReincarnation.Context
             }
 
             // Start battle
-            var (shouldQuit, shouldShutdown) = await StartBattle(chapterId, quest, deck);
+            var (shouldQuit, shouldShutdown) = await StartEventBattle(chapterId, quest, deck);
             if (shouldShutdown)
                 return new BattleResult(BattleStatus.ForceShutdown);
 
@@ -109,27 +248,25 @@ namespace NierReincarnation.Context
             }
 
             // Finish battle
-            var rewards = await FinishBattle(chapterId, quest.Quest.QuestId);
+            var rewards = await FinishEventBattle(chapterId, quest.Quest.QuestId);
 
             return new BattleResult(BattleStatus.Win, rewards);
         }
 
         public async Task<BattleResult> QuitEventQuest(int chapterId, EventQuestData quest)
         {
-            await FinishBattle(chapterId, quest.Quest.QuestId, true);
+            await FinishEventBattle(chapterId, quest.Quest.QuestId, true);
             return new BattleResult(BattleStatus.Retire);
         }
 
-        #endregion
+        #region Start event battle
 
-        #region Start battle
-
-        private async Task<(bool, bool)> StartBattle(int chapterId, EventQuestData quest, DataDeck deck)
+        private async Task<(bool, bool)> StartEventBattle(int chapterId, EventQuestData quest, DataDeck deck)
         {
             // Start battle
             var startRes = await TryRequest(async () =>
             {
-                var startReq = GetStartBattleRequest(chapterId, quest.Quest.QuestId, deck.UserDeckNumber);
+                var startReq = GetStartEventBattleRequest(chapterId, quest.Quest.QuestId, deck.UserDeckNumber);
                 return await _dc.QuestService.StartEventQuestAsync(startReq);
             });
 
@@ -152,9 +289,9 @@ namespace NierReincarnation.Context
             return (retire, shutdown);
         }
 
-        private StartEventQuestRequest GetStartBattleRequest(int chapterId, int questId, int deckNumber)
+        private StartEventQuestRequest GetStartEventBattleRequest(int chapterId, int questId, int deckNumber)
         {
-            return new StartEventQuestRequest
+            return new()
             {
                 EventQuestChapterId = chapterId,
                 QuestId = questId,
@@ -169,14 +306,14 @@ namespace NierReincarnation.Context
 
         #endregion
 
-        #region Finish battle
+        #region Finish event battle
 
-        private async Task<BattleDrops> FinishBattle(int chapterId, int questId, bool retire = false)
+        private async Task<BattleDrops> FinishEventBattle(int chapterId, int questId, bool retire = false)
         {
             // Finish battle
             var finishRes = await TryRequest(async () =>
             {
-                var finishReq = GetFinishBattleRequest(chapterId, questId, retire);
+                var finishReq = GetFinishEventBattleRequest(chapterId, questId, retire);
                 return await _dc.QuestService.FinishEventQuestAsync(finishReq);
             });
 
@@ -189,9 +326,9 @@ namespace NierReincarnation.Context
             return rewards;
         }
 
-        private FinishEventQuestRequest GetFinishBattleRequest(int chapterId, int questId, bool retire)
+        private FinishEventQuestRequest GetFinishEventBattleRequest(int chapterId, int questId, bool retire)
         {
-            return new FinishEventQuestRequest
+            return new()
             {
                 EventQuestChapterId = chapterId,
                 QuestId = questId,
@@ -205,6 +342,8 @@ namespace NierReincarnation.Context
                 Vt = DarkClient.CreateVerifierToken()
             };
         }
+
+        #endregion
 
         private BattleDrops CreateBattleDrops(RepeatedField<QuestReward> drops, RepeatedField<QuestReward> firstClear, RepeatedField<QuestReward> missionClearComplete, RepeatedField<QuestReward> missionClear)
         {
@@ -274,7 +413,7 @@ namespace NierReincarnation.Context
 
         private StartWaveRequest GetStartWaveRequest(DataDeck deck, long npcId, DataDeck npcDeck)
         {
-            return new StartWaveRequest
+            return new()
             {
                 UserPartyInitialInfoList =
                 {

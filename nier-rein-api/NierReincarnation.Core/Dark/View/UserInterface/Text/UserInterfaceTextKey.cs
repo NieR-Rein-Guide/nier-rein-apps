@@ -211,6 +211,29 @@
             public static readonly string kRetryMinigameResultWarning = kRetryMinigameWarning + ".Result"; // 0x48
         }
 
+        public static class Unlock
+        {
+	        public static readonly string kUnlockReachedMainQuest; // 0x0
+	        public static readonly string kUnlockMemory; // 0x8
+	        public static readonly string kUnlockArena; // 0x10
+	        public static readonly string kUnlockOrnamentStill; // 0x18
+	        public static readonly string kUnlockWeaponStory; // 0x20
+	        public static readonly string kUnlockDifficultyMainQuestFirstHard; // 0x28
+	        public static readonly string kUnlockDifficultyMainQuestChapter; // 0x30
+	        public static readonly string kUnlockDifficultySubQuestHard; // 0x38
+	        public static readonly string kUnlockDifficultySubQuestVeryHard; // 0x40
+	        public static readonly string kUnlockDifficultySubQuestExtraHard; // 0x48
+	        public static readonly string kUnLockBy= "ui.Unlock.UnLockBy"; // 0x50
+	        public static readonly string kEventFormat; // 0x58
+	        public static readonly string kUnlockBigHunt; // 0x60
+	        public static readonly string kUnlockCharacterBoard; // 0x68
+	        public static readonly string kUnlockCharacterBoardBigHunt; // 0x70
+	        public static readonly string kDailyGacha; // 0x78
+	        public static readonly string kDailyQuest; // 0x80
+	        public static readonly string kTitle; // 0x88
+	        public static readonly string kUnLockSmartphone; // 0x90
+        }
+
         private static class CommonKeyParts
         {
             public static readonly string kName = "name.{0}"; // 0x0

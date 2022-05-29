@@ -7,10 +7,10 @@ namespace nier_rein_gui.Resources
 {
     static class ImageResources
     {
-        private const string IconResource_ = "NierReinGui.Resources.Images.nierReinEx.ico";
-        private const string LockResource_ = "NierReinGui.Resources.Images.lock.png";
+        private const string IconResource_ = "nier-rein-gui.Resources.Images.nierReinEx.ico";
+        private const string LockResource_ = "nier-rein-gui.Resources.Images.lock.png";
 
-        private static readonly Lazy<ImageResource> LazyLock = new Lazy<ImageResource>(() => ImageResource.FromResource(typeof(ImageResources).Assembly, LockResource_));
+        private static readonly Lazy<ImageResource> LazyLock = new(() => ImageResource.FromResource(typeof(ImageResources).Assembly, LockResource_));
 
         public static Image Icon => FromResource(IconResource_);
 
