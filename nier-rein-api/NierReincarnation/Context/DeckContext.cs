@@ -8,7 +8,6 @@ namespace NierReincarnation.Context
 {
     public class DeckContext
     {
-
         internal DeckContext() { }
 
         public IEnumerable<DataDeck> GetQuestDecks()
@@ -16,7 +15,7 @@ namespace NierReincarnation.Context
             return CalculatorDeck.EnumerateDeckDataList(PlayerPreference.Instance.ActivePlayer.UserId, DeckType.QUEST);
         }
 
-        public IEnumerable<DataDeck> GetQuestDeckInfo()
+        public IEnumerable<DataDeckInfo> GetQuestDeckInfo()
         {
             return CalculatorDeck.EnumerateDeckInfo(PlayerPreference.Instance.ActivePlayer.UserId, DeckType.QUEST);
         }
@@ -24,11 +23,6 @@ namespace NierReincarnation.Context
         public DataDeck GetQuestDeck(int deckNumber, DeckType deckType)
         {
             return CalculatorDeck.CreateDataDeck(PlayerPreference.Instance.ActivePlayer.UserId, deckNumber, deckType);
-        }
-
-        public IEnumerable<DataDeck> GetArenaDecks()
-        {
-            return CalculatorDeck.EnumerateDeckDataList(PlayerPreference.Instance.ActivePlayer.UserId, DeckType.PVP);
         }
     }
 }

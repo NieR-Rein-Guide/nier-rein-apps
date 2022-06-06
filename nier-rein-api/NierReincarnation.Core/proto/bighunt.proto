@@ -1,0 +1,94 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.BigHunt";
+
+import "proto/battle.proto";
+
+package apb.api.bighunt;
+
+service BigHuntService {
+	rpc StartBigHuntQuest (StartBigHuntQuestRequest) returns (StartBigHuntQuestResponse);
+	rpc FinishBigHuntQuest (FinishBigHuntQuestRequest) returns (FinishBigHuntQuestResponse);
+	rpc SaveBigHuntBattleInfo (SaveBigHuntBattleInfoRequest) returns (SaveBigHuntBattleInfoResponse);
+}
+
+message StartBigHuntQuestRequest {
+	int32 bigHuntBossQuestId = 1;
+	int32 bigHuntQuestId = 2;
+	int32 userDeckNumber = 3;
+	bool isDryRun = 4;
+}
+
+message StartBigHuntQuestResponse {
+	map<string,DiffData> diffUserData = 99;
+}
+
+message FinishBigHuntQuestRequest {
+	int32 bigHuntBossQuestId = 1;
+	int32 bigHuntQuestId = 2;
+	bool isRetired = 3;
+	string vt = 200;
+}
+
+message FinishBigHuntQuestResponse {
+	BigHuntScoreInfo scoreInfo = 1;
+	repeated BigHuntReward scoreReward = 2;
+	BigHuntBattleReport battleReport = 3;
+	map<string,DiffData> diffUserData = 99;
+}
+
+message SaveBigHuntBattleInfoRequest {
+	bytes battleBinary = 1;
+	BigHuntBattleDetail bigHuntBattleDetail = 2;
+	int64 elapsedFrameCount = 3;
+	string vt = 200;
+}
+
+message SaveBigHuntBattleInfoResponse {
+	map<string,DiffData> diffUserData = 99;
+}
+
+message BigHuntScoreInfo {
+	int64 userScore = 1;
+	bool isHighScore = 2;
+	int64 totalDamage = 3;
+	int64 baseScore = 4;
+	int32 difficultyBonusPermil = 5;
+	int32 aliveBonusPermil = 6;
+	int32 maxComboBonusPermil = 7;
+	int32 assetGradeIconId = 8;
+}
+
+message BigHuntReward {
+	int32 possessionType = 1;
+	int32 possessionId = 2;
+	int32 count = 3;
+}
+
+message BigHuntBattleReport {
+	repeated BigHuntBattleReportWave battleReportWave = 1;
+}
+
+message BigHuntBattleReportWave {
+	repeated BigHuntBattleReportCostume battleReportCostume = 1;
+}
+
+message BigHuntBattleReportCostume {
+	int32 costumeId = 1;
+	int64 totalDamage = 2;
+	int32 hitCount = 3;
+	apb.api.battle.BattleReportRandomDisplay battleReportRandomDisplay = 4;
+}
+
+message BigHuntBattleDetail {
+	int32 deckType = 1;
+	int32 userTripleDeckNumber = 2;
+	int32 bossKnockDownCount = 3;
+	int32 maxComboCount = 4;
+	repeated apb.api.battle.CostumeBattleInfo costumeBattleInfo = 9;
+}
+
+message DiffData {
+	string updateRecordsJson = 1;
+	string deleteKeysJson = 2;
+}

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MessagePack;
 using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -31,6 +32,12 @@ namespace NierReincarnation.Core.Dark
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBigHuntProgressStatus> dataSource)
         {
             AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBigHuntStatus> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.BigHuntBossQuestId), Comparer<(long, int)>.Default);
             return this;
         }
 

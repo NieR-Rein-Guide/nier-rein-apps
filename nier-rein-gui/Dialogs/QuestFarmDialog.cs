@@ -15,6 +15,7 @@ using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 
@@ -23,7 +24,6 @@ namespace nier_rein_gui.Dialogs
     abstract class QuestFarmDialog : Modal
     {
         private static readonly TimeSpan TimerInterval_ = TimeSpan.FromSeconds(1);
-        private const string RentalDeck_ = "Has Rental Deck";
         private const string LimitText_ = "Request limit reached. Waiting {0:m\\:ss}...";
 
         private readonly int _questId;
@@ -46,11 +46,11 @@ namespace nier_rein_gui.Dialogs
         private TimeSpan _currentLimitTime;
         private Timer _timer;
 
-        protected NierReinContexts ReinContexts { get; }
+        protected QuestBattleContext BattleContext { get; }
 
         protected QuestFarmDialog(NierReinContexts rein, int questId, string questName)
         {
-            ReinContexts = rein;
+            BattleContext = rein.Battles.CreateQuestContext();
 
             _questId = questId;
             _rewardCache = new Dictionary<int, int>();
@@ -167,7 +167,7 @@ namespace nier_rein_gui.Dialogs
             // Prepare deck
             var deck = _isRental ?
                 CalculatorDeck.CreateRentalDeck(_questId) :
-                ReinContexts.Decks.GetQuestDeck(decks.SelectedItem.Content.DeckId, DeckType.QUEST);
+                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.DeckId, DeckType.QUEST);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -184,17 +184,19 @@ namespace nier_rein_gui.Dialogs
             foreach (var costume in _costumeCache)
                 costumes.Rows.Add(new DataTableRow<Costume>(costume.Value));
 
-            ReinContexts.Battles.BattleFinished += Battles_BattleFinished;
+            BattleContext.BattleFinished += Battles_BattleFinished;
 
-            ReinContexts.Battles.RequestRatioReached += (s, e) =>
+            BattleContext.RequestRatioReached += (s, e) =>
             {
                 (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
 
-                _currentLimitTime = BattleContext.RateTimeout;
+                _currentLimitTime = QuestBattleContext.RateTimeout;
                 _timer.Start();
             };
 
             await ExecuteQuest(deck);
+
+            (Application.Instance.MainForm as MainForm).UpdateUser();
             (Application.Instance.MainForm as MainForm).UpdateStamina();
 
             _isFarming = false;
@@ -205,7 +207,7 @@ namespace nier_rein_gui.Dialogs
 
         private void InitializeComboBox(ComboBox<DeckInfo> deckBox)
         {
-            foreach (var deck in ReinContexts.Decks.GetQuestDeckInfo())
+            foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
             {
                 deckBox.Items.Add(new ComboBoxItem<DeckInfo>(new DeckInfo
                 {
@@ -260,20 +262,20 @@ namespace nier_rein_gui.Dialogs
         private async Task<bool> Farm()
         {
             // Prepare battle events
-            ReinContexts.Battles.RequestRatioReached += (s, e) =>
+            BattleContext.RequestRatioReached += (s, e) =>
             {
                 (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
 
-                _currentLimitTime = BattleContext.RateTimeout;
+                _currentLimitTime = QuestBattleContext.RateTimeout;
                 _timer.Start();
             };
 
-            ReinContexts.Battles.BattleFinished += Battles_BattleFinished;
+            BattleContext.BattleFinished += Battles_BattleFinished;
 
             // Prepare deck
             var deck = _isRental ?
                 CalculatorDeck.CreateRentalDeck(_questId) :
-                ReinContexts.Decks.GetQuestDeck(decks.SelectedItem.Content.DeckId, DeckType.QUEST);
+                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.DeckId, DeckType.QUEST);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -297,6 +299,8 @@ namespace nier_rein_gui.Dialogs
                 (Content as StackLayout).Items[1] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
 
                 var battleResult = await ExecuteQuest(deck);
+
+                (Application.Instance.MainForm as MainForm).UpdateUser();
                 (Application.Instance.MainForm as MainForm).UpdateStamina();
 
                 if (battleResult.Status == BattleStatus.OutOfStamina)

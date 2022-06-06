@@ -199,6 +199,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var sequenceTable = DatabaseDefine.Master.EntityMMainQuestSequenceTable;
             var questTable = DatabaseDefine.Master.EntityMQuestTable;
             var routeTable = DatabaseDefine.Master.EntityMMainQuestRouteTable;
+            var sceneTable = DatabaseDefine.Master.EntityMQuestSceneTable;
 
             var chapter = chapterTable.FindByMainQuestChapterId(chapterId);
             var sequenceGroup = sequenceGroupTable.FindByMainQuestSequenceGroupIdAndDifficultyType((chapter.MainQuestSequenceGroupId, difficulty));
@@ -208,9 +209,9 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             foreach (var sequence in mainSequences)
             {
                 var quest = questTable.FindByQuestId(sequence.QuestId);
-                var sceneId = CreateQuestFieldSceneList(quest.QuestId).Select(x => x.QuestSceneId).FirstOrDefault();
+                var scenes = sceneTable.All.Where(x => x.QuestId == quest.QuestId).ToList();
 
-                cellData.Add(GenerateMainQuestData(chapter, sequenceGroup, sequence, quest, sceneId));
+                cellData.Add(GenerateMainQuestData(chapter, sequenceGroup, sequence, quest, scenes));
             }
 
             var mainRoute = routeTable.FindByMainQuestRouteId(chapter.MainQuestRouteId);
@@ -227,8 +228,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
         public static QuestCellData GenerateMainQuestData(int questSceneId)
         {
-            var mainScene = DatabaseDefine.Master.EntityMQuestSceneTable.FindByQuestSceneId(questSceneId);
-            var quest = DatabaseDefine.Master.EntityMQuestTable.FindByQuestId(mainScene.QuestId);
+            var scene = DatabaseDefine.Master.EntityMQuestSceneTable.FindByQuestSceneId(questSceneId);
+            var quest = DatabaseDefine.Master.EntityMQuestTable.FindByQuestId(scene.QuestId);
             var sequence = DatabaseDefine.Master.EntityMMainQuestSequenceTable.All.FirstOrDefault(x => x.QuestId == quest.QuestId);
             if (sequence == null)
                 return null;
@@ -241,12 +242,13 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             if (chapter == null)
                 return null;
 
-            return GenerateMainQuestData(chapter, sequenceGroup, sequence, quest, questSceneId);
+            var scenes = DatabaseDefine.Master.EntityMQuestSceneTable.All.Where(x => x.QuestId == quest.QuestId).ToList();
+            return GenerateMainQuestData(chapter, sequenceGroup, sequence, quest, scenes);
         }
 
-        private static QuestCellData GenerateMainQuestData(EntityMMainQuestChapter chapter, EntityMMainQuestSequenceGroup sequenceGroup, EntityMMainQuestSequence sequence, EntityMQuest quest, int sceneId)
+        private static QuestCellData GenerateMainQuestData(EntityMMainQuestChapter chapter, EntityMMainQuestSequenceGroup sequenceGroup, EntityMMainQuestSequence sequence, EntityMQuest quest, List<EntityMQuestScene> scenes)
         {
-            return new()
+            return new QuestCellData
             {
                 Quest = new MainQuest(chapter, sequenceGroup, sequence, quest),
                 QuestName = GetQuestName(quest.NameQuestTextId),
@@ -255,7 +257,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 IsLock = !IsUnlockedQuest(quest.QuestReleaseConditionListId, CalculatorStateUser.GetUserId()),
                 QuestOrder = sequence.SortOrder,
 
-                SceneId = sceneId
+                Scenes = scenes,
+                IsClear = IsClearQuest(quest.QuestId, CalculatorStateUser.GetUserId())
                 //UnlockQuestText = GetQuestUnlockText(quest.QuestReleaseConditionListId),
                 //QuestLevelText = 
             };
@@ -621,7 +624,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             }
         }
 
-        private static List<EntityMQuestScene> CreateQuestFieldSceneList(int questId)
+        public static List<EntityMQuestScene> CreateQuestFieldSceneList(int questId)
         {
             var table = DatabaseDefine.Master.EntityMQuestSceneTable;
             return table.All.Where(x => x.QuestId == questId && x.QuestSceneType == QuestSceneType.FIELD).ToList();

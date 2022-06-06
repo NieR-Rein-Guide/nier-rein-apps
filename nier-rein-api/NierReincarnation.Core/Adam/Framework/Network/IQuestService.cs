@@ -16,5 +16,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         Task<UpdateEventQuestSceneProgressResponse> UpdateEventQuestSceneProgressAsync(UpdateEventQuestSceneProgressRequest request);
 
         Task<UpdateMainQuestSceneProgressResponse> UpdateMainQuestSceneProgressAsync(UpdateMainQuestSceneProgressRequest request);
+
+        Task<UpdateMainFlowSceneProgressResponse> UpdateMainFlowSceneProgressAsync(UpdateMainFlowSceneProgressRequest request);
     }
 }

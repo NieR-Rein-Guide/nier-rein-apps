@@ -17,7 +17,7 @@ namespace nier_rein_gui.Dialogs
 
         protected override Task<BattleResult> ExecuteQuest(DataDeck deck)
         {
-	        return ReinContexts.Battles.ExecuteMainQuest(_quest, deck);
+	        return BattleContext.ExecuteMainQuest(_quest, deck);
         }
     }
 }

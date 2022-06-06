@@ -11,6 +11,7 @@ service QuestService {
 	rpc FinishMainQuest (FinishMainQuestRequest) returns (FinishMainQuestResponse);
 	rpc UpdateEventQuestSceneProgress (UpdateEventQuestSceneProgressRequest) returns (UpdateEventQuestSceneProgressResponse);
 	rpc UpdateMainQuestSceneProgress (UpdateMainQuestSceneProgressRequest) returns (UpdateMainQuestSceneProgressResponse);
+	rpc UpdateMainFlowSceneProgress (UpdateMainFlowSceneProgressRequest) returns (UpdateMainFlowSceneProgressResponse);
 }
 
 message StartEventQuestRequest {
@@ -33,7 +34,7 @@ message StartMainQuestRequest {
 	bool isBattleOnly = 4;
 	int32 maxAutoOrbitCount = 5;
 	bool isReplayFlow = 6;
-	CageMeasurableValues cageMeasurableValues = 7;
+	CageMeasurableValues cageMeasurableValues = 50;
 }
 
 message StartMainQuestResponse {
@@ -98,6 +99,14 @@ message UpdateMainQuestSceneProgressRequest {
 }
 
 message UpdateMainQuestSceneProgressResponse {
+	map<string,DiffData> diffUserData = 99;
+}
+
+message UpdateMainFlowSceneProgressRequest {
+	int32 questSceneId = 1;
+}
+
+message UpdateMainFlowSceneProgressResponse {
 	map<string,DiffData> diffUserData = 99;
 }
 

@@ -47,6 +47,18 @@ namespace NierReincarnation.Core.Dark
         public EntityMBattleQuestSceneBgmTable EntityMBattleQuestSceneBgmTable { get; private set; }
         // 0x280
         public EntityMBattleRentalDeckTable EntityMBattleRentalDeckTable { get; private set; }
+        // 0x290
+        public EntityMBigHuntBossTable EntityMBigHuntBossTable { get; private set; }
+        // 0x298
+        public EntityMBigHuntBossGradeGroupTable EntityMBigHuntBossGradeGroupTable { get; private set; }
+        // 0x2A8
+        public EntityMBigHuntBossQuestTable EntityMBigHuntBossQuestTable { get; private set; } 
+        // 0x2C8
+        public EntityMBigHuntQuestTable EntityMBigHuntQuestTable { get; private set; }
+        // 0x2D0
+        public EntityMBigHuntQuestGroupTable EntityMBigHuntQuestGroupTable { get; private set; }
+        // 0x2D8
+        public EntityMBigHuntQuestScoreCoefficientTable EntityMBigHuntQuestScoreCoefficientTable { get; private set; }
         // 0x328
         public EntityMCatalogCompanionTable EntityMCatalogCompanionTable { get; private set; }
         // 0x330
@@ -262,6 +274,15 @@ namespace NierReincarnation.Core.Dark
             EntityMBattleQuestSceneBgmTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleQuestSceneBgm[], EntityMBattleQuestSceneBgmTable>(bgms => new EntityMBattleQuestSceneBgmTable(bgms)));
             // ...
             EntityMBattleRentalDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleRentalDeck[], EntityMBattleRentalDeckTable>(decks => new EntityMBattleRentalDeckTable(decks)));
+            // ...
+            EntityMBigHuntBossTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBoss[], EntityMBigHuntBossTable>(bosses => new EntityMBigHuntBossTable(bosses)));
+            EntityMBigHuntBossGradeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossGradeGroup[], EntityMBigHuntBossGradeGroupTable>(groups => new EntityMBigHuntBossGradeGroupTable(groups)));
+            // ...
+            EntityMBigHuntBossQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossQuest[], EntityMBigHuntBossQuestTable>(quests => new EntityMBigHuntBossQuestTable(quests)));
+            // ...
+            EntityMBigHuntQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuest[], EntityMBigHuntQuestTable>(quests => new EntityMBigHuntQuestTable(quests)));
+            EntityMBigHuntQuestGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuestGroup[], EntityMBigHuntQuestGroupTable>(groups => new EntityMBigHuntQuestGroupTable(groups)));
+            EntityMBigHuntQuestScoreCoefficientTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuestScoreCoefficient[], EntityMBigHuntQuestScoreCoefficientTable>(coefficients => new EntityMBigHuntQuestScoreCoefficientTable(coefficients)));
             // ...
             EntityMCatalogCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCompanion[], EntityMCatalogCompanionTable>(companions => new EntityMCatalogCompanionTable(companions)));
             EntityMCatalogCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCostume[], EntityMCatalogCostumeTable>(costumes => new EntityMCatalogCostumeTable(costumes)));

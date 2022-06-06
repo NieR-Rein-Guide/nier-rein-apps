@@ -1,4 +1,7 @@
-﻿using NierReincarnation.Core.Dark.Component.Story;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NierReincarnation.Core.Dark.Component.Story;
+using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
 {
@@ -13,7 +16,11 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
         public string UnlockQuestText { get; set; }
         public string QuestLevelText { get; set; }
 
-        // CUSTOM: Determines the scene Id
-        public int SceneId { get; set; }
-	}
+        // CUSTOM: Determines the scenes associated with the quest
+        public List<EntityMQuestScene> Scenes { get; set; }
+        // CUSTOM: Determines the scene id for the battle field
+        public int FieldSceneId => Scenes.FirstOrDefault(x => x.QuestSceneType == QuestSceneType.FIELD)?.QuestSceneId ?? 0;
+        // CUSTOM: Determines if quest was already cleared
+        public bool IsClear { get; set; }
+    }
 }

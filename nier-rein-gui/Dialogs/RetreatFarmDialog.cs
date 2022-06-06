@@ -15,6 +15,8 @@ using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Context.Models.Events;
+using NierReincarnation.Core.Dark.Calculator;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using Size = ImGui.Forms.Models.Size;
@@ -30,7 +32,7 @@ namespace nier_rein_gui.Dialogs
         private const string RetreatTime_ = "Time:";
         private const string RetreatStamina_ = "Stamina used:";
 
-        private readonly NierReinContexts _rein;
+        private readonly QuestBattleContext _questBattleContext;
         private readonly int _chapterId;
         private readonly EventQuestData _quest;
 
@@ -51,7 +53,7 @@ namespace nier_rein_gui.Dialogs
 
         public RetreatFarmDialog(NierReinContexts rein, int chapterId, EventQuestData quest)
         {
-            _rein = rein;
+            _questBattleContext = rein.Battles.CreateQuestContext();
             _chapterId = chapterId;
             _quest = quest;
 
@@ -68,7 +70,7 @@ namespace nier_rein_gui.Dialogs
             timeLabel = new Label();
             staminaLabel = new Label();
 
-            cancelButton = new NierButton { Caption = "Cancel", Padding = new Vector2(2,2), Enabled = false };
+            cancelButton = new NierButton { Caption = "Cancel", Padding = new Vector2(2, 2), Enabled = false };
             cancelButton.Clicked += CancelButton_Clicked;
 
             startButton = new NierButton { Caption = "Start", Padding = new Vector2(2, 2) };
@@ -165,7 +167,7 @@ namespace nier_rein_gui.Dialogs
 
         private void InitializeComboBox(ComboBox<DeckInfo> deckBox)
         {
-            foreach (var deck in _rein.Decks.GetQuestDeckInfo())
+            foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
             {
                 deckBox.Items.Add(new ComboBoxItem<DeckInfo>(new DeckInfo
                 {
@@ -215,17 +217,18 @@ namespace nier_rein_gui.Dialogs
 
         private async Task<bool> RetreatFarm(int chapterId, EventQuestData quest)
         {
-            _rein.Battles.RequestRatioReached += (s, e) => {
+            _questBattleContext.RequestRatioReached += (s, e) =>
+            {
                 (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
 
-                _currentLimitTime = BattleContext.RateTimeout;
+                _currentLimitTime = QuestBattleContext.RateTimeout;
                 _timer.Start();
             };
 
             var deckNumber = decks.SelectedItem.Content.DeckId;
-            var deck = _rein.Decks.GetQuestDeck(deckNumber, DeckType.QUEST);
+            var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), deckNumber, DeckType.QUEST);
 
-            _rein.Battles.BattleStarted += Battles_BattleStarted;
+            _questBattleContext.BattleStarted += Battles_BattleStarted;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -234,13 +237,15 @@ namespace nier_rein_gui.Dialogs
             var repeats = 0;
             while (!_isCancel)
             {
-                (Content as StackLayout).Items[1] = new StackItem(null) {Size = new Size(0, 0)};
+                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new Size(0, 0) };
 
                 staminaLabel.Caption = $"{repeats * quest.Quest.EntityQuest.Stamina}";
                 countLabel.Caption = $"{repeats}";
                 timeLabel.Caption = $"{stopwatch.Elapsed}";
 
-                var battleResult = await _rein.Battles.ExecuteEventQuest(chapterId, quest, deck);
+                var battleResult = await _questBattleContext.ExecuteEventQuest(chapterId, quest, deck);
+
+                (Application.Instance.MainForm as MainForm).UpdateUser();
                 (Application.Instance.MainForm as MainForm).UpdateStamina();
 
                 if (battleResult.Status == BattleStatus.OutOfStamina)

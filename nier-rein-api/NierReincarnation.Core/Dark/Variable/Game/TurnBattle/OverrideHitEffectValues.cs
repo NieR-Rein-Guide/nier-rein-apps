@@ -3,6 +3,7 @@ using MessagePack;
 
 namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle
 {
+    // TODO: Deserialization problems? Necessary to resolve?
     [MessagePackObject]
     public class OverrideHitEffectValues
     {

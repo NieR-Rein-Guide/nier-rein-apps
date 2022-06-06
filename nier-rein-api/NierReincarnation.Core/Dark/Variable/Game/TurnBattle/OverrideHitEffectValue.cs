@@ -20,8 +20,8 @@ namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle
         [Key(5)] // RVA: 0x1DEB978 Offset: 0x1DEB978 VA: 0x1DEB978
         public bool ForceRotateOnHit { get; set; }
         [Key(6)] // RVA: 0x1DEB98C Offset: 0x1DEB98C VA: 0x1DEB98C
-        public List<OverrideHitEffectCondition> Conditions { get; set; }
+        public List<OverrideHitEffectCondition> Conditions { get; set; } = new List<OverrideHitEffectCondition>();
         [Key(7)] // RVA: 0x1DEB9A0 Offset: 0x1DEB9A0 VA: 0x1DEB9A0
         public ConditionOperationType ConditionOperationType { get; set; }
-	}
+    }
 }

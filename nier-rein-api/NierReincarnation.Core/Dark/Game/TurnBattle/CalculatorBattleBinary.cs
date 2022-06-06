@@ -84,7 +84,7 @@ namespace NierReincarnation.Core.Dark.Game.TurnBattle
             poolStream.Position = 0;
 
             MessagePackSerializer.Serialize(poolStream, snapshot, null, cxlToken);
-            var battleBinary = poolStream.ToArray();
+            var battleBinary = poolStream.ToArray()[..(int)poolStream.Position];
 
             var isSuccess = VersionBinaryLength + ChecksumBinaryLength + SuccessFlagBinaryLength + battleBinary.Length <= BinaryPoolSize;
             var successBinary = GetSuccessFlagBinary(isSuccess);

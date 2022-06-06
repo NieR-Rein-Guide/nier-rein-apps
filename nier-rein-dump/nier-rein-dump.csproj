@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NierReincarnation.Core\NierReincarnation.Core.csproj" />
-    <ProjectReference Include="..\NierReincarnation\NierReincarnation.csproj" />
+    <ProjectReference Include="..\nier-rein-api\NierReincarnation.Core\NierReincarnation.Core.csproj" />
+    <ProjectReference Include="..\nier-rein-api\NierReincarnation\NierReincarnation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

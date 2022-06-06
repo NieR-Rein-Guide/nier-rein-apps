@@ -67,7 +67,7 @@ message CostumeBattleInfo {
 	int64 maxHp = 6;
 	int64 remainingHp = 7;
 	int32 userDeckNumber = 30;
-	BattleReportRandomDisplay battleReportRandomDisplay = 8;
+	BattleReportRandomDisplay battleReportRandomDisplay = 50;
 }
 
 message BattleReportRandomDisplay {

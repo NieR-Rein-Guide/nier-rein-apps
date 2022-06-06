@@ -6,6 +6,7 @@ using ImGui.Forms.Modals;
 using nier_rein_gui.Dialogs;
 using nier_rein_gui.Forms.SubForms;
 using NierReincarnation;
+using NierReincarnation.Context;
 
 namespace nier_rein_gui.Forms
 {
@@ -56,7 +57,7 @@ namespace nier_rein_gui.Forms
 
         private Task EnsureNoRunningQuest()
         {
-            if (!_rein.Battles.HasRunningQuest())
+            if (!BattleContext.HasRunningQuest())
                 return Task.CompletedTask;
 
             var dlg = new ResumeFlowDialog(_rein);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Battle;
+using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
 using Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem;
 using Art.Framework.ApiNetwork.Grpc.Api.Data;
 using Art.Framework.ApiNetwork.Grpc.Api.Explore;
@@ -22,7 +23,7 @@ using NierReincarnation.Core.UnityEngine;
 namespace NierReincarnation.Core.Adam.Framework.Network
 {
     // Adam.Framework.Network.DarkClient
-    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService
+    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService, IBigHuntService
     {
         // 0x00
         private static readonly int MAX_INTERCEPT = 10;
@@ -63,6 +64,8 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         public IGachaService GachaService => this;
 
         public IQuestService QuestService => this;
+
+        public IBigHuntService BigHuntService => this;
 
         public IUserService UserService => this;
 
@@ -240,6 +243,14 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 			        new ResponseContext<UpdateMainQuestSceneProgressResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).UpdateMainQuestSceneProgressAsync((UpdateMainQuestSceneProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
+        public Task<UpdateMainFlowSceneProgressResponse> UpdateMainFlowSceneProgressAsync(UpdateMainFlowSceneProgressRequest request)
+        {
+            var path = "QuestService/UpdateMainFlowSceneProgressAsync";
+            return InvokeAsync<UpdateMainFlowSceneProgressResponse, UpdateMainFlowSceneProgressRequest>(path, request,
+                ctx =>
+                    new ResponseContext<UpdateMainFlowSceneProgressResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).UpdateMainFlowSceneProgressAsync((UpdateMainFlowSceneProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
         #endregion
 
         #region IUserService
@@ -282,6 +293,34 @@ namespace NierReincarnation.Core.Adam.Framework.Network
             return InvokeAsync<GetChargeMoneyResponse, Empty>(path, request,
                 ctx =>
                     new ResponseContext<GetChargeMoneyResponse>(new UserService.UserServiceClient(GetCallInvoker(ctx.Channel)).GetChargeMoneyAsync((Empty)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        #endregion
+
+        #region IBigHuntService
+
+        public Task<StartBigHuntQuestResponse> StartBigHuntQuestAsync(StartBigHuntQuestRequest request)
+        {
+            var path = "BigHuntService/StartBigHuntQuestAsync";
+            return InvokeAsync<StartBigHuntQuestResponse, StartBigHuntQuestRequest>(path, request,
+                ctx =>
+                    new ResponseContext<StartBigHuntQuestResponse>(new BigHuntService.BigHuntServiceClient(GetCallInvoker(ctx.Channel)).StartBigHuntQuestAsync((StartBigHuntQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        public Task<FinishBigHuntQuestResponse> FinishBigHuntQuestAsync(FinishBigHuntQuestRequest request)
+        {
+            var path = "BigHuntService/FinishBigHuntQuestAsync";
+            return InvokeAsync<FinishBigHuntQuestResponse, FinishBigHuntQuestRequest>(path, request,
+                ctx =>
+                    new ResponseContext<FinishBigHuntQuestResponse>(new BigHuntService.BigHuntServiceClient(GetCallInvoker(ctx.Channel)).FinishBigHuntQuestAsync((FinishBigHuntQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        public Task<SaveBigHuntBattleInfoResponse> SaveBigHuntBattleInfoAsync(SaveBigHuntBattleInfoRequest request)
+        {
+            var path = "BigHuntService/StartBigHuntQuestAsync";
+            return InvokeAsync<SaveBigHuntBattleInfoResponse, SaveBigHuntBattleInfoRequest>(path, request,
+                ctx =>
+                    new ResponseContext<SaveBigHuntBattleInfoResponse>(new BigHuntService.BigHuntServiceClient(GetCallInvoker(ctx.Channel)).SaveBigHuntBattleInfoAsync((SaveBigHuntBattleInfoRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         #endregion

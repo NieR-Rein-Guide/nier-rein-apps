@@ -49,7 +49,7 @@ namespace NierReincarnation.Core.UnityEngine
 
         #region App
 
-        public static string Version => "2.8.5";
+        public static string Version { get; set; } = "2.8.10";
 
         public static string Identifier => "com.square_enix.android_googleplay.nierspww";
 

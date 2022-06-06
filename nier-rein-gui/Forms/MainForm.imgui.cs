@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using ImGui.Forms.Controls;
-using ImGui.Forms.Controls.Base;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls;
 using nier_rein_gui.Resources;
+using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
+using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.UnityEngine;
 using Vector2 = System.Numerics.Vector2;
 
@@ -15,6 +16,10 @@ namespace nier_rein_gui.Forms
     partial class MainForm
     {
         private StackLayout mainContent;
+
+        private Label userLabel;
+        private Label staminaLabel;
+        private Label versionLabel;
 
         private NierButton loadoutButton;
         private NierButton eventQuestButton;
@@ -29,6 +34,22 @@ namespace nier_rein_gui.Forms
 
         private void SetMainContent()
         {
+            userLabel=new Label
+            {
+                Caption = GetUserString(), 
+                Font = FontResources.FotRodin(11)
+            };
+            staminaLabel = new Label
+            {
+                Caption = GetStaminaString(),
+                Font = FontResources.FotRodin(11)
+            };
+            versionLabel = new Label
+            {
+                Caption = $"App Version: {Application.Version}", 
+                Font = FontResources.FotRodin(11)
+            };
+
             loadoutButton = new NierButton
             {
                 Caption = UserInterfaceTextKey.Footer.kLoadout.Localize(),
@@ -66,9 +87,9 @@ namespace nier_rein_gui.Forms
                         Size = new Size(1f,-1),
                         Items =
                         {
-                            new Label{Caption = $"{_rein.User.GetUserName()} | {UserInterfaceTextKey.Header.kUserLevel.Localize()}: {_rein.User.GetUserLevel()}", Font = FontResources.FotRodin(11)},
-                            new StackItem(new Label{Caption = $"{UserInterfaceTextKey.Header.kStamina.Localize()} {_rein.User.GetCurrentStamina()}/{_rein.User.GetMaxStamina()}",Font = FontResources.FotRodin(11)}){Size = new Size(1f,-1), HorizontalAlignment = HorizontalAlignment.Center},
-                            new Label{Caption = $"App Version: {Application.Version}", Font = FontResources.FotRodin(11)}
+                            userLabel,
+                            new StackItem(staminaLabel){ Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center},
+                            versionLabel
                         }
                     },
                     new StackItem(null) {Size = ImGui.Forms.Models.Size.Parent},
@@ -95,10 +116,24 @@ namespace nier_rein_gui.Forms
             mainContent.Items[1] = new StackItem(comp) { Size = ImGui.Forms.Models.Size.Parent };
         }
 
+        public void UpdateUser()
+        {
+            userLabel.Caption = GetUserString();
+        }
+
         public void UpdateStamina()
         {
-            ((mainContent.Items[0].Content as StackLayout).Items[1].Content as Label).Caption =
-                $"{UserInterfaceTextKey.Header.kStamina.Localize()} {_rein.User.GetCurrentStamina()}/{_rein.User.GetMaxStamina()}";
+            staminaLabel.Caption = GetStaminaString();
+        }
+
+        private string GetUserString()
+        {
+            return $"{CalculatorProfile.GetName(CalculatorStateUser.GetUserId())} | {UserInterfaceTextKey.Header.kUserLevel.Localize()}: {CalculatorUserStatus.GetCurrentUserLevel()}";
+        }
+
+        private string GetStaminaString()
+        {
+            return $"{UserInterfaceTextKey.Header.kStamina.Localize()} {CalculatorUserStatus.GetCurrentStamina()}/{CalculatorUserStatus.GetMaxStamina()}";
         }
     }
 }

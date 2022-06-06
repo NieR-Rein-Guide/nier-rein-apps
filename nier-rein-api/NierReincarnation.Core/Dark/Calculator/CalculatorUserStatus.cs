@@ -1,4 +1,6 @@
-﻿namespace NierReincarnation.Core.Dark.Calculator
+﻿using NierReincarnation.Core.Dark.View.HeadUpDisplay;
+
+namespace NierReincarnation.Core.Dark.Calculator
 {
     public static class CalculatorUserStatus
     {
@@ -31,6 +33,11 @@
             var userStatus = table.FindByUserId(userId);
 
             return userStatus.Level;
+        }
+
+        public static int GetCurrentStamina()
+        {
+            return Stamina.CalculateCurrentStamina();
         }
     }
 }

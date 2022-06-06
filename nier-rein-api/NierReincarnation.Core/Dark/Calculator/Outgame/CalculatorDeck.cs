@@ -3,6 +3,7 @@ using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Calculator.Factory;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+using NierReincarnation.Core.Subsystem.Serval;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
@@ -21,15 +22,16 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         private static readonly string kWaveDeckNameFormat = "{0}{1}ï¼{2}"; // 0x28
 
         // CUSTOM: Enumerates all decks with shallow information; Returning efficiently acquired information such as ID and name
-        public static IEnumerable<DataDeck> EnumerateDeckInfo(long userId, DeckType deckType)
+        public static IEnumerable<DataDeckInfo> EnumerateDeckInfo(long userId, DeckType deckType)
         {
             foreach (var deck in DatabaseDefine.User.EntityIUserDeckTable.All)
             {
                 if (deck.UserId != userId || deck.DeckType != deckType)
                     continue;
 
-                yield return new DataDeck
+                yield return new DataDeckInfo
                 {
+                    DeckType = deckType,
                     Name = deck.Name,
                     UserDeckNumber = deck.UserDeckNumber
                 };
@@ -69,6 +71,33 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var dataDeck = CreateDataDeck(userId, deck);
 
             return dataDeck;
+        }
+
+        public static DataDeck[] CreateTripleWaveDataDeck(long userId, DeckType deckType, int userDeckNumber)
+        {
+            var result = new DataDeck[kTripleDeckWaveCount];
+            for (var i = 0; i < kTripleDeckWaveCount; i += kWaveIndexToWaveNumberAddValue)
+            {
+                var singleDeckNumber = DeckServal.getSingleDeckNumberByTripleDeckNumber(userDeckNumber, i + kWaveIndexToWaveNumberAddValue);
+                result[i] = CreateDataDeck(userId, deckType, singleDeckNumber);
+            }
+
+            return result;
+        }
+
+        public static DataDeck CreateDataDeck(long userId, DeckType deckType, int userDeckNumber)
+        {
+            var userDeckTable = DatabaseDefine.User.EntityIUserDeckTable;
+            var userDeck = userDeckTable.FindByUserIdAndDeckTypeAndUserDeckNumber((userId, deckType, userDeckNumber));
+
+            var result = userDeck == null ? new DataDeck(deckType, userDeckNumber) : CreateDataDeck(userId, userDeck);
+            if (result == null)
+                return null;
+
+            if (string.IsNullOrEmpty(result.Name))
+                result.Name = GetDefaultDeckName(deckType, userDeckNumber);
+
+            return result;
         }
 
         private static DataDeck CreateDataDeck(long userId, EntityIUserDeck entityIUserDeck)
@@ -133,6 +162,12 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var entityDeck = CalculatorQuestSetupBattleWithNpcUserEntity.CreateEntityIUserDeck(rental.BattleNpcId, DeckType.QUEST, rental.BattleNpcDeckNumber, true);
 
             return CalculatorNpcDeck.CreateNpcDataDeck(entityDeck.UserId, entityDeck);
+        }
+
+        // TODO: Implement
+        private static string GetDefaultDeckName(DeckType deckType, int userDeckNumber)
+        {
+            return string.Empty;
         }
     }
 }

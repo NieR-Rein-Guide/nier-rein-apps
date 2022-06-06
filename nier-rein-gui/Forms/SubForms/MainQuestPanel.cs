@@ -56,7 +56,7 @@ namespace nier_rein_gui.Forms.SubForms
 
             _currentSeason = _seasons[index];
             _currentChapter = _chapters[0];
-            
+
             UpdateCurrentDifficulty();
         }
 
@@ -86,10 +86,11 @@ namespace nier_rein_gui.Forms.SubForms
             await farmDlg.ShowAsync();
 
             var seasonIndex = _seasons.IndexOf(_currentSeason);
-            UpdateChapters(seasonIndex);
-            UpdateQuests(index);
-
             var chapterIndex = _chapters.IndexOf(_currentChapter);
+
+            UpdateChapters(seasonIndex);
+            UpdateQuests(chapterIndex);
+
             chapterButtonList[chapterIndex].Active = true;
         }
 
@@ -103,12 +104,30 @@ namespace nier_rein_gui.Forms.SubForms
 
         private List<MainQuestSeasonData> GetSeasons()
         {
-            return _seasons = CalculatorQuest.GetMainQuestSeasons();
+            var seasonIndex = -1;
+            if (_currentSeason != null)
+                seasonIndex = _seasons.IndexOf(_currentSeason);
+
+            _seasons = CalculatorQuest.GetMainQuestSeasons();
+
+            if (seasonIndex > -1)
+                _currentSeason = _seasons[seasonIndex];
+
+            return _seasons;
         }
 
         private List<MainQuestChapterData> GetChapters(int seasonIndex)
         {
-            return _chapters = CalculatorQuest.GetMainQuestChapters(_seasons[seasonIndex].MainQuestSeasonId);
+            var chapterIndex = -1;
+            if (_currentChapter != null)
+                chapterIndex = _chapters.IndexOf(_currentChapter);
+
+            _chapters = CalculatorQuest.GetMainQuestChapters(_seasons[seasonIndex].MainQuestSeasonId);
+
+            if (chapterIndex > -1)
+                _currentChapter = _chapters[chapterIndex];
+
+            return _chapters;
         }
 
         private List<QuestCellData> GetQuests(int chapterIndex)

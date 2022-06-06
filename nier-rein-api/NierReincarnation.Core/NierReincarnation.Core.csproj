@@ -45,6 +45,7 @@
 
   <ItemGroup>
     <None Remove="proto\battle.proto" />
+    <None Remove="proto\bighunt.proto" />
     <None Remove="proto\consumableitem.proto" />
     <None Remove="proto\explore.proto" />
     <None Remove="proto\gacha.proto" />

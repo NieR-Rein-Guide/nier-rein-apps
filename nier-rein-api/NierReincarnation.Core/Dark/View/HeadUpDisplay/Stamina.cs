@@ -6,7 +6,7 @@ using NierReincarnation.Core.Subsystem.Serval;
 
 namespace NierReincarnation.Core.Dark.View.HeadUpDisplay
 {
-    static class Stamina
+    public static class Stamina
     {
         // CUSTOM: Made public and static for dynamic use of stamina calculation
         public static int CalculateCurrentStamina()
