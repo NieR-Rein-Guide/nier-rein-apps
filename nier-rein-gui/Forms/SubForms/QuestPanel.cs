@@ -54,6 +54,6 @@ namespace nier_rein_gui.Forms.SubForms
             return ReinContexts.Quests.GetEventQuests(chapter.EventQuestChapterId, type).Where(x => x.IsAvailable).ToArray();
         }
 
-        protected abstract Task FightAsync(EventQuestChapterData chapter, DifficultyType type, EventQuestData quest);
+        protected abstract Task FightAsync(EventQuestChapterData chapter, DifficultyType type, IList<EventQuestData> quests, EventQuestData quest);
     }
 }

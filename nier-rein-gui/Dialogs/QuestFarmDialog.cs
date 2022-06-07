@@ -9,6 +9,8 @@ using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Modals;
+using ImGui.Forms.Models;
+using ImGuiNET;
 using nier_rein_gui.Controls;
 using nier_rein_gui.Forms;
 using NierReincarnation;
@@ -26,15 +28,17 @@ namespace nier_rein_gui.Dialogs
         private static readonly TimeSpan TimerInterval_ = TimeSpan.FromSeconds(1);
         private const string LimitText_ = "Request limit reached. Waiting {0:m\\:ss}...";
 
-        private readonly int _questId;
-        private readonly bool _isRental;
-
         private readonly IDictionary<int, int> _rewardCache;
         private readonly IDictionary<int, Costume> _costumeCache;
 
+        private int _questId;
+        private bool _isRental;
         private bool _isFarming;
         private bool _isCancel;
 
+        private ArrowButton previousButton;
+        private ArrowButton nextButton;
+        private Label captionLabel;
         private Label limitLabel;
         private ComboBox<DeckInfo> decks;
         private DataTable<Reward> rewards;
@@ -52,21 +56,22 @@ namespace nier_rein_gui.Dialogs
         {
             BattleContext = rein.Battles.CreateQuestContext();
 
-            _questId = questId;
             _rewardCache = new Dictionary<int, int>();
             _costumeCache = new Dictionary<int, Costume>();
 
             _timer = new Timer(TimerInterval_.TotalMilliseconds);
             _timer.Elapsed += _timer_Elapsed;
 
+            previousButton = new ArrowButton { Direction = ImGuiDir.Left };
+            previousButton.Clicked += PreviousButton_Clicked;
+
+            nextButton = new ArrowButton { Direction = ImGuiDir.Right };
+            nextButton.Clicked += NextButton_Clicked;
+
+            captionLabel = new Label();
             limitLabel = new Label { Caption = string.Empty, TextColor = Color.Firebrick };
 
-            _isRental = CalculatorDeck.IsRentalDeck(questId);
-            if (!_isRental)
-            {
-                decks = new ComboBox<DeckInfo>();
-                InitializeComboBox(decks);
-            }
+            decks = new ComboBox<DeckInfo>();
 
             rewards = new DataTable<Reward>
             {
@@ -111,9 +116,20 @@ namespace nier_rein_gui.Dialogs
                 ItemSpacing = 5,
                 Items =
                 {
-                    new Label { Caption = $"Quest: {questName}" },
+                    new StackLayout
+                    {
+                        Alignment = Alignment.Horizontal,
+                        Size = new ImGui.Forms.Models.Size(1f,-1),
+                        ItemSpacing = 5,
+                        Items =
+                        {
+                            previousButton,
+                            new StackItem(captionLabel){Size = new ImGui.Forms.Models.Size(1f,-1)},
+                            nextButton
+                        }
+                    },
                     new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
-                    new StackItem(decks){Size = ImGui.Forms.Models.Size.Content},
+                    new StackItem(null),
                     rewards,
                     costumes,
                     new StackLayout
@@ -139,9 +155,66 @@ namespace nier_rein_gui.Dialogs
                     }
                 }
             };
+
+            UpdateQuest(questId, questName);
         }
 
+        protected abstract int NextQuest(out string questName);
+
+        protected abstract int PreviousQuest(out string questName);
+
         protected abstract Task<BattleResult> ExecuteQuest(DataDeck deck);
+
+        private void UpdateRentalDeck(int questId)
+        {
+            _isRental = CalculatorDeck.IsRentalDeck(questId);
+            if (_isRental)
+            {
+                UpdateDeckContent(null);
+                return;
+            }
+
+            InitializeComboBox(decks);
+            UpdateDeckContent(decks);
+        }
+
+        private void NextButton_Clicked(object sender, EventArgs e)
+        {
+            NextQuestInternal();
+        }
+
+        private void PreviousButton_Clicked(object sender, EventArgs e)
+        {
+            PreviousQuestInternal();
+        }
+
+        private void NextQuestInternal()
+        {
+            var nextQuestId = NextQuest(out var nextName);
+            UpdateQuest(nextQuestId, nextName);
+        }
+
+        private void PreviousQuestInternal()
+        {
+            var previousQuestId = PreviousQuest(out var previousName);
+            UpdateQuest(previousQuestId, previousName);
+        }
+
+        private void UpdateQuest(int questId, string questName)
+        {
+            _questId = questId;
+            captionLabel.Caption = $"Quest: {questName}";
+
+            UpdateRentalDeck(questId);
+
+            rewards.Rows.Clear();
+            costumes.Rows.Clear();
+        }
+
+        private void UpdateDeckContent(ComboBox<DeckInfo> content)
+        {
+            (Content as StackLayout).Items[2] = new StackItem(content) { Size = ImGui.Forms.Models.Size.Content };
+        }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -154,6 +227,8 @@ namespace nier_rein_gui.Dialogs
 
         private async void SingleButton_Clicked(object sender, EventArgs e)
         {
+            previousButton.Enabled = false;
+            nextButton.Enabled = false;
             cancelButton.Enabled = false;
             singleButton.Enabled = false;
             startButton.Enabled = false;
@@ -203,6 +278,8 @@ namespace nier_rein_gui.Dialogs
             cancelButton.Enabled = false;
             singleButton.Enabled = true;
             startButton.Enabled = true;
+            previousButton.Enabled = true;
+            nextButton.Enabled = true;
         }
 
         private void InitializeComboBox(ComboBox<DeckInfo> deckBox)
@@ -221,6 +298,8 @@ namespace nier_rein_gui.Dialogs
 
         private async void StartButton_Clicked(object sender, EventArgs e)
         {
+            previousButton.Enabled = false;
+            nextButton.Enabled = false;
             cancelButton.Enabled = true;
             singleButton.Enabled = false;
             startButton.Enabled = false;
@@ -242,6 +321,8 @@ namespace nier_rein_gui.Dialogs
 
             _isCancel = false;
             cancelButton.Enabled = false;
+            previousButton.Enabled = true;
+            nextButton.Enabled = true;
         }
 
         private void CancelButton_Clicked(object sender, EventArgs e)
@@ -252,6 +333,8 @@ namespace nier_rein_gui.Dialogs
             cancelButton.Enabled = false;
             singleButton.Enabled = true;
             startButton.Enabled = true;
+            previousButton.Enabled = true;
+            nextButton.Enabled = true;
         }
 
         protected override bool ShouldCancelClose()

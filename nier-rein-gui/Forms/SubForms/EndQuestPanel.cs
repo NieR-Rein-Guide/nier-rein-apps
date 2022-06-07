@@ -60,7 +60,8 @@ namespace nier_rein_gui.Forms.SubForms
                 ItemSpacing = 5
             };
 
-            foreach (var quest in _rein.Quests.GetEventQuests(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable && (!x.IsLock || x.ClearCount > 0)))
+            var quests = _rein.Quests.GetEventQuests(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable && (!x.IsLock || x.ClearCount > 0)).ToList();
+            foreach (var quest in quests)
             {
                 var charButton = new NierQuestButton
                 {
@@ -75,7 +76,7 @@ namespace nier_rein_gui.Forms.SubForms
                     Padding = new Vector2(2, 2),
                     IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0
                 };
-                charButton.Clicked += async (s, e) => await FightAsync(chapter, quest, charButton.IsDaily);
+                charButton.Clicked += async (s, e) => await FightAsync(chapter, quests, quest, charButton.IsDaily);
 
                 list.Items.Add(charButton);
             }
@@ -161,7 +162,7 @@ namespace nier_rein_gui.Forms.SubForms
             return index;
         }
 
-        private async Task FightAsync(CharacterQuestChapterData chapter, EventQuestData quest, bool isRetreat)
+        private async Task FightAsync(CharacterQuestChapterData chapter, IList<EventQuestData> quests, EventQuestData quest, bool isRetreat)
         {
             if (isRetreat)
             {
@@ -170,7 +171,7 @@ namespace nier_rein_gui.Forms.SubForms
             }
             else
             {
-                var farmDlg = new EventQuestFarmDialog(_rein, chapter.EventQuestChapterId, quest);
+                var farmDlg = new EventQuestFarmDialog(_rein, chapter.EventQuestChapterId, quests.Where(x => x.Quest.EntityQuest.DailyClearableCount <= 0).ToList(), quest);
                 await farmDlg.ShowAsync();
             }
 

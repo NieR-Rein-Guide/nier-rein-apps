@@ -60,7 +60,8 @@ namespace nier_rein_gui.Forms.SubForms
                 ItemSpacing = 5
             };
 
-            foreach (var quest in _rein.Quests.GetEventQuests(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable))
+            var quests = _rein.Quests.GetEventQuests(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable).ToList();
+            foreach (var quest in quests)
             {
                 var charButton = new NierQuestButton
                 {
@@ -70,7 +71,7 @@ namespace nier_rein_gui.Forms.SubForms
                     Padding = new Vector2(2, 2),
                     Enabled = !quest.IsLock
                 };
-                charButton.Clicked += async (s, e) => await FightAsync(chapter, quest);
+                charButton.Clicked += async (s, e) => await FightAsync(chapter, quests, quest);
 
                 list.Items.Add(charButton);
             }
@@ -156,9 +157,9 @@ namespace nier_rein_gui.Forms.SubForms
             return index;
         }
 
-        private async Task FightAsync(CharacterQuestChapterData chapter, EventQuestData quest)
+        private async Task FightAsync(CharacterQuestChapterData chapter, IList<EventQuestData> quests, EventQuestData quest)
         {
-            var farmDlg = new EventQuestFarmDialog(_rein, chapter.EventQuestChapterId, quest);
+            var farmDlg = new EventQuestFarmDialog(_rein, chapter.EventQuestChapterId, quests, quest);
             await farmDlg.ShowAsync();
 
             SetQuestList(chapter);

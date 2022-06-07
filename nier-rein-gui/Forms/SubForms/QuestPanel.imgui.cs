@@ -49,7 +49,8 @@ namespace nier_rein_gui.Forms.SubForms
                 ItemSpacing = 5
             };
 
-            foreach (var quest in GetChapterQuests(chapter, type))
+            var quests = GetChapterQuests(chapter, type);
+            foreach (var quest in quests)
             {
                 var btn = new NierQuestButton
                 {
@@ -64,7 +65,7 @@ namespace nier_rein_gui.Forms.SubForms
                     Enabled = !quest.IsLock,
                     IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0
                 };
-                btn.Clicked += async (s, e) => await FightAsync(chapter, type, quest);
+                btn.Clicked += async (s, e) => await FightAsync(chapter, type, quests, quest);
 
                 btnList.Items.Add(btn);
             }

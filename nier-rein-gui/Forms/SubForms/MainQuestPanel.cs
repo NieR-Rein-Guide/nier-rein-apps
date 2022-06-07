@@ -82,7 +82,7 @@ namespace nier_rein_gui.Forms.SubForms
             if (index < 0 || _quests.Count <= index)
                 return;
 
-            var farmDlg = new MainQuestFarmDialog(_rein, _quests[index]);
+            var farmDlg = new MainQuestFarmDialog(_rein, _quests, _quests[index]);
             await farmDlg.ShowAsync();
 
             var seasonIndex = _seasons.IndexOf(_currentSeason);

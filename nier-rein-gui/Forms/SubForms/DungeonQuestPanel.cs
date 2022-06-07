@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using nier_rein_gui.Dialogs;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -12,7 +13,7 @@ namespace nier_rein_gui.Forms.SubForms
         public DungeonQuestPanel(NierReinContexts reinContexts, EventQuestChapterData chapter) : base(reinContexts, chapter)
         { }
 
-        protected override async Task FightAsync(EventQuestChapterData chapter, DifficultyType type, EventQuestData quest)
+        protected override async Task FightAsync(EventQuestChapterData chapter, DifficultyType type, IList<EventQuestData> quests, EventQuestData quest)
         {
             var farmDlg = new MemoirFarmDialog(ReinContexts, quest);
             await farmDlg.ShowAsync();

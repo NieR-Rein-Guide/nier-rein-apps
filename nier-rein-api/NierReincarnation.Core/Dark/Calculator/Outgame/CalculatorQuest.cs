@@ -350,6 +350,16 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return table.FindByUserIdAndQuestId((userId, questId))?.QuestStateType == 2;
         }
 
+        // CUSTOM: Check quest lock by quest ID
+        public static bool IsUnlockedQuest(int questId)
+        {
+            var masterQuest = DatabaseDefine.Master.EntityMQuestTable.FindByQuestId(questId);
+            if (masterQuest == null)
+                return false;
+
+            return IsUnlockedQuest(masterQuest.QuestReleaseConditionListId, CalculatorStateUser.GetUserId());
+        }
+
         public static bool IsUnlockedQuest(int questReleaseConditionListId, long userId)
         {
             var table = DatabaseDefine.Master.EntityMQuestReleaseConditionListTable;
