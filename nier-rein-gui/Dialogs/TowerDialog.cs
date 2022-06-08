@@ -34,6 +34,8 @@ namespace nier_rein_gui.Dialogs
         private ComboBox<DataDeckInfo> decks;
         private List missionList;
 
+        private bool _isWorking;
+
         public TowerDialog(NierReinContexts rein, int chapterId, IList<EventQuestData> questList, EventQuestData quest)
         {
             _battleContext = rein.Battles.CreateQuestContext();
@@ -89,6 +91,8 @@ namespace nier_rein_gui.Dialogs
 
         private async void ClearButton_Clicked(object sender, EventArgs e)
         {
+            _isWorking = true;
+
             previousButton.Enabled = false;
             nextButton.Enabled = false;
             clearButton.Enabled = false;
@@ -101,6 +105,8 @@ namespace nier_rein_gui.Dialogs
             previousButton.Enabled = true;
             nextButton.Enabled = true;
             clearButton.Enabled = true;
+
+            _isWorking = false;
         }
 
         private void BattleContext_BeforeFinishWave(object sender, NierReincarnation.Context.Models.Events.BeforeFinishWaveEventArgs e)
@@ -166,6 +172,11 @@ namespace nier_rein_gui.Dialogs
 
                 return;
             }
+        }
+
+        protected override bool ShouldCancelClose()
+        {
+            return _isWorking;
         }
 
         private void InitializeDecks(ComboBox<DataDeckInfo> decks)

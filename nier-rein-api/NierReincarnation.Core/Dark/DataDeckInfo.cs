@@ -34,7 +34,7 @@ namespace NierReincarnation.Core.Dark
                     return UserInterfaceTextKey.Deck.kTypeQuest.Localize() + $"{UserDeckNumber}";
 
                 case DeckType.BIG_HUNT:
-                    return UserInterfaceTextKey.Deck.kTypeBigHunt.Localize() + $"{UserDeckNumber - 100}";
+                    return UserInterfaceTextKey.Deck.kTypeBigHunt.Localize() + $"{UserDeckNumber}";
             }
 
             return string.Empty;

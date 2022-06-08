@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Calculator.Factory;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -24,6 +25,21 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         // CUSTOM: Enumerates all decks with shallow information; Returning efficiently acquired information such as ID and name
         public static IEnumerable<DataDeckInfo> EnumerateDeckInfo(long userId, DeckType deckType)
         {
+            if (deckType == DeckType.BIG_HUNT)
+            {
+                var deckGroups = DatabaseDefine.User.EntityIUserDeckTable.All.Where(x => x.UserId == userId && x.DeckType == DeckType.BIG_HUNT).GroupBy(x => x.UserDeckNumber / 100);
+                foreach (var deckGroup in deckGroups)
+                {
+                    yield return new DataDeckInfo
+                    {
+                        DeckType = deckType,
+                        UserDeckNumber = deckGroup.Key
+                    };
+                }
+
+                yield break;
+            }
+
             foreach (var deck in DatabaseDefine.User.EntityIUserDeckTable.All)
             {
                 if (deck.UserId != userId || deck.DeckType != deckType)

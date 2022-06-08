@@ -77,7 +77,7 @@ namespace nier_rein_gui.Dialogs
             clearButton.Enabled = false;
             _cancelClose = true;
 
-            await _bigHuntBattleContext.ExecuteBigHuntQuest(_quest, decks.SelectedItem.Content.UserDeckNumber - 100, grades.SelectedItem.Content);
+            await _bigHuntBattleContext.ExecuteBigHuntQuest(_quest, decks.SelectedItem.Content.UserDeckNumber, grades.SelectedItem.Content);
 
             _cancelClose = false;
             clearButton.Enabled = true;
