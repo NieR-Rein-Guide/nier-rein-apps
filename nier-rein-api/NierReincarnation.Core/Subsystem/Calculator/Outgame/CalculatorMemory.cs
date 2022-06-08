@@ -202,6 +202,15 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return GetName(memoryGroup.PartsGroupAssetId);
         }
 
+        public static string MemorySeriesName(int partsSeriesId)
+        {
+            var series = GetEntityMPartsSeries(partsSeriesId);
+            if (series == null)
+                return string.Empty;
+
+            return GetSeriesName(series.PartsSeriesAssetId);
+        }
+
         // CUSTOM: Gets easy access to memory description
         public static string MemoryDescription(int id)
         {
@@ -214,12 +223,6 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
                 return null;
 
             return GetDescription(memoryGroup.PartsGroupAssetId);
-        }
-
-        // CUSTOM: Gets easy access to memory series name
-        public static string SeriesName(int partsSeriesAssetId)
-        {
-            return GetSeriesName(partsSeriesAssetId);
         }
     }
 }

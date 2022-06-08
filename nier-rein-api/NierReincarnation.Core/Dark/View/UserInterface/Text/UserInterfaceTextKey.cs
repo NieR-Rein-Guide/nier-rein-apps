@@ -277,6 +277,13 @@
             public static readonly string kRandomDisplayValueTypeFormat = "bigHunt.RandomDisplayValueType.{0}"; // 0x60
         }
 
+        public static class Common
+        {
+            public static readonly string kRarityName= "ui.Outgame.Common.Rarity.Name.{0:D2}"; // 0x148
+            public static readonly string kAttributeTextKey= "ui.Outgame.Attribute.{0}"; // 0x1B8
+            public static readonly string kWeaponTypeTextKey= "ui.Outgame.WeaponType.{0}"; // 0x1C0
+        }
+
         private static class CommonKeyParts
         {
             public static readonly string kName = "name.{0}"; // 0x0

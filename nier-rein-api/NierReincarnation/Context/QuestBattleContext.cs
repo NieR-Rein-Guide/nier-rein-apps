@@ -31,6 +31,7 @@ namespace NierReincarnation.Context
         private readonly StaminaContext _stamina = new StaminaContext();
 
         public event EventHandler<StartBattleEventArgs> BattleStarted;
+        public event EventHandler<BeforeFinishWaveEventArgs> BeforeFinishWave;
         public event EventHandler<FinishBattleEventArgs> BattleFinished;
         public event EventHandler RequestRatioReached;
 
@@ -401,6 +402,7 @@ namespace NierReincarnation.Context
             var finishWaveRes = await TryRequest(async () =>
             {
                 var finishWaveReq = GetFinishWaveRequest(deck, npcId, waveDeck, wave, waveCount, sceneId);
+                OnBeforeFinishWave(wave, waveCount, finishWaveReq.BattleDetail);
                 return await _dc.BattleService.FinishWaveAsync(finishWaveReq);
             });
 
@@ -691,6 +693,12 @@ namespace NierReincarnation.Context
 
             retire = args.ShouldQuitBattle;
             shutdown = args.ForceShutdown;
+        }
+
+        private void OnBeforeFinishWave(int waveNumber, int waveCount, BattleDetail detail)
+        {
+            var args = new BeforeFinishWaveEventArgs(waveNumber, waveCount, detail);
+            BeforeFinishWave?.Invoke(this, args);
         }
 
         private void OnFinishBattle(BattleDrops rewards)

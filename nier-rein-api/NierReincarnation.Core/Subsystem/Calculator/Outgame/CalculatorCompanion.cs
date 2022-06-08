@@ -236,6 +236,11 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return GetName(ActorAssetId(masterCompanion));
         }
 
+        public static string GetCompanionCategoryName(int companionCategoryType)
+        {
+            return string.Format(UserInterfaceTextKey.Companion.kCategoryName, companionCategoryType).Localize();
+        }
+
         // CUSTOM: Getting the description of the companion like the name
         public static string CompanionDescription(int id)
         {

@@ -7,6 +7,11 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
     {
         private static readonly int kInvalidQuestId; // 0x0
 
+        public static string GetCharacterName(int characterId)
+        {
+            return CharacterName(characterId);
+        }
+
         // CUSTOM: Ignore display switch for character name
         public static string CharacterName(int characterId, bool ignoreDisplaySwitch = false)
         {
