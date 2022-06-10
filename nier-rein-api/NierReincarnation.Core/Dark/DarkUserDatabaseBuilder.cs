@@ -195,6 +195,12 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserShopItem> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.ShopItemId), Comparer<(long, int)>.Default);
+            return this;
+        }
+
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserStatus> dataSource)
         {
             AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);

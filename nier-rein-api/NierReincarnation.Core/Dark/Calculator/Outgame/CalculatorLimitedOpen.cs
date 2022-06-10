@@ -14,5 +14,15 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
             return CalculatorDateTime.IsWithinThePeriod(element.OpenDatetime, element.CloseDatetime);
         }
+
+        public static (long, long) GetTerm(long userId, LimitedOpenTargetType limitedOpenTargetType, int targetId)
+        {
+            var table = DatabaseDefine.User.EntityIUserLimitedOpenTable;
+            var element = table.FindByUserIdAndLimitedOpenTargetTypeAndTargetId((userId, limitedOpenTargetType, targetId));
+            if (element == null)
+                return (0,0);
+
+            return (element.OpenDatetime, element.CloseDatetime);
+        }
     }
 }

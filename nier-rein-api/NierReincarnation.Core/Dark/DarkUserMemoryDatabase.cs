@@ -36,6 +36,7 @@ namespace NierReincarnation.Core.Dark
         public EntityIUserProfileTable EntityIUserProfileTable { get; private set; } // 0x1E8
         public EntityIUserQuestTable EntityIUserQuestTable { get; private set; }  // 0x200
         public EntityIUserQuestMissionTable EntityIUserQuestMissionTable { get; private set; } // 0x210
+        public EntityIUserShopItemTable EntityIUserShopItemTable { get; private set; } // 0x228
         public EntityIUserStatusTable EntityIUserStatusTable { get; private set; } // 0x240
         public EntityIUserWeaponTable EntityIUserWeaponTable { get; private set; } // 0x258
         public EntityIUserWeaponAbilityTable EntityIUserWeaponAbilityTable { get; private set; } // 0x260
@@ -77,6 +78,7 @@ namespace NierReincarnation.Core.Dark
             EntityIUserProfileTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserProfile[], EntityIUserProfileTable>(profiles => new EntityIUserProfileTable(profiles)));
             EntityIUserQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserQuest[], EntityIUserQuestTable>(quests => new EntityIUserQuestTable(quests)));
             EntityIUserQuestMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserQuestMission[], EntityIUserQuestMissionTable>(missions => new EntityIUserQuestMissionTable(missions)));
+            EntityIUserShopItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserShopItem[], EntityIUserShopItemTable>(items => new EntityIUserShopItemTable(items)));
             EntityIUserStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserStatus[], EntityIUserStatusTable>(statuses => new EntityIUserStatusTable(statuses)));
             EntityIUserWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeapon[], EntityIUserWeaponTable>(weapons => new EntityIUserWeaponTable(weapons)));
             EntityIUserWeaponAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeaponAbility[], EntityIUserWeaponAbilityTable>(abilities => new EntityIUserWeaponAbilityTable(abilities)));

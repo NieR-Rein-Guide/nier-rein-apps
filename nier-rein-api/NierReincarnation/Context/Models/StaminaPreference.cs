@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace NierReincarnation.Context.Models
 {
@@ -7,17 +6,18 @@ namespace NierReincarnation.Context.Models
     {
         public IList<StaminaType> Order { get; } = new List<StaminaType>
         {
-            StaminaType.SMALL,
+            StaminaType.EVENT,
             StaminaType.MEDIUM,
+            StaminaType.SMALL,
             StaminaType.LARGE
         };
     }
 
     public enum StaminaType
     {
-        //GEM,
-        SMALL,
-        MEDIUM,
-        LARGE
+        SMALL = 3001,
+        MEDIUM = 3002,
+        LARGE = 3003,
+        EVENT = 90000
     }
 }

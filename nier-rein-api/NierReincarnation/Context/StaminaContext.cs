@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem;
@@ -8,8 +7,11 @@ using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay;
+using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Context
 {
@@ -19,7 +21,7 @@ namespace NierReincarnation.Context
         private static int PotReduceAmount_ = 1;
         private static int SmallPotReplenishAmount_ = 10;
 
-        private DarkClient _dc;
+        private static DarkClient _dc = new DarkClient();
 
         public static StaminaPreference Preference { get; } = new StaminaPreference();
 
@@ -54,59 +56,61 @@ namespace NierReincarnation.Context
             if (preference.Order.Count <= 0)
                 preference = new StaminaPreference();
 
+            // Get stamina items
             var staminaItems = GetStaminaItems();
-            var refillBy = refillCap - currentStamina;
+            var eventPots = staminaItems.Where(x => !CalculatorConsumable.StaminaConsumableItemIds.Contains(x.ConsumableId)).ToArray();
 
             // Refill by preference
+            var refillBy = refillCap - currentStamina;
             foreach (var orderType in preference.Order)
             {
-                var orderItems = staminaItems.Where(x => x.Type == orderType);
-                foreach (var orderItem in orderItems)
+                // Stop if amount was refilled
+                if (refillBy <= 0)
+                    return true;
+
+                // Get next stamina item in preference
+                var staminaItem = orderType == StaminaType.EVENT ?
+                    eventPots.FirstOrDefault(x => x.PossessionCount > 0) :
+                    staminaItems.FirstOrDefault(x => x.ConsumableId == (int)orderType && x.PossessionCount > 0);
+
+                if (staminaItem == null)
+                    continue;
+
+                // Reduce enough of stamina item to replenish
+                var usedCount = 0;
+                while (staminaItem.PossessionCount > 0 && staminaItem.PossessionCount / staminaItem.NeedCount > 0)
                 {
-                    var usedCount = 0;
-
-                    var itemCount = orderItem.Count;
-                    while (itemCount > 0 && itemCount / orderItem.Reduce > 0)
-                    {
-                        if (refillBy <= 0)
-                            break;
-
-                        refillBy -= orderItem.Replenish;
-                        itemCount -= orderItem.Reduce;
-
-                        usedCount += orderItem.Reduce;
-                    }
-
-                    await orderItem.ReduceCountyByAsync(usedCount);
-
                     if (refillBy <= 0)
-                        return true;
+                        break;
+
+                    refillBy -= staminaItem.EffectValue;
+                    usedCount += staminaItem.NeedCount;
+
+                    staminaItem.PossessionCount -= staminaItem.NeedCount;
                 }
+
+                if (usedCount > 0)
+                    await ConsumeStamina(staminaItem, usedCount);
             }
 
             return refillBy <= 0;
         }
 
-        private IList<StaminaItem> GetStaminaItems()
+        private IList<RecoverData> GetStaminaItems()
         {
-            var result = new List<StaminaItem>();
+            return CalculatorConsumable.CreateRecoverItemData(EffectTargetType.STAMINA_RECOVERY);
+        }
 
-            // Add gems
-            //var userId = PlayerPreference.Instance.ActivePlayer.UserId;
-            //var userGems = CalculatorGem.GetEntityIUserGemTable(userId);
+        private async Task ConsumeStamina(RecoverData staminaItem, int consumeCount)
+        {
+            //var userConsumable = _userObj as EntityIUserConsumableItem;
+            //userConsumable.Count -= count;
 
-            //result.Add(new StaminaItem(StaminaType.GEM, userGems.FreeGem + userGems.PaidGem, GetMaxStamina(), GemReduceAmount_, userGems));
+            var ci = _dc.ConsumableItemService;
+            var useEffectRes = await ci.UseEffectItemAsync(new UseEffectItemRequest { ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount });
 
-            // Add pots
-            var smallPot = DatabaseDefine.User.EntityIUserConsumableItemTable.All.FirstOrDefault(x => x.ConsumableItemId == 3001);
-            var mediumPot = DatabaseDefine.User.EntityIUserConsumableItemTable.All.FirstOrDefault(x => x.ConsumableItemId == 3002);
-            var largePot = DatabaseDefine.User.EntityIUserConsumableItemTable.All.FirstOrDefault(x => x.ConsumableItemId == 3003);
-
-            result.Add(new StaminaItem(_dc, StaminaType.SMALL, smallPot?.Count ?? 0, SmallPotReplenishAmount_, PotReduceAmount_, smallPot));
-            result.Add(new StaminaItem(_dc, StaminaType.MEDIUM, mediumPot?.Count ?? 0, GetMaxStamina() / 2, PotReduceAmount_, mediumPot));
-            result.Add(new StaminaItem(_dc, StaminaType.LARGE, largePot?.Count ?? 0, GetMaxStamina(), PotReduceAmount_, largePot));
-
-            return result;
+            foreach (var userData in useEffectRes.DiffUserData)
+                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
         class StaminaItem

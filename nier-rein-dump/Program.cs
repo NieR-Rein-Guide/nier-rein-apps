@@ -881,7 +881,7 @@ namespace NierReinDb
                 {
                     MemoirSeriesId = series.PartsSeriesId,
 
-                    Name = CalculatorMemory.SeriesName(series.PartsSeriesAssetId),
+                    Name = CalculatorMemory.MemorySeriesName(series.PartsSeriesId),
                     SmallSetDescription = CalculatorAbility.GetDescriptionLong(smallAbilityDetail.DescriptionAbilityTextId),
                     LargeSetDescription = CalculatorAbility.GetDescriptionLong(largeAbilityDetail.DescriptionAbilityTextId),
 

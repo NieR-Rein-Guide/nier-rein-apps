@@ -30,14 +30,14 @@ namespace NierReincarnation.Core.Dark
         [Key(7)] // RVA: 0x1DDFACC Offset: 0x1DDFACC VA: 0x1DDFACC
         public int RegularPrice { get; set; }
         [Key(8)] // RVA: 0x1DDFAE0 Offset: 0x1DDFAE0 VA: 0x1DDFAE0
-        public int ShopPromotionType { get; set; }
+        public ShopPromotionType ShopPromotionType { get; set; }
         [Key(9)] // RVA: 0x1DDFAF4 Offset: 0x1DDFAF4 VA: 0x1DDFAF4
-        public int ShopItemLimitedStockId { get; set; }
+        public int ShopItemLimitedStockId { get; set; } // 0x34
         [Key(10)] // RVA: 0x1DDFB08 Offset: 0x1DDFB08 VA: 0x1DDFB08
-        public int AssetCategoryId { get; set; }
+        public int AssetCategoryId { get; set; } // 0x38
         [Key(11)] // RVA: 0x1DDFB1C Offset: 0x1DDFB1C VA: 0x1DDFB1C
-        public int AssetVariationId { get; set; }
+        public int AssetVariationId { get; set; } // 0x3C
         [Key(12)] // RVA: 0x1DDFB30 Offset: 0x1DDFB30 VA: 0x1DDFB30
-        public int ShopItemDecorationType { get; set; }
+        public ShopItemDecorationType ShopItemDecorationType { get; set; }
 	}
 }

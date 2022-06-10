@@ -95,6 +95,10 @@ namespace NierReincarnation.Core.Dark
         public EntityMCompanionStatusCalculationTable EntityMCompanionStatusCalculationTable { get; private set; }
         // 0x488
         public EntityMConsumableItemTable EntityMConsumableItemTable { get; private set; }
+        // 0x490
+        public EntityMConsumableItemEffectTable EntityMConsumableItemEffectTable { get; private set; }
+        // 0x498
+        public EntityMConsumableItemTermTable EntityMConsumableItemTermTable { get; private set; }
         // 0x4A8
         public EntityMCostumeTable EntityMCostumeTable { get; private set; }
         // 0x4B0
@@ -207,6 +211,10 @@ namespace NierReincarnation.Core.Dark
         public EntityMShopItemCellGroupTable EntityMShopItemCellGroupTable { get; private set; }
         // 0xA78
         public EntityMShopItemCellTermTable EntityMShopItemCellTermTable { get; private set; }
+        // 0xA90
+        public EntityMShopItemContentPossessionTable EntityMShopItemContentPossessionTable { get; private set; }
+        // 0xA98
+        public EntityMShopItemLimitedStockTable EntityMShopItemLimitedStockTable { get; private set; }
         // 0xAB0
         public EntityMSkillTable EntityMSkillTable { get; private set; }
         // 0xB80
@@ -307,6 +315,8 @@ namespace NierReincarnation.Core.Dark
             EntityMCompanionStatusCalculationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionStatusCalculation[], EntityMCompanionStatusCalculationTable>(calculations => new EntityMCompanionStatusCalculationTable(calculations)));
             // ...
             EntityMConsumableItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItem[], EntityMConsumableItemTable>(items => new EntityMConsumableItemTable(items)));
+            EntityMConsumableItemEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItemEffect[], EntityMConsumableItemEffectTable>(effects => new EntityMConsumableItemEffectTable(effects)));
+            EntityMConsumableItemTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItemTerm[], EntityMConsumableItemTermTable>(terms => new EntityMConsumableItemTermTable(terms)));
             // ...
             EntityMCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostume[], EntityMCostumeTable>(costumes => new EntityMCostumeTable(costumes)));
             EntityMCostumeAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAbilityGroup[], EntityMCostumeAbilityGroupTable>(groups => new EntityMCostumeAbilityGroupTable(groups)));
@@ -389,6 +399,9 @@ namespace NierReincarnation.Core.Dark
             EntityMShopItemCellTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCell[], EntityMShopItemCellTable>(cells => new EntityMShopItemCellTable(cells)));
             EntityMShopItemCellGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCellGroup[], EntityMShopItemCellGroupTable>(groups => new EntityMShopItemCellGroupTable(groups)));
             EntityMShopItemCellTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCellTerm[], EntityMShopItemCellTermTable>(terms => new EntityMShopItemCellTermTable(terms)));
+            // ...
+            EntityMShopItemContentPossessionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemContentPossession[], EntityMShopItemContentPossessionTable>(possessions => new EntityMShopItemContentPossessionTable(possessions)));
+            EntityMShopItemLimitedStockTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemLimitedStock[], EntityMShopItemLimitedStockTable>(stocks => new EntityMShopItemLimitedStockTable(stocks)));
             // ...
             EntityMSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkill[], EntityMSkillTable>(skills => new EntityMSkillTable(skills)));
             // ...

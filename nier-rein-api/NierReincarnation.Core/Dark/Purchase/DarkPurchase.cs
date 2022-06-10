@@ -148,6 +148,18 @@ namespace NierReincarnation.Core.Dark.Purchase
             return product != null;
         }
 
+        public bool IsExistsProduct(string productIdSuffix)
+        {
+            // STUB
+            return false;
+        }
+
+        public string GetStorePriceString(string productIdSuffix)
+        {
+            // STUB
+            return string.Empty;
+        }
+
         public enum PurchaseErrorType
         {
             None = 0,

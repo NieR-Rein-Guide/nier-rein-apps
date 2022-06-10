@@ -156,7 +156,7 @@ namespace nier_rein_gui.Dialogs
                 }
             };
 
-            UpdateQuest(questId, questName);
+            UpdateQuest(questId, questName, true);
         }
 
         protected abstract int NextQuest(out string questName);
@@ -165,9 +165,13 @@ namespace nier_rein_gui.Dialogs
 
         protected abstract Task<BattleResult> ExecuteQuest(DataDeck deck);
 
-        private void UpdateRentalDeck(int questId)
+        private void UpdateRentalDeck(int questId, bool force = false)
         {
-            _isRental = CalculatorDeck.IsRentalDeck(questId);
+            var isRental = CalculatorDeck.IsRentalDeck(questId);
+            if (isRental == _isRental && !force)
+                return;
+
+            _isRental = isRental;
             if (_isRental)
             {
                 UpdateDeckContent(null);
@@ -200,12 +204,12 @@ namespace nier_rein_gui.Dialogs
             UpdateQuest(previousQuestId, previousName);
         }
 
-        private void UpdateQuest(int questId, string questName)
+        private void UpdateQuest(int questId, string questName, bool forceDeckUpdate = false)
         {
             _questId = questId;
             captionLabel.Caption = $"Quest: {questName}";
 
-            UpdateRentalDeck(questId);
+            UpdateRentalDeck(questId, forceDeckUpdate);
 
             rewards.Rows.Clear();
             costumes.Rows.Clear();
@@ -284,6 +288,8 @@ namespace nier_rein_gui.Dialogs
 
         private void InitializeComboBox(ComboBox<DeckInfo> deckBox)
         {
+            deckBox.Items.Clear();
+
             foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
             {
                 deckBox.Items.Add(new ComboBoxItem<DeckInfo>(new DeckInfo
