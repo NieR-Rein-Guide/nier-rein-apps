@@ -9,7 +9,6 @@ using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Modals;
-using ImGui.Forms.Models;
 using ImGuiNET;
 using nier_rein_gui.Controls;
 using nier_rein_gui.Forms;
@@ -25,8 +24,9 @@ namespace nier_rein_gui.Dialogs
 {
     abstract class QuestFarmDialog : Modal
     {
-        private static readonly TimeSpan TimerInterval_ = TimeSpan.FromSeconds(1);
+        private static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
         private const string LimitText_ = "Request limit reached. Waiting {0:m\\:ss}...";
+        private const string RestrictionText_ = "Deck restriction for quest applied!";
 
         private readonly IDictionary<int, int> _rewardCache;
         private readonly IDictionary<int, Costume> _costumeCache;
@@ -40,7 +40,8 @@ namespace nier_rein_gui.Dialogs
         private ArrowButton nextButton;
         private Label captionLabel;
         private Label limitLabel;
-        private ComboBox<DeckInfo> decks;
+        private Label restrictionLabel;
+        private ComboBox<DataDeckInfo> decks;
         private DataTable<Reward> rewards;
         private DataTable<Costume> costumes;
         private Button singleButton;
@@ -59,7 +60,7 @@ namespace nier_rein_gui.Dialogs
             _rewardCache = new Dictionary<int, int>();
             _costumeCache = new Dictionary<int, Costume>();
 
-            _timer = new Timer(TimerInterval_.TotalMilliseconds);
+            _timer = new Timer(TimerInterval.TotalMilliseconds);
             _timer.Elapsed += _timer_Elapsed;
 
             previousButton = new ArrowButton { Direction = ImGuiDir.Left };
@@ -70,8 +71,9 @@ namespace nier_rein_gui.Dialogs
 
             captionLabel = new Label();
             limitLabel = new Label { Caption = string.Empty, TextColor = Color.Firebrick };
+            restrictionLabel = new Label { Caption = RestrictionText_ };
 
-            decks = new ComboBox<DeckInfo>();
+            decks = new ComboBox<DataDeckInfo>();
 
             rewards = new DataTable<Reward>
             {
@@ -129,6 +131,7 @@ namespace nier_rein_gui.Dialogs
                         }
                     },
                     new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
+                    new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
                     new StackItem(null),
                     rewards,
                     costumes,
@@ -156,7 +159,7 @@ namespace nier_rein_gui.Dialogs
                 }
             };
 
-            UpdateQuest(questId, questName, true);
+            UpdateQuest(questId, questName);
         }
 
         protected abstract int NextQuest(out string questName);
@@ -165,21 +168,25 @@ namespace nier_rein_gui.Dialogs
 
         protected abstract Task<BattleResult> ExecuteQuest(DataDeck deck);
 
-        private void UpdateRentalDeck(int questId, bool force = false)
+        private void UpdateRentalDeck(int questId)
         {
-            var isRental = CalculatorDeck.IsRentalDeck(questId);
-            if (isRental == _isRental && !force)
-                return;
-
-            _isRental = isRental;
+            // Do not list any decks if quest uses a rental deck
+            _isRental = CalculatorDeck.IsRentalDeck(questId);
             if (_isRental)
             {
-                UpdateDeckContent(null);
+                SetDeckBox(null);
+
+                startButton.Enabled = singleButton.Enabled = true;
                 return;
             }
 
-            InitializeComboBox(decks);
-            UpdateDeckContent(decks);
+            // List decks that have correct restrictions, if any
+            InitializeComboBox(decks, questId);
+            SetDeckBox(decks.Items.Count > 0 ? decks : null);
+            if (decks.Items.Count <= 0)
+                SetRestrictionLabel(restrictionLabel);
+
+            startButton.Enabled = singleButton.Enabled = decks.Items.Count > 0;
         }
 
         private void NextButton_Clicked(object sender, EventArgs e)
@@ -204,26 +211,21 @@ namespace nier_rein_gui.Dialogs
             UpdateQuest(previousQuestId, previousName);
         }
 
-        private void UpdateQuest(int questId, string questName, bool forceDeckUpdate = false)
+        private void UpdateQuest(int questId, string questName)
         {
             _questId = questId;
             captionLabel.Caption = $"Quest: {questName}";
 
-            UpdateRentalDeck(questId, forceDeckUpdate);
+            UpdateRentalDeck(questId);
 
             rewards.Rows.Clear();
             costumes.Rows.Clear();
         }
 
-        private void UpdateDeckContent(ComboBox<DeckInfo> content)
-        {
-            (Content as StackLayout).Items[2] = new StackItem(content) { Size = ImGui.Forms.Models.Size.Content };
-        }
-
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             limitLabel.Caption = string.Format(LimitText_, _currentLimitTime);
-            _currentLimitTime -= TimerInterval_;
+            _currentLimitTime -= TimerInterval;
 
             if (_currentLimitTime.TotalMilliseconds == 0)
                 _timer.Start();
@@ -246,7 +248,7 @@ namespace nier_rein_gui.Dialogs
             // Prepare deck
             var deck = _isRental ?
                 CalculatorDeck.CreateRentalDeck(_questId) :
-                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.DeckId, DeckType.QUEST);
+                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, DeckType.QUEST);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -267,7 +269,7 @@ namespace nier_rein_gui.Dialogs
 
             BattleContext.RequestRatioReached += (s, e) =>
             {
-                (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
+                SetLimitLabel(limitLabel);
 
                 _currentLimitTime = QuestBattleContext.RateTimeout;
                 _timer.Start();
@@ -286,20 +288,60 @@ namespace nier_rein_gui.Dialogs
             nextButton.Enabled = true;
         }
 
-        private void InitializeComboBox(ComboBox<DeckInfo> deckBox)
+        private void InitializeComboBox(ComboBox<DataDeckInfo> deckBox, int questId)
         {
             deckBox.Items.Clear();
+            deckBox.SelectedItem = null;
 
+            foreach (var deck in GetValidDecks(CalculatorQuest.CreateDeckRestrictionList(questId)))
+                deckBox.Items.Add(deck);
+
+            if (deckBox.Items.Count > 0)
+                deckBox.SelectedItem = deckBox.Items[0];
+        }
+
+        private IEnumerable<DataDeckInfo> GetValidDecks(DataDeckRestriction[] restrictions)
+        {
             foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
             {
-                deckBox.Items.Add(new ComboBoxItem<DeckInfo>(new DeckInfo
+                if (!IsValidDeckRestriction(deck, restrictions))
+                    continue;
+
+                yield return deck;
+            }
+        }
+
+        private bool IsValidDeckRestriction(DataDeckInfo deck, DataDeckRestriction[] restrictions)
+        {
+            if (restrictions == null)
+                return true;
+
+            foreach (var restriction in restrictions)
+            {
+                if (deck.Actors[restriction.SlotNumber - 1] == null)
+                    return false;
+
+                bool result;
+                switch (restriction.QuestDeckRestrictionType)
                 {
-                    DeckId = deck.UserDeckNumber,
-                    DeckName = deck.Name
-                }));
+                    case QuestDeckRestrictionType.CHARACTER_ID:
+                        result = deck.Actors[restriction.SlotNumber - 1].CharacterId == restriction.RestrictionValue;
+                        break;
+
+                    case QuestDeckRestrictionType.COSTUME_ID:
+                        result = deck.Actors[restriction.SlotNumber - 1].CostumeId == restriction.RestrictionValue;
+                        break;
+
+                    default:
+                        result = true;
+                        break;
+                }
+
+                if (!result)
+                    return false;
             }
 
-            deckBox.SelectedItem = deckBox.Items[0];
+            return true;
         }
 
         private async void StartButton_Clicked(object sender, EventArgs e)
@@ -353,7 +395,7 @@ namespace nier_rein_gui.Dialogs
             // Prepare battle events
             BattleContext.RequestRatioReached += (s, e) =>
             {
-                (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
+                SetLimitLabel(limitLabel);
 
                 _currentLimitTime = QuestBattleContext.RateTimeout;
                 _timer.Start();
@@ -364,7 +406,7 @@ namespace nier_rein_gui.Dialogs
             // Prepare deck
             var deck = _isRental ?
                 CalculatorDeck.CreateRentalDeck(_questId) :
-                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.DeckId, DeckType.QUEST);
+                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, DeckType.QUEST);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -385,7 +427,7 @@ namespace nier_rein_gui.Dialogs
             var isCancelled = false;
             while (!_isCancel)
             {
-                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
+                SetLimitLabel(null);
 
                 var battleResult = await ExecuteQuest(deck);
 
@@ -430,16 +472,28 @@ namespace nier_rein_gui.Dialogs
             }
         }
 
-        class DeckInfo
+        private void SetLimitLabel(Label label)
         {
-            public int DeckId { get; set; }
-            public DeckType DeckType { get; set; }
-            public string DeckName { get; set; }
+            if (label == null)
+                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
+            else
+                (Content as StackLayout).Items[1] = new StackItem(label) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
+        }
 
-            public override string ToString()
-            {
-                return string.IsNullOrEmpty(DeckName) ? $"Quest{DeckId}" : DeckName;
-            }
+        private void SetRestrictionLabel(Label label)
+        {
+            if (label == null)
+                (Content as StackLayout).Items[2] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
+            else
+                (Content as StackLayout).Items[2] = new StackItem(label) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
+        }
+
+        private void SetDeckBox(ComboBox<DataDeckInfo> deckBox)
+        {
+            if (deckBox == null)
+                (Content as StackLayout).Items[3] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
+            else
+                (Content as StackLayout).Items[3] = new StackItem(deckBox) { Size = ImGui.Forms.Models.Size.Content };
         }
 
         class Reward

@@ -29,13 +29,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             {
                 var deckGroups = DatabaseDefine.User.EntityIUserDeckTable.All.Where(x => x.UserId == userId && x.DeckType == DeckType.BIG_HUNT).GroupBy(x => x.UserDeckNumber / 100);
                 foreach (var deckGroup in deckGroups)
-                {
-                    yield return new DataDeckInfo
-                    {
-                        DeckType = deckType,
-                        UserDeckNumber = deckGroup.Key
-                    };
-                }
+                    yield return CreateDataDeckInfo(deckGroup.Key, deckType, null);
 
                 yield break;
             }
@@ -45,13 +39,29 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 if (deck.UserId != userId || deck.DeckType != deckType)
                     continue;
 
-                yield return new DataDeckInfo
-                {
-                    DeckType = deckType,
-                    Name = deck.Name,
-                    UserDeckNumber = deck.UserDeckNumber
-                };
+                yield return CreateDataDeckInfo(deck);
             }
+        }
+
+        private static DataDeckInfo CreateDataDeckInfo(EntityIUserDeck entityIUserDeck)
+        {
+            return new DataDeckInfo
+            {
+                UserDeckNumber = entityIUserDeck.UserDeckNumber,
+                DeckType = entityIUserDeck.DeckType,
+                Name = entityIUserDeck.Name,
+                Actors = CalculatorDeckActor.CreateDataDeckActorInfo(entityIUserDeck)
+            };
+        }
+
+        private static DataDeckInfo CreateDataDeckInfo(int userDeckNumber, DeckType deckType, string name)
+        {
+            return new DataDeckInfo
+            {
+                UserDeckNumber = userDeckNumber,
+                DeckType = deckType,
+                Name = name
+            };
         }
 
         // CUSTOM: Get enumerable list of type restricted decks

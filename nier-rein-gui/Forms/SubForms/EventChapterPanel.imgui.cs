@@ -31,7 +31,6 @@ namespace nier_rein_gui.Forms.SubForms
             {
                 Padding = new Vector2(0, 5),
                 Caption = UserInterfaceTextKey.Quest.kEventQuestCharacter.Localize(),
-                Enabled = false,
                 IsClickActive = true
             };
             darkMemoryButton = new NierButton

@@ -17,10 +17,20 @@ namespace nier_rein_gui.Forms.SubForms
         protected override async Task FightAsync(EventQuestChapterData chapter, DifficultyType type, IList<EventQuestData> quests, EventQuestData quest)
         {
             Modal farmDlg;
-            if (chapter.EventQuestType == EventQuestType.TOWER)
-                farmDlg = new TowerDialog(ReinContexts, chapter.EventQuestChapterId, quests, quest);
-            else
-                farmDlg = new EventQuestFarmDialog(ReinContexts, chapter.EventQuestChapterId, quests, quest);
+            switch (chapter.EventQuestType)
+            {
+                case EventQuestType.TOWER:
+                    farmDlg = new TowerDialog(ReinContexts, chapter.EventQuestChapterId, quests, quest);
+                    break;
+
+                case EventQuestType.DUNGEON:
+                    farmDlg = new MemoirFarmDialog(ReinContexts, quest);
+                    break;
+
+                default:
+                    farmDlg = new EventQuestFarmDialog(ReinContexts, chapter.EventQuestChapterId, quests, quest);
+                    break;
+            }
 
             await farmDlg.ShowAsync();
 

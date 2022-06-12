@@ -189,6 +189,7 @@
             public static readonly string kConfirmationSettingTitle = "ui.Outgame.Quest.Confirmation.Setting.Title"; // 0x258
 
             public static readonly string kBigHuntQuest = "ui.Outgame.Quest.BigHunt";
+            public static readonly string kSearch = "ui.Outgame.Quest.Search";
         }
 
         public static class Material

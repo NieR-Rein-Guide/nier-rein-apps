@@ -13,6 +13,8 @@ namespace NierReincarnation.Core.Dark
         public int UserDeckNumber { get; set; }
         // 0x18
         public string Name { get; set; }
+        // 0x20
+        public DataDeckActorInfo[] Actors { get; set; }
 
         public DataDeckInfo(DeckType deckType, int userDeckNumber) : this()
         {
@@ -21,7 +23,9 @@ namespace NierReincarnation.Core.Dark
         }
 
         public DataDeckInfo()
-        { }
+        {
+            Actors = new DataDeckActorInfo[3];
+        }
 
         public override string ToString()
         {

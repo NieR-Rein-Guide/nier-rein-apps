@@ -11,6 +11,7 @@ using NierReincarnation.Core.Dark.View.UserInterface;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+using NierReincarnation.Core.Subsystem.Serval;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
@@ -945,10 +946,22 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return masterQuest.QuestDeckRestrictionGroupId;
         }
 
-        //public static DataDeckRestriction[] CreateDeckRestrictionList(int questId)
-        //{
+        public static DataDeckRestriction[] CreateDeckRestrictionList(int questId)
+        {
+            var group = QuestDeckRestrictionGroupId(questId);
+            if (group == 0)
+                return null;
 
-        //}
+            var table = DatabaseDefine.Master.EntityMQuestDeckRestrictionGroupTable;
+            var restrictions = table.FindRangeByQuestDeckRestrictionGroupIdAndSlotNumber((group, 1), (group, DeckServal.CHARACTER_MAX_COUNT));
+
+            return restrictions.Select(CreateDataDeckRestriction).ToArray();
+        }
+
+        private static DataDeckRestriction CreateDataDeckRestriction(EntityMQuestDeckRestrictionGroup entityMQuestDeckRestrictionGroup)
+        {
+            return new DataDeckRestriction(entityMQuestDeckRestrictionGroup.SlotNumber, entityMQuestDeckRestrictionGroup.QuestDeckRestrictionType, entityMQuestDeckRestrictionGroup.RestrictionValue);
+        }
 
         #endregion
     }

@@ -74,14 +74,14 @@ namespace NierReincarnation.Context
             }
 
             // Finish battle
-            var rewards = await FinishMainBattle(quest.Quest.QuestId, quest.IsStoryQuest);
+            var rewards = await FinishMainBattle(quest);
 
             return new BattleResult(BattleStatus.Win, rewards);
         }
 
         public async Task<BattleResult> QuitMainQuest(QuestCellData quest)
         {
-            await FinishMainBattle(quest.Quest.QuestId, true);
+            await FinishMainBattle(quest, true);
             return new BattleResult(BattleStatus.Retire);
         }
 
@@ -141,8 +141,9 @@ namespace NierReincarnation.Context
                 UserDeckNumber = deckNumber,
 
                 IsMainFlow = isMainFlowRequired,
+                IsBattleOnly = !isMainFlowRequired,
 
-                CageMeasurableValues = new CageMeasurableValues()
+                CageMeasurableValues = new CageMeasurableValues(),
             };
 
             return result;
@@ -152,12 +153,12 @@ namespace NierReincarnation.Context
 
         #region Finish main battle
 
-        private async Task<BattleDrops> FinishMainBattle(int questId, bool isStoryQuest, bool retire = false)
+        private async Task<BattleDrops> FinishMainBattle(QuestCellData quest, bool retire = false)
         {
             // Finish battle
             var finishRes = await TryRequest(async () =>
             {
-                var finishReq = GetFinishMainBattleRequest(questId, isStoryQuest, retire);
+                var finishReq = GetFinishMainBattleRequest(quest.Quest.QuestId, quest.IsStoryQuest, !quest.IsClear, retire);
                 return await _dc.QuestService.FinishMainQuestAsync(finishReq);
             });
 
@@ -170,25 +171,29 @@ namespace NierReincarnation.Context
             return rewards;
         }
 
-        private FinishMainQuestRequest GetFinishMainBattleRequest(int questId, bool isStoryQuest, bool retire)
+        private FinishMainQuestRequest GetFinishMainBattleRequest(int questId, bool isStoryQuest, bool isMainFlowRequired, bool retire)
         {
             var result = new FinishMainQuestRequest
             {
                 QuestId = questId,
 
                 IsRetired = retire, // Retire battle; Loses stamina
-                IsMainFlow = true,
+                IsMainFlow = isMainFlowRequired,
+                IsAutoOrbit = false,
 
                 Vt = DarkClient.CreateVerifierToken()
             };
 
-            // If quest should continue, set annihilation to false to win the battle
             if (!retire)
-                result.IsAnnihilated = false;  // Indicator if battle was won
+                result.IsAnnihilated = false;
 
             // If quest has a story part, we set the skip type accordingly
             if (isStoryQuest)
-                result.StorySkipType = (int)QuestStorySkipType.SKIP_BY_BATTLE_ONLY_IN_SUB_FLOW;
+            {
+                result.StorySkipType = isMainFlowRequired ?
+                    (int)QuestStorySkipType.SKIP_PICTURE_BOOK_IN_MAIN_FLOW :
+                    (int)QuestStorySkipType.SKIP_BY_BATTLE_ONLY_IN_SUB_FLOW;
+            }
 
             return result;
         }

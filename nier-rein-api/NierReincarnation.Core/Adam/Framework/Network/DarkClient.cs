@@ -8,6 +8,7 @@ using Art.Framework.ApiNetwork.Grpc.Api.Battle;
 using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
 using Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem;
 using Art.Framework.ApiNetwork.Grpc.Api.Data;
+using Art.Framework.ApiNetwork.Grpc.Api.Deck;
 using Art.Framework.ApiNetwork.Grpc.Api.Explore;
 using Art.Framework.ApiNetwork.Grpc.Api.Gacha;
 using Art.Framework.ApiNetwork.Grpc.Api.Quest;
@@ -23,7 +24,7 @@ using NierReincarnation.Core.UnityEngine;
 namespace NierReincarnation.Core.Adam.Framework.Network
 {
     // Adam.Framework.Network.DarkClient
-    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService, IBigHuntService
+    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService, IBigHuntService, IDeckService
     {
         // 0x00
         private static readonly int MAX_INTERCEPT = 10;
@@ -321,6 +322,26 @@ namespace NierReincarnation.Core.Adam.Framework.Network
             return InvokeAsync<SaveBigHuntBattleInfoResponse, SaveBigHuntBattleInfoRequest>(path, request,
                 ctx =>
                     new ResponseContext<SaveBigHuntBattleInfoResponse>(new BigHuntService.BigHuntServiceClient(GetCallInvoker(ctx.Channel)).SaveBigHuntBattleInfoAsync((SaveBigHuntBattleInfoRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        #endregion
+
+        #region IDeckService 
+
+        public Task<UpdateNameResponse> UpdateNameAsync(UpdateNameRequest request)
+        {
+            var path = "DeckService/UpdateNameAsync";
+            return InvokeAsync<UpdateNameResponse, UpdateNameRequest>(path, request,
+                ctx =>
+                    new ResponseContext<UpdateNameResponse>(new DeckService.DeckServiceClient(GetCallInvoker(ctx.Channel)).UpdateNameAsync((UpdateNameRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        public Task<ReplaceDeckResponse> ReplaceDeckAsync(ReplaceDeckRequest request)
+        {
+            var path = "DeckService/ReplaceDeckAsync";
+            return InvokeAsync<ReplaceDeckResponse, ReplaceDeckRequest>(path, request,
+                ctx =>
+                    new ResponseContext<ReplaceDeckResponse>(new DeckService.DeckServiceClient(GetCallInvoker(ctx.Channel)).ReplaceDeckAsync((ReplaceDeckRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         #endregion

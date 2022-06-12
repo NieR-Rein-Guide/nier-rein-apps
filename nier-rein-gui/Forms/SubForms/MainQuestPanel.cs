@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using ImGui.Forms.Controls;
+﻿using ImGui.Forms.Controls;
 using nier_rein_gui.Controls;
-using nier_rein_gui.Dialogs;
 using NierReincarnation;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
@@ -14,14 +11,14 @@ namespace nier_rein_gui.Forms.SubForms
     {
         private readonly NierReinContexts _rein;
 
-        private List<MainQuestSeasonData> _seasons;
-        private List<MainQuestChapterData> _chapters;
-        private List<QuestCellData> _quests;
-        private List<DifficultyType> _difficulties;
+        //private List<MainQuestSeasonData> _seasons;
+        //private List<MainQuestChapterData> _chapters;
+        //private List<QuestCellData> _quests;
+        //private List<DifficultyType> _difficulties;
 
-        private MainQuestSeasonData _currentSeason;
-        private MainQuestChapterData _currentChapter;
-        private DifficultyType _currentDifficulty = DefaultDifficulty;
+        //private MainQuestSeasonData _currentSeason;
+        //private MainQuestChapterData _currentChapter;
+        //private DifficultyType _currentDifficulty = DefaultDifficulty_;
 
         public MainQuestPanel(NierReinContexts rein)
         {
@@ -29,145 +26,134 @@ namespace nier_rein_gui.Forms.SubForms
 
             InitializeComponent();
 
-            _currentSeason = _seasons[0];
-            _currentChapter = _chapters[0];
+            //_currentSeason = _seasons[0];
+            //_currentChapter = _chapters[0];
 
-            foreach (var seasonBtn in seasonButtonList)
-                seasonBtn.Clicked += SeasonBtn_Clicked;
-            foreach (var chapterBtn in chapterButtonList)
-                chapterBtn.Clicked += ChapterBtn_Clicked;
-            foreach (var questBtn in questButtonList)
-                questBtn.Clicked += QuestBtn_Clicked;
+            //foreach (var seasonBtn in seasonButtonList)
+            //    seasonBtn.Clicked += SeasonBtn_Clicked;
+            //foreach (var chapterBtn in chapterButtonList)
+            //    chapterBtn.Clicked += ChapterBtn_Clicked;
+            //foreach (var questBtn in questButtonList)
+            //    questBtn.Clicked += QuestBtn_Clicked;
 
-            difficultyButton.Clicked += DifficultyButton_Clicked;
+            //difficultyButton.Clicked += DifficultyButton_Clicked;
         }
 
-        private void SeasonBtn_Clicked(object sender, System.EventArgs e)
+        private void SeasonBtn_Clicked(NierButton sender, MainQuestSeasonData season)
         {
-            foreach (var seasonBtn in seasonButtonList)
-                seasonBtn.Active = seasonBtn == sender;
+            _currentSeason = season;
 
-            var index = seasonButtonList.IndexOf((NierButton)sender);
-            if (_seasons.Count < index || _seasons[index] == _currentSeason)
-                return;
+            foreach (var seasonBtn in seasonLayout.Items)
+                (seasonBtn.Content as NierButton).Active = sender == seasonBtn.Content;
 
-            UpdateChapters(index);
-            UpdateQuests(0);
-
-            _currentSeason = _seasons[index];
-            _currentChapter = _chapters[0];
-
-            UpdateCurrentDifficulty();
+            UpdateChapters(season);
         }
 
-        private void ChapterBtn_Clicked(object sender, System.EventArgs e)
+        private void ChapterBtn_Clicked(NierButton sender, MainQuestChapterData chapter)
         {
-            foreach (var chapterBtn in chapterButtonList)
-                chapterBtn.Active = chapterBtn == sender;
+            _currentChapter = chapter;
 
-            var index = chapterButtonList.IndexOf((NierButton)sender);
-            if (_chapters.Count < index || _chapters[index] == _currentChapter)
-                return;
+            foreach (var chapterBtn in chapterList.Items)
+                (chapterBtn as NierButton).Active = chapterBtn == sender;
 
-            UpdateQuests(index);
+            var difficulties = chapter.MainQuestChapterDifficultyTypes;
+            var difficulty = _currentDifficulty;
 
-            _currentChapter = _chapters[index];
+            if (!difficulties.Contains(_currentDifficulty))
+                difficulty = difficulties[0];
 
-            UpdateCurrentDifficulty();
+            UpdateDifficulty(difficulty);
+            UpdateQuests(chapter, difficulty);
         }
 
-        private async void QuestBtn_Clicked(object sender, System.EventArgs e)
+        private void DifficultyButton_Clicked1(object sender, System.EventArgs e)
         {
-            var index = questButtonList.IndexOf((NierQuestButton)sender);
-            if (index < 0 || _quests.Count <= index)
-                return;
+            var newDifficulty = _currentDifficulty + 1;
+            if (!_currentChapter.MainQuestChapterDifficultyTypes.Contains(newDifficulty))
+                newDifficulty = _currentChapter.MainQuestChapterDifficultyTypes[0];
 
-            var farmDlg = new MainQuestFarmDialog(_rein, _quests, _quests[index]);
-            await farmDlg.ShowAsync();
-
-            var seasonIndex = _seasons.IndexOf(_currentSeason);
-            var chapterIndex = _chapters.IndexOf(_currentChapter);
-
-            UpdateChapters(seasonIndex);
-            UpdateQuests(chapterIndex);
-
-            chapterButtonList[chapterIndex].Active = true;
+            UpdateDifficulty(newDifficulty);
+            UpdateQuests(_currentChapter, newDifficulty);
         }
 
-        private void DifficultyButton_Clicked(object sender, System.EventArgs e)
+        //private void DifficultyButton_Clicked(NierButton sender, DifficultyType difficulty)
+        //{
+        //    var newDifficulty = difficulty + 1;
+        //    if (!_currentChapter.MainQuestChapterDifficultyTypes.Contains(newDifficulty))
+        //        newDifficulty = _currentChapter.MainQuestChapterDifficultyTypes[0];
+
+        //    UpdateDifficulty(newDifficulty);
+        //    UpdateQuests(_currentChapter, newDifficulty);
+        //}
+
+        private async void QuestBtn_Clicked(NierQuestButton sender, QuestCellData quest)
         {
-            UpdateCurrentDifficulty(_currentDifficulty + 1);
+            //var index = questButtonList.IndexOf((NierQuestButton)sender);
+            //if (index < 0 || _quests.Count <= index)
+            //    return;
 
-            var index = _chapters.IndexOf(_currentChapter);
-            UpdateQuests(index);
+            //var farmDlg = new MainQuestFarmDialog(_rein, _quests, _quests[index]);
+            //await farmDlg.ShowAsync();
+
+            //var seasonIndex = _seasons.IndexOf(_currentSeason);
+            //var chapterIndex = _chapters.IndexOf(_currentChapter);
+
+            //UpdateChapters(seasonIndex);
+            //UpdateQuests(chapterIndex);
         }
 
-        private List<MainQuestSeasonData> GetSeasons()
-        {
-            var seasonIndex = -1;
-            if (_currentSeason != null)
-                seasonIndex = _seasons.IndexOf(_currentSeason);
+        //private List<MainQuestSeasonData> GetSeasons()
+        //{
+        //    return _seasons = CalculatorQuest.GetMainQuestSeasons();
+        //}
 
-            _seasons = CalculatorQuest.GetMainQuestSeasons();
+        //private List<MainQuestChapterData> GetChapters(int seasonIndex)
+        //{
+        //    return _chapters = CalculatorQuest.GetMainQuestChapters(_seasons[seasonIndex].MainQuestSeasonId);
+        //}
 
-            if (seasonIndex > -1)
-                _currentSeason = _seasons[seasonIndex];
+        //private List<DifficultyType> GetDifficulties(int chapterIndex)
+        //{
+        //    return _difficulties = _chapters[chapterIndex].MainQuestChapterDifficultyTypes;
+        //}
 
-            return _seasons;
-        }
+        //private List<QuestCellData> GetQuests(int chapterIndex, DifficultyType difficultyType)
+        //{
+        //    _currentDifficulty = difficultyType;
+        //    return _quests = CalculatorQuest.GenerateMainQuestData(_chapters[chapterIndex].MainQuestChapterId, _currentDifficulty).QuestDataList;
+        //}
 
-        private List<MainQuestChapterData> GetChapters(int seasonIndex)
-        {
-            var chapterIndex = -1;
-            if (_currentChapter != null)
-                chapterIndex = _chapters.IndexOf(_currentChapter);
+        //private void UpdateCurrentDifficulty(DifficultyType diffType)
+        //{
+        //    _currentDifficulty = diffType;
+        //    if (!_difficulties.Contains(diffType))
+        //        _currentDifficulty = DefaultDifficulty_;
 
-            _chapters = CalculatorQuest.GetMainQuestChapters(_seasons[seasonIndex].MainQuestSeasonId);
+        //    UpdateCurrentDifficulty();
+        //}
 
-            if (chapterIndex > -1)
-                _currentChapter = _chapters[chapterIndex];
+        //private void UpdateCurrentDifficulty()
+        //{
+        //    if (!_difficulties.Contains(_currentDifficulty))
+        //        _currentDifficulty = _difficulties[^1];
 
-            return _chapters;
-        }
+        //    SetDifficulty(_currentDifficulty);
+        //}
 
-        private List<QuestCellData> GetQuests(int chapterIndex)
-        {
-            _difficulties = _chapters[chapterIndex].MainQuestChapterDifficultyTypes;
-            UpdateCurrentDifficulty();
+        //private void UpdateChapters(int seasonIndex)
+        //{
+        //    SetChapterList(CreateChapterButtonList(seasonIndex));
 
-            return _quests = CalculatorQuest.GenerateMainQuestData(_chapters[chapterIndex].MainQuestChapterId, _currentDifficulty).QuestDataList;
-        }
-        private void UpdateCurrentDifficulty(DifficultyType diffType)
-        {
-            _currentDifficulty = diffType;
-            if (!_difficulties.Contains(diffType))
-                _currentDifficulty = DefaultDifficulty;
+        //    foreach (var chapterBtn in chapterButtonList)
+        //        chapterBtn.Clicked += ChapterBtn_Clicked;
+        //}
 
-            UpdateCurrentDifficulty();
-        }
+        //private void UpdateQuests(int chapterIndex)
+        //{
+        //    SetQuestList(CreateQuestButtonList(chapterIndex));
 
-        private void UpdateCurrentDifficulty()
-        {
-            if (!_difficulties.Contains(_currentDifficulty))
-                _currentDifficulty = _difficulties[^1];
-
-            SetDifficulty(_currentDifficulty);
-        }
-
-        private void UpdateChapters(int seasonIndex)
-        {
-            SetChapterList(CreateChapterButtonList(seasonIndex));
-
-            foreach (var chapterBtn in chapterButtonList)
-                chapterBtn.Clicked += ChapterBtn_Clicked;
-        }
-
-        private void UpdateQuests(int chapterIndex)
-        {
-            SetQuestList(CreateQuestButtonList(chapterIndex));
-
-            foreach (var questBtn in questButtonList)
-                questBtn.Clicked += QuestBtn_Clicked;
-        }
+        //    foreach (var questBtn in questButtonList)
+        //        questBtn.Clicked += QuestBtn_Clicked;
+        //}
     }
 }

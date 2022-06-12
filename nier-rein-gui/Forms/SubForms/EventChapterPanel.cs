@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using ImGui.Forms.Controls;
 using NierReincarnation;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface;
 
 namespace nier_rein_gui.Forms.SubForms
 {
-    // EventChapter logic
     partial class EventChapterPanel : Panel
     {
         private readonly NierReinContexts _rein;
@@ -44,31 +42,13 @@ namespace nier_rein_gui.Forms.SubForms
 
             ToggleButtons(sender);
 
-            switch (chapter.EventQuestType)
+            if (subMenu is EventQuestPanel panel)
             {
-                case EventQuestType.MARATHON:
-                case EventQuestType.HUNT:
-                case EventQuestType.TOWER:
-                case EventQuestType.SPECIAL:
-                    if (subMenu is EventQuestPanel panel)
-                    {
-                        if (panel.ChapterId == chapter.EventQuestChapterId)
-                            return;
-                    }
-
-                    SetMenuContent(subMenu = new EventQuestPanel(_rein, chapter));
-                    break;
-
-                case EventQuestType.DUNGEON:
-                    if (subMenu is DungeonQuestPanel panel1)
-                    {
-                        if (panel1.ChapterId == chapter.EventQuestChapterId)
-                            return;
-                    }
-
-                    SetMenuContent(subMenu = new DungeonQuestPanel(_rein, chapter));
-                    break;
+                if (panel.ChapterId == chapter.EventQuestChapterId)
+                    return;
             }
+
+            SetMenuContent(subMenu = new EventQuestPanel(_rein, chapter));
         }
 
         private void DarkMemoryButton_Clicked(object sender, EventArgs e)

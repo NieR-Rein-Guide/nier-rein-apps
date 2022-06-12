@@ -12,7 +12,39 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         public static readonly int ControlCharacterIndex = 0; // 0x0
         public static readonly int kSubWeaponMaxCount = 2; // 0x4
 
-        // Methods
+        public static DataDeckActorInfo[] CreateDataDeckActorInfo(EntityIUserDeck entityIUserDeck)
+        {
+            var result = new DataDeckActorInfo[3];
+
+            var char1 = entityIUserDeck.UserDeckCharacterUuid01;
+            var char2 = entityIUserDeck.UserDeckCharacterUuid02;
+            var char3 = entityIUserDeck.UserDeckCharacterUuid03;
+
+            result[0] = CreateDataDeckActorInfo(entityIUserDeck.UserId, char1);
+            result[1] = CreateDataDeckActorInfo(entityIUserDeck.UserId, char2);
+            result[2] = CreateDataDeckActorInfo(entityIUserDeck.UserId, char3);
+
+            return result;
+        }
+
+        private static DataDeckActorInfo CreateDataDeckActorInfo(long userId, string characterUuid)
+        {
+            var characterTable = DatabaseDefine.User.EntityIUserDeckCharacterTable;
+            var character = characterTable.FindByUserIdAndUserDeckCharacterUuid((userId, characterUuid));
+            if (character == null)
+                return null;
+
+            var costumeTable = DatabaseDefine.User.EntityIUserCostumeTable;
+            var costume = costumeTable.FindByUserIdAndUserCostumeUuid((userId, character.UserCostumeUuid));
+            if (costume == null)
+                return null;
+
+            return new DataDeckActorInfo
+            {
+                CostumeId = costume.CostumeId,
+                CharacterId = CalculatorCostume.GetCharacterId(costume.CostumeId)
+            };
+        }
 
         public static DataDeckActor CreateDataDeckActor(long userId, string userDeckCharacterUuid, RangeView<EntityIUserDeckSubWeaponGroup> subWeapons, RangeView<EntityIUserDeckPartsGroup> parts)
         {
