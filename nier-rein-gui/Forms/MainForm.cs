@@ -39,7 +39,8 @@ namespace nier_rein_gui.Forms
             SetMainContent();
 
             // Initialize events
-            eventQuestButton.Clicked += eventQuestButton_Clicked;
+            questsButton.Clicked += QuestsButtonClicked;
+            loadoutButton.Clicked += LoadoutButton_Clicked;
         }
 
         private async Task<bool> EnsureApplication()
@@ -64,7 +65,18 @@ namespace nier_rein_gui.Forms
             return dlg.ShowAsync();
         }
 
-        private void eventQuestButton_Clicked(object sender, EventArgs e)
+        private void LoadoutButton_Clicked(object sender, EventArgs e)
+        {
+            if (subMenu is LoadoutPanel)
+                return;
+
+            foreach (var btn in btnList)
+                btn.Active = btn == sender;
+
+            SetMenuContent(new LoadoutPanel(_rein, this));
+        }
+
+        private void QuestsButtonClicked(object sender, EventArgs e)
         {
             if (subMenu is SubQuestPanel)
                 return;

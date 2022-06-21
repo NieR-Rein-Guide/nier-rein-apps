@@ -3,6 +3,7 @@ using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls;
+using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Localization;
@@ -22,7 +23,7 @@ namespace nier_rein_gui.Forms
         private Label versionLabel;
 
         private NierButton loadoutButton;
-        private NierButton eventQuestButton;
+        private NierButton questsButton;
 
         private IList<NierButton> btnList;
 
@@ -54,12 +55,11 @@ namespace nier_rein_gui.Forms
             {
                 Caption = UserInterfaceTextKey.Footer.kLoadout.Localize(),
                 Padding = new Vector2(0, 15),
-                Enabled = false,
                 IsClickActive = true,
 
                 Width = .15f
             };
-            eventQuestButton = new NierButton
+            questsButton = new NierButton
             {
                 Caption = UserInterfaceTextKey.Footer.kQuests.Localize(),
                 Padding = new Vector2(0, 15),
@@ -71,7 +71,7 @@ namespace nier_rein_gui.Forms
             btnList = new List<NierButton>
             {
                 loadoutButton,
-                eventQuestButton
+                questsButton
             };
 
             Content = mainContent = new StackLayout
@@ -103,7 +103,7 @@ namespace nier_rein_gui.Forms
                         Items =
                         {
                             loadoutButton,
-                            eventQuestButton
+                            questsButton
                         }
                     }
                 }

@@ -3,9 +3,9 @@ using System.Text;
 
 namespace NierReincarnation.Core.UnityEngine
 {
-    class TextAsset
+    public class TextAsset
     {
-        public static TextAsset Empty = new TextAsset();
+        public static readonly TextAsset Empty = new TextAsset();
 
         public string Text { get; } = string.Empty;
         public byte[] Bytes { get; } = Array.Empty<byte>();

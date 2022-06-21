@@ -8,6 +8,7 @@ using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using ImGuiNET;
 using nier_rein_gui.Controls;
+using nier_rein_gui.Controls.Buttons;
 using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Dark;

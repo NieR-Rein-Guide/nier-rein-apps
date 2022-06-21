@@ -130,7 +130,10 @@ namespace NierReincarnation.Core.Dark.Calculator
             {
                 ApplyAbilityStatusList(userId, actor);
                 ClearDeckOtherDeckActorAbility(actor);
+            }
 
+            foreach (var actor in dataDeck.UserDeckActors)
+            {
                 foreach (var actor2 in dataDeck.UserDeckActors)
                 {
                     if (actor == actor2)
@@ -269,10 +272,17 @@ namespace NierReincarnation.Core.Dark.Calculator
             if (source.IsEmpty || destination.IsEmpty)
                 return;
 
-            foreach (var abilityStatus in source.AbilityStatusList)
+            try
             {
-                if (abilityStatus.ApplyScopeType == AbilityBehaviourStatusApplyScopeType.PARTY)
-                    destination.DeckOtherDeckActorAbilityStatusList.Add(abilityStatus);
+                foreach (var abilityStatus in source.AbilityStatusList)
+                {
+                    if (abilityStatus.ApplyScopeType == AbilityBehaviourStatusApplyScopeType.PARTY)
+                        destination.DeckOtherDeckActorAbilityStatusList.Add(abilityStatus);
+                }
+            }
+            catch (Exception e)
+            {
+                ;
             }
         }
 

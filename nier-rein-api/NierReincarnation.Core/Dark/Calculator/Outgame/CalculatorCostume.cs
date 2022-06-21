@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
@@ -12,6 +13,41 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
     public static class CalculatorCostume
     {
         public static readonly int kInvalidCostumeId = 0; // 0x10
+
+        // CUSTOM: Enumerate all user-owned costumes
+        public static IEnumerable<DataOutgameCostumeInfo> EnumerateCostumeInfo(long userId)
+        {
+            foreach (var costume in DatabaseDefine.User.EntityIUserCostumeTable.All)
+            {
+                if (costume.UserId == userId)
+                    continue;
+
+                yield return CreateDataOutgameCostumeInfo(costume);
+            }
+        }
+
+        // CUSTOM: Create costume base info
+        public static DataOutgameCostumeInfo CreateDataOutgameCostumeInfo(long userId, string costumeUuid)
+        {
+            return CreateDataOutgameCostumeInfo(DatabaseDefine.User.EntityIUserCostumeTable.FindByUserIdAndUserCostumeUuid((userId, costumeUuid)));
+        }
+
+        // CUSTOM: Create costume base info
+        private static DataOutgameCostumeInfo CreateDataOutgameCostumeInfo(EntityIUserCostume costume)
+        {
+            var masterCostume = GetEntityMCostume(costume.CostumeId);
+
+            return new DataOutgameCostumeInfo
+            {
+                UserCostumeUuid = costume.UserCostumeUuid,
+                CostumeId = costume.CostumeId,
+                CharacterId = masterCostume.CharacterId,
+                WeaponType = masterCostume.SkillfulWeaponType,
+                RarityType = masterCostume.RarityType,
+                Level = costume.Level,
+                ActorAssetId = ActorAssetId(masterCostume)
+            };
+        }
 
         public static DataOutgameCostume CreateDataOutgameCostume(long userId, string uuid)
         {
@@ -68,7 +104,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
             var costume = CreateDataOutgameCostume(entityMCostume);
 
-            costume.MaxLevel = GetMaxLevel(entityMCostume,limitBreakCount);
+            costume.MaxLevel = GetMaxLevel(entityMCostume, limitBreakCount);
             costume.CostumeActiveSkill = GetCostumeActiveDataSkill(entityMCostume.CostumeId, activeSkillLevel, limitBreakCount);
             costume.CostumeAbilities = CreateCostumeDataAbilityList(entityMCostume.CostumeAbilityGroupId, limitBreakCount);
             costume.LimitBreakCount = limitBreakCount;

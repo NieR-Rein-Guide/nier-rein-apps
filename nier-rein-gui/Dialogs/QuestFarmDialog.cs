@@ -10,7 +10,7 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Modals;
 using ImGuiNET;
-using nier_rein_gui.Controls;
+using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Forms;
 using NierReincarnation;
 using NierReincarnation.Context;
@@ -159,7 +159,7 @@ namespace nier_rein_gui.Dialogs
                 }
             };
 
-            UpdateQuest(questId, questName);
+            UpdateQuest(questId, questName, true);
         }
 
         protected abstract int NextQuest(out string questName);
@@ -168,10 +168,12 @@ namespace nier_rein_gui.Dialogs
 
         protected abstract Task<BattleResult> ExecuteQuest(DataDeck deck);
 
-        private void UpdateRentalDeck(int questId)
+        private void UpdateRentalDeck(int questId, bool forceUpdate)
         {
             // Do not list any decks if quest uses a rental deck
+            var wasRental = _isRental;
             _isRental = CalculatorDeck.IsRentalDeck(questId);
+
             if (_isRental)
             {
                 SetDeckBox(null);
@@ -179,6 +181,9 @@ namespace nier_rein_gui.Dialogs
                 startButton.Enabled = singleButton.Enabled = true;
                 return;
             }
+
+            if (!wasRental && !forceUpdate)
+                return;
 
             // List decks that have correct restrictions, if any
             InitializeComboBox(decks, questId);
@@ -211,12 +216,12 @@ namespace nier_rein_gui.Dialogs
             UpdateQuest(previousQuestId, previousName);
         }
 
-        private void UpdateQuest(int questId, string questName)
+        private void UpdateQuest(int questId, string questName, bool forceDeckUpdate = false)
         {
             _questId = questId;
             captionLabel.Caption = $"Quest: {questName}";
 
-            UpdateRentalDeck(questId);
+            UpdateRentalDeck(questId, forceDeckUpdate);
 
             rewards.Rows.Clear();
             costumes.Rows.Clear();
@@ -266,16 +271,12 @@ namespace nier_rein_gui.Dialogs
                 costumes.Rows.Add(new DataTableRow<Costume>(costume.Value));
 
             BattleContext.BattleFinished += Battles_BattleFinished;
-
-            BattleContext.RequestRatioReached += (s, e) =>
-            {
-                SetLimitLabel(limitLabel);
-
-                _currentLimitTime = QuestBattleContext.RateTimeout;
-                _timer.Start();
-            };
+            BattleContext.RequestRatioReached += RequestRatioReached;
 
             await ExecuteQuest(deck);
+
+            BattleContext.BattleFinished -= Battles_BattleFinished;
+            BattleContext.RequestRatioReached -= RequestRatioReached;
 
             (Application.Instance.MainForm as MainForm).UpdateUser();
             (Application.Instance.MainForm as MainForm).UpdateStamina();
@@ -286,6 +287,14 @@ namespace nier_rein_gui.Dialogs
             startButton.Enabled = true;
             previousButton.Enabled = true;
             nextButton.Enabled = true;
+        }
+
+        private void RequestRatioReached(object sender, EventArgs e)
+        {
+            SetLimitLabel(limitLabel);
+
+            _currentLimitTime = QuestBattleContext.RateTimeout;
+            _timer.Start();
         }
 
         private void InitializeComboBox(ComboBox<DataDeckInfo> deckBox, int questId)
@@ -318,18 +327,18 @@ namespace nier_rein_gui.Dialogs
 
             foreach (var restriction in restrictions)
             {
-                if (deck.Actors[restriction.SlotNumber - 1] == null)
+                if (deck.UserDeckActors[restriction.SlotNumber - 1] == null)
                     return false;
 
                 bool result;
                 switch (restriction.QuestDeckRestrictionType)
                 {
                     case QuestDeckRestrictionType.CHARACTER_ID:
-                        result = deck.Actors[restriction.SlotNumber - 1].CharacterId == restriction.RestrictionValue;
+                        result = deck.UserDeckActors[restriction.SlotNumber - 1].Costume.CharacterId == restriction.RestrictionValue;
                         break;
 
                     case QuestDeckRestrictionType.COSTUME_ID:
-                        result = deck.Actors[restriction.SlotNumber - 1].CostumeId == restriction.RestrictionValue;
+                        result = deck.UserDeckActors[restriction.SlotNumber - 1].Costume.CostumeId == restriction.RestrictionValue;
                         break;
 
                     default:
@@ -393,15 +402,8 @@ namespace nier_rein_gui.Dialogs
         private async Task<bool> Farm()
         {
             // Prepare battle events
-            BattleContext.RequestRatioReached += (s, e) =>
-            {
-                SetLimitLabel(limitLabel);
-
-                _currentLimitTime = QuestBattleContext.RateTimeout;
-                _timer.Start();
-            };
-
             BattleContext.BattleFinished += Battles_BattleFinished;
+            BattleContext.RequestRatioReached += RequestRatioReached;
 
             // Prepare deck
             var deck = _isRental ?
@@ -442,6 +444,9 @@ namespace nier_rein_gui.Dialogs
 
                 // TODO: Create ending conditions based on rewards
             }
+
+            BattleContext.BattleFinished -= Battles_BattleFinished;
+            BattleContext.RequestRatioReached -= RequestRatioReached;
 
             if (_isCancel)
                 isCancelled = true;

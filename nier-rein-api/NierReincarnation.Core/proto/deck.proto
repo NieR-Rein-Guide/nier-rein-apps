@@ -38,56 +38,11 @@ message Deck {
 }
 
 message DeckCharacter {
-	CostumeInfo costume = 1;
-	CompanionInfo companion = 2;
-	WeaponInfo mainWeapon = 3;
-	repeated WeaponInfo subWeapon = 4;
-	repeated PartsInfo parts = 5;
-}
-
-message CostumeInfo {
-	int32 costumeId = 1;
-	int32 limitBreakCount = 2;
-	int32 level = 3;
-	int32 activeSkillLevel = 4;
-	int32 characterLevel = 5;
-}
-
-message CompanionInfo {
-	int32 companionId = 1;
-	int32 level = 2;
-}
-
-message WeaponInfo {
-	int32 weaponId = 1;
-	int32 limitBreakCount = 2;
-	int32 level = 3;
-	repeated WeaponAbilityInfo weaponAbility = 4;
-	repeated WeaponSkillInfo weaponSkill = 5;
-}
-
-message WeaponAbilityInfo {
-	int32 abilityId = 1;
-	int32 level = 2;
-}
-
-message WeaponSkillInfo {
-	int32 skillId = 1;
-	int32 level = 2;
-}
-
-message PartsInfo {
-	int32 partsId = 1;
-	int32 level = 2;
-	int32 partsMainStatusId = 3;
-	repeated PartsSubStatusInfo subPartsStatus = 4;
-}
-
-message PartsSubStatusInfo {
-	int32 level = 1;
-	int32 statusKindType = 2;
-	int32 statusCalculationType = 3;
-	int32 statusChangeValue = 4;
+	string userCostumeUuid = 1;
+	string mainUserWeaponUuid = 2;
+	repeated string subUserWeaponUuid = 3;
+	string userCompanionUuid = 4;
+	repeated string userPartsUuid = 5;
 }
 
 message DiffData {

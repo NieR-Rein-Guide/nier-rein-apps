@@ -6,6 +6,7 @@ using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using System.Collections.Generic;
+using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Dialogs;
 
 namespace nier_rein_gui.Forms.SubForms

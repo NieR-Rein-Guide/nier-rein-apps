@@ -2,6 +2,7 @@
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls;
+using nier_rein_gui.Controls.Buttons;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 

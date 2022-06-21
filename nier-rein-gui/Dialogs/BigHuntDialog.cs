@@ -4,6 +4,7 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls;
+using nier_rein_gui.Controls.Buttons;
 using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;

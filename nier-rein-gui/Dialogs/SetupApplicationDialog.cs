@@ -6,13 +6,17 @@ using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
-using nier_rein_gui.Controls;
+using nier_rein_gui.Controls.Buttons;
+using NierReincarnation.Context;
+using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Localizations;
 
 namespace nier_rein_gui.Dialogs
 {
     class SetupApplicationDialog : Modal
     {
+        private AssetContext _assetContext;
+
         public SetupApplicationDialog()
         {
             Result = DialogResult.Cancel;
@@ -41,8 +45,16 @@ namespace nier_rein_gui.Dialogs
                 return;
             }
 
+            _assetContext = NierReincarnation.NierReincarnation.GetContexts().Assets;
+
             // Ensure text assets
             await EnsureTextAssets(Language.En);
+
+            // Ensure icon assets
+            await EnsureIconAssets();
+
+            // Ensure selection dialogs being setup
+            await EnsureDialogsInitialized();
 
             // Close modal
             Close(DialogResult.Ok);
@@ -216,13 +228,12 @@ namespace nier_rein_gui.Dialogs
 
         #endregion
 
-        #region Localizations
+        #region Assets
 
         private async Task EnsureTextAssets(Language language)
         {
-            var assetContext = NierReincarnation.NierReincarnation.GetContexts().Assets;
-            var assetCount = assetContext.GetTextAssetCount(language);
-            var assetSize = assetContext.GetTextAssetSize(language);
+            var assetCount = _assetContext.GetTextAssetCount(language);
+            var assetSize = _assetContext.GetTextAssetSize(language);
 
             // Set setup design
             Size = new Vector2(250, 100);
@@ -231,7 +242,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = $"Download {assetCount} text files ({assetSize/1024/1024}MB) ..."})
+                    new StackItem(new Label {Caption = $"Download {assetCount} text files ({assetSize/1024f/1024:0.0}MB) ..."})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
@@ -241,6 +252,63 @@ namespace nier_rein_gui.Dialogs
             };
 
             await NierReincarnation.NierReincarnation.LoadLocalizations(language);
+        }
+
+        private async Task EnsureIconAssets()
+        {
+            // Ensure every small icon for characters, weapons, etc
+            bool IconSelector(Item i) => i.name.EndsWith("standard") &&
+                                         (i.name.StartsWith("ui)weapon)") ||
+                                          i.name.StartsWith("ui)costume)") ||
+                                          i.name.StartsWith("ui)companion)") ||
+                                          i.name.StartsWith("ui)memory)"));
+            //bool IconSelector(Item i) => i.name.StartsWith("ui") || i.name.StartsWith("2d");
+
+            var assetCount = _assetContext.GetAssetCount(IconSelector);
+            var assetSize = _assetContext.GetAssetSize(IconSelector);
+
+            // Set setup design
+            Size = new Vector2(250, 100);
+            Content = new StackLayout
+            {
+                Alignment = Alignment.Horizontal,
+                Items =
+                {
+                    new StackItem(new Label {Caption = $"Download {assetCount} icons ({assetSize/1024f/1024:0.0}MB) ..."})
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Size = ImGui.Forms.Models.Size.Parent
+                    }
+                }
+            };
+
+            await _assetContext.DownloadAssets(IconSelector);
+        }
+
+        #endregion
+
+        #region Dialog initialization
+
+        private Task EnsureDialogsInitialized()
+        {
+            // Set setup design
+            Size = new Vector2(200, 100);
+            Content = new StackLayout
+            {
+                Alignment = Alignment.Horizontal,
+                Items =
+                {
+                    new StackItem(new Label {Caption = "Setup dialogs..."})
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Size = ImGui.Forms.Models.Size.Parent
+                    }
+                }
+            };
+
+            return Task.Run(WeaponSelectionDialog.InitializeWeaponDataInfo);
         }
 
         #endregion

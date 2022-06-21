@@ -10,7 +10,7 @@ using NierReincarnation.Core.Dark.Localization;
 using Rectangle = Veldrid.Rectangle;
 using Size = ImGui.Forms.Models.Size;
 
-namespace nier_rein_gui.Controls
+namespace nier_rein_gui.Controls.Buttons
 {
     class NierQuestButton : Component
     {

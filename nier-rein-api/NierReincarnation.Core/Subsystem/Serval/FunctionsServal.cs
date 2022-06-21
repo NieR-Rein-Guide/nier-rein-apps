@@ -87,25 +87,11 @@ namespace NierReincarnation.Core.Subsystem.Serval
 
         public static int calcPartsMainOption(int value, int[] functionParameters)
         {
-            throw new NotImplementedException();
+            var poly0 = Math.Min(0xd, (value - 1) & (value - 1) >> 0x1F ^ 0xFFFFFFFF);
+            var poly1 = functionParameters[0] * poly0 / 1000;
 
-            /*    iVar4 = Subsystem.Serval.Array<int>$$get_Item
-                                    (&uStack40,0,Method$Subsystem.Serval.Array<int>.get_Item());
-                  iVar5 = Subsystem.Serval.Array<int>$$get_Item
-                                    (&uStack40,1,Method$Subsystem.Serval.Array<int>.get_Item());
-                  uVar3 = param_1 - 1;
-                  uVar1 = uVar3 & ((int)uVar3 >> 0x1f ^ 0xffffffffU);
-                  if (0xd < (int)uVar3) {
-                    uVar1 = 0xd;
-                  }
-                  uVar3 = param_1 - 0xe;
-                  auVar2 = SEXT816((long)((long)iVar4 * (ulong)uVar1)) * SEXT816(0x20c49ba5e353f7cf);
-                  uVar1 = uVar3 & ((int)uVar3 >> 0x1f ^ 0xffffffffU);
-                  if (1 < (int)uVar3) {
-                    uVar1 = 1;
-                  }
-                  return ((int)SUB168(auVar2 >> 0x47,0) - SUB164(auVar2 >> 0x7f,0)) + iVar5 * uVar1;*/
-            return 0;
+            poly0 = Math.Min(1, (value - 0xE) & (value - 0xE) >> 0x1F ^ 0xFFFFFFFF);
+            return (int)(poly1 + functionParameters[1] * poly0);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
@@ -14,6 +15,41 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         private static readonly int kInvalidCompanionId = 0; // 0x0
         private static readonly int kSkillMinLevel = 1; // 0x4
         private static readonly int kAbilityMinLevel = 1; // 0x8
+
+        // CUSTOM: Enumerate companion base info
+        public static IEnumerable<DataOutgameCompanionInfo> EnumerateCompanionInfo(long userId)
+        {
+            foreach (var companion in DatabaseDefine.User.EntityIUserCompanionTable.All)
+            {
+                if (companion.UserId != userId)
+                    continue;
+
+                yield return CreateDataOutgameCompanionInfo(companion);
+            }
+        }
+
+        // CUSTOM: Create companion base info
+        public static DataOutgameCompanionInfo CreateDataOutgameCompanionInfo(long userId, string companionUuid)
+        {
+            if (string.IsNullOrEmpty(companionUuid))
+                return null;
+
+            return CreateDataOutgameCompanionInfo(DatabaseDefine.User.EntityIUserCompanionTable.FindByUserIdAndUserCompanionUuid((userId, companionUuid)));
+        }
+
+        // CUSTOM: Create companion base info
+        private static DataOutgameCompanionInfo CreateDataOutgameCompanionInfo(EntityIUserCompanion companion)
+        {
+            var masterCompanion = GetEntityMCompanion(companion.CompanionId);
+            return new DataOutgameCompanionInfo
+            {
+                UserCompanionUuid = companion.UserCompanionUuid,
+                Attribute = masterCompanion.AttributeType,
+                CompanionId = companion.CompanionId,
+                Level = companion.Level,
+                ActorAssetId = ActorAssetId(masterCompanion)
+            };
+        }
 
         public static DataOutgameCompanion CreateDataOutgameCompanion(long userId, string uuid)
         {

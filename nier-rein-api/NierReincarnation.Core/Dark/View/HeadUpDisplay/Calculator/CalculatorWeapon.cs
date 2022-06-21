@@ -4,13 +4,11 @@ using System.Linq;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Game.TurnBattle;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.MasterMemory;
-using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.Subsystem.Serval;
 
@@ -20,6 +18,47 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
     {
         public static readonly int kInvalidWeaponId = 0; // 0x20
         private static readonly int kDefaultWeaponEvolutionOrder = 1; // 0x24
+
+        // CUSTOM: Enumerate weapon base info
+        public static IEnumerable<DataWeaponInfo> EnumerateWeaponInfo()
+        {
+            var userId = CalculatorStateUser.GetUserId();
+            foreach (var weapon in DatabaseDefine.User.EntityIUserWeaponTable.All)
+            {
+                if (weapon.UserId != userId)
+                    continue;
+
+                yield return CreateDataWeaponInfo(weapon);
+            }
+        }
+
+        // CUSTOM: Create weapon base info
+        public static DataWeaponInfo CreateDataWeaponInfo(long userId, string weaponUuid)
+        {
+            if (string.IsNullOrEmpty(weaponUuid))
+                return null;
+
+            return CreateDataWeaponInfo(DatabaseDefine.User.EntityIUserWeaponTable.FindByUserIdAndUserWeaponUuid((userId, weaponUuid)));
+        }
+
+        // CUSTOM: Create weapon base info
+        private static DataWeaponInfo CreateDataWeaponInfo(EntityIUserWeapon weapon)
+        {
+            var masterWeapon = GetEntityMWeapon(weapon.WeaponId);
+            var evolution = GetWeaponEvolutionGroupIdAndEvolutionOrder(weapon.WeaponId);
+            return new DataWeaponInfo
+            {
+                UserWeaponUuid = weapon.UserWeaponUuid,
+                RarityType = masterWeapon.RarityType,
+                Attribute = masterWeapon.AttributeType,
+                WeaponType = masterWeapon.WeaponType,
+                Name = WeaponName(weapon.WeaponId),
+                WeaponId = masterWeapon.WeaponId,
+                Level = weapon.Level,
+                ActorAssetId = ActorAssetId(masterWeapon),
+                IsEndWeapon = GetEndWeaponCharacterId(evolution.Item1) != 0
+            };
+        }
 
         public static DataWeapon CreateDataWeapon(long userId, string uuid)
         {

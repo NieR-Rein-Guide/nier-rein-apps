@@ -70,6 +70,8 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 
         public IUserService UserService => this;
 
+        public IDeckService DeckService => this;
+
         // Done
         public DarkClient(CancellationToken cancellationToken = default, TimeSpan? timeout = default, INetworkInterceptor[] interceptors = null)
         {

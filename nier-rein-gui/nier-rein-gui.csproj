@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\Fonts\FOT-Rodin Pro DB.ttf" />
     <None Remove="Resources\Fonts\FOT-Rodin.otf" />
+    <None Remove="Resources\Images\icons_1.png" />
     <None Remove="Resources\Images\lock.png" />
     <None Remove="Resources\Images\nierReinEx.ico" />
     <None Remove="Resources\Images\nierReinEx.png" />
@@ -20,13 +21,11 @@
     <EmbeddedResource Include="Resources\Fonts\FOT-Rodin.otf" />
     <EmbeddedResource Include="Resources\Images\lock.png" />
     <EmbeddedResource Include="Resources\Images\nierReinEx.ico" />
+    <EmbeddedResource Include="Resources\Images\icons_1.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ImGui.Forms" Version="1.0.16" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Projekte\ImGui.Forms\ImGui.Forms\ImGui.Forms.csproj" />
     <ProjectReference Include="..\nier-rein-api\NierReincarnation.Core\NierReincarnation.Core.csproj" />
     <ProjectReference Include="..\nier-rein-api\NierReincarnation\NierReincarnation.csproj" />
   </ItemGroup>

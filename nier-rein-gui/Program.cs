@@ -15,8 +15,9 @@ namespace nier_rein_gui
 
             var form = new MainForm
             {
-                DefaultFont = FontResources.FotRodin(13)
-            };
+                DefaultFont = FontResources.FotRodin(13),
+                Size = new Vector2(1000, 600)
+        };
 
             new Application().Execute(form);
         }

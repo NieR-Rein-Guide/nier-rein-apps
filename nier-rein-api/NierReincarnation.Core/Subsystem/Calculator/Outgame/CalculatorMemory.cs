@@ -18,6 +18,25 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         public static readonly int kMinBonusSetCount = 2; // 0x8
         public static readonly int kMaxBonusSetCount = 3; // 0xC
 
+        // CUSTOM: 
+        public static DataOutgameMemoryInfo CreateDataOutgameMemoryInfo(long userId, string uuid)
+        {
+            var userParts = GetEntityIUserParts(userId, uuid);
+            return CreateDataOutgameMemoryInfo(userParts);
+        }
+
+        private static DataOutgameMemoryInfo CreateDataOutgameMemoryInfo(EntityIUserParts entityIUserMemory)
+        {
+            var masterMemory = GetEntityMMemory(entityIUserMemory.PartsId);
+            var masterMemoryGroup = GetEntityMMemoryGroup(masterMemory.PartsGroupId);
+
+            return new DataOutgameMemoryInfo
+            {
+                UserMemoryUuid = entityIUserMemory.UserPartsUuid,
+                GroupAssetId = masterMemoryGroup.PartsGroupAssetId
+            };
+        }
+
         public static DataOutgameMemory CreateDataOutgameMemory(long userId, string uuid)
         {
             var userParts = GetEntityIUserParts(userId, uuid);

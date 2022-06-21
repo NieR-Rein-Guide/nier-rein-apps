@@ -50,7 +50,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 UserDeckNumber = entityIUserDeck.UserDeckNumber,
                 DeckType = entityIUserDeck.DeckType,
                 Name = entityIUserDeck.Name,
-                Actors = CalculatorDeckActor.CreateDataDeckActorInfo(entityIUserDeck)
+                UserDeckActors = CalculatorDeckActor.CreateDataDeckActorInfo(entityIUserDeck)
             };
         }
 

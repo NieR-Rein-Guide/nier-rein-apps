@@ -10,7 +10,7 @@ using ImGuiNET;
 using Rectangle = Veldrid.Rectangle;
 using Size = ImGui.Forms.Models.Size;
 
-namespace nier_rein_gui.Controls
+namespace nier_rein_gui.Controls.Buttons
 {
     class NierButton : Button
     {

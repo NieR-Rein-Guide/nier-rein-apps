@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using NierReincarnation.Core.Adam.Framework.Resource;
@@ -36,12 +37,12 @@ namespace NierReincarnation.Context
 
         public int GetTextAssetSize(Language language)
         {
-            return CalculateTotalSize(GetAssets, i => Texts(i, language));
+            return GetAssetSize(i => Texts(i, language));
         }
 
         public int GetTextAssetCount(Language language)
         {
-            return GetAssetCount(GetAssets, i => Texts(i, language));
+            return GetAssetCount(i => Texts(i, language));
         }
 
         public async Task DownloadTextAssets(Language language)
@@ -69,6 +70,16 @@ namespace NierReincarnation.Context
             var path = Path.Combine(FileUtil.GetCachePath(), "v1", $"{DarkOctoSetupper.CreateSetting().AppId}", "assets", name);
             if (File.Exists(path))
                 File.Delete(path);
+        }
+
+        public int GetAssetSize(Func<Item, bool> itemSelector)
+        {
+            return CalculateTotalSize(GetAssets, itemSelector);
+        }
+
+        public int GetAssetCount(Func<Item, bool> itemSelector)
+        {
+            return GetAssetCount(GetAssets, itemSelector);
         }
 
         private static int CalculateTotalSize(Func<DataManager, IEnumerable<Item>> getItemsFunc, Func<Item, bool> itemSelector)
@@ -101,6 +112,9 @@ namespace NierReincarnation.Context
             var dataManager = (DataManager)OctoManager.Database;
 
             var items = getItemsFunc(dataManager).Where(itemSelector).ToArray();
+
+            //var r = new Regex(@"2d\)[a-z]+\)[a-z]+\)");
+            //var p = getItemsFunc(dataManager).Where(x=>r.IsMatch(x.name)).Select(x => r.Match(x.name).Value).GroupBy(x => x).ToArray();
 
             for (var i = 0; i < items.Length; i++)
             {

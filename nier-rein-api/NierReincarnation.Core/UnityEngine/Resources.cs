@@ -1,13 +1,14 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using AssetStudio;
 using NierReincarnation.Core.Adam.Framework.Resource;
 using NierReincarnation.Core.Octo.Util;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace NierReincarnation.Core.UnityEngine
 {
-    static class Resources
+    public static class Resources
     {
         private static readonly AssetsManager Manager = new AssetsManager();
 
@@ -32,6 +33,31 @@ namespace NierReincarnation.Core.UnityEngine
                 return TextAsset.Empty;
 
             return new TextAsset(firstText);
+        }
+
+        public static ImageAsset LoadImage(string fileName)
+        {
+            var fullPath = GetFileName(fileName);
+            if (fullPath == null)
+            {
+                // Log error with message ('The asset {0} was not found.', fullPath)
+                return ImageAsset.Empty;
+            }
+
+            Manager.LoadFiles(fullPath);
+
+            var texture = Manager.assetsFileList.SelectMany(x => x.Objects.Where(o => o is Sprite).Select(o => (o as Sprite).GetImage())).ToArray();
+            var firstTexture = texture.FirstOrDefault(x => x != null);
+
+            //var texture = Manager.assetsFileList.SelectMany(x => x.Objects.Where(o => o is Texture2D).Select(o => new Texture2DConverter(o as Texture2D).DecodeTexture2D())).ToArray();
+            //var firstTexture = texture.FirstOrDefault(x => x != null);
+
+            Manager.Clear();
+
+            if (firstTexture == null)
+                return ImageAsset.Empty;
+
+            return new ImageAsset(firstTexture);
         }
 
         private static string GetFileName(string fileName)

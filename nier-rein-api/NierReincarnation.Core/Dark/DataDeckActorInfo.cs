@@ -1,11 +1,27 @@
-﻿namespace NierReincarnation.Core.Dark
+﻿using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using NierReincarnation.Core.Subsystem.Serval;
+
+namespace NierReincarnation.Core.Dark
 {
     // CUSTOM: DataDeckActor with less information necessary to be loaded
     public class DataDeckActorInfo
     {
         // 0x10
-        public int CharacterId { get; set; }
+        public DataOutgameCostumeInfo Costume { get; set; }
         // 0x18
-        public int CostumeId { get; set; }
+        public DataWeaponInfo MainWeapon { get; set; }
+        // 0x20
+        public DataWeaponInfo SubWeapon01 { get; set; }
+        // 0x28
+        public DataWeaponInfo SubWeapon02 { get; set; }
+        // 0x30
+        public DataOutgameCompanionInfo Companion { get; set; }
+        // 0x38
+        public DataOutgameMemoryInfo[] Memories { get; set; }
+
+        public DataDeckActorInfo()
+        {
+            Memories = new DataOutgameMemoryInfo[DeckServal.PARTS_MAX_COUNT];
+        }
     }
 }
