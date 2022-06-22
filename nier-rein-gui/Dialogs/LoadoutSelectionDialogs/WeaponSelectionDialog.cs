@@ -1,21 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ImGui.Forms.Resources;
-using nier_rein_gui.Controls.CheckBoxes;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using SixLabors.ImageSharp.Processing;
 
-namespace nier_rein_gui.Dialogs
+namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
     class WeaponSelectionDialog : FilterItemDialog<DataWeaponInfo>
     {
         private static IDictionary<DataWeaponInfo, ImageResource> _weaponInfo;
 
-        public WeaponSelectionDialog()
+        private readonly DataWeaponInfo _currentWeapon;
+        private readonly DataWeaponInfo[] _deckWeapons;
+
+        protected override bool ShowAttributeFilter => true;
+        protected override bool ShowWeaponTypeFilter => true;
+        protected override bool ShowRarityFilter => true;
+
+        public WeaponSelectionDialog(DataWeaponInfo currentWeapon, DataWeaponInfo[] deckWeapons)
         {
+            _currentWeapon = currentWeapon;
+            _deckWeapons = deckWeapons;
+
             Caption = "Weapons";
         }
 
@@ -26,7 +36,7 @@ namespace nier_rein_gui.Dialogs
 
             _weaponInfo = new Dictionary<DataWeaponInfo, ImageResource>();
 
-            foreach (var weaponInfo in CalculatorWeapon.EnumerateWeaponInfo())
+            foreach (var weaponInfo in CalculatorWeapon.EnumerateWeaponInfo(CalculatorStateUser.GetUserId()))
             {
                 var weaponIcon = NierResources.LoadWeaponIconAsset(weaponInfo.ActorAssetId);
                 weaponIcon.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.IconSize.X, (int)NierResources.IconSize.Y)));
@@ -35,14 +45,11 @@ namespace nier_rein_gui.Dialogs
             }
         }
 
-        protected override bool ShowAttributeFilter => true;
-        protected override bool ShowWeaponTypeFilter => true;
-        protected override bool ShowRarityFilter => true;
-
         protected override IEnumerable<DataWeaponInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
         {
             var sortedElements = _weaponInfo.Keys
                 .OrderByDescending(x => x.RarityType)
+                .ThenBy(x => x.WeaponType)
                 .ThenByDescending(x => x.IsEndWeapon)
                 .ThenBy(x => x.Attribute)
                 .ThenBy(x => x.WeaponId);

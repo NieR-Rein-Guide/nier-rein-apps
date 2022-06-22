@@ -7,9 +7,10 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Dialogs.LoadoutSelectionDialogs;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Octo.Data;
-using NierReincarnation.Localizations;
+using NierReincarnation.Core.UnityEngine;
 
 namespace nier_rein_gui.Dialogs
 {
@@ -48,7 +49,7 @@ namespace nier_rein_gui.Dialogs
             _assetContext = NierReincarnation.NierReincarnation.GetContexts().Assets;
 
             // Ensure text assets
-            await EnsureTextAssets(Language.En);
+            await EnsureTextAssets(Application.Language);
 
             // Ensure icon assets
             await EnsureIconAssets();
@@ -290,7 +291,7 @@ namespace nier_rein_gui.Dialogs
 
         #region Dialog initialization
 
-        private Task EnsureDialogsInitialized()
+        private async Task EnsureDialogsInitialized()
         {
             // Set setup design
             Size = new Vector2(200, 100);
@@ -308,7 +309,8 @@ namespace nier_rein_gui.Dialogs
                 }
             };
 
-            return Task.Run(WeaponSelectionDialog.InitializeWeaponDataInfo);
+            await Task.Run(CostumeSelectionDialog.InitializeCostumeDataInfo);
+            await Task.Run(WeaponSelectionDialog.InitializeWeaponDataInfo);
         }
 
         #endregion

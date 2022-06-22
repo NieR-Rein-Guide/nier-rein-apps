@@ -49,7 +49,7 @@ namespace NierReincarnation.Core.UnityEngine
 
         #region App
 
-        public static string Version { get; set; } = "2.8.10";
+        public static string Version { get; set; } = "2.8.20";
 
         public static string Identifier => "com.square_enix.android_googleplay.nierspww";
 
@@ -57,7 +57,9 @@ namespace NierReincarnation.Core.UnityEngine
 
         #region System
 
-        public static string SystemLanguage => "English";
+        public static Language Language { get; set; } = Language.English;
+
+        public static string SystemLanguage => GetSystemLanguage();
 
         public static PlatformType Platform => PlatformType.GOOGLE_PLAY_STORE;
 
@@ -66,6 +68,21 @@ namespace NierReincarnation.Core.UnityEngine
         private static void EnsureDirectory(string dir)
         {
             Directory.CreateDirectory(dir);
+        }
+
+        private static string GetSystemLanguage()
+        {
+            switch (Language)
+            {
+                case Language.English:
+                    return "English";
+
+                case Language.Japanese:
+                    return "Japanese";
+
+                default:
+                    return string.Empty;
+            }
         }
     }
 }

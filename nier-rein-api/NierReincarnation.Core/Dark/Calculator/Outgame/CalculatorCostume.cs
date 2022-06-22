@@ -19,7 +19,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         {
             foreach (var costume in DatabaseDefine.User.EntityIUserCostumeTable.All)
             {
-                if (costume.UserId == userId)
+                if (costume.UserId != userId)
                     continue;
 
                 yield return CreateDataOutgameCostumeInfo(costume);

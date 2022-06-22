@@ -20,9 +20,8 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
         private static readonly int kDefaultWeaponEvolutionOrder = 1; // 0x24
 
         // CUSTOM: Enumerate weapon base info
-        public static IEnumerable<DataWeaponInfo> EnumerateWeaponInfo()
+        public static IEnumerable<DataWeaponInfo> EnumerateWeaponInfo(long userId)
         {
-            var userId = CalculatorStateUser.GetUserId();
             foreach (var weapon in DatabaseDefine.User.EntityIUserWeaponTable.All)
             {
                 if (weapon.UserId != userId)

@@ -51,7 +51,9 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc
             {
                 new ChannelOption("grpc.keepalive_time_ms", GRPC_KEEPALIVE_TIME_MS),
                 new ChannelOption("grpc.keepalive_timeout_ms", GRPC_KEEPALIVE_TIMEOUT_MS),
-                new ChannelOption("grpc.http2.min_time_between_pings_ms", GRPC_HTTP2_MIN_TIME_BETWEEEN_PINGS_MS)
+                new ChannelOption("grpc.http2.min_time_between_pings_ms", GRPC_HTTP2_MIN_TIME_BETWEEEN_PINGS_MS),
+
+                new ChannelOption("grpc.max_receive_message_length",100*1024*1024)
             };
 
             var credentials = GetRootCertificateCredentials();

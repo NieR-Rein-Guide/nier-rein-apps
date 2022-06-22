@@ -143,7 +143,7 @@ namespace NierReincarnation
 
             switch (lang)
             {
-                case Language.En:
+                case Language.English:
                     // TODO: A text file with japanese text in english assets that is always preferred. Remove it manually for now
                     // TODO: Naming consistency between ) and / in asset methods
                     assetContext.RemoveAsset("text/en/ui/ui_0150350.asset");

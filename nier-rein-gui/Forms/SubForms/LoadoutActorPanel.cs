@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Resources;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Dialogs;
+using nier_rein_gui.Dialogs.LoadoutSelectionDialogs;
 using nier_rein_gui.Resources;
 using NierReincarnation;
 using NierReincarnation.Core.Dark;
@@ -26,6 +28,8 @@ namespace nier_rein_gui.Forms.SubForms
             _rein = rein;
 
             InitializeComponent();
+
+            costumeButton.Clicked += CostumeButton_Clicked;
 
             mainWeaponButton.Clicked += MainWeaponButton_Clicked;
             subWeapon1Button.Clicked += SubWeapon1Button_Clicked;
@@ -128,7 +132,47 @@ namespace nier_rein_gui.Forms.SubForms
             await _rein.Decks.Replace(_deck);
         }
 
+        #region Costume events
+
+        private async void CostumeButton_Clicked(object sender, EventArgs e)
+        {
+            var (costumeInfo, shouldReplace) = await SelectCostume(costumeButton, _actor.Costume);
+            if (shouldReplace)
+                _actor.Costume = costumeInfo;
+        }
+
+        private async Task<(DataOutgameCostumeInfo, bool)> SelectCostume(NierIconButton button, DataOutgameCostumeInfo costume)
+        {
+            var costumesInDeck = _deck.UserDeckActors.Select(x => x.Costume).ToArray();
+
+            var dlg = new CostumeSelectionDialog(costume, costumesInDeck);
+            if (await dlg.ShowAsync() != DialogResult.Ok)
+                return (null, false);
+
+            UpdateCostume(button, NierResources.LoadCostumeIconAsset(dlg.SelectedItem.ActorAssetId), dlg.SelectedItem);
+
+            await ReplaceDeck();
+
+            return (dlg.SelectedItem, true);
+        }
+
+        #endregion
+
         #region Weapon events
+
+        private async void MainWeaponButton_Clicked(object sender, EventArgs e)
+        {
+            var (weaponInfo, shouldReplace) = await SelectWeapon(mainWeaponButton, _actor.MainWeapon);
+            if (shouldReplace)
+                _actor.MainWeapon = weaponInfo;
+        }
+
+        private async void SubWeapon1Button_Clicked(object sender, EventArgs e)
+        {
+            var (weaponInfo, shouldReplace) = await SelectWeapon(subWeapon1Button, _actor.MainWeapon);
+            if (shouldReplace)
+                _actor.SubWeapon01 = weaponInfo;
+        }
 
         private async void SubWeapon2Button_Clicked(object sender, EventArgs e)
         {
@@ -142,24 +186,12 @@ namespace nier_rein_gui.Forms.SubForms
             }
         }
 
-        private async void SubWeapon1Button_Clicked(object sender, EventArgs e)
-        {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(subWeapon1Button, _actor.MainWeapon);
-            if (shouldReplace)
-                _actor.SubWeapon01 = weaponInfo;
-        }
-
-        private async void MainWeaponButton_Clicked(object sender, EventArgs e)
-        {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(mainWeaponButton, _actor.MainWeapon);
-            if (shouldReplace)
-                _actor.MainWeapon = weaponInfo;
-        }
-
         // TODO: Add remove feature
         private async Task<(DataWeaponInfo, bool)> SelectWeapon(NierIconButton button, DataWeaponInfo weapon)
         {
-            var dlg = new WeaponSelectionDialog();
+            var weaponsInDeck = _deck.UserDeckActors.SelectMany(x => new[] { x.MainWeapon, x.SubWeapon01, x.SubWeapon02 }).Where(x => x != null).ToArray();
+
+            var dlg = new WeaponSelectionDialog(weapon, weaponsInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
 

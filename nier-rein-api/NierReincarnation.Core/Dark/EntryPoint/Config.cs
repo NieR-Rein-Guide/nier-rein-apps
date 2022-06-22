@@ -1,21 +1,26 @@
 ﻿using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.Preference;
+using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Dark.EntryPoint
 {
     // Dark.Entrypoint.Config
     static class Config
     {
+        // CUSTOM: Added En and JP in same config. Use UnityEngine.Application.Language to select correct values
         public static class Api
         {
             // 0x08
-            public static readonly string Hostname = "api.app.nierreincarnation.com";
+            public static readonly string HostnameEn = "api.app.nierreincarnation.com";
+            public static readonly string HostnameJp = "api.app.nierreincarnation.jp";
             // 0x10
             public static readonly int Port = 443;
             // 0x18
-            public static readonly string WebViewBaseUrl = "https://web.app.nierreincarnation.com";
+            public static readonly string WebViewBaseUrlEn = "https://web.app.nierreincarnation.com";
+            public static readonly string WebViewBaseUrlJp = "https://web.app.nierreincarnation.jp";
             // 0x20
-            public static readonly string MasterDataUrlFormat = "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin";
+            public static readonly string MasterDataUrlFormatEn = "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin";
+            public static readonly string MasterDataUrlFormatJp = "https://web.app.nierreincarnation.jp/assets/release/{0}/database.bin";
             // 0x38
             public static readonly string EncryptionMasterDataUrlSuffix = ".e";
             // 0x80
@@ -38,7 +43,7 @@ namespace NierReincarnation.Core.Dark.EntryPoint
             {
                 var urlFormat = ApplicationApi.IsReviewEnvironment()
                     ? ApplicationApi.GetReviewUrlFormat()
-                    : MasterDataUrlFormat;
+                    : Application.Language == Language.English ? MasterDataUrlFormatEn : MasterDataUrlFormatJp;
 
                 return string.Format(urlFormat, masterVersion) + EncryptionMasterDataUrlSuffix;
             }
@@ -72,7 +77,7 @@ namespace NierReincarnation.Core.Dark.EntryPoint
                 var langPath = GetLanguagePath();
                 var webViewBase = ApplicationApi.IsReviewEnvironment()
                     ? ApplicationApi.GetReviewWebViewBaseUrl()
-                    : WebViewBaseUrl;
+                    : Application.Language == Language.English ? WebViewBaseUrlEn : WebViewBaseUrlJp;
 
                 return $"{webViewBase}{basePath}{langPath}{path}";
             }

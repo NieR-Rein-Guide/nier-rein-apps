@@ -4,14 +4,13 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using NierReincarnation.Core.Adam.Framework.Resource;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.Octo.Util;
-using NierReincarnation.Localizations;
+using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Context
 {
@@ -181,10 +180,10 @@ namespace NierReincarnation.Context
         {
             switch (language)
             {
-                case Language.En:
+                case Language.English:
                     return "text)en";
 
-                case Language.Jp:
+                case Language.Japanese:
                     return "text)jp";
 
                 default:

@@ -1,4 +1,5 @@
 ﻿using System;
+using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Dark.Networking
 {
@@ -30,7 +31,7 @@ namespace NierReincarnation.Core.Dark.Networking
                 if (!string.IsNullOrEmpty(_serverAddress))
                     return _serverAddress;
 
-                return _serverAddress = EntryPoint.Config.Api.Hostname;
+                return _serverAddress = Application.Language == Language.English ? EntryPoint.Config.Api.HostnameEn : EntryPoint.Config.Api.HostnameJp;
             }
             set => _serverAddress = value;
         }
@@ -54,7 +55,7 @@ namespace NierReincarnation.Core.Dark.Networking
                 if (!string.IsNullOrEmpty(_serverAddress))
                     return _serverAddress;
 
-                return _serverAddress = EntryPoint.Config.Api.Hostname;
+                return _serverAddress = Application.Language == Language.English ? EntryPoint.Config.Api.HostnameEn : EntryPoint.Config.Api.HostnameJp;
             }
         }
 

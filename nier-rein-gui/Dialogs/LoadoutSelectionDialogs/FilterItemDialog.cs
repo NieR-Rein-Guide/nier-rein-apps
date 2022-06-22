@@ -9,12 +9,13 @@ using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using ImGui.Forms.Resources;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Controls.CheckBoxes;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
-namespace nier_rein_gui.Controls.CheckBoxes
+namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
     abstract class FilterItemDialog<T> : Modal
     {
@@ -364,7 +365,7 @@ namespace nier_rein_gui.Controls.CheckBoxes
 
         private void AllWeaponCheck_CheckChanged(object sender, EventArgs e)
         {
-            if (_weaponFilter.Count >= 5)
+            if (_weaponFilter.Count >= 6)
             {
                 _weaponFilter.Clear();
 
@@ -379,7 +380,7 @@ namespace nier_rein_gui.Controls.CheckBoxes
                 return;
             }
 
-            for (var i = 1; i <= 5; i++)
+            for (var i = 1; i <= 6; i++)
                 if (!_weaponFilter.Contains((WeaponType)i))
                     _weaponFilter.Add((WeaponType)i);
 
