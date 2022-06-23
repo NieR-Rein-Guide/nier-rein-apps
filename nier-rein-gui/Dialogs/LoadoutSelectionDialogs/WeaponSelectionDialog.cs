@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ImGui.Forms.Resources;
-using nier_rein_gui.Resources;
+using nier_rein_gui.Controls.Buttons.Items;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
-using SixLabors.ImageSharp.Processing;
 
 namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
     class WeaponSelectionDialog : FilterItemDialog<DataWeaponInfo>
     {
-        private static IDictionary<DataWeaponInfo, ImageResource> _weaponInfo;
+        private static IDictionary<DataWeaponInfo, NierWeaponItemButton> _weaponInfo;
 
         private readonly DataWeaponInfo _currentWeapon;
         private readonly DataWeaponInfo[] _deckWeapons;
@@ -34,14 +32,11 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             if (_weaponInfo != null)
                 return;
 
-            _weaponInfo = new Dictionary<DataWeaponInfo, ImageResource>();
+            _weaponInfo = new Dictionary<DataWeaponInfo, NierWeaponItemButton>();
 
             foreach (var weaponInfo in CalculatorWeapon.EnumerateWeaponInfo(CalculatorStateUser.GetUserId()))
             {
-                var weaponIcon = NierResources.LoadWeaponIconAsset(weaponInfo.ActorAssetId);
-                weaponIcon.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.IconSize.X, (int)NierResources.IconSize.Y)));
-
-                _weaponInfo[weaponInfo] = ImageResource.FromStream(weaponIcon.AsStream());
+                _weaponInfo[weaponInfo] = new NierWeaponItemButton { Weapon = weaponInfo };
             }
         }
 
@@ -61,29 +56,17 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             }
         }
 
-        protected override ImageResource GetItemImageResource(DataWeaponInfo item)
+        protected override NierItemButton GetButton(DataWeaponInfo item)
         {
+            _weaponInfo[item].Clicked -= SelectItemButton_Clicked;
+            _weaponInfo[item].Clicked += SelectItemButton_Clicked;
+
             return _weaponInfo[item];
         }
 
-        protected override AttributeType GetAttributeType(DataWeaponInfo item)
+        protected override DataWeaponInfo GetItem(NierItemButton button)
         {
-            return item.Attribute;
-        }
-
-        protected override WeaponType GetWeaponType(DataWeaponInfo item)
-        {
-            return item.WeaponType;
-        }
-
-        protected override RarityType GetRarityType(DataWeaponInfo item)
-        {
-            return item.RarityType;
-        }
-
-        protected override bool IsEndItem(DataWeaponInfo item)
-        {
-            return item.IsEndWeapon;
+            return (button as NierWeaponItemButton).Weapon;
         }
 
         private bool IsValidFilter(DataWeaponInfo weaponInfo, IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)

@@ -26,13 +26,14 @@ namespace nier_rein_gui.Resources
         private static readonly Rectangle WindIcon = new Rectangle(892, 345, 34, 34);
         private static readonly Rectangle LightIcon = new Rectangle(861, 287, 34, 34);
         private static readonly Rectangle DarkIcon = new Rectangle(746, 101, 34, 34);
+
         private static readonly Rectangle BigSwordIcon = new Rectangle(566, 91, 34, 34);
         private static readonly Rectangle SwordIcon = new Rectangle(566, 53, 34, 34);
         private static readonly Rectangle SpearIcon = new Rectangle(815, 173, 34, 34);
         private static readonly Rectangle StaffIcon = new Rectangle(957, 952, 34, 34);
         private static readonly Rectangle GunIcon = new Rectangle(884, 421, 34, 34);
         private static readonly Rectangle FistIcon = new Rectangle(371, 34, 34, 34);
-        private static readonly Rectangle IsExIcon = new Rectangle(860, 211, 34, 34);
+
         private static readonly Rectangle LegendStar = new Rectangle(204, 630, 19, 19);
         private static readonly Rectangle LegendBorder = new Rectangle(1, 352, 108, 108);
         private static readonly Rectangle LegendBackground = new Rectangle(863, 687, 108, 108);
@@ -43,8 +44,14 @@ namespace nier_rein_gui.Resources
         private static readonly Rectangle RareBorder = new Rectangle(115, 466, 108, 108);
         private static readonly Rectangle RareBackground = new Rectangle(749, 571, 108, 108);
 
+        private static readonly Rectangle IsExIcon = new Rectangle(860, 211, 34, 34);
+
+        private static readonly Rectangle CompanionBorder = new Rectangle(469, 531, 108, 108);
+        private static readonly Rectangle CompanionBackground = new Rectangle(343, 448, 108, 108);
+
         private static readonly Vector2 IconPadSize = new Vector2(102, 102);
-        public static readonly Vector2 IconSize = new Vector2(82, 82);
+        public static readonly Vector2 ItemSlotSize = new Vector2(82, 82);
+        public static readonly Vector2 IconSize = new Vector2(25, 25);
 
         #region Embedded icons
 
@@ -203,6 +210,22 @@ namespace nier_rein_gui.Resources
             }
 
             var icon = IconsAtlas.Clone(context => context.Crop(crop));
+            return new ImageAsset(icon);
+        }
+
+        public static ImageAsset LoadCompanionBackground()
+        {
+            EnsureIconsAtlas();
+
+            var icon = IconsAtlas.Clone(context => context.Crop(CompanionBackground));
+            return new ImageAsset(icon);
+        }
+
+        public static ImageAsset LoadCompanionBorder()
+        {
+            EnsureIconsAtlas();
+
+            var icon = IconsAtlas.Clone(context => context.Crop(CompanionBorder));
             return new ImageAsset(icon);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ImGui.Forms.Resources;
+using nier_rein_gui.Controls.Buttons.Items;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
@@ -12,7 +13,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
     class CostumeSelectionDialog : FilterItemDialog<DataOutgameCostumeInfo>
     {
-        private static IDictionary<DataOutgameCostumeInfo, ImageResource> _costumeInfo;
+        private static IDictionary<DataOutgameCostumeInfo, NierCostumeItemButton> _costumeInfo;
 
         private readonly DataOutgameCostumeInfo _currentCostume;
 
@@ -32,15 +33,25 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             if (_costumeInfo != null)
                 return;
 
-            _costumeInfo = new Dictionary<DataOutgameCostumeInfo, ImageResource>();
+            _costumeInfo = new Dictionary<DataOutgameCostumeInfo, NierCostumeItemButton>();
 
             foreach (var costumeInfo in CalculatorCostume.EnumerateCostumeInfo(CalculatorStateUser.GetUserId()))
             {
-                var costumeIcon = NierResources.LoadCostumeIconAsset(costumeInfo.ActorAssetId);
-                costumeIcon.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.IconSize.X, (int)NierResources.IconSize.Y)));
-
-                _costumeInfo[costumeInfo] = ImageResource.FromStream(costumeIcon.AsStream());
+                _costumeInfo[costumeInfo] = new NierCostumeItemButton { Costume = costumeInfo };
             }
+        }
+
+        protected override NierItemButton GetButton(DataOutgameCostumeInfo item)
+        {
+            _costumeInfo[item].Clicked -= SelectItemButton_Clicked;
+            _costumeInfo[item].Clicked += SelectItemButton_Clicked;
+
+            return _costumeInfo[item];
+        }
+
+        protected override DataOutgameCostumeInfo GetItem(NierItemButton button)
+        {
+            return (button as NierCostumeItemButton).Costume;
         }
 
         protected override IEnumerable<DataOutgameCostumeInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
@@ -54,31 +65,6 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
                 if (IsValidFilter(costumeInfo, weaponFilter, rarityFilter))
                     yield return costumeInfo;
             }
-        }
-
-        protected override ImageResource GetItemImageResource(DataOutgameCostumeInfo item)
-        {
-            return _costumeInfo[item];
-        }
-
-        protected override AttributeType GetAttributeType(DataOutgameCostumeInfo item)
-        {
-            return AttributeType.UNKNOWN;
-        }
-
-        protected override WeaponType GetWeaponType(DataOutgameCostumeInfo item)
-        {
-            return item.WeaponType;
-        }
-
-        protected override RarityType GetRarityType(DataOutgameCostumeInfo item)
-        {
-            return item.RarityType;
-        }
-
-        protected override bool IsEndItem(DataOutgameCostumeInfo item)
-        {
-            return false;
         }
 
         private bool IsValidFilter(DataOutgameCostumeInfo weaponInfo, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)

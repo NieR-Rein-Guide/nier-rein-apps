@@ -7,8 +7,8 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
-using ImGui.Forms.Resources;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Controls.Buttons.Items;
 using nier_rein_gui.Controls.CheckBoxes;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -26,7 +26,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         private readonly IList<AttributeType> _attributeFilter;
         private readonly IList<RarityType> _rarityFilter;
 
-        private NierIconButton _activeItemButton;
+        private NierItemButton _activeItemButton;
 
         private NierAttributeCheckbox fireCheck;
         private NierAttributeCheckbox waterCheck;
@@ -100,13 +100,15 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             };
         }
 
+        protected override void CloseInternal()
+        {
+            if (_activeItemButton != null)
+                _activeItemButton.Selected = false;
+        }
+
         protected abstract IEnumerable<T> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter);
 
-        protected abstract ImageResource GetItemImageResource(T item);
-        protected abstract AttributeType GetAttributeType(T item);
-        protected abstract WeaponType GetWeaponType(T item);
-        protected abstract RarityType GetRarityType(T item);
-        protected abstract bool IsEndItem(T item);
+        protected abstract NierItemButton GetButton(T item);
 
         #region Create layout
 
@@ -251,7 +253,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         {
             var width = Application.Instance.MainForm.Width - 150;
             var remainder = (width - (int)ImGuiNET.ImGui.GetStyle().FramePadding.X * 2) %
-                            ((int)NierResources.IconSize.X + FilterItemSpacing_);
+                            ((int)NierResources.ItemSlotSize.X + FilterItemSpacing_);
 
             return width - remainder;
         }
@@ -264,7 +266,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         {
             CleanIcons();
 
-            var widthCount = (int)Math.Floor(Size.X / (NierResources.IconSize.X + FilterItemSpacing_));
+            var widthCount = (int)Math.Floor(Size.X / (NierResources.ItemSlotSize.X + FilterItemSpacing_));
 
             StackLayout currentRow = null;
             var weaponIndex = 0;
@@ -277,31 +279,15 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
                     itemList.Items.Add(currentRow);
                 }
 
-                var button = new NierIconButton
-                {
-                    Image = GetItemImageResource(item),
-                    Attribute = GetAttributeType(item),
-                    WeaponType = GetWeaponType(item),
-                    RarityType = GetRarityType(item),
-                    IsEnd = IsEndItem(item)
-                };
-                button.Clicked += (s, e) =>
-                {
-                    if (_activeItemButton != null)
-                        _activeItemButton.Active = false;
-
-                    button.Active = true;
-                    _activeItemButton = button;
-
-                    SelectedItem = item;
-                    selectButton.Enabled = true;
-                };
+                var button = GetButton(item);
 
                 currentRow?.Items.Add(button);
 
                 weaponIndex++;
             }
         }
+
+        protected abstract T GetItem(NierItemButton button);
 
         private void CleanIcons()
         {
@@ -473,6 +459,20 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         private void CancelButton_Clicked(object sender, EventArgs e)
         {
             Close(DialogResult.Cancel);
+        }
+
+        protected void SelectItemButton_Clicked(object sender, EventArgs e)
+        {
+            var button = sender as NierItemButton;
+
+            if (_activeItemButton != null)
+                _activeItemButton.Selected = false;
+
+            button.Selected = true;
+            _activeItemButton = button;
+
+            SelectedItem = GetItem(button);
+            selectButton.Enabled = true;
         }
 
         #endregion

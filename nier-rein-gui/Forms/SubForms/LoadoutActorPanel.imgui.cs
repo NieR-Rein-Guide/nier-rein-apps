@@ -1,32 +1,31 @@
 ﻿using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
-using nier_rein_gui.Controls.Buttons;
-using nier_rein_gui.Resources;
+using nier_rein_gui.Controls.Buttons.Items;
 
 namespace nier_rein_gui.Forms.SubForms
 {
     partial class LoadoutActorPanel
     {
-        private NierIconButton costumeButton;
-        private NierIconButton companionButton;
-        private NierIconButton mainWeaponButton;
-        private NierIconButton subWeapon1Button;
-        private NierIconButton subWeapon2Button;
+        private NierCostumeItemButton costumeButton;
+        private NierCompanionItemButton companionButton;
+        private NierWeaponItemButton mainWeaponButton;
+        private NierWeaponItemButton subWeapon1Button;
+        private NierWeaponItemButton subWeapon2Button;
         //private NierIconButton memoir1Button;
         //private NierIconButton memoir2Button;
         //private NierIconButton memoir3Button;
 
         private void InitializeComponent()
         {
-            costumeButton = new NierIconButton { EmptySize = NierResources.IconSize };
-            companionButton = new NierIconButton { EmptySize = NierResources.IconSize };
-            mainWeaponButton = new NierIconButton { EmptySize = NierResources.IconSize };
-            subWeapon1Button = new NierIconButton { EmptySize = NierResources.IconSize };
-            subWeapon2Button = new NierIconButton { EmptySize = NierResources.IconSize };
-            //memoir1Button = new NierIconButton { EmptySize = NierResources.IconSize };
-            //memoir2Button = new NierIconButton { EmptySize = NierResources.IconSize };
-            //memoir3Button = new NierIconButton { EmptySize = NierResources.IconSize };
+            costumeButton = new NierCostumeItemButton();
+            companionButton = new NierCompanionItemButton();
+            mainWeaponButton = new NierWeaponItemButton();
+            subWeapon1Button = new NierWeaponItemButton();
+            subWeapon2Button = new NierWeaponItemButton();
+            //memoir1Button = new NierIconButton { EmptySize = NierResources.ItemSlotSize };
+            //memoir2Button = new NierIconButton { EmptySize = NierResources.ItemSlotSize };
+            //memoir3Button = new NierIconButton { EmptySize = NierResources.ItemSlotSize };
 
             Content = new List
             {

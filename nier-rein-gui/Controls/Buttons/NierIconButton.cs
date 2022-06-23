@@ -8,6 +8,7 @@ using ImGui.Forms.Resources;
 using ImGuiNET;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.UnityEngine;
 using SixLabors.ImageSharp.Processing;
 using Rectangle = Veldrid.Rectangle;
 using Size = ImGui.Forms.Models.Size;
@@ -111,8 +112,8 @@ namespace nier_rein_gui.Controls.Buttons
                 var border = NierResources.LoadRarityBorder(value);
                 var background = NierResources.LoadRarityBackground(value);
 
-                border.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.IconSize.X, (int)NierResources.IconSize.Y)));
-                background.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.IconSize.X, (int)NierResources.IconSize.Y)));
+                border.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.ItemSlotSize.X, (int)NierResources.ItemSlotSize.Y)));
+                background.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.ItemSlotSize.X, (int)NierResources.ItemSlotSize.Y)));
 
                 _borderResource = ImageResource.FromStream(border.AsStream());
                 _backgroundResource = ImageResource.FromStream(background.AsStream());
@@ -182,7 +183,7 @@ namespace nier_rein_gui.Controls.Buttons
         private Vector2 GetImageSize()
         {
             if (Image != null)
-                return NierResources.IconSize;
+                return NierResources.ItemSlotSize;
 
             return EmptySize;
         }
