@@ -27,7 +27,7 @@ namespace nier_rein_gui.Forms.SubForms
         public EndQuestPanel(NierReinContexts rein)
         {
             _rein = rein;
-            _chapters = _rein.Quests.GetEndEventChapters();
+            _chapters = CalculatorQuest.GetEndQuestChapters();
 
             SetMainList();
         }
@@ -43,6 +43,7 @@ namespace nier_rein_gui.Forms.SubForms
             {
                 var charButton = new NierButton
                 {
+                    Width = 1f,
                     Caption = CalculatorCharacter.CharacterName(endChapter.CharacterId, true),
                     Enabled = !endChapter.IsLock
                 };
@@ -61,7 +62,7 @@ namespace nier_rein_gui.Forms.SubForms
                 ItemSpacing = 5
             };
 
-            var quests = _rein.Quests.GetEventQuests(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable && (!x.IsLock || x.ClearCount > 0)).ToList();
+            var quests = CalculatorQuest.GenerateEventQuestData(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable && (!x.IsLock || x.ClearCount > 0)).ToList();
             foreach (var quest in quests)
             {
                 var charButton = new NierQuestButton
@@ -75,6 +76,7 @@ namespace nier_rein_gui.Forms.SubForms
                     ClearFont = FontResources.FotRodin(11),
                     Enabled = !quest.IsLock,
                     Padding = new Vector2(2, 2),
+                    Width = 1f,
                     IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0
                 };
                 charButton.Clicked += async (s, e) => await FightAsync(chapter, quests, quest, charButton.IsDaily);

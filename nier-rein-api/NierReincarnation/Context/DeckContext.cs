@@ -4,9 +4,6 @@ using Art.Framework.ApiNetwork.Grpc.Api.Deck;
 using Newtonsoft.Json;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Preference;
 
 namespace NierReincarnation.Context
 {
@@ -26,19 +23,24 @@ namespace NierReincarnation.Context
                 DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
-        public IEnumerable<DataDeck> GetQuestDecks()
+        public async Task Rename(DataDeckInfo deck, string name)
         {
-            return CalculatorDeck.EnumerateDeckDataList(PlayerPreference.Instance.ActivePlayer.UserId, DeckType.QUEST);
+            // TODO: Handle request limit
+            var renameReq = CreateUpdateNameRequest(deck, name);
+            var renameRes = await _dc.DeckService.UpdateNameAsync(renameReq);
+
+            foreach (var userData in renameRes.DiffUserData)
+                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
-        public IEnumerable<DataDeckInfo> GetQuestDeckInfo()
+        private UpdateNameRequest CreateUpdateNameRequest(DataDeckInfo deck, string name)
         {
-            return CalculatorDeck.EnumerateDeckInfo(PlayerPreference.Instance.ActivePlayer.UserId, DeckType.QUEST);
-        }
-
-        public DataDeck GetQuestDeck(int deckNumber, DeckType deckType)
-        {
-            return CalculatorDeck.CreateDataDeck(PlayerPreference.Instance.ActivePlayer.UserId, deckNumber, deckType);
+            return new UpdateNameRequest
+            {
+                UserDeckNumber = deck.UserDeckNumber,
+                DeckType = (int)deck.DeckType,
+                Name = name
+            };
         }
 
         private ReplaceDeckRequest CreateReplaceDeckRequest(DataDeckInfo deck)

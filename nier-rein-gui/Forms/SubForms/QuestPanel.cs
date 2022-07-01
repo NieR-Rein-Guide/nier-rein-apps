@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using NierReincarnation;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface;
@@ -51,7 +52,8 @@ namespace nier_rein_gui.Forms.SubForms
 
         private IList<EventQuestData> GetChapterQuests(EventQuestChapterData chapter, DifficultyType type)
         {
-            return ReinContexts.Quests.GetEventQuests(chapter.EventQuestChapterId, type).Where(x => x.IsAvailable).ToArray();
+            var eventQuests = CalculatorQuest.GenerateEventQuestData(chapter.EventQuestChapterId, type);
+            return eventQuests.Where(x => x.IsAvailable).ToArray();
         }
 
         protected abstract Task FightAsync(EventQuestChapterData chapter, DifficultyType type, IList<EventQuestData> quests, EventQuestData quest);

@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using ImGui.Forms.Controls;
+using ImGui.Forms.Modals.IO;
 using NierReincarnation;
 
 namespace nier_rein_gui.Forms.SubForms
@@ -16,6 +18,7 @@ namespace nier_rein_gui.Forms.SubForms
 
             InitializeComponent();
 
+            deckNameButton.Clicked += DeckNameButton_Clicked;
             previousButton.Clicked += PreviousButton_Clicked;
             nextButton.Clicked += NextButton_Clicked;
         }
@@ -36,6 +39,27 @@ namespace nier_rein_gui.Forms.SubForms
                 previousDeckNumber = 10;
 
             UpdateDeck(previousDeckNumber, decks.FirstOrDefault(x => x.UserDeckNumber == previousDeckNumber));
+        }
+
+        private async void DeckNameButton_Clicked(object sender, System.EventArgs e)
+        {
+            var name = await InputBox.ShowAsync("Change deck name", "New deck name", _currentDeck.Name, "Name");
+            if (name == null || name == _currentDeck.Name)
+                return;
+
+            await RenameDeck(name);
+
+            deckNameLabel.Caption = _currentDeck.ToString();
+        }
+
+        private async Task RenameDeck(string name)
+        {
+            if (_currentDeck == null)
+                return;
+
+            await _rein.Decks.Rename(_currentDeck, name);
+
+            _currentDeck.Name = name;
         }
     }
 }

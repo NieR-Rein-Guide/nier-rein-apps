@@ -1,4 +1,5 @@
-﻿using ImGui.Forms.Resources;
+﻿using System.Collections.Generic;
+using ImGui.Forms.Resources;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -7,86 +8,41 @@ namespace nier_rein_gui.Controls.Buttons.Items
 {
     class NierCompanionItemButton : NierItemButton
     {
-        private ImageResource _itemResource;
-        private ImageResource _bgResource;
-        private ImageResource _borderResource;
+        public DataOutgameCompanionInfo Companion { get; set; }
 
-        private ImageResource _attributeResource;
-
-        private DataOutgameCompanionInfo _companionInfo;
-
-        #region Properties
-
-        public DataOutgameCompanionInfo Companion
+        protected override bool IsPlaceholder()
         {
-            get => _companionInfo;
-            set
-            {
-                _companionInfo = value;
-
-                LoadCompanionResources(value?.ActorAssetId);
-                LoadAttributeIcon(value?.Attribute ?? AttributeType.UNKNOWN);
-            }
+            return Companion == null;
         }
 
-        #endregion
+        protected override ImageResource GetPlaceholder()
+        {
+            return NierResources.LoadCompanionPlaceholder();
+        }
 
         protected override ImageResource GetBackground()
         {
-            return _bgResource;
+            return NierResources.LoadCompanionBackground();
         }
 
         protected override ImageResource GetBorder()
         {
-            return _borderResource;
+            return NierResources.LoadCompanionBorder();
         }
 
         protected override ImageResource GetContent()
         {
-            return _itemResource;
+            return NierResources.LoadCompanionItem(Companion?.ActorAssetId);
         }
 
         protected override ImageResource[] GetIcons()
         {
-            if (_attributeResource != null)
-                return new[] {_attributeResource};
+            var result = new List<ImageResource>();
 
-            return base.GetIcons();
-        }
+            if (Companion?.Attribute != AttributeType.UNKNOWN && Companion?.Attribute != AttributeType.NOTHING)
+                result.Add(NierResources.LoadAttributeIcon(Companion?.Attribute ?? AttributeType.UNKNOWN));
 
-        private void LoadCompanionResources(ActorAssetId assetId)
-        {
-            _itemResource?.Destroy();
-            _borderResource?.Destroy();
-            _bgResource?.Destroy();
-
-            _itemResource = null;
-            _borderResource = null;
-            _bgResource = null;
-
-            if (assetId == null)
-                return;
-
-            _itemResource = LoadItemResource(NierResources.LoadCompanionIconAsset(assetId));
-            _borderResource = LoadItemResource(NierResources.LoadCompanionBorder());
-            _bgResource = LoadItemResource(NierResources.LoadCompanionBackground());
-        }
-
-        private void LoadAttributeIcon(AttributeType attribute)
-        {
-            _attributeResource?.Destroy();
-            _attributeResource = null;
-
-            switch (attribute)
-            {
-                case AttributeType.NOTHING:
-                case AttributeType.UNKNOWN:
-                    break;
-
-                default:
-                    _attributeResource = LoadIconResource(NierResources.LoadAttributeIcon(attribute));
-                    break;
-            }
+            return result.ToArray();
         }
     }
 }

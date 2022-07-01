@@ -28,6 +28,12 @@ namespace nier_rein_gui.Forms.SubForms
             mainWeaponButton.Clicked += MainWeaponButton_Clicked;
             subWeapon1Button.Clicked += SubWeapon1Button_Clicked;
             subWeapon2Button.Clicked += SubWeapon2Button_Clicked;
+
+            companionButton.Clicked += CompanionButton_Clicked;
+
+            memoir1Button.Clicked += Memoir1Button_Clicked;
+            memoir2Button.Clicked += Memoir2Button_Clicked;
+            memoir3Button.Clicked += Memoir3Button_Clicked;
         }
 
         public void Reset()
@@ -43,9 +49,9 @@ namespace nier_rein_gui.Forms.SubForms
 
             companionButton.Companion = null;
 
-            //SwitchImage(memoir1Button, null);
-            //SwitchImage(memoir2Button, null);
-            //SwitchImage(memoir3Button, null);
+            memoir1Button.Memory = null;
+            memoir2Button.Memory = null;
+            memoir3Button.Memory = null;
         }
 
         public void Update(DataDeckInfo deck, DataDeckActorInfo actor)
@@ -61,13 +67,9 @@ namespace nier_rein_gui.Forms.SubForms
 
             companionButton.Companion = actor.Companion;
 
-            //var memory1Icon = NierResources.LoadMemoryIconAsset(actor.Memories[0]);
-            //var memory2Icon = NierResources.LoadMemoryIconAsset(actor.Memories[1]);
-            //var memory3Icon = NierResources.LoadMemoryIconAsset(actor.Memories[2]);
-
-            //SwitchImage(memoir1Button, memory1Icon?.AsStream());
-            //SwitchImage(memoir2Button, memory2Icon?.AsStream());
-            //SwitchImage(memoir3Button, memory3Icon?.AsStream());
+            memoir1Button.Memory = actor.Memories[0];
+            memoir2Button.Memory = actor.Memories[1];
+            memoir3Button.Memory = actor.Memories[2];
         }
 
         private async Task ReplaceDeck()
@@ -142,6 +144,94 @@ namespace nier_rein_gui.Forms.SubForms
                 return (null, false);
 
             button.Weapon = dlg.SelectedItem;
+
+            await ReplaceDeck();
+
+            return (dlg.SelectedItem, true);
+        }
+
+        #endregion
+
+        #region Companion events
+
+        private async void CompanionButton_Clicked(object sender, EventArgs e)
+        {
+            var (companionInfo, shouldReplace) = await SelectCompanion(companionButton, _actor.Companion);
+            if (shouldReplace)
+                _actor.Companion = companionInfo;
+        }
+
+        private async Task<(DataOutgameCompanionInfo, bool)> SelectCompanion(NierCompanionItemButton button, DataOutgameCompanionInfo companion)
+        {
+            var companionsInDeck = _deck.UserDeckActors.Select(x => x.Companion).ToArray();
+
+            var dlg = new CompanionSelectionDialog(companion, companionsInDeck);
+            if (await dlg.ShowAsync() != DialogResult.Ok)
+                return (null, false);
+
+            button.Companion = dlg.SelectedItem;
+
+            await ReplaceDeck();
+
+            return (dlg.SelectedItem, true);
+        }
+
+        #endregion
+
+        #region Memory events
+
+        private async void Memoir1Button_Clicked(object sender, EventArgs e)
+        {
+            var (memoryInfo, shouldReplace) = await SelectMemory(memoir1Button, _actor.Memories[0]);
+            if (shouldReplace)
+            {
+                if (_actor.Memories[0] == null)
+                    _actor.Memories[0] = memoryInfo;
+                else if (_actor.Memories[1] == null)
+                    _actor.Memories[1] = memoryInfo;
+                else
+                    _actor.Memories[2] = memoryInfo;
+            }
+        }
+
+        private async void Memoir2Button_Clicked(object sender, EventArgs e)
+        {
+            var (memoryInfo, shouldReplace) = await SelectMemory(memoir2Button, _actor.Memories[1]);
+            if (shouldReplace)
+            {
+                if (_actor.Memories[0] == null)
+                    _actor.Memories[0] = memoryInfo;
+                else if (_actor.Memories[1] == null)
+                    _actor.Memories[1] = memoryInfo;
+                else
+                    _actor.Memories[2] = memoryInfo;
+            }
+        }
+
+        private async void Memoir3Button_Clicked(object sender, EventArgs e)
+        {
+            var (memoryInfo, shouldReplace) = await SelectMemory(memoir3Button, _actor.Memories[2]);
+            if (shouldReplace)
+            {
+                if (_actor.Memories[0] == null)
+                    _actor.Memories[0] = memoryInfo;
+                else if (_actor.Memories[1] == null)
+                    _actor.Memories[1] = memoryInfo;
+                else
+                    _actor.Memories[2] = memoryInfo;
+            }
+        }
+
+        // TODO: Add remove feature
+        private async Task<(DataOutgameMemoryInfo, bool)> SelectMemory(NierMemoryItemButton button, DataOutgameMemoryInfo memory)
+        {
+            var memoriesInDeck = _deck.UserDeckActors.SelectMany(x => x.Memories).Where(x => x != null).ToArray();
+
+            var dlg = new MemorySelectionDialog(memory, memoriesInDeck);
+            if (await dlg.ShowAsync() != DialogResult.Ok)
+                return (null, false);
+
+            button.Memory = dlg.SelectedItem;
 
             await ReplaceDeck();
 

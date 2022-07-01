@@ -2,12 +2,14 @@
 using System.Drawing;
 using System.Numerics;
 using System.Threading.Tasks;
+using Grpc.Core;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
+using ImGui.Forms.Modals.IO;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
-using nier_rein_gui.Dialogs.LoadoutSelectionDialogs;
+using nier_rein_gui.Properties;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.UnityEngine;
@@ -29,6 +31,9 @@ namespace nier_rein_gui.Dialogs
 
         protected override async void ShowInternal()
         {
+            // Setup error handler
+            NierReincarnation.NierReincarnation.ApiError += NierReincarnationApiError;
+
             // Ensure application being setup
             await EnsureSetup();
 
@@ -42,6 +47,8 @@ namespace nier_rein_gui.Dialogs
             var isInitialized = await EnsureInitialized();
             if (!isInitialized)
             {
+                await MessageBox.ShowInformationAsync("Missing data", "Could not retrieve some data. Application will be closed.\nRe-Open the application to try again.");
+
                 Close(DialogResult.Cancel);
                 return;
             }
@@ -54,11 +61,35 @@ namespace nier_rein_gui.Dialogs
             // Ensure icon assets
             await EnsureIconAssets();
 
-            // Ensure selection dialogs being setup
-            await EnsureDialogsInitialized();
+            // Remove error handler
+            NierReincarnation.NierReincarnation.ApiError -= NierReincarnationApiError;
 
             // Close modal
             Close(DialogResult.Ok);
+        }
+
+        private async Task<bool> NierReincarnationApiError(RpcException e)
+        {
+            switch (e.StatusCode)
+            {
+                // Catch new version precondition error and close application after
+                case StatusCode.FailedPrecondition:
+                    await MessageBox.ShowInformationAsync("New version available", "There is a new game version available.\nChange the game version and restart the application.");
+
+                    var newVersion = await InputBox.ShowAsync("Change game version", "Game version", Application.Version, "Version e.g. 2.8.20");
+                    if (newVersion != null)
+                    {
+                        Settings.Default.AppVersion = newVersion;
+                        Settings.Default.Save();
+                    }
+
+                    ImGui.Forms.Application.Instance.Exit();
+
+                    return false;
+
+                default:
+                    return true;
+            }
         }
 
         #region Setup
@@ -66,19 +97,7 @@ namespace nier_rein_gui.Dialogs
         private async Task EnsureSetup()
         {
             // Set setup design
-            Content = new StackLayout
-            {
-                Alignment = Alignment.Horizontal,
-                Items =
-                {
-                    new StackItem(new Label {Caption = "Setup application..."})
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Size = ImGui.Forms.Models.Size.Parent
-                    }
-                }
-            };
+            SetupSetupDialog();
 
             // Setup application
             await Task.Run(NierReincarnation.NierReincarnation.Setup);
@@ -87,14 +106,6 @@ namespace nier_rein_gui.Dialogs
         #endregion
 
         #region Login
-
-        private string _username;
-        private string _password;
-
-        private TextBox _userBox;
-        private TextBox _passBox;
-        private Button _loginBtn;
-        private Label _errMsg;
 
         private async Task SetupLogin()
         {
@@ -105,85 +116,19 @@ namespace nier_rein_gui.Dialogs
             }
 
             // Set login design
-            _errMsg = new Label { TextColor = Color.Firebrick };
-            _userBox = new TextBox { Width = SizeValue.Relative(1) };
-            _passBox = new TextBox { Width = SizeValue.Relative(1), IsMasked = true };
-            _loginBtn = new NierButton { Caption = "Login" };
-
-            _userBox.TextChanged += UserBox_TextChanged;
-            _passBox.TextChanged += PassBox_TextChanged;
-            _loginBtn.Clicked += LoginBtn_Clicked;
-
-            Caption = "Login";
-            Content = new StackLayout
-            {
-                Alignment = Alignment.Vertical,
-                ItemSpacing = 3,
-                Items =
-                {
-                    new StackItem(_errMsg){HorizontalAlignment = HorizontalAlignment.Center},
-                    new TableLayout
-                    {
-                        Spacing = new Vector2(3,3),
-                        Rows =
-                        {
-                            new TableRow
-                            {
-                                Cells =
-                                {
-                                    new Label {Caption = "Username:"},
-                                    _userBox
-                                }
-                            },
-                            new TableRow
-                            {
-                                Cells =
-                                {
-                                    new Label {Caption = "Password:"},
-                                    _passBox
-                                }
-                            }
-                        }
-                    },
-                    new StackItem(_loginBtn) {HorizontalAlignment = HorizontalAlignment.Right}
-                }
-            };
+            SetupLoginLayout();
         }
 
-        private void UserBox_TextChanged(object sender, EventArgs e)
-        {
-            _username = _userBox.Text;
-        }
-
-        private void PassBox_TextChanged(object sender, EventArgs e)
-        {
-            _password = _passBox.Text;
-        }
-
-        private async void LoginBtn_Clicked(object sender, EventArgs e)
-        {
-            _errMsg.Caption = string.Empty;
-            ToggleDialog(false);
-
-            var isLoggedIn = await TryLogin();
-
-            ToggleDialog(true);
-
-            if (isLoggedIn)
-                await AfterLogin();
-        }
-
-        private Task<bool> TryLogin()
+        private Task<bool> TryLogin(string username, string password)
         {
             return Task.Run(async () =>
             {
                 try
                 {
-                    await NierReincarnation.NierReincarnation.Login(_username, _password);
+                    await NierReincarnation.NierReincarnation.Login(username, password);
                 }
                 catch (Exception e)
                 {
-                    _errMsg.Caption = "Couldn't login.";
                     Console.WriteLine(e.Message);
 
                     return false;
@@ -193,13 +138,6 @@ namespace nier_rein_gui.Dialogs
             });
         }
 
-        private void ToggleDialog(bool toggle)
-        {
-            _userBox.IsReadOnly = !toggle;
-            _passBox.IsReadOnly = !toggle;
-            _loginBtn.Enabled = toggle;
-        }
-
         #endregion
 
         #region Initialize
@@ -207,19 +145,7 @@ namespace nier_rein_gui.Dialogs
         private async Task<bool> EnsureInitialized()
         {
             // Set setup design
-            Content = new StackLayout
-            {
-                Alignment = Alignment.Horizontal,
-                Items =
-                {
-                    new StackItem(new Label {Caption = "Initialize data..."})
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Size = ImGui.Forms.Models.Size.Parent
-                    }
-                }
-            };
+            SetupInitializeLayout();
 
             // Setup application
             await Task.Run(NierReincarnation.NierReincarnation.Initialize);
@@ -237,21 +163,9 @@ namespace nier_rein_gui.Dialogs
             var assetSize = _assetContext.GetTextAssetSize(language);
 
             // Set setup design
-            Size = new Vector2(250, 100);
-            Content = new StackLayout
-            {
-                Alignment = Alignment.Horizontal,
-                Items =
-                {
-                    new StackItem(new Label {Caption = $"Download {assetCount} text files ({assetSize/1024f/1024:0.0}MB) ..."})
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Size = ImGui.Forms.Models.Size.Parent
-                    }
-                }
-            };
+            SetupAssetDownloadLayout("text files", assetCount, assetSize);
 
+            // Download assets
             await NierReincarnation.NierReincarnation.LoadLocalizations(language);
         }
 
@@ -263,19 +177,132 @@ namespace nier_rein_gui.Dialogs
                                           i.name.StartsWith("ui)costume)") ||
                                           i.name.StartsWith("ui)companion)") ||
                                           i.name.StartsWith("ui)memory)"));
-            //bool IconSelector(Item i) => i.name.StartsWith("ui") || i.name.StartsWith("2d");
 
             var assetCount = _assetContext.GetAssetCount(IconSelector);
             var assetSize = _assetContext.GetAssetSize(IconSelector);
 
             // Set setup design
+            SetupAssetDownloadLayout("icons", assetCount, assetSize);
+
+            // Download assets
+            await _assetContext.DownloadAssets(IconSelector);
+        }
+
+        #endregion
+
+        #region Create layouts
+
+        private void SetupSetupDialog()
+        {
+            Content = new StackLayout
+            {
+                Alignment = Alignment.Horizontal,
+                Items =
+                {
+                    new StackItem(new Label {Caption = "Setup application..."})
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Size = ImGui.Forms.Models.Size.Parent
+                    }
+                }
+            };
+        }
+
+        private void SetupLoginLayout()
+        {
+            var username = string.Empty;
+            var password = string.Empty;
+
+            var errMsg = new Label { TextColor = Color.Firebrick };
+            var userBox = new TextBox { Width = SizeValue.Relative(1) };
+            var passBox = new TextBox { Width = SizeValue.Relative(1), IsMasked = true };
+            var loginBtn = new NierButton { Caption = "Login" };
+
+            userBox.TextChanged += (s, e) => username = userBox.Text;
+            passBox.TextChanged += (s, e) => password = passBox.Text;
+            loginBtn.Clicked += async (s, e) =>
+            {
+                errMsg.Caption = string.Empty;
+
+                userBox.IsReadOnly = true;
+                passBox.IsReadOnly = true;
+                loginBtn.Enabled = false;
+
+                var isLoggedIn = await TryLogin(username, password);
+                if (!isLoggedIn)
+                    errMsg.Caption = "Couldn't login.";
+
+                userBox.IsReadOnly = false;
+                passBox.IsReadOnly = false;
+                loginBtn.Enabled = true;
+
+                if (isLoggedIn)
+                    await AfterLogin();
+            };
+
+            Caption = "Login";
+            Content = new StackLayout
+            {
+                Alignment = Alignment.Vertical,
+                ItemSpacing = 3,
+                Items =
+                {
+                    new StackItem(errMsg){HorizontalAlignment = HorizontalAlignment.Center},
+                    new TableLayout
+                    {
+                        Spacing = new Vector2(3,3),
+                        Rows =
+                        {
+                            new TableRow
+                            {
+                                Cells =
+                                {
+                                    new Label {Caption = "Username:"},
+                                    userBox
+                                }
+                            },
+                            new TableRow
+                            {
+                                Cells =
+                                {
+                                    new Label {Caption = "Password:"},
+                                    passBox
+                                }
+                            }
+                        }
+                    },
+                    new StackItem(loginBtn) {HorizontalAlignment = HorizontalAlignment.Right}
+                }
+            };
+        }
+
+        private void SetupInitializeLayout()
+        {
+            Content = new StackLayout
+            {
+                Alignment = Alignment.Horizontal,
+                Items =
+                {
+                    new StackItem(new Label {Caption = "Initialize data..."})
+                    {
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Size = ImGui.Forms.Models.Size.Parent
+                    }
+                }
+            };
+        }
+
+        private void SetupAssetDownloadLayout(string itemName, int assetCount, int assetSize)
+        {
             Size = new Vector2(250, 100);
             Content = new StackLayout
             {
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = $"Download {assetCount} icons ({assetSize/1024f/1024:0.0}MB) ..."})
+                    new StackItem(new Label {Caption = $"Download {assetCount} {itemName} ({assetSize/1024f/1024:0.0}MB) ..."})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
@@ -283,34 +310,6 @@ namespace nier_rein_gui.Dialogs
                     }
                 }
             };
-
-            await _assetContext.DownloadAssets(IconSelector);
-        }
-
-        #endregion
-
-        #region Dialog initialization
-
-        private async Task EnsureDialogsInitialized()
-        {
-            // Set setup design
-            Size = new Vector2(200, 100);
-            Content = new StackLayout
-            {
-                Alignment = Alignment.Horizontal,
-                Items =
-                {
-                    new StackItem(new Label {Caption = "Setup dialogs..."})
-                    {
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        Size = ImGui.Forms.Models.Size.Parent
-                    }
-                }
-            };
-
-            await Task.Run(CostumeSelectionDialog.InitializeCostumeDataInfo);
-            await Task.Run(WeaponSelectionDialog.InitializeWeaponDataInfo);
         }
 
         #endregion

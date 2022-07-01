@@ -35,9 +35,9 @@ namespace nier_rein_gui.Forms
 
         private void SetMainContent()
         {
-            userLabel=new Label
+            userLabel = new Label
             {
-                Caption = GetUserString(), 
+                Caption = GetUserString(),
                 Font = FontResources.FotRodin(11)
             };
             staminaLabel = new Label
@@ -47,8 +47,8 @@ namespace nier_rein_gui.Forms
             };
             versionLabel = new Label
             {
-                Caption = $"App Version: {Application.Version}", 
-                Font = FontResources.FotRodin(11)
+                Font = FontResources.FotRodin(11),
+                Caption = $"Game version: {Application.Version}"
             };
 
             loadoutButton = new NierButton

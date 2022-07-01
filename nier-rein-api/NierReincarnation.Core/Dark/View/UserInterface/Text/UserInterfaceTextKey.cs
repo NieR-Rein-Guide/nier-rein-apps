@@ -284,7 +284,7 @@
 
         public static class Common
         {
-            public static readonly string kRarityName= "ui.Outgame.Common.Rarity.Name.{0:D2}"; // 0x148
+            public static readonly string kRarityName= "ui.Outgame.Common.RarityType.Name.{0:D2}"; // 0x148
             public static readonly string kAttributeTextKey= "ui.Outgame.Attribute.{0}"; // 0x1B8
             public static readonly string kWeaponTypeTextKey= "ui.Outgame.WeaponType.{0}"; // 0x1C0
         }

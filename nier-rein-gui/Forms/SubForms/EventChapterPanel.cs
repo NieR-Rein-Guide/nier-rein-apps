@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ImGui.Forms.Controls;
 using NierReincarnation;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface;
 
 namespace nier_rein_gui.Forms.SubForms
@@ -28,8 +30,11 @@ namespace nier_rein_gui.Forms.SubForms
 
         private IList<EventQuestChapterData> GetEventChapters()
         {
-            var eventChapters = _rein.Quests.GetEventChapters().Where(x => x.IsCurrent()).OrderByDescending(x => x.StartDatetime);
-            var dungeons = _rein.Quests.GetDungeonEventChapters().OrderBy(x => x.StartDatetime);
+            var eventQuests = CalculatorQuest.GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.TOWER, EventQuestType.HUNT, EventQuestType.SPECIAL);
+            var dungeonQuests = CalculatorQuest.GetEventQuestChapters(EventQuestType.DUNGEON);
+
+            var eventChapters = eventQuests.Where(x => x.IsCurrent()).OrderByDescending(x => x.StartDatetime);
+            var dungeons = dungeonQuests.OrderBy(x => x.StartDatetime);
 
             return eventChapters.Concat(dungeons).ToArray();
         }

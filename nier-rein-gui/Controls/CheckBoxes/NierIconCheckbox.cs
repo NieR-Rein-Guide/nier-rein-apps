@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Numerics;
-using ImGui.Forms;
 using ImGui.Forms.Controls.Base;
 using ImGui.Forms.Models;
-using ImGuiNET;
 using Veldrid;
 
 namespace nier_rein_gui.Controls
@@ -26,7 +24,11 @@ namespace nier_rein_gui.Controls
         {
             var check = Checked;
 
+            var y = Math.Abs(CheckboxSize.Y - GetIconSize().Y) / 2;
+
+            ImGuiNET.ImGui.SetCursorPosY(y);
             var checkChanged = ImGuiNET.ImGui.Checkbox(string.Empty, ref check);
+
             DrawIcon(contentRect);
 
             if (checkChanged)

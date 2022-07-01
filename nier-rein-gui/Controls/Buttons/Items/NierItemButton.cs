@@ -4,8 +4,6 @@ using ImGui.Forms.Extensions;
 using ImGui.Forms.Resources;
 using ImGuiNET;
 using nier_rein_gui.Resources;
-using NierReincarnation.Core.UnityEngine;
-using SixLabors.ImageSharp.Processing;
 using Component = ImGui.Forms.Controls.Base.Component;
 using Rectangle = Veldrid.Rectangle;
 using Size = ImGui.Forms.Models.Size;
@@ -35,7 +33,7 @@ namespace nier_rein_gui.Controls.Buttons.Items
         protected override void UpdateInternal(Rectangle contentRect)
         {
             // Use button component to use actions
-            ImGuiNET.ImGui.PushStyleColor(ImGuiCol.Button,0);
+            ImGuiNET.ImGui.PushStyleColor(ImGuiCol.Button, 0);
             ImGuiNET.ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0);
             ImGuiNET.ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0);
 
@@ -43,6 +41,43 @@ namespace nier_rein_gui.Controls.Buttons.Items
             var isHovered = ImGuiNET.ImGui.IsItemHovered();
 
             ImGuiNET.ImGui.PopStyleColor(3);
+
+            // Draw content
+            DrawContent(contentRect, isHovered);
+
+            // Invoke click event
+            if (isHovered && isClicked)
+                OnClicked();
+        }
+
+        protected abstract bool IsPlaceholder();
+
+        protected abstract ImageResource GetPlaceholder();
+
+        protected abstract ImageResource GetBackground();
+
+        protected abstract ImageResource GetBorder();
+
+        protected abstract ImageResource GetContent();
+
+        protected virtual ImageResource[] GetIcons() => Array.Empty<ImageResource>();
+
+        protected virtual void OnClicked()
+        {
+            Clicked?.Invoke(this, new EventArgs());
+        }
+
+        private void DrawContent(Rectangle contentRect, bool isHovered)
+        {
+            if (IsPlaceholder())
+            {
+                if (GetPlaceholder() != null)
+                    ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)GetPlaceholder(), contentRect.Position, contentRect.Position + contentRect.Size);
+
+                DrawSelectionOverlay(contentRect, isHovered, false);
+
+                return;
+            }
 
             // Draw content
             if (GetBackground() != null)
@@ -53,14 +88,15 @@ namespace nier_rein_gui.Controls.Buttons.Items
                 ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)GetBorder(), contentRect.Position, contentRect.Position + contentRect.Size);
 
             // Draw selection
-            var overlayColor = Selected ? SelectionColor : isHovered ? HoverColor : 0;
-
-            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, overlayColor);
+            DrawSelectionOverlay(contentRect, isHovered, Selected);
 
             // Draw icons
             var iconPos = contentRect.Position;
             foreach (var icon in GetIcons())
             {
+                if (icon == null)
+                    continue;
+
                 ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)icon, iconPos, iconPos + icon.Size);
                 iconPos += new Vector2(0, icon.Height);
             }
@@ -76,47 +112,13 @@ namespace nier_rein_gui.Controls.Buttons.Items
             {
                 // TODO: Draw bonus indicator
             }
-
-            // Invoke click event
-            if (isHovered && isClicked)
-                OnClicked();
         }
 
-        protected abstract ImageResource GetBackground();
-
-        protected abstract ImageResource GetBorder();
-
-        protected abstract ImageResource GetContent();
-
-        protected virtual ImageResource[] GetIcons() => Array.Empty<ImageResource>();
-
-        protected ImageResource LoadItemResource(ImageAsset asset)
+        private void DrawSelectionOverlay(Rectangle contentRect, bool isHovered, bool isSelected)
         {
-            ResizeToItemSlot(asset);
+            var overlayColor = isSelected ? SelectionColor : isHovered ? HoverColor : 0;
 
-            return ImageResource.FromStream(asset.AsStream());
-        }
-
-        protected ImageResource LoadIconResource(ImageAsset asset)
-        {
-            ResizeToIcon(asset);
-
-            return ImageResource.FromStream(asset.AsStream());
-        }
-
-        private void ResizeToItemSlot(ImageAsset asset)
-        {
-            asset.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.ItemSlotSize.X, (int)NierResources.ItemSlotSize.Y)));
-        }
-
-        private void ResizeToIcon(ImageAsset asset)
-        {
-            asset.Image.Mutate(x => x.Resize(new SixLabors.ImageSharp.Size((int)NierResources.IconSize.X, (int)NierResources.IconSize.Y)));
-        }
-
-        protected virtual void OnClicked()
-        {
-            Clicked?.Invoke(this, new EventArgs());
+            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, overlayColor);
         }
     }
 }

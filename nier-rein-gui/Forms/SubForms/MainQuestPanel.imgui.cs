@@ -33,16 +33,11 @@ namespace nier_rein_gui.Forms.SubForms
         private List questList;
         private NierButton difficultyButton;
 
-        //private List<NierButton> seasonButtonList;
-        //private List<NierButton> chapterButtonList;
-        //private List<NierQuestButton> questButtonList;
-        //private NierButton difficultyButton;
-
         private void InitializeComponent()
         {
             seasonLayout = CreateSeasonButtonLayout();
             chapterList = new List { ItemSpacing = 5 };
-            questList = new List { ItemSpacing = 5 };
+            questList = new List { ItemSpacing = 5, };
             difficultyButton = new NierButton { Width = 100 };
 
             Content = new StackLayout
@@ -116,7 +111,7 @@ namespace nier_rein_gui.Forms.SubForms
                 Active = _currentChapter == chapter,
                 Enabled = CalculatorQuest.IsUnlockMainQuestChapter(CalculatorStateUser.GetUserId(), chapter.MainQuestChapterId),
                 IsClickActive = true,
-                Width = 0.2f,
+                Width = 1f,
                 Padding = new Vector2(0, 2)
             };
             result.Clicked += (s, e) => ChapterBtn_Clicked((NierButton)s, chapter);
@@ -131,11 +126,12 @@ namespace nier_rein_gui.Forms.SubForms
                 Caption = quest.QuestName,
                 Enabled = !quest.IsLock,
                 SubFont = FontResources.FotRodin(12),
-                DailyFont = FontResources.FotRodin(9),
                 ClearFont = FontResources.FotRodin(11),
                 SuggestedPower = quest.Quest.EntityQuest.RecommendedDeckPower,
                 Stamina = quest.Quest.EntityQuest.Stamina,
-                Padding = new Vector2(2, 2)
+                IsClear = quest.IsClear,
+                Padding = new Vector2(2, 2),
+                Width = 1f
             };
             result.Clicked += (s, e) => QuestBtn_Clicked((NierQuestButton)s, quest);
 

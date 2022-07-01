@@ -8,104 +8,41 @@ namespace nier_rein_gui.Controls.Buttons.Items
 {
     class NierCostumeItemButton : NierItemButton
     {
-        private ImageResource _itemResource;
-        private ImageResource _bgResource;
-        private ImageResource _borderResource;
+        public DataOutgameCostumeInfo Costume { get; set; }
 
-        private ImageResource _weaponResource;
-
-        private DataOutgameCostumeInfo _costumeInfo;
-
-        #region Properties
-
-        public DataOutgameCostumeInfo Costume
+        protected override bool IsPlaceholder()
         {
-            get => _costumeInfo;
-            set
-            {
-                _costumeInfo = value;
-
-                LoadCostumeResource(value?.ActorAssetId);
-
-                LoadWeaponTypeIcon(value?.WeaponType ?? WeaponType.UNKNOWN);
-                LoadRarityTypeResources(value?.RarityType ?? RarityType.UNKNOWN);
-            }
+            return Costume == null;
         }
 
-        #endregion
+        protected override ImageResource GetPlaceholder()
+        {
+            return NierResources.LoadCostumePlaceholder();
+        }
 
         protected override ImageResource GetBackground()
         {
-            return _bgResource;
+            return NierResources.LoadRarityBackground(Costume?.RarityType ?? RarityType.UNKNOWN);
         }
 
         protected override ImageResource GetBorder()
         {
-            return _borderResource;
+            return NierResources.LoadRarityBorder(Costume?.RarityType ?? RarityType.UNKNOWN);
         }
 
         protected override ImageResource GetContent()
         {
-            return _itemResource;
+            return NierResources.LoadCostumeItem(Costume?.ActorAssetId);
         }
 
         protected override ImageResource[] GetIcons()
         {
             var result = new List<ImageResource>();
 
-            if (_weaponResource != null)
-                result.Add(_weaponResource);
+            if (Costume?.WeaponType != WeaponType.UNKNOWN)
+                result.Add(NierResources.LoadWeaponTypeIcon(Costume?.WeaponType ?? WeaponType.UNKNOWN));
 
             return result.ToArray();
-        }
-
-        private void LoadCostumeResource(ActorAssetId assetId)
-        {
-            _itemResource?.Destroy();
-            _itemResource = null;
-
-            if (assetId == null)
-                return;
-
-            _itemResource = LoadItemResource(NierResources.LoadCostumeIconAsset(assetId));
-        }
-
-        private void LoadWeaponTypeIcon(WeaponType weaponType)
-        {
-            _weaponResource?.Destroy();
-            _weaponResource = null;
-
-            switch (weaponType)
-            {
-                case WeaponType.UNKNOWN:
-                case WeaponType.COMPANION:
-                case WeaponType.MT_WEAPON:
-                    break;
-
-                default:
-                    _weaponResource = LoadIconResource(NierResources.LoadWeaponTypeIcon(weaponType));
-                    break;
-            }
-        }
-
-        private void LoadRarityTypeResources(RarityType rarityTpe)
-        {
-            _bgResource?.Destroy();
-            _borderResource?.Destroy();
-
-            _bgResource = null;
-            _borderResource = null;
-
-            switch (rarityTpe)
-            {
-                case RarityType.UNKNOWN:
-                    break;
-
-                default:
-                    _bgResource = LoadItemResource(NierResources.LoadRarityBackground(rarityTpe));
-                    _borderResource = LoadItemResource(NierResources.LoadRarityBorder(rarityTpe));
-                    break;
-            }
         }
     }
 }

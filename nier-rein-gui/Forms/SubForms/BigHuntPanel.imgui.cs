@@ -36,6 +36,7 @@ namespace nier_rein_gui.Forms.SubForms
             {
                 bossList.Items.Add(new NierButton
                 {
+                    Width = 1f,
                     Caption = chapter.BossQuestName,
                     IsClickActive = true
                 });
@@ -50,6 +51,7 @@ namespace nier_rein_gui.Forms.SubForms
             {
                 questList.Items.Add(new NierButton
                 {
+                    Width = 1f,
                     Caption = quest.QuestName,
                     Enabled = !quest.IsLock
                 });

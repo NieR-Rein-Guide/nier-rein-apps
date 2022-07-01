@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ImGui.Forms.Resources;
 using nier_rein_gui.Controls.Buttons.Items;
-using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using SixLabors.ImageSharp.Processing;
 
 namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
@@ -16,6 +13,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         private static IDictionary<DataOutgameCostumeInfo, NierCostumeItemButton> _costumeInfo;
 
         private readonly DataOutgameCostumeInfo _currentCostume;
+        private readonly DataOutgameCostumeInfo[] _deckCostumes;
 
         protected override bool ShowAttributeFilter => false;
         protected override bool ShowWeaponTypeFilter => true;
@@ -24,11 +22,14 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         public CostumeSelectionDialog(DataOutgameCostumeInfo currentCostume, DataOutgameCostumeInfo[] deckCostumes)
         {
             _currentCostume = currentCostume;
+            _deckCostumes = deckCostumes;
 
             Caption = "Costumes";
+
+            InitializeCostumeDataInfo();
         }
 
-        public static void InitializeCostumeDataInfo()
+        private void InitializeCostumeDataInfo()
         {
             if (_costumeInfo != null)
                 return;
@@ -36,9 +37,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _costumeInfo = new Dictionary<DataOutgameCostumeInfo, NierCostumeItemButton>();
 
             foreach (var costumeInfo in CalculatorCostume.EnumerateCostumeInfo(CalculatorStateUser.GetUserId()))
-            {
                 _costumeInfo[costumeInfo] = new NierCostumeItemButton { Costume = costumeInfo };
-            }
         }
 
         protected override NierItemButton GetButton(DataOutgameCostumeInfo item)

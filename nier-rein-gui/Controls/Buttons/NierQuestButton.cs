@@ -4,6 +4,7 @@ using System.Numerics;
 using ImGui.Forms;
 using ImGui.Forms.Controls.Base;
 using ImGui.Forms.Extensions;
+using ImGui.Forms.Models;
 using ImGui.Forms.Resources;
 using ImGuiNET;
 using NierReincarnation.Core.Dark.Localization;
@@ -51,6 +52,8 @@ namespace nier_rein_gui.Controls.Buttons
         public FontResource ClearFont { get; set; }
 
         public Vector2 Padding { get; set; }
+
+        public SizeValue Width { get; set; }
 
         public int Stamina { get; set; }
 
@@ -113,6 +116,9 @@ namespace nier_rein_gui.Controls.Buttons
 
             if (Font != null)
                 ImGuiNET.ImGui.PopFont();
+
+            if (Width != null)
+                return new Size(Width, height);
 
             return new Size(width, height);
         }

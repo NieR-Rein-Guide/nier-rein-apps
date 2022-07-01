@@ -2,6 +2,7 @@
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using nier_rein_gui.Controls.Buttons.Items;
+using nier_rein_gui.Resources;
 
 namespace nier_rein_gui.Forms.SubForms
 {
@@ -12,9 +13,9 @@ namespace nier_rein_gui.Forms.SubForms
         private NierWeaponItemButton mainWeaponButton;
         private NierWeaponItemButton subWeapon1Button;
         private NierWeaponItemButton subWeapon2Button;
-        //private NierIconButton memoir1Button;
-        //private NierIconButton memoir2Button;
-        //private NierIconButton memoir3Button;
+        private NierMemoryItemButton memoir1Button;
+        private NierMemoryItemButton memoir2Button;
+        private NierMemoryItemButton memoir3Button;
 
         private void InitializeComponent()
         {
@@ -23,9 +24,9 @@ namespace nier_rein_gui.Forms.SubForms
             mainWeaponButton = new NierWeaponItemButton();
             subWeapon1Button = new NierWeaponItemButton();
             subWeapon2Button = new NierWeaponItemButton();
-            //memoir1Button = new NierIconButton { EmptySize = NierResources.ItemSlotSize };
-            //memoir2Button = new NierIconButton { EmptySize = NierResources.ItemSlotSize };
-            //memoir3Button = new NierIconButton { EmptySize = NierResources.ItemSlotSize };
+            memoir1Button = new NierMemoryItemButton();
+            memoir2Button = new NierMemoryItemButton();
+            memoir3Button = new NierMemoryItemButton();
 
             Content = new List
             {
@@ -47,18 +48,18 @@ namespace nier_rein_gui.Forms.SubForms
                     },
                     new Label{Caption = "Companion"},
                     companionButton,
-                    //new Label{Caption = "Memoirs"},
-                    //memoir1Button,
-                    //new StackLayout
-                    //{
-                    //    Alignment = Alignment.Horizontal,
-                    //    ItemSpacing = 5,
-                    //    Items =
-                    //    {
-                    //        memoir2Button,
-                    //        memoir3Button
-                    //    }
-                    //}
+                    new Label{Caption = "Memoirs"},
+                    memoir1Button,
+                    new StackLayout
+                    {
+                        Alignment = Alignment.Horizontal,
+                        ItemSpacing = 5,
+                        Items =
+                        {
+                            memoir2Button,
+                            memoir3Button
+                        }
+                    }
                 }
             };
         }

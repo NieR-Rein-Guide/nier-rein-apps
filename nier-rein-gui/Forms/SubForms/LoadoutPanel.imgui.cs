@@ -2,6 +2,7 @@
 using System.Linq;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
+using ImGui.Forms.Models;
 using ImGuiNET;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
@@ -19,14 +20,15 @@ namespace nier_rein_gui.Forms.SubForms
         private ArrowButton nextButton;
 
         private Label deckNameLabel;
+        private ImageButton deckNameButton;
         private LoadoutActorPanel actor1;
         private LoadoutActorPanel actor2;
         private LoadoutActorPanel actor3;
 
         private List<DataDeckInfo> decks;
 
-        private int _currentDeckNumber;
-        private DataDeckInfo _currentDeck;
+        protected int _currentDeckNumber;
+        protected DataDeckInfo _currentDeck;
 
         private void InitializeComponent()
         {
@@ -34,6 +36,7 @@ namespace nier_rein_gui.Forms.SubForms
             nextButton = new ArrowButton { Direction = ImGuiDir.Right };
 
             deckNameLabel = new Label();
+            deckNameButton = new ImageButton { Image = NierResources.LoadEditIcon() };
             actor1 = new LoadoutActorPanel(_rein);
             actor2 = new LoadoutActorPanel(_rein);
             actor3 = new LoadoutActorPanel(_rein);
@@ -58,7 +61,17 @@ namespace nier_rein_gui.Forms.SubForms
                                 ItemSpacing = 5,
                                 Items =
                                 {
-                                    deckNameLabel,
+                                    new StackLayout
+                                    {
+                                        Alignment = Alignment.Horizontal,
+                                        ItemSpacing = 5,
+                                        Size = new Size(1f,-1),
+                                        Items =
+                                        {
+                                            new StackItem(deckNameLabel){VerticalAlignment = VerticalAlignment.Center},
+                                            deckNameButton
+                                        }
+                                    },
                                     new StackLayout
                                     {
                                         Alignment = Alignment.Horizontal,

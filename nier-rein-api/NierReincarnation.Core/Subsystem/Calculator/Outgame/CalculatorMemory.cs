@@ -19,12 +19,25 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         public static readonly int kMaxBonusSetCount = 3; // 0xC
 
         // CUSTOM: 
+        public static IEnumerable<DataOutgameMemoryInfo> EnumerateMemories(long userId)
+        {
+            foreach (var memory in DatabaseDefine.User.EntityIUserPartsTable.All)
+            {
+                if (memory.UserId != userId)
+                    continue;
+
+                yield return CreateDataOutgameMemoryInfo(memory);
+            }
+        }
+
+        // CUSTOM: 
         public static DataOutgameMemoryInfo CreateDataOutgameMemoryInfo(long userId, string uuid)
         {
             var userParts = GetEntityIUserParts(userId, uuid);
             return CreateDataOutgameMemoryInfo(userParts);
         }
 
+        // CUSTOM:
         private static DataOutgameMemoryInfo CreateDataOutgameMemoryInfo(EntityIUserParts entityIUserMemory)
         {
             var masterMemory = GetEntityMMemory(entityIUserMemory.PartsId);
@@ -33,7 +46,8 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return new DataOutgameMemoryInfo
             {
                 UserMemoryUuid = entityIUserMemory.UserPartsUuid,
-                GroupAssetId = masterMemoryGroup.PartsGroupAssetId
+                GroupAssetId = masterMemoryGroup.PartsGroupAssetId,
+                RarityType = masterMemory.RarityType
             };
         }
 

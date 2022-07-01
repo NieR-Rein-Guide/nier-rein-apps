@@ -7,7 +7,6 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Models;
 using ImGuiNET;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Dialogs;
 using nier_rein_gui.Resources;
@@ -27,7 +26,7 @@ namespace nier_rein_gui.Forms.SubForms
         public CharacterQuestPanel(NierReinContexts rein)
         {
             _rein = rein;
-            _chapters = _rein.Quests.GetCharacterEventChapters();
+            _chapters = CalculatorQuest.GetCharacterQuestChapters();
 
             SetMainList();
         }
@@ -43,6 +42,7 @@ namespace nier_rein_gui.Forms.SubForms
             {
                 var charButton = new NierButton
                 {
+                    Width = 1f,
                     Caption = CalculatorCharacter.CharacterName(characterChapter.CharacterId, true),
                     Enabled = !characterChapter.IsLock
                 };
@@ -61,7 +61,7 @@ namespace nier_rein_gui.Forms.SubForms
                 ItemSpacing = 5
             };
 
-            var quests = _rein.Quests.GetEventQuests(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable).ToList();
+            var quests = CalculatorQuest.GenerateEventQuestData(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable).ToList();
             foreach (var quest in quests)
             {
                 var charButton = new NierQuestButton
@@ -70,6 +70,7 @@ namespace nier_rein_gui.Forms.SubForms
                     SuggestedPower = quest.RecommendPower,
                     Stamina = quest.Quest.EntityQuest.Stamina,
                     Padding = new Vector2(2, 2),
+                    Width = 1f,
                     Enabled = !quest.IsLock
                 };
                 charButton.Clicked += async (s, e) => await FightAsync(chapter, quests, quest);

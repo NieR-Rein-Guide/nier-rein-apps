@@ -31,12 +31,15 @@ namespace nier_rein_gui.Forms.SubForms
             characterQuestButton = new NierButton
             {
                 Padding = new Vector2(0, 5),
+                Width = 1f,
                 Caption = UserInterfaceTextKey.Quest.kEventQuestCharacter.Localize(),
-                IsClickActive = true
+                IsClickActive = true,
+                Enabled = false
             };
             darkMemoryButton = new NierButton
             {
                 Padding = new Vector2(0, 5),
+                Width = 1f,
                 Caption = UserInterfaceTextKey.Quest.kEventQuestEndContents.Localize(),
                 IsClickActive = true
             };
@@ -83,6 +86,7 @@ namespace nier_rein_gui.Forms.SubForms
                 var btn = new NierButton
                 {
                     Padding = new Vector2(0, 5),
+                    Width = 1f,
                     Caption = chapter.EventQuestName,
                     IsClickActive = true,
                     Enabled = chapter.EventQuestType != EventQuestType.DUNGEON

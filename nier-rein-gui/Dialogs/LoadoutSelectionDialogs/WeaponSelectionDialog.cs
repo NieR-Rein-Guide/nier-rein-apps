@@ -25,9 +25,11 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _deckWeapons = deckWeapons;
 
             Caption = "Weapons";
+
+            InitializeWeaponDataInfo();
         }
 
-        public static void InitializeWeaponDataInfo()
+        private void InitializeWeaponDataInfo()
         {
             if (_weaponInfo != null)
                 return;
@@ -35,9 +37,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _weaponInfo = new Dictionary<DataWeaponInfo, NierWeaponItemButton>();
 
             foreach (var weaponInfo in CalculatorWeapon.EnumerateWeaponInfo(CalculatorStateUser.GetUserId()))
-            {
                 _weaponInfo[weaponInfo] = new NierWeaponItemButton { Weapon = weaponInfo };
-            }
         }
 
         protected override IEnumerable<DataWeaponInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)

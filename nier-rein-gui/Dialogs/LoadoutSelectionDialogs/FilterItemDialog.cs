@@ -400,7 +400,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         #endregion
 
-        #region Rarity events
+        #region RarityType events
 
         private void AllRarityCheck_CheckChanged(object sender, EventArgs e)
         {

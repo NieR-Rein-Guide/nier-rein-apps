@@ -56,6 +56,7 @@ namespace nier_rein_gui.Forms.SubForms
                 var btn = new NierQuestButton
                 {
                     Padding = new Vector2(2, 2),
+                    Width = 1f,
                     SubFont = FontResources.FotRodin(12),
                     DailyFont = FontResources.FotRodin(9),
                     ClearFont = FontResources.FotRodin(11),

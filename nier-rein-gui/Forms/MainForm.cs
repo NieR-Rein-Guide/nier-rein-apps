@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Modals;
+using ImGui.Forms.Modals.IO;
 using nier_rein_gui.Dialogs;
 using nier_rein_gui.Forms.SubForms;
+using nier_rein_gui.Properties;
 using NierReincarnation;
 using NierReincarnation.Context;
+using Application = NierReincarnation.Core.UnityEngine.Application;
 
 namespace nier_rein_gui.Forms
 {
@@ -25,6 +28,10 @@ namespace nier_rein_gui.Forms
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
+            // Set app version
+            if (!string.IsNullOrEmpty(Settings.Default.AppVersion))
+                Application.Version = Settings.Default.AppVersion;
+
             // Ensure application being setup
             var isInitialized = await EnsureApplication();
             if (!isInitialized)
