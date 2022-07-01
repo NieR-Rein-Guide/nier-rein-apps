@@ -35,6 +35,8 @@ namespace NierReincarnation.Context
         public event EventHandler<FinishBattleEventArgs> BattleFinished;
         public event EventHandler RequestRatioReached;
 
+        internal QuestBattleContext() { }
+
         #region Main Quests
 
         public static bool HasRunningMainQuest()
@@ -42,7 +44,7 @@ namespace NierReincarnation.Context
             var userId = CalculatorStateUser.GetUserId();
             var table = DatabaseDefine.User.EntityIUserMainQuestProgressStatusTable;
 
-            return table.FindByUserId(userId).CurrentQuestSceneId != 0;
+            return table.FindByUserId(userId)?.CurrentQuestSceneId != 0;
         }
 
         public async Task<BattleResult> ExecuteMainQuest(QuestCellData quest, DataDeck deck)
@@ -209,7 +211,7 @@ namespace NierReincarnation.Context
             var userId = CalculatorStateUser.GetUserId();
             var table = DatabaseDefine.User.EntityIUserEventQuestProgressStatusTable;
 
-            return table.FindByUserId(userId).CurrentEventQuestChapterId != 0;
+            return table.FindByUserId(userId)?.CurrentEventQuestChapterId != 0;
         }
 
         public async Task<BattleResult> ExecuteEventQuest(int chapterId, EventQuestData quest, DataDeck deck)

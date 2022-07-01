@@ -25,10 +25,7 @@ namespace NierReincarnation.Context
 
         public static StaminaPreference Preference { get; } = new StaminaPreference();
 
-        internal StaminaContext()
-        {
-            _dc = new DarkClient();
-        }
+        internal StaminaContext() { }
 
         public int GetCurrentStamina()
         {

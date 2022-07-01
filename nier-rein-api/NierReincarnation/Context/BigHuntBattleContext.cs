@@ -40,12 +40,14 @@ namespace NierReincarnation.Context
 
         public event EventHandler RequestRatioReached;
 
+        internal BigHuntBattleContext() { }
+
         public static bool HasRunningBigHuntQuest()
         {
             var userId = CalculatorStateUser.GetUserId();
             var table = DatabaseDefine.User.EntityIUserBigHuntProgressStatusTable;
 
-            return table.FindByUserId(userId).CurrentQuestSceneId != 0;
+            return table.FindByUserId(userId)?.CurrentQuestSceneId != 0;
         }
 
         public async Task<BigHuntBattleStatus> ExecuteBigHuntQuest(BigHuntQuestData quest, int bigHuntDeckNumber, SubjugationGrade grade)
