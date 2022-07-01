@@ -12,6 +12,8 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api.Data.GetUserD
         {
             var dc = new DarkClient();
             var userData = await dc.DataService.GetUserDataAsync(new UserDataGetRequest { TableName = { tableNames } });
+            if (userData == null)
+                return null;
 
             var result = new List<(string, List<object>)>();
             foreach (var userDataElement in userData.UserDataJson)

@@ -19,7 +19,6 @@ using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
 using NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc;
 using NierReincarnation.Core.Custom;
 using NierReincarnation.Core.Dark;
-using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Adam.Framework.Network
 {
@@ -36,7 +35,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         // 0x18
         private static readonly INetworkInterceptor[] defaultInterceptors = {
             //new NetworkQueueInterceptor(),
-            //new ErrorHandlingInterceptor(),
+            new ErrorHandlingInterceptor(),
             new SetCommonHeaderInterceptor(),
             //new ReviewVersionInterceptor(),
             new UserDiffUpdateInterceptor(),
@@ -216,18 +215,18 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 
         public Task<StartMainQuestResponse> StartMainQuestAsync(StartMainQuestRequest request)
         {
-	        var path = "QuestService/StartMainQuestAsync";
-	        return InvokeAsync<StartMainQuestResponse, StartMainQuestRequest>(path, request,
-		        ctx =>
-			        new ResponseContext<StartMainQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).StartMainQuestAsync((StartMainQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+            var path = "QuestService/StartMainQuestAsync";
+            return InvokeAsync<StartMainQuestResponse, StartMainQuestRequest>(path, request,
+                ctx =>
+                    new ResponseContext<StartMainQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).StartMainQuestAsync((StartMainQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         public Task<FinishMainQuestResponse> FinishMainQuestAsync(FinishMainQuestRequest request)
         {
-	        var path = "QuestService/FinishMainQuestAsync";
-	        return InvokeAsync<FinishMainQuestResponse, FinishMainQuestRequest>(path, request,
-		        ctx =>
-			        new ResponseContext<FinishMainQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).FinishMainQuestAsync((FinishMainQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+            var path = "QuestService/FinishMainQuestAsync";
+            return InvokeAsync<FinishMainQuestResponse, FinishMainQuestRequest>(path, request,
+                ctx =>
+                    new ResponseContext<FinishMainQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).FinishMainQuestAsync((FinishMainQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         public Task<UpdateEventQuestSceneProgressResponse> UpdateEventQuestSceneProgressAsync(UpdateEventQuestSceneProgressRequest request)
@@ -240,10 +239,10 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 
         public Task<UpdateMainQuestSceneProgressResponse> UpdateMainQuestSceneProgressAsync(UpdateMainQuestSceneProgressRequest request)
         {
-	        var path = "QuestService/UpdateMainQuestSceneProgressAsync";
-	        return InvokeAsync<UpdateMainQuestSceneProgressResponse, UpdateMainQuestSceneProgressRequest>(path, request,
-		        ctx =>
-			        new ResponseContext<UpdateMainQuestSceneProgressResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).UpdateMainQuestSceneProgressAsync((UpdateMainQuestSceneProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+            var path = "QuestService/UpdateMainQuestSceneProgressAsync";
+            return InvokeAsync<UpdateMainQuestSceneProgressResponse, UpdateMainQuestSceneProgressRequest>(path, request,
+                ctx =>
+                    new ResponseContext<UpdateMainQuestSceneProgressResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).UpdateMainQuestSceneProgressAsync((UpdateMainQuestSceneProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         public Task<UpdateMainFlowSceneProgressResponse> UpdateMainFlowSceneProgressAsync(UpdateMainFlowSceneProgressRequest request)
@@ -354,20 +353,10 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         private async Task<TResponse> InvokeAsync<TResponse, TRequest>(string path, TRequest request, Func<RequestContext, ResponseContext> requestMethod)
         {
             var reqContext = new RequestContext(this, path, request, channel, new Metadata(), deadline, cancellationToken, interceptors, requestMethod, typeof(TResponse), OnErrorAction, OnVerifyToken);
+            var resContext = await InvokeWithInterceptor(reqContext);
 
-            // CUSTOM: Try-Catch RpcException of type "PreconditionFailed" to notify the user that the current version of the app should be updated
-            ResponseContext resContext;
-            try
-            {
-                resContext = await InvokeWithInterceptor(reqContext);
-            }
-            catch (RpcException rpce)
-            {
-                if (rpce.StatusCode == StatusCode.FailedPrecondition)
-                    throw new InvalidOperationException($"The version of the app must be updated. Current={Application.Version}");
-
-                throw;
-            }
+            if (resContext == null)
+                return default;
 
             return await resContext.GetResponseAs<TResponse>();
         }

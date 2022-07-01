@@ -4,7 +4,7 @@ using Grpc.Core;
 
 namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
 {
-    class ErrorHandlingInterceptor : INetworkInterceptor
+    public class ErrorHandlingInterceptor : INetworkInterceptor
     {
         public static Func<string, string, string, Task> StayError; // 0x0
         public static Func<string, string, string, long, Task> MoveFunctionTopError; // 0x8
@@ -20,6 +20,8 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
         public static bool IsTitleError = false; // 0x51
         private static readonly float kMilliSecondsUnit = 1000; // 0x54
 
+        public static Func<RpcException, Task<bool>> OnErrorAction;
+
         private int _retriedCount; // 0x10
         private int _unavailableCount; // 0x14
         private int _keepAliveRetriedCount; // 0x18
@@ -32,9 +34,22 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
             // Set connecting parameters
         }
 
-        public Task<ResponseContext> SendAsync(RequestContext context, Func<RequestContext, Task<ResponseContext>> next)
+        public async Task<ResponseContext> SendAsync(RequestContext context, Func<RequestContext, Task<ResponseContext>> next)
         {
-            return next.Invoke(context);
+            // CUSTOM: Try-Catch RpcException of type "PreconditionFailed" to notify the user that the current version of the app should be updated
+            try
+            {
+                var result = await next.Invoke(context);
+
+                return await result.WaitResponseAsync();
+            }
+            catch (RpcException rpce)
+            {
+                if (OnErrorAction != null)
+                    await OnErrorAction(rpce);
+            }
+
+            return default;
         }
 
         //private UniTask<ScreenTransitionType> ErrorHandling(RpcException ex)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Grpc.Core;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Adam.Framework.Network;
+using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
 using NierReincarnation.Core.Adam.Framework.Resource;
 using NierReincarnation.Core.Art.Library.Masterdata.Download;
 using NierReincarnation.Core.Dark;
@@ -22,11 +24,15 @@ namespace NierReincarnation
     // Doing an instance-based approach at this stage would require a rewrite of the fundamental code, to never use singleton instances.
     public static class NierReincarnation
     {
+        private const int RetryCount_ = 3;
         private const string DefaultResourceRoot_ = "./resources";
 
         public static bool IsInitialized { get; private set; }
 
         public static bool IsSetup { get; private set; }
+
+        public static event Func<RpcException, Task<bool>> ApiError;
+        public static RpcException LastApiError;
 
         static NierReincarnation()
         {
@@ -73,6 +79,9 @@ namespace NierReincarnation
         {
             if (IsSetup)
                 return;
+
+            // Set network error handler
+            ErrorHandlingInterceptor.OnErrorAction = OnNetworkError;
 
             // Initialize global application instance
             Console.WriteLine("Setup application systems.");
@@ -232,18 +241,16 @@ namespace NierReincarnation
         {
             Console.WriteLine("Update user data.");
 
-            for (var i = 0; i < 3; i++)
+            var userDataGet = new UserDataGet();
+            for (var i = 0; i < RetryCount_; i++)
             {
-                try
-                {
-                    await new UserDataGet().RequestAsync();
+                var wasSuccessful = await userDataGet.RequestAsync();
+                if (wasSuccessful)
                     return true;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"User data error: {e.Message}");
+
+                Console.WriteLine($"User data error: {LastApiError.Message}");
+                if (i + 1 < RetryCount_)
                     Console.WriteLine("Retry user data.");
-                }
             }
 
             Console.WriteLine("Couldn't retrieve user data.");
@@ -262,6 +269,17 @@ namespace NierReincarnation
 
             // Persist preferences
             PlayerPrefs.Instance.Save();
+        }
+
+        private static async Task<bool> OnNetworkError(RpcException e)
+        {
+            var result = false;
+            if (ApiError != null)
+                result = await ApiError(e);
+
+            LastApiError = e;
+
+            return result;
         }
     }
 }

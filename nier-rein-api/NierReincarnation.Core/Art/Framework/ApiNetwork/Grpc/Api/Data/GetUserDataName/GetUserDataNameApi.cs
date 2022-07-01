@@ -11,7 +11,9 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api.Data.GetUserD
         public static async Task<List<string>> RequestAsyncMethod()
         {
             var dc = new DarkClient();
-            return (await dc.DataService.GetUserDataNameAsync(new Empty())).TableName.ToList();
+            var result = await dc.DataService.GetUserDataNameAsync(new Empty());
+
+            return result?.TableName.ToList();
         }
     }
 }
