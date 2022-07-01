@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,7 +9,10 @@ using Art.Framework.ApiNetwork.Grpc.Api.User;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.UnityEngine;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using Serilog;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
@@ -20,6 +22,13 @@ namespace NierReincarnation
     {
         private static HttpClient _client = new HttpClient(new HttpClientHandler { AllowAutoRedirect = false });
         private static IDictionary<string, string> _cookies = new Dictionary<string, string>();
+
+        private static readonly Func<DriverManager, IWebDriver>[] DriverDelegates =
+        {
+            CreateChromeDriver,
+            CreateFirefox,
+            CreateEdgeDriver
+        };
 
         /// <summary>
         /// Returns userId for the credentials given for SquareEnix Bridge.
@@ -45,14 +54,71 @@ namespace NierReincarnation
 
         private static void CallBrowser(string backupToken, string username, string password)
         {
-            // Setup edge driver
-            new DriverManager().SetUpDriver(new EdgeConfig());
+            // Set up web driver
+            var manager = new DriverManager();
+
+            foreach (var driverDelegate in DriverDelegates)
+            {
+                IWebDriver driver = null;
+
+                try
+                {
+                    // Create driver
+                    driver = driverDelegate(manager);
+
+                    // Login by browser
+                    LoginByBrowser(driver, backupToken, username, password);
+                    break;
+                }
+                catch (Exception e)
+                {
+                    Log.Fatal(e, "Login exception");
+                    Console.WriteLine(e.Message);
+                }
+                finally
+                {
+                    // Close driver
+                    driver?.Quit();
+                }
+            }
+        }
+
+        #region Web driver setup
+
+        private static IWebDriver CreateChromeDriver(DriverManager manager)
+        {
+            manager.SetUpDriver(new ChromeConfig());
+
+            // Create a new instance in code
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArgument("--headless");
+            return new ChromeDriver(chromeOptions);
+        }
+
+        private static IWebDriver CreateEdgeDriver(DriverManager manager)
+        {
+            manager.SetUpDriver(new EdgeConfig());
 
             // Create a new instance in code
             var options = new EdgeOptions();
             options.AddArgument("headless");
-            var driver = new EdgeDriver(options);
+            return new EdgeDriver(options);
+        }
 
+        private static IWebDriver CreateFirefox(DriverManager manager)
+        {
+            manager.SetUpDriver(new FirefoxConfig());
+
+            // Create a new instance in code
+            var options = new FirefoxOptions();
+            options.AddArgument("--headless");
+            return new FirefoxDriver(options);
+        }
+
+        #endregion
+
+        private static void LoginByBrowser(IWebDriver driver, string backupToken, string username, string password)
+        {
             // Execute account choice
             driver.Navigate().GoToUrl($"https://psg.sqex-bridge.jp/ntv/288/update/top?type=2&token={backupToken}");
             driver.FindElement(By.Id("type")).FindElement(By.XPath("./..")).Submit();
@@ -63,13 +129,8 @@ namespace NierReincarnation
             driver.FindElement(By.Name("login")).Submit();
 
             // Execute confirmation
-            //File.WriteAllText(@"C:\Users\Kirito\source\repos\Grpc_Test\Grpc_Test\bin\Debug\net5.0\resources\data\com.square_enix.android_googleplay.nierspww\shared_prefs\t.html", driver.PageSource);
-            var _ = driver.PageSource;
-            //var ps1 = driver.PageSource;
+            var _ = driver.PageSource;  // HINT: Get page to load with this, before trying to click the button
             driver.FindElement(By.Name("button")).Click();
-
-            // Close driver
-            driver.Quit();
         }
 
         private static async Task<(string, string)> LoadAccountChoice(string backupToken)
