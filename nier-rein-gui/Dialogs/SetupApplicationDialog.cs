@@ -13,6 +13,7 @@ using nier_rein_gui.Properties;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.UnityEngine;
+using Serilog;
 
 namespace nier_rein_gui.Dialogs
 {
@@ -70,6 +71,8 @@ namespace nier_rein_gui.Dialogs
 
         private async Task<bool> NierReincarnationApiError(RpcException e)
         {
+            Log.Fatal(e,"API error on initialization.");
+
             switch (e.StatusCode)
             {
                 // Catch new version precondition error and close application after
@@ -130,6 +133,7 @@ namespace nier_rein_gui.Dialogs
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    Log.Fatal(e, "Login exception");
 
                     return false;
                 }

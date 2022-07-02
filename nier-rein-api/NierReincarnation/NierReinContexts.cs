@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Context;
-using NierReincarnation.Core.Adam.Framework.Network;
 
 namespace NierReincarnation
 {

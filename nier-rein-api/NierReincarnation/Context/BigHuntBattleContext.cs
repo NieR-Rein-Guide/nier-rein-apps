@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Battle;
 using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
 using Google.Protobuf;
-using Grpc.Core;
 using Newtonsoft.Json;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Adam.Framework.Network;
@@ -21,7 +20,7 @@ using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace NierReincarnation.Context
 {
-    public class BigHuntBattleContext
+    public class BigHuntBattleContext: BaseContext
     {
         private const int BigHuntBasePermil_ = 1000;
         private const int BigHuntMaxSurvivalPermil_ = 2000;
@@ -33,12 +32,8 @@ namespace NierReincarnation.Context
         private static readonly int[] WaveKnockdownModifierPermil = { 0, 250, 500 };
         private static readonly int[] DifficultyKnockdownModifierPermil = { 0, 1000, 2000, 3000 };
 
-        public static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
-
         private readonly Random _random = new Random();
         private readonly DarkClient _dc = new DarkClient();
-
-        public event EventHandler RequestRatioReached;
 
         internal BigHuntBattleContext() { }
 
@@ -333,40 +328,5 @@ namespace NierReincarnation.Context
         }
 
         #endregion
-
-        private void OnRequestRatioReached()
-        {
-            RequestRatioReached?.Invoke(this, new EventArgs());
-        }
-
-        private async Task<TResult> TryRequest<TResult>(Func<Task<TResult>> requestAction)
-        {
-            while (true)
-            {
-                try
-                {
-                    return await requestAction();
-                }
-                catch (RpcException rpce)
-                {
-                    if (rpce.StatusCode == StatusCode.PermissionDenied)
-                    {
-                        // Handle rate limiting
-
-                        // Invoke event
-                        OnRequestRatioReached();
-
-                        // Wait out rate limit
-                        await Task.Delay(RateTimeout);
-
-                        // Redo request
-                        continue;
-                    }
-
-                    // Otherwise, re-throw
-                    throw;
-                }
-            }
-        }
     }
 }

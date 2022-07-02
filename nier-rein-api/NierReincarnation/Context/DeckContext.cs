@@ -7,7 +7,7 @@ using NierReincarnation.Core.Dark;
 
 namespace NierReincarnation.Context
 {
-    public class DeckContext
+    public class DeckContext : BaseContext
     {
         private readonly DarkClient _dc = new DarkClient();
 
@@ -15,9 +15,11 @@ namespace NierReincarnation.Context
 
         public async Task Replace(DataDeckInfo deck)
         {
-            // TODO: Handle request limit
-            var replaceReq = CreateReplaceDeckRequest(deck);
-            var replaceRes = await _dc.DeckService.ReplaceDeckAsync(replaceReq);
+            var replaceRes = await TryRequest(async () =>
+            {
+                var replaceReq = CreateReplaceDeckRequest(deck);
+                return await _dc.DeckService.ReplaceDeckAsync(replaceReq);
+            });
 
             foreach (var userData in replaceRes.DiffUserData)
                 DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
@@ -26,8 +28,11 @@ namespace NierReincarnation.Context
         public async Task Rename(DataDeckInfo deck, string name)
         {
             // TODO: Handle request limit
-            var renameReq = CreateUpdateNameRequest(deck, name);
-            var renameRes = await _dc.DeckService.UpdateNameAsync(renameReq);
+            var renameRes = await TryRequest(async () =>
+            {
+                var renameReq = CreateUpdateNameRequest(deck, name);
+                return await _dc.DeckService.UpdateNameAsync(renameReq);
+            });
 
             foreach (var userData in renameRes.DiffUserData)
                 DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));

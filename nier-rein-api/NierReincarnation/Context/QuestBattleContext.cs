@@ -6,7 +6,6 @@ using Art.Framework.ApiNetwork.Grpc.Api.Battle;
 using Art.Framework.ApiNetwork.Grpc.Api.Quest;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
-using Grpc.Core;
 using Newtonsoft.Json;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Context.Models.Events;
@@ -23,19 +22,19 @@ using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace NierReincarnation.Context
 {
-    public class QuestBattleContext
+    public class QuestBattleContext : BaseContext
     {
-        public static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
-
         private readonly DarkClient _dc = new DarkClient();
         private readonly StaminaContext _stamina = new StaminaContext();
 
         public event EventHandler<StartBattleEventArgs> BattleStarted;
         public event EventHandler<BeforeFinishWaveEventArgs> BeforeFinishWave;
         public event EventHandler<FinishBattleEventArgs> BattleFinished;
-        public event EventHandler RequestRatioReached;
 
-        internal QuestBattleContext() { }
+        internal QuestBattleContext()
+        {
+            _stamina.RequestRatioReached += (s, e) => OnRequestRatioReached();
+        }
 
         #region Main Quests
 
@@ -348,7 +347,7 @@ namespace NierReincarnation.Context
         {
             return TryRequest(async () =>
             {
-                var currentStamina = _stamina.GetCurrentStamina();
+                var currentStamina = StaminaContext.GetCurrentStamina();
                 if (currentStamina < reqStamina)
                     return await _stamina.RefillStamina(reqStamina);
 
@@ -712,41 +711,6 @@ namespace NierReincarnation.Context
         {
             var args = new FinishBattleEventArgs(rewards);
             BattleFinished?.Invoke(this, args);
-        }
-
-        private void OnRequestRatioReached()
-        {
-            RequestRatioReached?.Invoke(this, new EventArgs());
-        }
-
-        private async Task<TResult> TryRequest<TResult>(Func<Task<TResult>> requestAction)
-        {
-            while (true)
-            {
-                try
-                {
-                    return await requestAction();
-                }
-                catch (RpcException rpce)
-                {
-                    if (rpce.StatusCode == StatusCode.PermissionDenied)
-                    {
-                        // Handle rate limiting
-
-                        // Invoke event
-                        OnRequestRatioReached();
-
-                        // Wait out rate limit
-                        await Task.Delay(RateTimeout);
-
-                        // Redo request
-                        continue;
-                    }
-
-                    // Otherwise, re-throw
-                    throw;
-                }
-            }
         }
     }
 }

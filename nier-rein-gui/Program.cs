@@ -4,6 +4,7 @@ using ImGui.Forms;
 using ImGuiNET;
 using nier_rein_gui.Forms;
 using nier_rein_gui.Resources;
+using Serilog;
 
 namespace nier_rein_gui
 {
@@ -11,15 +12,21 @@ namespace nier_rein_gui
     {
         static void Main()
         {
+            CreateLogger();
+
             SetStyle();
 
-            var form = new MainForm
+            var form = CreateMainForm();
+            new Application().Execute(form);
+        }
+
+        private static Form CreateMainForm()
+        {
+            return new MainForm
             {
                 DefaultFont = FontResources.FotRodin(13),
                 Size = new Vector2(1000, 600)
-        };
-
-            new Application().Execute(form);
+            };
         }
 
         private static void SetStyle()
@@ -44,6 +51,14 @@ namespace nier_rein_gui
             FontResources.RegisterFotRodin(12);
             FontResources.RegisterFotRodin(13);
             FontResources.RegisterFotRodin(20);
+        }
+
+        private static void CreateLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("nier-rein-gui.log")
+                .MinimumLevel.Error()
+                .CreateLogger();
         }
     }
 }

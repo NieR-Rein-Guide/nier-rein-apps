@@ -15,24 +15,24 @@ using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Context
 {
-    public class StaminaContext
+    public class StaminaContext: BaseContext
     {
         private static int GemReduceAmount_ = 100;
         private static int PotReduceAmount_ = 1;
         private static int SmallPotReplenishAmount_ = 10;
 
-        private static DarkClient _dc = new DarkClient();
+        private static readonly DarkClient _dc = new DarkClient();
 
         public static StaminaPreference Preference { get; } = new StaminaPreference();
 
         internal StaminaContext() { }
 
-        public int GetCurrentStamina()
+        public static int GetCurrentStamina()
         {
             return Stamina.CalculateCurrentStamina();
         }
 
-        public int GetMaxStamina()
+        public static int GetMaxStamina()
         {
             return CalculatorUserStatus.GetMaxStamina();
         }
@@ -100,74 +100,14 @@ namespace NierReincarnation.Context
 
         private async Task ConsumeStamina(RecoverData staminaItem, int consumeCount)
         {
-            //var userConsumable = _userObj as EntityIUserConsumableItem;
-            //userConsumable.Count -= count;
-
-            var ci = _dc.ConsumableItemService;
-            var useEffectRes = await ci.UseEffectItemAsync(new UseEffectItemRequest { ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount });
+            var useEffectRes = await TryRequest(async () =>
+            {
+                var useEffectReq = new UseEffectItemRequest {ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount};
+                return await _dc.ConsumableItemService.UseEffectItemAsync(useEffectReq);
+            });
 
             foreach (var userData in useEffectRes.DiffUserData)
                 DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
-        }
-
-        class StaminaItem
-        {
-            private readonly object _userObj;
-
-            private DarkClient _dc;
-
-            public int Count { get; }
-            public StaminaType Type { get; }
-
-            public int Replenish { get; }
-            public int Reduce { get; }
-
-            public StaminaItem(DarkClient dc, StaminaType type, int count, int replenish, int reduce, object userObj)
-            {
-                _dc = dc;
-
-                Type = type;
-                Count = count;
-
-                Replenish = replenish;
-                Reduce = reduce;
-
-                _userObj = userObj;
-            }
-
-            public async Task ReduceCountyByAsync(int count)
-            {
-                if (count <= 0)
-                    return;
-
-                //if (Type == StaminaType.GEM)
-                //{
-                //    var userGems = _userObj as EntityIUserGem;
-
-                //    var freeAmount = Math.Min(userGems.FreeGem, count);
-                //    userGems.FreeGem -= freeAmount;
-
-                //    count -= freeAmount;
-                //    userGems.PaidGem -= count;
-
-                //    return;
-                //}
-
-                var userConsumable = _userObj as EntityIUserConsumableItem;
-                userConsumable.Count -= count;
-
-                var ci = _dc.ConsumableItemService;
-                var useEffectRes = await ci.UseEffectItemAsync(new UseEffectItemRequest { ConsumableItemId = userConsumable.ConsumableItemId, Count = count });
-
-                foreach (var userData in useEffectRes.DiffUserData)
-                    DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
-
-                // Update stamina for user
-                //var userId = CalculatorStateUser.GetUserId();
-                //var userStatus = DatabaseDefine.User.EntityIUserStatusTable.FindByUserId(userId);
-                //userStatus.StaminaMilliValue += count * Replenish * 1000;
-                //userStatus.StaminaUpdateDatetime = CalculatorDateTime.UnixTimeNow();
-            }
         }
     }
 }

@@ -5,12 +5,7 @@ namespace NierReincarnation.Context
 {
     public class UserContext
     {
-        private StaminaContext _stamina;
-
-        internal UserContext()
-        {
-            _stamina = new StaminaContext();
-        }
+        internal UserContext() { }
 
         public string GetUserName()
         {
@@ -29,12 +24,12 @@ namespace NierReincarnation.Context
 
         public int GetCurrentStamina()
         {
-            return _stamina.GetCurrentStamina();
+            return StaminaContext.GetCurrentStamina();
         }
 
         public int GetMaxStamina()
         {
-            return _stamina.GetMaxStamina();
+            return StaminaContext.GetMaxStamina();
         }
     }
 }
