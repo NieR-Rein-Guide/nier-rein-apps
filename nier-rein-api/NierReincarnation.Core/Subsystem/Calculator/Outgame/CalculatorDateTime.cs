@@ -1,4 +1,5 @@
 ﻿using System;
+using Serilog;
 using TimeZoneConverter;
 
 namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
@@ -12,8 +13,9 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         {
             // CUSTOM: Logic to check if checkDateTime is after start of current day
             var startOfDay = TimeZoneInfo.ConvertTime(DateTime.Now, PstTimezone).Date;
-            var check = TimeZoneInfo.ConvertTime(checkDateTime.DateTime, PstTimezone);
-            return check >= startOfDay;
+            var pstCheckDateTime = TimeZoneInfo.ConvertTime(checkDateTime.DateTime, PstTimezone);
+
+            return pstCheckDateTime >= startOfDay;
         }
 
         public static bool IsWithinThePeriod(long startUnixTime, long endUnixTime)
@@ -31,7 +33,7 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         // CUSTOM: Parse unix time to type-safe UTC
         public static DateTimeOffset FromUnixTime(long unixTime)
         {
-            return DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
+            return TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeMilliseconds(unixTime), TimeZoneInfo.Local);
         }
 
         //public static bool IsAfterTodaySpanningTime(DateTimeOffset checkDateTime)
