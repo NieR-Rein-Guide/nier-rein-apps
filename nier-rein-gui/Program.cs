@@ -16,8 +16,15 @@ namespace nier_rein_gui
 
             SetStyle();
 
-            var form = CreateMainForm();
-            new Application().Execute(form);
+            var application = new Application();
+            application.UnhandledException += Instance_UnhandledException;
+
+            application.Execute(CreateMainForm());
+        }
+
+        private static void Instance_UnhandledException(object sender, System.Exception e)
+        {
+            Log.Fatal(e, "Unhandled exception.");
         }
 
         private static Form CreateMainForm()
@@ -57,7 +64,7 @@ namespace nier_rein_gui
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("nier-rein-gui.log")
-                .MinimumLevel.Error()
+                .MinimumLevel.Information()
                 .CreateLogger();
         }
     }
