@@ -55,6 +55,8 @@ namespace NierReincarnation.Core.Art.Library.Masterdata.Download
             // This client will set with default values, since no master data can retrieve requested information yet
             var dataService = new DarkClient().DataService;
             var versionResponse = await dataService.GetLatestMasterDataVersionAsync(new Empty());
+            if (versionResponse == null)
+                return InvalidSize;
 
             ApiSystem.Instance.Parameter?.MasterDataVersion?.UpdateMasterDataHash(versionResponse.LatestMasterDataVersion);
             ApplicationScopeClientContext.Instance.MasterData?.UpdateMasterDataHash(versionResponse.LatestMasterDataVersion);

@@ -176,7 +176,9 @@ namespace NierReincarnation
             await AuthorizeUser(activePlayer.UserId);
 
             // Update master data
-            await UpdateMasterData();
+            var isMasterSuccess = await UpdateMasterData();
+            if (!isMasterSuccess)
+                return;
 
             // Update user data
             var isUserSuccess = await UpdateUserData();
@@ -231,10 +233,12 @@ namespace NierReincarnation
             CalculatorNetworking.SetupAuthUpdateUserState(userId, ApplicationScopeClientContext.Instance.User.Signature);
         }
 
-        private static async Task UpdateMasterData()
+        private static async Task<bool> UpdateMasterData()
         {
             Console.WriteLine("Update master data.");
-            await MasterDataDownloader.DownloadAsync(ContextApi.ActiveContext.Thread.Source.Token);
+            var result = await MasterDataDownloader.DownloadAsync(ContextApi.ActiveContext.Thread.Source.Token);
+
+            return result == 0;
         }
 
         private static async Task<bool> UpdateUserData()
