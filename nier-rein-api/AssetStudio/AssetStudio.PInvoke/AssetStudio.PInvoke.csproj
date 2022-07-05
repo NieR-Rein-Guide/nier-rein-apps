@@ -9,4 +9,8 @@
     <Copyright>Copyright © Perfare 2020-2021; Copyright © hozuki 2020</Copyright>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.11.0" />
+  </ItemGroup>
+
 </Project>
