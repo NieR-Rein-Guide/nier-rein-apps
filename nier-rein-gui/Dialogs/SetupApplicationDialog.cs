@@ -6,10 +6,8 @@ using Grpc.Core;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
-using ImGui.Forms.Modals.IO;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
-using nier_rein_gui.Properties;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.UnityEngine;
@@ -30,7 +28,7 @@ namespace nier_rein_gui.Dialogs
             Content = new Label { Caption = "Setup application..." };
         }
 
-        protected override async void ShowInternal()
+        protected override async Task ShowInternal()
         {
             // Setup error handler
             NierReincarnation.NierReincarnation.ApiError += NierReincarnationApiError;
@@ -71,22 +69,14 @@ namespace nier_rein_gui.Dialogs
 
         private async Task<bool> NierReincarnationApiError(RpcException e)
         {
-            Log.Fatal(e,"API error on initialization.");
+            Log.Fatal(e, "API error on initialization.");
 
             switch (e.StatusCode)
             {
                 // Catch new version precondition error and close application after
                 case StatusCode.FailedPrecondition:
-                    await MessageBox.ShowInformationAsync("New version available", "There is a new game version available.\nChange the game version and restart the application.");
-
-                    var newVersion = await InputBox.ShowAsync("Change game version", "Game version", Application.Version, "Version e.g. 2.8.20");
-                    if (newVersion != null)
-                    {
-                        Settings.Default.AppVersion = newVersion;
-                        Settings.Default.Save();
-                    }
-
-                    ImGui.Forms.Application.Instance.Exit();
+                    var dlg = new VersionMaintenanceDialog();
+                    await dlg.ShowAsync();
 
                     return false;
 

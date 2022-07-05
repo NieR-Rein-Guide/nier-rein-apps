@@ -16,6 +16,7 @@ using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Context.Models.Events;
+using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -41,11 +42,12 @@ namespace nier_rein_gui.Dialogs
         private bool _isCancel;
 
         private Label limitLabel;
-        private ComboBox<DeckInfo> decks;
+        private ComboBox<DataDeckInfo> decks;
         private CheckBox battleCheck;
         private Label countLabel;
         private Label timeLabel;
         private Label staminaLabel;
+        private Button singleButton;
         private Button cancelButton;
         private Button startButton;
 
@@ -63,13 +65,16 @@ namespace nier_rein_gui.Dialogs
 
             limitLabel = new Label { Caption = string.Empty, TextColor = Color.Firebrick };
 
-            decks = new ComboBox<DeckInfo>();
-            InitializeComboBox(decks);
+            decks = new ComboBox<DataDeckInfo>();
+            InitializeDecks(decks);
 
             battleCheck = new CheckBox { Caption = "Do not battle", Checked = true };
             countLabel = new Label();
             timeLabel = new Label();
             staminaLabel = new Label();
+
+            singleButton = new NierButton { Caption = "Clear x1", Padding = new Vector2(2, 2) };
+            singleButton.Clicked += SingleButton_Clicked;
 
             cancelButton = new NierButton { Caption = "Cancel", Padding = new Vector2(2, 2), Enabled = false };
             cancelButton.Clicked += CancelButton_Clicked;
@@ -144,13 +149,22 @@ namespace nier_rein_gui.Dialogs
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        HorizontalAlignment = HorizontalAlignment.Right,
-                        ItemSpacing = 5,
                         Size = new Size(1f, -1),
                         Items =
                         {
-                            cancelButton,
-                            startButton
+                            singleButton,
+                            new StackLayout
+                            {
+                                Alignment = Alignment.Horizontal,
+                                HorizontalAlignment = HorizontalAlignment.Right,
+                                ItemSpacing = 5,
+                                Size = new Size(1f, -1),
+                                Items =
+                                {
+                                    cancelButton,
+                                    startButton
+                                }
+                            }
                         }
                     }
                 }
@@ -166,23 +180,34 @@ namespace nier_rein_gui.Dialogs
                 _timer.Start();
         }
 
-        private void InitializeComboBox(ComboBox<DeckInfo> deckBox)
+        private void InitializeDecks(ComboBox<DataDeckInfo> deckBox)
         {
             foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
             {
-                deckBox.Items.Add(new ComboBoxItem<DeckInfo>(new DeckInfo
-                {
-                    DeckId = deck.UserDeckNumber,
-                    DeckName = deck.Name
-                }));
+                deckBox.Items.Add(deck);
             }
 
             deckBox.SelectedItem = deckBox.Items[0];
         }
 
+        private async void SingleButton_Clicked(object sender, EventArgs e)
+        {
+            cancelButton.Enabled = false;
+            singleButton.Enabled = false;
+            startButton.Enabled = false;
+            battleCheck.Enabled = false;
+            _isFarming = true;
+
+            await SingleFarm(_chapterId, _quest);
+            _isFarming = false;
+
+            Close();
+        }
+
         private async void StartButton_Clicked(object sender, EventArgs e)
         {
             cancelButton.Enabled = true;
+            singleButton.Enabled = false;
             startButton.Enabled = false;
             battleCheck.Enabled = false;
             _isFarming = true;
@@ -209,6 +234,7 @@ namespace nier_rein_gui.Dialogs
             cancelButton.Enabled = false;
             startButton.Enabled = true;
             battleCheck.Enabled = true;
+            singleButton.Enabled = true;
         }
 
         protected override bool ShouldCancelClose()
@@ -216,20 +242,35 @@ namespace nier_rein_gui.Dialogs
             return _isFarming;
         }
 
+        private async Task SingleFarm(int chapterId, EventQuestData quest)
+        {
+            var deckNumber = decks.SelectedItem.Content.UserDeckNumber;
+            var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), deckNumber, DeckType.QUEST);
+
+            _questBattleContext.RequestRatioReached += RequestRatioReached;
+
+            var battleResult = await _questBattleContext.ExecuteEventQuest(chapterId, quest, deck);
+
+            (Application.Instance.MainForm as MainForm).UpdateUser();
+            (Application.Instance.MainForm as MainForm).UpdateStamina();
+
+            if (battleResult.Status == BattleStatus.Win)
+            {
+                var purpleDrop = battleResult.Rewards.DropRewards.FirstOrDefault(x => x.RewardCategory == RewardCategory.SS_RARE);
+                if (purpleDrop != null)
+                    await MessageBox.ShowInformationAsync("Finished", $"Farmed '{purpleDrop.PossessionName}'!");
+            }
+
+            _questBattleContext.RequestRatioReached -= RequestRatioReached;
+        }
+
         private async Task<bool> RetreatFarm(int chapterId, EventQuestData quest)
         {
-            _questBattleContext.RequestRatioReached += (s, e) =>
-            {
-                (Content as StackLayout).Items[1] = new StackItem(limitLabel) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
-
-                _currentLimitTime = QuestBattleContext.RateTimeout;
-                _timer.Start();
-            };
-
-            var deckNumber = decks.SelectedItem.Content.DeckId;
+            var deckNumber = decks.SelectedItem.Content.UserDeckNumber;
             var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), deckNumber, DeckType.QUEST);
 
             _questBattleContext.BattleStarted += Battles_BattleStarted;
+            _questBattleContext.RequestRatioReached += RequestRatioReached;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -276,6 +317,9 @@ namespace nier_rein_gui.Dialogs
 
             stopwatch.Stop();
 
+            _questBattleContext.BattleStarted -= Battles_BattleStarted;
+            _questBattleContext.RequestRatioReached -= RequestRatioReached;
+
             staminaLabel.Caption = $"{repeats * quest.Quest.EntityQuest.Stamina}";
             countLabel.Caption = $"{repeats}";
             timeLabel.Caption = $"{stopwatch.Elapsed}";
@@ -289,16 +333,20 @@ namespace nier_rein_gui.Dialogs
             e.ForceShutdown = battleCheck.Checked && !e.ShouldQuitBattle;
         }
 
-        class DeckInfo
+        private void RequestRatioReached(object sender, EventArgs e)
         {
-            public int DeckId { get; set; }
-            public DeckType DeckType { get; set; }
-            public string DeckName { get; set; }
+            SetLimitLabel(limitLabel);
 
-            public override string ToString()
-            {
-                return DeckName ?? $"Quest {DeckId}";
-            }
+            _currentLimitTime = BaseContext.RateTimeout;
+            _timer.Start();
+        }
+
+        private void SetLimitLabel(Label label)
+        {
+            if (label == null)
+                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new Size(0, 0) };
+            else
+                (Content as StackLayout).Items[1] = new StackItem(label) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
@@ -100,10 +101,12 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             };
         }
 
-        protected override void CloseInternal()
+        protected override Task CloseInternal()
         {
             if (_activeItemButton != null)
                 _activeItemButton.Selected = false;
+
+            return Task.CompletedTask;
         }
 
         protected abstract IEnumerable<T> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter);

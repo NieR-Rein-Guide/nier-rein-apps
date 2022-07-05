@@ -293,7 +293,7 @@ namespace nier_rein_gui.Dialogs
         {
             SetLimitLabel(limitLabel);
 
-            _currentLimitTime = QuestBattleContext.RateTimeout;
+            _currentLimitTime = BaseContext.RateTimeout;
             _timer.Start();
         }
 

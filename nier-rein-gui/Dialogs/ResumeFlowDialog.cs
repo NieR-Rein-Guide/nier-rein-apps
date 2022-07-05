@@ -1,9 +1,9 @@
 ﻿using System.Numerics;
+using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using NierReincarnation;
 using NierReincarnation.Context;
@@ -58,8 +58,21 @@ namespace nier_rein_gui.Dialogs
             };
         }
 
-        private async void QuitButton_Clicked(object sender, System.EventArgs e)
+        private void QuitButton_Clicked(object sender, System.EventArgs e)
         {
+            Close(DialogResult.Cancel);
+        }
+
+        private void ContinueButton_Clicked(object sender, System.EventArgs e)
+        {
+            Close(DialogResult.Ok);
+        }
+
+        protected override async Task CloseInternal()
+        {
+            if (Result == DialogResult.Ok)
+                return;
+
             if (QuestBattleContext.HasRunningEventQuest())
             {
                 var runningEventQuest = DatabaseDefine.User.EntityIUserEventQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
@@ -84,17 +97,8 @@ namespace nier_rein_gui.Dialogs
                 await _bigHuntBattleContext.QuitBigHuntQuest(CalculatorBigHuntQuest.GenerateBigHuntQuestData(runningBigHunt.CurrentBigHuntBossQuestId, runningBigHunt.CurrentBigHuntQuestId));
 
                 Close(DialogResult.Ok);
-                return; 
+                return;
             }
-
-            // TODO: Implement other quest types
-
-            Close(DialogResult.Cancel);
-        }
-
-        private void ContinueButton_Clicked(object sender, System.EventArgs e)
-        {
-
         }
     }
 }
