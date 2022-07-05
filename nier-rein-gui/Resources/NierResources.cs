@@ -345,7 +345,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var icon = IconsAtlas.Clone(context => context.Crop(EditIcon));
-            return EditIconResource = LoadIconResource(icon);
+            return EditIconResource = LoadResource(icon, RarityStarSize);
         }
 
         private static void EnsureIconsAtlas()
