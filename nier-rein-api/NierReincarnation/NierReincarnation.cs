@@ -219,7 +219,7 @@ namespace NierReincarnation
             KernelState.NetworkConfig = networkConfig;
         }
 
-        private static async Task AuthorizeUser(long userId)
+        internal static async Task AuthorizeUser(long userId)
         {
             // Execute authorization
             Console.WriteLine("Authorize user on game API.");
@@ -241,7 +241,7 @@ namespace NierReincarnation
             return result == 0;
         }
 
-        private static async Task<bool> UpdateUserData()
+        internal static async Task<bool> UpdateUserData()
         {
             Console.WriteLine("Update user data.");
 

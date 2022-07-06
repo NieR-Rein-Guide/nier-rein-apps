@@ -17,6 +17,7 @@ namespace nier_rein_gui.Forms.SubForms
             _mainForm = mainForm;
 
             InitializeComponent();
+            SetupReAuthorization();
 
             deckNameButton.Clicked += DeckNameButton_Clicked;
             previousButton.Clicked += PreviousButton_Clicked;
@@ -60,6 +61,24 @@ namespace nier_rein_gui.Forms.SubForms
             await _rein.Decks.Rename(_currentDeck, name);
 
             _currentDeck.Name = name;
+        }
+
+        private void SetupReAuthorization()
+        {
+            // HINT: Make sure the events were removed at least once
+            _rein.Decks.BeforeUnauthenticated -= MainForm.BaseContext_BeforeUnauthenticated;
+            _rein.Decks.AfterUnauthenticated -= MainForm.BaseContext_AfterUnauthenticated;
+            _rein.Decks.AfterUnauthenticated -= Decks_AfterUnauthenticated;
+
+            _rein.Decks.BeforeUnauthenticated += MainForm.BaseContext_BeforeUnauthenticated;
+            _rein.Decks.AfterUnauthenticated += MainForm.BaseContext_AfterUnauthenticated;
+            _rein.Decks.AfterUnauthenticated += Decks_AfterUnauthenticated;
+        }
+
+        private void Decks_AfterUnauthenticated(object sender, bool e)
+        {
+            InitializeDecks();
+            UpdateDeck(_currentDeckNumber, decks.FirstOrDefault(x => x.UserDeckNumber == _currentDeckNumber));
         }
     }
 }
