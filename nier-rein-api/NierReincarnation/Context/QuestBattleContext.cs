@@ -33,7 +33,9 @@ namespace NierReincarnation.Context
 
         internal QuestBattleContext()
         {
-            _stamina.RequestRatioReached += (s, e) => OnRequestRatioReached();
+            _stamina.RequestRatioReached += OnRequestRatioReached;
+            _stamina.BeforeUnauthenticated += OnBeforeUnauthenticated;
+            _stamina.AfterUnauthenticated += OnAfterUnauthenticated;
         }
 
         #region Main Quests

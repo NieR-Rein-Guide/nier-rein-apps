@@ -16,6 +16,8 @@ namespace NierReincarnation.Context
 {
     public class AssetContext
     {
+        private static object _lockObj = new object();
+
         private static readonly Func<DataManager, IEnumerable<Item>> GetAssets = manager =>
             manager.GetAllAssetBundleNames().Select(n => manager.GetAssetBundleItemByName(n));
         private static readonly Func<DataManager, IEnumerable<Item>> GetResources = manager =>
@@ -112,14 +114,11 @@ namespace NierReincarnation.Context
 
             var items = getItemsFunc(dataManager).Where(itemSelector).ToArray();
 
-            //var r = new Regex(@"2d\)[a-z]+\)[a-z]+\)");
-            //var p = getItemsFunc(dataManager).Where(x=>r.IsMatch(x.name)).Select(x => r.Match(x.name).Value).GroupBy(x => x).ToArray();
+            var counter = 0;
+            Console.Write($"\rProcessed 0/{items.Length}");
 
-            for (var i = 0; i < items.Length; i++)
+            foreach (var item in items.AsParallel())
             {
-                var item = items[i];
-                Console.Write($"\rProcess {i + 1}/{items.Length}");
-
                 var targetPath = Path.Combine(targetDir, item.name.Replace(')', '/'));
                 if (isAssetBundle)
                     targetPath += ".asset";
@@ -165,6 +164,12 @@ namespace NierReincarnation.Context
 
                 await using var output = File.Create(targetPath);
                 await output.WriteAsync(content);
+
+                lock (_lockObj)
+                {
+                    counter++;
+                    Console.Write($"\rProcessed {counter + 1}/{items.Length}");
+                }
             }
 
             Console.WriteLine();
