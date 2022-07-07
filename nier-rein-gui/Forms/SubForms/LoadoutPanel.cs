@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Modals.IO;
+using nier_rein_gui.Extensions;
 using NierReincarnation;
 
 namespace nier_rein_gui.Forms.SubForms
@@ -17,7 +18,8 @@ namespace nier_rein_gui.Forms.SubForms
             _mainForm = mainForm;
 
             InitializeComponent();
-            SetupReAuthorization();
+
+            _rein.Decks.SetupReAuthorization(null, Decks_AfterUnauthenticated);
 
             deckNameButton.Clicked += DeckNameButton_Clicked;
             previousButton.Clicked += PreviousButton_Clicked;
@@ -63,20 +65,11 @@ namespace nier_rein_gui.Forms.SubForms
             _currentDeck.Name = name;
         }
 
-        private void SetupReAuthorization()
+        private void Decks_AfterUnauthenticated(bool hasReauthorized)
         {
-            // HINT: Make sure the events were removed at least once
-            _rein.Decks.BeforeUnauthenticated -= MainForm.BaseContext_BeforeUnauthenticated;
-            _rein.Decks.AfterUnauthenticated -= MainForm.BaseContext_AfterUnauthenticated;
-            _rein.Decks.AfterUnauthenticated -= Decks_AfterUnauthenticated;
+            if (!hasReauthorized)
+                return;
 
-            _rein.Decks.BeforeUnauthenticated += MainForm.BaseContext_BeforeUnauthenticated;
-            _rein.Decks.AfterUnauthenticated += MainForm.BaseContext_AfterUnauthenticated;
-            _rein.Decks.AfterUnauthenticated += Decks_AfterUnauthenticated;
-        }
-
-        private void Decks_AfterUnauthenticated(object sender, bool e)
-        {
             InitializeDecks();
             UpdateDeck(_currentDeckNumber, decks.FirstOrDefault(x => x.UserDeckNumber == _currentDeckNumber));
         }

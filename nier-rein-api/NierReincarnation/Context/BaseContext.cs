@@ -7,12 +7,12 @@ namespace NierReincarnation.Context
 {
     public abstract class BaseContext
     {
-        public static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
+        private static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
 
-        public event EventHandler RequestRatioReached;
+        public event Action<TimeSpan> RequestRatioReached;
 
-        public event EventHandler BeforeUnauthenticated;
-        public event EventHandler<bool> AfterUnauthenticated;
+        public event Action BeforeUnauthenticated;
+        public event Action<bool> AfterUnauthenticated;
 
         protected async Task<TResult> TryRequest<TResult>(Func<Task<TResult>> requestAction)
         {
@@ -27,7 +27,7 @@ namespace NierReincarnation.Context
                     // Handle rate limiting
                     case StatusCode.PermissionDenied:
                         // Invoke ratio event
-                        OnRequestRatioReached();
+                        OnRequestRatioReached(RateTimeout);
 
                         // Wait out rate limit
                         await Task.Delay(RateTimeout);
@@ -45,7 +45,8 @@ namespace NierReincarnation.Context
                         // Re-download user data
                         var isUserSuccess = await NierReincarnation.UpdateUserData();
 
-                        // invoke event after authentication
+                        // TODO: Get indicator if request should be cancelled after re-authorization
+                        // Invoke event after authentication
                         OnAfterUnauthenticated(isUserSuccess);
 
                         break;
@@ -53,19 +54,19 @@ namespace NierReincarnation.Context
             }
         }
 
-        protected void OnRequestRatioReached()
+        protected void OnRequestRatioReached(TimeSpan timeout)
         {
-            RequestRatioReached?.Invoke(this, new EventArgs());
+            RequestRatioReached?.Invoke(timeout);
         }
 
         protected void OnBeforeUnauthenticated()
         {
-            BeforeUnauthenticated?.Invoke(this, new EventArgs());
+            BeforeUnauthenticated?.Invoke();
         }
 
         protected void OnAfterUnauthenticated(bool hasReauthorized)
         {
-            AfterUnauthenticated?.Invoke(this, hasReauthorized);
+            AfterUnauthenticated?.Invoke(hasReauthorized);
         }
     }
 }

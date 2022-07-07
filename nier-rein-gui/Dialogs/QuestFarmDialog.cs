@@ -11,6 +11,7 @@ using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Modals;
 using ImGuiNET;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Extensions;
 using nier_rein_gui.Forms;
 using NierReincarnation;
 using NierReincarnation.Context;
@@ -62,6 +63,8 @@ namespace nier_rein_gui.Dialogs
 
             _timer = new Timer(TimerInterval.TotalMilliseconds);
             _timer.Elapsed += _timer_Elapsed;
+
+            BattleContext.SetupReAuthorization(null, null);
 
             previousButton = new ArrowButton { Direction = ImGuiDir.Left };
             previousButton.Clicked += PreviousButton_Clicked;
@@ -289,11 +292,11 @@ namespace nier_rein_gui.Dialogs
             nextButton.Enabled = true;
         }
 
-        private void RequestRatioReached(object sender, EventArgs e)
+        private void RequestRatioReached(TimeSpan timeout)
         {
             SetLimitLabel(limitLabel);
 
-            _currentLimitTime = BaseContext.RateTimeout;
+            _currentLimitTime = timeout;
             _timer.Start();
         }
 

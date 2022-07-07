@@ -5,6 +5,7 @@ using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace nier_rein_gui.Dialogs
 {
+    // TODO: Implement!
     class MemoirFarmDialog : Modal
     {
         private readonly NierReinContexts _rein;

@@ -92,40 +92,5 @@ namespace nier_rein_gui.Forms
 
             SetMenuContent(new SubQuestPanel(_rein, this));
         }
-
-        private static ReauthDialog _reauthDlg;
-
-        internal static async void BaseContext_BeforeUnauthenticated(object sender, EventArgs e)
-        {
-            _reauthDlg ??= new ReauthDialog();
-
-            await _reauthDlg.ShowAsync();
-        }
-
-        internal static void BaseContext_AfterUnauthenticated(object sender, bool e)
-        {
-            if (_reauthDlg == null) 
-                return;
-
-            _reauthDlg.KeepOpen = false;
-
-            _reauthDlg.Close(DialogResult.Ok);
-            _reauthDlg = null;
-        }
-
-        class ReauthDialog : Modal
-        {
-            public bool KeepOpen { get; set; } = true;
-
-            public ReauthDialog()
-            {
-                Content=new Label{Caption = "Initialize data..."};
-            }
-
-            protected override bool ShouldCancelClose()
-            {
-                return KeepOpen;
-            }
-        }
     }
 }

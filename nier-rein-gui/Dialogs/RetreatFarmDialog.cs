@@ -9,8 +9,8 @@ using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Extensions;
 using nier_rein_gui.Forms;
 using NierReincarnation;
 using NierReincarnation.Context;
@@ -62,6 +62,8 @@ namespace nier_rein_gui.Dialogs
 
             _timer = new Timer(TimerInterval_.TotalMilliseconds);
             _timer.Elapsed += _timer_Elapsed;
+
+            _questBattleContext.SetupReAuthorization(null, null);
 
             limitLabel = new Label { Caption = string.Empty, TextColor = Color.Firebrick };
 
@@ -333,11 +335,11 @@ namespace nier_rein_gui.Dialogs
             e.ForceShutdown = battleCheck.Checked && !e.ShouldQuitBattle;
         }
 
-        private void RequestRatioReached(object sender, EventArgs e)
+        private void RequestRatioReached(TimeSpan timeout)
         {
             SetLimitLabel(limitLabel);
 
-            _currentLimitTime = BaseContext.RateTimeout;
+            _currentLimitTime = timeout;
             _timer.Start();
         }
 

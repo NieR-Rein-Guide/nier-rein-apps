@@ -5,6 +5,7 @@ using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Extensions;
 using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
@@ -31,6 +32,8 @@ namespace nier_rein_gui.Dialogs
         {
             _bigHuntBattleContext = rein.Battles.CreateBigHuntContext();
             _quest = quest;
+
+            _bigHuntBattleContext.SetupReAuthorization(null, null);
 
             decks = new ComboBox<DataDeckInfo>();
             InitializeDecks(decks);
