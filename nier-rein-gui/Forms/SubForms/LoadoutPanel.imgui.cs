@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ImGui.Forms.Controls;
+﻿using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
 using ImGuiNET;
@@ -25,10 +23,10 @@ namespace nier_rein_gui.Forms.SubForms
         private LoadoutActorPanel actor2;
         private LoadoutActorPanel actor3;
 
-        private List<DataDeckInfo> decks;
+        protected DataDeckInfo[] Decks { get; private set; }
 
-        protected int _currentDeckNumber;
-        protected DataDeckInfo _currentDeck;
+        protected int CurrentDeckNumber { get; private set; }
+        private DataDeckInfo CurrentDeck => Decks[CurrentDeckNumber - 1];
 
         private void InitializeComponent()
         {
@@ -37,9 +35,9 @@ namespace nier_rein_gui.Forms.SubForms
 
             deckNameLabel = new Label();
             deckNameButton = new ImageButton { Image = NierResources.LoadEditIcon() };
-            actor1 = new LoadoutActorPanel(_rein);
-            actor2 = new LoadoutActorPanel(_rein);
-            actor3 = new LoadoutActorPanel(_rein);
+            actor1 = new LoadoutActorPanel(_rein, this, 0);
+            actor2 = new LoadoutActorPanel(_rein, this, 1);
+            actor3 = new LoadoutActorPanel(_rein, this, 2);
 
             Content = new StackLayout
             {
@@ -92,43 +90,47 @@ namespace nier_rein_gui.Forms.SubForms
             };
 
             InitializeDecks();
-            UpdateDeck(decks[0].UserDeckNumber, decks[0]);
+            UpdateDeck(1);
         }
 
-        private void UpdateDeck(int deckNumber, DataDeckInfo deck)
+        private void UpdateDeck(int deckNumber)
         {
-            _currentDeckNumber = deckNumber;
-            _currentDeck = deck;
+            CurrentDeckNumber = deckNumber;
 
-            if (deck == null)
+            if (CurrentDeck.IsEmpty)
             {
-                actor1.Reset();
-                actor2.Reset();
-                actor3.Reset();
+                actor1.Reset(true);
+                actor2.Reset(false);
+                actor3.Reset(false);
 
                 deckNameLabel.Caption = UserInterfaceTextKey.Deck.kTypeQuest.Localize() + $"{deckNumber}";
 
                 return;
             }
 
-            deckNameLabel.Caption = string.IsNullOrEmpty(deck.Name) ? UserInterfaceTextKey.Deck.kTypeQuest.Localize() + $"{deckNumber}" : deck.Name;
+            deckNameLabel.Caption = string.IsNullOrEmpty(CurrentDeck.Name) ? UserInterfaceTextKey.Deck.kTypeQuest.Localize() + $"{deckNumber}" : CurrentDeck.Name;
 
-            for (var i = 0; i < deck.UserDeckActors.Length; i++)
+            for (var i = 0; i < CurrentDeck.UserDeckActors.Length; i++)
             {
                 var actorPanel = i == 0 ? actor1 : i == 1 ? actor2 : actor3;
-                if (deck.UserDeckActors[i] == null)
+                if (CurrentDeck.UserDeckActors[i] == null)
                 {
-                    actorPanel.Reset();
+                    actorPanel.Reset(i == 0 || CurrentDeck.UserDeckActors[i - 1]?.Costume != null);
                     continue;
                 }
 
-                actorPanel.Update(deck, deck.UserDeckActors[i]);
+                actorPanel.Update(CurrentDeck.UserDeckActors[i]);
             }
         }
 
         private void InitializeDecks()
         {
-            decks = CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST).ToList();
+            Decks = new DataDeckInfo[10];
+            foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
+                Decks[deck.UserDeckNumber - 1] = deck;
+
+            for (var i = 0; i < Decks.Length; i++)
+                Decks[i] ??= new DataDeckInfo(DeckType.QUEST, i + 1);
         }
     }
 }

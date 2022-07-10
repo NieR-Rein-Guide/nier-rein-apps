@@ -1,9 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
 using ImGui.Forms.Controls;
+using ImGui.Forms.Modals;
 using ImGui.Forms.Modals.IO;
 using nier_rein_gui.Extensions;
 using NierReincarnation;
+using System.Threading.Tasks;
+using NierReincarnation.Core.Dark;
 
 namespace nier_rein_gui.Forms.SubForms
 {
@@ -26,43 +29,41 @@ namespace nier_rein_gui.Forms.SubForms
             nextButton.Clicked += NextButton_Clicked;
         }
 
+        #region Events
+
         private void NextButton_Clicked(object sender, System.EventArgs e)
         {
-            var nextDeckNumber = _currentDeckNumber + 1;
+            var nextDeckNumber = CurrentDeckNumber + 1;
             if (nextDeckNumber > 10)
                 nextDeckNumber = 1;
 
-            UpdateDeck(nextDeckNumber, decks.FirstOrDefault(x => x.UserDeckNumber == nextDeckNumber));
+            UpdateDeck(nextDeckNumber);
         }
 
         private void PreviousButton_Clicked(object sender, System.EventArgs e)
         {
-            var previousDeckNumber = _currentDeckNumber - 1;
+            var previousDeckNumber = CurrentDeckNumber - 1;
             if (previousDeckNumber <= 0)
                 previousDeckNumber = 10;
 
-            UpdateDeck(previousDeckNumber, decks.FirstOrDefault(x => x.UserDeckNumber == previousDeckNumber));
+            UpdateDeck(previousDeckNumber);
         }
 
         private async void DeckNameButton_Clicked(object sender, System.EventArgs e)
         {
-            var name = await InputBox.ShowAsync("Change deck name", "New deck name", _currentDeck.Name, "Name");
-            if (name == null || name == _currentDeck.Name)
+            if (CurrentDeck.IsEmpty)
+            {
+                await MessageBox.ShowInformationAsync("", "Cannot rename empty loadout.");
+                return;
+            }
+
+            var name = await InputBox.ShowAsync("Change deck name", "New deck name", CurrentDeck.Name, "Name");
+            if (name == null || name == CurrentDeck.Name)
                 return;
 
             await RenameDeck(name);
 
-            deckNameLabel.Caption = _currentDeck.ToString();
-        }
-
-        private async Task RenameDeck(string name)
-        {
-            if (_currentDeck == null)
-                return;
-
-            await _rein.Decks.Rename(_currentDeck, name);
-
-            _currentDeck.Name = name;
+            deckNameLabel.Caption = CurrentDeck.ToString();
         }
 
         private void Decks_AfterUnauthenticated(bool hasReauthorized)
@@ -71,7 +72,59 @@ namespace nier_rein_gui.Forms.SubForms
                 return;
 
             InitializeDecks();
-            UpdateDeck(_currentDeckNumber, decks.FirstOrDefault(x => x.UserDeckNumber == _currentDeckNumber));
+            UpdateDeck(CurrentDeckNumber);
         }
+
+        #endregion
+
+        #region Deck operations
+
+        private async Task RenameDeck(string name)
+        {
+            await _rein.Decks.Rename(CurrentDeck.UserDeckNumber, CurrentDeck.DeckType, name);
+
+            CurrentDeck.Name = name;
+        }
+
+        internal DataDeckActorInfo CreateActor(int pos)
+        {
+            if (pos < 2)
+            {
+                var actorPanel = pos == 0 ? actor2 : actor3;
+                actorPanel.Reset(true);
+            }
+
+            return CurrentDeck.UserDeckActors[pos] = new DataDeckActorInfo();
+        }
+
+        internal DataOutgameCostumeInfo[] GetDeckCostumes()
+        {
+            return CurrentDeck?.UserDeckActors.Select(x => x?.Costume).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCostumeInfo>();
+        }
+
+        internal DataWeaponInfo[] GetDeckWeapons()
+        {
+            return CurrentDeck?.UserDeckActors.SelectMany(x => new[] { x?.MainWeapon, x?.SubWeapon01, x?.SubWeapon02 }).Where(x => x != null).ToArray() ?? Array.Empty<DataWeaponInfo>();
+        }
+
+        internal DataOutgameCompanionInfo[] GetDeckCompanions()
+        {
+            return CurrentDeck?.UserDeckActors.Select(x => x?.Companion).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
+        }
+
+        internal DataOutgameMemoryInfo[] GetDeckMemoirs()
+        {
+            return CurrentDeck?.UserDeckActors.SelectMany(x => x?.Memories).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
+        }
+
+        internal async Task ReplaceDeck()
+        {
+            if (CurrentDeck.IsEmpty)
+                return;
+
+            await _rein.Decks.Replace(CurrentDeck);
+        }
+
+        #endregion
     }
 }

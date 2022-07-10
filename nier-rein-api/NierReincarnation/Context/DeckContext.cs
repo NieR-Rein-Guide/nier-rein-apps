@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Deck;
 using Newtonsoft.Json;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Context
 {
@@ -25,12 +27,12 @@ namespace NierReincarnation.Context
                 DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
-        public async Task Rename(DataDeckInfo deck, string name)
+        public async Task Rename(int userDeckNumber, DeckType deckType, string name)
         {
             // TODO: Handle request limit
             var renameRes = await TryRequest(async () =>
             {
-                var renameReq = CreateUpdateNameRequest(deck, name);
+                var renameReq = CreateUpdateNameRequest(userDeckNumber, deckType, name);
                 return await _dc.DeckService.UpdateNameAsync(renameReq);
             });
 
@@ -38,12 +40,12 @@ namespace NierReincarnation.Context
                 DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
-        private UpdateNameRequest CreateUpdateNameRequest(DataDeckInfo deck, string name)
+        private UpdateNameRequest CreateUpdateNameRequest(int userDeckNumber, DeckType deckType, string name)
         {
             return new UpdateNameRequest
             {
-                UserDeckNumber = deck.UserDeckNumber,
-                DeckType = (int)deck.DeckType,
+                UserDeckNumber = userDeckNumber,
+                DeckType = (int)deckType,
                 Name = name
             };
         }
@@ -101,7 +103,7 @@ namespace NierReincarnation.Context
             if (actor.Companion != null)
                 result.UserCompanionUuid = actor.Companion.UserCompanionUuid;
 
-            foreach (var mem in actor.Memories)
+            foreach (var mem in actor.Memories.Where(m => m != null))
                 result.UserPartsUuid.Add(mem.UserMemoryUuid);
 
             return result;

@@ -16,6 +16,8 @@ namespace NierReincarnation.Core.Dark
         // 0x20
         public DataDeckActorInfo[] UserDeckActors { get; set; }
 
+        public bool IsEmpty => UserDeckActors[0]?.Costume == null;
+
         public DataDeckInfo(DeckType deckType, int userDeckNumber) : this()
         {
             DeckType = deckType;

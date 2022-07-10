@@ -16,6 +16,9 @@ namespace nier_rein_gui.Controls.Buttons.Items
     {
         private static readonly uint HoverColor = Color.FromArgb(0x50, 0xC5, 0xC1, 0xB0).ToUInt32();
         private static readonly uint SelectionColor = Color.FromArgb(0x88, 0xC5, 0xC1, 0xB0).ToUInt32();
+        private static readonly uint DisabledColor = Color.FromArgb(0x88, 0x00, 0x00, 0x00).ToUInt32();
+
+        public bool Enabled { get; set; } = true;
 
         public bool Selected { get; set; }
 
@@ -46,7 +49,7 @@ namespace nier_rein_gui.Controls.Buttons.Items
             DrawContent(contentRect, isHovered);
 
             // Invoke click event
-            if (isHovered && isClicked)
+            if (isHovered && isClicked && Enabled)
                 OnClicked();
         }
 
@@ -73,6 +76,12 @@ namespace nier_rein_gui.Controls.Buttons.Items
             {
                 if (GetPlaceholder() != null)
                     ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)GetPlaceholder(), contentRect.Position, contentRect.Position + contentRect.Size);
+
+                if (!Enabled)
+                {
+                    ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, DisabledColor);
+                    return;
+                }
 
                 DrawSelectionOverlay(contentRect, isHovered, false);
 
@@ -112,6 +121,9 @@ namespace nier_rein_gui.Controls.Buttons.Items
             {
                 // TODO: Draw bonus indicator
             }
+
+            if(!Enabled)
+                ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position,contentRect.Position+contentRect.Size, DisabledColor);
         }
 
         private void DrawSelectionOverlay(Rectangle contentRect, bool isHovered, bool isSelected)

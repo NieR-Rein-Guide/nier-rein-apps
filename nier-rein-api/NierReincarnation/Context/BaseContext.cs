@@ -24,6 +24,9 @@ namespace NierReincarnation.Context
 
                 switch (NierReincarnation.LastApiError.StatusCode)
                 {
+                    case StatusCode.InvalidArgument:
+                        return result;
+
                     // Handle rate limiting
                     case StatusCode.PermissionDenied:
                         // Invoke ratio event

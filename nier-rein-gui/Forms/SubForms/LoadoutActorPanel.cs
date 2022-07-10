@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Modals;
@@ -13,13 +12,16 @@ namespace nier_rein_gui.Forms.SubForms
     partial class LoadoutActorPanel : Panel
     {
         private readonly NierReinContexts _rein;
+        private readonly LoadoutPanel _loadoutPanel;
+        private readonly int _pos;
 
-        private DataDeckInfo _deck;
         private DataDeckActorInfo _actor;
 
-        public LoadoutActorPanel(NierReinContexts rein)
+        public LoadoutActorPanel(NierReinContexts rein, LoadoutPanel loadoutPanel, int pos)
         {
             _rein = rein;
+            _loadoutPanel = loadoutPanel;
+            _pos = pos;
 
             InitializeComponent();
 
@@ -36,9 +38,8 @@ namespace nier_rein_gui.Forms.SubForms
             memoir3Button.Clicked += Memoir3Button_Clicked;
         }
 
-        public void Reset()
+        public void Reset(bool canSet)
         {
-            _deck = null;
             _actor = null;
 
             costumeButton.Costume = null;
@@ -52,11 +53,22 @@ namespace nier_rein_gui.Forms.SubForms
             memoir1Button.Memory = null;
             memoir2Button.Memory = null;
             memoir3Button.Memory = null;
+
+            costumeButton.Enabled = canSet;
+
+            mainWeaponButton.Enabled = false;
+            subWeapon1Button.Enabled = false;
+            subWeapon2Button.Enabled = false;
+
+            companionButton.Enabled = false;
+
+            memoir1Button.Enabled = false;
+            memoir2Button.Enabled = false;
+            memoir3Button.Enabled = false;
         }
 
-        public void Update(DataDeckInfo deck, DataDeckActorInfo actor)
+        public void Update(DataDeckActorInfo actor)
         {
-            _deck = deck;
             _actor = actor;
 
             costumeButton.Costume = actor.Costume;
@@ -70,14 +82,18 @@ namespace nier_rein_gui.Forms.SubForms
             memoir1Button.Memory = actor.Memories[0];
             memoir2Button.Memory = actor.Memories[1];
             memoir3Button.Memory = actor.Memories[2];
-        }
 
-        private async Task ReplaceDeck()
-        {
-            if (_deck == null || _actor == null)
-                return;
+            costumeButton.Enabled = true;
 
-            await _rein.Decks.Replace(_deck);
+            mainWeaponButton.Enabled = true;
+            subWeapon1Button.Enabled = true;
+            subWeapon2Button.Enabled = true;
+
+            companionButton.Enabled = true;
+
+            memoir1Button.Enabled = true;
+            memoir2Button.Enabled = true;
+            memoir3Button.Enabled = true;
         }
 
         #region Costume events
@@ -88,15 +104,43 @@ namespace nier_rein_gui.Forms.SubForms
             if (!shouldReplace)
                 return;
 
+            if (_actor?.Costume != null)
+            {
+                _actor.Costume = costumeInfo;
+                await _loadoutPanel.ReplaceDeck();
+
+                costumeButton.Costume = costumeInfo;
+
+                return;
+            }
+
+            var (weaponInfo, shouldReplace2) = await SelectWeapon(null);
+            if (!shouldReplace2)
+                return;
+
+            _actor ??= _loadoutPanel.CreateActor(_pos);
+
             _actor.Costume = costumeInfo;
-            await ReplaceDeck();
+            _actor.MainWeapon = weaponInfo;
+            await _loadoutPanel.ReplaceDeck();
 
             costumeButton.Costume = costumeInfo;
+            mainWeaponButton.Weapon = weaponInfo;
+
+            mainWeaponButton.Enabled = true;
+            subWeapon1Button.Enabled = true;
+            subWeapon2Button.Enabled = true;
+
+            companionButton.Enabled = true;
+
+            memoir1Button.Enabled = true;
+            memoir2Button.Enabled = true;
+            memoir3Button.Enabled = true;
         }
 
         private async Task<(DataOutgameCostumeInfo, bool)> SelectCostume(DataOutgameCostumeInfo costume)
         {
-            var costumesInDeck = _deck?.UserDeckActors.Select(x => x?.Costume).ToArray() ?? Array.Empty<DataOutgameCostumeInfo>();
+            var costumesInDeck = _loadoutPanel.GetDeckCostumes();
 
             var dlg = new CostumeSelectionDialog(costume, costumesInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
@@ -116,7 +160,7 @@ namespace nier_rein_gui.Forms.SubForms
                 return;
 
             _actor.MainWeapon = weaponInfo;
-            await ReplaceDeck();
+            await _loadoutPanel.ReplaceDeck();
 
             mainWeaponButton.Weapon = weaponInfo;
         }
@@ -128,7 +172,7 @@ namespace nier_rein_gui.Forms.SubForms
                 return;
 
             _actor.SubWeapon01 = weaponInfo;
-            await ReplaceDeck();
+            await _loadoutPanel.ReplaceDeck();
 
             subWeapon1Button.Weapon = weaponInfo;
         }
@@ -151,7 +195,7 @@ namespace nier_rein_gui.Forms.SubForms
                 button = subWeapon2Button;
             }
 
-            await ReplaceDeck();
+            await _loadoutPanel.ReplaceDeck();
 
             button.Weapon = weaponInfo;
         }
@@ -159,7 +203,7 @@ namespace nier_rein_gui.Forms.SubForms
         // TODO: Add remove feature
         private async Task<(DataWeaponInfo, bool)> SelectWeapon(DataWeaponInfo weapon)
         {
-            var weaponsInDeck = _deck?.UserDeckActors.SelectMany(x => new[] { x?.MainWeapon, x?.SubWeapon01, x?.SubWeapon02 }).Where(x => x != null).ToArray() ?? Array.Empty<DataWeaponInfo>();
+            var weaponsInDeck = _loadoutPanel.GetDeckWeapons();
 
             var dlg = new WeaponSelectionDialog(weapon, weaponsInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
@@ -179,14 +223,14 @@ namespace nier_rein_gui.Forms.SubForms
                 return;
 
             _actor.Companion = companionInfo;
-            await ReplaceDeck();
+            await _loadoutPanel.ReplaceDeck();
 
             companionButton.Companion = companionInfo;
         }
 
         private async Task<(DataOutgameCompanionInfo, bool)> SelectCompanion(DataOutgameCompanionInfo companion)
         {
-            var companionsInDeck = _deck?.UserDeckActors.Select(x => x?.Companion).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
+            var companionsInDeck = _loadoutPanel.GetDeckCompanions();
 
             var dlg = new CompanionSelectionDialog(companion, companionsInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
@@ -222,7 +266,7 @@ namespace nier_rein_gui.Forms.SubForms
                 button = memoir3Button;
             }
 
-            await ReplaceDeck();
+            await _loadoutPanel.ReplaceDeck();
 
             button.Memory = memoryInfo;
         }
@@ -250,7 +294,7 @@ namespace nier_rein_gui.Forms.SubForms
                 button = memoir3Button;
             }
 
-            await ReplaceDeck();
+            await _loadoutPanel.ReplaceDeck();
 
             button.Memory = memoryInfo;
         }
@@ -278,7 +322,7 @@ namespace nier_rein_gui.Forms.SubForms
                 button = memoir3Button;
             }
 
-            await ReplaceDeck();
+            await _loadoutPanel.ReplaceDeck();
 
             button.Memory = memoryInfo;
         }
@@ -286,7 +330,7 @@ namespace nier_rein_gui.Forms.SubForms
         // TODO: Add remove feature
         private async Task<(DataOutgameMemoryInfo, bool)> SelectMemory(DataOutgameMemoryInfo memory)
         {
-            var memoriesInDeck = _deck?.UserDeckActors.SelectMany(x => x?.Memories).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
+            var memoriesInDeck = _loadoutPanel.GetDeckMemoirs();
 
             var dlg = new MemorySelectionDialog(memory, memoriesInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
