@@ -31,6 +31,10 @@ namespace nier_rein_gui.Forms
             if (!string.IsNullOrEmpty(Settings.Default.AppVersion))
                 Application.Version = Settings.Default.AppVersion;
 
+            // Set stamina preference
+            if (Settings.Default.StaminaPreference != null)
+                StaminaContext.SetPreferences(Settings.Default.StaminaPreference);
+
             // Ensure application being setup
             var isInitialized = await EnsureApplication();
             if (!isInitialized)

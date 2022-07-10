@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ImGui.Forms.Modals;
 using nier_rein_gui.Dialogs;
+using nier_rein_gui.Dialogs.FarmDialogs;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface;

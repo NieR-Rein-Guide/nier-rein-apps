@@ -84,22 +84,23 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void CostumeButton_Clicked(object sender, EventArgs e)
         {
-            var (costumeInfo, shouldReplace) = await SelectCostume(costumeButton, _actor.Costume);
-            if (shouldReplace)
-                _actor.Costume = costumeInfo;
+            var (costumeInfo, shouldReplace) = await SelectCostume(_actor?.Costume);
+            if (!shouldReplace)
+                return;
+
+            _actor.Costume = costumeInfo;
+            await ReplaceDeck();
+
+            costumeButton.Costume = costumeInfo;
         }
 
-        private async Task<(DataOutgameCostumeInfo, bool)> SelectCostume(NierCostumeItemButton button, DataOutgameCostumeInfo costume)
+        private async Task<(DataOutgameCostumeInfo, bool)> SelectCostume(DataOutgameCostumeInfo costume)
         {
-            var costumesInDeck = _deck.UserDeckActors.Select(x => x.Costume).ToArray();
+            var costumesInDeck = _deck?.UserDeckActors.Select(x => x?.Costume).ToArray() ?? Array.Empty<DataOutgameCostumeInfo>();
 
             var dlg = new CostumeSelectionDialog(costume, costumesInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
-
-            button.Costume = dlg.SelectedItem;
-
-            await ReplaceDeck();
 
             return (dlg.SelectedItem, true);
         }
@@ -110,42 +111,59 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void MainWeaponButton_Clicked(object sender, EventArgs e)
         {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(mainWeaponButton, _actor.MainWeapon);
-            if (shouldReplace)
-                _actor.MainWeapon = weaponInfo;
+            var (weaponInfo, shouldReplace) = await SelectWeapon(_actor?.MainWeapon);
+            if (!shouldReplace)
+                return;
+
+            _actor.MainWeapon = weaponInfo;
+            await ReplaceDeck();
+
+            mainWeaponButton.Weapon = weaponInfo;
         }
 
         private async void SubWeapon1Button_Clicked(object sender, EventArgs e)
         {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(subWeapon1Button, _actor.MainWeapon);
-            if (shouldReplace)
-                _actor.SubWeapon01 = weaponInfo;
+            var (weaponInfo, shouldReplace) = await SelectWeapon(_actor?.SubWeapon01);
+            if (!shouldReplace)
+                return;
+
+            _actor.SubWeapon01 = weaponInfo;
+            await ReplaceDeck();
+
+            subWeapon1Button.Weapon = weaponInfo;
         }
 
         private async void SubWeapon2Button_Clicked(object sender, EventArgs e)
         {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(subWeapon2Button, _actor.MainWeapon);
-            if (shouldReplace)
+            var (weaponInfo, shouldReplace) = await SelectWeapon(_actor?.SubWeapon02);
+            if (!shouldReplace)
+                return;
+
+            NierWeaponItemButton button;
+            if (_actor.SubWeapon01 == null)
             {
-                if (_actor.SubWeapon01 == null)
-                    _actor.SubWeapon01 = weaponInfo;
-                else
-                    _actor.SubWeapon02 = weaponInfo;
+                _actor.SubWeapon01 = weaponInfo;
+                button = subWeapon1Button;
             }
+            else
+            {
+                _actor.SubWeapon02 = weaponInfo;
+                button = subWeapon2Button;
+            }
+
+            await ReplaceDeck();
+
+            button.Weapon = weaponInfo;
         }
 
         // TODO: Add remove feature
-        private async Task<(DataWeaponInfo, bool)> SelectWeapon(NierWeaponItemButton button, DataWeaponInfo weapon)
+        private async Task<(DataWeaponInfo, bool)> SelectWeapon(DataWeaponInfo weapon)
         {
-            var weaponsInDeck = _deck.UserDeckActors.SelectMany(x => new[] { x.MainWeapon, x.SubWeapon01, x.SubWeapon02 }).Where(x => x != null).ToArray();
+            var weaponsInDeck = _deck?.UserDeckActors.SelectMany(x => new[] { x?.MainWeapon, x?.SubWeapon01, x?.SubWeapon02 }).Where(x => x != null).ToArray() ?? Array.Empty<DataWeaponInfo>();
 
             var dlg = new WeaponSelectionDialog(weapon, weaponsInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
-
-            button.Weapon = dlg.SelectedItem;
-
-            await ReplaceDeck();
 
             return (dlg.SelectedItem, true);
         }
@@ -156,22 +174,23 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void CompanionButton_Clicked(object sender, EventArgs e)
         {
-            var (companionInfo, shouldReplace) = await SelectCompanion(companionButton, _actor.Companion);
-            if (shouldReplace)
-                _actor.Companion = companionInfo;
+            var (companionInfo, shouldReplace) = await SelectCompanion(_actor?.Companion);
+            if (!shouldReplace)
+                return;
+
+            _actor.Companion = companionInfo;
+            await ReplaceDeck();
+
+            companionButton.Companion = companionInfo;
         }
 
-        private async Task<(DataOutgameCompanionInfo, bool)> SelectCompanion(NierCompanionItemButton button, DataOutgameCompanionInfo companion)
+        private async Task<(DataOutgameCompanionInfo, bool)> SelectCompanion(DataOutgameCompanionInfo companion)
         {
-            var companionsInDeck = _deck.UserDeckActors.Select(x => x.Companion).ToArray();
+            var companionsInDeck = _deck?.UserDeckActors.Select(x => x?.Companion).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
 
             var dlg = new CompanionSelectionDialog(companion, companionsInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
-
-            button.Companion = dlg.SelectedItem;
-
-            await ReplaceDeck();
 
             return (dlg.SelectedItem, true);
         }
@@ -182,58 +201,96 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void Memoir1Button_Clicked(object sender, EventArgs e)
         {
-            var (memoryInfo, shouldReplace) = await SelectMemory(memoir1Button, _actor.Memories[0]);
-            if (shouldReplace)
+            var (memoryInfo, shouldReplace) = await SelectMemory(_actor?.Memories[0]);
+            if (!shouldReplace)
+                return;
+
+            NierMemoryItemButton button;
+            if (_actor.Memories[0] == null)
             {
-                if (_actor.Memories[0] == null)
-                    _actor.Memories[0] = memoryInfo;
-                else if (_actor.Memories[1] == null)
-                    _actor.Memories[1] = memoryInfo;
-                else
-                    _actor.Memories[2] = memoryInfo;
+                _actor.Memories[0] = memoryInfo;
+                button = memoir1Button;
             }
+            else if (_actor.Memories[1] == null)
+            {
+                _actor.Memories[1] = memoryInfo;
+                button = memoir2Button;
+            }
+            else
+            {
+                _actor.Memories[2] = memoryInfo;
+                button = memoir3Button;
+            }
+
+            await ReplaceDeck();
+
+            button.Memory = memoryInfo;
         }
 
         private async void Memoir2Button_Clicked(object sender, EventArgs e)
         {
-            var (memoryInfo, shouldReplace) = await SelectMemory(memoir2Button, _actor.Memories[1]);
-            if (shouldReplace)
+            var (memoryInfo, shouldReplace) = await SelectMemory(_actor?.Memories[1]);
+            if (!shouldReplace)
+                return;
+
+            NierMemoryItemButton button;
+            if (_actor.Memories[0] == null)
             {
-                if (_actor.Memories[0] == null)
-                    _actor.Memories[0] = memoryInfo;
-                else if (_actor.Memories[1] == null)
-                    _actor.Memories[1] = memoryInfo;
-                else
-                    _actor.Memories[2] = memoryInfo;
+                _actor.Memories[0] = memoryInfo;
+                button = memoir1Button;
             }
+            else if (_actor.Memories[1] == null)
+            {
+                _actor.Memories[1] = memoryInfo;
+                button = memoir2Button;
+            }
+            else
+            {
+                _actor.Memories[2] = memoryInfo;
+                button = memoir3Button;
+            }
+
+            await ReplaceDeck();
+
+            button.Memory = memoryInfo;
         }
 
         private async void Memoir3Button_Clicked(object sender, EventArgs e)
         {
-            var (memoryInfo, shouldReplace) = await SelectMemory(memoir3Button, _actor.Memories[2]);
-            if (shouldReplace)
+            var (memoryInfo, shouldReplace) = await SelectMemory(_actor?.Memories[2]);
+            if (!shouldReplace)
+                return;
+
+            NierMemoryItemButton button;
+            if (_actor.Memories[0] == null)
             {
-                if (_actor.Memories[0] == null)
-                    _actor.Memories[0] = memoryInfo;
-                else if (_actor.Memories[1] == null)
-                    _actor.Memories[1] = memoryInfo;
-                else
-                    _actor.Memories[2] = memoryInfo;
+                _actor.Memories[0] = memoryInfo;
+                button = memoir1Button;
             }
+            else if (_actor.Memories[1] == null)
+            {
+                _actor.Memories[1] = memoryInfo;
+                button = memoir2Button;
+            }
+            else
+            {
+                _actor.Memories[2] = memoryInfo;
+                button = memoir3Button;
+            }
+
+            await ReplaceDeck();
+
+            button.Memory = memoryInfo;
         }
 
         // TODO: Add remove feature
-        private async Task<(DataOutgameMemoryInfo, bool)> SelectMemory(NierMemoryItemButton button, DataOutgameMemoryInfo memory)
+        private async Task<(DataOutgameMemoryInfo, bool)> SelectMemory(DataOutgameMemoryInfo memory)
         {
-            var memoriesInDeck = _deck.UserDeckActors.SelectMany(x => x.Memories).Where(x => x != null).ToArray();
+            var memoriesInDeck = _deck?.UserDeckActors.SelectMany(x => x?.Memories).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
 
             var dlg = new MemorySelectionDialog(memory, memoriesInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
-
-            button.Memory = dlg.SelectedItem;
-
-            await ReplaceDeck();
 
             return (dlg.SelectedItem, true);
         }

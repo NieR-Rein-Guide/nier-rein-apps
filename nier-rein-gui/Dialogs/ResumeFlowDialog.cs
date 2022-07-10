@@ -34,6 +34,7 @@ namespace nier_rein_gui.Dialogs
             quitButton.Clicked += QuitButton_Clicked;
             continueButton.Clicked += ContinueButton_Clicked;
 
+            Result = DialogResult.Cancel;
             Size = new Vector2(300, 60);
             Caption = UserInterfaceTextKey.Flow.kRetryTitleTextKey.Localize();
             Content = new StackLayout
@@ -77,27 +78,16 @@ namespace nier_rein_gui.Dialogs
             {
                 var runningEventQuest = DatabaseDefine.User.EntityIUserEventQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
                 await _questBattleContext.QuitEventQuest(runningEventQuest.CurrentEventQuestChapterId, CalculatorQuest.CreateEventQuestData(runningEventQuest.CurrentQuestId));
-
-                Close(DialogResult.Ok);
-                return;
             }
-
-            if (QuestBattleContext.HasRunningMainQuest())
+            else if (QuestBattleContext.HasRunningMainQuest())
             {
                 var runningMainQuest = DatabaseDefine.User.EntityIUserMainQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
                 await _questBattleContext.QuitMainQuest(CalculatorQuest.GenerateMainQuestData(runningMainQuest.CurrentQuestSceneId));
-
-                Close(DialogResult.Ok);
-                return;
             }
-
-            if (BigHuntBattleContext.HasRunningBigHuntQuest())
+            else if (BigHuntBattleContext.HasRunningBigHuntQuest())
             {
                 var runningBigHunt = DatabaseDefine.User.EntityIUserBigHuntProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
                 await _bigHuntBattleContext.QuitBigHuntQuest(CalculatorBigHuntQuest.GenerateBigHuntQuestData(runningBigHunt.CurrentBigHuntBossQuestId, runningBigHunt.CurrentBigHuntQuestId));
-
-                Close(DialogResult.Ok);
-                return;
             }
         }
     }

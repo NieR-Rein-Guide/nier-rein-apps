@@ -41,7 +41,7 @@ namespace nier_rein_gui
             Style.SetColor(ImGuiCol.Text, Color.FromArgb(0xE6, 0xE2, 0xCF));
 
             Style.SetColor(ImGuiCol.Button, Color.FromArgb(0x4B, 0x43, 0x41));
-            Style.SetColor(ImGuiCol.ButtonHovered, Color.FromArgb(0x81, 0x71, 0x65));
+            Style.SetColor(ImGuiCol.ButtonHovered, Color.FromArgb(0x95, 0x91, 0x80));
             Style.SetColor(ImGuiCol.ButtonActive, Color.FromArgb(0xC5, 0xC1, 0xB0));
 
             Style.SetColor(ImGuiCol.ScrollbarBg, Color.FromArgb(0x00, 0x00, 0x00, 0x00));

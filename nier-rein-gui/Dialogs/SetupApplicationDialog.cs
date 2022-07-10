@@ -25,10 +25,9 @@ namespace nier_rein_gui.Dialogs
 
             Size = new Vector2(200, 100);
             Caption = "Startup";
-            Content = new Label { Caption = "Setup application..." };
         }
 
-        protected override async Task ShowInternal()
+        protected override async void ShowInternal()
         {
             // Setup error handler
             NierReincarnation.NierReincarnation.ApiError += NierReincarnationApiError;
@@ -170,7 +169,8 @@ namespace nier_rein_gui.Dialogs
                                          (i.name.StartsWith("ui)weapon)") ||
                                           i.name.StartsWith("ui)costume)") ||
                                           i.name.StartsWith("ui)companion)") ||
-                                          i.name.StartsWith("ui)memory)"));
+                                          i.name.StartsWith("ui)memory)")||
+                                          i.name.StartsWith("ui)consumable_item)"));
 
             var assetCount = _assetContext.GetAssetCount(IconSelector);
             var assetSize = _assetContext.GetAssetSize(IconSelector);

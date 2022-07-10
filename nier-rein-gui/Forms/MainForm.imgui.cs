@@ -51,6 +51,7 @@ namespace nier_rein_gui.Forms
                 Caption = $"Game version: {Application.Version}"
             };
 
+            var staminaRefreshButton = new StaminaPreferenceButton();
             loadoutButton = new NierButton
             {
                 Caption = UserInterfaceTextKey.Footer.kLoadout.Localize(),
@@ -80,6 +81,7 @@ namespace nier_rein_gui.Forms
                 ItemSpacing = 10,
                 Items =
                 {
+                    // Header
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
@@ -88,11 +90,27 @@ namespace nier_rein_gui.Forms
                         Items =
                         {
                             userLabel,
-                            new StackItem(staminaLabel){ Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center},
+                            new StackLayout
+                            {
+                                Alignment = Alignment.Horizontal,
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                Size = new Size(1f,-1),
+                                ItemSpacing = 5,
+                                Items =
+                                {
+                                    new StackItem(staminaLabel){VerticalAlignment = VerticalAlignment.Center},
+                                    staminaRefreshButton
+                                }
+                            },
+                            //new StackItem(staminaLabel){ Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center},
                             versionLabel
                         }
                     },
+
+                    // Content
                     new StackItem(null) {Size = ImGui.Forms.Models.Size.Parent},
+
+                    // Footer
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,

@@ -15,17 +15,18 @@ using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Context
 {
-    public class StaminaContext: BaseContext
+    public class StaminaContext : BaseContext
     {
-        private static int GemReduceAmount_ = 100;
-        private static int PotReduceAmount_ = 1;
-        private static int SmallPotReplenishAmount_ = 10;
+        private readonly DarkClient _dc = new DarkClient();
 
-        private static readonly DarkClient _dc = new DarkClient();
-
-        public static StaminaPreference Preference { get; } = new StaminaPreference();
+        public static StaminaPreference Preference { get; private set; } = StaminaPreference.CreateDefault();
 
         internal StaminaContext() { }
+
+        public static void SetPreferences(StaminaType[] order)
+        {
+            Preference = StaminaPreference.Create(order);
+        }
 
         public static int GetCurrentStamina()
         {
@@ -48,18 +49,13 @@ namespace NierReincarnation.Context
             if (refillCap <= currentStamina)
                 return true;
 
-            // Ensure preferences
-            var preference = Preference;
-            if (preference.Order.Count <= 0)
-                preference = new StaminaPreference();
-
             // Get stamina items
             var staminaItems = GetStaminaItems();
             var eventPots = staminaItems.Where(x => !CalculatorConsumable.StaminaConsumableItemIds.Contains(x.ConsumableId)).ToArray();
 
             // Refill by preference
             var refillBy = refillCap - currentStamina;
-            foreach (var orderType in preference.Order)
+            foreach (var orderType in Preference.GetOrder())
             {
                 // Stop if amount was refilled
                 if (refillBy <= 0)
@@ -93,7 +89,7 @@ namespace NierReincarnation.Context
             return refillBy <= 0;
         }
 
-        private IList<RecoverData> GetStaminaItems()
+        public static IList<RecoverData> GetStaminaItems()
         {
             return CalculatorConsumable.CreateRecoverItemData(EffectTargetType.STAMINA_RECOVERY);
         }
@@ -102,7 +98,7 @@ namespace NierReincarnation.Context
         {
             var useEffectRes = await TryRequest(async () =>
             {
-                var useEffectReq = new UseEffectItemRequest {ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount};
+                var useEffectReq = new UseEffectItemRequest { ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount };
                 return await _dc.ConsumableItemService.UseEffectItemAsync(useEffectReq);
             });
 

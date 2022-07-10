@@ -3,7 +3,7 @@ using ImGui.Forms.Modals;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
-namespace nier_rein_gui.Dialogs
+namespace nier_rein_gui.Dialogs.FarmDialogs
 {
     // TODO: Implement!
     class MemoirFarmDialog : Modal

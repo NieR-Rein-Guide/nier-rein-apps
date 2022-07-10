@@ -2,6 +2,7 @@
 using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Dialogs;
+using nier_rein_gui.Dialogs.FarmDialogs;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.View.UserInterface;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;

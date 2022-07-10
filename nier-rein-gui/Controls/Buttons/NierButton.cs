@@ -22,6 +22,7 @@ namespace nier_rein_gui.Controls.Buttons
         private static readonly uint TextActiveColor = Color.FromArgb(0x2D, 0x29, 0x28).ToUInt32();
         private static readonly uint DisabledColor = Color.FromArgb(0x88, 0x00, 0x00, 0x00).ToUInt32();
 
+        private bool _isMarkedHovered;
         private bool _isMarkedActive;
 
         public bool Active { get; set; }
@@ -45,12 +46,15 @@ namespace nier_rein_gui.Controls.Buttons
 
         protected override void UpdateInternal(Rectangle contentRect)
         {
+            var isHoveredLocal = _isMarkedHovered;
             var isActiveLocal = _isMarkedActive;
             var isEnabledLocal = Enabled;
             var fontLocal = Font;
-            ApplyStyles(isActiveLocal, isEnabledLocal, fontLocal);
+            ApplyStyles(isHoveredLocal, isActiveLocal, isEnabledLocal, fontLocal);
 
             var shouldClick = ImGuiNET.ImGui.Button(EscapeCaption(), new Vector2(contentRect.Width, contentRect.Height));
+
+            _isMarkedHovered = ImGuiNET.ImGui.IsItemHovered();
 
             var isActive = ImGuiNET.ImGui.IsItemActive() && ImGuiNET.ImGui.IsItemHovered();
             _isMarkedActive = (isActive || Active) && Enabled;
@@ -67,14 +71,14 @@ namespace nier_rein_gui.Controls.Buttons
             if (shouldClick && Enabled)
                 OnClicked();
 
-            RemoveStyles(isActiveLocal, isEnabledLocal, fontLocal);
+            RemoveStyles(isHoveredLocal, isActiveLocal, isEnabledLocal, fontLocal);
         }
 
         protected override void ApplyStyles() { }
 
         protected override void RemoveStyles() { }
 
-        protected void ApplyStyles(bool isActive, bool isEnabled, FontResource font)
+        protected void ApplyStyles(bool isHovered, bool isActive, bool isEnabled, FontResource font)
         {
             if (font != null)
                 ImGuiNET.ImGui.PushFont((ImFontPtr)font);
@@ -86,15 +90,17 @@ namespace nier_rein_gui.Controls.Buttons
                 return;
             }
 
+            if (isHovered || isActive)
+                ImGuiNET.ImGui.PushStyleColor(ImGuiCol.Text, TextActiveColor);
+
             if (isActive)
             {
-                ImGuiNET.ImGui.PushStyleColor(ImGuiCol.Text, TextActiveColor);
                 ImGuiNET.ImGui.PushStyleColor(ImGuiCol.Button, Style.GetColor(ImGuiCol.ButtonActive).ToUInt32());
                 ImGuiNET.ImGui.PushStyleColor(ImGuiCol.ButtonHovered, Style.GetColor(ImGuiCol.ButtonActive).ToUInt32());
             }
         }
 
-        protected void RemoveStyles(bool isActive, bool isEnabled, FontResource font)
+        protected void RemoveStyles(bool isHovered, bool isActive, bool isEnabled, FontResource font)
         {
             if (font != null)
                 ImGuiNET.ImGui.PopFont();
@@ -105,8 +111,11 @@ namespace nier_rein_gui.Controls.Buttons
                 return;
             }
 
+            if (isHovered || isActive)
+                ImGuiNET.ImGui.PopStyleColor(1);
+
             if (isActive)
-                ImGuiNET.ImGui.PopStyleColor(3);
+                ImGuiNET.ImGui.PopStyleColor(2);
         }
 
         private void DrawBorder(Rectangle contentRect, bool isActive)

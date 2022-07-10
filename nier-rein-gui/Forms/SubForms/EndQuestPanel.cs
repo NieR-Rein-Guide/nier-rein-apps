@@ -10,6 +10,7 @@ using ImGuiNET;
 using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Dialogs;
+using nier_rein_gui.Dialogs.FarmDialogs;
 using nier_rein_gui.Resources;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.Calculator.Outgame;

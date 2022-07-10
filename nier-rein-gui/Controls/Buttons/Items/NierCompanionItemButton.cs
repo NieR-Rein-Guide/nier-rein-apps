@@ -22,12 +22,12 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
         protected override ImageResource GetBackground()
         {
-            return NierResources.LoadCompanionBackground();
+            return NierResources.LoadDefaultBackground();
         }
 
         protected override ImageResource GetBorder()
         {
-            return NierResources.LoadCompanionBorder();
+            return NierResources.LoadDefaultBorder();
         }
 
         protected override ImageResource GetContent()

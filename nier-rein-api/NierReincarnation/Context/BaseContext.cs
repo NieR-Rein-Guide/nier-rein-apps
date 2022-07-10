@@ -43,11 +43,12 @@ namespace NierReincarnation.Context
                         await NierReincarnation.AuthorizeUser(CalculatorStateUser.GetUserId());
 
                         // Re-download user data
-                        var isUserSuccess = await NierReincarnation.UpdateUserData();
+                        await NierReincarnation.UpdateUserData();
 
                         // TODO: Get indicator if request should be cancelled after re-authorization
+                        // TODO: Either remove bool in event or properly set it by AuthorizeUser result, instead of UserData update
                         // Invoke event after authentication
-                        OnAfterUnauthenticated(isUserSuccess);
+                        OnAfterUnauthenticated(true);
 
                         break;
                 }

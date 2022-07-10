@@ -118,13 +118,5 @@ namespace NierReincarnation.Core.Dark.Networking
 
             return api.RequestAsync(request, false);
         }
-
-        //// RVA: -1 Offset: -1
-        //private void AddDataSource<DataSourceClass, RequestClass, ResponseClass>(DataSourceType dataSourceType, Action<ResponseClass> onSuccess, CancellationToken cancellationToken) { }
-        ///* GenericInstMethod :
-        //|
-        //|-RVA: 0x2559EB0 Offset: 0x2559EB0 VA: 0x2559EB0
-        //|-UserAuthComposite.AddDataSource<object, object, object>
-        //*/
     }
 }

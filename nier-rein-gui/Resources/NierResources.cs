@@ -20,6 +20,7 @@ namespace nier_rein_gui.Resources
         private const string WeaponIconPath_ = "assets/ui/weapon/{0}/{0}_standard.asset";
         private const string CompanionIconPath_ = "assets/ui/companion/{0}/{0}_standard.asset";
         private const string MemoryIconPath_ = "assets/ui/memory/memory{0:D3}/memory{0:D3}_standard.asset";
+        private const string ConsumableItemPath_ = "assets/ui/consumable_item/consumable{0:D3}{1:D3}/consumable{0:D3}{1:D3}_standard.asset";
 
         private static readonly IDictionary<AttributeType, ImageResource> AttributeIcons = new Dictionary<AttributeType, ImageResource>();
         private static readonly IDictionary<WeaponType, ImageResource> WeaponIcons = new Dictionary<WeaponType, ImageResource>();
@@ -31,6 +32,7 @@ namespace nier_rein_gui.Resources
         private static readonly IDictionary<string, ImageResource> WeaponItems = new Dictionary<string, ImageResource>();
         private static readonly IDictionary<string, ImageResource> CompanionItems = new Dictionary<string, ImageResource>();
         private static readonly IDictionary<int, ImageResource> MemoryItems = new Dictionary<int, ImageResource>();
+        private static readonly IDictionary<(int, int), ImageResource> ConsumableItems = new Dictionary<(int, int), ImageResource>();
 
         private static ImageResource CompanionBackgroundResource;
         private static ImageResource CompanionBorderResource;
@@ -304,7 +306,7 @@ namespace nier_rein_gui.Resources
             return RarityBorders[rarity] = LoadItemResource(item);
         }
 
-        public static ImageResource LoadCompanionBackground()
+        public static ImageResource LoadDefaultBackground()
         {
             if (CompanionBackgroundResource != null)
                 return CompanionBackgroundResource;
@@ -315,7 +317,7 @@ namespace nier_rein_gui.Resources
             return CompanionBackgroundResource = LoadItemResource(item);
         }
 
-        public static ImageResource LoadCompanionBorder()
+        public static ImageResource LoadDefaultBorder()
         {
             if (CompanionBorderResource != null)
                 return CompanionBorderResource;
@@ -439,6 +441,20 @@ namespace nier_rein_gui.Resources
             PadResizeItem(asset, AnchorPositionMode.Center);
 
             return MemoryItems[groupAssetId] = ImageResource.FromStream(asset.AsStream());
+        }
+
+        public static ImageResource LoadConsumableItem(int categoryId, int variationId)
+        {
+            if (categoryId == 0 || variationId == 0)
+                return null;
+
+            if (ConsumableItems.ContainsKey((categoryId,variationId)))
+                return ConsumableItems[(categoryId, variationId)];
+
+            var asset = LoadAsset(string.Format(ConsumableItemPath_, categoryId, variationId));
+            PadResizeItem(asset, AnchorPositionMode.Center);
+
+            return ConsumableItems[(categoryId, variationId)] = ImageResource.FromStream(asset.AsStream());
         }
 
         private static ImageAsset LoadAsset(string path)

@@ -21,7 +21,7 @@ using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 
-namespace nier_rein_gui.Dialogs
+namespace nier_rein_gui.Dialogs.FarmDialogs
 {
     abstract class QuestFarmDialog : Modal
     {

@@ -117,62 +117,67 @@ namespace NierReincarnation.Context
             var counter = 0;
             Console.Write($"\rProcessed 0/{items.Length}");
 
-            foreach (var item in items.AsParallel())
+            items.AsParallel().ForAll(item =>
             {
-                var targetPath = Path.Combine(targetDir, item.name.Replace(')', '/'));
-                if (isAssetBundle)
-                    targetPath += ".asset";
-
-                // TODO: Use correct revision check to see if file is up-to-date
-                if (File.Exists(targetPath))
-                {
-                    // Decrypt if file is asset bundle
-                    if (isAssetBundle)
-                    {
-                        // If existing file is still encrypted, decrypt it
-                        var existingBuffer = await File.ReadAllBytesAsync(targetPath);
-
-                        var existingDecBuffer = new byte[existingBuffer.Length];
-                        DecryptInternal(existingBuffer, existingDecBuffer, item.name);
-
-                        // If the decryption changed the content, write it back to the file
-                        if (existingBuffer[0] != existingDecBuffer[0])
-                            await File.WriteAllBytesAsync(targetPath, existingDecBuffer);
-                    }
-
-                    continue;
-                }
-
-                // Download file
-                var url = isAssetBundle ? dataManager.GenerateAssetBundleUrl(item) : dataManager.GenerateResourceUrl(item);
-
-                var req = new HttpRequestMessage(HttpMethod.Get, url);
-                var res = await client.SendAsync(req);
-
-                // Decrypt file
-                var content = await res.Content.ReadAsByteArrayAsync();
-                if (isAssetBundle)
-                {
-                    var outputBuffer = new byte[res.Content.Headers.ContentLength ?? 0];
-                    DecryptInternal(content, outputBuffer, item.name);
-
-                    content = outputBuffer;
-                }
-
-                // Write file
-                EnsureDirectory(Path.GetDirectoryName(targetPath));
-
-                await using var output = File.Create(targetPath);
-                await output.WriteAsync(content);
+                ProcessSingleAsset(item, targetDir, isAssetBundle, client, dataManager);
 
                 lock (_lockObj)
                 {
                     counter++;
                     Console.Write($"\rProcessed {counter + 1}/{items.Length}");
                 }
-            }
+            });
 
             Console.WriteLine();
+        }
+
+        private static void ProcessSingleAsset(Item item, string targetDir, bool isAssetBundle, HttpClient client, DataManager dataManager)
+        {
+            var targetPath = Path.Combine(targetDir, item.name.Replace(')', '/'));
+            if (isAssetBundle)
+                targetPath += ".asset";
+
+            // TODO: Use correct revision check to see if file is up-to-date
+            if (File.Exists(targetPath))
+            {
+                // Decrypt if file is asset bundle
+                if (!isAssetBundle)
+                    return;
+
+                // If existing file is still encrypted, decrypt it
+                var existingBuffer = File.ReadAllBytes(targetPath);
+
+                var existingDecBuffer = new byte[existingBuffer.Length];
+                DecryptInternal(existingBuffer, existingDecBuffer, item.name);
+
+                // If the decryption changed the content, write it back to the file
+                if (existingBuffer[0] != existingDecBuffer[0])
+                    File.WriteAllBytes(targetPath, existingDecBuffer);
+
+                return;
+            }
+
+            // Download file
+            var url = isAssetBundle ? dataManager.GenerateAssetBundleUrl(item) : dataManager.GenerateResourceUrl(item);
+
+            var req = new HttpRequestMessage(HttpMethod.Get, url);
+            var res = client.Send(req);
+
+            // Decrypt file
+            var content = res.Content.ReadAsByteArrayAsync().Result;
+            if (isAssetBundle)
+            {
+                var outputBuffer = new byte[res.Content.Headers.ContentLength ?? 0];
+                DecryptInternal(content, outputBuffer, item.name);
+
+                content = outputBuffer;
+            }
+
+            // Write file
+            EnsureDirectory(Path.GetDirectoryName(targetPath));
+
+            using var output = File.Create(targetPath);
+            output.Write(content);
         }
 
         private static void EnsureDirectory(string dir)

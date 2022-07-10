@@ -18,6 +18,25 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return table.FindByConsumableItemId(consumableItemId);
         }
 
+        public static DataConsumableItem CreateDataConsumableItem(int consumableItemId)
+        {
+            var masterItem = GetEntityMConsumableItem(consumableItemId);
+            return CreateDataConsumableItem(masterItem);
+        }
+
+        private static DataConsumableItem CreateDataConsumableItem(EntityMConsumableItem entityMConsumableItem)
+        {
+            return new DataConsumableItem
+            {
+                ConsumableItemId = entityMConsumableItem.ConsumableItemId,
+                Name = GetName(entityMConsumableItem.AssetCategoryId,entityMConsumableItem.AssetVariationId),
+                Description = GetDescription(entityMConsumableItem.AssetCategoryId,entityMConsumableItem.AssetVariationId),
+                AssetCategoryId = entityMConsumableItem.AssetCategoryId,
+                AssetVariationId = entityMConsumableItem.AssetVariationId,
+                ConsumableItemTermId = entityMConsumableItem.ConsumableItemTermId
+            };
+        }
+
         public static RecoverData[] CreateRecoverItemData(EffectTargetType targetType)
         {
             var userId = CalculatorStateUser.GetUserId();
@@ -94,6 +113,15 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
                 return null;
 
             return GetName(masterConsumable.AssetCategoryId, masterConsumable.AssetVariationId);
+        }
+
+        public static string ConsumableItemDescription(int consumableItemId)
+        {
+            var masterConsumable = GetEntityMConsumableItem(consumableItemId);
+            if (masterConsumable == null)
+                return null;
+
+            return GetDescription(masterConsumable.AssetCategoryId, masterConsumable.AssetVariationId);
         }
     }
 }

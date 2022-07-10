@@ -6,7 +6,7 @@ using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
-namespace nier_rein_gui.Dialogs
+namespace nier_rein_gui.Dialogs.FarmDialogs
 {
     class MainQuestFarmDialog : QuestFarmDialog
     {

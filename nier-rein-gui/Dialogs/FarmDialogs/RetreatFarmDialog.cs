@@ -23,7 +23,7 @@ using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using Size = ImGui.Forms.Models.Size;
 
-namespace nier_rein_gui.Dialogs
+namespace nier_rein_gui.Dialogs.FarmDialogs
 {
     class RetreatFarmDialog : Modal
     {
