@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.UnityEngine.Purchasing;
 
 namespace NierReincarnation.Core.Dark.Purchase
 {
-    class DarkPurchase
+    public class DarkPurchase
     {
         private static readonly Lazy<DarkPurchase> Lazy = new Lazy<DarkPurchase>(() => new DarkPurchase());
         public static DarkPurchase Instance => Lazy.Value;
@@ -80,7 +79,7 @@ namespace NierReincarnation.Core.Dark.Purchase
                 if (errorType != PurchaseErrorType.None)
                     return errorType;
 
-                errorType=await PurchaseReceiptAsync(purchaseProcessingData.Product, purchaseProcessingData.Product.receipt);
+                errorType = await PurchaseReceiptAsync(purchaseProcessingData.Product, purchaseProcessingData.Product.receipt);
 
                 //PlayerPreference.Instance.RemoveTransaction();
                 //PlayerPreference.Instance.FinishTransaction();
@@ -108,7 +107,7 @@ namespace NierReincarnation.Core.Dark.Purchase
 
         private void OnInitializeProcessPurchase(Product product)
         {
-            if(_purchaseProcessingDatas.ContainsKey(product.transactionID))
+            if (_purchaseProcessingDatas.ContainsKey(product.transactionID))
                 return;
 
             _purchaseProcessingDatas[product.transactionID] = new PurchaseProcessingData(product);
@@ -116,6 +115,22 @@ namespace NierReincarnation.Core.Dark.Purchase
 
         private Task<PurchaseErrorType> RecreateBridgeTransactionAsync(string productId)
         {
+            // CreateBridgeTransactionAsync
+            //foreach (var shopItem in GetShopItems())
+            //{
+            //    if (!TryGetProduct(shopItem, out var product))
+            //        continue;
+
+            //    var localProductId = $"com.square_enix.nierspww.{product.ProductIdSuffix}";
+            //    if (productId != localProductId)
+            //        continue;
+
+            //    shopItem.ShopItemId;
+
+            //}
+
+            //return PurchaseErrorType.PurchaseUnknownFailure;
+
             // STUB
             return Task.FromResult(PurchaseErrorType.None);
         }
@@ -124,6 +139,13 @@ namespace NierReincarnation.Core.Dark.Purchase
         {
             // STUB
             return Task.FromResult(PurchaseErrorType.None);
+        }
+
+        // Tuple.2 CreatePurchaseTransactionResponse
+        private Task<(PurchaseErrorType, string)> CreateBridgeTransactionAsync(string productId, int shopId, int shopItemId)
+        {
+            // STUB
+            return Task.FromResult((PurchaseErrorType.None, string.Empty));
         }
 
         private IEnumerable<EntityMPlatformPayment> GetProducts()
@@ -150,8 +172,7 @@ namespace NierReincarnation.Core.Dark.Purchase
 
         public bool IsExistsProduct(string productIdSuffix)
         {
-            // STUB
-            return false;
+            return _shopIdByProductId.ContainsKey($"com.square_enix.nierspww.{productIdSuffix}");
         }
 
         public string GetStorePriceString(string productIdSuffix)

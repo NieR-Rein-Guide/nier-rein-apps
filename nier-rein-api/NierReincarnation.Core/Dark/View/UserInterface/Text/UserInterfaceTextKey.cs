@@ -225,6 +225,7 @@
 
         public static class Shop
         {
+            public static readonly string kPurchaseErrorRefund = "ui.Outgame.Shop.Purchase.Error.Refund"; // 0x1E8
             public static readonly string kPurchaseErrorRetry = "ui.Outgame.Shop.Purchase.Error.Retry"; // 0x1F0
         }
 
@@ -284,9 +285,9 @@
 
         public static class Common
         {
-            public static readonly string kRarityName= "ui.Outgame.Common.RarityType.Name.{0:D2}"; // 0x148
-            public static readonly string kAttributeTextKey= "ui.Outgame.Attribute.{0}"; // 0x1B8
-            public static readonly string kWeaponTypeTextKey= "ui.Outgame.WeaponType.{0}"; // 0x1C0
+            public static readonly string kRarityName = "ui.Outgame.Common.RarityType.Name.{0:D2}"; // 0x148
+            public static readonly string kAttributeTextKey = "ui.Outgame.Attribute.{0}"; // 0x1B8
+            public static readonly string kWeaponTypeTextKey = "ui.Outgame.WeaponType.{0}"; // 0x1C0
         }
 
         private static class CommonKeyParts

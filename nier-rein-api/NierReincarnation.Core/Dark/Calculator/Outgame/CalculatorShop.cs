@@ -92,7 +92,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 IsLimitedStock = limitedStock != null,
 
                 // TODO: Send over correct count
-                ItemName = GetItemName(entityMShopItem.NameShopTextId, 0),
+                ItemName = GetItemName(entityMShopItem.NameShopTextId, -1),
                 DescriptionText = GetItemDescription(entityMShopItem.DescriptionShopTextId)
             };
 
