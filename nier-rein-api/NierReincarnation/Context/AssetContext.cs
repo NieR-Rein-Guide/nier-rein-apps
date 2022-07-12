@@ -117,21 +117,18 @@ namespace NierReincarnation.Context
             var counter = 0;
             Console.Write($"\rProcessed 0/{items.Length}");
 
-            items.AsParallel().ForAll(item =>
+            await Task.Run(() => items.AsParallel().ForAll(item =>
             {
-                ProcessSingleAsset(item, targetDir, isAssetBundle, client, dataManager);
+                ProcessSingleAsset(item, targetDir, isAssetBundle, client, dataManager).Wait();
 
                 lock (_lockObj)
-                {
-                    counter++;
-                    Console.Write($"\rProcessed {counter + 1}/{items.Length}");
-                }
-            });
+                    Console.Write($"\rProcessed {counter++}/{items.Length}");
+            }));
 
             Console.WriteLine();
         }
 
-        private static void ProcessSingleAsset(Item item, string targetDir, bool isAssetBundle, HttpClient client, DataManager dataManager)
+        private static async Task ProcessSingleAsset(Item item, string targetDir, bool isAssetBundle, HttpClient client, DataManager dataManager)
         {
             var targetPath = Path.Combine(targetDir, item.name.Replace(')', '/'));
             if (isAssetBundle)
@@ -145,14 +142,14 @@ namespace NierReincarnation.Context
                     return;
 
                 // If existing file is still encrypted, decrypt it
-                var existingBuffer = File.ReadAllBytes(targetPath);
+                var existingBuffer = await File.ReadAllBytesAsync(targetPath);
 
                 var existingDecBuffer = new byte[existingBuffer.Length];
                 DecryptInternal(existingBuffer, existingDecBuffer, item.name);
 
                 // If the decryption changed the content, write it back to the file
                 if (existingBuffer[0] != existingDecBuffer[0])
-                    File.WriteAllBytes(targetPath, existingDecBuffer);
+                    await File.WriteAllBytesAsync(targetPath, existingDecBuffer);
 
                 return;
             }
@@ -161,10 +158,10 @@ namespace NierReincarnation.Context
             var url = isAssetBundle ? dataManager.GenerateAssetBundleUrl(item) : dataManager.GenerateResourceUrl(item);
 
             var req = new HttpRequestMessage(HttpMethod.Get, url);
-            var res = client.Send(req);
+            var res = await client.SendAsync(req);
 
             // Decrypt file
-            var content = res.Content.ReadAsByteArrayAsync().Result;
+            var content = await res.Content.ReadAsByteArrayAsync();
             if (isAssetBundle)
             {
                 var outputBuffer = new byte[res.Content.Headers.ContentLength ?? 0];
@@ -176,7 +173,7 @@ namespace NierReincarnation.Context
             // Write file
             EnsureDirectory(Path.GetDirectoryName(targetPath));
 
-            using var output = File.Create(targetPath);
+            await using var output = File.Create(targetPath);
             output.Write(content);
         }
 
