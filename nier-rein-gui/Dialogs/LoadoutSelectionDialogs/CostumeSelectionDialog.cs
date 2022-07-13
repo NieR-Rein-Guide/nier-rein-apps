@@ -10,19 +10,19 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
     class CostumeSelectionDialog : FilterItemDialog<DataOutgameCostumeInfo>
     {
-        private static IDictionary<DataOutgameCostumeInfo, NierCostumeItemButton> _costumeInfo;
+        private IDictionary<DataOutgameCostumeInfo, NierCostumeItemButton> _costumeInfo;
 
         private readonly DataOutgameCostumeInfo _currentCostume;
-        private readonly DataOutgameCostumeInfo[] _deckCostumes;
+        private readonly DataOutgameCostumeInfo[] _deckOtherCostumes;
 
         protected override bool ShowAttributeFilter => false;
         protected override bool ShowWeaponTypeFilter => true;
         protected override bool ShowRarityFilter => true;
 
-        public CostumeSelectionDialog(DataOutgameCostumeInfo currentCostume, DataOutgameCostumeInfo[] deckCostumes)
+        public CostumeSelectionDialog(DataOutgameCostumeInfo currentCostume, DataOutgameCostumeInfo[] deckOtherCostumes)
         {
             _currentCostume = currentCostume;
-            _deckCostumes = deckCostumes;
+            _deckOtherCostumes = deckOtherCostumes;
 
             Caption = "Costumes";
 
@@ -31,13 +31,14 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         private void InitializeCostumeDataInfo()
         {
-            if (_costumeInfo != null)
-                return;
-
             _costumeInfo = new Dictionary<DataOutgameCostumeInfo, NierCostumeItemButton>();
 
             foreach (var costumeInfo in CalculatorCostume.EnumerateCostumeInfo(CalculatorStateUser.GetUserId()))
-                _costumeInfo[costumeInfo] = new NierCostumeItemButton { Costume = costumeInfo };
+                _costumeInfo[costumeInfo] = new NierCostumeItemButton
+                {
+                    Costume = costumeInfo,
+                    Enabled = IsValidItem(costumeInfo)
+                };
         }
 
         protected override NierItemButton GetButton(DataOutgameCostumeInfo item)
@@ -70,6 +71,12 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         {
             return weaponFilter.Contains(weaponInfo.WeaponType) &&
                    rarityFilter.Contains(weaponInfo.RarityType);
+        }
+
+        private bool IsValidItem(DataOutgameCostumeInfo costumeInfo)
+        {
+            return _currentCostume?.CostumeId != costumeInfo.CostumeId && 
+                   _deckOtherCostumes.All(x => x.CharacterId != costumeInfo.CharacterId);
         }
     }
 }

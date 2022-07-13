@@ -77,13 +77,11 @@ namespace nier_rein_gui.Controls.Buttons.Items
                 if (GetPlaceholder() != null)
                     ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)GetPlaceholder(), contentRect.Position, contentRect.Position + contentRect.Size);
 
-                if (!Enabled)
-                {
-                    ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, DisabledColor);
-                    return;
-                }
+                if (Enabled)
+                    DrawSelectionOverlay(contentRect, isHovered, false);
 
-                DrawSelectionOverlay(contentRect, isHovered, false);
+                if (!Enabled)
+                    ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, DisabledColor);
 
                 return;
             }
@@ -96,8 +94,9 @@ namespace nier_rein_gui.Controls.Buttons.Items
             if (GetBorder() != null)
                 ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)GetBorder(), contentRect.Position, contentRect.Position + contentRect.Size);
 
-            // Draw selection
-            DrawSelectionOverlay(contentRect, isHovered, Selected);
+            // Draw selection, when button is enabled
+            if (Enabled)
+                DrawSelectionOverlay(contentRect, isHovered, Selected);
 
             // Draw icons
             var iconPos = contentRect.Position;
@@ -122,8 +121,8 @@ namespace nier_rein_gui.Controls.Buttons.Items
                 // TODO: Draw bonus indicator
             }
 
-            if(!Enabled)
-                ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position,contentRect.Position+contentRect.Size, DisabledColor);
+            if (!Enabled)
+                ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, DisabledColor);
         }
 
         private void DrawSelectionOverlay(Rectangle contentRect, bool isHovered, bool isSelected)

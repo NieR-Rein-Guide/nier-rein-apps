@@ -10,19 +10,21 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
     class WeaponSelectionDialog : FilterItemDialog<DataWeaponInfo>
     {
-        private static IDictionary<DataWeaponInfo, NierWeaponItemButton> _weaponInfo;
+        private IDictionary<DataWeaponInfo, NierWeaponItemButton> _weaponInfo;
 
         private readonly DataWeaponInfo _currentWeapon;
-        private readonly DataWeaponInfo[] _deckWeapons;
+        private readonly DataWeaponInfo[] _currentWeapons;
+        private readonly DataWeaponInfo[] _deckOtherWeapons;
 
         protected override bool ShowAttributeFilter => true;
         protected override bool ShowWeaponTypeFilter => true;
         protected override bool ShowRarityFilter => true;
 
-        public WeaponSelectionDialog(DataWeaponInfo currentWeapon, DataWeaponInfo[] deckWeapons)
+        public WeaponSelectionDialog(DataWeaponInfo currentWeapon, DataWeaponInfo[] currentWeapons, DataWeaponInfo[] deckOtherWeapons)
         {
             _currentWeapon = currentWeapon;
-            _deckWeapons = deckWeapons;
+            _currentWeapons = currentWeapons;
+            _deckOtherWeapons = deckOtherWeapons;
 
             Caption = "Weapons";
 
@@ -31,13 +33,14 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         private void InitializeWeaponDataInfo()
         {
-            if (_weaponInfo != null)
-                return;
-
             _weaponInfo = new Dictionary<DataWeaponInfo, NierWeaponItemButton>();
 
             foreach (var weaponInfo in CalculatorWeapon.EnumerateWeaponInfo(CalculatorStateUser.GetUserId()))
-                _weaponInfo[weaponInfo] = new NierWeaponItemButton { Weapon = weaponInfo };
+                _weaponInfo[weaponInfo] = new NierWeaponItemButton
+                {
+                    Weapon = weaponInfo,
+                    Enabled = IsValidItem(weaponInfo)
+                };
         }
 
         protected override IEnumerable<DataWeaponInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
@@ -74,6 +77,13 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             return attributeFilter.Contains(weaponInfo.Attribute) &&
                    weaponFilter.Contains(weaponInfo.WeaponType) &&
                    rarityFilter.Contains(weaponInfo.RarityType);
+        }
+
+        private bool IsValidItem(DataWeaponInfo weaponInfo)
+        {
+            return _currentWeapon?.WeaponId != weaponInfo.WeaponId &&
+                   _currentWeapons.All(x => x.WeaponId != weaponInfo.WeaponId) &&
+                   _deckOtherWeapons.All(x => x.WeaponId != weaponInfo.WeaponId);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Modals;
@@ -140,7 +141,7 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async Task<(DataOutgameCostumeInfo, bool)> SelectCostume(DataOutgameCostumeInfo costume)
         {
-            var costumesInDeck = _loadoutPanel.GetDeckCostumes();
+            var costumesInDeck = _loadoutPanel.GetOtherDeckCostumes(_pos);
 
             var dlg = new CostumeSelectionDialog(costume, costumesInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
@@ -203,9 +204,10 @@ namespace nier_rein_gui.Forms.SubForms
         // TODO: Add remove feature
         private async Task<(DataWeaponInfo, bool)> SelectWeapon(DataWeaponInfo weapon)
         {
-            var weaponsInDeck = _loadoutPanel.GetDeckWeapons();
+            var weaponsInOtherDecks = _loadoutPanel.GetOtherDeckWeapons(_pos);
+            var weaponsInDeck = new[] { _actor?.MainWeapon, _actor?.SubWeapon01, _actor?.SubWeapon02 }.Where(x => x != null && x.WeaponId != weapon.WeaponId).ToArray();
 
-            var dlg = new WeaponSelectionDialog(weapon, weaponsInDeck);
+            var dlg = new WeaponSelectionDialog(weapon, weaponsInDeck, weaponsInOtherDecks);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
 
@@ -230,7 +232,7 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async Task<(DataOutgameCompanionInfo, bool)> SelectCompanion(DataOutgameCompanionInfo companion)
         {
-            var companionsInDeck = _loadoutPanel.GetDeckCompanions();
+            var companionsInDeck = _loadoutPanel.GetDeckCompanions(_pos);
 
             var dlg = new CompanionSelectionDialog(companion, companionsInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
@@ -330,9 +332,10 @@ namespace nier_rein_gui.Forms.SubForms
         // TODO: Add remove feature
         private async Task<(DataOutgameMemoryInfo, bool)> SelectMemory(DataOutgameMemoryInfo memory)
         {
-            var memoriesInDeck = _loadoutPanel.GetDeckMemoirs();
+            var memoriesInOtherDeck = _loadoutPanel.GetDeckMemoirs(_pos);
+            var memoriesInDeck = _actor?.Memories.Where(x => x != null && x.PartsId != memory.PartsId).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
 
-            var dlg = new MemorySelectionDialog(memory, memoriesInDeck);
+            var dlg = new MemorySelectionDialog(memory, memoriesInDeck, memoriesInOtherDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
 

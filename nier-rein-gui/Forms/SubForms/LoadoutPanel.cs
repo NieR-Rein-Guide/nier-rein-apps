@@ -97,24 +97,24 @@ namespace nier_rein_gui.Forms.SubForms
             return CurrentDeck.UserDeckActors[pos] = new DataDeckActorInfo();
         }
 
-        internal DataOutgameCostumeInfo[] GetDeckCostumes()
+        internal DataOutgameCostumeInfo[] GetOtherDeckCostumes(int pos)
         {
-            return CurrentDeck?.UserDeckActors.Select(x => x?.Costume).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCostumeInfo>();
+            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Costume).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCostumeInfo>();
         }
 
-        internal DataWeaponInfo[] GetDeckWeapons()
+        internal DataWeaponInfo[] GetOtherDeckWeapons(int pos)
         {
-            return CurrentDeck?.UserDeckActors.SelectMany(x => new[] { x?.MainWeapon, x?.SubWeapon01, x?.SubWeapon02 }).Where(x => x != null).ToArray() ?? Array.Empty<DataWeaponInfo>();
+            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).SelectMany(x => new[] { x?.MainWeapon, x?.SubWeapon01, x?.SubWeapon02 }).Where(x => x != null).ToArray() ?? Array.Empty<DataWeaponInfo>();
         }
 
-        internal DataOutgameCompanionInfo[] GetDeckCompanions()
+        internal DataOutgameCompanionInfo[] GetDeckCompanions(int pos)
         {
-            return CurrentDeck?.UserDeckActors.Select(x => x?.Companion).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
+            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Companion).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
         }
 
-        internal DataOutgameMemoryInfo[] GetDeckMemoirs()
+        internal DataOutgameMemoryInfo[] GetDeckMemoirs(int pos)
         {
-            return CurrentDeck?.UserDeckActors.SelectMany(x => x?.Memories).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
+            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).SelectMany(x => x?.Memories).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
         }
 
         internal async Task ReplaceDeck()

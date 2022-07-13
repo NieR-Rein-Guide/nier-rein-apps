@@ -8,8 +8,10 @@ namespace NierReincarnation.Core.Dark
         // 0x10
         public string UserMemoryUuid { get; set; }
         // 0x18
-        public int GroupAssetId { get; set; }
+        public int PartsId { get; set; }
         // 0x1C
+        public int GroupAssetId { get; set; }
+        // 0x20
         public RarityType RarityType { get; set; }
     }
 }

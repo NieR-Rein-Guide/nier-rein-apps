@@ -10,7 +10,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 {
     class CompanionSelectionDialog : FilterItemDialog<DataOutgameCompanionInfo>
     {
-        private static IDictionary<DataOutgameCompanionInfo, NierCompanionItemButton> _companionInfo;
+        private IDictionary<DataOutgameCompanionInfo, NierCompanionItemButton> _companionInfo;
 
         private readonly DataOutgameCompanionInfo _currentCompanion;
         private readonly DataOutgameCompanionInfo[] _deckCompanions;
@@ -31,13 +31,14 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         private void InitializeCostumeDataInfo()
         {
-            if (_companionInfo != null)
-                return;
-
             _companionInfo = new Dictionary<DataOutgameCompanionInfo, NierCompanionItemButton>();
 
             foreach (var companionInfo in CalculatorCompanion.EnumerateCompanionInfo(CalculatorStateUser.GetUserId()))
-                _companionInfo[companionInfo] = new NierCompanionItemButton { Companion = companionInfo };
+                _companionInfo[companionInfo] = new NierCompanionItemButton
+                {
+                    Companion = companionInfo,
+                    Enabled = IsValidItem(companionInfo)
+                };
         }
 
         protected override NierItemButton GetButton(DataOutgameCompanionInfo item)
@@ -68,6 +69,12 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         private bool IsValidFilter(DataOutgameCompanionInfo companionInfo, IList<AttributeType> attributeFilter)
         {
             return attributeFilter.Contains(companionInfo.Attribute);
+        }
+
+        private bool IsValidItem(DataOutgameCompanionInfo companionInfo)
+        {
+            return _currentCompanion?.CompanionId != companionInfo.CompanionId &&
+                   _deckCompanions.All(x => x.CompanionId != companionInfo.CompanionId);
         }
     }
 }

@@ -46,6 +46,7 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return new DataOutgameMemoryInfo
             {
                 UserMemoryUuid = entityIUserMemory.UserPartsUuid,
+                PartsId = entityIUserMemory.PartsId,
                 GroupAssetId = masterMemoryGroup.PartsGroupAssetId,
                 RarityType = masterMemory.RarityType
             };
