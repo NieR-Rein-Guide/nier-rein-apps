@@ -1,0 +1,39 @@
+name: ImGui.Forms Release
+
+on:
+  push:
+    paths:
+      - nier-rein-api/**
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: nuget/setup-nuget@v1
+
+    # Setup the build
+    - name: Wait for other release builds
+      uses: softprops/turnstyle@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.404
+
+    # Pack NierReincarnation
+    - name: Pack NierReincarnation
+      run: |
+        dotnet build ./nier-rein-api/NierReincarnation/NierReincarnation.csproj --configuration Release
+        dotnet pack ./nier-rein-api/NierReincarnation/NierReincarnation.csproj --configuration Release --output .\dist\nuget
+
+    # Upload NierReincarnation to nuget.org
+    - name: Publish NierReincarnation
+      run: |
+        dotnet nuget push ./dist/nuget/*.nupkg -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
+      env:
+        NUGET_TOKEN: ${{ secrets.NUGET_API_KEY }}
