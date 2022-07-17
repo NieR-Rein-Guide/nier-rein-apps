@@ -42,14 +42,18 @@ namespace NierReincarnation
             // Get backup token
             var uuid = Guid.NewGuid().ToString();
             var backupTokenRes = await dc.GetBackupTokenAsync(new GetBackupTokenRequest { Uuid = uuid });
+            if (backupTokenRes == null)
+                return default;
 
             // Use browser
             CallBrowser(backupTokenRes.BackupToken, username, password);
 
             // Get user id
-            var res = await dc.TransferUserAsync(new TransferUserRequest { Uuid = uuid });
+            var transferRes = await dc.TransferUserAsync(new TransferUserRequest { Uuid = uuid });
+            if (transferRes == null)
+                return default;
 
-            return (uuid, res.UserId, res.Signature);
+            return (uuid, transferRes.UserId, transferRes.Signature);
         }
 
         private static void CallBrowser(string backupToken, string username, string password)

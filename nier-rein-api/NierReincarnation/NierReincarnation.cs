@@ -70,7 +70,11 @@ namespace NierReincarnation
             Setup();
 
             if (!IsLoggedIn())
-                await Login(username, password);
+            {
+                var isLoggedIn = await Login(username, password);
+                if (!isLoggedIn)
+                    return;
+            }
 
             await Initialize();
         }
@@ -114,14 +118,14 @@ namespace NierReincarnation
             return PlayerPrefs.Exists;
         }
 
-        public static async Task Login(string username, string password)
+        public static async Task<bool> Login(string username, string password)
         {
             // Setup application instances
             if (!IsSetup)
                 Setup();
 
             // Login user
-            await LoginUser(username, password);
+            return await LoginUser(username, password);
         }
 
         /// <summary>
@@ -178,12 +182,16 @@ namespace NierReincarnation
             // Update master data
             var isMasterSuccess = await UpdateMasterData();
             if (!isMasterSuccess)
+            {
                 return;
+            }
 
             // Update user data
             var isUserSuccess = await UpdateUserData();
             if (!isUserSuccess)
+            {
                 return;
+            }
 
             // Update user preferences with current user data from API
             UpdateUserPreferences(DatabaseDefine.User.EntityIUserTable.FindByUserId(activePlayer.UserId));
@@ -191,14 +199,18 @@ namespace NierReincarnation
             IsInitialized = true;
         }
 
-        private static async Task LoginUser(string username, string password)
+        private static async Task<bool> LoginUser(string username, string password)
         {
             // Login with SquareEnix-Bridge account
             Console.WriteLine($"Login user '{username}'.");
             var (uuid, userId, signature) = await Auth.LoginSquareEnixBridge(username, password);
+            if (uuid == null)
+                return false;
 
             // Set user information obtained after login
             SetUser(uuid, userId, signature);
+
+            return true;
         }
 
         private static void SetUser(string uuid, long userId, string signature)

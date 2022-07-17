@@ -9,6 +9,7 @@ namespace AssetStudio.PInvoke
 {
     public static class DllLoader
     {
+        private const string NativePath_ = @"runtimes\{0}-{1}\native";
 
         public static void PreloadDll(string dllName)
         {
@@ -31,7 +32,18 @@ namespace AssetStudio.PInvoke
             var localPath = Process.GetCurrentProcess().MainModule.FileName;
             var localDir = Path.GetDirectoryName(localPath);
 
-            var subDir = Environment.Is64BitProcess ? "x64" : "x86";
+            string platform;
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                platform = "win";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                platform = "linux";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                platform = "osx";
+            else
+                throw new NotSupportedException();
+
+            var subDir = Environment.Is64BitProcess ? string.Format(NativePath_, platform, "x64") : string.Format(NativePath_, platform, "x86");
 
             var directedDllDir = Path.Combine(localDir, subDir);
 
@@ -66,7 +78,7 @@ namespace AssetStudio.PInvoke
 
             private const uint LOAD_LIBRARY_SEARCH_DEFAULT_DIRS = 0x1000;
             private const uint LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR = 0x100;
-    }
+        }
 
         private static class Posix
         {
