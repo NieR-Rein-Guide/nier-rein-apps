@@ -19,6 +19,7 @@ using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using DiffData = Art.Framework.ApiNetwork.Grpc.Api.Battle.DiffData;
 
 namespace NierReincarnation.Context
 {
@@ -99,7 +100,11 @@ namespace NierReincarnation.Context
                 var sceneRes = await TryRequest(async () =>
                 {
                     var fieldScene = quest.Scenes.FirstOrDefault(x => x.QuestSceneType == QuestSceneType.FIELD);
-                    var previousScene = quest.Scenes[quest.Scenes.IndexOf(fieldScene) - 1];
+                    var fieldSceneIndex = quest.Scenes.IndexOf(fieldScene);
+                    if (fieldSceneIndex <= 0)
+                        return new UpdateMainFlowSceneProgressResponse();
+
+                    var previousScene = quest.Scenes[fieldSceneIndex - 1];
 
                     var sceneReq = new UpdateMainFlowSceneProgressRequest { QuestSceneId = previousScene.QuestSceneId };
                     return await _dc.QuestService.UpdateMainFlowSceneProgressAsync(sceneReq);
@@ -112,7 +117,7 @@ namespace NierReincarnation.Context
             // Start battle
             var startRes = await TryRequest(async () =>
             {
-                var startReq = GetStartMainBattleRequest(quest.Quest.QuestId, !quest.IsClear, deck.UserDeckNumber);
+                var startReq = GetStartMainBattleRequest(quest.Quest.QuestId, quest.DifficultyType == DifficultyType.NORMAL && !quest.IsClear, deck.UserDeckNumber);
                 return await _dc.QuestService.StartMainQuestAsync(startReq);
             });
 
@@ -161,7 +166,7 @@ namespace NierReincarnation.Context
             // Finish battle
             var finishRes = await TryRequest(async () =>
             {
-                var finishReq = GetFinishMainBattleRequest(quest.Quest.QuestId, quest.IsStoryQuest, !quest.IsClear, retire);
+                var finishReq = GetFinishMainBattleRequest(quest.Quest.QuestId, quest.IsStoryQuest, quest.DifficultyType == DifficultyType.NORMAL && !quest.IsClear, retire);
                 return await _dc.QuestService.FinishMainQuestAsync(finishReq);
             });
 

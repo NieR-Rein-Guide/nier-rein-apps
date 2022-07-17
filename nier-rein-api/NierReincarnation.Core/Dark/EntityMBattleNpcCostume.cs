@@ -23,5 +23,7 @@ namespace NierReincarnation.Core.Dark
         public int HeadupDisplayViewId { get; set; }
         [Key(7)] // RVA: 0x1DD8314 Offset: 0x1DD8314 VA: 0x1DD8314
         public long AcquisitionDatetime { get; set; }
-	}
+        [Key(8)] // RVA: 0x1E99C00 Offset: 0x1E99C00 VA: 0x1E99C00
+        public int AwakenCount { get; set; }
+    }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Serilog;
 using TimeZoneConverter;
 
 namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
@@ -21,7 +20,12 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         public static bool IsWithinThePeriod(long startUnixTime, long endUnixTime)
         {
             var now = UnixTimeNow();
-            return startUnixTime < now && now < endUnixTime;
+            return IsWithinThePeriod(startUnixTime, endUnixTime, now);
+        }
+
+        public static bool IsWithinThePeriod(long startDateTime, long endDateTime, long currentDateTime)
+        {
+            return startDateTime < currentDateTime && currentDateTime < endDateTime;
         }
 
         public static long UnixTimeNow()

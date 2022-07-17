@@ -19,6 +19,7 @@ namespace nier_rein_gui.Resources
         private const string CostumeIconPath_ = "assets/ui/costume/{0}/{0}_standard.asset";
         private const string WeaponIconPath_ = "assets/ui/weapon/{0}/{0}_standard.asset";
         private const string CompanionIconPath_ = "assets/ui/companion/{0}/{0}_standard.asset";
+        private const string ThoughtIconPath_ = "assets/ui/thought/thought{0:D6}/thought{0:D6}_standard.asset";
         private const string MemoryIconPath_ = "assets/ui/memory/memory{0:D3}/memory{0:D3}_standard.asset";
         private const string ConsumableItemPath_ = "assets/ui/consumable_item/consumable{0:D3}{1:D3}/consumable{0:D3}{1:D3}_standard.asset";
 
@@ -31,6 +32,7 @@ namespace nier_rein_gui.Resources
         private static readonly IDictionary<string, ImageResource> CostumeItems = new Dictionary<string, ImageResource>();
         private static readonly IDictionary<string, ImageResource> WeaponItems = new Dictionary<string, ImageResource>();
         private static readonly IDictionary<string, ImageResource> CompanionItems = new Dictionary<string, ImageResource>();
+        private static readonly IDictionary<int, ImageResource> ThoughtItems = new Dictionary<int, ImageResource>();
         private static readonly IDictionary<int, ImageResource> MemoryItems = new Dictionary<int, ImageResource>();
         private static readonly IDictionary<(int, int), ImageResource> ConsumableItems = new Dictionary<(int, int), ImageResource>();
 
@@ -39,48 +41,58 @@ namespace nier_rein_gui.Resources
         private static ImageResource IsEndIconResource;
 
         private static ImageResource CostumePlaceholderResource;
+        private static ImageResource ThoughtPlaceholderResource;
         private static ImageResource WeaponPlaceholderResource;
         private static ImageResource CompanionPlaceholderResource;
         private static ImageResource MemoryPlaceholderResource;
 
         private static ImageResource EditIconResource;
+        private static ImageResource BonusIconResource;
+        private static ImageResource AwakenDefaultIconResource;
+        private static ImageResource AwakenFullIconResource;
 
         private static Image<Bgra32> IconsAtlas;
 
-        private static readonly Rectangle FireIcon = new Rectangle(957, 990, 34, 34);
-        private static readonly Rectangle WaterIcon = new Rectangle(431, 94, 34, 34);
-        private static readonly Rectangle WindIcon = new Rectangle(892, 345, 34, 34);
-        private static readonly Rectangle LightIcon = new Rectangle(861, 287, 34, 34);
-        private static readonly Rectangle DarkIcon = new Rectangle(746, 101, 34, 34);
+        private static readonly Rectangle FireIcon = new Rectangle(863, 1294, 34, 34);
+        private static readonly Rectangle WaterIcon = new Rectangle(626, 1126, 34, 34);
+        private static readonly Rectangle WindIcon = new Rectangle(804, 1094, 34, 34);
+        private static readonly Rectangle LightIcon = new Rectangle(901, 1301, 34, 34);
+        private static readonly Rectangle DarkIcon = new Rectangle(84, 1039, 34, 34);
 
-        private static readonly Rectangle BigSwordIcon = new Rectangle(566, 91, 34, 34);
-        private static readonly Rectangle SwordIcon = new Rectangle(566, 53, 34, 34);
-        private static readonly Rectangle SpearIcon = new Rectangle(815, 173, 34, 34);
-        private static readonly Rectangle StaffIcon = new Rectangle(957, 952, 34, 34);
-        private static readonly Rectangle GunIcon = new Rectangle(884, 421, 34, 34);
-        private static readonly Rectangle FistIcon = new Rectangle(371, 34, 34, 34);
+        private static readonly Rectangle BigSwordIcon = new Rectangle(787, 1266, 34, 34);
+        private static readonly Rectangle SwordIcon = new Rectangle(122, 1038, 34, 34);
+        private static readonly Rectangle SpearIcon = new Rectangle(901, 1339, 34, 34);
+        private static readonly Rectangle StaffIcon = new Rectangle(901, 1263, 34, 34);
+        private static readonly Rectangle GunIcon = new Rectangle(817, 1175, 34, 34);
+        private static readonly Rectangle FistIcon = new Rectangle(863, 1256, 34, 34);
 
-        private static readonly Rectangle LegendStar = new Rectangle(204, 630, 19, 19);
-        private static readonly Rectangle LegendBorder = new Rectangle(1, 352, 108, 108);
-        private static readonly Rectangle LegendBackground = new Rectangle(863, 687, 108, 108);
-        private static readonly Rectangle SrStar = new Rectangle(985, 386, 19, 19);
-        private static readonly Rectangle SrBorder = new Rectangle(229, 219, 108, 108);
-        private static readonly Rectangle SrBackground = new Rectangle(1, 466, 108, 108);
-        private static readonly Rectangle RareStar = new Rectangle(936, 113, 19, 19);
-        private static readonly Rectangle RareBorder = new Rectangle(115, 466, 108, 108);
-        private static readonly Rectangle RareBackground = new Rectangle(749, 571, 108, 108);
+        private static readonly Rectangle AwakenDefaultIcon = new Rectangle(515, 1064, 32, 32);
+        private static readonly Rectangle AwakenFullIcon = new Rectangle(805, 1133, 32, 32);
 
-        private static readonly Rectangle IsExIcon = new Rectangle(860, 211, 34, 34);
+        private static readonly Rectangle LegendStar = new Rectangle(965, 1202, 19, 19);
+        private static readonly Rectangle LegendBorder = new Rectangle(1, 1376, 108, 108);
+        private static readonly Rectangle LegendBackground = new Rectangle(863, 1711, 108, 108);
+        private static readonly Rectangle SrStar = new Rectangle(152, 1622, 19, 19);
+        private static readonly Rectangle SrBorder = new Rectangle(457, 1441, 108, 108);
+        private static readonly Rectangle SrBackground = new Rectangle(1, 1490, 108, 108);
+        private static readonly Rectangle RareStar = new Rectangle(534, 1038, 19, 19);
+        private static readonly Rectangle RareBorder = new Rectangle(115, 1490, 108, 108);
+        private static readonly Rectangle RareBackground = new Rectangle(749, 1595, 108, 108);
 
-        private static readonly Rectangle EditIcon = new Rectangle(936, 306, 25, 25);
+        private static readonly Rectangle IsExIcon = new Rectangle(880,1137, 34, 34);
+        private static readonly Rectangle EditIcon = new Rectangle(583, 1638, 25, 25);
 
-        private static readonly Rectangle CompanionBorder = new Rectangle(469, 531, 108, 108);
-        private static readonly Rectangle CompanionBackground = new Rectangle(343, 448, 108, 108);
+        private static readonly Rectangle BonusArrow = new Rectangle(962, 1406, 28, 24);
+        private static readonly Rectangle BonusPlus = new Rectangle(951, 1083, 26, 26);
 
-        private static readonly Rectangle CostumePlaceholder = new Rectangle(1, 238, 108, 108);
-        private static readonly Rectangle WeaponPlaceholder = new Rectangle(229, 333, 108, 108);
-        private static readonly Rectangle CompanionPlaceholder = new Rectangle(863, 573, 108, 108);
-        private static readonly Rectangle MemoryPlaceholder = new Rectangle(115, 352, 108, 108);
+        private static readonly Rectangle CompanionBorder = new Rectangle(343, 1471, 108, 108);
+        private static readonly Rectangle CompanionBackground = new Rectangle(229, 1357, 108, 108);
+
+        private static readonly Rectangle CostumePlaceholder = new Rectangle(1, 1262, 108, 108);
+        private static readonly Rectangle ThoughtPlaceholder = new Rectangle(115, 1376, 108, 108);
+        private static readonly Rectangle WeaponPlaceholder = new Rectangle(115, 1262, 108, 108);
+        private static readonly Rectangle CompanionPlaceholder = new Rectangle(863, 1597, 108, 108);
+        private static readonly Rectangle MemoryPlaceholder = new Rectangle(469, 1555, 108, 108);
 
         private static readonly Vector2 IconPadSize = new Vector2(102, 102);
         public static readonly Vector2 ItemSlotSize = new Vector2(82, 82);
@@ -88,6 +100,8 @@ namespace nier_rein_gui.Resources
         public static readonly Vector2 RarityStarSize = new Vector2(15, 15);
 
         #region Embedded icons
+
+        #region Placeholders
 
         public static ImageResource LoadCostumePlaceholder()
         {
@@ -98,6 +112,17 @@ namespace nier_rein_gui.Resources
 
             var placeHolder = IconsAtlas.Clone(context => context.Crop(CostumePlaceholder));
             return CostumePlaceholderResource = LoadItemResource(placeHolder);
+        }
+
+        public static ImageResource LoadThoughtPlaceholder()
+        {
+            if (ThoughtPlaceholderResource != null)
+                return ThoughtPlaceholderResource;
+
+            EnsureIconsAtlas();
+
+            var placeHolder = IconsAtlas.Clone(context => context.Crop(ThoughtPlaceholder));
+            return ThoughtPlaceholderResource = LoadItemResource(placeHolder);
         }
 
         public static ImageResource LoadWeaponPlaceholder()
@@ -132,6 +157,10 @@ namespace nier_rein_gui.Resources
             var placeHolder = IconsAtlas.Clone(context => context.Crop(MemoryPlaceholder));
             return MemoryPlaceholderResource = LoadItemResource(placeHolder);
         }
+
+        #endregion
+
+        #region Icons
 
         public static ImageResource LoadAttributeIcon(AttributeType attribute)
         {
@@ -244,6 +273,74 @@ namespace nier_rein_gui.Resources
             return RarityStarIcons[rarity] = LoadStarResource(starIcon);
         }
 
+        public static ImageResource LoadExIcon()
+        {
+            if (IsEndIconResource != null)
+                return IsEndIconResource;
+
+            EnsureIconsAtlas();
+
+            var icon = IconsAtlas.Clone(context => context.Crop(IsExIcon));
+            return IsEndIconResource = LoadIconResource(icon);
+        }
+
+        public static ImageResource LoadEditIcon()
+        {
+            if (EditIconResource != null)
+                return EditIconResource;
+
+            EnsureIconsAtlas();
+
+            var icon = IconsAtlas.Clone(context => context.Crop(EditIcon));
+            return EditIconResource = LoadResource(icon, RarityStarSize);
+        }
+
+        public static ImageResource LoadBonusIcon()
+        {
+            if (BonusIconResource != null)
+                return BonusIconResource;
+
+            EnsureIconsAtlas();
+
+            var arrow = IconsAtlas.Clone(context => context.Crop(BonusArrow));
+            var plus = IconsAtlas.Clone(context => context.Crop(BonusPlus));
+
+            var width = arrow.Width + plus.Width / 2;
+            var height = arrow.Height * 2 + plus.Height;
+
+            var result = new Image<Bgra32>(width, height);
+            result.Mutate(i => i.DrawImage(arrow, new Point(0, 0), 1).DrawImage(arrow, new Point(0, arrow.Height), 1).DrawImage(plus, new Point(width - plus.Width, arrow.Height * 2), 1));
+            result.Mutate(i => i.Resize(width / 2, 0));
+
+            return BonusIconResource = LoadResource(result);
+        }
+
+        public static ImageResource LoadAwakenDefaultIcon()
+        {
+            if (AwakenDefaultIconResource != null)
+                return AwakenDefaultIconResource;
+
+            EnsureIconsAtlas();
+
+            var icon = IconsAtlas.Clone(context => context.Crop(AwakenDefaultIcon));
+            return AwakenDefaultIconResource = LoadIconResource(icon);
+        }
+
+        public static ImageResource LoadAwakenFullIcon()
+        {
+            if (AwakenFullIconResource != null)
+                return AwakenFullIconResource;
+
+            EnsureIconsAtlas();
+
+            var icon = IconsAtlas.Clone(context => context.Crop(AwakenFullIcon));
+            return AwakenFullIconResource = LoadIconResource(icon);
+        }
+
+        #endregion
+
+        #region Background and Borders
+
         public static ImageResource LoadRarityBackground(RarityType rarity)
         {
             if (RarityBackgrounds.ContainsKey(rarity))
@@ -328,27 +425,9 @@ namespace nier_rein_gui.Resources
             return CompanionBorderResource = LoadItemResource(item);
         }
 
-        public static ImageResource LoadExIcon()
-        {
-            if (IsEndIconResource != null)
-                return IsEndIconResource;
+        #endregion
 
-            EnsureIconsAtlas();
-
-            var icon = IconsAtlas.Clone(context => context.Crop(IsExIcon));
-            return IsEndIconResource = LoadIconResource(icon);
-        }
-
-        public static ImageResource LoadEditIcon()
-        {
-            if (EditIconResource != null)
-                return EditIconResource;
-
-            EnsureIconsAtlas();
-
-            var icon = IconsAtlas.Clone(context => context.Crop(EditIcon));
-            return EditIconResource = LoadResource(icon, RarityStarSize);
-        }
+        #region Support
 
         private static void EnsureIconsAtlas()
         {
@@ -382,6 +461,14 @@ namespace nier_rein_gui.Resources
 
             return ImageResource.FromStream(asset.AsStream());
         }
+
+        private static ImageResource LoadResource(Image<Bgra32> image)
+        {
+            var asset = new ImageAsset(image);
+            return ImageResource.FromStream(asset.AsStream());
+        }
+
+        #endregion
 
         #endregion
 
@@ -429,6 +516,20 @@ namespace nier_rein_gui.Resources
             return CompanionItems[assetId.StringId] = ImageResource.FromStream(asset.AsStream());
         }
 
+        public static ImageResource LoadThoughtItem(int thoughtId)
+        {
+            if (thoughtId == 0)
+                return null;
+
+            if (ThoughtItems.ContainsKey(thoughtId))
+                return ThoughtItems[thoughtId];
+
+            var asset = LoadAsset(string.Format(ThoughtIconPath_, thoughtId));
+            //PadResizeItem(asset, AnchorPositionMode.Bottom);
+
+            return ThoughtItems[thoughtId] = ImageResource.FromStream(asset.AsStream());
+        }
+
         public static ImageResource LoadMemoryItem(int groupAssetId)
         {
             if (groupAssetId == 0)
@@ -448,7 +549,7 @@ namespace nier_rein_gui.Resources
             if (categoryId == 0 || variationId == 0)
                 return null;
 
-            if (ConsumableItems.ContainsKey((categoryId,variationId)))
+            if (ConsumableItems.ContainsKey((categoryId, variationId)))
                 return ConsumableItems[(categoryId, variationId)];
 
             var asset = LoadAsset(string.Format(ConsumableItemPath_, categoryId, variationId));

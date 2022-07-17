@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables

@@ -53,7 +53,6 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         private readonly List itemList;
 
-        private readonly NierButton cancelButton;
         private readonly NierButton selectButton;
 
         protected abstract bool ShowAttributeFilter { get; }
@@ -70,7 +69,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
             itemList = new List { ItemSpacing = LayoutItemSpacing_ };
 
-            cancelButton = new NierButton { Caption = "Cancel" };
+            var cancelButton = new NierButton { Caption = "Cancel" };
             selectButton = new NierButton { Caption = "Select", Enabled = false };
 
             cancelButton.Clicked += CancelButton_Clicked;
@@ -265,7 +264,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         #region Item management
 
-        private void UpdateItems()
+        protected void UpdateItems()
         {
             CleanIcons();
 

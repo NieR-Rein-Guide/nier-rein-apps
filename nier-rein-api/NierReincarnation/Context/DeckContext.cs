@@ -91,6 +91,9 @@ namespace NierReincarnation.Context
             if (actor.Costume != null)
                 result.UserCostumeUuid = actor.Costume.UserCostumeUuid;
 
+            if (actor.DressupCostumeId <= 0)
+                result.UserDressupId = actor.DressupCostumeId;
+
             if (actor.MainWeapon != null)
                 result.MainUserWeaponUuid = actor.MainWeapon.UserWeaponUuid;
 
@@ -102,6 +105,9 @@ namespace NierReincarnation.Context
 
             if (actor.Companion != null)
                 result.UserCompanionUuid = actor.Companion.UserCompanionUuid;
+
+            if (actor.Thought != null)
+                result.UserThoughtUuid = actor.Thought.UserThoughtUuid;
 
             foreach (var mem in actor.Memories.Where(m => m != null))
                 result.UserPartsUuid.Add(mem.UserMemoryUuid);

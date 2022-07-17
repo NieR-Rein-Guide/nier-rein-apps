@@ -43,6 +43,8 @@ message DeckCharacter {
 	repeated string subUserWeaponUuid = 3;
 	string userCompanionUuid = 4;
 	repeated string userPartsUuid = 5;
+	int32 userDressupId = 6;
+	string userThoughtUuid = 7;
 }
 
 message DiffData {

@@ -7,6 +7,7 @@ using nier_rein_gui.Extensions;
 using NierReincarnation;
 using System.Threading.Tasks;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace nier_rein_gui.Forms.SubForms
 {
@@ -110,6 +111,11 @@ namespace nier_rein_gui.Forms.SubForms
         internal DataOutgameCompanionInfo[] GetDeckCompanions(int pos)
         {
             return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Companion).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
+        }
+
+        internal DataOutgameThought[] GetDeckThoughts(int pos)
+        {
+            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Thought).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameThought>();
         }
 
         internal DataOutgameMemoryInfo[] GetDeckMemoirs(int pos)

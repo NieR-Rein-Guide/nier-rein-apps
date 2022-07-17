@@ -1,6 +1,8 @@
-﻿using ImGui.Forms.Controls;
+﻿using System.Numerics;
+using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
+using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons.Items;
 using nier_rein_gui.Resources;
 
@@ -10,6 +12,7 @@ namespace nier_rein_gui.Forms.SubForms
     {
         private NierCostumeItemButton costumeButton;
         private NierCompanionItemButton companionButton;
+        private NierThoughtItemButton thoughtButton;
         private NierWeaponItemButton mainWeaponButton;
         private NierWeaponItemButton subWeapon1Button;
         private NierWeaponItemButton subWeapon2Button;
@@ -21,6 +24,7 @@ namespace nier_rein_gui.Forms.SubForms
         {
             costumeButton = new NierCostumeItemButton();
             companionButton = new NierCompanionItemButton();
+            thoughtButton = new NierThoughtItemButton();
             mainWeaponButton = new NierWeaponItemButton();
             subWeapon1Button = new NierWeaponItemButton();
             subWeapon2Button = new NierWeaponItemButton();
@@ -35,27 +39,48 @@ namespace nier_rein_gui.Forms.SubForms
                 {
                     costumeButton,
                     new Label{Caption = "Weapons"},
-                    mainWeaponButton,
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
                         ItemSpacing = 5,
                         Items =
                         {
+                            mainWeaponButton,
                             subWeapon1Button,
                             subWeapon2Button
                         }
                     },
-                    new Label{Caption = "Companion"},
-                    companionButton,
+                    new TableLayout
+                    {
+                        Spacing = new Vector2(5,5),
+                        Rows =
+                        {
+                            new TableRow
+                            {
+                                Cells =
+                                {
+                                    new TableCell(new Label{Caption = "Companion"}){Size = new Size((int)NierResources.ItemSlotSize.X*2+5,-1)},
+                                    new Label{Caption = "Debris"}
+                                }
+                            },
+                            new TableRow
+                            {
+                                Cells =
+                                {
+                                    new TableCell(companionButton){Size = new Size((int)NierResources.ItemSlotSize.X*2+5,-1)},
+                                    thoughtButton
+                                }
+                            }
+                        }
+                    },
                     new Label{Caption = "Memoirs"},
-                    memoir1Button,
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
                         ItemSpacing = 5,
                         Items =
                         {
+                            memoir1Button,
                             memoir2Button,
                             memoir3Button
                         }

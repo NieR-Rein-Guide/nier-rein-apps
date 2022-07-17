@@ -37,7 +37,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
                 _costumeInfo[costumeInfo] = new NierCostumeItemButton
                 {
                     Costume = costumeInfo,
-                    Enabled = IsValidItem(costumeInfo)
+                    Enabled = IsValidItem(costumeInfo),
+                    Hint = GetHintType(costumeInfo)
                 };
         }
 
@@ -77,6 +78,17 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         {
             return _currentCostume?.CostumeId != costumeInfo.CostumeId && 
                    _deckOtherCostumes.All(x => x.CharacterId != costumeInfo.CharacterId);
+        }
+
+        private NierItemButton.HintType GetHintType(DataOutgameCostumeInfo costumeInfo)
+        {
+            if (costumeInfo.UserCostumeUuid == _currentCostume?.UserCostumeUuid)
+                return NierItemButton.HintType.Current;
+
+            if (_deckOtherCostumes.Any(x => x.UserCostumeUuid == costumeInfo.UserCostumeUuid))
+                return NierItemButton.HintType.InDeck;
+
+            return NierItemButton.HintType.None;
         }
     }
 }

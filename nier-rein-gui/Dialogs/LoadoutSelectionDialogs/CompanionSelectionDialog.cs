@@ -37,7 +37,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
                 _companionInfo[companionInfo] = new NierCompanionItemButton
                 {
                     Companion = companionInfo,
-                    Enabled = IsValidItem(companionInfo)
+                    Enabled = IsValidItem(companionInfo),
+                    Hint = GetHintType(companionInfo)
                 };
         }
 
@@ -75,6 +76,17 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         {
             return _currentCompanion?.CompanionId != companionInfo.CompanionId &&
                    _deckCompanions.All(x => x.CompanionId != companionInfo.CompanionId);
+        }
+
+        private NierItemButton.HintType GetHintType(DataOutgameCompanionInfo companionInfo)
+        {
+            if (companionInfo.UserCompanionUuid == _currentCompanion?.UserCompanionUuid)
+                return NierItemButton.HintType.Current;
+
+            if (_deckCompanions.Any(x => x.UserCompanionUuid == companionInfo.UserCompanionUuid))
+                return NierItemButton.HintType.InDeck;
+
+            return NierItemButton.HintType.None;
         }
     }
 }

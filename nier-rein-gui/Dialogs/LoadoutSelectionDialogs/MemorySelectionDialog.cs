@@ -39,7 +39,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
                 _memoryInfo[memoryInfo] = new NierMemoryItemButton
                 {
                     Memory = memoryInfo,
-                    Enabled = IsValidItem(memoryInfo)
+                    Enabled = IsValidItem(memoryInfo),
+                    Hint = GetHintType(memoryInfo)
                 };
         }
 
@@ -78,6 +79,20 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             return _currentMemory?.PartsId != memoryInfo.PartsId &&
                    _currentMemories.All(x => x.PartsId != memoryInfo.PartsId) &&
                    _deckOtherMemories.All(x => x.PartsId != memoryInfo.PartsId);
+        }
+
+        private NierItemButton.HintType GetHintType(DataOutgameMemoryInfo memoryInfo)
+        {
+            if (memoryInfo.UserMemoryUuid == _currentMemory?.UserMemoryUuid)
+                return NierItemButton.HintType.Current;
+
+            if (_currentMemories.Any(x => x.UserMemoryUuid == memoryInfo.UserMemoryUuid))
+                return NierItemButton.HintType.InDeck;
+
+            if (_deckOtherMemories.Any(x => x.UserMemoryUuid == memoryInfo.UserMemoryUuid))
+                return NierItemButton.HintType.InDeck;
+
+            return NierItemButton.HintType.None;
         }
     }
 }

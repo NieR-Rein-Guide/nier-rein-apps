@@ -7,6 +7,7 @@ using nier_rein_gui.Controls.Buttons.Items;
 using nier_rein_gui.Dialogs.LoadoutSelectionDialogs;
 using NierReincarnation;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace nier_rein_gui.Forms.SubForms
 {
@@ -33,6 +34,7 @@ namespace nier_rein_gui.Forms.SubForms
             subWeapon2Button.Clicked += SubWeapon2Button_Clicked;
 
             companionButton.Clicked += CompanionButton_Clicked;
+            thoughtButton.Clicked += ThoughtButton_Clicked;
 
             memoir1Button.Clicked += Memoir1Button_Clicked;
             memoir2Button.Clicked += Memoir2Button_Clicked;
@@ -50,6 +52,7 @@ namespace nier_rein_gui.Forms.SubForms
             subWeapon2Button.Weapon = null;
 
             companionButton.Companion = null;
+            thoughtButton.Thought = null;
 
             memoir1Button.Memory = null;
             memoir2Button.Memory = null;
@@ -62,6 +65,7 @@ namespace nier_rein_gui.Forms.SubForms
             subWeapon2Button.Enabled = false;
 
             companionButton.Enabled = false;
+            thoughtButton.Enabled = false;
 
             memoir1Button.Enabled = false;
             memoir2Button.Enabled = false;
@@ -79,6 +83,7 @@ namespace nier_rein_gui.Forms.SubForms
             subWeapon2Button.Weapon = actor.SubWeapon02;
 
             companionButton.Companion = actor.Companion;
+            thoughtButton.Thought = actor.Thought;
 
             memoir1Button.Memory = actor.Memories[0];
             memoir2Button.Memory = actor.Memories[1];
@@ -91,6 +96,7 @@ namespace nier_rein_gui.Forms.SubForms
             subWeapon2Button.Enabled = true;
 
             companionButton.Enabled = true;
+            thoughtButton.Enabled = true;
 
             memoir1Button.Enabled = true;
             memoir2Button.Enabled = true;
@@ -235,6 +241,33 @@ namespace nier_rein_gui.Forms.SubForms
             var companionsInDeck = _loadoutPanel.GetDeckCompanions(_pos);
 
             var dlg = new CompanionSelectionDialog(companion, companionsInDeck);
+            if (await dlg.ShowAsync() != DialogResult.Ok)
+                return (null, false);
+
+            return (dlg.SelectedItem, true);
+        }
+
+        #endregion
+
+        #region Thought events
+
+        private async void ThoughtButton_Clicked(object sender, EventArgs e)
+        {
+            var (thought, shouldReplace) = await SelectThought(_actor?.Thought);
+            if (!shouldReplace)
+                return;
+
+            _actor.Thought = thought;
+            await _loadoutPanel.ReplaceDeck();
+
+            thoughtButton.Thought = thought;
+        }
+
+        private async Task<(DataOutgameThought, bool)> SelectThought(DataOutgameThought thought)
+        {
+            var thoughtsInDeck = _loadoutPanel.GetDeckThoughts(_pos);
+
+            var dlg = new ThoughtSelectionDialog(thought, thoughtsInDeck);
             if (await dlg.ShowAsync() != DialogResult.Ok)
                 return (null, false);
 

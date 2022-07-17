@@ -169,6 +169,7 @@ namespace nier_rein_gui.Dialogs
                                          (i.name.StartsWith("ui)weapon)") ||
                                           i.name.StartsWith("ui)costume)") ||
                                           i.name.StartsWith("ui)companion)") ||
+                                          i.name.StartsWith("ui)thought)") ||
                                           i.name.StartsWith("ui)memory)")||
                                           i.name.StartsWith("ui)consumable_item)"));
 

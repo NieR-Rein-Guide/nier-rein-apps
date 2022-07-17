@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 using ImGui.Forms.Resources;
+using ImGuiNET;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Generated.Type;
+using Veldrid;
 
 namespace nier_rein_gui.Controls.Buttons.Items
 {
     class NierCostumeItemButton : NierItemButton
     {
+        private FontResource AwakenFont => Resources.FontResources.FotRodin(13);
+
         public DataOutgameCostumeInfo Costume { get; set; }
 
         protected override bool IsPlaceholder()
@@ -41,8 +46,31 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
             if (Costume?.WeaponType != WeaponType.UNKNOWN)
                 result.Add(NierResources.LoadWeaponTypeIcon(Costume?.WeaponType ?? WeaponType.UNKNOWN));
+            if (Costume?.AwakenCount > 0)
+                result.Add(Costume.AwakenCount < 5
+                    ? NierResources.LoadAwakenDefaultIcon()
+                    : NierResources.LoadAwakenFullIcon());
 
             return result.ToArray();
+        }
+
+        protected override void UpdateIcon(int iconIndex, Rectangle iconRect)
+        {
+            if (iconIndex != 1)
+                return;
+
+            if (AwakenFont != null)
+                ImGuiNET.ImGui.PushFont((ImFontPtr)AwakenFont);
+
+            var text = $"{Costume.AwakenCount}";
+            var textWidth = FontResource.GetCurrentLineWidth(text, AwakenFont);
+            var textHeight = FontResource.GetCurrentLineHeight(AwakenFont);
+
+            var textPos = iconRect.Position + new Vector2((iconRect.Width - textWidth) / 2f, (iconRect.Height - textHeight) / 2f);
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(textPos, ImGuiNET.ImGui.GetColorU32(ImGuiCol.Text), text);
+
+            if (AwakenFont != null)
+                ImGuiNET.ImGui.PopFont();
         }
     }
 }

@@ -12,7 +12,15 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorCostume
     {
+        public static readonly int ReleaseSecondPassiveSkillLimitBreakCount = 1; // 0x0
+        public static readonly int PassiveSkillSecondIndex = 1; // 0x4
+        public static readonly int kMaxCostumeAbilityCount = 2; // 0x8
+        public static readonly int kMaxSkillCount = 2; // 0xC
         public static readonly int kInvalidCostumeId = 0; // 0x10
+        private static readonly string kInvalidCostumeUuid = string.Empty; // 0x18
+        public static readonly int kInvalidCostumeLevel = 0; // 0x20
+        public static readonly int kDefaultDressupCostumeId = 0; // 0x24
+        private static readonly float kCostumePerMille = 1000f; // 0x28
 
         // CUSTOM: Enumerate all user-owned costumes
         public static IEnumerable<DataOutgameCostumeInfo> EnumerateCostumeInfo(long userId)
@@ -45,7 +53,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 WeaponType = masterCostume.SkillfulWeaponType,
                 RarityType = masterCostume.RarityType,
                 Level = costume.Level,
-                ActorAssetId = ActorAssetId(masterCostume)
+                ActorAssetId = ActorAssetId(masterCostume),
+                AwakenCount = costume.AwakenCount
             };
         }
 
@@ -65,7 +74,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             //if (npcActiveSkill == null)
             //    return null;    // CUSTOM: Should throw null argument, but I can retrieve NPC loadouts of probably invalid or incomplete quests
 
-            var npcCostume = CreateDataOutgameCostume(masterCostume, entityNpcCostume.LimitBreakCount, entityNpcCostume.Level, entityNpcCostume.Exp, activeSkillLvl, entityNpcCostume.AcquisitionDatetime);
+            var npcCostume = CreateDataOutgameCostume(masterCostume, entityNpcCostume.LimitBreakCount, entityNpcCostume.Level, entityNpcCostume.Exp, activeSkillLvl, entityNpcCostume.AwakenCount, entityNpcCostume.AcquisitionDatetime);
             npcCostume.UserCostumeUuid = entityNpcCostume.BattleNpcCostumeUuid;
 
             return npcCostume;
@@ -91,13 +100,13 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var userId = CalculatorStateUser.GetUserId();
 
             var activeSkill = GetCostumeActiveDataSkill(userId, masterCostume.CostumeId, entityIUserCostume.UserCostumeUuid, entityIUserCostume.LimitBreakCount);
-            var costume = CreateDataOutgameCostume(masterCostume, entityIUserCostume.LimitBreakCount, entityIUserCostume.Level, entityIUserCostume.Exp, activeSkill.SkillLevel, entityIUserCostume.AcquisitionDatetime);
+            var costume = CreateDataOutgameCostume(masterCostume, entityIUserCostume.LimitBreakCount, entityIUserCostume.Level, entityIUserCostume.Exp, activeSkill.SkillLevel, entityIUserCostume.AwakenCount, entityIUserCostume.AcquisitionDatetime);
             costume.UserCostumeUuid = entityIUserCostume.UserCostumeUuid;
 
             return costume;
         }
 
-        private static DataOutgameCostume CreateDataOutgameCostume(EntityMCostume entityMCostume, int limitBreakCount, int level, int exp, int activeSkillLevel, long acquisitionDatetime = 0)
+        private static DataOutgameCostume CreateDataOutgameCostume(EntityMCostume entityMCostume, int limitBreakCount, int level, int exp, int activeSkillLevel, int awakenCount, long acquisitionDatetime = 0)
         {
             if (entityMCostume == null)
                 return null;
@@ -110,6 +119,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             costume.LimitBreakCount = limitBreakCount;
             costume.Exp = exp;
             costume.AcquisitionDatetime = acquisitionDatetime;
+            costume.AwakenCount = awakenCount;
 
             costume.CostumeStatus.Level = level;
             UpdateStatusValue(costume);
@@ -147,6 +157,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return result;
         }
 
+        // TODO: Add awaken calculation
         public static void UpdateStatusValue(DataOutgameCostume costume)
         {
             costume.StatusValue = CalculatorStatusOutgame.GetCostumeStatus(costume);
@@ -172,7 +183,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         {
             var actorAssetId = ActorAssetId(entityMCostume);
 
-            return new DataOutgameCostume
+            var result = new DataOutgameCostume
             {
                 CostumeStatus = GetDataCostumeStatus(entityMCostume),
 
@@ -182,7 +193,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 LimitBreakMaterialGroupId = entityMCostume.CostumeLimitBreakMaterialGroupId,
                 CostumeActiveSkillGroupId = entityMCostume.CostumeActiveSkillGroupId,
 
-                CharacterName = CalculatorCharacter.CharacterName(entityMCostume.CharacterId),
+                CharacterName = CalculatorCharacter.GetCharacterName(entityMCostume.CharacterId),
                 Name = GetName(actorAssetId),
                 Description = GetDescription(actorAssetId),
 
@@ -191,6 +202,22 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 ActorAssetId = actorAssetId,
                 CostumeLevelBonusId = entityMCostume.CostumeLevelBonusId
             };
+
+            var masterAwaken = GetEntityMCostumeAwaken(entityMCostume.CostumeId);
+            if (masterAwaken == null)
+            {
+                result.CostumeAwakenEffectGroupId = CalculatorAwaken.kInvalidCostumeAwakenEffectGroupId;
+                result.CostumeAwakenStepMaterialGroupId = CalculatorAwaken.kInvalidCostumeAwakenStepMaterialGroupId;
+                result.CostumeAwakenPriceGroupId = CalculatorAwaken.kInvalidCostumeAwakenPriceGroupId;
+            }
+            else
+            {
+                result.CostumeAwakenEffectGroupId = masterAwaken.CostumeAwakenEffectGroupId;
+                result.CostumeAwakenStepMaterialGroupId = masterAwaken.CostumeAwakenStepMaterialGroupId;
+                result.CostumeAwakenPriceGroupId = masterAwaken.CostumeAwakenPriceGroupId;
+            }
+
+            return result;
         }
 
         public static int GetCharacterId(int costumeId)
@@ -273,6 +300,15 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         {
             var table = DatabaseDefine.Master.EntityMCostumeTable;
             return table.FindByCostumeId(costumeId);
+        }
+
+        private static EntityMCostumeAwaken GetEntityMCostumeAwaken(int costumeId)
+        {
+            var table = DatabaseDefine.Master.EntityMCostumeAwakenTable;
+            if (!table.TryFindByCostumeId(costumeId, out var awaken))
+                return null;
+
+            return awaken;
         }
 
         private static EntityMCostumeEnhanced GetEntityMCostumeEnhanced(int costumeEnhancedId)

@@ -8,40 +8,101 @@ namespace NierReincarnation.Core.Dark
 {
     public class DarkUserMemoryDatabase : MemoryDatabaseBase
     {
-        public EntityIUserTable EntityIUserTable { get; private set; } // 0x10
-        public EntityIUserBigHuntMaxScoreTable EntityIUserBigHuntMaxScoreTable { get; private set; } // 0x28
-        public EntityIUserBigHuntProgressStatusTable EntityIUserBigHuntProgressStatusTable { get; private set; } // 0x30
-        public EntityIUserBigHuntStatusTable EntityIUserBigHuntStatusTable { get; private set; } // 0x38
-        public EntityIUserCharacterTable EntityIUserCharacterTable { get; private set; } // 0x48
-        public EntityIUserCharacterBoardAbilityTable EntityIUserCharacterBoardAbilityTable { get; private set; } // 0x58
-        public EntityIUserCharacterBoardStatusUpTable EntityIUserCharacterBoardStatusUpTable { get; private set; } // 0x68
-        public EntityIUserCharacterCostumeLevelBonusTable EntityIUserCharacterCostumeLevelBonusTable { get; private set; } // 0x70
-        public EntityIUserCompanionTable EntityIUserCompanionTable { get; private set; } // 0x80
-        public EntityIUserConsumableItemTable EntityIUserConsumableItemTable { get; private set; } // 0x88
-        public EntityIUserCostumeTable EntityIUserCostumeTable { get; private set; } // 0x98
-        public EntityIUserCostumeActiveSkillTable EntityIUserCostumeActiveSkillTable { get; private set; } // 0xA0
-        public EntityIUserDeckTable EntityIUserDeckTable { get; private set; } // 0xB0
-        public EntityIUserDeckCharacterTable EntityIUserDeckCharacterTable { get; private set; } // 0xB8
-        public EntityIUserDeckPartsGroupTable EntityIUserDeckPartsGroupTable { get; private set; } // 0xC0
-        public EntityIUserDeckSubWeaponGroupTable EntityIUserDeckSubWeaponGroupTable { get; private set; } // 0xC8
-        public EntityIUserDeckTypeNoteTable EntityIUserDeckTypeNoteTable { get; private set; } // 0xD0
-        public EntityIUserEventQuestProgressStatusTable EntityIUserEventQuestProgressStatusTable { get; private set; } // 0xE0
-        public EntityIUserExtraQuestProgressStatusTable EntityIUserExtraQuestProgressStatusTable { get; private set; } // 0x100
-        public EntityIUserGemTable EntityIUserGemTable { get; private set; } // 0x110
-        public EntityIUserLimitedOpenTable EntityIUserLimitedOpenTable { get; private set; } // 0x140
-        public EntityIUserMainQuestProgressStatusTable EntityIUserMainQuestProgressStatusTable { get; private set; } // 0x168
-        public EntityIUserMaterialTable EntityIUserMaterialTable { get; private set; } // 0x180
-        public EntityIUserPartsTable EntityIUserPartsTable { get; private set; } // 0x1B0
-        public EntityIUserPartsStatusSubTable EntityIUserPartsStatusSubTable { get; private set; } // 0x1D0
-        public EntityIUserProfileTable EntityIUserProfileTable { get; private set; } // 0x1E8
-        public EntityIUserQuestTable EntityIUserQuestTable { get; private set; }  // 0x200
-        public EntityIUserQuestMissionTable EntityIUserQuestMissionTable { get; private set; } // 0x210
-        public EntityIUserShopItemTable EntityIUserShopItemTable { get; private set; } // 0x228
-        public EntityIUserStatusTable EntityIUserStatusTable { get; private set; } // 0x240
-        public EntityIUserWeaponTable EntityIUserWeaponTable { get; private set; } // 0x258
-        public EntityIUserWeaponAbilityTable EntityIUserWeaponAbilityTable { get; private set; } // 0x260
-        public EntityIUserWeaponNoteTable EntityIUserWeaponNoteTable { get; private set; } // 0x268
-        public EntityIUserWeaponSkillTable EntityIUserWeaponSkillTable { get; private set; } // 0x270
+        // 0x10
+        public EntityIUserTable EntityIUserTable { get; private set; }
+
+        // 0x30
+        public EntityIUserBigHuntMaxScoreTable EntityIUserBigHuntMaxScoreTable { get; private set; }
+        // 0x38
+        public EntityIUserBigHuntProgressStatusTable EntityIUserBigHuntProgressStatusTable { get; private set; }
+        
+        // 0x48
+        public EntityIUserBigHuntStatusTable EntityIUserBigHuntStatusTable { get; private set; }
+
+        // 0x58
+        public EntityIUserCharacterTable EntityIUserCharacterTable { get; private set; }
+
+        // 0x68
+        public EntityIUserCharacterBoardAbilityTable EntityIUserCharacterBoardAbilityTable { get; private set; }
+
+        // 0x78
+        public EntityIUserCharacterBoardStatusUpTable EntityIUserCharacterBoardStatusUpTable { get; private set; }
+        // 0x80
+        public EntityIUserCharacterCostumeLevelBonusTable EntityIUserCharacterCostumeLevelBonusTable { get; private set; }
+
+        // 0x90
+        public EntityIUserCompanionTable EntityIUserCompanionTable { get; private set; }
+        // 0x98
+        public EntityIUserConsumableItemTable EntityIUserConsumableItemTable { get; private set; }
+
+        // 0xA8
+        public EntityIUserCostumeTable EntityIUserCostumeTable { get; private set; }
+        // 0xB0
+        public EntityIUserCostumeActiveSkillTable EntityIUserCostumeActiveSkillTable { get; private set; }
+
+        // 0xC8
+        public EntityIUserDeckTable EntityIUserDeckTable { get; private set; }
+        // 0xD0
+        public EntityIUserDeckCharacterTable EntityIUserDeckCharacterTable { get; private set; }
+        // 0xD8
+        public EntityIUserDeckCharacterDressupCostumeTable EntityIUserDeckCharacterDressupCostumeTable { get; private set; }
+
+        // 0xE0
+        public EntityIUserDeckPartsGroupTable EntityIUserDeckPartsGroupTable { get; private set; }
+        // 0xE8
+        public EntityIUserDeckSubWeaponGroupTable EntityIUserDeckSubWeaponGroupTable { get; private set; }
+        // 0xF0
+        public EntityIUserDeckTypeNoteTable EntityIUserDeckTypeNoteTable { get; private set; }
+
+        // 0x108
+        public EntityIUserEventQuestProgressStatusTable EntityIUserEventQuestProgressStatusTable { get; private set; }
+
+        // 0x128
+        public EntityIUserExtraQuestProgressStatusTable EntityIUserExtraQuestProgressStatusTable { get; private set; }
+
+        // 0x138
+        public EntityIUserGemTable EntityIUserGemTable { get; private set; }
+
+        // 0x168
+        public EntityIUserLimitedOpenTable EntityIUserLimitedOpenTable { get; private set; }
+
+        // 0x190
+        public EntityIUserMainQuestProgressStatusTable EntityIUserMainQuestProgressStatusTable { get; private set; }
+
+        // 0x1A8
+        public EntityIUserMaterialTable EntityIUserMaterialTable { get; private set; }
+
+        // 0x1D8
+        public EntityIUserPartsTable EntityIUserPartsTable { get; private set; }
+
+        // 0x1F8
+        public EntityIUserPartsStatusSubTable EntityIUserPartsStatusSubTable { get; private set; }
+
+        // 0x210
+        public EntityIUserProfileTable EntityIUserProfileTable { get; private set; }
+
+        // 0x228
+        public EntityIUserQuestTable EntityIUserQuestTable { get; private set; }
+
+        // 0x238
+        public EntityIUserQuestMissionTable EntityIUserQuestMissionTable { get; private set; }
+
+        // 0x250
+        public EntityIUserShopItemTable EntityIUserShopItemTable { get; private set; }
+
+        // 0x268
+        public EntityIUserStatusTable EntityIUserStatusTable { get; private set; }
+        // 0x270
+        public EntityIUserThoughtTable EntityIUserThoughtTable { get; private set; }
+
+        // 0x288
+        public EntityIUserWeaponTable EntityIUserWeaponTable { get; private set; }
+        // 0x290
+        public EntityIUserWeaponAbilityTable EntityIUserWeaponAbilityTable { get; private set; }
+        // 0x298
+        public EntityIUserWeaponNoteTable EntityIUserWeaponNoteTable { get; private set; }
+        // 0x2A0
+        public EntityIUserWeaponSkillTable EntityIUserWeaponSkillTable { get; private set; }
 
         public DarkUserMemoryDatabase(byte[] databaseBinary, bool internString = true, IFormatterResolver formatterResolver = null) :
             base(databaseBinary, internString, formatterResolver)
@@ -84,6 +145,8 @@ namespace NierReincarnation.Core.Dark
             EntityIUserWeaponAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeaponAbility[], EntityIUserWeaponAbilityTable>(abilities => new EntityIUserWeaponAbilityTable(abilities)));
             EntityIUserWeaponNoteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeaponNote[], EntityIUserWeaponNoteTable>(notes => new EntityIUserWeaponNoteTable(notes)));
             EntityIUserWeaponSkillTable = ExtractTableData(header, databaseBinary, options,new Func<EntityIUserWeaponSkill[],EntityIUserWeaponSkillTable>(skills => new EntityIUserWeaponSkillTable(skills)));
+            EntityIUserThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserThought[], EntityIUserThoughtTable>(thoughts => new EntityIUserThoughtTable(thoughts)));
+            EntityIUserDeckCharacterDressupCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckCharacterDressupCostume[], EntityIUserDeckCharacterDressupCostumeTable>(costumes => new EntityIUserDeckCharacterDressupCostumeTable(costumes)));
         }
     }
 }

@@ -22,5 +22,7 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
         public int FieldSceneId => Scenes.FirstOrDefault(x => x.QuestSceneType == QuestSceneType.FIELD)?.QuestSceneId ?? 0;
         // CUSTOM: Determines if quest was already cleared
         public bool IsClear { get; set; }
+        // CUSTOM: Determines the difficulty this quest is assigned to
+        public DifficultyType DifficultyType { get; set; }
     }
 }

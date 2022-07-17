@@ -9,14 +9,18 @@ namespace NierReincarnation.Core.Dark
         // 0x10
         public DataOutgameCostumeInfo Costume { get; set; }
         // 0x18
-        public DataWeaponInfo MainWeapon { get; set; }
+        public int DressupCostumeId { get; set; }
         // 0x20
-        public DataWeaponInfo SubWeapon01 { get; set; }
+        public DataWeaponInfo MainWeapon { get; set; }
         // 0x28
-        public DataWeaponInfo SubWeapon02 { get; set; }
+        public DataWeaponInfo SubWeapon01 { get; set; }
         // 0x30
-        public DataOutgameCompanionInfo Companion { get; set; }
+        public DataWeaponInfo SubWeapon02 { get; set; }
         // 0x38
+        public DataOutgameCompanionInfo Companion { get; set; }
+        // 0x40
+        public DataOutgameThought Thought { get; set; }
+        // 0x48
         public DataOutgameMemoryInfo[] Memories { get; set; }
 
         public DataDeckActorInfo()

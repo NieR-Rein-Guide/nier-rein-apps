@@ -18,5 +18,7 @@ namespace NierReincarnation.Core.Dark
         public int Level { get; set; }
         // 0x30
         public ActorAssetId ActorAssetId { get; set; }
+        // 0x38
+        public int AwakenCount { get; set; }
     }
 }

@@ -108,6 +108,12 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserDeckCharacterDressupCostume> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.UserDeckCharacterUuid), Comparer<(long, string)>.Default);
+            return this;
+        }
+
         // RVA: 0x2016594 Offset: 0x2016594 VA: 0x2016594
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserDeckPartsGroup> dataSource)
         {
@@ -204,6 +210,12 @@ namespace NierReincarnation.Core.Dark
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserStatus> dataSource)
         {
             AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserThought> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.UserThoughtUuid), Comparer<(long, string)>.Default);
             return this;
         }
 

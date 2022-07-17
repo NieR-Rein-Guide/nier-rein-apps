@@ -17,14 +17,17 @@ namespace nier_rein_gui.Controls.Buttons.Items
         private static readonly uint HoverColor = Color.FromArgb(0x50, 0xC5, 0xC1, 0xB0).ToUInt32();
         private static readonly uint SelectionColor = Color.FromArgb(0x88, 0xC5, 0xC1, 0xB0).ToUInt32();
         private static readonly uint DisabledColor = Color.FromArgb(0x88, 0x00, 0x00, 0x00).ToUInt32();
+        private static readonly uint TextActiveColor = Color.FromArgb(0x2D, 0x29, 0x28).ToUInt32();
+
+        private FontResource HintFont => Resources.FontResources.FotRodin(11);
+
+        public HintType Hint { get; set; }
 
         public bool Enabled { get; set; } = true;
 
         public bool Selected { get; set; }
 
         public bool HasBonus { get; set; }
-
-        public string HintText { get; set; }
 
         public event EventHandler Clicked;
 
@@ -65,6 +68,8 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
         protected virtual ImageResource[] GetIcons() => Array.Empty<ImageResource>();
 
+        protected virtual void UpdateIcon(int iconIndex, Rectangle iconRect) { }
+
         protected virtual void OnClicked()
         {
             Clicked?.Invoke(this, new EventArgs());
@@ -100,26 +105,25 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
             // Draw icons
             var iconPos = contentRect.Position;
+            var iconIndex = 0;
             foreach (var icon in GetIcons())
             {
                 if (icon == null)
                     continue;
 
                 ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)icon, iconPos, iconPos + icon.Size);
+                UpdateIcon(iconIndex++, new Rectangle((int)iconPos.X, (int)iconPos.Y, (int)icon.Size.X, (int)icon.Size.Y));
+
                 iconPos += new Vector2(0, icon.Height);
             }
 
             // Draw hint text
-            if (!string.IsNullOrEmpty(HintText))
-            {
-                // TODO: Draw hint text
-            }
+            if (Hint != HintType.None)
+                DrawHint(contentRect);
 
             // Draw bonus indicator
             if (HasBonus)
-            {
-                // TODO: Draw bonus indicator
-            }
+                DrawBonusIcon(contentRect);
 
             if (!Enabled)
                 ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, DisabledColor);
@@ -130,6 +134,59 @@ namespace nier_rein_gui.Controls.Buttons.Items
             var overlayColor = isSelected ? SelectionColor : isHovered ? HoverColor : 0;
 
             ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position, contentRect.Position + contentRect.Size, overlayColor);
+        }
+
+        private void DrawHint(Rectangle contentRect)
+        {
+            uint bgColor;
+            uint txtColor;
+            string text;
+
+            switch (Hint)
+            {
+                case HintType.Current:
+                    bgColor = ImGuiNET.ImGui.GetColorU32(ImGuiCol.ButtonActive);
+                    txtColor = TextActiveColor;
+                    text = "Chosen";
+                    break;
+
+                case HintType.InDeck:
+                    bgColor = ImGuiNET.ImGui.GetColorU32(ImGuiCol.Button);
+                    txtColor = ImGuiNET.ImGui.GetColorU32(ImGuiCol.Text);
+                    text = "In Deck";
+                    break;
+
+                default:
+                    return;
+            }
+
+            // Draw hint text
+            var textWidth = HintFont.GetLineWidth(text);
+            var textStart = contentRect.Width - textWidth;
+
+            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(contentRect.Position + new Vector2(textStart - 4, 0), contentRect.Position + new Vector2(contentRect.Width, HintFont.GetLineHeight() + 2), bgColor);
+
+            ImGuiNET.ImGui.PushFont((ImFontPtr)HintFont);
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(contentRect.Position + new Vector2(textStart - 2, 0), txtColor, text);
+            ImGuiNET.ImGui.PopFont();
+        }
+
+        private void DrawBonusIcon(Rectangle contentRect)
+        {
+            var bonusIcon = NierResources.LoadBonusIcon();
+
+            var x = contentRect.Width - bonusIcon.Width;
+            var y = (contentRect.Height - bonusIcon.Height) / 2;
+            var imgPos = contentRect.Position + new Vector2(x, y);
+
+            ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)bonusIcon, imgPos, imgPos + new Vector2(bonusIcon.Width, bonusIcon.Height));
+        }
+
+        public enum HintType
+        {
+            None,
+            Current,
+            InDeck
         }
     }
 }

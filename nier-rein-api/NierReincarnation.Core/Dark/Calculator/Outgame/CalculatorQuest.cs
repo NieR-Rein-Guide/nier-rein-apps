@@ -260,7 +260,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 QuestOrder = sequence.SortOrder,
 
                 Scenes = scenes,
-                IsClear = IsClearQuest(quest.QuestId, CalculatorStateUser.GetUserId())
+                IsClear = IsClearQuest(quest.QuestId, CalculatorStateUser.GetUserId()),
+                DifficultyType = sequenceGroup.DifficultyType
                 //UnlockQuestText = GetQuestUnlockText(quest.QuestReleaseConditionListId),
                 //QuestLevelText = 
             };

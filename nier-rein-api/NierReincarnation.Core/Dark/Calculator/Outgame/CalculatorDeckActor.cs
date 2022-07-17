@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
@@ -44,13 +43,15 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var subWeapon1 = DatabaseDefine.User.EntityIUserDeckSubWeaponGroupTable.All.FirstOrDefault(w => w.UserId == userId && w.UserDeckCharacterUuid == characterUuid && w.SortOrder == 1);
             var subWeapon2 = DatabaseDefine.User.EntityIUserDeckSubWeaponGroupTable.All.FirstOrDefault(w => w.UserId == userId && w.UserDeckCharacterUuid == characterUuid && w.SortOrder == 2);
 
-            var actor= new DataDeckActorInfo
+            var actor = new DataDeckActorInfo
             {
                 Costume = CalculatorCostume.CreateDataOutgameCostumeInfo(userId, character.UserCostumeUuid),
+                DressupCostumeId = GetDressupCostumeId(userId, character.UserDeckCharacterUuid),
                 MainWeapon = CalculatorWeapon.CreateDataWeaponInfo(userId, character.MainUserWeaponUuid),
                 SubWeapon01 = CalculatorWeapon.CreateDataWeaponInfo(userId, subWeapon1?.UserWeaponUuid),
                 SubWeapon02 = CalculatorWeapon.CreateDataWeaponInfo(userId, subWeapon2?.UserWeaponUuid),
-                Companion = CalculatorCompanion.CreateDataOutgameCompanionInfo(userId, character.UserCompanionUuid)
+                Companion = CalculatorCompanion.CreateDataOutgameCompanionInfo(userId, character.UserCompanionUuid),
+                Thought = CalculatorThought.CreateDataOutgameThought(userId, character.UserThoughtUuid)
             };
 
             foreach (var part in DatabaseDefine.User.EntityIUserDeckPartsGroupTable.All.Where(p => p.UserId == userId && p.UserDeckCharacterUuid == characterUuid))
@@ -69,9 +70,6 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             if (string.IsNullOrEmpty(userDeckCharacterUuid))
                 return null;
 
-            if (DatabaseDefine.User?.EntityIUserDeckCharacterTable == null)
-                throw new ArgumentNullException();
-
             var character = DatabaseDefine.User.EntityIUserDeckCharacterTable.FindByUserIdAndUserDeckCharacterUuid((userId, userDeckCharacterUuid));
             if (character == null)
                 return null;
@@ -85,8 +83,10 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             {
                 UserDeckActorUuid = actor.UserDeckCharacterUuid,
                 Costume = CalculatorCostume.CreateDataOutgameCostume(userId, actor.UserCostumeUuid),
+                DressupCostumeId = GetDressupCostumeId(userId, actor.UserDeckCharacterUuid),
                 MainWeapon = CalculatorWeapon.CreateDataWeapon(userId, actor.MainUserWeaponUuid),
-                Companion = CalculatorCompanion.CreateDataOutgameCompanion(userId, actor.UserCompanionUuid)
+                Companion = CalculatorCompanion.CreateDataOutgameCompanion(userId, actor.UserCompanionUuid),
+                Thought = CalculatorThought.CreateDataOutgameThought(userId, actor.UserThoughtUuid)
             };
 
             var subWeapon1 = subWeapons.FirstOrDefault(w => w.UserId == userId && w.UserDeckCharacterUuid == actor.UserDeckCharacterUuid && w.SortOrder == 1);
@@ -106,6 +106,20 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             }
 
             return result;
+        }
+
+        private static int GetDressupCostumeId(long userId, string userDeckCharacterUuid)
+        {
+            if (!TryGetDressupCostume(userId, userDeckCharacterUuid, out var dressupCostume))
+                return CalculatorCostume.kDefaultDressupCostumeId;
+
+            return dressupCostume.DressupCostumeId;
+        }
+
+        private static bool TryGetDressupCostume(long userId, string userDeckCharacterUuid, out EntityIUserDeckCharacterDressupCostume iUserDressupCostume)
+        {
+            var table = DatabaseDefine.User.EntityIUserDeckCharacterDressupCostumeTable;
+            return table.TryFindByUserIdAndUserDeckCharacterUuid((userId, userDeckCharacterUuid), out iUserDressupCostume);
         }
     }
 }

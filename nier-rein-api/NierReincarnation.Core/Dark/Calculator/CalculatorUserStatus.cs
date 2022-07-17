@@ -17,12 +17,11 @@ namespace NierReincarnation.Core.Dark.Calculator
             // HINT: It's unclear how this part works exactly, since the code references MasterTable that is seemingly unrelated to any stamina values
             // Implementation by in-game observations
             var baseStamina = 50;
-            if (lvl <= 100)
+            if (lvl <= 101)
                 return baseStamina + (lvl - 1);
 
-            var remainingStamina = (lvl - 100) / 3;
-
-            return baseStamina + 100 + remainingStamina;
+            baseStamina += 100;
+            return baseStamina + (lvl - 101) / 3;
         }
 
         public static int GetCurrentUserLevel()

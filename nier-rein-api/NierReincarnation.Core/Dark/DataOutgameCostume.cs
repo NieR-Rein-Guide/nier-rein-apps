@@ -38,18 +38,27 @@ namespace NierReincarnation.Core.Dark
         // 0x68
         public int CostumeLevelBonusId { get; set; }
         // 0x6C
-        public int MaxLevel { get; set; }
+        public int CostumeAwakenEffectGroupId { get; set; }
         // 0x70
-        public string UserCostumeUuid { get; set; }
+        public int CostumeAwakenStepMaterialGroupId { get; set; }
+        // 0x74
+        public int CostumeAwakenPriceGroupId { get; set; }
         // 0x78
-        public int LimitBreakCount { get; set; }
-        // 0x7C
-        public int Exp { get; set; }
+        public int MaxLevel { get; set; }
         // 0x80
-        public long AcquisitionDatetime { get; set; }
+        public string UserCostumeUuid { get; set; }
         // 0x88
+        public int LimitBreakCount { get; set; }
+        // 0x8C
+        public int Exp { get; set; }
+        // 0x90
+        public long AcquisitionDatetime { get; set; }
+        // 0x98
+        public int AwakenCount { get; set; }
+        // 0x9C
         public StatusValue StatusValue { get; set; }
-        // 0xA4
+
+        // 0xB8
         public int Power { get; set; }
 
         public int Hp => StatusValue.Hp;

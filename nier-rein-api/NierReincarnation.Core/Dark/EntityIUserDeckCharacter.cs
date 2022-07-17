@@ -19,7 +19,9 @@ namespace NierReincarnation.Core.Dark
         public string UserCompanionUuid { get; set; }
         [Key(5)] // RVA: 0x1DE8A78 Offset: 0x1DE8A78 VA: 0x1DE8A78
         public int Power { get; set; }
-        [Key(6)] // RVA: 0x1DE8A8C Offset: 0x1DE8A8C VA: 0x1DE8A8C
+        [Key(6)] // RVA: 0x1EABD0C Offset: 0x1EABD0C VA: 0x1EABD0C
+        public string UserThoughtUuid { get; set; }
+        [Key(7)] // RVA: 0x1DE8A8C Offset: 0x1DE8A8C VA: 0x1DE8A8C
         public long LatestVersion { get; set; }
 	}
 }

@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Dark\Tables\EntityMQuestBonusTable.cs~RF4db6da0.TMP" />
     <None Remove="proto\battle.proto" />
     <None Remove="proto\bighunt.proto" />
     <None Remove="proto\consumableitem.proto" />

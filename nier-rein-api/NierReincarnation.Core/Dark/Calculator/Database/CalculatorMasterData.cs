@@ -2,6 +2,7 @@
 using System.Linq;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Core.Dark.Calculator.Database
 {
@@ -116,10 +117,36 @@ namespace NierReincarnation.Core.Dark.Calculator.Database
             var table1 = DatabaseDefine.Master.EntityMQuestSceneBattleTable;
             var sceneBattle = table1.FindByQuestSceneId(scene.QuestSceneId);
             if (sceneBattle == null)
-	            return null;
+                return null;
 
             var table2 = DatabaseDefine.Master.EntityMBattleRentalDeckTable;
             return table2.FindByBattleGroupId(sceneBattle.BattleGroupId);
+        }
+
+        public static bool IsInTermQuestBonusCostume(EntityMQuestBonusCostumeSettingGroup entityMQuestBonusCostumeSettingGroup, long dateTime)
+        {
+            return IsInTermQuestBonus(entityMQuestBonusCostumeSettingGroup.QuestBonusTermGroupId, dateTime);
+        }
+
+        public static bool IsInTermQuestBonusCharacter(EntityMQuestBonusCharacterGroup entityMQuestBonusCharacterGroup, long dateTime)
+        {
+            return IsInTermQuestBonus(entityMQuestBonusCharacterGroup.QuestBonusTermGroupId, dateTime);
+        }
+
+        public static bool IsInTermQuestBonusWeapon(EntityMQuestBonusWeaponGroup entityMQuestBonusWeaponGroup, long dateTime)
+        {
+            return IsInTermQuestBonus(entityMQuestBonusWeaponGroup.QuestBonusTermGroupId, dateTime);
+        }
+
+        private static bool IsInTermQuestBonus(int questBonusTermGroupId, long dateTime)
+        {
+            if (questBonusTermGroupId == 0)
+                return true;
+
+            var table = DatabaseDefine.Master.EntityMQuestBonusTermGroupTable;
+            var terms = table.FindByQuestBonusTermGroupId(questBonusTermGroupId);
+
+            return terms.Any(t => CalculatorDateTime.IsWithinThePeriod(t.StartDatetime, t.EndDatetime, dateTime));
         }
     }
 }
