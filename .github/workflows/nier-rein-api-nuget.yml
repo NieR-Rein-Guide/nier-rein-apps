@@ -34,6 +34,6 @@ jobs:
     # Upload NierReincarnation to nuget.org
     - name: Publish NierReincarnation
       run: |
-        dotnet nuget push ./dist/nuget/*.nupkg -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
+        dotnet nuget push ./dist/nuget/*.nupkg -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json --skip-duplicate
       env:
         NUGET_TOKEN: ${{ secrets.NUGET_API_KEY }}
