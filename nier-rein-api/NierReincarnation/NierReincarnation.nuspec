@@ -20,6 +20,7 @@
 	  <dependency id="Grpc.Core" version="2.44.0" />
 	  
 	  <dependency id="MessagePack" version="2.3.85" />
+	  
 	  <dependency id="Newtonsoft.Json" version="13.0.1" />
 	  <dependency id="Selenium.WebDriver" version="4.2.0" />
 	  <dependency id="Serilog" version="2.11.0" />
