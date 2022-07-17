@@ -33,7 +33,7 @@ jobs:
 
     # Upload NierReincarnation to nuget.org
     - name: Publish NierReincarnation
-      run: |
-        dotnet nuget push ./dist/nuget/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key $NUGET_TOKEN
+      shell: cmd
+      run: dotnet nuget push ./dist/nuget/*.nupkg -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${NUGET_TOKEN}
       env:
         NUGET_TOKEN: ${{ secrets.NUGET_API_KEY }}
