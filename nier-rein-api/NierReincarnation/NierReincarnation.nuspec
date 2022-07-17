@@ -29,6 +29,7 @@
 	  
 	  <dependency id="SixLabors.ImageSharp.Drawing" version="1.0.0-beta13" />
 	  <dependency id="K4os.Compression.LZ4" version="1.2.16" />
+	  <dependency id="TimeZoneConverter" version="5.0.0" />
     </dependencies>
   </metadata>
   <files>
