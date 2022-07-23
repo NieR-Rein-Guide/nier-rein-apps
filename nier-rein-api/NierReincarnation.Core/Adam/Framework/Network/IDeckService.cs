@@ -8,5 +8,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         public Task<UpdateNameResponse> UpdateNameAsync(UpdateNameRequest request);
 
         public Task<ReplaceDeckResponse> ReplaceDeckAsync(ReplaceDeckRequest request);
+
+        public Task<RemoveDeckResponse> RemoveDeckAsync(RemoveDeckRequest request);
     }
 }

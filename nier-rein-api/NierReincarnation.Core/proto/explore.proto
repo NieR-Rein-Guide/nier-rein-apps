@@ -2,6 +2,8 @@
 
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Explore";
 
+import "proto/data.proto";
+
 package apb.api.explore;
 
 service ExploreService {
@@ -16,7 +18,7 @@ message StartExploreRequest {
 }
 
 message StartExploreResponse {
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message FinishExploreRequest {
@@ -29,7 +31,7 @@ message FinishExploreResponse {
 	int32 acquireStaminaCount = 1;
 	repeated ExploreReward exploreReward = 2;
 	int32 assetGradeIconId = 3;
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message RetireExploreRequest {
@@ -37,12 +39,7 @@ message RetireExploreRequest {
 }
 
 message RetireExploreResponse {
-	map<string, DiffData> diffUserData = 99;
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message ExploreReward {

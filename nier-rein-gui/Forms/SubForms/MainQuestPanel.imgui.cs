@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Models;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
-using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -121,17 +120,19 @@ namespace nier_rein_gui.Forms.SubForms
 
         private NierQuestButton CreateQuestButton(QuestCellData quest)
         {
+            var campaigns = CalculatorCampaign.CreateDataQuestCampaignAll(quest.Quest);
+            var stamCampaign = campaigns.TotalCampaignList.FirstOrDefault(x => (x as DataQuestCampaign).QuestCampaignEffectType == QuestCampaignEffectType.STAMINA_CONSUME_AMOUNT);
+
             var result = new NierQuestButton
             {
                 Caption = quest.QuestName,
                 Enabled = !quest.IsLock,
-                SubFont = FontResources.FotRodin(12),
-                ClearFont = FontResources.FotRodin(11),
                 SuggestedPower = quest.Quest.EntityQuest.RecommendedDeckPower,
                 Stamina = quest.Quest.EntityQuest.Stamina,
                 IsClear = quest.IsClear,
                 Padding = new Vector2(2, 2),
-                Width = 1f
+                Width = 1f,
+                StaminaCampaign = stamCampaign as DataQuestCampaign
             };
             result.Clicked += (s, e) => QuestBtn_Clicked((NierQuestButton)s, quest);
 

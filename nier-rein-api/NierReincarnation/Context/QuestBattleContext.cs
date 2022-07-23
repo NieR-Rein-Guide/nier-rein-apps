@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Battle;
 using Art.Framework.ApiNetwork.Grpc.Api.Quest;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
-using Newtonsoft.Json;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Context.Models.Events;
 using NierReincarnation.Core.Adam.Framework.Network;
@@ -19,7 +17,6 @@ using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using DiffData = Art.Framework.ApiNetwork.Grpc.Api.Battle.DiffData;
 
 namespace NierReincarnation.Context
 {
@@ -97,7 +94,7 @@ namespace NierReincarnation.Context
             // HINT: Necessary if main quest was not played yet, otherwise request gets aborted
             if (!quest.IsClear)
             {
-                var sceneRes = await TryRequest(async () =>
+                await TryRequest(async () =>
                 {
                     var fieldScene = quest.Scenes.FirstOrDefault(x => x.QuestSceneType == QuestSceneType.FIELD);
                     var fieldSceneIndex = quest.Scenes.IndexOf(fieldScene);
@@ -109,31 +106,21 @@ namespace NierReincarnation.Context
                     var sceneReq = new UpdateMainFlowSceneProgressRequest { QuestSceneId = previousScene.QuestSceneId };
                     return await _dc.QuestService.UpdateMainFlowSceneProgressAsync(sceneReq);
                 });
-
-                foreach (var userData in sceneRes.DiffUserData)
-                    DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
             }
 
             // Start battle
             var startRes = await TryRequest(async () =>
-            {
-                var startReq = GetStartMainBattleRequest(quest.Quest.QuestId, quest.DifficultyType == DifficultyType.NORMAL && !quest.IsClear, deck.UserDeckNumber);
-                return await _dc.QuestService.StartMainQuestAsync(startReq);
-            });
+              {
+                  var startReq = GetStartMainBattleRequest(quest.Quest.QuestId, quest.DifficultyType == DifficultyType.NORMAL && !quest.IsClear, deck.UserDeckNumber);
+                  return await _dc.QuestService.StartMainQuestAsync(startReq);
+              });
 
-            // Update local user database
-            foreach (var userData in startRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
-
-            // TODO: Update main quest progress
-            var progressRes = await TryRequest(async () =>
+            // Update main quest progress
+            await TryRequest(async () =>
             {
                 var progressReq = new UpdateMainQuestSceneProgressRequest { QuestSceneId = quest.FieldSceneId };
                 return await _dc.UpdateMainQuestSceneProgressAsync(progressReq);
             });
-
-            foreach (var userData in progressRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
 
             OnStartBattle(startRes.BattleDropReward, out var retire, out var shutdown);
 
@@ -169,9 +156,6 @@ namespace NierReincarnation.Context
                 var finishReq = GetFinishMainBattleRequest(quest.Quest.QuestId, quest.IsStoryQuest, quest.DifficultyType == DifficultyType.NORMAL && !quest.IsClear, retire);
                 return await _dc.QuestService.FinishMainQuestAsync(finishReq);
             });
-
-            foreach (var userData in finishRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
 
             var rewards = CreateBattleDrops(finishRes.DropReward, finishRes.FirstClearReward, finishRes.MissionClearCompleteReward, finishRes.MissionClearReward);
             OnFinishBattle(rewards);
@@ -271,19 +255,12 @@ namespace NierReincarnation.Context
                 return await _dc.QuestService.StartEventQuestAsync(startReq);
             });
 
-            // Update local user database
-            foreach (var userData in startRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
-
             // Update quest progress
-            var progressRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var progressReq = new UpdateEventQuestSceneProgressRequest { QuestSceneId = quest.SceneId };
                 return await _dc.UpdateEventQuestSceneProgressAsync(progressReq);
             });
-
-            foreach (var userData in progressRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
 
             OnStartBattle(startRes.BattleDropReward, out var retire, out var shutdown);
 
@@ -317,9 +294,6 @@ namespace NierReincarnation.Context
                 var finishReq = GetFinishEventBattleRequest(chapterId, questId, retire);
                 return await _dc.QuestService.FinishEventQuestAsync(finishReq);
             });
-
-            foreach (var userData in finishRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
 
             var rewards = CreateBattleDrops(finishRes.DropReward, finishRes.FirstClearReward, finishRes.MissionClearCompleteReward, finishRes.MissionClearReward);
             OnFinishBattle(rewards);
@@ -368,14 +342,11 @@ namespace NierReincarnation.Context
 
         private async Task StartQuestWave(DataDeck deck, long npcId, DataDeck waveDeck)
         {
-            var startWaveRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var startWaveReq = GetStartWaveRequest(deck, npcId, waveDeck);
                 return await _dc.BattleService.StartWaveAsync(startWaveReq);
             });
-
-            foreach (var userData in startWaveRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
         private StartWaveRequest GetStartWaveRequest(DataDeck deck, long npcId, DataDeck npcDeck)
@@ -412,15 +383,12 @@ namespace NierReincarnation.Context
 
         private async Task FinishQuestWave(DataDeck deck, long npcId, DataDeck waveDeck, int wave, int waveCount, int sceneId)
         {
-            var finishWaveRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var finishWaveReq = GetFinishWaveRequest(deck, npcId, waveDeck, wave, waveCount, sceneId);
                 OnBeforeFinishWave(wave, waveCount, finishWaveReq.BattleDetail);
                 return await _dc.BattleService.FinishWaveAsync(finishWaveReq);
             });
-
-            foreach (var userData in finishWaveRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
         private FinishWaveRequest GetFinishWaveRequest(DataDeck deck, long npcId, DataDeck npcDeck, int wave, int waveCount, int sceneId)

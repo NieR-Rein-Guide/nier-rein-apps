@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Battle;
 using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
 using Google.Protobuf;
-using Newtonsoft.Json;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark;
@@ -90,15 +88,11 @@ namespace NierReincarnation.Context
 
         private async Task StartBigHuntBattle(BigHuntQuestData quest, int bigHuntDeckNumber)
         {
-            var startRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var startReq = GetStartBigHuntQuestRequest(quest, bigHuntDeckNumber);
                 return await _dc.BigHuntService.StartBigHuntQuestAsync(startReq);
             });
-
-            // Update local user database
-            foreach (var userData in startRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
         private StartBigHuntQuestRequest GetStartBigHuntQuestRequest(BigHuntQuestData quest, int bigHuntDeckNumber)
@@ -117,15 +111,11 @@ namespace NierReincarnation.Context
 
         private async Task FinishBigHuntWave(DataDeck deck, int deckNumber, DataDeck npcDeck, int difficultyKnockdownPermil, long waveDmg, long totalDmg, int wave, int waveCount, int sceneId)
         {
-            var waveRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var waveReq = GetSaveBigHuntBattleInfoRequest(deck, deckNumber, npcDeck, difficultyKnockdownPermil, waveDmg, totalDmg, wave, waveCount, sceneId);
                 return await _dc.BigHuntService.SaveBigHuntBattleInfoAsync(waveReq);
             });
-
-            // Update local user database
-            foreach (var userData in waveRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
         private SaveBigHuntBattleInfoRequest GetSaveBigHuntBattleInfoRequest(DataDeck userDeck, int deckNumber, DataDeck npcDeck, int difficultyKnockdownPermil, long waveDmg, long totalDmg, int wave, int waveCount, int sceneId)
@@ -177,15 +167,11 @@ namespace NierReincarnation.Context
 
         private async Task FinishBigHuntBattle(BigHuntQuestData quest, bool retire = false)
         {
-            var finishRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var finishReq = GetFinishBigHuntQuestRequest(quest, retire);
                 return await _dc.BigHuntService.FinishBigHuntQuestAsync(finishReq);
             });
-
-            // Update local user database
-            foreach (var userData in finishRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
         private FinishBigHuntQuestRequest GetFinishBigHuntQuestRequest(BigHuntQuestData quest, bool retire)

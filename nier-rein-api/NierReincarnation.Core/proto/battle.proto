@@ -2,6 +2,8 @@
 
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Battle";
 
+import "proto/data.proto";
+
 package apb.api.battle;
 
 service BattleService {
@@ -15,7 +17,7 @@ message StartWaveRequest {
 }
 
 message StartWaveResponse {
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message FinishWaveRequest {
@@ -28,7 +30,7 @@ message FinishWaveRequest {
 }
 
 message FinishWaveResponse {
-	map<string, DiffData> diffUserData = 99; // 0x10
+	map<string, apb.api.data.DiffData> diffUserData = 99; // 0x10
 }
 
 message UserPartyInitialInfo {
@@ -133,9 +135,4 @@ message NpcRecoverInfo {
 	int32 deckType = 2; // 0x18
 	int32 deckNumber = 3; // 0x1C
 	int64 totalRecoverPoint = 4; // 0x20
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
 }

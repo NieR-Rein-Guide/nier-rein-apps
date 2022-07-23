@@ -45,6 +45,7 @@
             public static readonly string kWave = "ui.Outgame.Deck.Wave"; // 0xD0
 
             public static readonly string kOrganization = "ui.Outgame.Deck.Organization";
+            public static readonly string kDeleteDeck = "ui.Outgame.Deck.Delete";
         }
 
         public static class Organization
@@ -52,7 +53,8 @@
             public static readonly string kMemoryBonusLockSmall = "ui.Outgame.Organization.MemoryBonus.Lock.Small"; // 0x28
             public static readonly string kMemoryBonusLockLarge = "ui.Outgame.Organization.MemoryBonus.Lock.Large"; // 0x30
 
-            public static readonly string kAll = "ui.Outgame.Organization.All"; // 0x30
+            public static readonly string kAll = "ui.Outgame.Organization.All";
+            public static readonly string kRemove = "ui.Outgame.Organization.Remove";
         }
 
         public static class Ability

@@ -23,6 +23,12 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBeginnerCampaign> dataSource)
+        {
+            AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
+            return this;
+        }
+
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBigHuntMaxScore> dataSource)
         {
             AppendCore(dataSource, user => (user.UserId, user.BigHuntBossId), Comparer<(long, int)>.Default);
@@ -72,6 +78,12 @@ namespace NierReincarnation.Core.Dark
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCharacterCostumeLevelBonus> dataSource)
         {
             AppendCore(dataSource, user => (user.UserId, user.CharacterId, user.StatusCalculationType), Comparer<(long, int, StatusCalculationType)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserComebackCampaign> dataSource)
+        {
+            AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
             return this;
         }
 

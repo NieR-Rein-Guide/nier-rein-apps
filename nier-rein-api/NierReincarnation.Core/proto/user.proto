@@ -4,6 +4,7 @@ option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.User";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "proto/data.proto";
 
 package apb.api.user;
 
@@ -28,7 +29,7 @@ message RegisterUserRequest {
 message RegisterUserResponse {
 	string userId = 1;
 	string signature = 2;
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message GetAndroidArgsRequest {
@@ -41,7 +42,7 @@ message GetAndroidArgsRequest {
 message GetAndroidArgsResponse {
 	string nonce = 1;
 	string apiKey = 2;
-	map<string,DiffData> diffUserData = 3;
+	map<string,apb.api.data.DiffData> diffUserData = 3;
 }
 
 message UserDeviceInherent {
@@ -49,11 +50,6 @@ message UserDeviceInherent {
 	string deviceToken = 2;
 	string macAddress = 3;
 	string registrationId = 4;
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
 }
 
 message AuthUserRequest {
@@ -70,7 +66,7 @@ message AuthUserResponse {
 	google.protobuf.Timestamp expireDatetime = 2;
 	string signature = 3;
 	int64 userId = 4;
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message TransferUserRequest {
@@ -80,7 +76,7 @@ message TransferUserRequest {
 message TransferUserResponse {
 	int64 userId = 1;
 	string signature = 2;
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message GetBackupTokenRequest {
@@ -89,10 +85,10 @@ message GetBackupTokenRequest {
 
 message GetBackupTokenResponse {
 	string backupToken = 1;
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message GetChargeMoneyResponse {
 	int64 chargeMoneyThisMonth = 1;
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }

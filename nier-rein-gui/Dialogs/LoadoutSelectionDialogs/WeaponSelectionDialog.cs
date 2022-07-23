@@ -17,6 +17,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
     {
         private IDictionary<DataWeaponInfo, NierWeaponItemButton> _weaponInfo;
 
+        private readonly bool _isMain;
         private readonly DataWeaponInfo _currentWeapon;
         private readonly DataWeaponInfo[] _currentWeapons;
         private readonly DataWeaponInfo[] _deckOtherWeapons;
@@ -26,9 +27,11 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override bool ShowAttributeFilter => true;
         protected override bool ShowWeaponTypeFilter => true;
         protected override bool ShowRarityFilter => true;
+        protected override bool ShowRemoveButton => !_isMain && _currentWeapon != null;
 
-        public WeaponSelectionDialog(DataWeaponInfo currentWeapon, DataWeaponInfo[] currentWeapons, DataWeaponInfo[] deckOtherWeapons)
+        public WeaponSelectionDialog(DataWeaponInfo currentWeapon, bool isMain, DataWeaponInfo[] currentWeapons, DataWeaponInfo[] deckOtherWeapons)
         {
+            _isMain = isMain;
             _currentWeapon = currentWeapon;
             _currentWeapons = currentWeapons;
             _deckOtherWeapons = deckOtherWeapons;
@@ -70,7 +73,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override IEnumerable<DataWeaponInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
         {
             var sortedElements = _weaponInfo.Keys
-                .OrderByDescending(x => GetButton(x).HasBonus)
+                .OrderBy(x => GetButton(x).Hint)
+                .ThenByDescending(x => GetButton(x).HasBonus)
                 .ThenByDescending(x => x.RarityType)
                 .ThenBy(x => x.WeaponType)
                 .ThenByDescending(x => x.IsEndWeapon)
@@ -108,7 +112,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         {
             return _currentWeapon?.WeaponId != weaponInfo.WeaponId &&
                    _currentWeapons.All(x => x.WeaponId != weaponInfo.WeaponId) &&
-                   _deckOtherWeapons.All(x => x.WeaponId != weaponInfo.WeaponId);
+                   _deckOtherWeapons.All(x => x.UserWeaponUuid != weaponInfo.UserWeaponUuid);
         }
 
         private NierItemButton.HintType GetHintType(DataWeaponInfo weaponInfo)

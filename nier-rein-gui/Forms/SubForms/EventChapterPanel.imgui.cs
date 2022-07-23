@@ -89,7 +89,7 @@ namespace nier_rein_gui.Forms.SubForms
                     Width = 1f,
                     Caption = chapter.EventQuestName,
                     IsClickActive = true,
-                    Enabled = chapter.EventQuestType != EventQuestType.DUNGEON
+                    Enabled = chapter.EventQuestType != EventQuestType.DUNGEON && chapter.EventQuestType != EventQuestType.SPECIAL
                 };
 
                 eventButtons.Add((btn, chapter));

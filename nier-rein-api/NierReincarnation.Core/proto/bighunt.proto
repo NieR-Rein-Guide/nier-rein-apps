@@ -3,6 +3,7 @@
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.BigHunt";
 
 import "proto/battle.proto";
+import "proto/data.proto";
 
 package apb.api.bighunt;
 
@@ -20,7 +21,7 @@ message StartBigHuntQuestRequest {
 }
 
 message StartBigHuntQuestResponse {
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message FinishBigHuntQuestRequest {
@@ -34,7 +35,7 @@ message FinishBigHuntQuestResponse {
 	BigHuntScoreInfo scoreInfo = 1;
 	repeated BigHuntReward scoreReward = 2;
 	BigHuntBattleReport battleReport = 3;
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message SaveBigHuntBattleInfoRequest {
@@ -45,7 +46,7 @@ message SaveBigHuntBattleInfoRequest {
 }
 
 message SaveBigHuntBattleInfoResponse {
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message BigHuntScoreInfo {
@@ -86,9 +87,4 @@ message BigHuntBattleDetail {
 	int32 bossKnockDownCount = 3;
 	int32 maxComboCount = 4;
 	repeated apb.api.battle.CostumeBattleInfo costumeBattleInfo = 9;
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
 }

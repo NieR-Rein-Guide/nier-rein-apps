@@ -8,6 +8,7 @@ using ImGui.Forms.Models;
 using ImGui.Forms.Resources;
 using ImGuiNET;
 using NierReincarnation.Core.Dark.Localization;
+using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using Rectangle = Veldrid.Rectangle;
 using Size = ImGui.Forms.Models.Size;
 
@@ -32,6 +33,7 @@ namespace nier_rein_gui.Controls.Buttons
         private static readonly uint BorderColor = Color.FromArgb(0x6B, 0x63, 0x60).ToUInt32();
         private static readonly uint BorderActiveColor = Color.FromArgb(0x74, 0x71, 0x6C).ToUInt32();
         private static readonly uint TextActiveColor = Color.FromArgb(0x2D, 0x29, 0x28).ToUInt32();
+        private static readonly uint ReducedStaminaText = Color.FromArgb(0xCC, 0x93, 0x93).ToUInt32();  // 954848
         private static readonly uint DisabledColor = Color.FromArgb(0x88, 0x00, 0x00, 0x00).ToUInt32();
         private static readonly uint BoxBackgroundColor = Color.FromArgb(0xC0, 0x00, 0x00, 0x00).ToUInt32();
         private static readonly uint DailyBackgroundColor = Color.FromArgb(0xCC, 0x93, 0x93).ToUInt32();
@@ -39,17 +41,13 @@ namespace nier_rein_gui.Controls.Buttons
         private static readonly uint ClearBackgroundColor = Color.FromArgb(0x70, 0x70, 0x90).ToUInt32();
         private static readonly uint ClearTextColor = Color.FromArgb(0xF0, 0xF0, 0xF0).ToUInt32();
 
+        private FontResource DailyFont => Resources.FontResources.FotRodin(9);
+        private FontResource ClearFont => Resources.FontResources.FotRodin(11);
+        private FontResource SubFont => Resources.FontResources.FotRodin(12);
+
         #region Properties
 
         public string Caption { get; set; }
-
-        public FontResource Font { get; set; }
-
-        public FontResource SubFont { get; set; }
-
-        public FontResource DailyFont { get; set; }
-
-        public FontResource ClearFont { get; set; }
 
         public Vector2 Padding { get; set; }
 
@@ -65,6 +63,8 @@ namespace nier_rein_gui.Controls.Buttons
 
         public bool Enabled { get; set; }
 
+        public DataQuestCampaign StaminaCampaign { get; set; }
+
         #endregion
 
         #region Events
@@ -76,9 +76,6 @@ namespace nier_rein_gui.Controls.Buttons
         public override Size GetSize()
         {
             // Get quest name size
-            if (Font != null)
-                ImGuiNET.ImGui.PushFont((ImFontPtr)Font);
-
             var questNameSize = FontResource.MeasureText(Caption);
 
             // Get clear text size
@@ -112,9 +109,6 @@ namespace nier_rein_gui.Controls.Buttons
                 ImGuiNET.ImGui.PopFont();
 
             if (ClearFont != null)
-                ImGuiNET.ImGui.PopFont();
-
-            if (Font != null)
                 ImGuiNET.ImGui.PopFont();
 
             if (Width != null)
@@ -179,15 +173,9 @@ namespace nier_rein_gui.Controls.Buttons
             var topLeft = new Vector2(contentRect.X + BorderDistance_ + BorderWidth_ + Padding.X, contentRect.Y + BorderDistance_ + BorderWidth_ + Padding.Y);
 
             // Draw quest name
-            if (Font != null)
-                ImGuiNET.ImGui.PushFont((ImFontPtr)Font);
-
             var questHeight = FontResource.GetCurrentLineHeight();
             var questNameColor = IsActive() && Enabled ? TextActiveColor : Style.GetColor(ImGuiCol.Text).ToUInt32();
             ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft, questNameColor, Caption ?? string.Empty);
-
-            if (Font != null)
-                ImGuiNET.ImGui.PopFont();
 
             // Draw daily label
             var clearOff = 0;
@@ -220,13 +208,23 @@ namespace nier_rein_gui.Controls.Buttons
             topLeft += new Vector2(forceWidth + SubDistanceX_, 0);
 
             // Draw stamina details
+            var stamina = Stamina;
+            var staminaIdentColor = Style.GetColor(ImGuiCol.Text).ToUInt32();
+            var staminaTextColor = staminaIdentColor;
+
+            if (StaminaCampaign != null)
+            {
+                stamina = stamina * StaminaCampaign.EffectValue / 1000;
+                staminaTextColor = ReducedStaminaText;
+            }
+
             var firstStaminaWidth = FontResource.GetCurrentLineWidth(StaminaIdent_.Localize());
-            var secondStaminaWidth = FontResource.GetCurrentLineWidth($"{Stamina}");
+            var secondStaminaWidth = FontResource.GetCurrentLineWidth($"{stamina}");
             var staminaWidth = firstStaminaWidth + FontResource.GetCurrentLineWidth("000") + SubPadding_ * 2;
 
             ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(topLeft, topLeft + new Vector2(staminaWidth, height), BoxBackgroundColor, 0);
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(SubPadding_, SubPadding_), Style.GetColor(ImGuiCol.Text).ToUInt32(), StaminaIdent_.Localize());
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(staminaWidth - SubPadding_ - secondStaminaWidth, SubPadding_), Style.GetColor(ImGuiCol.Text).ToUInt32(), $"{Stamina}");
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(SubPadding_, SubPadding_), staminaIdentColor, StaminaIdent_.Localize());
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(staminaWidth - SubPadding_ - secondStaminaWidth, SubPadding_), staminaTextColor, $"{stamina}");
 
             if (SubFont != null)
                 ImGuiNET.ImGui.PopFont();

@@ -1,4 +1,5 @@
-﻿using NierReincarnation.Core.Dark.View.HeadUpDisplay;
+﻿using System;
+using NierReincarnation.Core.Dark.View.HeadUpDisplay;
 
 namespace NierReincarnation.Core.Dark.Calculator
 {
@@ -16,12 +17,7 @@ namespace NierReincarnation.Core.Dark.Calculator
             // CUSTOM: Calculate max stamina by user level
             // HINT: It's unclear how this part works exactly, since the code references MasterTable that is seemingly unrelated to any stamina values
             // Implementation by in-game observations
-            var baseStamina = 50;
-            if (lvl <= 101)
-                return baseStamina + (lvl - 1);
-
-            baseStamina += 100;
-            return baseStamina + (lvl - 101) / 3;
+            return 50 + Math.Min(lvl - 1, 100) + Math.Max(0, lvl - 103) / 3;
         }
 
         public static int GetCurrentUserLevel()

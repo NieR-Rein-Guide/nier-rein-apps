@@ -34,6 +34,12 @@ namespace NierReincarnation.Core.Dark.EntryPoint
             // 0x110
             public static readonly string KoPagePath = "/ko";
 
+            // CUSTOM: Get hostname based on language identifier
+            public static string GetHostname(Language lang)
+            {
+                return Application.Language == Language.English ? HostnameEn : HostnameJp;
+            }
+
             /// <summary>
             /// Creates the URL to retrieve the master data from.
             /// </summary>

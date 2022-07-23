@@ -11,11 +11,13 @@ namespace NierReincarnation.Core.Dark
         // 0x10
         public EntityIUserTable EntityIUserTable { get; private set; }
 
+        // 0x28
+        public EntityIUserBeginnerCampaignTable EntityIUserBeginnerCampaignTable { get; private set; }
         // 0x30
         public EntityIUserBigHuntMaxScoreTable EntityIUserBigHuntMaxScoreTable { get; private set; }
         // 0x38
         public EntityIUserBigHuntProgressStatusTable EntityIUserBigHuntProgressStatusTable { get; private set; }
-        
+
         // 0x48
         public EntityIUserBigHuntStatusTable EntityIUserBigHuntStatusTable { get; private set; }
 
@@ -29,7 +31,8 @@ namespace NierReincarnation.Core.Dark
         public EntityIUserCharacterBoardStatusUpTable EntityIUserCharacterBoardStatusUpTable { get; private set; }
         // 0x80
         public EntityIUserCharacterCostumeLevelBonusTable EntityIUserCharacterCostumeLevelBonusTable { get; private set; }
-
+        // 0x88
+        public EntityIUserComebackCampaignTable EntityIUserComebackCampaignTable { get; private set; }
         // 0x90
         public EntityIUserCompanionTable EntityIUserCompanionTable { get; private set; }
         // 0x98
@@ -144,9 +147,11 @@ namespace NierReincarnation.Core.Dark
             EntityIUserWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeapon[], EntityIUserWeaponTable>(weapons => new EntityIUserWeaponTable(weapons)));
             EntityIUserWeaponAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeaponAbility[], EntityIUserWeaponAbilityTable>(abilities => new EntityIUserWeaponAbilityTable(abilities)));
             EntityIUserWeaponNoteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeaponNote[], EntityIUserWeaponNoteTable>(notes => new EntityIUserWeaponNoteTable(notes)));
-            EntityIUserWeaponSkillTable = ExtractTableData(header, databaseBinary, options,new Func<EntityIUserWeaponSkill[],EntityIUserWeaponSkillTable>(skills => new EntityIUserWeaponSkillTable(skills)));
+            EntityIUserWeaponSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeaponSkill[], EntityIUserWeaponSkillTable>(skills => new EntityIUserWeaponSkillTable(skills)));
             EntityIUserThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserThought[], EntityIUserThoughtTable>(thoughts => new EntityIUserThoughtTable(thoughts)));
             EntityIUserDeckCharacterDressupCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckCharacterDressupCostume[], EntityIUserDeckCharacterDressupCostumeTable>(costumes => new EntityIUserDeckCharacterDressupCostumeTable(costumes)));
+            EntityIUserBeginnerCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserBeginnerCampaign[], EntityIUserBeginnerCampaignTable>(campaigns => new EntityIUserBeginnerCampaignTable(campaigns)));
+            EntityIUserComebackCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserComebackCampaign[], EntityIUserComebackCampaignTable>(campaigns => new EntityIUserComebackCampaignTable(campaigns)));
         }
     }
 }

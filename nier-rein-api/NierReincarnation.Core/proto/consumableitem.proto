@@ -2,6 +2,8 @@
 
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem";
 
+import "proto/data.proto";
+
 package apb.api.consumableitem;
 
 service ConsumableItemService {
@@ -14,10 +16,5 @@ message UseEffectItemRequest {
 }
 
 message UseEffectItemResponse {
-	map<string, DiffData> diffUserData = 99;
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }

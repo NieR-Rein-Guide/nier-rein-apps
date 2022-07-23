@@ -3,6 +3,7 @@
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Gacha";
 
 import "google/protobuf/timestamp.proto";
+import "proto/data.proto";
 
 package apb.api.gacha;
 
@@ -22,12 +23,12 @@ message GetGachaRequest {
 message GetGachaListResponse {
 	repeated Gacha gacha = 1;
 	ConvertedGachaMedal convertedGachaMedal = 2;
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message GetGachaResponse {
 	map<int32,Gacha> gacha = 1;
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message Gacha {
@@ -144,9 +145,4 @@ message ConvertedGachaMedal {
 message ConsumableItemPossession {
 	int32 consumableItemId = 1;
 	int32 count = 2;
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
 }

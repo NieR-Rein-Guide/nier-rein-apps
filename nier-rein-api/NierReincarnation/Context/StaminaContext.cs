@@ -2,10 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem;
-using Newtonsoft.Json;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Adam.Framework.Network;
-using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Networking;
@@ -96,14 +94,11 @@ namespace NierReincarnation.Context
 
         private async Task ConsumeStamina(RecoverData staminaItem, int consumeCount)
         {
-            var useEffectRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var useEffectReq = new UseEffectItemRequest { ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount };
                 return await _dc.ConsumableItemService.UseEffectItemAsync(useEffectReq);
             });
-
-            foreach (var userData in useEffectRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
     }
 }

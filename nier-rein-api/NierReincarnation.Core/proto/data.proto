@@ -27,3 +27,8 @@ message UserDataGetRequest {
 message UserDataGetResponse {
 	map<string,string> UserDataJson = 1;
 }
+
+message DiffData {
+	string updateRecordsJson = 1;
+	string deleteKeysJson = 2;
+}

@@ -18,6 +18,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override bool ShowAttributeFilter => false;
         protected override bool ShowWeaponTypeFilter => false;
         protected override bool ShowRarityFilter => true;
+        protected override bool ShowRemoveButton => _currentThought != null;
 
         public ThoughtSelectionDialog(DataOutgameThought currentThought, DataOutgameThought[] deckThoughts)
         {
@@ -58,7 +59,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override IEnumerable<DataOutgameThought> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
         {
             var sortedElements = _thoughtInfo.Keys
-                .OrderByDescending(x => x.RarityType);
+                .OrderBy(x => GetButton(x).Hint)
+                .ThenByDescending(x => x.RarityType);
 
             foreach (var thoughtItem in sortedElements)
             {

@@ -7,9 +7,7 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Models;
 using ImGuiNET;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
-using nier_rein_gui.Dialogs;
 using nier_rein_gui.Dialogs.FarmDialogs;
 using nier_rein_gui.Resources;
 using NierReincarnation;
@@ -66,19 +64,20 @@ namespace nier_rein_gui.Forms.SubForms
             var quests = CalculatorQuest.GenerateEventQuestData(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable && (!x.IsLock || x.ClearCount > 0)).ToList();
             foreach (var quest in quests)
             {
+                var campaigns = CalculatorCampaign.CreateDataQuestCampaignAll(quest.Quest);
+                var stamCampaign = campaigns.TotalCampaignList.FirstOrDefault(x => (x as DataQuestCampaign).QuestCampaignEffectType == QuestCampaignEffectType.STAMINA_CONSUME_AMOUNT);
+
                 var charButton = new NierQuestButton
                 {
                     Caption = quest.QuestName,
                     SuggestedPower = quest.RecommendPower,
                     Stamina = quest.Quest.EntityQuest.Stamina,
                     IsClear = quest.IsClearQuest,
-                    SubFont = FontResources.FotRodin(12),
-                    DailyFont = FontResources.FotRodin(9),
-                    ClearFont = FontResources.FotRodin(11),
                     Enabled = !quest.IsLock,
                     Padding = new Vector2(2, 2),
                     Width = 1f,
-                    IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0
+                    IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0,
+                    StaminaCampaign = stamCampaign as DataQuestCampaign
                 };
                 charButton.Clicked += async (s, e) => await FightAsync(chapter, quests, quest, charButton.IsDaily);
 

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ImGui.Forms.Controls;
-using ImGui.Forms.Modals;
 using nier_rein_gui.Controls.Buttons.Items;
 using nier_rein_gui.Dialogs.LoadoutSelectionDialogs;
 using NierReincarnation;
@@ -107,8 +106,8 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void CostumeButton_Clicked(object sender, EventArgs e)
         {
-            var (costumeInfo, shouldReplace) = await SelectCostume(_actor?.Costume);
-            if (!shouldReplace)
+            var (costumeInfo, _) = await SelectCostume(_actor?.Costume);
+            if (costumeInfo == null)
                 return;
 
             if (_actor?.Costume != null)
@@ -121,8 +120,8 @@ namespace nier_rein_gui.Forms.SubForms
                 return;
             }
 
-            var (weaponInfo, shouldReplace2) = await SelectWeapon(null);
-            if (!shouldReplace2)
+            var (weaponInfo, _) = await SelectWeapon(null, true);
+            if (weaponInfo == null)
                 return;
 
             _actor ??= _loadoutPanel.CreateActor(_pos);
@@ -139,6 +138,7 @@ namespace nier_rein_gui.Forms.SubForms
             subWeapon2Button.Enabled = true;
 
             companionButton.Enabled = true;
+            thoughtButton.Enabled = true;
 
             memoir1Button.Enabled = true;
             memoir2Button.Enabled = true;
@@ -150,10 +150,9 @@ namespace nier_rein_gui.Forms.SubForms
             var costumesInDeck = _loadoutPanel.GetOtherDeckCostumes(_pos);
 
             var dlg = new CostumeSelectionDialog(costume, costumesInDeck);
-            if (await dlg.ShowAsync() != DialogResult.Ok)
-                return (null, false);
+            await dlg.ShowAsync();
 
-            return (dlg.SelectedItem, true);
+            return (dlg.SelectedItem, dlg.ShouldRemove);
         }
 
         #endregion
@@ -162,8 +161,8 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void MainWeaponButton_Clicked(object sender, EventArgs e)
         {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(_actor?.MainWeapon);
-            if (!shouldReplace)
+            var (weaponInfo, _) = await SelectWeapon(_actor?.MainWeapon, true);
+            if (weaponInfo == null)
                 return;
 
             _actor.MainWeapon = weaponInfo;
@@ -174,9 +173,23 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void SubWeapon1Button_Clicked(object sender, EventArgs e)
         {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(_actor?.SubWeapon01);
-            if (!shouldReplace)
+            var (weaponInfo, shouldRemove) = await SelectWeapon(_actor?.SubWeapon01, false);
+            if (weaponInfo == null && !shouldRemove)
                 return;
+
+            if (shouldRemove)
+            {
+                _actor.SubWeapon01 = _actor.SubWeapon02;
+                if (_actor.SubWeapon02 != null)
+                    _actor.SubWeapon02 = null;
+
+                await _loadoutPanel.ReplaceDeck();
+
+                subWeapon1Button.Weapon = subWeapon2Button.Weapon;
+                subWeapon2Button.Weapon = null;
+
+                return;
+            }
 
             _actor.SubWeapon01 = weaponInfo;
             await _loadoutPanel.ReplaceDeck();
@@ -186,9 +199,19 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void SubWeapon2Button_Clicked(object sender, EventArgs e)
         {
-            var (weaponInfo, shouldReplace) = await SelectWeapon(_actor?.SubWeapon02);
-            if (!shouldReplace)
+            var (weaponInfo, shouldRemove) = await SelectWeapon(_actor?.SubWeapon02, false);
+            if (weaponInfo == null && !shouldRemove)
                 return;
+
+            if (shouldRemove)
+            {
+                _actor.SubWeapon02 = null;
+                await _loadoutPanel.ReplaceDeck();
+
+                subWeapon2Button.Weapon = null;
+
+                return;
+            }
 
             NierWeaponItemButton button;
             if (_actor.SubWeapon01 == null)
@@ -207,17 +230,15 @@ namespace nier_rein_gui.Forms.SubForms
             button.Weapon = weaponInfo;
         }
 
-        // TODO: Add remove feature
-        private async Task<(DataWeaponInfo, bool)> SelectWeapon(DataWeaponInfo weapon)
+        private async Task<(DataWeaponInfo, bool)> SelectWeapon(DataWeaponInfo weapon, bool isMain)
         {
             var weaponsInOtherDecks = _loadoutPanel.GetOtherDeckWeapons(_pos);
-            var weaponsInDeck = new[] { _actor?.MainWeapon, _actor?.SubWeapon01, _actor?.SubWeapon02 }.Where(x => x != null && x.WeaponId != weapon.WeaponId).ToArray();
+            var weaponsInDeck = new[] { _actor?.MainWeapon, _actor?.SubWeapon01, _actor?.SubWeapon02 }.Where(x => x != null && x.WeaponId != weapon?.WeaponId).ToArray();
 
-            var dlg = new WeaponSelectionDialog(weapon, weaponsInDeck, weaponsInOtherDecks);
-            if (await dlg.ShowAsync() != DialogResult.Ok)
-                return (null, false);
+            var dlg = new WeaponSelectionDialog(weapon, isMain, weaponsInDeck, weaponsInOtherDecks);
+            await dlg.ShowAsync();
 
-            return (dlg.SelectedItem, true);
+            return (dlg.SelectedItem, dlg.ShouldRemove);
         }
 
         #endregion
@@ -226,8 +247,8 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void CompanionButton_Clicked(object sender, EventArgs e)
         {
-            var (companionInfo, shouldReplace) = await SelectCompanion(_actor?.Companion);
-            if (!shouldReplace)
+            var (companionInfo, shouldRemove) = await SelectCompanion(_actor?.Companion);
+            if (companionInfo == null && !shouldRemove)
                 return;
 
             _actor.Companion = companionInfo;
@@ -241,10 +262,9 @@ namespace nier_rein_gui.Forms.SubForms
             var companionsInDeck = _loadoutPanel.GetDeckCompanions(_pos);
 
             var dlg = new CompanionSelectionDialog(companion, companionsInDeck);
-            if (await dlg.ShowAsync() != DialogResult.Ok)
-                return (null, false);
+            await dlg.ShowAsync();
 
-            return (dlg.SelectedItem, true);
+            return (dlg.SelectedItem, dlg.ShouldRemove);
         }
 
         #endregion
@@ -253,8 +273,8 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void ThoughtButton_Clicked(object sender, EventArgs e)
         {
-            var (thought, shouldReplace) = await SelectThought(_actor?.Thought);
-            if (!shouldReplace)
+            var (thought, shouldRemove) = await SelectThought(_actor?.Thought);
+            if (thought == null && !shouldRemove)
                 return;
 
             _actor.Thought = thought;
@@ -268,10 +288,9 @@ namespace nier_rein_gui.Forms.SubForms
             var thoughtsInDeck = _loadoutPanel.GetDeckThoughts(_pos);
 
             var dlg = new ThoughtSelectionDialog(thought, thoughtsInDeck);
-            if (await dlg.ShowAsync() != DialogResult.Ok)
-                return (null, false);
+            await dlg.ShowAsync();
 
-            return (dlg.SelectedItem, true);
+            return (dlg.SelectedItem, dlg.ShouldRemove);
         }
 
         #endregion
@@ -280,9 +299,24 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void Memoir1Button_Clicked(object sender, EventArgs e)
         {
-            var (memoryInfo, shouldReplace) = await SelectMemory(_actor?.Memories[0]);
-            if (!shouldReplace)
+            var (memoryInfo, shouldRemove) = await SelectMemory(_actor?.Memories[0]);
+            if (memoryInfo == null && !shouldRemove)
                 return;
+
+            if (shouldRemove)
+            {
+                _actor.Memories[0] = _actor.Memories[1];
+                _actor.Memories[1] = _actor.Memories[2];
+                _actor.Memories[2] = null;
+
+                await _loadoutPanel.ReplaceDeck();
+
+                memoir1Button.Memory = _actor.Memories[0];
+                memoir2Button.Memory = _actor.Memories[1];
+                memoir3Button.Memory = _actor.Memories[2];
+
+                return;
+            }
 
             NierMemoryItemButton button;
             if (_actor.Memories[0] == null)
@@ -308,9 +342,22 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void Memoir2Button_Clicked(object sender, EventArgs e)
         {
-            var (memoryInfo, shouldReplace) = await SelectMemory(_actor?.Memories[1]);
-            if (!shouldReplace)
+            var (memoryInfo, shouldRemove) = await SelectMemory(_actor?.Memories[1]);
+            if (memoryInfo == null && !shouldRemove)
                 return;
+
+            if (shouldRemove)
+            {
+                _actor.Memories[1] = _actor.Memories[2];
+                _actor.Memories[2] = null;
+
+                await _loadoutPanel.ReplaceDeck();
+
+                memoir2Button.Memory = _actor.Memories[1];
+                memoir3Button.Memory = _actor.Memories[2];
+
+                return;
+            }
 
             NierMemoryItemButton button;
             if (_actor.Memories[0] == null)
@@ -336,9 +383,19 @@ namespace nier_rein_gui.Forms.SubForms
 
         private async void Memoir3Button_Clicked(object sender, EventArgs e)
         {
-            var (memoryInfo, shouldReplace) = await SelectMemory(_actor?.Memories[2]);
-            if (!shouldReplace)
+            var (memoryInfo, shouldRemove) = await SelectMemory(_actor?.Memories[2]);
+            if (memoryInfo == null && !shouldRemove)
                 return;
+
+            if (shouldRemove)
+            {
+                _actor.Memories[2] = null;
+                await _loadoutPanel.ReplaceDeck();
+
+                memoir3Button.Memory = _actor.Memories[2];
+
+                return;
+            }
 
             NierMemoryItemButton button;
             if (_actor.Memories[0] == null)
@@ -362,17 +419,15 @@ namespace nier_rein_gui.Forms.SubForms
             button.Memory = memoryInfo;
         }
 
-        // TODO: Add remove feature
         private async Task<(DataOutgameMemoryInfo, bool)> SelectMemory(DataOutgameMemoryInfo memory)
         {
             var memoriesInOtherDeck = _loadoutPanel.GetDeckMemoirs(_pos);
-            var memoriesInDeck = _actor?.Memories.Where(x => x != null && x.PartsId != memory.PartsId).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
+            var memoriesInDeck = _actor?.Memories.Where(x => x != null && x.UserMemoryUuid != memory?.UserMemoryUuid).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
 
             var dlg = new MemorySelectionDialog(memory, memoriesInDeck, memoriesInOtherDeck);
-            if (await dlg.ShowAsync() != DialogResult.Ok)
-                return (null, false);
+            await dlg.ShowAsync();
 
-            return (dlg.SelectedItem, true);
+            return (dlg.SelectedItem, dlg.ShouldRemove);
         }
 
         #endregion

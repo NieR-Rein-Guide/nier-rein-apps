@@ -53,6 +53,8 @@ namespace NierReincarnation.Core.Dark
         // 0x2A0
         public EntityMBattleRentalDeckTable EntityMBattleRentalDeckTable { get; private set; }
 
+        // 0x2B0
+        public EntityMBeginnerCampaignTable EntityMBeginnerCampaignTable { get; private set; }
         // 0x2B8
         public EntityMBigHuntBossTable EntityMBigHuntBossTable { get; private set; }
         // 0x2C0
@@ -87,6 +89,8 @@ namespace NierReincarnation.Core.Dark
         // 0x428
         public EntityMCharacterLevelBonusAbilityGroupTable EntityMCharacterLevelBonusAbilityGroupTable { get; private set; }
 
+        // 0x458
+        public EntityMComebackCampaignTable EntityMComebackCampaignTable { get; private set; }
         // 0x460
         public EntityMCompanionTable EntityMCompanionTable { get; private set; }
         // 0x468
@@ -518,8 +522,9 @@ namespace NierReincarnation.Core.Dark
             EntityMQuestBonusWeaponGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusWeaponGroup[], EntityMQuestBonusWeaponGroupTable>(groups => new EntityMQuestBonusWeaponGroupTable(groups)));
 
             EntityMThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMThought[], EntityMThoughtTable>(thoughts => new EntityMThoughtTable(thoughts)));
-
             EntityMCostumeAwakenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwaken[], EntityMCostumeAwakenTable>(awakens => new EntityMCostumeAwakenTable(awakens)));
+            EntityMBeginnerCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBeginnerCampaign[], EntityMBeginnerCampaignTable>(campaigns => new EntityMBeginnerCampaignTable(campaigns)));
+            EntityMComebackCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMComebackCampaign[], EntityMComebackCampaignTable>(campaigns => new EntityMComebackCampaignTable(campaigns)));
         }
     }
 }

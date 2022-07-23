@@ -18,6 +18,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override bool ShowAttributeFilter => false;
         protected override bool ShowWeaponTypeFilter => true;
         protected override bool ShowRarityFilter => true;
+        protected override bool ShowRemoveButton => false;
 
         public CostumeSelectionDialog(DataOutgameCostumeInfo currentCostume, DataOutgameCostumeInfo[] deckOtherCostumes)
         {
@@ -58,7 +59,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override IEnumerable<DataOutgameCostumeInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
         {
             var sortedElements = _costumeInfo.Keys
-                .OrderByDescending(x => x.RarityType)
+                .OrderBy(x => GetButton(x).Hint)
+                .ThenByDescending(x => x.RarityType)
                 .ThenBy(x => x.WeaponType);
 
             foreach (var costumeInfo in sortedElements)

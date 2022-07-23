@@ -40,6 +40,12 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeMilliseconds(unixTime), TimeZoneInfo.Local);
         }
 
+        // CUSTOM: Parse unix time to type-safe UTC
+        public static long ToUnixTime(DateTimeOffset dateTime)
+        {
+            return TimeZoneInfo.ConvertTime(dateTime, PstTimezone).ToUnixTimeMilliseconds();
+        }
+
         //public static bool IsAfterTodaySpanningTime(DateTimeOffset checkDateTime)
         //{
         //    // CUSTOM: Logic to check if checkDateTime is after start of current day

@@ -19,6 +19,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override bool ShowAttributeFilter => false;
         protected override bool ShowWeaponTypeFilter => false;
         protected override bool ShowRarityFilter => true;
+        protected override bool ShowRemoveButton => _currentMemory != null;
 
         public MemorySelectionDialog(DataOutgameMemoryInfo currentMemory, DataOutgameMemoryInfo[] currentMemories, DataOutgameMemoryInfo[] deckOtherMemories)
         {
@@ -60,7 +61,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override IEnumerable<DataOutgameMemoryInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
         {
             var sortedElements = _memoryInfo.Keys
-                .OrderByDescending(x => x.RarityType);
+                .OrderBy(x => GetButton(x).Hint)
+                .ThenByDescending(x => x.RarityType);
 
             foreach (var memoryInfo in sortedElements)
             {
@@ -76,9 +78,9 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         private bool IsValidItem(DataOutgameMemoryInfo memoryInfo)
         {
-            return _currentMemory?.PartsId != memoryInfo.PartsId &&
+            return _currentMemory?.UserMemoryUuid != memoryInfo.UserMemoryUuid &&
                    _currentMemories.All(x => x.PartsId != memoryInfo.PartsId) &&
-                   _deckOtherMemories.All(x => x.PartsId != memoryInfo.PartsId);
+                   _deckOtherMemories.All(x => x.UserMemoryUuid != memoryInfo.UserMemoryUuid);
         }
 
         private NierItemButton.HintType GetHintType(DataOutgameMemoryInfo memoryInfo)

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using NierReincarnation.Core.Dark.Component.Story;
+﻿using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
@@ -32,7 +31,7 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
         public QuestMissionData[] MissionData { get; set; }
 
         // 0x68
-        public List<DataCampaign> Campaigns { get; set; }
+        public DataCampaigns Campaigns { get; set; }
 
         // CUSTOM: Determines if a quest should not be shown to the user (cleared and marked as no show; timeframe unavilable; etc.)
         public bool IsAvailable { get; set; }

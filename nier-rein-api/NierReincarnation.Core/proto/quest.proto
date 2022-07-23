@@ -2,6 +2,8 @@
 
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Quest";
 
+import "proto/data.proto";
+
 package apb.api.quest;
 
 service QuestService {
@@ -24,7 +26,7 @@ message StartEventQuestRequest {
 
 message StartEventQuestResponse {
 	repeated BattleDropReward battleDropReward = 1;
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message StartMainQuestRequest {
@@ -39,7 +41,7 @@ message StartMainQuestRequest {
 
 message StartMainQuestResponse {
 	repeated BattleDropReward BattleDropReward = 1;
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message FinishEventQuestRequest {
@@ -60,7 +62,7 @@ message FinishEventQuestResponse {
 	repeated QuestReward autoOrbitResult = 5;
 	bool isBigWin = 6;
 	repeated int32 bigWinClearedQuestMissionIdList = 7;
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message FinishMainQuestRequest {
@@ -83,7 +85,7 @@ message FinishMainQuestResponse {
 	bool isBigWin = 6;
 	repeated int32 bigWinClearedQuestMissionIdList = 7;
 	repeated QuestReward replayFlowFirstClearReward = 8;
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message UpdateEventQuestSceneProgressRequest {
@@ -91,7 +93,7 @@ message UpdateEventQuestSceneProgressRequest {
 }
 
 message UpdateEventQuestSceneProgressResponse {
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message UpdateMainQuestSceneProgressRequest {
@@ -99,7 +101,7 @@ message UpdateMainQuestSceneProgressRequest {
 }
 
 message UpdateMainQuestSceneProgressResponse {
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message UpdateMainFlowSceneProgressRequest {
@@ -107,7 +109,7 @@ message UpdateMainFlowSceneProgressRequest {
 }
 
 message UpdateMainFlowSceneProgressResponse {
-	map<string,DiffData> diffUserData = 99;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 
 message BattleDropReward {
@@ -134,9 +136,4 @@ message QuestReward {
 message CageMeasurableValues {
 	int32 runningDistanceMeters = 1;
 	int32 mamaTappedCount = 2;
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
 }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.User;
+using Newtonsoft.Json;
 using NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api;
+using NierReincarnation.Core.Dark;
 
 namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
 {
@@ -19,6 +22,15 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
             SetGameTimeNow?.Invoke(commonResponse.responseDatetime);
 
             var userDiff = UserDiffInfo.GetUserDiff(responseContext);
+
+            // CUSTOM: Update user diff data in User Database
+            if (userDiff != null && userDiff.Count > 0)
+            {
+                foreach (var userData in userDiff)
+                    DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
+            }
+
+            // Update specially on registering a user
             if (userDiff != null && userDiff.Count > 0 && responseContext.ResponseType.Name == nameof(RegisterUserResponse))
             {
                 // HINT: Looping through MapField

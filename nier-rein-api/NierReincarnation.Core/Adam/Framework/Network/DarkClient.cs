@@ -345,6 +345,14 @@ namespace NierReincarnation.Core.Adam.Framework.Network
                     new ResponseContext<ReplaceDeckResponse>(new DeckService.DeckServiceClient(GetCallInvoker(ctx.Channel)).ReplaceDeckAsync((ReplaceDeckRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
+        public Task<RemoveDeckResponse> RemoveDeckAsync(RemoveDeckRequest request)
+        {
+            var path = "DeckService/RemoveDeckAsync";
+            return InvokeAsync<RemoveDeckResponse, RemoveDeckRequest>(path, request,
+                ctx =>
+                    new ResponseContext<RemoveDeckResponse>(new DeckService.DeckServiceClient(GetCallInvoker(ctx.Channel)).RemoveDeckAsync((RemoveDeckRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
         #endregion
 
         #region Invokation methods

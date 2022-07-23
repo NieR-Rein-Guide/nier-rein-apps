@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Linq;
+using System.Numerics;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
@@ -6,9 +7,11 @@ using ImGui.Forms.Models;
 using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Resources;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface;
+using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
 namespace nier_rein_gui.Forms.SubForms
@@ -53,19 +56,21 @@ namespace nier_rein_gui.Forms.SubForms
             var quests = GetChapterQuests(chapter, type);
             foreach (var quest in quests)
             {
+                var campaigns = CalculatorCampaign.CreateDataQuestCampaignAll(quest.Quest);
+                var stamCampaign = campaigns.TotalCampaignList.FirstOrDefault(x => (x as DataQuestCampaign).QuestCampaignEffectType == QuestCampaignEffectType.STAMINA_CONSUME_AMOUNT);
+
+                // TODO: Using campaigns to reduce stamina and make it noticable by changing color
                 var btn = new NierQuestButton
                 {
                     Padding = new Vector2(2, 2),
                     Width = 1f,
-                    SubFont = FontResources.FotRodin(12),
-                    DailyFont = FontResources.FotRodin(9),
-                    ClearFont = FontResources.FotRodin(11),
                     Caption = quest.QuestName,
                     Stamina = quest.Quest.EntityQuest.Stamina,
                     SuggestedPower = quest.RecommendPower,
                     IsClear = quest.IsClearQuest,
                     Enabled = !quest.IsLock,
-                    IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0
+                    IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0,
+                    StaminaCampaign = stamCampaign as DataQuestCampaign
                 };
                 btn.Clicked += async (s, e) => await FightAsync(chapter, type, quests, quest);
 

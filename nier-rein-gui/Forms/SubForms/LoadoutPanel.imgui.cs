@@ -2,6 +2,7 @@
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
 using ImGuiNET;
+using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
@@ -22,11 +23,16 @@ namespace nier_rein_gui.Forms.SubForms
         private LoadoutActorPanel actor1;
         private LoadoutActorPanel actor2;
         private LoadoutActorPanel actor3;
+        private NierButton deleteButton;
 
         protected DataDeckInfo[] Decks { get; private set; }
 
         protected int CurrentDeckNumber { get; private set; }
-        private DataDeckInfo CurrentDeck => Decks[CurrentDeckNumber - 1];
+        private DataDeckInfo CurrentDeck
+        {
+            get => Decks[CurrentDeckNumber - 1];
+            set => Decks[CurrentDeckNumber - 1] = value;
+        }
 
         private void InitializeComponent()
         {
@@ -38,6 +44,7 @@ namespace nier_rein_gui.Forms.SubForms
             actor1 = new LoadoutActorPanel(_rein, this, 0);
             actor2 = new LoadoutActorPanel(_rein, this, 1);
             actor3 = new LoadoutActorPanel(_rein, this, 2);
+            deleteButton = new NierButton { Caption = UserInterfaceTextKey.Deck.kDeleteDeck.Localize() };
 
             Content = new StackLayout
             {
@@ -80,7 +87,8 @@ namespace nier_rein_gui.Forms.SubForms
                                             actor1,
                                             actor3
                                         }
-                                    }
+                                    },
+                                    deleteButton
                                 }
                             },
                             new StackItem(nextButton) {VerticalAlignment = VerticalAlignment.Center}
@@ -104,11 +112,13 @@ namespace nier_rein_gui.Forms.SubForms
                 actor3.Reset(false);
 
                 deckNameLabel.Caption = UserInterfaceTextKey.Deck.kTypeQuest.Localize() + $"{deckNumber}";
+                deleteButton.Enabled = false;
 
                 return;
             }
 
             deckNameLabel.Caption = string.IsNullOrEmpty(CurrentDeck.Name) ? UserInterfaceTextKey.Deck.kTypeQuest.Localize() + $"{deckNumber}" : CurrentDeck.Name;
+            deleteButton.Enabled = true;
 
             for (var i = 0; i < CurrentDeck.UserDeckActors.Length; i++)
             {

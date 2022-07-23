@@ -18,6 +18,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override bool ShowAttributeFilter => true;
         protected override bool ShowWeaponTypeFilter => false;
         protected override bool ShowRarityFilter => false;
+        protected override bool ShowRemoveButton => _currentCompanion != null;
 
         public CompanionSelectionDialog(DataOutgameCompanionInfo currentCompanion, DataOutgameCompanionInfo[] deckCompanions)
         {
@@ -58,7 +59,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         protected override IEnumerable<DataOutgameCompanionInfo> EnumerateItems(IList<AttributeType> attributeFilter, IList<WeaponType> weaponFilter, IList<RarityType> rarityFilter)
         {
             var sortedElements = _companionInfo.Keys
-                .OrderByDescending(x => x.Attribute);
+                .OrderBy(x => GetButton(x).Hint)
+                .ThenByDescending(x => x.Attribute);
 
             foreach (var companionInfo in sortedElements)
             {

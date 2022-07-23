@@ -19,9 +19,11 @@ namespace nier_rein_gui.Controls.Buttons.Items
         private static readonly uint DisabledColor = Color.FromArgb(0x88, 0x00, 0x00, 0x00).ToUInt32();
         private static readonly uint TextActiveColor = Color.FromArgb(0x2D, 0x29, 0x28).ToUInt32();
 
+        #region Properties
+
         private FontResource HintFont => Resources.FontResources.FotRodin(11);
 
-        public HintType Hint { get; set; }
+        public HintType Hint { get; set; } = HintType.None;
 
         public bool Enabled { get; set; } = true;
 
@@ -29,7 +31,13 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
         public bool HasBonus { get; set; }
 
+        #endregion
+
+        #region Events
+
         public event EventHandler Clicked;
+
+        #endregion
 
         public override Size GetSize()
         {
@@ -184,9 +192,9 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
         public enum HintType
         {
-            None,
             Current,
-            InDeck
+            InDeck,
+            None
         }
     }
 }

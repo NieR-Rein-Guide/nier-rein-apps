@@ -54,12 +54,15 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         private readonly List itemList;
 
         private readonly NierButton selectButton;
+        private readonly NierItemRemoveButton removeButton;
 
         protected abstract bool ShowAttributeFilter { get; }
         protected abstract bool ShowWeaponTypeFilter { get; }
         protected abstract bool ShowRarityFilter { get; }
+        protected abstract bool ShowRemoveButton { get; }
 
         public T SelectedItem { get; private set; }
+        public bool ShouldRemove { get; private set; }
 
         public FilterItemDialog()
         {
@@ -71,9 +74,11 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
             var cancelButton = new NierButton { Caption = "Cancel" };
             selectButton = new NierButton { Caption = "Select", Enabled = false };
+            removeButton = new NierItemRemoveButton();
 
             cancelButton.Clicked += CancelButton_Clicked;
             selectButton.Clicked += SelectButton_Clicked;
+            removeButton.Clicked += RemoveButton_Clicked;
 
             Size = new Vector2(GetDialogWidth(), Application.Instance.MainForm.Height - 50);
             Content = new StackLayout
@@ -98,10 +103,18 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
                     }
                 }
             };
+
+            Result = DialogResult.Cancel;
         }
 
         protected override Task CloseInternal()
         {
+            if (Result == DialogResult.Cancel)
+            {
+                SelectedItem = default;
+                ShouldRemove = false;
+            }
+
             if (_activeItemButton != null)
                 _activeItemButton.Selected = false;
 
@@ -273,6 +286,18 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             StackLayout currentRow = null;
             var weaponIndex = 0;
 
+            // Add remove button
+            if (ShowRemoveButton)
+            {
+                currentRow = new StackLayout { Alignment = Alignment.Horizontal, ItemSpacing = FilterItemSpacing_ };
+                itemList.Items.Add(currentRow);
+
+                currentRow.Items.Add(removeButton);
+
+                weaponIndex++;
+            }
+
+            // Add remaining items
             foreach (var item in EnumerateItems(_attributeFilter, _weaponFilter, _rarityFilter))
             {
                 if (weaponIndex % widthCount == 0)
@@ -463,10 +488,24 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             Close(DialogResult.Cancel);
         }
 
+        private void RemoveButton_Clicked(object sender, EventArgs e)
+        {
+            if (_activeItemButton != null)
+                _activeItemButton.Selected = false;
+
+            removeButton.Selected = true;
+            _activeItemButton = null;
+
+            SelectedItem = default;
+            ShouldRemove = true;
+            selectButton.Enabled = true;
+        }
+
         protected void SelectItemButton_Clicked(object sender, EventArgs e)
         {
             var button = sender as NierItemButton;
 
+            removeButton.Selected = false;
             if (_activeItemButton != null)
                 _activeItemButton.Selected = false;
 
@@ -474,6 +513,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _activeItemButton = button;
 
             SelectedItem = GetItem(button);
+            ShouldRemove = false;
             selectButton.Enabled = true;
         }
 

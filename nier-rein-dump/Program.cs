@@ -16,6 +16,7 @@ using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+using NierReincarnation.Core.UnityEngine;
 using NierReincarnation.Localizations;
 using NierReinDb.Database;
 using NierReinDb.Database.Models;
@@ -47,8 +48,10 @@ namespace NierReinDb
         {
             var reinConfig = EnsureNierReinConfig();
 
+            Application.Version = "2.10.0";
+
             await NierReincarnation.NierReincarnation.PrepareCommandLine(reinConfig.User, reinConfig.Password);
-            await NierReincarnation.NierReincarnation.LoadLocalizations(Language.En);
+            await NierReincarnation.NierReincarnation.LoadLocalizations(Language.English);
         }
 
         private static NierReinConfig EnsureNierReinConfig()

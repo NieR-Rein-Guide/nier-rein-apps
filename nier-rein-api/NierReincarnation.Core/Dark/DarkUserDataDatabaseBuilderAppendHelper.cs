@@ -18,11 +18,13 @@ namespace NierReincarnation.Core.Dark
             parsers = new Dictionary<string, Func<IEnumerable<object>, IEnumerable<object>>>
             {
                 ["IUser"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUser>()),
+                ["IUserBeginnerCampaign"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserBeginnerCampaign>()),
                 ["IUserBigHuntMaxScore"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserBigHuntMaxScore>()),
                 ["IUserBigHuntProgressStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserBigHuntProgressStatus>()),
                 ["IUserBigHuntStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserBigHuntStatus>()),
                 ["IUserCharacter"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserCharacter>()),
                 ["IUserCharacterCostumeLevelBonus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserCharacterCostumeLevelBonus>()),
+                ["IUserComebackCampaign"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserComebackCampaign>()),
                 ["IUserCharacterBoardAbility"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserCharacterBoardAbility>()),
                 ["IUserCharacterBoardStatusUp"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserCharacterBoardStatusUp>()),
                 ["IUserConsumableItem"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserConsumableItem>()),
@@ -57,11 +59,13 @@ namespace NierReincarnation.Core.Dark
             appenders = new Dictionary<string, Action<DarkUserDatabaseBuilder, IEnumerable<object>>>
             {
                 ["IUser"] = (builder, records) => builder.Append(records.Cast<EntityIUser>()),
+                ["IUserBeginnerCampaign"] = (builder, records) => builder.Append(records.Cast<EntityIUserBeginnerCampaign>()),
                 ["IUserBigHuntMaxScore"] = (builder, records) => builder.Append(records.Cast<EntityIUserBigHuntMaxScore>()),
                 ["IUserBigHuntProgressStatus"] = (builder, records) => builder.Append(records.Cast<EntityIUserBigHuntProgressStatus>()),
                 ["IUserBigHuntStatus"] = (builder, records) => builder.Append(records.Cast<EntityIUserBigHuntStatus>()),
                 ["IUserCharacter"] = (builder, records) => builder.Append(records.Cast<EntityIUserCharacter>()),
                 ["IUserCharacterCostumeLevelBonus"] = (builder, records) => builder.Append(records.Cast<EntityIUserCharacterCostumeLevelBonus>()),
+                ["IUserComebackCampaign"] = (builder, records) => builder.Append(records.Cast<EntityIUserComebackCampaign>()),
                 ["IUserCharacterBoardAbility"] = (builder, records) => builder.Append(records.Cast<EntityIUserCharacterBoardAbility>()),
                 ["IUserCharacterBoardStatusUp"] = (builder, records) => builder.Append(records.Cast<EntityIUserCharacterBoardStatusUp>()),
                 ["IUserConsumableItem"] = (builder, records) => builder.Append(records.Cast<EntityIUserConsumableItem>()),
@@ -96,11 +100,13 @@ namespace NierReincarnation.Core.Dark
             differs = new Dictionary<string, Action<DarkUserMemoryDatabase, object>>
             {
                 ["IUser"] = (db, record) => SetData(db, (EntityIUser)record, d => d.EntityIUserTable, (d, r) => d.EntityIUserTable.FindByUserId(r.UserId)),
+                ["IUserBeginnerCampaign"] = (db, record) => SetData(db, (EntityIUserBeginnerCampaign)record, d => d.EntityIUserBeginnerCampaignTable, (d, r) => d.EntityIUserBeginnerCampaignTable.FindByUserId(r.UserId)),
                 ["IUserBigHuntMaxScore"] = (db, record) => SetData(db, (EntityIUserBigHuntMaxScore)record, d => d.EntityIUserBigHuntMaxScoreTable, (d, r) => d.EntityIUserBigHuntMaxScoreTable.FindByUserIdAndBigHuntBossId((r.UserId, r.BigHuntBossId))),
                 ["IUserBigHuntProgressStatus"] = (db, record) => SetData(db, (EntityIUserBigHuntProgressStatus)record, d => d.EntityIUserBigHuntProgressStatusTable, (d, r) => d.EntityIUserBigHuntProgressStatusTable.FindByUserId(r.UserId)),
                 ["IUserBigHuntStatus"] = (db, record) => SetData(db, (EntityIUserBigHuntStatus)record, d => d.EntityIUserBigHuntStatusTable, (d, r) => d.EntityIUserBigHuntStatusTable.FindByUserIdAndBigHuntBossQuestId((r.UserId, r.BigHuntBossQuestId))),
                 ["IUserCharacter"] = (db, record) => SetData(db, (EntityIUserCharacter)record, d => d.EntityIUserCharacterTable, (d, r) => d.EntityIUserCharacterTable.FindByUserIdAndCharacterId((r.UserId, r.CharacterId))),
                 ["IUserCharacterCostumeLevelBonus"] = (db, record) => SetData(db, (EntityIUserCharacterCostumeLevelBonus)record, d => d.EntityIUserCharacterCostumeLevelBonusTable, (d, r) => d.EntityIUserCharacterCostumeLevelBonusTable.FindByUserIdAndCharacterIdAndStatusCalculationType((r.UserId, r.CharacterId, r.StatusCalculationType))),
+                ["IUserComebackCampaign"] = (db, record) => SetData(db, (EntityIUserComebackCampaign)record, d => d.EntityIUserComebackCampaignTable, (d, r) => d.EntityIUserComebackCampaignTable.FindByUserId(r.UserId)),
                 ["IUserCharacterBoardAbility"] = (db, record) => SetData(db, (EntityIUserCharacterBoardAbility)record, d => d.EntityIUserCharacterBoardAbilityTable, (d, r) => d.EntityIUserCharacterBoardAbilityTable.FindByUserIdAndCharacterIdAndAbilityId((r.UserId, r.CharacterId, r.AbilityId))),
                 ["IUserCharacterBoardStatusUp"] = (db, record) => SetData(db, (EntityIUserCharacterBoardStatusUp)record, d => d.EntityIUserCharacterBoardStatusUpTable, (d, r) => d.EntityIUserCharacterBoardStatusUpTable.FindByUserIdAndCharacterIdAndStatusCalculationType((r.UserId, r.CharacterId, r.StatusCalculationType))),
                 ["IUserConsumableItem"] = (db, record) => SetData(db, (EntityIUserConsumableItem)record, d => d.EntityIUserConsumableItemTable, (d, r) => d.EntityIUserConsumableItemTable.FindByUserIdAndConsumableItemId((r.UserId, r.ConsumableItemId))),

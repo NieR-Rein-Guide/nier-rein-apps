@@ -31,7 +31,7 @@ namespace NierReincarnation.Core.Dark.Networking
                 if (!string.IsNullOrEmpty(_serverAddress))
                     return _serverAddress;
 
-                return _serverAddress = Application.Language == Language.English ? EntryPoint.Config.Api.HostnameEn : EntryPoint.Config.Api.HostnameJp;
+                return _serverAddress = EntryPoint.Config.Api.GetHostname(Application.Language);
             }
             set => _serverAddress = value;
         }
@@ -55,7 +55,7 @@ namespace NierReincarnation.Core.Dark.Networking
                 if (!string.IsNullOrEmpty(_serverAddress))
                     return _serverAddress;
 
-                return _serverAddress = Application.Language == Language.English ? EntryPoint.Config.Api.HostnameEn : EntryPoint.Config.Api.HostnameJp;
+                return _serverAddress = EntryPoint.Config.Api.GetHostname(Application.Language);
             }
         }
 

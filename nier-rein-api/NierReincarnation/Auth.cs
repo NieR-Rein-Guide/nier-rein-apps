@@ -33,7 +33,7 @@ namespace NierReincarnation
         /// <summary>
         /// Returns userId for the credentials given for SquareEnix Bridge.
         /// </summary>
-        public static async Task<(string, long, string)> LoginSquareEnixBridge(string username, string password)
+        public static async Task<(string, long, string)> LoginSquareEnixBridge(string username, string password, Func<Task<string>> otpCallback)
         {
             var dc = new DarkClient();
 
@@ -46,7 +46,7 @@ namespace NierReincarnation
                 return default;
 
             // Use browser
-            CallBrowser(backupTokenRes.BackupToken, username, password);
+            await CallBrowser(backupTokenRes.BackupToken, username, password, otpCallback);
 
             // Get user id
             var transferRes = await dc.TransferUserAsync(new TransferUserRequest { Uuid = uuid });
@@ -56,7 +56,7 @@ namespace NierReincarnation
             return (uuid, transferRes.UserId, transferRes.Signature);
         }
 
-        private static void CallBrowser(string backupToken, string username, string password)
+        private static async Task CallBrowser(string backupToken, string username, string password, Func<Task<string>> otpCallback)
         {
             // Set up web driver
             var manager = new DriverManager();
@@ -71,7 +71,7 @@ namespace NierReincarnation
                     driver = driverDelegate(manager);
 
                     // Login by browser
-                    LoginByBrowser(driver, backupToken, username, password);
+                    await LoginByBrowser(driver, backupToken, username, password, otpCallback);
                     break;
                 }
                 catch (Exception e)
@@ -121,7 +121,7 @@ namespace NierReincarnation
 
         #endregion
 
-        private static void LoginByBrowser(IWebDriver driver, string backupToken, string username, string password)
+        private static async Task LoginByBrowser(IWebDriver driver, string backupToken, string username, string password, Func<Task<string>> otpCallback)
         {
             // Execute account choice
             driver.Navigate().GoToUrl($"https://psg.sqex-bridge.jp/ntv/288/update/top?type=2&token={backupToken}");
@@ -131,6 +131,19 @@ namespace NierReincarnation
             driver.FindElement(By.Id("sqexid")).SendKeys(username);
             driver.FindElement(By.Id("password")).SendKeys(password);
             driver.FindElement(By.Name("login")).Submit();
+
+            // Execute 2FA
+            var otpElement = driver.FindElements(By.Name("otppw")).FirstOrDefault(e => e.TagName == "input");
+            if (otpElement != null)
+            {
+                if (otpCallback == null)
+                    return;
+
+                var otp = await otpCallback();
+                otpElement.SendKeys(otp);
+
+                driver.FindElement(By.Id("login-button")).Click();
+            }
 
             // Execute confirmation
             var _ = driver.PageSource;  // HINT: Get page to load with this, before trying to click the button

@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -17,5 +18,9 @@ namespace NierReincarnation.Core.Dark
         public long StartDatetime { get; set; }
         [Key(4)] // RVA: 0x1DE1D4C Offset: 0x1DE1D4C VA: 0x1DE1D4C
         public long EndDatetime { get; set; }
-	}
+        [Key(5)] // RVA: 0x1EA493C Offset: 0x1EA493C VA: 0x1EA493C
+        public TargetUserStatusType TargetUserStatusType { get; set; }
+        [Key(6)] // RVA: 0x1EA4950 Offset: 0x1EA4950 VA: 0x1EA4950
+        public int SortOrder { get; set; }
+    }
 }

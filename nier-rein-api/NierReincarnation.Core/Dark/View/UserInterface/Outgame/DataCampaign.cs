@@ -1,4 +1,6 @@
-﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+
+namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
 {
     public class DataCampaign
     {
@@ -9,6 +11,10 @@
         // 0x14
         public int CampaignId { set => campaignId = value; }
         // 0x18
+        public TargetUserStatusType TargetUserStatusType { get; set; }
+        // 0x1C
+        public int SortOrder { get; set; }
+        // 0x20
         public long EndTime { get; set; }
-    }
+	}
 }

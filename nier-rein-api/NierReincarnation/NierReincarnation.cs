@@ -17,6 +17,7 @@ using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.UnityEngine;
 using NierReincarnation.Localizations;
+using Config = NierReincarnation.Core.Dark.EntryPoint.Config;
 
 namespace NierReincarnation
 {
@@ -64,14 +65,15 @@ namespace NierReincarnation
         /// </summary>
         /// <param name="username">The user to log in with. Will only be used if a user is not already present.</param>
         /// <param name="password">The password of the user. Will only be used if a user is not already present.</param>
+        /// <param name="otpCallback">A callback to receive the OTP for logging.</param>
         /// <returns><see cref="Task"/> representing the setup operation.</returns>
-        public static async Task PrepareCommandLine(string username, string password)
+        public static async Task PrepareCommandLine(string username, string password, Func<Task<string>> otpCallback = null)
         {
             Setup();
 
             if (!IsLoggedIn())
             {
-                var isLoggedIn = await Login(username, password);
+                var isLoggedIn = await Login(username, password, otpCallback);
                 if (!isLoggedIn)
                     return;
             }
@@ -118,14 +120,14 @@ namespace NierReincarnation
             return PlayerPrefs.Exists;
         }
 
-        public static async Task<bool> Login(string username, string password)
+        public static async Task<bool> Login(string username, string password, Func<Task<string>> otpCallback = null)
         {
             // Setup application instances
             if (!IsSetup)
                 Setup();
 
             // Login user
-            return await LoginUser(username, password);
+            return await LoginUser(username, password, otpCallback);
         }
 
         /// <summary>
@@ -199,11 +201,11 @@ namespace NierReincarnation
             IsInitialized = true;
         }
 
-        private static async Task<bool> LoginUser(string username, string password)
+        private static async Task<bool> LoginUser(string username, string password, Func<Task<string>> otpCallback)
         {
             // Login with SquareEnix-Bridge account
             Console.WriteLine($"Login user '{username}'.");
-            var (uuid, userId, signature) = await Auth.LoginSquareEnixBridge(username, password);
+            var (uuid, userId, signature) = await Auth.LoginSquareEnixBridge(username, password, otpCallback);
             if (uuid == null)
                 return false;
 
@@ -216,7 +218,7 @@ namespace NierReincarnation
         private static void SetUser(string uuid, long userId, string signature)
         {
             // Set user to local player preferences
-            var activePlayer = new PlayerRegistration(uuid) { UserId = userId, Signature = signature, ServerAddressAndPort = "api.app.nierreincarnation.com443" };
+            var activePlayer = new PlayerRegistration(uuid) { UserId = userId, Signature = signature, ServerAddressAndPort = Config.Api.GetHostname(Application.Language) + Config.Api.Port };
 
             PlayerPreference.Instance.ActivePlayer = activePlayer;
 

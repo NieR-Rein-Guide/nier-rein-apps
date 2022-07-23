@@ -7,7 +7,10 @@ using nier_rein_gui.Extensions;
 using NierReincarnation;
 using System.Threading.Tasks;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
 namespace nier_rein_gui.Forms.SubForms
 {
@@ -28,11 +31,25 @@ namespace nier_rein_gui.Forms.SubForms
             deckNameButton.Clicked += DeckNameButton_Clicked;
             previousButton.Clicked += PreviousButton_Clicked;
             nextButton.Clicked += NextButton_Clicked;
+
+            deleteButton.Clicked += DeleteButton_Clicked;
         }
 
         #region Events
 
-        private void NextButton_Clicked(object sender, System.EventArgs e)
+        private async void DeleteButton_Clicked(object sender, EventArgs e)
+        {
+            var result = await MessageBox.ShowYesNoAsync(UserInterfaceTextKey.Deck.kDeleteTitleTextKey.Localize(), $"Are you sure you want to delete '{CurrentDeck}'?");
+            if (result != DialogResult.Yes)
+                return;
+
+            await _rein.Decks.Remove(CurrentDeckNumber, CurrentDeck.DeckType);
+
+            CurrentDeck = new DataDeckInfo(DeckType.QUEST, CurrentDeckNumber);
+            UpdateDeck(CurrentDeckNumber);
+        }
+
+        private void NextButton_Clicked(object sender, EventArgs e)
         {
             var nextDeckNumber = CurrentDeckNumber + 1;
             if (nextDeckNumber > 10)
@@ -41,7 +58,7 @@ namespace nier_rein_gui.Forms.SubForms
             UpdateDeck(nextDeckNumber);
         }
 
-        private void PreviousButton_Clicked(object sender, System.EventArgs e)
+        private void PreviousButton_Clicked(object sender, EventArgs e)
         {
             var previousDeckNumber = CurrentDeckNumber - 1;
             if (previousDeckNumber <= 0)
@@ -50,7 +67,7 @@ namespace nier_rein_gui.Forms.SubForms
             UpdateDeck(previousDeckNumber);
         }
 
-        private async void DeckNameButton_Clicked(object sender, System.EventArgs e)
+        private async void DeckNameButton_Clicked(object sender, EventArgs e)
         {
             if (CurrentDeck.IsEmpty)
             {
@@ -94,6 +111,8 @@ namespace nier_rein_gui.Forms.SubForms
                 var actorPanel = pos == 0 ? actor2 : actor3;
                 actorPanel.Reset(true);
             }
+
+            deleteButton.Enabled = true;
 
             return CurrentDeck.UserDeckActors[pos] = new DataDeckActorInfo();
         }

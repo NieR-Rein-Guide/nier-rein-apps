@@ -2,13 +2,15 @@
 
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Deck";
 
+import "proto/data.proto";
+
 package apb.api.deck;
 
 service DeckService {
 	rpc UpdateName (UpdateNameRequest) returns (UpdateNameResponse);
 	rpc ReplaceDeck (ReplaceDeckRequest) returns (ReplaceDeckResponse);
 	//rpc CopyDeck (CopyDeckRequest) returns (CopyDeckResponse);
-	//rpc RemoveDeck (RemoveDeckRequest) returns (RemoveDeckResponse);
+	rpc RemoveDeck (RemoveDeckRequest) returns (RemoveDeckResponse);
 }
 
 message UpdateNameRequest {
@@ -18,7 +20,7 @@ message UpdateNameRequest {
 }
 
 message UpdateNameResponse {
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message ReplaceDeckRequest {
@@ -28,7 +30,16 @@ message ReplaceDeckRequest {
 }
 
 message ReplaceDeckResponse {
-	map<string, DiffData> diffUserData = 99;
+	map<string, apb.api.data.DiffData> diffUserData = 99;
+}
+
+message RemoveDeckRequest {
+	int32 deckType = 1;
+	int32 userDeckNumber = 2;
+}
+
+message RemoveDeckResponse {
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message Deck {
@@ -45,9 +56,4 @@ message DeckCharacter {
 	repeated string userPartsUuid = 5;
 	int32 userDressupId = 6;
 	string userThoughtUuid = 7;
-}
-
-message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
 }

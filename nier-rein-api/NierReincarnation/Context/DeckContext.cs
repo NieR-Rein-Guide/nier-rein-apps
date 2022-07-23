@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Deck;
-using Newtonsoft.Json;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -17,27 +15,29 @@ namespace NierReincarnation.Context
 
         public async Task Replace(DataDeckInfo deck)
         {
-            var replaceRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var replaceReq = CreateReplaceDeckRequest(deck);
                 return await _dc.DeckService.ReplaceDeckAsync(replaceReq);
             });
-
-            foreach (var userData in replaceRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
         }
 
         public async Task Rename(int userDeckNumber, DeckType deckType, string name)
         {
-            // TODO: Handle request limit
-            var renameRes = await TryRequest(async () =>
+            await TryRequest(async () =>
             {
                 var renameReq = CreateUpdateNameRequest(userDeckNumber, deckType, name);
                 return await _dc.DeckService.UpdateNameAsync(renameReq);
             });
+        }
 
-            foreach (var userData in renameRes.DiffUserData)
-                DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
+        public async Task Remove(int userDeckNumber, DeckType deckType)
+        {
+            await TryRequest(async () =>
+            {
+                var removeReq = CreateRemoveDeckRequest(userDeckNumber, deckType);
+                return await _dc.DeckService.RemoveDeckAsync(removeReq);
+            });
         }
 
         private UpdateNameRequest CreateUpdateNameRequest(int userDeckNumber, DeckType deckType, string name)
@@ -47,6 +47,15 @@ namespace NierReincarnation.Context
                 UserDeckNumber = userDeckNumber,
                 DeckType = (int)deckType,
                 Name = name
+            };
+        }
+
+        private RemoveDeckRequest CreateRemoveDeckRequest(int userDeckNumber, DeckType deckType)
+        {
+            return new RemoveDeckRequest
+            {
+                UserDeckNumber = userDeckNumber,
+                DeckType = (int)deckType
             };
         }
 

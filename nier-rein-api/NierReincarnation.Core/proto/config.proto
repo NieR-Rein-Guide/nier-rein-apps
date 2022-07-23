@@ -6,13 +6,10 @@ import "google/protobuf/empty.proto";
 
 package apb.api.config;
 
-// The greeting service definition.
 service ConfigService {
-	// Sends a greeting
 	rpc GetReviewServerConfig (google.protobuf.Empty) returns (GetReviewServerConfigResponse);
 }
 
-// The response message containing the greetings.
 message GetReviewServerConfigResponse {
 	ApiConfig api = 1;
 	OctoConfig octo = 2;

@@ -6,6 +6,7 @@ using Grpc.Core;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
+using ImGui.Forms.Modals.IO;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
 using NierReincarnation.Context;
@@ -117,7 +118,7 @@ namespace nier_rein_gui.Dialogs
             {
                 try
                 {
-                    await NierReincarnation.NierReincarnation.Login(username, password);
+                    return await NierReincarnation.NierReincarnation.Login(username, password, ReceiveOtp);
                 }
                 catch (Exception e)
                 {
@@ -126,9 +127,12 @@ namespace nier_rein_gui.Dialogs
 
                     return false;
                 }
-
-                return true;
             });
+        }
+
+        private Task<string> ReceiveOtp()
+        {
+            return InputBox.ShowAsync("OTP", "Please enter your OTP");
         }
 
         #endregion
@@ -170,7 +174,7 @@ namespace nier_rein_gui.Dialogs
                                           i.name.StartsWith("ui)costume)") ||
                                           i.name.StartsWith("ui)companion)") ||
                                           i.name.StartsWith("ui)thought)") ||
-                                          i.name.StartsWith("ui)memory)")||
+                                          i.name.StartsWith("ui)memory)") ||
                                           i.name.StartsWith("ui)consumable_item)"));
 
             var assetCount = _assetContext.GetAssetCount(IconSelector);
