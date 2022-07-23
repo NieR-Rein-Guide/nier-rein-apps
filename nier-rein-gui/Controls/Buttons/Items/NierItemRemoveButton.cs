@@ -62,8 +62,8 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
         private void DrawBorders(Rectangle contentRect)
         {
-            ImGuiNET.ImGui.GetWindowDrawList().AddRect(contentRect.Position, contentRect.Position + contentRect.Size, BorderColor, 0, ImDrawFlags.None, 2);
-            ImGuiNET.ImGui.GetWindowDrawList().AddRect(contentRect.Position + new Vector2(4, 4), contentRect.Position + contentRect.Size - new Vector2(4, 4), BorderColor, 0, ImDrawFlags.None, 2);
+            ImGuiNET.ImGui.GetWindowDrawList().AddRect(contentRect.Position, contentRect.Position + contentRect.Size, BorderColor, 0, ImDrawFlags.None, 3);
+            ImGuiNET.ImGui.GetWindowDrawList().AddRect(contentRect.Position + new Vector2(5, 5), contentRect.Position + contentRect.Size - new Vector2(5, 5), BorderColor, 0, ImDrawFlags.None, 3);
         }
 
         private void DrawRemoveText(Rectangle contentRect)
