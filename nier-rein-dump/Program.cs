@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -17,7 +16,6 @@ using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.UnityEngine;
-using NierReincarnation.Localizations;
 using NierReinDb.Database;
 using NierReinDb.Database.Models;
 using NierReinDb.Models;
@@ -48,7 +46,7 @@ namespace NierReinDb
         {
             var reinConfig = EnsureNierReinConfig();
 
-            Application.Version = "2.10.0";
+            Application.Version = "2.10.12";
 
             await NierReincarnation.NierReincarnation.PrepareCommandLine(reinConfig.User, reinConfig.Password);
             await NierReincarnation.NierReincarnation.LoadLocalizations(Language.English);
@@ -107,10 +105,13 @@ namespace NierReinDb
                 if (string.IsNullOrEmpty(defaultCostumeId.StringId))
                     continue;
 
+                var characterName = CalculatorCharacter.CharacterName(character.CharacterId, true);
                 var model = new Character
                 {
                     CharacterId = character.CharacterId,
-                    Name = CalculatorCharacter.CharacterName(character.CharacterId, true),
+
+                    CharacterSlug = Slugify(characterName),
+                    Name = characterName,
                     ImagePath = $"ui/actor/{defaultCostumeId}/{defaultCostumeId}_01_actor_icon.png",
 
                     RankBonuses = rankBonuses.Where(rb => rb.RankBonusId == character.CharacterLevelBonusAbilityGroupId).ToList(),

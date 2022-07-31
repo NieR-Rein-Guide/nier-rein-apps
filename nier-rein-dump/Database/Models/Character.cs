@@ -10,6 +10,8 @@ namespace NierReinDb.Database.Models
         [Key]
         [Column("character_id")]
         public int CharacterId { get; set; }
+        [Column("slug")]
+        public string CharacterSlug { get; set; }
         [Column("name")]
         public string Name { get; set; }
         [Column("image_path")]
