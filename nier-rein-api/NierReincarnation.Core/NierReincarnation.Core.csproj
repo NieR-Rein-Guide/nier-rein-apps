@@ -15,6 +15,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="MessagePack" Version="2.3.85" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
+    <PackageReference Include="ncrontab" Version="3.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="protobuf-net" Version="3.0.101" />
     <PackageReference Include="protobuf-net.Core" Version="3.0.101" />
@@ -52,6 +54,7 @@
     <None Remove="proto\explore.proto" />
     <None Remove="proto\gacha.proto" />
     <None Remove="proto\quest.proto" />
+    <None Remove="proto\shop.proto" />
     <None Remove="proto\user.proto" />
   </ItemGroup>
 
