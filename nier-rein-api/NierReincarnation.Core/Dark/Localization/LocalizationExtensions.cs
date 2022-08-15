@@ -16,5 +16,10 @@ namespace NierReincarnation.Core.Dark.Localization
 
             return Localizations[key];
         }
+
+        public static string LocalizeWithParams(this string key, params object?[] args)
+        {
+            return string.Format(Localize(key), args);
+        }
     }
 }

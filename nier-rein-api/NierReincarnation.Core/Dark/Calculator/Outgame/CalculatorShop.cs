@@ -55,8 +55,10 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 if (string.IsNullOrEmpty(productId))
                     return null;
 
+                // HINT: This check goes against the products retrieved from the platforms shop SDK
+                // Since we do not have access to such a shop SDK, we do not return an invalid result, as the game does
                 if (!DarkPurchase.Instance.IsExistsProduct(productId))
-                    return null;
+                    ;
             }
 
             var result = new DataShopItem
@@ -192,9 +194,6 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
         public static IEnumerable<(int, EntityMShopItem, EntityMShopItemCellTerm)> ActiveEntityMShopItems(int shopItemCellGroupId)
         {
-            var t = DatabaseDefine.Master.EntityMShopItemTable.All.Select(x => GetItemName(x.NameShopTextId, 0))
-                .ToArray();
-
             var table = DatabaseDefine.Master.EntityMShopItemCellGroupTable;
             return table.All
                 .Where(x => x.ShopItemCellGroupId == shopItemCellGroupId)
@@ -242,7 +241,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
         private static string GetItemName(int nameTextId, int count)
         {
-            return string.Format($"shop.item.name.{nameTextId}".Localize(), count);
+            return $"shop.item.name.{nameTextId}".LocalizeWithParams(count);
         }
 
         private static string GetItemDescription(int descriptionTextId)
