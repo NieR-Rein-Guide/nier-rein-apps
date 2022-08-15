@@ -33,7 +33,7 @@ namespace NierReincarnation
         public static bool IsSetup { get; private set; }
 
         public static event Func<RpcException, Task<bool>> ApiError;
-        public static RpcException LastApiError;
+        public static RpcException LastApiError { get; private set; }
 
         static NierReincarnation()
         {
@@ -218,7 +218,12 @@ namespace NierReincarnation
         private static void SetUser(string uuid, long userId, string signature)
         {
             // Set user to local player preferences
-            var activePlayer = new PlayerRegistration(uuid) { UserId = userId, Signature = signature, ServerAddressAndPort = Config.Api.GetHostname(Application.Language) + Config.Api.Port };
+            var activePlayer = new PlayerRegistration(uuid)
+            {
+                UserId = userId, 
+                Signature = signature, 
+                ServerAddressAndPort = Config.Api.GetHostname() + Config.Api.Port
+            };
 
             PlayerPreference.Instance.ActivePlayer = activePlayer;
 
@@ -298,6 +303,11 @@ namespace NierReincarnation
             LastApiError = e;
 
             return result;
+        }
+
+        internal static void ClearNetworkError()
+        {
+            LastApiError = null;
         }
     }
 }

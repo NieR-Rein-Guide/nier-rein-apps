@@ -9,6 +9,8 @@ namespace NierReincarnation.Context
     {
         private static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
 
+        public event Func<RpcException, Task> GeneralError;
+
         public event Action<TimeSpan> RequestRatioReached;
 
         public event Action BeforeUnauthenticated;
@@ -20,12 +22,20 @@ namespace NierReincarnation.Context
             {
                 var result = await requestAction();
                 if (result != null)
+                {
+                    NierReincarnation.ClearNetworkError();
                     return result;
+                }
 
                 switch (NierReincarnation.LastApiError.StatusCode)
                 {
-                    case StatusCode.InvalidArgument:
-                        return result;
+                    // Pass invalid result back to caller
+                    default:
+                        await OnGeneralError(NierReincarnation.LastApiError);
+
+                        NierReincarnation.ClearNetworkError();
+
+                        return default;
 
                     // Handle rate limiting
                     case StatusCode.PermissionDenied:
@@ -46,7 +56,7 @@ namespace NierReincarnation.Context
                         await NierReincarnation.AuthorizeUser(CalculatorStateUser.GetUserId());
 
                         // Re-download user data
-                        await NierReincarnation.UpdateUserData();
+                        //await NierReincarnation.UpdateUserData();
 
                         // TODO: Get indicator if request should be cancelled after re-authorization
                         // TODO: Either remove bool in event or properly set it by AuthorizeUser result, instead of UserData update
@@ -55,7 +65,15 @@ namespace NierReincarnation.Context
 
                         break;
                 }
+
+                NierReincarnation.ClearNetworkError();
             }
+        }
+
+        protected async Task OnGeneralError(RpcException error)
+        {
+            if (GeneralError != null)
+                await GeneralError(error);
         }
 
         protected void OnRequestRatioReached(TimeSpan timeout)
