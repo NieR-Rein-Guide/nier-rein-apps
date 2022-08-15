@@ -255,6 +255,9 @@ namespace NierReincarnation.Context
                 return await _dc.QuestService.StartEventQuestAsync(startReq);
             });
 
+            if (startRes == null)
+                return (false, true);
+
             // Update quest progress
             await TryRequest(async () =>
             {
@@ -269,17 +272,22 @@ namespace NierReincarnation.Context
 
         private StartEventQuestRequest GetStartEventBattleRequest(int chapterId, int questId, int deckNumber)
         {
-            return new StartEventQuestRequest
+            var req = new StartEventQuestRequest
             {
                 EventQuestChapterId = chapterId,
                 QuestId = questId,
                 UserDeckNumber = deckNumber,
                 // Max auto battles, IF auto is activated. We disallow this here.
                 // HINT: Original logic used CalculatorQuest.GetMaxAutoOrbitCount()
-                //MaxAutoOrbitCount = 1,
-                // We're always battle-only for now
-                IsBattleOnly = true
+                //MaxAutoOrbitCount = 1
             };
+
+            // We're always battle-only, instead of special quests, where this option would result in an exception
+            var type = CalculatorQuest.GetEventQuestChapterType(chapterId);
+            if (type != EventQuestType.SPECIAL)
+                req.IsBattleOnly = true;
+
+            return req;
         }
 
         #endregion
@@ -294,6 +302,9 @@ namespace NierReincarnation.Context
                 var finishReq = GetFinishEventBattleRequest(chapterId, questId, retire);
                 return await _dc.QuestService.FinishEventQuestAsync(finishReq);
             });
+
+            if (finishRes == null)
+                return BattleDrops.Empty;
 
             var rewards = CreateBattleDrops(finishRes.DropReward, finishRes.FirstClearReward, finishRes.MissionClearCompleteReward, finishRes.MissionClearReward);
             OnFinishBattle(rewards);
