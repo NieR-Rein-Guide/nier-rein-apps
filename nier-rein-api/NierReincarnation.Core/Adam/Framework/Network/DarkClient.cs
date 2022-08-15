@@ -12,6 +12,7 @@ using Art.Framework.ApiNetwork.Grpc.Api.Deck;
 using Art.Framework.ApiNetwork.Grpc.Api.Explore;
 using Art.Framework.ApiNetwork.Grpc.Api.Gacha;
 using Art.Framework.ApiNetwork.Grpc.Api.Quest;
+using Art.Framework.ApiNetwork.Grpc.Api.Shop;
 using Art.Framework.ApiNetwork.Grpc.Api.User;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -23,7 +24,7 @@ using NierReincarnation.Core.Dark;
 namespace NierReincarnation.Core.Adam.Framework.Network
 {
     // Adam.Framework.Network.DarkClient
-    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService, IBigHuntService, IDeckService
+    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService, IBigHuntService, IDeckService, IShopService
     {
         // 0x00
         private static readonly int MAX_INTERCEPT = 10;
@@ -70,6 +71,8 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         public IUserService UserService => this;
 
         public IDeckService DeckService => this;
+
+        public IShopService ShopService => this;
 
         // Done
         public DarkClient(CancellationToken cancellationToken = default, TimeSpan? timeout = default, INetworkInterceptor[] interceptors = null)
@@ -351,6 +354,18 @@ namespace NierReincarnation.Core.Adam.Framework.Network
             return InvokeAsync<RemoveDeckResponse, RemoveDeckRequest>(path, request,
                 ctx =>
                     new ResponseContext<RemoveDeckResponse>(new DeckService.DeckServiceClient(GetCallInvoker(ctx.Channel)).RemoveDeckAsync((RemoveDeckRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        #endregion
+
+        #region IShopService
+
+        public Task<CreatePurchaseTransactionResponse> CreatePurchaseTransactionAsync(CreatePurchaseTransactionRequest request)
+        {
+            var path = "ShopService/CreatePurchaseTransactionAsync";
+            return InvokeAsync<CreatePurchaseTransactionResponse, CreatePurchaseTransactionRequest>(path, request,
+                ctx =>
+                    new ResponseContext<CreatePurchaseTransactionResponse>(new ShopService.ShopServiceClient(GetCallInvoker(ctx.Channel)).CreatePurchaseTransactionAsync((CreatePurchaseTransactionRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         #endregion

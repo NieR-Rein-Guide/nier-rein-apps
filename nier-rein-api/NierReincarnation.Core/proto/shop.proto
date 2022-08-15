@@ -1,0 +1,23 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Shop";
+
+import "proto/data.proto";
+
+package apb.api.shop;
+
+service ShopService {
+	rpc CreatePurchaseTransaction (CreatePurchaseTransactionRequest) returns (CreatePurchaseTransactionResponse);
+}
+
+message CreatePurchaseTransactionRequest {
+	int32 shopId = 1;
+	int32 shopItemId = 2;
+	string productId = 3;
+	string amazonUserId = 4;
+}
+
+message CreatePurchaseTransactionResponse {
+	string purchaseTransactionId = 1;
+	map<string,apb.api.data.DiffData> diffUserdata = 99;
+}
