@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.UnityEngine;
 

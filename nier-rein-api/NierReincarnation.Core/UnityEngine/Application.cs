@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Core.UnityEngine
@@ -6,6 +7,9 @@ namespace NierReincarnation.Core.UnityEngine
     // UnityEngine.Application
     public static class Application
     {
+        private static readonly IDictionary<Language, string> Versions = new Dictionary<Language, string>();
+        private static readonly IDictionary<Language, string> Identifiers = new Dictionary<Language, string>();
+
         #region Paths
 
         // CUSTOM: The root for all relative path properties
@@ -29,29 +33,42 @@ namespace NierReincarnation.Core.UnityEngine
         {
             Root = root;
 
-            EnsureDirectory(DataPath);
-            EnsureDirectory(UserDataPath);
-            EnsureDirectory(ApkPath);
-
-            EnsureDirectory(SharedPrefsPath);
-        }
-
-        static Application()
-        {
-            EnsureDirectory(DataPath);
-            EnsureDirectory(UserDataPath);
-            EnsureDirectory(ApkPath);
-
-            EnsureDirectory(SharedPrefsPath);
+            EnsurePaths();
         }
 
         #endregion
 
+        static Application()
+        {
+            EnsureVersions();
+            EnsureIdentifiers();
+
+            EnsurePaths();
+        }
+
         #region App
 
-        public static string Version { get; set; } = "2.8.20";
+        public static string Version
+        {
+            get => Versions[Language];
+            set => Versions[Language] = value;
+        }
 
-        public static string Identifier => "com.square_enix.android_googleplay.nierspww";
+        public static string Identifier => Identifiers[Language];
+
+        private static void EnsureVersions()
+        {
+            Versions[Language.English] = "2.10.12";
+            Versions[Language.Japanese] = "2.10.11"; // TODO: Latest JP version
+            Versions[Language.Malaysia] = "1.3.40";
+        }
+
+        private static void EnsureIdentifiers()
+        {
+            Identifiers[Language.English] = "com.square_enix.android_googleplay.nierspww";
+            Identifiers[Language.Japanese] = "com.square_enix.android_googleplay.nierspww"; // TODO: JP Identifier
+            Identifiers[Language.Malaysia] = "com.komoe.nierregp";
+        }
 
         #endregion
 
@@ -64,6 +81,15 @@ namespace NierReincarnation.Core.UnityEngine
         public static PlatformType Platform => PlatformType.GOOGLE_PLAY_STORE;
 
         #endregion
+
+        private static void EnsurePaths()
+        {
+            EnsureDirectory(DataPath);
+            EnsureDirectory(UserDataPath);
+            EnsureDirectory(ApkPath);
+
+            EnsureDirectory(SharedPrefsPath);
+        }
 
         private static void EnsureDirectory(string dir)
         {
@@ -79,6 +105,9 @@ namespace NierReincarnation.Core.UnityEngine
 
                 case Language.Japanese:
                     return "Japanese";
+
+                case Language.Malaysia:
+                    return "Malaysia";
 
                 default:
                     return string.Empty;

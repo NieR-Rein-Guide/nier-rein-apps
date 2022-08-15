@@ -287,6 +287,8 @@
 
         public static class Common
         {
+            public static readonly string kTimeHour= "ui.Outgame.Common.Time.Hour"; // 0x128
+            public static readonly string kTimeMinute= "ui.Outgame.Common.Time.Minute"; // 0x130
             public static readonly string kRarityName = "ui.Outgame.Common.RarityType.Name.{0:D2}"; // 0x148
             public static readonly string kAttributeTextKey = "ui.Outgame.Attribute.{0}"; // 0x1B8
             public static readonly string kWeaponTypeTextKey = "ui.Outgame.WeaponType.{0}"; // 0x1C0
