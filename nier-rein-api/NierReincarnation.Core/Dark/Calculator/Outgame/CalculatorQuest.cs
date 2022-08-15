@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using MoreLinq;
+using NCrontab;
 using NierReincarnation.Core.Dark.Calculator.Factory;
 using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -18,6 +20,20 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
     public static class CalculatorQuest
     {
         private static readonly int kInvalidQuestMissionConditionGroupId = 0; // 0xC
+        private static readonly int kCronLastMinuteDiff = 1; // 0x2C
+        private static readonly Regex kTimeTableRegex = new Regex("\\*"); // 0x30
+        private static readonly int kRegexReplaceCount = 1; // 0x38
+
+        // CUSTOM: Retrieve type from chapter Id
+        public static EventQuestType GetEventQuestChapterType(int chapterId)
+        {
+            var chapterTable = DatabaseDefine.Master.EntityMEventQuestChapterTable;
+            var chapter = chapterTable.FindByEventQuestChapterId(chapterId);
+            if (chapter == null)
+                return EventQuestType.UNKNOWN;
+
+            return chapter.EventQuestType;
+        }
 
         // CUSTOM: Get event quest chapters by type
         public static List<EventQuestChapterData> GetEventQuestChapters(params EventQuestType[] types)
@@ -71,7 +87,12 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var routeTable = DatabaseDefine.Master.EntityMMainQuestRouteTable;
             var sequenceGroupTable = DatabaseDefine.Master.EntityMMainQuestSequenceGroupTable;
 
-            var route = routeTable.All.FirstOrDefault(x => x.MainQuestSeasonId == seasonId);
+            var userRouteTable = DatabaseDefine.User.EntityIUserMainQuestSeasonRouteTable;
+            var userRoute = userRouteTable.FindByUserIdAndMainQuestSeasonId((CalculatorStateUser.GetUserId(), seasonId));
+
+            var route = userRoute == null ?
+                routeTable.All.FirstOrDefault(x => x.MainQuestSeasonId == seasonId) :
+                routeTable.FindByMainQuestRouteId(userRoute.MainQuestRouteId);
             if (route == null)
                 return result;
 
@@ -117,6 +138,101 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                     npcId = npcDeckInfo.BattleNpcId;
                     result.Add(CalculatorNpcDeck.CreateNpcDataDeck(npcDeckInfo.BattleNpcId, deckEntity));
                 }
+            }
+
+            return result;
+        }
+
+        // CUSTOM: Get Guerrilla Quests for current day
+        public static List<EventQuestData> GetTodayGuerrillaQuestData()
+        {
+            var result = new List<EventQuestData>();
+
+            var guerrillaQuests = GenerateEventQuestData(CalculatorGuerrillaQuest.GetGuerrillaEventChapterId(), DifficultyType.NORMAL);
+            foreach (var guerrillaQuest in guerrillaQuests)
+            {
+                var terms = GetCurrentQuestTodayTimeTable(guerrillaQuest.Quest.QuestId);
+                if (!terms.Any())
+                    continue;
+
+                var eventQuest = CreateEventQuestData(CalculatorStateUser.GetUserId(), guerrillaQuest.Quest, null, out _);
+                result.Add(eventQuest);
+            }
+
+            return result;
+        }
+
+        // CUSTOM: Get Daily Quests for current day
+        public static List<EventQuestData> GetTodayDailyQuestData()
+        {
+            var result = new List<EventQuestData>();
+
+            foreach (var dailyChapter in GetEventQuestChapters(EventQuestType.DAY_OF_THE_WEEK))
+            {
+                var dailyQuests = GenerateEventQuestData(dailyChapter.EventQuestChapterId, dailyChapter.EventQuestChapterDifficultyTypes[0]);
+                foreach (var dailyQuest in dailyQuests)
+                {
+                    var terms = GetCurrentQuestTodayTimeTable(dailyQuest.Quest.QuestId);
+                    if (!terms.Any())
+                        continue;
+
+                    if (result.Any(x => x.Quest.QuestId == dailyQuest.Quest.QuestId))
+                        continue;
+
+                    var eventQuest = CreateEventQuestData(CalculatorStateUser.GetUserId(), dailyQuest.Quest, null, out _);
+                    result.Add(eventQuest);
+                }
+            }
+
+            return result;
+        }
+
+        public static int GetDailyEventChapterId()
+        {
+            var dailyChapters = GetEventQuestChapters(EventQuestType.DAY_OF_THE_WEEK);
+            return dailyChapters.First().EventQuestChapterId;
+        }
+
+        public static List<Term> GetCurrentEventChapterTodayTimeTable(int eventQuestChapterId)
+        {
+            var chapterQuests = GenerateEventQuestData(eventQuestChapterId, DifficultyType.NORMAL);
+            return chapterQuests
+                .SelectMany(x => GetCurrentQuestTodayTimeTable(x.Quest.QuestId))
+                .DistinctBy(x => x.Start)
+                .OrderBy(x => x.Start)
+                .ToList();
+        }
+
+        private static List<Term> GetCurrentQuestTodayTimeTable(int questId)
+        {
+            var table = DatabaseDefine.Master.EntityMQuestScheduleCorrespondenceTable;
+            var terms = table.All.Where(x => x.QuestId == questId).ToArray();
+            if (!terms.Any())
+                return new List<Term> { new Term(CalculatorDateTime.GetTodayChangeDateTime(), CalculatorDateTime.GetNextChangeDateTime()) };
+
+            var result = new List<Term>();
+
+            var unixNow = CalculatorDateTime.UnixTimeNow();
+            var schedules = terms.Select(x => DatabaseDefine.Master.EntityMQuestScheduleTable.FindByQuestScheduleId(x.QuestScheduleId));
+            foreach (var schedule in schedules.Where(x => CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime, unixNow)))
+            {
+                var replacedCron = kTimeTableRegex.Replace(schedule.QuestScheduleCronExpression, "", kRegexReplaceCount);
+                var parsedCron = CrontabSchedule.Parse(replacedCron);
+
+                var now = CalculatorDateTime.GetTodayChangeDateTime().DateTime;
+                var tmr = CalculatorDateTime.GetNextChangeDateTime().DateTime;
+
+                var firstOccurrence = parsedCron.GetNextOccurrences(now, tmr).FirstOrDefault();
+                var lastOccurrence = parsedCron.GetNextOccurrences(now, tmr).LastOrDefault();
+
+                if (CalculatorDateTime.IsFuzzyEqualDateTime(firstOccurrence, now.AddMinutes(1)))
+                    firstOccurrence = now;
+
+                lastOccurrence = lastOccurrence.AddMinutes(kCronLastMinuteDiff);
+                if (CalculatorDateTime.IsFuzzyEqualDateTime(firstOccurrence, new DateTime()))
+                    continue;
+
+                result.Add(new Term(CalculatorDateTime.AsPst(firstOccurrence), CalculatorDateTime.AsPst(lastOccurrence)));
             }
 
             return result;
@@ -261,7 +377,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
                 Scenes = scenes,
                 IsClear = IsClearQuest(quest.QuestId, CalculatorStateUser.GetUserId()),
-                DifficultyType = sequenceGroup.DifficultyType
+                DifficultyType = sequenceGroup.DifficultyType,
+                Attribute = GetFirstQuestDisplayAttributeType(quest.QuestDisplayAttributeGroupId)
                 //UnlockQuestText = GetQuestUnlockText(quest.QuestReleaseConditionListId),
                 //QuestLevelText = 
             };
@@ -307,7 +424,12 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var userId = CalculatorStateUser.GetUserId();
             var eventQuest = new EventQuest(eventQuestChapter, questGroup, questSequence, quest);
 
-            return CreateEventQuestData(userId, eventQuest, null, out _);
+            var eventQuestData = CreateEventQuestData(userId, eventQuest, null, out _);
+
+            // CUSTOM: Check term here, to determine further availability
+            eventQuestData.IsAvailable &= CalculatorDateTime.IsWithinThePeriod(eventQuestChapter.StartDatetime, eventQuestChapter.EndDatetime);
+
+            return eventQuestData;
         }
 
         private static EventQuestData CreateEventQuestData(long userId, IQuest eventQuest, Action<EventQuestData> onQuestButtonTap, out bool isLock)
@@ -617,7 +739,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         public static string GenerateMissionText(QuestMissionConditionType questMissionConditionType, int value, List<int> questMissionConditionValueList)
         {
             var missionTextKey = string.Format(UserInterfaceTextKey.Quest.kMissionMainTitleTextKey, (int)questMissionConditionType);
-            var keyParam = string.Empty;
+            string keyParam;
 
             switch (questMissionConditionType)
             {
@@ -744,7 +866,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                     break;
             }
 
-            return string.Format(missionTextKey.Localize(), keyParam);
+            return missionTextKey.LocalizeWithParams(keyParam);
         }
 
         private static string GenerateTextValueFromConditionValueList(List<int> questMissionConditionValueList, string separateWord, Func<int, string> convertMethod)

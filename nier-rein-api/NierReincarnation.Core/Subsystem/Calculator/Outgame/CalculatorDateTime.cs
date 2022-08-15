@@ -1,4 +1,6 @@
 ﻿using System;
+using NierReincarnation.Core.Dark.Localization;
+using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using TimeZoneConverter;
 
 namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
@@ -7,20 +9,36 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
     {
         // CUSTOM: PST Timezone
         private static readonly TimeZoneInfo PstTimezone = TZConvert.GetTimeZoneInfo("Pacific Standard Time");
+        private static readonly TimeZoneInfo LocalTimezone = TimeZoneInfo.Local;
+
+        private static readonly int MinDays = 0; // 0x1C
+        public static readonly int DayHours = 24; // 0x20
+        private static readonly int MinHours = 0; // 0x24
+        private static readonly int LimitMinutes = 59; // 0x28
+        private static readonly int MinMinutes = 0; // 0x2C
+        private static readonly int MinSeconds = 0; // 0x34
+        private static readonly double kBorderMilliseconds = 1; // 0x38
+
+        public static string DateTimeFormatTimeTable => "HH:mm";
+
+        public static bool IsAfterTodaySpanningTime(long checkDateTime)
+        {
+            // CUSTOM: Logic to check if checkDateTime is after start of current day
+            return IsAfterTodaySpanningTime(FromUnixTime(checkDateTime));
+        }
 
         public static bool IsAfterTodaySpanningTime(DateTimeOffset checkDateTime)
         {
             // CUSTOM: Logic to check if checkDateTime is after start of current day
-            var startOfDay = TimeZoneInfo.ConvertTime(DateTime.Now, PstTimezone).Date;
-            var pstCheckDateTime = TimeZoneInfo.ConvertTime(checkDateTime.DateTime, PstTimezone);
+            var startOfDay = PstNow().Date;
+            var pstCheckDateTime = ToPst(checkDateTime.DateTime);
 
             return pstCheckDateTime >= startOfDay;
         }
 
         public static bool IsWithinThePeriod(long startUnixTime, long endUnixTime)
         {
-            var now = UnixTimeNow();
-            return IsWithinThePeriod(startUnixTime, endUnixTime, now);
+            return IsWithinThePeriod(startUnixTime, endUnixTime, UnixTimeNow());
         }
 
         public static bool IsWithinThePeriod(long startDateTime, long endDateTime, long currentDateTime)
@@ -28,29 +46,146 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return startDateTime < currentDateTime && currentDateTime < endDateTime;
         }
 
+        // CUSTOM: Checks if current time lies between two given DateTimeOffset structs
+        public static bool IsWithinThePeriod(DateTimeOffset startUnixTime, DateTimeOffset endUnixTime)
+        {
+            return IsWithinThePeriod(startUnixTime, endUnixTime, Now());
+        }
+
+        // CUSTOM: Checks if current time lies between two given DateTimeOffset structs
+        public static bool IsWithinThePeriod(DateTimeOffset startUnixTime, DateTimeOffset endUnixTime, DateTimeOffset currentDateTime)
+        {
+            return IsWithinThePeriod(ToUnixTime(startUnixTime), ToUnixTime(endUnixTime), ToUnixTime(currentDateTime));
+        }
+
         public static long UnixTimeNow()
         {
             // CUSTOM: Implement unix epoch time
-            return DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            return ToUnixTime(Now());
         }
 
         // CUSTOM: Parse unix time to type-safe UTC
         public static DateTimeOffset FromUnixTime(long unixTime)
         {
-            return TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeMilliseconds(unixTime), TimeZoneInfo.Local);
+            return ToLocal(DateTimeOffset.FromUnixTimeMilliseconds(unixTime));
         }
 
-        // CUSTOM: Parse unix time to type-safe UTC
+        // CUSTOM: Parse type-safe UTC to unix time
         public static long ToUnixTime(DateTimeOffset dateTime)
         {
-            return TimeZoneInfo.ConvertTime(dateTime, PstTimezone).ToUnixTimeMilliseconds();
+            return ToPst(dateTime).ToUnixTimeMilliseconds();
         }
 
-        //public static bool IsAfterTodaySpanningTime(DateTimeOffset checkDateTime)
-        //{
-        //    // CUSTOM: Logic to check if checkDateTime is after start of current day
-        //    var startOfDay = FromUnixTime(UnixTimeNow());
-        //    return checkDateTime >= startOfDay.Date;
-        //}
+        public static DateTimeOffset GetTodayChangeDateTime()
+        {
+            var pstNow = PstNow();
+            return pstNow.Subtract(pstNow.TimeOfDay);
+        }
+
+        public static DateTimeOffset GetNextChangeDateTime()
+        {
+            var pstNow = PstNow();
+            return pstNow.Subtract(pstNow.TimeOfDay).AddDays(1);
+        }
+
+        public static bool IsFuzzyEqualDateTime(DateTime dateTime1, DateTime dateTime2)
+        {
+            var totalSecs = (dateTime1 - dateTime2).TotalSeconds;
+            totalSecs = Math.Abs(totalSecs);
+
+            return totalSecs < kBorderMilliseconds;
+        }
+
+        #region String conversions
+
+        public static string GetRemainTimeHmStringWithoutZero(in TimeSpan timeSpan)
+        {
+            var hours = timeSpan.Hours;
+            var days = timeSpan.Days;
+            if (MinDays < days)
+                hours += DayHours * days;
+
+            var minutes = timeSpan.Minutes;
+            var seconds = timeSpan.Seconds;
+            var roundUp = GetHsTimeRoundUpSeconds(hours, minutes, seconds);
+            return GetRemainTimeStringWithoutZero(roundUp.Item1, roundUp.Item2);
+        }
+
+        private static (int, int) GetHsTimeRoundUpSeconds(int hours, int minutes, int seconds)
+        {
+            if (MinSeconds < seconds)
+                minutes++;
+
+            if (LimitMinutes < minutes)
+            {
+                minutes = MinMinutes;
+                hours++;
+            }
+
+            return (hours, minutes);
+        }
+
+        private static string GetRemainTimeStringWithoutZero(int hours, int minutes)
+        {
+            var result = string.Empty;
+
+            if (MinHours < hours)
+                result += UserInterfaceTextKey.Common.kTimeHour.LocalizeWithParams(hours);
+
+            if (MinMinutes < minutes)
+                result += UserInterfaceTextKey.Common.kTimeMinute.LocalizeWithParams(minutes);
+
+            return result;
+        }
+
+        #endregion
+
+        #region Local methods
+
+        // CUSTOM: Gets the current date and time in the system timezone
+        private static DateTimeOffset Now() => DateTimeOffset.Now;
+
+        // CUSTOM: Converts the timezone of the given DateTimeOffset struct to the system timezone
+        public static DateTimeOffset ToLocal(DateTimeOffset dateTime)
+        {
+            return TimeZoneInfo.ConvertTime(dateTime, LocalTimezone);
+        }
+
+        // CUSTOM: Sets the timezone of the given DateTime struct to the system timezone without conversion
+        public static DateTimeOffset AsLocal(DateTime dateTime)
+        {
+            return ChangeTimezone(dateTime, LocalTimezone);
+        }
+
+        #endregion
+
+        #region PST methods
+
+        // CUSTOM: Gets the current date and time in PST timezone
+        public static DateTimeOffset PstNow() => ToPst(Now());
+
+        // CUSTOM: Converts the timezone of the given DateTimeOffset struct to PST
+        public static DateTimeOffset ToPst(DateTimeOffset dateTime)
+        {
+            return TimeZoneInfo.ConvertTime(dateTime, PstTimezone);
+        }
+
+        // CUSTOM: Sets the timezone of the given DateTime struct to PST without conversion
+        public static DateTimeOffset AsPst(DateTime dateTime)
+        {
+            return ChangeTimezone(dateTime, PstTimezone);
+        }
+
+        #endregion
+
+        #region Support
+
+        // CUSTOM: Sets timezone without conversion
+        private static DateTimeOffset ChangeTimezone(DateTime dateTime, TimeZoneInfo targetTimezone)
+        {
+            return new DateTimeOffset(dateTime, targetTimezone.BaseUtcOffset);
+        }
+
+        #endregion
     }
 }

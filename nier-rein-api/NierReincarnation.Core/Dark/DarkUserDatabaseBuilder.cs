@@ -146,6 +146,12 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserEventQuestGuerrillaFreeOpen> dataSource)
+        {
+            AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
+            return this;
+        }
+
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserEventQuestProgressStatus> dataSource)
         {
             AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
@@ -173,6 +179,12 @@ namespace NierReincarnation.Core.Dark
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserLimitedOpen> dataSource)
         {
             AppendCore(dataSource, user => (user.UserId, user.LimitedOpenTargetType, user.TargetId), Comparer<(long, LimitedOpenTargetType, int)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserMainQuestSeasonRoute> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.MainQuestSeasonId), Comparer<(long, int)>.Default);
             return this;
         }
 

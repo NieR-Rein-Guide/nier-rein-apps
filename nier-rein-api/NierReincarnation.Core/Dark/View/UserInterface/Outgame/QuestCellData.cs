@@ -24,5 +24,7 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
         public bool IsClear { get; set; }
         // CUSTOM: Determines the difficulty this quest is assigned to
         public DifficultyType DifficultyType { get; set; }
+        // CUSTOM: Determines the attribute of the quest
+        public QuestDisplayAttributeType Attribute { get; set; }
     }
 }

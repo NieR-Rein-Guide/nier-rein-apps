@@ -78,6 +78,8 @@ namespace NierReincarnation.Core.Dark
         public EntityMCatalogPartsGroupTable EntityMCatalogPartsGroupTable { get; private set; }
         // 0x370
         public EntityMCatalogTermTable EntityMCatalogTermTable { get; private set; }
+        // 0x378
+        public EntityMCatalogThoughtTable EntityMCatalogThoughtTable { get; private set; }
 
         // 0x380
         public EntityMCatalogWeaponTable EntityMCatalogWeaponTable { get; private set; }
@@ -151,6 +153,9 @@ namespace NierReincarnation.Core.Dark
         public EntityMEventQuestChapterTable EntityMEventQuestChapterTable { get; private set; }
         // 0x628
         public EntityMEventQuestChapterCharacterTable EntityMEventQuestChapterCharacterTable { get; private set; }
+
+        // 0x638
+        public EntityMEventQuestGuerrillaFreeOpenTable EntityMEventQuestGuerrillaFreeOpenTable { get; private set; }
 
         // 0x648
         public EntityMEventQuestLinkTable EntityMEventQuestLinkTable { get; private set; }
@@ -434,6 +439,8 @@ namespace NierReincarnation.Core.Dark
             EntityMNumericalFunctionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNumericalFunction[], EntityMNumericalFunctionTable>(functions => new EntityMNumericalFunctionTable(functions)));
             EntityMNumericalFunctionParameterGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNumericalFunctionParameterGroup[], EntityMNumericalFunctionParameterGroupTable>(groups => new EntityMNumericalFunctionParameterGroupTable(groups)));
             // ...
+            EntityMEventQuestGuerrillaFreeOpenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestGuerrillaFreeOpen[], EntityMEventQuestGuerrillaFreeOpenTable>(opens => new EntityMEventQuestGuerrillaFreeOpenTable(opens)));
+            // ...
             EntityMEventQuestChapterCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestChapterCharacter[], EntityMEventQuestChapterCharacterTable>(characters => new EntityMEventQuestChapterCharacterTable(characters)));
             // ...
             EntityMEventQuestSequenceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestSequenceGroup[], EntityMEventQuestSequenceGroupTable>(groups => new EntityMEventQuestSequenceGroupTable(groups)));
@@ -525,6 +532,7 @@ namespace NierReincarnation.Core.Dark
             EntityMCostumeAwakenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwaken[], EntityMCostumeAwakenTable>(awakens => new EntityMCostumeAwakenTable(awakens)));
             EntityMBeginnerCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBeginnerCampaign[], EntityMBeginnerCampaignTable>(campaigns => new EntityMBeginnerCampaignTable(campaigns)));
             EntityMComebackCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMComebackCampaign[], EntityMComebackCampaignTable>(campaigns => new EntityMComebackCampaignTable(campaigns)));
+            EntityMCatalogThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogThought[], EntityMCatalogThoughtTable>(thoughts => new EntityMCatalogThoughtTable(thoughts)));
         }
     }
 }
