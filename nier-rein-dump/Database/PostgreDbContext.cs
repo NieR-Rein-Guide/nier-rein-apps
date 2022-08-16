@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using nier_rein_dump.Database.Models;
 using NierReinDb.Database.Models;
 using NierReinDb.Models;
 
@@ -12,6 +13,7 @@ namespace NierReinDb.Database
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<Companion> Companions { get; set; }
         public DbSet<Memoir> Memoirs { get; set; }
+        public DbSet<Thought> Thoughts { get; set; }
 
         public PostgreDbContext(DbConfig dbConfig)
         {
@@ -32,6 +34,7 @@ namespace NierReinDb.Database
             modelBuilder.Entity<CompanionAbility>().HasKey(a => new { a.AbilityId, a.AbilityLevel });
             modelBuilder.Entity<CompanionStat>().HasKey(a => new { a.CompanionId, a.Level });
             modelBuilder.Entity<Memoir>().HasKey(a => new { a.MemoirId, a.InitialLotteryId });
+            modelBuilder.Entity<Thought>().HasKey(c => c.ThoughtId);
 
             modelBuilder.Entity<CostumeAbilityLink>().HasKey(a => new { a.CostumeId, a.AbilitySlot, a.AbilityId, a.AbilityLevel });
             modelBuilder.Entity<CostumeSkillLink>().HasKey(a => new { a.CostumeId, a.SkillId, a.SkillLevel });

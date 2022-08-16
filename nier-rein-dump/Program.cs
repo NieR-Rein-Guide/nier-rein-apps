@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using nier_rein_dump.Database.Models;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Database;
@@ -36,6 +37,7 @@ namespace NierReinDb
             await AddWeapons(db);
             await AddCompanions(db);
             await AddMemoirs(db);
+            await AddThoughts(db);
 
             await db.SaveChangesAsync();
         }
@@ -894,6 +896,34 @@ namespace NierReinDb
             }
 
             return result;
+        }
+
+        #endregion
+
+        #region Debris methods
+
+        private static async Task AddThoughts(PostgreDbContext db)
+        {
+            Console.WriteLine("Dump debris.");
+
+            foreach (var debris in DatabaseDefine.Master.EntityMThoughtTable.All)
+            {
+                var thoughtCatalog = DatabaseDefine.Master.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == debris.ThoughtId);
+                var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(thoughtCatalog.CatalogTermId);
+
+                var model = new Thought
+                {
+                    ThoughtId = debris.ThoughtId,
+                    RarityType = debris.RarityType,
+
+                    ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
+
+                    Name = CalculatorThought.GetName(debris.ThoughtAssetId),
+                    ImagePathBase = $"ui/companion/{debris.ThoughtAssetId}/{debris.ThoughtAssetId}.png"
+                };
+
+                await db.Thoughts.AddAsync(model);
+            }
         }
 
         #endregion
