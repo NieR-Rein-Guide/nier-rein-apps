@@ -3,14 +3,16 @@
 namespace NierReinDb.Database.Models
 {
     [Table("weapon_story_link")]
-    class WeaponStoryLink
+    internal class WeaponStoryLink
     {
-        [Column("weapon_id")] 
         public int WeaponId { get; set; }
-        [Column("weapon_story_id")] 
+
         public int WeaponStoryId { get; set; }
 
+        [ForeignKey(nameof(WeaponId))]
         public Weapon Weapon { get; set; }
+
+        [ForeignKey(nameof(WeaponStoryId))]
         public WeaponStory Story { get; set; }
     }
 }

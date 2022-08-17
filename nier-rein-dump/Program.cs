@@ -149,7 +149,7 @@ namespace NierReinDb
                     RankBonusId = rankBonus.CharacterLevelBonusAbilityGroupId,
                     RankBonusLevel = rankBonus.ActivationCharacterLevel,
                     Description = CalculatorAbility.GetDescriptionLongByAbilityId(rankBonus.AbilityId, rankBonus.AbilityLevel),
-                    Status = status.Item1.ToString(),
+                    Stat = status.Item1.ToString(),
                     Type = statusList[0].AbilityBehaviourStatusChangeType.ToString(),
                     Amount = status.Item2
                 });

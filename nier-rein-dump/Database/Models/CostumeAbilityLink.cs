@@ -3,18 +3,19 @@
 namespace NierReinDb.Database.Models
 {
     [Table("costume_ability_link")]
-    class CostumeAbilityLink
+    internal class CostumeAbilityLink
     {
-        [Column("costume_id")]
         public int CostumeId { get; set; }
-        [Column("ability_slot")]
+
         public int AbilitySlot { get; set; }
-        [Column("ability_id")]
+
         public int AbilityId { get; set; }
-        [Column("ability_level")]
+
         public int AbilityLevel { get; set; }
 
-        public Costume Costume { get; set; }
-        public CostumeAbility CostumeAbility { get; set; }
+        [ForeignKey(nameof(CostumeId))]
+        public virtual Costume Costume { get; set; }
+
+        public virtual CostumeAbility CostumeAbility { get; set; }
     }
 }
