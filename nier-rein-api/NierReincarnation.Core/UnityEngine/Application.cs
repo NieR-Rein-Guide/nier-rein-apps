@@ -58,7 +58,7 @@ namespace NierReincarnation.Core.UnityEngine
 
         private static void EnsureVersions()
         {
-            Versions[Language.English] = "2.10.12";
+            Versions[Language.English] = "2.11.0";
             Versions[Language.Japanese] = "2.10.11"; // TODO: Latest JP version
             Versions[Language.Malaysia] = "1.3.40";
         }

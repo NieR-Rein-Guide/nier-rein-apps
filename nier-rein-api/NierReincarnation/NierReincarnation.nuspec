@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NierReincarnation</id>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <authors>onepiecefreak</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">GPL-3.0-only</license>
@@ -25,8 +25,8 @@
 	    <dependency id="Serilog" version="2.11.0" />
 	    <dependency id="Serilog.Sinks.File" version="5.0.0" />
 	    <dependency id="WebDriverManager" version="2.13.0" />
-        <dependency id="ncrontab" version="3.3.1" />
-        <dependency id="morelinq" version="3.3.2" />
+      <dependency id="ncrontab" version="3.3.1" />
+      <dependency id="morelinq" version="3.3.2" />
 	    
 	    <dependency id="SixLabors.ImageSharp.Drawing" version="1.0.0-beta13" />
 	    <dependency id="K4os.Compression.LZ4" version="1.2.16" />

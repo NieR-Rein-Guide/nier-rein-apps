@@ -22,6 +22,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         private static readonly int kUserDeckNumberTripleDeckToWaveDeckValue = 100; // 0x24
         private static readonly string kWaveDeckNameFormat = "{0}{1}ï¼{2}"; // 0x28
 
+        public static readonly int kMaxDeckCount = 15;
+
         // CUSTOM: Enumerates all decks with shallow information; Returning efficiently acquired information such as ID and name
         public static IEnumerable<DataDeckInfo> EnumerateDeckInfo(long userId, DeckType deckType)
         {
