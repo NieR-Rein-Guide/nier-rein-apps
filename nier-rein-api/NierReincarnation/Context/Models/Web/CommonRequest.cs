@@ -14,8 +14,8 @@ namespace NierReincarnation.Context.Models.Web
         public string platformType { get; set; } = $"{(int)Application.Platform}";
         public long requestDatetime { get; set; } = (long) (DateTime.Now - DateTime.UnixEpoch).TotalSeconds;
         public long requestId { get; set; } = 1;
-        public string sessionKey { get; set; } = ApplicationScopeClientContext.Instance.Auth.SessionKey;
-        public string token { get; set; } = ApplicationScopeClientContext.Instance.Token.Value;
-        public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
+        //public string sessionKey { get; set; } = ApplicationScopeClientContext.Instance.Auth.SessionKey;
+        //public string token { get; set; } = ApplicationScopeClientContext.Instance.Token.Value;
+        //public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
     }
 }

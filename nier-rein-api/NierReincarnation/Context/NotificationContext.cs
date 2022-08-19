@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
-using NierReincarnation.Context.Models;
 using NierReincarnation.Context.Models.Web;
 using NierReincarnation.Context.Support;
-using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark.EntryPoint;
-using NierReincarnation.Core.Dark.Preference;
+using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Context
@@ -23,15 +20,35 @@ namespace NierReincarnation.Context
 
         internal NotificationContext()
         {
+            ApplicationApi.Run();
             _client = new HttpClient();
         }
 
-        public async IAsyncEnumerable<NotificationSummary> GetNotifications(int page = 1, int perPage = 10)
+        public async IAsyncEnumerable<NotificationSummary> GetAllNotifications()
+        {
+            var page = 1;
+            var offset = 10;
+
+            var hasEntries = true;
+            while (hasEntries)
+            {
+                hasEntries = false;
+
+                await foreach (var notification in GetNotifications(page++, offset))
+                {
+                    hasEntries = true;
+
+                    yield return notification;
+                }
+            }
+        }
+
+        public async IAsyncEnumerable<NotificationSummary> GetNotifications(int page, int perPage)
         {
             if (page <= 0 || perPage <= 0)
                 yield break;
 
-            var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri("https://api-web.app.nierreincarnation.com/api/information/list/get"));
+            var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri(Config.Api.GetNotificationGetUrl()));
             req.Headers.Referrer = CreateReferrer();
 
             req.Content = JsonContent.Create(new NotificationListRequest
@@ -49,9 +66,9 @@ namespace NierReincarnation.Context
                 yield return notification;
         }
 
-        public async Task<object> GetNotification(int informationId)
+        public async Task<Notification> GetNotification(int informationId)
         {
-            var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri("https://api-web.app.nierreincarnation.com/api/information/detail/get"));
+            var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri(Config.Api.GetNotificationDetailUrl()));
             req.Headers.Referrer = CreateReferrer();
 
             req.Content = JsonContent.Create(new NotificationRequest
@@ -83,15 +100,15 @@ namespace NierReincarnation.Context
             var informationUri = Config.Api.MakeWebViewInformationPageUrl();
             var parameters = new[]
             {
-                $"userId={ApplicationScopeClientContext.Instance.User.UserId}",
-                $"playerId={PlayerPreference.Instance.ActivePlayer.PlayerId}",
-                $"sessionKey={ApplicationScopeClientContext.Instance.Auth.SessionKey}",
+                //$"userId={ApplicationScopeClientContext.Instance.User.UserId}",
+                //$"playerId={PlayerPreference.Instance.ActivePlayer.PlayerId}",
+                //$"sessionKey={ApplicationScopeClientContext.Instance.Auth.SessionKey}",
                 $"appVersion={Application.Version}",
                 $"language={Application.SystemLanguage}",
                 $"osVersion={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
                 $"deviceName={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
                 $"serverAddress={Config.Api.GetHostname()}",
-                $"token={ApplicationScopeClientContext.Instance.Token.Value}",
+                //$"token={ApplicationScopeClientContext.Instance.Token.Value}",
                 $"osType={(int)Application.Platform}",
                 $"platformType={(int)Application.Platform}",
                 "isIngame=False",
@@ -109,15 +126,15 @@ namespace NierReincarnation.Context
         public string isIngame { get; set; } = "True";
         public int limit { get; set; }
         public int offset { get; set; }
-        public string sessionKey { get; set; } = ApplicationScopeClientContext.Instance.Auth.SessionKey;
-        public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
+        //public string sessionKey { get; set; } = ApplicationScopeClientContext.Instance.Auth.SessionKey;
+        //public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
     }
 
     class NotificationRequest
     {
         public CommonRequest commonRequest { get; set; } = new CommonRequest();
         public int informationId { get; set; }
-        public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
+        //public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
     }
 
     class NotificationListResponse

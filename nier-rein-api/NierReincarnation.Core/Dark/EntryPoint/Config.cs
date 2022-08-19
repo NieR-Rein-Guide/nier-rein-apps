@@ -34,10 +34,29 @@ namespace NierReincarnation.Core.Dark.EntryPoint
             // 0x110
             public static readonly string KoPagePath = "/ko";
 
+            // CUSTOM
+            public static readonly string NotificationGetUrlEn = "https://api-web.app.nierreincarnation.com/api/information/list/get";
+            public static readonly string NotificationGetUrlJp = "https://api-web.app.nierreincarnation.jp/api/information/list/get";
+
+            public static readonly string NotificationDetailUrlEn = "https://api-web.app.nierreincarnation.com/api/information/detail/get";
+            public static readonly string NotificationDetailUrlJp = "https://api-web.app.nierreincarnation.jp/api/information/detail/get";
+
             // CUSTOM: Get hostname based on language identifier
             public static string GetHostname()
             {
                 return Application.Language == Language.English ? HostnameEn : HostnameJp;
+            }
+
+            // CUSTOM: Get notification list url
+            public static string GetNotificationGetUrl()
+            {
+                return Application.Language == Language.English ? NotificationGetUrlEn : NotificationGetUrlJp;
+            }
+
+            // CUSTOM: Get notification detail url
+            public static string GetNotificationDetailUrl()
+            {
+                return Application.Language == Language.English ? NotificationDetailUrlEn : NotificationDetailUrlJp;
             }
 
             /// <summary>

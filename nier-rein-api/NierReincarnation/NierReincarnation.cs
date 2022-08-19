@@ -28,6 +28,8 @@ namespace NierReincarnation
         private const int RetryCount_ = 3;
         private const string DefaultResourceRoot_ = "./resources";
 
+        public static NotificationContext Notifications { get; } = new NotificationContext();
+
         public static bool IsInitialized { get; private set; }
 
         public static bool IsSetup { get; private set; }
@@ -38,6 +40,8 @@ namespace NierReincarnation
         static NierReincarnation()
         {
             SetResourceRootPath(DefaultResourceRoot_);
+
+            ApplicationApi.Run();
         }
 
         public static NierReinContexts GetContexts()
@@ -90,6 +94,7 @@ namespace NierReincarnation
             ErrorHandlingInterceptor.OnErrorAction = OnNetworkError;
 
             // Initialize global application instance
+            // HINT: We do that here again beside the ctor, for future possible dependency of changed language between calling this method and constructing the class
             Console.WriteLine("Setup application systems.");
             ApplicationApi.Run();
 
@@ -220,8 +225,8 @@ namespace NierReincarnation
             // Set user to local player preferences
             var activePlayer = new PlayerRegistration(uuid)
             {
-                UserId = userId, 
-                Signature = signature, 
+                UserId = userId,
+                Signature = signature,
                 ServerAddressAndPort = Config.Api.GetHostname() + Config.Api.Port
             };
 
