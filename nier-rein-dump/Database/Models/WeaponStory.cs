@@ -5,14 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NierReinDb.Database.Models
 {
     [Table("weapon_story")]
-    class WeaponStory
+    internal class WeaponStory
     {
         [Key]
-        [Column("id")]
         public int Id { get; set; }
-        [Column("story")]
+
         public string Story { get; set; }
 
-        public List<WeaponStoryLink> Weapons { get; set; }
+        public virtual ICollection<WeaponStoryLink> Weapons { get; set; }
     }
 }

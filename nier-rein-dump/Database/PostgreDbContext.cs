@@ -5,14 +5,18 @@ using NierReinDb.Models;
 
 namespace NierReinDb.Database
 {
-    class PostgreDbContext : DbContext
+    internal class PostgreDbContext : DbContext
     {
         private readonly string _connectionString;
 
         public DbSet<Character> Characters { get; set; }
+
         public DbSet<Weapon> Weapons { get; set; }
+
         public DbSet<Companion> Companions { get; set; }
+
         public DbSet<Memoir> Memoirs { get; set; }
+
         public DbSet<Thought> Thoughts { get; set; }
 
         public PostgreDbContext(DbConfig dbConfig)
@@ -62,7 +66,9 @@ namespace NierReinDb.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(_connectionString).EnableSensitiveDataLogging();
+            optionsBuilder.UseNpgsql(_connectionString)
+                .UseSnakeCaseNamingConvention()
+                .EnableSensitiveDataLogging();
         }
     }
 }

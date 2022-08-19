@@ -3,20 +3,22 @@
 namespace NierReinDb.Database.Models
 {
     [Table("weapon_stat")]
-    class WeaponStat
+    internal class WeaponStat
     {
-        [Column("weapon_id")]
         public int WeaponId { get; set; }
-        [Column("level")]
+
         public int Level { get; set; }
 
         [Column("atk")]
         public int Attack { get; set; }
+
         [Column("hp")]
         public int Hp { get; set; }
+
         [Column("vit")]
         public int Vitality { get; set; }
 
-        public Weapon Weapon { get; set; }
+        [ForeignKey(nameof(WeaponId))]
+        public virtual Weapon Weapon { get; set; }
     }
 }
