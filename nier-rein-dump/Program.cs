@@ -33,6 +33,7 @@ namespace NierReinDb
             var db = EnsureDatabase();
             await EnsureNierRein();
 
+            await AddNotifications(db);
             await AddCharacters(db);
             await AddWeapons(db);
             await AddCompanions(db);
@@ -91,6 +92,35 @@ namespace NierReinDb
         #endregion
 
         #region Databse methods
+
+        #region Notification methods
+
+        private static async Task AddNotifications(PostgreDbContext db)
+        {
+            Console.WriteLine("Dump notifications");
+
+            await foreach (var notification in NierReincarnation.NierReincarnation.Notifications.GetAllNotifications())
+            {
+                var details = await NierReincarnation.NierReincarnation.Notifications.GetNotification(notification.informationId);
+                if (details == null)
+                    continue;
+
+                await db.Notifications.AddAsync(new Notification
+                {
+                    NotificationId = notification.informationId,
+                    InformationType = notification.informationType.ToString(),
+
+                    Title = notification.title,
+                    Body = details.body,
+
+                    ReleaseTime = CalculatorDateTime.FromUnixTime(notification.publishStartDatetime),
+
+                    ThumbnailPath = notification.thumbnailImagePath
+                });
+            }
+        }
+
+        #endregion
 
         #region Character methods
 
@@ -192,7 +222,7 @@ namespace NierReinDb
                     WeaponType = costume.SkillfulWeaponType.ToString(),
                     RarityType = costume.RarityType.ToString(),
 
-                    IsExCostume = costume.CostumeId >= 40000,
+                    IsExCostume = costume.CostumeId >= 40000 && costume.CostumeId < 50000,
                     ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
 
                     Emblem = emblem
