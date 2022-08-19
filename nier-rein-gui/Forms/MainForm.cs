@@ -31,6 +31,16 @@ namespace nier_rein_gui.Forms
             if (!string.IsNullOrEmpty(Settings.Default.AppVersion))
                 Application.Version = Settings.Default.AppVersion;
 
+            if (VersionChecker.CanDetermine(Application.Language))
+            {
+                var currentVersion = VersionChecker.GetCurrentVersion(Application.Language);
+                if (Application.Version != currentVersion)
+                {
+                    Application.Version = Settings.Default.AppVersion = currentVersion;
+                    Settings.Default.Save();
+                }
+            }
+
             // Set stamina preference
             if (Settings.Default.StaminaPreference != null)
                 StaminaContext.SetPreferences(Settings.Default.StaminaPreference);
@@ -51,6 +61,7 @@ namespace nier_rein_gui.Forms
             // Initialize events
             questsButton.Clicked += QuestsButtonClicked;
             loadoutButton.Clicked += LoadoutButton_Clicked;
+            mapButton.Clicked += MapButton_Clicked;
         }
 
         private async Task<bool> EnsureApplication()
@@ -95,6 +106,17 @@ namespace nier_rein_gui.Forms
                 btn.Active = btn == sender;
 
             SetMenuContent(new SubQuestPanel(_rein, this));
+        }
+
+        private void MapButton_Clicked(object sender, EventArgs e)
+        {
+            if (subMenu is MapPanel)
+                return;
+
+            foreach (var btn in btnList)
+                btn.Active = btn == sender;
+
+            SetMenuContent(new MapPanel(_rein, this));
         }
     }
 }

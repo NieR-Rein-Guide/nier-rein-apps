@@ -135,7 +135,7 @@ namespace nier_rein_gui.Forms.SubForms
 
         private void InitializeDecks()
         {
-            Decks = new DataDeckInfo[10];
+            Decks = new DataDeckInfo[CalculatorDeck.kMaxDeckCount];
             foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
                 Decks[deck.UserDeckNumber - 1] = deck;
 

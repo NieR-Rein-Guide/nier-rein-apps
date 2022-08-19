@@ -45,7 +45,7 @@ namespace nier_rein_gui.Forms.SubForms
                 diffIndex = 0;
 
             _diffType = _chapter.EventQuestChapterDifficultyTypes[diffIndex];
-            difficultyButton.Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)_diffType).Localize();
+            difficultyButton.Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty,(int)_diffType).Localize();
 
             SetQuestList(_chapter, _diffType);
         }

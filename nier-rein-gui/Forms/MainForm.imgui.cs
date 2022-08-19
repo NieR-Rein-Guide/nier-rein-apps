@@ -2,7 +2,6 @@
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark.Calculator;
@@ -24,6 +23,7 @@ namespace nier_rein_gui.Forms
 
         private NierButton loadoutButton;
         private NierButton questsButton;
+        private NierButton mapButton;
 
         private IList<NierButton> btnList;
 
@@ -48,7 +48,7 @@ namespace nier_rein_gui.Forms
             versionLabel = new Label
             {
                 Font = FontResources.FotRodin(11),
-                Caption = $"Game version: {Application.Version}"
+                Caption = $"Game version: {Application.Version}",
             };
 
             var staminaRefreshButton = new StaminaPreferenceButton();
@@ -68,11 +68,21 @@ namespace nier_rein_gui.Forms
 
                 Width = .15f
             };
+            mapButton = new NierButton
+            {
+                Caption = UserInterfaceTextKey.Footer.kMap.Localize(),
+                Padding = new Vector2(0, 15),
+                IsClickActive = true,
+                Enabled = false,
+
+                Width = .15f
+            };
 
             btnList = new List<NierButton>
             {
                 loadoutButton,
-                questsButton
+                questsButton,
+                mapButton
             };
 
             Content = mainContent = new StackLayout
@@ -121,7 +131,8 @@ namespace nier_rein_gui.Forms
                         Items =
                         {
                             loadoutButton,
-                            questsButton
+                            questsButton,
+                            mapButton
                         }
                     }
                 }

@@ -21,6 +21,8 @@ namespace nier_rein_gui.Forms.SubForms
 
             InitializeComponent();
 
+            dailyButton.Clicked += DailyButton_Clicked;
+            guerrillaQuestButton.Clicked += GuerrillaQuestButton_Clicked;
             characterQuestButton.Clicked += CharacterQuestButton_Clicked;
             darkMemoryButton.Clicked += DarkMemoryButton_Clicked;
 
@@ -30,13 +32,15 @@ namespace nier_rein_gui.Forms.SubForms
 
         private IList<EventQuestChapterData> GetEventChapters()
         {
-            var eventQuests = CalculatorQuest.GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.TOWER, EventQuestType.HUNT, EventQuestType.SPECIAL);
-            var dungeonQuests = CalculatorQuest.GetEventQuestChapters(EventQuestType.DUNGEON);
+            var eventQuests = CalculatorQuest.GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.HUNT, EventQuestType.SPECIAL, EventQuestType.TOWER);
+            var eventChapters = eventQuests.Where(x => x.IsCurrent()).OrderByDescending(x => x.StartDatetime).ThenByDescending(x => x.EventQuestType);
 
-            var eventChapters = eventQuests.Where(x => x.IsCurrent()).OrderByDescending(x => x.StartDatetime);
-            var dungeons = dungeonQuests.OrderBy(x => x.StartDatetime);
+            return eventChapters.ToArray();
+        }
 
-            return eventChapters.Concat(dungeons).ToArray();
+        private IList<EventQuestChapterData> GetDungeonChapters()
+        {
+            return CalculatorQuest.GetEventQuestChapters(EventQuestType.DUNGEON).Where(x => x.IsCurrent()).OrderBy(x => x.StartDatetime).ToArray();
         }
 
         private void ChapterBtn_Clicked(object sender, EventArgs e)
@@ -76,11 +80,33 @@ namespace nier_rein_gui.Forms.SubForms
             SetMenuContent(subMenu = new CharacterQuestPanel(_rein));
         }
 
+        private void GuerrillaQuestButton_Clicked(object sender, EventArgs e)
+        {
+            if (subMenu is GuerrillaQuestPanel)
+                return;
+
+            ToggleButtons(sender);
+
+            SetMenuContent(subMenu = new GuerrillaQuestPanel(_rein));
+        }
+
+        private void DailyButton_Clicked(object sender, EventArgs e)
+        {
+            if (subMenu is DailyQuestPanel)
+                return;
+
+            ToggleButtons(sender);
+
+            SetMenuContent(subMenu = new DailyQuestPanel(_rein));
+        }
+
         private void ToggleButtons(object sender)
         {
             foreach (var btn in eventButtons)
                 btn.Item1.Active = btn.Item1 == sender;
 
+            dailyButton.Active = dailyButton == sender;
+            guerrillaQuestButton.Active = guerrillaQuestButton == sender;
             characterQuestButton.Active = characterQuestButton == sender;
             darkMemoryButton.Active = darkMemoryButton == sender;
         }

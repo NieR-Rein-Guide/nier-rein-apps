@@ -175,7 +175,8 @@ namespace nier_rein_gui.Dialogs
                                           i.name.StartsWith("ui)companion)") ||
                                           i.name.StartsWith("ui)thought)") ||
                                           i.name.StartsWith("ui)memory)") ||
-                                          i.name.StartsWith("ui)consumable_item)"));
+                                          i.name.StartsWith("ui)consumable_item)") ||
+                                          i.name.StartsWith("ui)world_map)map)wm_map_image_"));
 
             var assetCount = _assetContext.GetAssetCount(IconSelector);
             var assetSize = _assetContext.GetAssetSize(IconSelector);
@@ -240,7 +241,7 @@ namespace nier_rein_gui.Dialogs
                     await AfterLogin();
             };
 
-            Caption = "Login";
+            Caption = "SquareEnix Bridge Login";
             Content = new StackLayout
             {
                 Alignment = Alignment.Vertical,

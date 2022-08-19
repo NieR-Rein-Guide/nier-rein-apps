@@ -1,11 +1,12 @@
-﻿using ImGui.Forms.Controls;
-using nier_rein_gui.Controls;
-using nier_rein_gui.Controls.Buttons;
-using nier_rein_gui.Dialogs;
-using nier_rein_gui.Dialogs.FarmDialogs;
+﻿using System.Collections.Generic;
+using ImGui.Forms.Controls;
 using NierReincarnation;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
+using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
 namespace nier_rein_gui.Forms.SubForms
 {
@@ -18,25 +19,27 @@ namespace nier_rein_gui.Forms.SubForms
             _rein = rein;
 
             InitializeComponent();
+
+            chapterPanel.UpdateChapter += ChapterPanel_UpdateChapter;
+            difficultyButton.Clicked += DifficultyButton_Clicked;
         }
 
-        private void SeasonBtn_Clicked(NierButton sender, MainQuestSeasonData season)
+        private List<QuestCellData> GetQuests(MainQuestChapterData chapter, DifficultyType difficulty)
         {
-            _currentSeason = season;
-
-            foreach (var seasonBtn in seasonLayout.Items)
-                (seasonBtn.Content as NierButton).Active = sender == seasonBtn.Content;
-
-            UpdateChapters(season);
+            return CalculatorQuest.GenerateMainQuestData(chapter.MainQuestChapterId, difficulty).QuestDataList;
         }
 
-        private void ChapterBtn_Clicked(NierButton sender, MainQuestChapterData chapter)
+        private void UpdateDifficulty(DifficultyType difficultyType)
         {
-            _currentChapter = chapter;
+            _currentDifficulty = difficultyType;
 
-            foreach (var chapterBtn in chapterList.Items)
-                (chapterBtn as NierButton).Active = chapterBtn == sender;
+            difficultyButton.Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficultyType).Localize();
+        }
 
+        #region Events
+
+        private void ChapterPanel_UpdateChapter(MainQuestSeasonData season, MainQuestChapterData chapter)
+        {
             var difficulties = chapter.MainQuestChapterDifficultyTypes;
             var difficulty = _currentDifficulty;
 
@@ -44,25 +47,37 @@ namespace nier_rein_gui.Forms.SubForms
                 difficulty = difficulties[0];
 
             UpdateDifficulty(difficulty);
-            UpdateQuests(chapter, difficulty);
+            UpdateQuestList(chapter, difficulty);
         }
 
-        private void DifficultyButton_Clicked1(object sender, System.EventArgs e)
+        private void DifficultyButton_Clicked(object sender, System.EventArgs e)
         {
             var newDifficulty = _currentDifficulty + 1;
-            if (!_currentChapter.MainQuestChapterDifficultyTypes.Contains(newDifficulty))
-                newDifficulty = _currentChapter.MainQuestChapterDifficultyTypes[0];
+            if (!chapterPanel.CurrentChapter.MainQuestChapterDifficultyTypes.Contains(newDifficulty))
+                newDifficulty = chapterPanel.CurrentChapter.MainQuestChapterDifficultyTypes[0];
 
             UpdateDifficulty(newDifficulty);
-            UpdateQuests(_currentChapter, newDifficulty);
+            UpdateQuestList(chapterPanel.CurrentChapter, newDifficulty);
         }
 
-        private async void QuestBtn_Clicked(NierQuestButton sender, QuestCellData quest)
-        {
-            var farmDlg = new MainQuestFarmDialog(_rein, _quests, quest);
-            await farmDlg.ShowAsync();
+        #endregion
 
-            UpdateQuests(_currentChapter, _currentDifficulty);
-        }
+        //private void DifficultyButton_Clicked1(object sender, System.EventArgs e)
+        //{
+        //    var newDifficulty = _currentDifficulty + 1;
+        //    if (!_currentChapter.MainQuestChapterDifficultyTypes.Contains(newDifficulty))
+        //        newDifficulty = _currentChapter.MainQuestChapterDifficultyTypes[0];
+
+        //    UpdateDifficulty(newDifficulty);
+        //    UpdateQuests(_currentChapter, newDifficulty);
+        //}
+
+        //private async void QuestBtn_Clicked(NierQuestButton sender, QuestCellData quest)
+        //{
+        //    var farmDlg = new MainQuestFarmDialog(_rein, _quests, quest);
+        //    await farmDlg.ShowAsync();
+
+        //    UpdateQuests(_currentChapter, _currentDifficulty);
+        //}
     }
 }

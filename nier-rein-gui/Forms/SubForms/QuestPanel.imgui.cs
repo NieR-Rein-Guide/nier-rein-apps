@@ -59,7 +59,6 @@ namespace nier_rein_gui.Forms.SubForms
                 var campaigns = CalculatorCampaign.CreateDataQuestCampaignAll(quest.Quest);
                 var stamCampaign = campaigns.TotalCampaignList.FirstOrDefault(x => (x as DataQuestCampaign).QuestCampaignEffectType == QuestCampaignEffectType.STAMINA_CONSUME_AMOUNT);
 
-                // TODO: Using campaigns to reduce stamina and make it noticable by changing color
                 var btn = new NierQuestButton
                 {
                     Padding = new Vector2(2, 2),
@@ -70,7 +69,8 @@ namespace nier_rein_gui.Forms.SubForms
                     IsClear = quest.IsClearQuest,
                     Enabled = !quest.IsLock,
                     IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0,
-                    StaminaCampaign = stamCampaign as DataQuestCampaign
+                    StaminaCampaign = stamCampaign as DataQuestCampaign,
+                    Attribute = quest.AttributeType
                 };
                 btn.Clicked += async (s, e) => await FightAsync(chapter, type, quests, quest);
 

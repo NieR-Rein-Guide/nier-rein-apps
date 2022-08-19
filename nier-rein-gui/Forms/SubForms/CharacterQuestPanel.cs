@@ -65,6 +65,9 @@ namespace nier_rein_gui.Forms.SubForms
             var quests = CalculatorQuest.GenerateEventQuestData(chapter.EventQuestChapterId, DifficultyType.NORMAL).Where(x => x.IsAvailable).ToList();
             foreach (var quest in quests)
             {
+                var campaigns = CalculatorCampaign.CreateDataQuestCampaignAll(quest.Quest);
+                var stamCampaign = campaigns.TotalCampaignList.FirstOrDefault(x => (x as DataQuestCampaign).QuestCampaignEffectType == QuestCampaignEffectType.STAMINA_CONSUME_AMOUNT);
+
                 var charButton = new NierQuestButton
                 {
                     Caption = quest.QuestName,
@@ -72,7 +75,10 @@ namespace nier_rein_gui.Forms.SubForms
                     Stamina = quest.Quest.EntityQuest.Stamina,
                     Padding = new Vector2(2, 2),
                     Width = 1f,
-                    Enabled = !quest.IsLock
+                    Enabled = !quest.IsLock,
+                    IsClear = quest.IsClearQuest,
+                    StaminaCampaign = stamCampaign as DataQuestCampaign,
+                    Attribute = quest.AttributeType
                 };
                 charButton.Clicked += async (s, e) => await FightAsync(chapter, quests, quest);
 

@@ -77,7 +77,8 @@ namespace nier_rein_gui.Forms.SubForms
                     Padding = new Vector2(2, 2),
                     Width = 1f,
                     IsDaily = quest.Quest.EntityQuest.DailyClearableCount > 0,
-                    StaminaCampaign = stamCampaign as DataQuestCampaign
+                    StaminaCampaign = stamCampaign as DataQuestCampaign,
+                    Attribute = quest.AttributeType
                 };
                 charButton.Clicked += async (s, e) => await FightAsync(chapter, quests, quest, charButton.IsDaily);
 

@@ -20,6 +20,7 @@ using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
+using Serilog;
 
 namespace nier_rein_gui.Dialogs.FarmDialogs
 {
@@ -37,6 +38,8 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         private bool _isFarming;
         private bool _isCancel;
 
+        private Label roundCaptionLabel;
+        private Label roundLabel;
         private ArrowButton previousButton;
         private ArrowButton nextButton;
         private Label captionLabel;
@@ -65,6 +68,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             _timer.Elapsed += _timer_Elapsed;
 
             BattleContext.SetupReAuthorization(null, null);
+
+            roundCaptionLabel = new Label { Caption = "Rounds:" };
+            roundLabel = new Label();
 
             previousButton = new ArrowButton { Direction = ImGuiDir.Left };
             previousButton.Clicked += PreviousButton_Clicked;
@@ -135,7 +141,27 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                     },
                     new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
                     new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
-                    new StackItem(null),
+                    new StackLayout
+                    {
+                        Size = new ImGui.Forms.Models.Size(1f,-1),
+                        ItemSpacing = 5,
+                        Alignment = Alignment.Horizontal,
+                        Items =
+                        {
+                            new StackItem(null),
+                            new StackLayout
+                            {
+                                Alignment = Alignment.Horizontal,
+                                Size = ImGui.Forms.Models.Size.Content,
+                                ItemSpacing = 5,
+                                Items =
+                                {
+                                    roundCaptionLabel,
+                                    new StackItem(roundLabel){Size = new ImGui.Forms.Models.Size(60,-1)}
+                                }
+                            }
+                        }
+                    },
                     rewards,
                     costumes,
                     new StackLayout
@@ -253,6 +279,8 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             costumes.Rows.Clear();
             rewards.Rows.Clear();
 
+            SetRound(0);
+
             // Prepare deck
             var deck = _isRental ?
                 CalculatorDeck.CreateRentalDeck(_questId) :
@@ -275,11 +303,15 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
             BattleContext.BattleFinished += Battles_BattleFinished;
             BattleContext.RequestRatioReached += RequestRatioReached;
+            BattleContext.GeneralError += BattleContext_GeneralError;
 
             await ExecuteQuest(deck);
 
             BattleContext.BattleFinished -= Battles_BattleFinished;
             BattleContext.RequestRatioReached -= RequestRatioReached;
+            BattleContext.GeneralError -= BattleContext_GeneralError;
+
+            SetRound(1);
 
             (Application.Instance.MainForm as MainForm).UpdateUser();
             (Application.Instance.MainForm as MainForm).UpdateStamina();
@@ -290,6 +322,12 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             startButton.Enabled = true;
             previousButton.Enabled = true;
             nextButton.Enabled = true;
+        }
+
+        private async Task BattleContext_GeneralError(Grpc.Core.RpcException e)
+        {
+            Log.Fatal(e, "Exception executing quest.");
+            await MessageBox.ShowInformationAsync("General Error", "An error occurred executing this quest.\nSee the log for more info.");
         }
 
         private void RequestRatioReached(TimeSpan timeout)
@@ -428,6 +466,10 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             foreach (var costume in _costumeCache)
                 costumes.Rows.Add(new DataTableRow<Costume>(costume.Value));
 
+            // Set rounds
+            var rounds = 0;
+            SetRound(rounds);
+
             // Execute farming
             var isCancelled = false;
             while (!_isCancel)
@@ -438,6 +480,11 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
                 (Application.Instance.MainForm as MainForm).UpdateUser();
                 (Application.Instance.MainForm as MainForm).UpdateStamina();
+
+                SetRound(++rounds);
+
+                if (battleResult.Status == BattleStatus.ForceShutdown)
+                    break;
 
                 if (battleResult.Status == BattleStatus.OutOfStamina)
                 {
@@ -499,9 +546,14 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         private void SetDeckBox(ComboBox<DataDeckInfo> deckBox)
         {
             if (deckBox == null)
-                (Content as StackLayout).Items[3] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
+                ((Content as StackLayout).Items[3].Content as StackLayout).Items[0] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
             else
-                (Content as StackLayout).Items[3] = new StackItem(deckBox) { Size = ImGui.Forms.Models.Size.Content };
+                ((Content as StackLayout).Items[3].Content as StackLayout).Items[0] = new StackItem(deckBox) { Size = ImGui.Forms.Models.Size.Content };
+        }
+
+        private void SetRound(int rounds)
+        {
+            roundLabel.Caption = $"{rounds}";
         }
 
         class Reward

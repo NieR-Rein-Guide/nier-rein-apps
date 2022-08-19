@@ -162,6 +162,30 @@ namespace nier_rein_gui.Resources
 
         #region Icons
 
+        public static ImageResource LoadAttributeIcon(QuestDisplayAttributeType attribute)
+        {
+            switch (attribute)
+            {
+                case QuestDisplayAttributeType.FIRE:
+                    return LoadAttributeIcon(AttributeType.FIRE);
+
+                case QuestDisplayAttributeType.WATER:
+                    return LoadAttributeIcon(AttributeType.WATER);
+
+                case QuestDisplayAttributeType.WIND:
+                    return LoadAttributeIcon(AttributeType.WIND);
+
+                case QuestDisplayAttributeType.LIGHT:
+                    return LoadAttributeIcon(AttributeType.LIGHT);
+
+                case QuestDisplayAttributeType.DARK:
+                    return LoadAttributeIcon(AttributeType.DARK);
+
+                default:
+                    return null;
+            }
+        }
+
         public static ImageResource LoadAttributeIcon(AttributeType attribute)
         {
             if (AttributeIcons.ContainsKey(attribute))

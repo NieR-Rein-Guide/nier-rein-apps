@@ -7,6 +7,8 @@ using ImGui.Forms.Extensions;
 using ImGui.Forms.Models;
 using ImGui.Forms.Resources;
 using ImGuiNET;
+using nier_rein_gui.Resources;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using Rectangle = Veldrid.Rectangle;
@@ -21,6 +23,7 @@ namespace nier_rein_gui.Controls.Buttons
         private const int SubPadding_ = 4;
         private const int SubDistanceX_ = 8;
         private const int SubDistanceY_ = 8;
+        private const int SubDistanceAttributeY_ = 5;
         private const int LabelDistance_ = 2;
         private const int DailyPadding_ = 2;
         private const int ClearPadding_ = 2;
@@ -65,6 +68,8 @@ namespace nier_rein_gui.Controls.Buttons
 
         public DataQuestCampaign StaminaCampaign { get; set; }
 
+        public QuestDisplayAttributeType Attribute { get; set; }
+
         #endregion
 
         #region Events
@@ -77,6 +82,15 @@ namespace nier_rein_gui.Controls.Buttons
         {
             // Get quest name size
             var questNameSize = FontResource.MeasureText(Caption);
+
+            // Get attribute size
+            var attributeSize = NierResources.IconSize + new Vector2(LabelDistance_, 0);
+            var subY = SubDistanceAttributeY_;
+            if (!IsAttributeVisible())
+            {
+                attributeSize = new Vector2();
+                subY = SubDistanceY_;
+            }
 
             // Get clear text size
             if (ClearFont != null)
@@ -98,8 +112,8 @@ namespace nier_rein_gui.Controls.Buttons
             var staminaSize = FontResource.MeasureText(StaminaIdent_.Localize()) + FontResource.MeasureText("000");
 
             // Calculate final size
-            var width = (int)Math.Max(questNameSize.X + clearSize.X + ClearPadding_ * 2 + LabelDistance_ + dailySize.X + DailyPadding_ * 2, sugPowerSize.X + staminaSize.X + SubPadding_ * 4 + SubDistanceX_) + BorderDistance_ * 2 + BorderWidth_ * 2 + (int)Padding.X * 2;
-            var height = (int)(questNameSize.Y + FontResource.GetCurrentLineHeight() + SubPadding_ * 2 + SubDistanceY_ + BorderDistance_ * 2 + BorderWidth_ * 2 + Padding.Y * 2);
+            var width = (int)Math.Max(attributeSize.X + questNameSize.X + clearSize.X + ClearPadding_ * 2 + LabelDistance_ + dailySize.X + DailyPadding_ * 2, sugPowerSize.X + staminaSize.X + SubPadding_ * 4 + SubDistanceX_) + BorderDistance_ * 2 + BorderWidth_ * 2 + (int)Padding.X * 2;
+            var height = (int)(Math.Max(attributeSize.Y, questNameSize.Y) + FontResource.GetCurrentLineHeight() + SubPadding_ * 2 + subY + BorderDistance_ * 2 + BorderWidth_ * 2 + Padding.Y * 2);
 
             // Pop fonts
             if (SubFont != null)
@@ -172,10 +186,22 @@ namespace nier_rein_gui.Controls.Buttons
         {
             var topLeft = new Vector2(contentRect.X + BorderDistance_ + BorderWidth_ + Padding.X, contentRect.Y + BorderDistance_ + BorderWidth_ + Padding.Y);
 
+            // Draw top line
+            var topLine = topLeft;
+            var questNameHeight = FontResource.GetCurrentLineHeight();
+
+            // Draw attribute
+            if (IsAttributeVisible())
+            {
+                var attributeIcon = NierResources.LoadAttributeIcon(Attribute);
+                ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)attributeIcon, topLine, topLine + attributeIcon.Size);
+
+                topLine += new Vector2(attributeIcon.Size.X + LabelDistance_, (attributeIcon.Height - questNameHeight) / 2f);
+            }
+
             // Draw quest name
-            var questHeight = FontResource.GetCurrentLineHeight();
             var questNameColor = IsActive() && Enabled ? TextActiveColor : Style.GetColor(ImGuiCol.Text).ToUInt32();
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft, questNameColor, Caption ?? string.Empty);
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLine, questNameColor, Caption ?? string.Empty);
 
             // Draw daily label
             var clearOff = 0;
@@ -189,7 +215,7 @@ namespace nier_rein_gui.Controls.Buttons
             if (IsClear)
                 DrawClearLabel(contentRect, clearOff);
 
-            topLeft += new Vector2(0, questHeight + SubDistanceY_);
+            var bottomLine = topLeft + new Vector2(0, Math.Max(questNameHeight, IsAttributeVisible() ? NierResources.IconSize.Y : 0) + (IsAttributeVisible() ? SubDistanceAttributeY_ : SubDistanceY_));
 
             if (SubFont != null)
                 ImGuiNET.ImGui.PushFont((ImFontPtr)SubFont);
@@ -201,11 +227,11 @@ namespace nier_rein_gui.Controls.Buttons
             var secondForceWidth = FontResource.GetCurrentLineWidth($"{SuggestedPower}");
             var forceWidth = firstForceWidth + FontResource.GetCurrentLineWidth("0000000") + SubPadding_ * 2;
 
-            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(topLeft, topLeft + new Vector2(forceWidth, height), BoxBackgroundColor, 0);
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(SubPadding_, SubPadding_), Style.GetColor(ImGuiCol.Text).ToUInt32(), SuggestedForceIdent_.Localize());
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(forceWidth - SubPadding_ - secondForceWidth, SubPadding_), Style.GetColor(ImGuiCol.Text).ToUInt32(), $"{SuggestedPower}");
+            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(bottomLine, bottomLine + new Vector2(forceWidth, height), BoxBackgroundColor, 0);
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(bottomLine + new Vector2(SubPadding_, SubPadding_), Style.GetColor(ImGuiCol.Text).ToUInt32(), SuggestedForceIdent_.Localize());
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(bottomLine + new Vector2(forceWidth - SubPadding_ - secondForceWidth, SubPadding_), Style.GetColor(ImGuiCol.Text).ToUInt32(), $"{SuggestedPower}");
 
-            topLeft += new Vector2(forceWidth + SubDistanceX_, 0);
+            bottomLine += new Vector2(forceWidth + SubDistanceX_, 0);
 
             // Draw stamina details
             var stamina = Stamina;
@@ -222,9 +248,9 @@ namespace nier_rein_gui.Controls.Buttons
             var secondStaminaWidth = FontResource.GetCurrentLineWidth($"{stamina}");
             var staminaWidth = firstStaminaWidth + FontResource.GetCurrentLineWidth("000") + SubPadding_ * 2;
 
-            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(topLeft, topLeft + new Vector2(staminaWidth, height), BoxBackgroundColor, 0);
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(SubPadding_, SubPadding_), staminaIdentColor, StaminaIdent_.Localize());
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLeft + new Vector2(staminaWidth - SubPadding_ - secondStaminaWidth, SubPadding_), staminaTextColor, $"{stamina}");
+            ImGuiNET.ImGui.GetWindowDrawList().AddRectFilled(bottomLine, bottomLine + new Vector2(staminaWidth, height), BoxBackgroundColor, 0);
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(bottomLine + new Vector2(SubPadding_, SubPadding_), staminaIdentColor, StaminaIdent_.Localize());
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(bottomLine + new Vector2(staminaWidth - SubPadding_ - secondStaminaWidth, SubPadding_), staminaTextColor, $"{stamina}");
 
             if (SubFont != null)
                 ImGuiNET.ImGui.PopFont();
@@ -278,6 +304,14 @@ namespace nier_rein_gui.Controls.Buttons
             bottomRight = new Vector2(contentRect.X + contentRect.Width / 2 + lockImg.Width / 2, contentRect.Y + contentRect.Height / 2 + lockImg.Height / 2);
 
             ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)lockImg, topLeft, bottomRight);
+        }
+
+        private bool IsAttributeVisible()
+        {
+            return Attribute != QuestDisplayAttributeType.UNKNOWN &&
+                   Attribute != QuestDisplayAttributeType.NOTHING &&
+                   Attribute != QuestDisplayAttributeType.ALL &&
+                   Attribute != QuestDisplayAttributeType.VARIOUS;
         }
 
         private bool IsActive()

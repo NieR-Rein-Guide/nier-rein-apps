@@ -5,13 +5,11 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
-using NierReincarnation.Core.Dark.Calculator;
+using nier_rein_gui.Dialogs.FarmDialogs;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
 namespace nier_rein_gui.Forms.SubForms
 {
@@ -19,106 +17,52 @@ namespace nier_rein_gui.Forms.SubForms
     {
         private const DifficultyType DefaultDifficulty_ = DifficultyType.NORMAL;
 
-        private List<MainQuestSeasonData> _seasons;
-        private List<MainQuestChapterData> _chapters;
+        private DifficultyType _currentDifficulty;
         private List<QuestCellData> _quests;
 
-        private MainQuestSeasonData _currentSeason;
-        private MainQuestChapterData _currentChapter;
-        private DifficultyType _currentDifficulty;
-
-        private StackLayout seasonLayout;
-        private List chapterList;
         private List questList;
         private NierButton difficultyButton;
 
+        private MainQuestChapterPanel chapterPanel;
+
         private void InitializeComponent()
         {
-            seasonLayout = CreateSeasonButtonLayout();
-            chapterList = new List { ItemSpacing = 5 };
             questList = new List { ItemSpacing = 5, };
             difficultyButton = new NierButton { Width = 100 };
 
-            Content = new StackLayout
+            chapterPanel = new MainQuestChapterPanel();
+            var panelContent = new StackLayout
             {
                 Alignment = Alignment.Vertical,
                 ItemSpacing = 5,
+                Size = new Size(.65f, 1f),
                 Items =
                 {
-                    seasonLayout,
-                    new StackLayout
-                    {
-                        Alignment = Alignment.Horizontal,
-                        ItemSpacing = 5,
-                        Items =
-                        {
-                            new StackItem(chapterList){Size = new Size(.35f,1f)},
-                            new StackLayout
-                            {
-                                Alignment = Alignment.Vertical,
-                                ItemSpacing = 5,
-                                Size = new Size(.65f, 1f),
-                                Items =
-                                {
-                                    new StackItem(difficultyButton){HorizontalAlignment = HorizontalAlignment.Right},
-                                    questList
-                                }
-                            }
-                        }
-                    }
+                    new StackItem(difficultyButton) {HorizontalAlignment = HorizontalAlignment.Right},
+                    questList
                 }
             };
 
-            UpdateChapters(_seasons[0]);
-            difficultyButton.Clicked += DifficultyButton_Clicked1;
-        }
+            chapterPanel.SetContent(panelContent);
 
-        private void UpdateChapters(MainQuestSeasonData season)
-        {
-            _chapters = CalculatorQuest.GetMainQuestChapters(season.MainQuestSeasonId);
-            _currentChapter = _chapters[0];
-
-            chapterList.Items.Clear();
-            foreach (var chapter in _chapters)
-                chapterList.Items.Add(CreateChapterButton(chapter));
+            Content = chapterPanel;
 
             UpdateDifficulty(DefaultDifficulty_);
-            UpdateQuests(_currentChapter, DefaultDifficulty_);
+            UpdateQuestList(chapterPanel.CurrentChapter, _currentDifficulty);
         }
 
-        private void UpdateDifficulty(DifficultyType difficultyType)
+        private void UpdateQuestList(MainQuestChapterData chapter, DifficultyType difficulty)
         {
-            _currentDifficulty = difficultyType;
-
-            difficultyButton.Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficultyType).Localize();
-        }
-
-        private void UpdateQuests(MainQuestChapterData chapter, DifficultyType difficulty)
-        {
-            _quests = CalculatorQuest.GenerateMainQuestData(chapter.MainQuestChapterId, difficulty).QuestDataList;
-
+            // Clear list
             questList.Items.Clear();
+
+            // Add quests
+            _quests = GetQuests(chapter, difficulty);
             foreach (var quest in _quests)
-                questList.Items.Add(CreateQuestButton(quest));
+                questList.Items.Add(CreateQuestButton(chapter, quest, difficulty));
         }
 
-        private NierButton CreateChapterButton(MainQuestChapterData chapter)
-        {
-            var result = new NierButton
-            {
-                Caption = chapter.MainQuestChapterNumberName,
-                Active = _currentChapter == chapter,
-                Enabled = CalculatorQuest.IsUnlockMainQuestChapter(CalculatorStateUser.GetUserId(), chapter.MainQuestChapterId),
-                IsClickActive = true,
-                Width = 1f,
-                Padding = new Vector2(0, 2)
-            };
-            result.Clicked += (s, e) => ChapterBtn_Clicked((NierButton)s, chapter);
-
-            return result;
-        }
-
-        private NierQuestButton CreateQuestButton(QuestCellData quest)
+        private NierQuestButton CreateQuestButton(MainQuestChapterData chapter, QuestCellData quest, DifficultyType difficulty)
         {
             var campaigns = CalculatorCampaign.CreateDataQuestCampaignAll(quest.Quest);
             var stamCampaign = campaigns.TotalCampaignList.FirstOrDefault(x => (x as DataQuestCampaign).QuestCampaignEffectType == QuestCampaignEffectType.STAMINA_CONSUME_AMOUNT);
@@ -132,45 +76,120 @@ namespace nier_rein_gui.Forms.SubForms
                 IsClear = quest.IsClear,
                 Padding = new Vector2(2, 2),
                 Width = 1f,
-                StaminaCampaign = stamCampaign as DataQuestCampaign
+                StaminaCampaign = stamCampaign as DataQuestCampaign,
+                Attribute = quest.Attribute
             };
-            result.Clicked += (s, e) => QuestBtn_Clicked((NierQuestButton)s, quest);
+            result.Clicked += (s, e) => QuestBtn_Clicked(chapter, quest, difficulty);
 
             return result;
         }
 
-        // TODO: Make vertical List
-        private StackLayout CreateSeasonButtonLayout()
+        private async void QuestBtn_Clicked(MainQuestChapterData chapter, QuestCellData quest, DifficultyType difficulty)
         {
-            var result = new StackLayout
-            {
-                Alignment = Alignment.Horizontal,
-                ItemSpacing = 5,
-                Size = new Size(1f, -1)
-            };
+            var farmDlg = new MainQuestFarmDialog(_rein, _quests, quest);
+            await farmDlg.ShowAsync();
 
-            // TODO: Set Enabled based on user status for story progress
-
-            _seasons = CalculatorQuest.GetMainQuestSeasons();
-            foreach (var season in _seasons)
-            {
-                var seasonBtn = new NierButton
-                {
-                    Caption = season.MainQuestSeasonName,
-                    Active = _seasons[0] == season,
-                    IsClickActive = true,
-                    Width = 0.125f,
-                    Padding = new Vector2(0, 2)
-                };
-                seasonBtn.Clicked += (s, e) => SeasonBtn_Clicked((NierButton)s, season);
-
-                result.Items.Add(seasonBtn);
-            }
-
-            _currentSeason = _seasons[0];
-
-            return result;
+            UpdateQuestList(chapter, difficulty);
         }
+
+        //private void UpdateChapters(MainQuestSeasonData season)
+        //{
+        //    _chapters = CalculatorQuest.GetMainQuestChapters(season.MainQuestSeasonId);
+        //    _currentChapter = _chapters[0];
+
+        //    chapterList.Items.Clear();
+        //    foreach (var chapter in _chapters)
+        //        chapterList.Items.Add(CreateChapterButton(chapter));
+
+        //    UpdateDifficulty(DefaultDifficulty_);
+        //    UpdateQuests(_currentChapter, DefaultDifficulty_);
+        //}
+
+        //private void UpdateDifficulty(DifficultyType difficultyType)
+        //{
+        //    _currentDifficulty = difficultyType;
+
+        //    difficultyButton.Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty,(int)difficultyType).Localize();
+        //}
+
+        //private void UpdateQuests(MainQuestChapterData chapter, DifficultyType difficulty)
+        //{
+        //    _quests = CalculatorQuest.GenerateMainQuestData(chapter.MainQuestChapterId, difficulty).QuestDataList;
+
+        //    questList.Items.Clear();
+        //    foreach (var quest in _quests)
+        //        questList.Items.Add(CreateQuestButton(quest));
+        //}
+
+        //private NierButton CreateChapterButton(MainQuestChapterData chapter)
+        //{
+        //    var result = new NierButton
+        //    {
+        //        Caption = chapter.MainQuestChapterNumberName,
+        //        Active = _currentChapter == chapter,
+        //        Enabled = CalculatorQuest.IsUnlockMainQuestChapter(CalculatorStateUser.GetUserId(), chapter.MainQuestChapterId),
+        //        IsClickActive = true,
+        //        Width = 1f,
+        //        Padding = new Vector2(0, 2)
+        //    };
+        //    result.Clicked += (s, e) => ChapterBtn_Clicked((NierButton)s, chapter);
+
+        //    return result;
+        //}
+
+        //private NierQuestButton CreateQuestButton(QuestCellData quest)
+        //{
+        //    var campaigns = CalculatorCampaign.CreateDataQuestCampaignAll(quest.Quest);
+        //    var stamCampaign = campaigns.TotalCampaignList.FirstOrDefault(x => (x as DataQuestCampaign).QuestCampaignEffectType == QuestCampaignEffectType.STAMINA_CONSUME_AMOUNT);
+
+        //    var result = new NierQuestButton
+        //    {
+        //        Caption = quest.QuestName,
+        //        Enabled = !quest.IsLock,
+        //        SuggestedPower = quest.Quest.EntityQuest.RecommendedDeckPower,
+        //        Stamina = quest.Quest.EntityQuest.Stamina,
+        //        IsClear = quest.IsClear,
+        //        Padding = new Vector2(2, 2),
+        //        Width = 1f,
+        //        StaminaCampaign = stamCampaign as DataQuestCampaign
+        //    };
+        //    result.Clicked += (s, e) => QuestBtn_Clicked((NierQuestButton)s, quest);
+
+        //    return result;
+        //}
+
+        //// TODO: Make vertical List
+        //private StackLayout CreateSeasonButtonLayout()
+        //{
+        //    var result = new StackLayout
+        //    {
+        //        Alignment = Alignment.Horizontal,
+        //        ItemSpacing = 5,
+        //        Size = new Size(1f, -1)
+        //    };
+
+        //    // TODO: Set Enabled based on user status for story progress
+
+        //    _seasons = CalculatorQuest.GetMainQuestSeasons();
+        //    foreach (var season in _seasons)
+        //    {
+        //        var seasonBtn = new NierButton
+        //        {
+        //            Caption = season.MainQuestSeasonName,
+        //            Active = _seasons[0] == season,
+        //            IsClickActive = true,
+        //            Width = 0.125f,
+        //            Padding = new Vector2(0, 2)
+        //        };
+        //        seasonBtn.Clicked += (s, e) => SeasonBtn_Clicked((NierButton)s, season);
+
+        //        result.Items.Add(seasonBtn);
+        //    }
+
+        //    _currentSeason = _seasons[0];
+
+        //    return result;
+        //}
 
         //private List CreateChapterButtonList(int seasonIndex = 0)
         //{

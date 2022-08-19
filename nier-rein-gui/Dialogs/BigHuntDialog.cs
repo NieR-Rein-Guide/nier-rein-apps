@@ -3,7 +3,6 @@ using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Extensions;
 using NierReincarnation;
@@ -81,7 +80,8 @@ namespace nier_rein_gui.Dialogs
             clearButton.Enabled = false;
             _cancelClose = true;
 
-            await _bigHuntBattleContext.ExecuteBigHuntQuest(_quest, decks.SelectedItem.Content.UserDeckNumber, grades.SelectedItem.Content);
+            var grade = grades.SelectedItem.Content;
+            await _bigHuntBattleContext.ExecuteBigHuntQuest(_quest, decks.SelectedItem.Content.UserDeckNumber, grade);
 
             _cancelClose = false;
             clearButton.Enabled = true;
