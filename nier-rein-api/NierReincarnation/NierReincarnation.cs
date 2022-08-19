@@ -30,6 +30,8 @@ namespace NierReincarnation
 
         public static NotificationContext Notifications { get; } = new NotificationContext();
 
+        public static AssetContext Assets { get; } = new AssetContext();
+
         public static bool IsInitialized { get; private set; }
 
         public static bool IsSetup { get; private set; }
@@ -42,6 +44,8 @@ namespace NierReincarnation
             SetResourceRootPath(DefaultResourceRoot_);
 
             ApplicationApi.Run();
+
+            DarkOctoSetupper.StartSetup(!OctoManager.IsSetupped, true);
         }
 
         public static NierReinContexts GetContexts()
