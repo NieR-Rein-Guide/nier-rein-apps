@@ -48,7 +48,7 @@ namespace NierReinDb
         {
             var reinConfig = EnsureNierReinConfig();
 
-            Application.Version = "2.10.12";
+            Application.Version = reinConfig.GameVersion;
 
             await NierReincarnation.NierReincarnation.PrepareCommandLine(reinConfig.User, reinConfig.Password);
             await NierReincarnation.NierReincarnation.LoadLocalizations(Language.English);
