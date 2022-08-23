@@ -9,14 +9,14 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBigHuntBoss
     {
         [Key(0)] // RVA: 0x1DD6134 Offset: 0x1DD6134 VA: 0x1DD6134
-        public int BigHuntBossId { get; set; }
+        public int BigHuntBossId { get; set; } // 0x10
         [Key(1)] // RVA: 0x1DD6174 Offset: 0x1DD6174 VA: 0x1DD6174
-        public int BigHuntBossGradeGroupId { get; set; }
+        public int BigHuntBossGradeGroupId { get; set; } // 0x14
         [Key(2)] // RVA: 0x1DD6188 Offset: 0x1DD6188 VA: 0x1DD6188
-        public int NameBigHuntBossTextId { get; set; }
+        public int NameBigHuntBossTextId { get; set; } // 0x18
         [Key(3)] // RVA: 0x1DD619C Offset: 0x1DD619C VA: 0x1DD619C
-        public int BigHuntBossAssetId { get; set; }
+        public int BigHuntBossAssetId { get; set; } // 0x1C
         [Key(4)] // RVA: 0x1DD61B0 Offset: 0x1DD61B0 VA: 0x1DD61B0
-        public AttributeType AttributeType { get; set; }
+        public AttributeType AttributeType { get; set; } // 0x20
 	}
 }

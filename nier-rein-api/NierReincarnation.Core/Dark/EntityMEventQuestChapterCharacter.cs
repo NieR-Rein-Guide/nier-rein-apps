@@ -8,8 +8,8 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestChapterCharacter
     {
         [Key(0)] // RVA: 0x1DD9F5C Offset: 0x1DD9F5C VA: 0x1DD9F5C
-        public int EventQuestChapterId { get; set; }
+        public int EventQuestChapterId { get; set; } // 0x10
         [Key(1)] // RVA: 0x1DD9F9C Offset: 0x1DD9F9C VA: 0x1DD9F9C
-        public int CharacterId { get; set; }
+        public int CharacterId { get; set; } // 0x14
     }
 }

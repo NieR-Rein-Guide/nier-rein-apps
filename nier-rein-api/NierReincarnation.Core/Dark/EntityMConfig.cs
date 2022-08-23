@@ -8,22 +8,9 @@ namespace NierReincarnation.Core.Dark
     [MemoryTable("m_config")]
     public class EntityMConfig
     {
-        // 0x10
         [Key(0)]
-        public string ConfigKey { get; set; }
-        // 0x18
+        public string ConfigKey { get; set; } // 0x10
         [Key(1)]
-        public string Value { get; set; }
-
-        public EntityMConfig(string key, string value)
-        {
-            ConfigKey = key;
-            Value = value;
-        }
-
-        public override string ToString()
-        {
-            return $"ConfigKey, Value {ConfigKey}, {Value}";
-        }
+        public string Value { get; set; } // 0x18
     }
 }

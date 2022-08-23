@@ -8,8 +8,8 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCompanionCategory
     {
         [Key(0)] // RVA: 0x1DDB648 Offset: 0x1DDB648 VA: 0x1DDB648
-        public int CompanionCategoryType { get; set; }
+        public int CompanionCategoryType { get; set; } // 0x10
         [Key(1)] // RVA: 0x1DDB688 Offset: 0x1DDB688 VA: 0x1DDB688
-        public int EnhancementCostNumericalFunctionId { get; set; }
+        public int EnhancementCostNumericalFunctionId { get; set; } // 0x14
     }
 }

@@ -9,32 +9,32 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponRarity
     {
         [Key(0)] // RVA: 0x1DE6DA4 Offset: 0x1DE6DA4 VA: 0x1DE6DA4
-        public RarityType RarityType { get; set; }
+        public RarityType RarityType { get; set; } // 0x10
         [Key(1)] // RVA: 0x1DE6DE4 Offset: 0x1DE6DE4 VA: 0x1DE6DE4
-        public int BaseEnhancementObtainedExp { get; set; }
+        public int BaseEnhancementObtainedExp { get; set; } // 0x14
         [Key(2)] // RVA: 0x1DE6DF8 Offset: 0x1DE6DF8 VA: 0x1DE6DF8
-        public int SellPriceNumericalFunctionId { get; set; }
+        public int SellPriceNumericalFunctionId { get; set; } // 0x18
         [Key(3)] // RVA: 0x1DE6E0C Offset: 0x1DE6E0C VA: 0x1DE6E0C
-        public int MaxLevelNumericalFunctionId { get; set; }
+        public int MaxLevelNumericalFunctionId { get; set; } // 0x1C
         [Key(4)] // RVA: 0x1DE6E20 Offset: 0x1DE6E20 VA: 0x1DE6E20
-        public int MaxSkillLevelNumericalFunctionId { get; set; }
+        public int MaxSkillLevelNumericalFunctionId { get; set; } // 0x20
         [Key(5)] // RVA: 0x1DE6E34 Offset: 0x1DE6E34 VA: 0x1DE6E34
-        public int MaxAbilityLevelNumericalFunctionId { get; set; }
+        public int MaxAbilityLevelNumericalFunctionId { get; set; } // 0x24
         [Key(6)] // RVA: 0x1DE6E48 Offset: 0x1DE6E48 VA: 0x1DE6E48
-        public int RequiredExpForLevelUpNumericalParameterMapId { get; set; }
+        public int RequiredExpForLevelUpNumericalParameterMapId { get; set; } // 0x28
         [Key(7)] // RVA: 0x1DE6E5C Offset: 0x1DE6E5C VA: 0x1DE6E5C
-        public int EnhancementCostByWeaponNumericalFunctionId { get; set; }
+        public int EnhancementCostByWeaponNumericalFunctionId { get; set; } // 0x2C
         [Key(8)] // RVA: 0x1DE6E70 Offset: 0x1DE6E70 VA: 0x1DE6E70
-        public int EnhancementCostByMaterialNumericalFunctionId { get; set; }
+        public int EnhancementCostByMaterialNumericalFunctionId { get; set; } // 0x30
         [Key(9)] // RVA: 0x1DE6E84 Offset: 0x1DE6E84 VA: 0x1DE6E84
-        public int SkillEnhancementCostNumericalFunctionId { get; set; }
+        public int SkillEnhancementCostNumericalFunctionId { get; set; } // 0x34
         [Key(10)] // RVA: 0x1DE6E98 Offset: 0x1DE6E98 VA: 0x1DE6E98
-        public int AbilityEnhancementCostNumericalFunctionId { get; set; }
+        public int AbilityEnhancementCostNumericalFunctionId { get; set; } // 0x38
         [Key(11)] // RVA: 0x1DE6EAC Offset: 0x1DE6EAC VA: 0x1DE6EAC
-        public int LimitBreakCostByWeaponNumericalFunctionId { get; set; }
+        public int LimitBreakCostByWeaponNumericalFunctionId { get; set; } // 0x3C
         [Key(12)] // RVA: 0x1DE6EC0 Offset: 0x1DE6EC0 VA: 0x1DE6EC0
-        public int LimitBreakCostByMaterialNumericalFunctionId { get; set; }
+        public int LimitBreakCostByMaterialNumericalFunctionId { get; set; } // 0x40
         [Key(13)] // RVA: 0x1DE6ED4 Offset: 0x1DE6ED4 VA: 0x1DE6ED4
-        public int EvolutionCostNumericalFunctionId { get; set; }
+        public int EvolutionCostNumericalFunctionId { get; set; }// 0x44
 	}
 }

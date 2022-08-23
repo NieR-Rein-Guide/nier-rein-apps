@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCompanionBaseStatus
     {
         [Key(0)] // RVA: 0x1DDB5CC Offset: 0x1DDB5CC VA: 0x1DDB5CC
-        public int CompanionBaseStatusId { get; set; }
+        public int CompanionBaseStatusId { get; set; } // 0x10
         [Key(1)] // RVA: 0x1DDB60C Offset: 0x1DDB60C VA: 0x1DDB60C
-        public int Attack { get; set; }
+        public int Attack { get; set; } // 0x14
         [Key(2)] // RVA: 0x1DDB620 Offset: 0x1DDB620 VA: 0x1DDB620
-        public int Hp { get; set; }
+        public int Hp { get; set; } // 0x18
         [Key(3)] // RVA: 0x1DDB634 Offset: 0x1DDB634 VA: 0x1DDB634
-        public int Vitality { get; set; }
+        public int Vitality { get; set; } // 0x1C
 	}
 }

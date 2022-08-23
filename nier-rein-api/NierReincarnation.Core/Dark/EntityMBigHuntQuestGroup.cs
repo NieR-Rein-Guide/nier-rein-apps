@@ -8,10 +8,10 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBigHuntQuestGroup
     {
         [Key(0)] // RVA: 0x1DD6584 Offset: 0x1DD6584 VA: 0x1DD6584
-        public int BigHuntQuestGroupId { get; set; }
+        public int BigHuntQuestGroupId { get; set; } // 0x10
         [Key(1)] // RVA: 0x1DD65C4 Offset: 0x1DD65C4 VA: 0x1DD65C4
-        public int SortOrder { get; set; }
+        public int SortOrder { get; set; } // 0x14
         [Key(2)] // RVA: 0x1DD6604 Offset: 0x1DD6604 VA: 0x1DD6604
-        public int BigHuntQuestId { get; set; }
+        public int BigHuntQuestId { get; set; } // 0x18
 	}
 }
