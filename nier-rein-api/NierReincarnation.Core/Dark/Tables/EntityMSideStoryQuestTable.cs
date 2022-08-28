@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using NierReincarnation.Core.MasterMemory;
+
+namespace NierReincarnation.Core.Dark.Tables
+{
+    public class EntityMSideStoryQuestTable : TableBase<EntityMSideStoryQuest>
+    {
+        private readonly Func<EntityMSideStoryQuest, int> primaryIndexSelector;
+        private readonly Func<EntityMSideStoryQuest, (int,int)> secondaryIndexSelector;
+
+        public EntityMSideStoryQuestTable(EntityMSideStoryQuest[] sortedData) : base(sortedData)
+        {
+            primaryIndexSelector = element => element.SideStoryQuestId;
+            secondaryIndexSelector = element => (element.SideStoryQuestType,element.TargetId);
+        }
+        
+        public EntityMSideStoryQuest FindBySideStoryQuestId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
+
+	
+        public bool TryFindBySideStoryQuestId(int key, out EntityMSideStoryQuest result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
+
+	
+        public RangeView<EntityMSideStoryQuest> FindBySideStoryQuestTypeAndTargetId(ValueTuple<int, int> key) { return FindManyCore(data, secondaryIndexSelector, Comparer<(int,int)>.Default, key); }
+
+    }
+}

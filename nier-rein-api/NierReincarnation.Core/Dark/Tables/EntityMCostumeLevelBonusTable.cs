@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using NierReincarnation.Core.MasterMemory;
+
+namespace NierReincarnation.Core.Dark.Tables
+{
+    public class EntityMCostumeLevelBonusTable : TableBase<EntityMCostumeLevelBonus>
+    {
+        private readonly Func<EntityMCostumeLevelBonus, (int,int)> primaryIndexSelector;
+
+        public EntityMCostumeLevelBonusTable(EntityMCostumeLevelBonus[] sortedData) : base(sortedData)
+        {
+            primaryIndexSelector = element => (element.CostumeLevelBonusId,element.Level);
+        }
+        
+        public bool TryFindByCostumeLevelBonusIdAndLevel(ValueTuple<int, int> key, out EntityMCostumeLevelBonus result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key, out result); }
+
+	
+        public RangeView<EntityMCostumeLevelBonus> FindRangeByCostumeLevelBonusIdAndLevel(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, min, max, ascendant); }
+
+    }
+}

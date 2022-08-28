@@ -36,17 +36,29 @@ namespace NierReincarnation.Core.MasterMemory
 
         protected static TElement FindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool throwIfNotFound = true)
         {
-            foreach (var element in indexArray)
-            {
-                var selectedKey = keySelector(element);
-                if (comparer.Compare(key, selectedKey) == 0)
-                    return element;
-            }
+            var foundElement = indexArray.FirstOrDefault(x => comparer.Compare(keySelector(x), key) == 0);
 
-            if (throwIfNotFound)
+            if (foundElement == null && throwIfNotFound)
                 ThrowKeyNotFound(key);
 
-            return default;
+            return foundElement;
+        }
+
+        protected static bool TryFindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, out TElement result)
+        {
+            result = indexArray.FirstOrDefault(x => comparer.Compare(keySelector(x), key) == 0);
+
+            return result == null;
+        }
+
+        // TODO: Revisit method
+        protected static TElement FindUniqueClosestCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool selectLower)
+        {
+            var ordered = indexArray.Select(x => (comparer.Compare(keySelector(x), key), x)).OrderBy(x => x.Item1);
+
+            return selectLower ?
+                ordered.LastOrDefault(x => x.Item1 <= 0).x :
+                ordered.FirstOrDefault(x => x.Item1 >= 0).x;
         }
 
         protected static RangeView<TElement> FindUniqueRangeCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey min, TKey max, bool ascendant)
@@ -58,15 +70,11 @@ namespace NierReincarnation.Core.MasterMemory
             return new RangeView<TElement>(indexArray, left, right, ascendant);
         }
 
-        // TODO: Revisit method
-        protected static TElement FindUniqueClosestCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool selectLower)
+        protected static RangeView<TElement> FindManyCore<TKey>(TElement[] indexKeys, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key)
         {
-            var ordered = indexArray.Select(x => (comparer.Compare(keySelector(x), key), x)).OrderBy(x => x.Item1);
+            var foundElements = indexKeys.Where(x => comparer.Compare(keySelector(x), key) == 0).ToArray();
 
-            if (selectLower)
-                return ordered.LastOrDefault(x => x.Item1 <= 0).x;
-
-            return ordered.FirstOrDefault(x => x.Item1 >= 0).x;
+            return new RangeView<TElement>(foundElements, 0, foundElements.Length - 1, true);
         }
 
         // TODO: Implement missing methods when needed

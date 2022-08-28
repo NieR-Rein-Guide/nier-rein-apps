@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using NierReincarnation.Core.MasterMemory;
+
+namespace NierReincarnation.Core.Dark.Tables
+{
+    public class EntityMWeaponEnhancedSkillTable : TableBase<EntityMWeaponEnhancedSkill>
+    {
+        private readonly Func<EntityMWeaponEnhancedSkill, (int,int)> primaryIndexSelector;
+
+        public EntityMWeaponEnhancedSkillTable(EntityMWeaponEnhancedSkill[] sortedData) : base(sortedData)
+        {
+            primaryIndexSelector = element => (element.WeaponEnhancedId,element.SkillId);
+        }
+        
+        public bool TryFindByWeaponEnhancedIdAndSkillId(ValueTuple<int, int> key, out EntityMWeaponEnhancedSkill result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key, out result); }
+
+    }
+}
