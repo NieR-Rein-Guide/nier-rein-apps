@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Deck;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.Calculator;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Context
@@ -33,11 +35,44 @@ namespace NierReincarnation.Context
 
         public async Task Remove(int userDeckNumber, DeckType deckType)
         {
+            if (deckType == DeckType.RESTRICTED_QUEST)
+            {
+                await RemoveRestricted(userDeckNumber);
+                return;
+            }
+
             await TryRequest(async () =>
             {
                 var removeReq = CreateRemoveDeckRequest(userDeckNumber, deckType);
                 return await _dc.DeckService.RemoveDeckAsync(removeReq);
-            });
+            }, deckType != DeckType.RESTRICTED_LIMIT_CONTENT_QUEST);
+
+            // Manually remove deck from user database
+            // HINT: We can delete restricted decks for recollections of dusk with this, however we do not receive a valid response, so we take care of the user database ourselves
+            var deckData = DatabaseDefine.User.EntityIUserDeckTable.GetRawDataUnsafe();
+            deckData = deckData.Where(x => x.DeckType != deckType || x.UserDeckNumber != userDeckNumber).ToArray();
+            DatabaseDefine.User.EntityIUserDeckTable.SetRawDataUnsafe(deckData);
+        }
+
+        private async Task RemoveRestricted(int userDeckNumber)
+        {
+            // HINT: This only performs "Remove All", since a restricted deck cannot be fully removed by the API
+            var restrictedDeck = CalculatorDeck.CreateDataDeckInfo(CalculatorStateUser.GetUserId(), userDeckNumber, DeckType.RESTRICTED_QUEST);
+
+            var mainActor = restrictedDeck.UserDeckActors[0];
+            mainActor.SubWeapon01 = null;
+            mainActor.SubWeapon02 = null;
+            mainActor.Companion = null;
+            mainActor.Memories[0] = null;
+            mainActor.Memories[1] = null;
+            mainActor.Memories[2] = null;
+            mainActor.Thought = null;
+            mainActor.DressupCostumeId = 0;
+
+            restrictedDeck.UserDeckActors[1] = null;
+            restrictedDeck.UserDeckActors[2] = null;
+
+            await Replace(restrictedDeck);
         }
 
         private UpdateNameRequest CreateUpdateNameRequest(int userDeckNumber, DeckType deckType, string name)
@@ -100,7 +135,7 @@ namespace NierReincarnation.Context
             if (actor.Costume != null)
                 result.UserCostumeUuid = actor.Costume.UserCostumeUuid;
 
-            if (actor.DressupCostumeId <= 0)
+            if (actor.DressupCostumeId >= 0)
                 result.UserDressupId = actor.DressupCostumeId;
 
             if (actor.MainWeapon != null)

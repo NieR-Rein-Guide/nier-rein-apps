@@ -27,7 +27,10 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
             if (userDiff != null && userDiff.Count > 0)
             {
                 foreach (var userData in userDiff)
+                {
                     DatabaseDefine.User.Diff(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.UpdateRecordsJson));
+                    DatabaseDefine.User.Delete(userData.Key, JsonConvert.DeserializeObject<List<object>>(userData.Value.DeleteKeysJson));
+                }
             }
 
             // Update specially on registering a user

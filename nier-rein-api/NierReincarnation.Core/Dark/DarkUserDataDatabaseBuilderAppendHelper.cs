@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -11,7 +12,7 @@ namespace NierReincarnation.Core.Dark
     {
         private static readonly Dictionary<string, Func<IEnumerable<object>, IEnumerable<object>>> parsers; // 0x0
         private static readonly Dictionary<string, Action<DarkUserDatabaseBuilder, IEnumerable<object>>> appenders; // 0x0
-        private static readonly Dictionary<string, Action<DarkUserMemoryDatabase, object>> differs; // 0x0
+        private static readonly Dictionary<string, Action<DarkUserMemoryDatabase, object, bool>> differs; // 0x0
 
         static DarkUserDataDatabaseBuilderAppendHelper()
         {
@@ -37,19 +38,20 @@ namespace NierReincarnation.Core.Dark
                 ["IUserDeckSubWeaponGroup"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserDeckSubWeaponGroup>()),
                 ["IUserDeckPartsGroup"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserDeckPartsGroup>()),
                 ["IUserDeckTypeNote"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserDeckTypeNote>()),
-                ["IUserEventQuestGuerrillaFreeOpen"]= records => records.Select(r => ((JObject)r).ToObject<EntityIUserEventQuestGuerrillaFreeOpen>()),
+                ["IUserEventQuestGuerrillaFreeOpen"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserEventQuestGuerrillaFreeOpen>()),
                 ["IUserEventQuestProgressStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserEventQuestProgressStatus>()),
                 ["IUserExtraQuestProgressStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserExtraQuestProgressStatus>()),
                 ["IUserGem"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserGem>()),
                 ["IUserMainQuestProgressStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserMainQuestProgressStatus>()),
                 ["IUserLimitedOpen"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserLimitedOpen>()),
-                ["IUserMainQuestSeasonRoute"]= records => records.Select(r => ((JObject)r).ToObject<EntityIUserMainQuestSeasonRoute>()),
+                ["IUserMainQuestSeasonRoute"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserMainQuestSeasonRoute>()),
                 ["IUserMaterial"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserMaterial>()),
                 ["IUserParts"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserParts>()),
                 ["IUserPartsStatusSub"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserPartsStatusSub>()),
                 ["IUserProfile"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserProfile>()),
                 ["IUserQuest"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserQuest>()),
                 ["IUserQuestMission"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserQuestMission>()),
+                ["IUserQuestLimitContentStatusTable"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserQuestLimitContentStatusTable>()),
                 ["IUserShopItem"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserShopItem>()),
                 ["IUserStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserStatus>()),
                 ["IUserThought"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserThought>()),
@@ -93,6 +95,7 @@ namespace NierReincarnation.Core.Dark
                 ["IUserProfile"] = (builder, records) => builder.Append(records.Cast<EntityIUserProfile>()),
                 ["IUserQuest"] = (builder, records) => builder.Append(records.Cast<EntityIUserQuest>()),
                 ["IUserQuestMission"] = (builder, records) => builder.Append(records.Cast<EntityIUserQuestMission>()),
+                ["IUserQuestLimitContentStatusTable"] = (builder, records) => builder.Append(records.Cast<EntityIUserQuestLimitContentStatus>()),
                 ["IUserShopItem"] = (builder, records) => builder.Append(records.Cast<EntityIUserShopItem>()),
                 ["IUserStatus"] = (builder, records) => builder.Append(records.Cast<EntityIUserStatus>()),
                 ["IUserThought"] = (builder, records) => builder.Append(records.Cast<EntityIUserThought>()),
@@ -101,48 +104,49 @@ namespace NierReincarnation.Core.Dark
                 ["IUserWeaponNote"] = (builder, records) => builder.Append(records.Cast<EntityIUserWeaponNote>()),
                 ["IUserWeaponSkill"] = (builder, records) => builder.Append(records.Cast<EntityIUserWeaponSkill>()),
             };
-            differs = new Dictionary<string, Action<DarkUserMemoryDatabase, object>>
+            differs = new Dictionary<string, Action<DarkUserMemoryDatabase, object, bool>>
             {
-                ["IUser"] = (db, record) => SetData(db, (EntityIUser)record, d => d.EntityIUserTable, (d, r) => d.EntityIUserTable.FindByUserId(r.UserId)),
-                ["IUserBeginnerCampaign"] = (db, record) => SetData(db, (EntityIUserBeginnerCampaign)record, d => d.EntityIUserBeginnerCampaignTable, (d, r) => d.EntityIUserBeginnerCampaignTable.FindByUserId(r.UserId)),
-                ["IUserBigHuntMaxScore"] = (db, record) => SetData(db, (EntityIUserBigHuntMaxScore)record, d => d.EntityIUserBigHuntMaxScoreTable, (d, r) => d.EntityIUserBigHuntMaxScoreTable.FindByUserIdAndBigHuntBossId((r.UserId, r.BigHuntBossId))),
-                ["IUserBigHuntProgressStatus"] = (db, record) => SetData(db, (EntityIUserBigHuntProgressStatus)record, d => d.EntityIUserBigHuntProgressStatusTable, (d, r) => d.EntityIUserBigHuntProgressStatusTable.FindByUserId(r.UserId)),
-                ["IUserBigHuntStatus"] = (db, record) => SetData(db, (EntityIUserBigHuntStatus)record, d => d.EntityIUserBigHuntStatusTable, (d, r) => d.EntityIUserBigHuntStatusTable.FindByUserIdAndBigHuntBossQuestId((r.UserId, r.BigHuntBossQuestId))),
-                ["IUserCharacter"] = (db, record) => SetData(db, (EntityIUserCharacter)record, d => d.EntityIUserCharacterTable, (d, r) => d.EntityIUserCharacterTable.FindByUserIdAndCharacterId((r.UserId, r.CharacterId))),
-                ["IUserCharacterCostumeLevelBonus"] = (db, record) => SetData(db, (EntityIUserCharacterCostumeLevelBonus)record, d => d.EntityIUserCharacterCostumeLevelBonusTable, (d, r) => d.EntityIUserCharacterCostumeLevelBonusTable.FindByUserIdAndCharacterIdAndStatusCalculationType((r.UserId, r.CharacterId, r.StatusCalculationType))),
-                ["IUserComebackCampaign"] = (db, record) => SetData(db, (EntityIUserComebackCampaign)record, d => d.EntityIUserComebackCampaignTable, (d, r) => d.EntityIUserComebackCampaignTable.FindByUserId(r.UserId)),
-                ["IUserCharacterBoardAbility"] = (db, record) => SetData(db, (EntityIUserCharacterBoardAbility)record, d => d.EntityIUserCharacterBoardAbilityTable, (d, r) => d.EntityIUserCharacterBoardAbilityTable.FindByUserIdAndCharacterIdAndAbilityId((r.UserId, r.CharacterId, r.AbilityId))),
-                ["IUserCharacterBoardStatusUp"] = (db, record) => SetData(db, (EntityIUserCharacterBoardStatusUp)record, d => d.EntityIUserCharacterBoardStatusUpTable, (d, r) => d.EntityIUserCharacterBoardStatusUpTable.FindByUserIdAndCharacterIdAndStatusCalculationType((r.UserId, r.CharacterId, r.StatusCalculationType))),
-                ["IUserConsumableItem"] = (db, record) => SetData(db, (EntityIUserConsumableItem)record, d => d.EntityIUserConsumableItemTable, (d, r) => d.EntityIUserConsumableItemTable.FindByUserIdAndConsumableItemId((r.UserId, r.ConsumableItemId))),
-                ["IUserCostume"] = (db, record) => SetData(db, (EntityIUserCostume)record, d => d.EntityIUserCostumeTable, (d, r) => d.EntityIUserCostumeTable.FindByUserIdAndUserCostumeUuid((r.UserId, r.UserCostumeUuid))),
-                ["IUserCostumeActiveSkill"] = (db, record) => SetData(db, (EntityIUserCostumeActiveSkill)record, d => d.EntityIUserCostumeActiveSkillTable, (d, r) => d.EntityIUserCostumeActiveSkillTable.FindByUserIdAndUserCostumeUuid((r.UserId, r.UserCostumeUuid))),
-                ["IUserCompanion"] = (db, record) => SetData(db, (EntityIUserCompanion)record, d => d.EntityIUserCompanionTable, (d, r) => d.EntityIUserCompanionTable.FindByUserIdAndUserCompanionUuid((r.UserId, r.UserCompanionUuid))),
-                ["IUserDeck"] = (db, record) => SetData(db, (EntityIUserDeck)record, d => d.EntityIUserDeckTable, (d, r) => d.EntityIUserDeckTable.FindByUserIdAndDeckTypeAndUserDeckNumber((r.UserId, r.DeckType, r.UserDeckNumber))),
-                ["IUserDeckCharacter"] = (db, record) => SetData(db, (EntityIUserDeckCharacter)record, d => d.EntityIUserDeckCharacterTable, (d, r) => d.EntityIUserDeckCharacterTable.FindByUserIdAndUserDeckCharacterUuid((r.UserId, r.UserDeckCharacterUuid))),
-                ["IUserDeckCharacterDressupCostume"] = (db, record) => SetData(db, (EntityIUserDeckCharacterDressupCostume)record, d => d.EntityIUserDeckCharacterDressupCostumeTable, (d, r) => d.EntityIUserDeckCharacterDressupCostumeTable.FindByUserIdAndUserDeckCharacterUuid((r.UserId, r.UserDeckCharacterUuid))),
-                ["IUserDeckSubWeaponGroup"] = (db, record) => SetData(db, (EntityIUserDeckSubWeaponGroup)record, d => d.EntityIUserDeckSubWeaponGroupTable, (d, r) => d.EntityIUserDeckSubWeaponGroupTable.FindByUserIdAndUserDeckCharacterUuidAndUserWeaponUuid((r.UserId, r.UserDeckCharacterUuid, r.UserWeaponUuid))),
-                ["IUserDeckPartsGroup"] = (db, record) => SetData(db, (EntityIUserDeckPartsGroup)record, d => d.EntityIUserDeckPartsGroupTable, (d, r) => d.EntityIUserDeckPartsGroupTable.FindByUserIdAndUserDeckCharacterUuidAndUserPartsUuid((r.UserId, r.UserDeckCharacterUuid, r.UserPartsUuid))),
-                ["IUserDeckTypeNote"] = (db, record) => SetData(db, (EntityIUserDeckTypeNote)record, d => d.EntityIUserDeckTypeNoteTable, (d, r) => d.EntityIUserDeckTypeNoteTable.FindByUserIdAndDeckType((r.UserId, r.DeckType))),
-                ["IUserEventQuestGuerrillaFreeOpen"] = (db, record) => SetData(db, (EntityIUserEventQuestGuerrillaFreeOpen)record, d => d.EntityIUserEventQuestGuerrillaFreeOpenTable, (d, r) => d.EntityIUserEventQuestGuerrillaFreeOpenTable.FindByUserId(r.UserId)),
-                ["IUserEventQuestProgressStatus"] = (db, record) => SetData(db, (EntityIUserEventQuestProgressStatus)record, d => d.EntityIUserEventQuestProgressStatusTable, (d, r) => d.EntityIUserEventQuestProgressStatusTable.FindByUserId(r.UserId)),
-                ["IUserExtraQuestProgressStatus"] = (db, record) => SetData(db, (EntityIUserExtraQuestProgressStatus)record, d => d.EntityIUserExtraQuestProgressStatusTable, (d, r) => d.EntityIUserExtraQuestProgressStatusTable.FindByUserId(r.UserId)),
-                ["IUserGem"] = (db, record) => SetData(db, (EntityIUserGem)record, d => d.EntityIUserGemTable, (d, r) => d.EntityIUserGemTable.FindByUserId(r.UserId)),
-                ["IUserMainQuestProgressStatus"] = (db, record) => SetData(db, (EntityIUserMainQuestProgressStatus)record, d => d.EntityIUserMainQuestProgressStatusTable, (d, r) => d.EntityIUserMainQuestProgressStatusTable.FindByUserId(r.UserId)),
-                ["IUserLimitedOpen"] = (db, record) => SetData(db, (EntityIUserLimitedOpen)record, d => d.EntityIUserLimitedOpenTable, (d, r) => d.EntityIUserLimitedOpenTable.FindByUserIdAndLimitedOpenTargetTypeAndTargetId((r.UserId, r.LimitedOpenTargetType, r.TargetId))),
-                ["IUserMainQuestSeasonRoute"] = (db, record) => SetData(db, (EntityIUserMainQuestSeasonRoute)record, d => d.EntityIUserMainQuestSeasonRouteTable, (d, r) => d.EntityIUserMainQuestSeasonRouteTable.FindByUserIdAndMainQuestSeasonId((r.UserId, r.MainQuestSeasonId))),
-                ["IUserMaterial"] = (db, record) => SetData(db, (EntityIUserMaterial)record, d => d.EntityIUserMaterialTable, (d, r) => d.EntityIUserMaterialTable.FindByUserIdAndMaterialId((r.UserId, r.MaterialId))),
-                ["IUserParts"] = (db, record) => SetData(db, (EntityIUserParts)record, d => d.EntityIUserPartsTable, (d, r) => d.EntityIUserPartsTable.FindByUserIdAndUserPartsUuid((r.UserId, r.UserPartsUuid))),
-                ["IUserPartsStatusSub"] = (db, record) => SetData(db, (EntityIUserPartsStatusSub)record, d => d.EntityIUserPartsStatusSubTable, (d, r) => d.EntityIUserPartsStatusSubTable.FindByUserIdAndUserPartsUuidAndStatusIndex((r.UserId, r.UserPartsUuid, r.StatusIndex))),
-                ["IUserProfile"] = (db, record) => SetData(db, (EntityIUserProfile)record, d => d.EntityIUserProfileTable, (d, r) => d.EntityIUserProfileTable.FindByUserId(r.UserId)),
-                ["IUserQuest"] = (db, record) => SetData(db, (EntityIUserQuest)record, d => d.EntityIUserQuestTable, (d, r) => d.EntityIUserQuestTable.FindByUserIdAndQuestId((r.UserId, r.QuestId))),
-                ["IUserQuestMission"] = (db, record) => SetData(db, (EntityIUserQuestMission)record, d => d.EntityIUserQuestMissionTable, (d, r) => d.EntityIUserQuestMissionTable.FindByUserIdAndQuestIdAndQuestMissionId((r.UserId, r.QuestId, r.QuestMissionId))),
-                ["IUserShopItem"] = (db, record) => SetData(db, (EntityIUserShopItem)record, d => d.EntityIUserShopItemTable, (d, r) => d.EntityIUserShopItemTable.FindByUserIdAndShopItemId((r.UserId, r.ShopItemId))),
-                ["IUserStatus"] = (db, record) => SetData(db, (EntityIUserStatus)record, d => d.EntityIUserStatusTable, (d, r) => d.EntityIUserStatusTable.FindByUserId(r.UserId)),
-                ["IUserThought"] = (db, record) => SetData(db, (EntityIUserThought)record, d => d.EntityIUserThoughtTable, (d, r) => d.EntityIUserThoughtTable.FindByUserIdAndUserThoughtUuid((r.UserId, r.UserThoughtUuid))),
-                ["IUserWeapon"] = (db, record) => SetData(db, (EntityIUserWeapon)record, d => d.EntityIUserWeaponTable, (d, r) => d.EntityIUserWeaponTable.FindByUserIdAndUserWeaponUuid((r.UserId, r.UserWeaponUuid))),
-                ["IUserWeaponAbility"] = (db, record) => SetData(db, (EntityIUserWeaponAbility)record, d => d.EntityIUserWeaponAbilityTable, (d, r) => d.EntityIUserWeaponAbilityTable.FindByUserIdAndUserWeaponUuidAndSlotNumber((r.UserId, r.UserWeaponUuid, r.SlotNumber))),
-                ["IUserWeaponNote"] = (db, record) => SetData(db, (EntityIUserWeaponNote)record, d => d.EntityIUserWeaponNoteTable, (d, r) => d.EntityIUserWeaponNoteTable.FindByUserIdAndWeaponId((r.UserId, r.WeaponId))),
-                ["IUserWeaponSkill"] = (db, record) => SetData(db, (EntityIUserWeaponSkill)record, d => d.EntityIUserWeaponSkillTable, (d, r) => d.EntityIUserWeaponSkillTable.FindByUserIdAndUserWeaponUuidAndSlotNumber((r.UserId, r.UserWeaponUuid, r.SlotNumber))),
+                ["IUser"] = (db, record, mode) => ApplyData(mode, (EntityIUser)record, db.EntityIUserTable, r => db.EntityIUserTable.FindByUserId(r.UserId)),
+                ["IUserBeginnerCampaign"] = (db, record, mode) => ApplyData(mode, (EntityIUserBeginnerCampaign)record, db.EntityIUserBeginnerCampaignTable, r => db.EntityIUserBeginnerCampaignTable.FindByUserId(r.UserId)),
+                ["IUserBigHuntMaxScore"] = (db, record, mode) => ApplyData(mode, (EntityIUserBigHuntMaxScore)record, db.EntityIUserBigHuntMaxScoreTable, r => db.EntityIUserBigHuntMaxScoreTable.FindByUserIdAndBigHuntBossId((r.UserId, r.BigHuntBossId))),
+                ["IUserBigHuntProgressStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserBigHuntProgressStatus)record, db.EntityIUserBigHuntProgressStatusTable, r => db.EntityIUserBigHuntProgressStatusTable.FindByUserId(r.UserId)),
+                ["IUserBigHuntStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserBigHuntStatus)record, db.EntityIUserBigHuntStatusTable, r => db.EntityIUserBigHuntStatusTable.FindByUserIdAndBigHuntBossQuestId((r.UserId, r.BigHuntBossQuestId))),
+                ["IUserCharacter"] = (db, record, mode) => ApplyData(mode, (EntityIUserCharacter)record, db.EntityIUserCharacterTable, r => db.EntityIUserCharacterTable.FindByUserIdAndCharacterId((r.UserId, r.CharacterId))),
+                ["IUserCharacterCostumeLevelBonus"] = (db, record, mode) => ApplyData(mode, (EntityIUserCharacterCostumeLevelBonus)record, db.EntityIUserCharacterCostumeLevelBonusTable, r => db.EntityIUserCharacterCostumeLevelBonusTable.FindByUserIdAndCharacterIdAndStatusCalculationType((r.UserId, r.CharacterId, r.StatusCalculationType))),
+                ["IUserComebackCampaign"] = (db, record, mode) => ApplyData(mode, (EntityIUserComebackCampaign)record, db.EntityIUserComebackCampaignTable, r => db.EntityIUserComebackCampaignTable.FindByUserId(r.UserId)),
+                ["IUserCharacterBoardAbility"] = (db, record, mode) => ApplyData(mode, (EntityIUserCharacterBoardAbility)record, db.EntityIUserCharacterBoardAbilityTable, r => db.EntityIUserCharacterBoardAbilityTable.FindByUserIdAndCharacterIdAndAbilityId((r.UserId, r.CharacterId, r.AbilityId))),
+                ["IUserCharacterBoardStatusUp"] = (db, record, mode) => ApplyData(mode, (EntityIUserCharacterBoardStatusUp)record, db.EntityIUserCharacterBoardStatusUpTable, r => db.EntityIUserCharacterBoardStatusUpTable.FindByUserIdAndCharacterIdAndStatusCalculationType((r.UserId, r.CharacterId, r.StatusCalculationType))),
+                ["IUserConsumableItem"] = (db, record, mode) => ApplyData(mode, (EntityIUserConsumableItem)record, db.EntityIUserConsumableItemTable, r => db.EntityIUserConsumableItemTable.FindByUserIdAndConsumableItemId((r.UserId, r.ConsumableItemId))),
+                ["IUserCostume"] = (db, record, mode) => ApplyData(mode, (EntityIUserCostume)record, db.EntityIUserCostumeTable, r => db.EntityIUserCostumeTable.FindByUserIdAndUserCostumeUuid((r.UserId, r.UserCostumeUuid))),
+                ["IUserCostumeActiveSkill"] = (db, record, mode) => ApplyData(mode, (EntityIUserCostumeActiveSkill)record, db.EntityIUserCostumeActiveSkillTable, r => db.EntityIUserCostumeActiveSkillTable.FindByUserIdAndUserCostumeUuid((r.UserId, r.UserCostumeUuid))),
+                ["IUserCompanion"] = (db, record, mode) => ApplyData(mode, (EntityIUserCompanion)record, db.EntityIUserCompanionTable, r => db.EntityIUserCompanionTable.FindByUserIdAndUserCompanionUuid((r.UserId, r.UserCompanionUuid))),
+                ["IUserDeck"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeck)record, db.EntityIUserDeckTable, r => db.EntityIUserDeckTable.FindByUserIdAndDeckTypeAndUserDeckNumber((r.UserId, r.DeckType, r.UserDeckNumber))),
+                ["IUserDeckCharacter"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckCharacter)record, db.EntityIUserDeckCharacterTable, r => db.EntityIUserDeckCharacterTable.FindByUserIdAndUserDeckCharacterUuid((r.UserId, r.UserDeckCharacterUuid))),
+                ["IUserDeckCharacterDressupCostume"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckCharacterDressupCostume)record, db.EntityIUserDeckCharacterDressupCostumeTable, r => db.EntityIUserDeckCharacterDressupCostumeTable.FindByUserIdAndUserDeckCharacterUuid((r.UserId, r.UserDeckCharacterUuid))),
+                ["IUserDeckSubWeaponGroup"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckSubWeaponGroup)record, db.EntityIUserDeckSubWeaponGroupTable, r => db.EntityIUserDeckSubWeaponGroupTable.FindByUserIdAndUserDeckCharacterUuidAndUserWeaponUuid((r.UserId, r.UserDeckCharacterUuid, r.UserWeaponUuid))),
+                ["IUserDeckPartsGroup"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckPartsGroup)record, db.EntityIUserDeckPartsGroupTable, r => db.EntityIUserDeckPartsGroupTable.FindByUserIdAndUserDeckCharacterUuidAndUserPartsUuid((r.UserId, r.UserDeckCharacterUuid, r.UserPartsUuid))),
+                ["IUserDeckTypeNote"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckTypeNote)record, db.EntityIUserDeckTypeNoteTable, r => db.EntityIUserDeckTypeNoteTable.FindByUserIdAndDeckType((r.UserId, r.DeckType))),
+                ["IUserEventQuestGuerrillaFreeOpen"] = (db, record, mode) => ApplyData(mode, (EntityIUserEventQuestGuerrillaFreeOpen)record, db.EntityIUserEventQuestGuerrillaFreeOpenTable, r => db.EntityIUserEventQuestGuerrillaFreeOpenTable.FindByUserId(r.UserId)),
+                ["IUserEventQuestProgressStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserEventQuestProgressStatus)record, db.EntityIUserEventQuestProgressStatusTable, r => db.EntityIUserEventQuestProgressStatusTable.FindByUserId(r.UserId)),
+                ["IUserExtraQuestProgressStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserExtraQuestProgressStatus)record, db.EntityIUserExtraQuestProgressStatusTable, r => db.EntityIUserExtraQuestProgressStatusTable.FindByUserId(r.UserId)),
+                ["IUserGem"] = (db, record, mode) => ApplyData(mode, (EntityIUserGem)record, db.EntityIUserGemTable, r => db.EntityIUserGemTable.FindByUserId(r.UserId)),
+                ["IUserMainQuestProgressStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserMainQuestProgressStatus)record, db.EntityIUserMainQuestProgressStatusTable, r => db.EntityIUserMainQuestProgressStatusTable.FindByUserId(r.UserId)),
+                ["IUserLimitedOpen"] = (db, record, mode) => ApplyData(mode, (EntityIUserLimitedOpen)record, db.EntityIUserLimitedOpenTable, r => db.EntityIUserLimitedOpenTable.FindByUserIdAndLimitedOpenTargetTypeAndTargetId((r.UserId, r.LimitedOpenTargetType, r.TargetId))),
+                ["IUserMainQuestSeasonRoute"] = (db, record, mode) => ApplyData(mode, (EntityIUserMainQuestSeasonRoute)record, db.EntityIUserMainQuestSeasonRouteTable, r => db.EntityIUserMainQuestSeasonRouteTable.FindByUserIdAndMainQuestSeasonId((r.UserId, r.MainQuestSeasonId))),
+                ["IUserMaterial"] = (db, record, mode) => ApplyData(mode, (EntityIUserMaterial)record, db.EntityIUserMaterialTable, r => db.EntityIUserMaterialTable.FindByUserIdAndMaterialId((r.UserId, r.MaterialId))),
+                ["IUserParts"] = (db, record, mode) => ApplyData(mode, (EntityIUserParts)record, db.EntityIUserPartsTable, r => db.EntityIUserPartsTable.FindByUserIdAndUserPartsUuid((r.UserId, r.UserPartsUuid))),
+                ["IUserPartsStatusSub"] = (db, record, mode) => ApplyData(mode, (EntityIUserPartsStatusSub)record, db.EntityIUserPartsStatusSubTable, r => db.EntityIUserPartsStatusSubTable.FindByUserIdAndUserPartsUuidAndStatusIndex((r.UserId, r.UserPartsUuid, r.StatusIndex))),
+                ["IUserProfile"] = (db, record, mode) => ApplyData(mode, (EntityIUserProfile)record, db.EntityIUserProfileTable, r => db.EntityIUserProfileTable.FindByUserId(r.UserId)),
+                ["IUserQuest"] = (db, record, mode) => ApplyData(mode, (EntityIUserQuest)record, db.EntityIUserQuestTable, r => db.EntityIUserQuestTable.FindByUserIdAndQuestId((r.UserId, r.QuestId))),
+                ["IUserQuestMission"] = (db, record, mode) => ApplyData(mode, (EntityIUserQuestMission)record, db.EntityIUserQuestMissionTable, r => db.EntityIUserQuestMissionTable.FindByUserIdAndQuestIdAndQuestMissionId((r.UserId, r.QuestId, r.QuestMissionId))),
+                ["IUserQuestLimitContentStatusTable"] = (db, record, mode) => ApplyData(mode, (EntityIUserQuestLimitContentStatus)record, db.EntityIUserQuestLimitContentStatusTable, r => db.EntityIUserQuestLimitContentStatusTable.FindByUserIdAndQuestId((r.UserId, r.QuestId))),
+                ["IUserShopItem"] = (db, record, mode) => ApplyData(mode, (EntityIUserShopItem)record, db.EntityIUserShopItemTable, r => db.EntityIUserShopItemTable.FindByUserIdAndShopItemId((r.UserId, r.ShopItemId))),
+                ["IUserStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserStatus)record, db.EntityIUserStatusTable, r => db.EntityIUserStatusTable.FindByUserId(r.UserId)),
+                ["IUserThought"] = (db, record, mode) => ApplyData(mode, (EntityIUserThought)record, db.EntityIUserThoughtTable, r => db.EntityIUserThoughtTable.FindByUserIdAndUserThoughtUuid((r.UserId, r.UserThoughtUuid))),
+                ["IUserWeapon"] = (db, record, mode) => ApplyData(mode, (EntityIUserWeapon)record, db.EntityIUserWeaponTable, r => db.EntityIUserWeaponTable.FindByUserIdAndUserWeaponUuid((r.UserId, r.UserWeaponUuid))),
+                ["IUserWeaponAbility"] = (db, record, mode) => ApplyData(mode, (EntityIUserWeaponAbility)record, db.EntityIUserWeaponAbilityTable, r => db.EntityIUserWeaponAbilityTable.FindByUserIdAndUserWeaponUuidAndSlotNumber((r.UserId, r.UserWeaponUuid, r.SlotNumber))),
+                ["IUserWeaponNote"] = (db, record, mode) => ApplyData(mode, (EntityIUserWeaponNote)record, db.EntityIUserWeaponNoteTable, r => db.EntityIUserWeaponNoteTable.FindByUserIdAndWeaponId((r.UserId, r.WeaponId))),
+                ["IUserWeaponSkill"] = (db, record, mode) => ApplyData(mode, (EntityIUserWeaponSkill)record, db.EntityIUserWeaponSkillTable, r => db.EntityIUserWeaponSkillTable.FindByUserIdAndUserWeaponUuidAndSlotNumber((r.UserId, r.UserWeaponUuid, r.SlotNumber))),
             };
         }
 
@@ -165,28 +169,58 @@ namespace NierReincarnation.Core.Dark
                 return; //throw new ArgumentNullException();
 
             foreach (var element in parser(records))
-                differ(db, element);
+                differ(db, element, true);
         }
 
-        private static void SetData<T>(DarkUserMemoryDatabase db, T record, Func<DarkUserMemoryDatabase, TableBase<T>> getTable, Func<DarkUserMemoryDatabase, T, T> findElement)
+        public static void Delete(this DarkUserMemoryDatabase db, string tableName, IEnumerable<object> records)
         {
-            var table = getTable(db);
+            if (!parsers.TryGetValue(tableName, out var parser))
+                return; //throw new ArgumentNullException();
+            if (!differs.TryGetValue(tableName, out var differ))
+                return; //throw new ArgumentNullException();
+
+            foreach (var element in parser(records))
+                differ(db, element, false);
+        }
+
+        private static void ApplyData<T>(bool shouldUpdate, T updateRecord, TableBase<T> table, Func<T, T> findCurrentRecord)
+        {
+            if (shouldUpdate)
+                SetData(updateRecord, table, findCurrentRecord);
+            else
+                RemoveData(updateRecord, table, findCurrentRecord);
+        }
+
+        private static void SetData<T>(T updateRecord, TableBase<T> table, Func<T, T> findCurrentRecord)
+        {
             var rawTable = table.GetRawDataUnsafe();
-            var element = findElement(db, record);
+            var currentRecord = findCurrentRecord(updateRecord);
 
             // TODO: Can this happen?
-            if (element == null)
+            if (currentRecord == null)
             {
                 Array.Resize(ref rawTable, rawTable.Length + 1);
-                rawTable[^1] = record;
+                rawTable[^1] = updateRecord;
 
                 table.SetRawDataUnsafe(rawTable);
 
                 return;
             }
 
-            var index = Array.IndexOf(rawTable, element);
-            rawTable[index] = record;
+            var index = Array.IndexOf(rawTable, currentRecord);
+            rawTable[index] = updateRecord;
+        }
+
+        private static void RemoveData<T>(T deleteRecord, TableBase<T> table, Func<T, T> findCurrentRecord)
+        {
+            var rawTable = table.GetRawDataUnsafe();
+            var currentRecord = findCurrentRecord(deleteRecord);
+
+            var currentRecordIndex = Array.IndexOf(rawTable, currentRecord);
+            Array.Copy(rawTable, currentRecordIndex + 1, rawTable, currentRecordIndex, rawTable.Length - currentRecordIndex - 1);
+            Array.Resize(ref rawTable, rawTable.Length - 1);
+
+            table.SetRawDataUnsafe(rawTable);
         }
     }
 }

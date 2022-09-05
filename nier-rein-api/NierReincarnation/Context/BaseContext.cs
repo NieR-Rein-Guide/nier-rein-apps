@@ -16,7 +16,7 @@ namespace NierReincarnation.Context
         public event Action BeforeUnauthenticated;
         public event Action<bool> AfterUnauthenticated;
 
-        protected async Task<TResult> TryRequest<TResult>(Func<Task<TResult>> requestAction)
+        protected async Task<TResult> TryRequest<TResult>(Func<Task<TResult>> requestAction, bool handleGeneralError = true)
         {
             while (true)
             {
@@ -31,9 +31,13 @@ namespace NierReincarnation.Context
                 {
                     // Pass invalid result back to caller
                     default:
-                        await OnGeneralError(NierReincarnation.LastApiError);
+                        if (handleGeneralError)
+                            await OnGeneralError(NierReincarnation.LastApiError);
 
                         NierReincarnation.ClearNetworkError();
+
+                        // Re-authorize user after error
+                        await NierReincarnation.AuthorizeUser(CalculatorStateUser.GetUserId());
 
                         return default;
 
