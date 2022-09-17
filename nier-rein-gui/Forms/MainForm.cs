@@ -4,7 +4,8 @@ using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Modals;
 using nier_rein_gui.Dialogs;
-using nier_rein_gui.Forms.SubForms;
+using nier_rein_gui.Forms.Panels;
+using nier_rein_gui.Forms.Panels.Loadouts;
 using nier_rein_gui.Properties;
 using NierReincarnation;
 using NierReincarnation.Context;
@@ -110,13 +111,13 @@ namespace nier_rein_gui.Forms
 
         private void MapButton_Clicked(object sender, EventArgs e)
         {
-            if (subMenu is MapPanel)
+            if (subMenu is MapSeasonPanel)
                 return;
 
             foreach (var btn in btnList)
                 btn.Active = btn == sender;
 
-            SetMenuContent(new MapPanel(_rein, this));
+            SetMenuContent(new MapSeasonPanel(_rein, this));
         }
     }
 }

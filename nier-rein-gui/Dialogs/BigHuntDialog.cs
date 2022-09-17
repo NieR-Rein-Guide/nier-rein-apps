@@ -10,9 +10,11 @@ using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
+using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace nier_rein_gui.Dialogs
 {
@@ -102,10 +104,13 @@ namespace nier_rein_gui.Dialogs
 
         private void InitializeGrades(ComboBox<SubjugationGrade> grades)
         {
+            var maxGrade = Grade.SSS;
+            var maxRank = 1;
+
             var maxOrder = new SubjugationGrade
             {
-                Grade = Grade.SSS,
-                Rank = 1
+                Grade = maxGrade,
+                Rank = maxRank
             }.GetOrder();
 
             for (var order = 0; order <= maxOrder; order++)

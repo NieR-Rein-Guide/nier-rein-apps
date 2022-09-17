@@ -4,66 +4,41 @@ using NierReincarnation;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace nier_rein_gui.Dialogs.FarmDialogs
 {
-    class MainQuestFarmDialog : QuestFarmDialog
+    class MainQuestFarmDialog : QuestFarmDialog<QuestCellData>
     {
-        private readonly IList<QuestCellData> _questList;
-
-        private QuestCellData _quest;
-
-        public MainQuestFarmDialog(NierReinContexts rein, IList<QuestCellData> quests, QuestCellData quest) : 
-            base(rein, quest.Quest.QuestId, quest.QuestName)
+        public MainQuestFarmDialog(NierReinContexts rein, IList<QuestCellData> quests, QuestCellData quest) :
+            base(rein, quests, quest, DeckType.QUEST)
         {
-            _questList = quests;
-            _quest = quest;
         }
 
-        protected override int NextQuest(out string questName)
+        protected override int GetQuestId(QuestCellData data)
         {
-            var start = _questList.IndexOf(_quest);
-            for (var i = start + 1; i < start + _questList.Count; i++)
-            {
-                var quest = _questList[i % _questList.Count];
-                if (!CalculatorQuest.IsUnlockedQuest(quest.Quest.QuestId))
-                    continue;
-
-                _quest = quest;
-                quest.IsLock = false;
-
-                questName = quest.QuestName;
-                return quest.Quest.QuestId;
-            }
-
-            questName = _quest.QuestName;
-            return _quest.Quest.QuestId;
+            return data.Quest.QuestId;
         }
 
-        protected override int PreviousQuest(out string questName)
+        protected override string GetQuestName(QuestCellData data)
         {
-            var start = _questList.IndexOf(_quest);
-            for (var i = start - 1; i >= start - _questList.Count; i--)
-            {
-                var quest = _questList[i < 0 ? _questList.Count + i : i];
-                if (!CalculatorQuest.IsUnlockedQuest(quest.Quest.QuestId))
-                    continue;
-
-                _quest = quest;
-                quest.IsLock = false;
-
-                questName = quest.QuestName;
-                return quest.Quest.QuestId;
-            }
-
-            questName = _quest.QuestName;
-            return _quest.Quest.QuestId;
+            return data.QuestName;
         }
 
-        protected override Task<BattleResult> ExecuteQuest(DataDeck deck)
+        protected override bool IsQuestLocked(QuestCellData data)
         {
-            return BattleContext.ExecuteMainQuest(_quest, deck);
+            return CalculatorQuest.IsQuestLocked(data.Quest.QuestId);
+        }
+
+        protected override void SetLock(QuestCellData data, bool isLock)
+        {
+            data.IsLock = isLock;
+        }
+
+        protected override Task<BattleResult> ExecuteQuest(QuestCellData quest, DataDeck deck)
+        {
+            return BattleContext.ExecuteMainQuest(quest, deck);
         }
     }
 }

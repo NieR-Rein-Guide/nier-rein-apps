@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Timers;
@@ -24,16 +25,20 @@ using Serilog;
 
 namespace nier_rein_gui.Dialogs.FarmDialogs
 {
-    abstract class QuestFarmDialog : Modal
+    abstract class QuestFarmDialog<TQuestData> : Modal
     {
         private static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
+
         private const string LimitText_ = "Request limit reached. Waiting {0:m\\:ss}...";
-        private const string RestrictionText_ = "Deck restriction for quest applied!";
+        private const string RestrictionText_ = "Restrictions apply:";
 
         private readonly IDictionary<int, int> _rewardCache;
         private readonly IDictionary<int, Costume> _costumeCache;
 
-        private int _questId;
+        private readonly IList<TQuestData> _quests;
+        private readonly DeckType _deckType;
+
+        private TQuestData _currentQuest;
         private bool _isRental;
         private bool _isFarming;
         private bool _isCancel;
@@ -57,12 +62,15 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
         protected QuestBattleContext BattleContext { get; }
 
-        protected QuestFarmDialog(NierReinContexts rein, int questId, string questName)
+        protected QuestFarmDialog(NierReinContexts rein, IList<TQuestData> quests, TQuestData currentQuest, DeckType deckType)
         {
             BattleContext = rein.Battles.CreateQuestContext();
 
             _rewardCache = new Dictionary<int, int>();
             _costumeCache = new Dictionary<int, Costume>();
+
+            _quests = quests;
+            _deckType = deckType;
 
             _timer = new Timer(TimerInterval.TotalMilliseconds);
             _timer.Elapsed += _timer_Elapsed;
@@ -188,16 +196,53 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 }
             };
 
-            UpdateQuest(questId, questName, true);
+            UpdateQuest(currentQuest, true);
         }
 
-        protected abstract int NextQuest(out string questName);
+        protected abstract int GetQuestId(TQuestData data);
+        protected abstract string GetQuestName(TQuestData data);
+        protected abstract bool IsQuestLocked(TQuestData data);
+        protected abstract void SetLock(TQuestData data, bool isLock);
 
-        protected abstract int PreviousQuest(out string questName);
+        protected abstract Task<BattleResult> ExecuteQuest(TQuestData quest, DataDeck deck);
 
-        protected abstract Task<BattleResult> ExecuteQuest(DataDeck deck);
+        private TQuestData GetNextQuest()
+        {
+            var start = _quests.IndexOf(_currentQuest);
+            for (var i = start + 1; i < start + _quests.Count; i++)
+            {
+                var quest = _quests[i % _quests.Count];
+                if (IsQuestLocked(quest))
+                    continue;
 
-        private void UpdateRentalDeck(int questId, bool forceUpdate)
+                _currentQuest = quest;
+                SetLock(quest, false);
+
+                return quest;
+            }
+
+            return _currentQuest;
+        }
+
+        private TQuestData GetPreviousQuest()
+        {
+            var start = _quests.IndexOf(_currentQuest);
+            for (var i = start - 1; i >= start - _quests.Count; i--)
+            {
+                var quest = _quests[i < 0 ? _quests.Count + i : i];
+                if (IsQuestLocked(quest))
+                    continue;
+
+                _currentQuest = quest;
+                SetLock(quest, false);
+
+                return quest;
+            }
+
+            return _currentQuest;
+        }
+
+        private void UpdateDecks(int questId, bool forceUpdate)
         {
             // Do not list any decks if quest uses a rental deck
             var wasRental = _isRental;
@@ -206,54 +251,82 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             if (_isRental)
             {
                 SetDeckBox(null);
+                SetRestrictionLabel(null);
 
                 startButton.Enabled = singleButton.Enabled = true;
                 return;
             }
 
             if (!wasRental && !forceUpdate)
+            {
+                SetRestrictionLabel(null);
                 return;
+            }
 
             // List decks that have correct restrictions, if any
-            InitializeComboBox(decks, questId);
+            InitializeDecks(decks, questId);
+
+            SetRestrictionLabel(decks.Items.Count <= 0 ? restrictionLabel : null);
             SetDeckBox(decks.Items.Count > 0 ? decks : null);
-            if (decks.Items.Count <= 0)
-                SetRestrictionLabel(restrictionLabel);
 
             startButton.Enabled = singleButton.Enabled = decks.Items.Count > 0;
         }
 
         private void NextButton_Clicked(object sender, EventArgs e)
         {
-            NextQuestInternal();
+            var nextQuest = GetNextQuest();
+            UpdateQuest(nextQuest, true);
         }
 
         private void PreviousButton_Clicked(object sender, EventArgs e)
         {
-            PreviousQuestInternal();
+            var previousQuest = GetPreviousQuest();
+            UpdateQuest(previousQuest, true);
         }
 
-        private void NextQuestInternal()
+        private void UpdateQuest(TQuestData quest, bool forceDeckUpdate = false)
         {
-            var nextQuestId = NextQuest(out var nextName);
-            UpdateQuest(nextQuestId, nextName);
-        }
+            // Update quest information
+            _currentQuest = quest;
+            captionLabel.Caption = $"Quest: {GetQuestName(quest)}";
 
-        private void PreviousQuestInternal()
-        {
-            var previousQuestId = PreviousQuest(out var previousName);
-            UpdateQuest(previousQuestId, previousName);
-        }
+            // Update restrictions
+            restrictionLabel.Caption = RestrictionText_;
 
-        private void UpdateQuest(int questId, string questName, bool forceDeckUpdate = false)
-        {
-            _questId = questId;
-            captionLabel.Caption = $"Quest: {questName}";
+            var restrictionText = GetRestrictionText(GetQuestId(quest));
+            if (!string.IsNullOrEmpty(restrictionText))
+                restrictionLabel.Caption += Environment.NewLine + restrictionText;
 
-            UpdateRentalDeck(questId, forceDeckUpdate);
+            // Update decks
+            UpdateDecks(GetQuestId(quest), forceDeckUpdate);
 
+            // Clear rewards and costumes
             rewards.Rows.Clear();
             costumes.Rows.Clear();
+        }
+
+        private string GetRestrictionText(int questId)
+        {
+            var restrictions = CalculatorQuest.CreateDeckRestrictionList(questId);
+            if (restrictions == null || restrictions.Length <= 0)
+                return string.Empty;
+
+            return string.Join(Environment.NewLine, restrictions.Select(GetRestrictionText).Where(x => !string.IsNullOrEmpty(x)));
+        }
+
+        private string GetRestrictionText(DataDeckRestriction restriction)
+        {
+            switch (restriction.QuestDeckRestrictionType)
+            {
+                case QuestDeckRestrictionType.CHARACTER_ID:
+                    return $"Character: {CalculatorCharacter.GetCharacterName(restriction.RestrictionValue)}";
+
+                case QuestDeckRestrictionType.COSTUME_ID:
+                    return $"Costume: {CalculatorCostume.CostumeName(restriction.RestrictionValue)}";
+
+                default:
+                    return string.Empty;
+            }
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -283,8 +356,8 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
             // Prepare deck
             var deck = _isRental ?
-                CalculatorDeck.CreateRentalDeck(_questId) :
-                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, DeckType.QUEST);
+                CalculatorDeck.CreateRentalDeck(GetQuestId(_currentQuest)) :
+                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, _deckType);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -305,7 +378,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             BattleContext.RequestRatioReached += RequestRatioReached;
             BattleContext.GeneralError += BattleContext_GeneralError;
 
-            await ExecuteQuest(deck);
+            await ExecuteQuest(_currentQuest, deck);
 
             BattleContext.BattleFinished -= Battles_BattleFinished;
             BattleContext.RequestRatioReached -= RequestRatioReached;
@@ -338,27 +411,37 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             _timer.Start();
         }
 
-        private void InitializeComboBox(ComboBox<DataDeckInfo> deckBox, int questId)
+        private void InitializeDecks(ComboBox<DataDeckInfo> deckBox, int questId)
         {
+            var selectedIndex = deckBox.Items.IndexOf(deckBox.SelectedItem);
+
             deckBox.Items.Clear();
             deckBox.SelectedItem = null;
 
-            foreach (var deck in GetValidDecks(CalculatorQuest.CreateDeckRestrictionList(questId)))
+            var validDecks = GetValidDecks(CalculatorQuest.CreateDeckRestrictionList(questId)).ToArray();
+            if (validDecks.Length <= 0)
+                return;
+
+            foreach (var deck in validDecks)
                 deckBox.Items.Add(deck);
 
-            if (deckBox.Items.Count > 0)
-                deckBox.SelectedItem = deckBox.Items[0];
+            deckBox.SelectedItem = selectedIndex < deckBox.Items.Count&&selectedIndex>=0 ? deckBox.Items[selectedIndex] : deckBox.Items[0];
         }
 
         private IEnumerable<DataDeckInfo> GetValidDecks(DataDeckRestriction[] restrictions)
         {
-            foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.QUEST))
+            foreach (var deck in EnumerateDecks(_quests, _currentQuest, _deckType))
             {
                 if (!IsValidDeckRestriction(deck, restrictions))
                     continue;
 
                 yield return deck;
             }
+        }
+
+        protected virtual IEnumerable<DataDeckInfo> EnumerateDecks(IList<TQuestData> quests, TQuestData quest, DeckType deckType)
+        {
+            return CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), deckType);
         }
 
         private bool IsValidDeckRestriction(DataDeckInfo deck, DataDeckRestriction[] restrictions)
@@ -448,8 +531,8 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
             // Prepare deck
             var deck = _isRental ?
-                CalculatorDeck.CreateRentalDeck(_questId) :
-                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, DeckType.QUEST);
+                CalculatorDeck.CreateRentalDeck(GetQuestId(_currentQuest)) :
+                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, _deckType);
 
             // Prepare costume table
             foreach (var actor in deck.UserDeckActors)
@@ -476,7 +559,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             {
                 SetLimitLabel(null);
 
-                var battleResult = await ExecuteQuest(deck);
+                var battleResult = await ExecuteQuest(_currentQuest, deck);
 
                 (Application.Instance.MainForm as MainForm).UpdateUser();
                 (Application.Instance.MainForm as MainForm).UpdateStamina();

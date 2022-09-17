@@ -73,7 +73,6 @@ namespace nier_rein_gui.Forms
                 Caption = UserInterfaceTextKey.Footer.kMap.Localize(),
                 Padding = new Vector2(0, 15),
                 IsClickActive = true,
-                Enabled = false,
 
                 Width = .15f
             };

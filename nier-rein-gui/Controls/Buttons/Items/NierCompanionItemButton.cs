@@ -9,7 +9,7 @@ namespace nier_rein_gui.Controls.Buttons.Items
 {
     class NierThoughtItemButton : NierItemButton
     {
-        public DataOutgameThought Thought { get; set; }
+        public DataOutgameThoughtInfo Thought { get; set; }
 
         protected override bool IsPlaceholder()
         {

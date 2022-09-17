@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using NierReincarnation;
 using NierReincarnation.Context.Models;
@@ -9,10 +10,10 @@ using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace nier_rein_gui.Dialogs.FarmDialogs
 {
-    class EventQuestFarmDialog : QuestFarmDialog<EventQuestData>
+    class LimitQuestFarmDialog : QuestFarmDialog<EventQuestData>
     {
-        public EventQuestFarmDialog(NierReinContexts rein, IList<EventQuestData> questList, EventQuestData quest, DeckType deckType = DeckType.QUEST) :
-            base(rein, questList, quest, deckType)
+        public LimitQuestFarmDialog(NierReinContexts rein, IList<EventQuestData> questList, EventQuestData quest) :
+            base(rein, questList, quest, DeckType.RESTRICTED_LIMIT_CONTENT_QUEST)
         {
         }
 
@@ -34,6 +35,12 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         protected override void SetLock(EventQuestData data, bool isLock)
         {
             data.IsLock = isLock;
+        }
+
+        protected override IEnumerable<DataDeckInfo> EnumerateDecks(IList<EventQuestData> quests, EventQuestData quest, DeckType deckType)
+        {
+            var index = quests.IndexOf(quest);
+            return base.EnumerateDecks(quests, quest, deckType).Where(x => x.UserDeckNumber == 101 + index);
         }
 
         protected override Task<BattleResult> ExecuteQuest(EventQuestData quest, DataDeck deck)

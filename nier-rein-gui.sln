@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation", "nier-r
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudio", "nier-rein-api\AssetStudio\AssetStudio\AssetStudio.csproj", "{7BCEFCD5-ED32-4FCE-8D07-977DE0475BB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImGui.Forms", "..\..\..\Projekte\ImGui.Forms\ImGui.Forms\ImGui.Forms.csproj", "{724838FA-EE95-41B4-B573-D806228A15D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImGui.Forms", "..\..\..\..\Projekte\ImGui.Forms\ImGui.Forms\ImGui.Forms.csproj", "{724838FA-EE95-41B4-B573-D806228A15D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "nier-rein-api\AssetStudio\AssetStudioUtility\AssetStudioUtility.csproj", "{2047A7EE-A44D-4B78-BAD1-446289D4030E}"
 EndProject

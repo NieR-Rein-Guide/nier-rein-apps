@@ -14,16 +14,16 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
     {
         private readonly List<Term> _timeTable;
 
-        public TimedQuestFarmDialog(NierReinContexts rein, int chapterId, IList<EventQuestData> questList, EventQuestData quest, List<Term> timeTable) :
-            base(rein, chapterId, questList, quest)
+        public TimedQuestFarmDialog(NierReinContexts rein, IList<EventQuestData> questList, EventQuestData quest, List<Term> timeTable) :
+            base(rein, questList, quest)
         {
             _timeTable = timeTable;
         }
 
-        protected override Task<BattleResult> ExecuteQuest(DataDeck deck)
+        protected override Task<BattleResult> ExecuteQuest(EventQuestData quest, DataDeck deck)
         {
             if (_timeTable.Any(t => CalculatorDateTime.IsWithinThePeriod(t.Start, t.End)))
-                return base.ExecuteQuest(deck);
+                return base.ExecuteQuest(quest, deck);
 
             Close(DialogResult.Ok);
 

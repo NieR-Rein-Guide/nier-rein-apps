@@ -88,6 +88,10 @@ namespace nier_rein_gui.Dialogs
             {
                 var runningBigHunt = DatabaseDefine.User.EntityIUserBigHuntProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
                 await _bigHuntBattleContext.QuitBigHuntQuest(CalculatorBigHuntQuest.GenerateBigHuntQuestData(runningBigHunt.CurrentBigHuntBossQuestId, runningBigHunt.CurrentBigHuntQuestId));
+            }else if (QuestBattleContext.HasRunningExtraQuest())
+            {
+                var runningExtraQuest = DatabaseDefine.User.EntityIUserExtraQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
+                await _questBattleContext.QuitExtraQuest(runningExtraQuest.CurrentQuestId);
             }
         }
     }

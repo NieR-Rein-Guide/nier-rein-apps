@@ -7,7 +7,6 @@ using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using ImGuiNET;
-using nier_rein_gui.Controls;
 using nier_rein_gui.Controls.Buttons;
 using NierReincarnation;
 using NierReincarnation.Context;
@@ -22,7 +21,6 @@ namespace nier_rein_gui.Dialogs
     class TowerDialog : Modal
     {
         private readonly QuestBattleContext _battleContext;
-        private readonly int _chapterId;
         private readonly IList<EventQuestData> _questList;
 
         private EventQuestData _quest;
@@ -37,10 +35,9 @@ namespace nier_rein_gui.Dialogs
 
         private bool _isWorking;
 
-        public TowerDialog(NierReinContexts rein, int chapterId, IList<EventQuestData> questList, EventQuestData quest)
+        public TowerDialog(NierReinContexts rein, IList<EventQuestData> questList, EventQuestData quest)
         {
             _battleContext = rein.Battles.CreateQuestContext();
-            _chapterId = chapterId;
             _questList = questList;
             _quest = quest;
 
@@ -99,7 +96,7 @@ namespace nier_rein_gui.Dialogs
             clearButton.Enabled = false;
 
             var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, DeckType.QUEST);
-            await _battleContext.ExecuteEventQuest(_chapterId, _quest, deck);
+            await _battleContext.ExecuteEventQuest(_quest.Quest.ChapterId, _quest, deck);
 
             UpdateMissions(_quest);
 
@@ -141,7 +138,7 @@ namespace nier_rein_gui.Dialogs
             for (var i = start + 1; i < start + _questList.Count; i++)
             {
                 var quest = _questList[i % _questList.Count];
-                if (!CalculatorQuest.IsUnlockedQuest(quest.Quest.QuestId))
+                if (CalculatorQuest.IsQuestLocked(quest.Quest.QuestId))
                     continue;
 
                 _quest = quest;
@@ -161,7 +158,7 @@ namespace nier_rein_gui.Dialogs
             for (var i = start - 1; i >= start - _questList.Count; i--)
             {
                 var quest = _questList[i < 0 ? _questList.Count + i : i];
-                if (!CalculatorQuest.IsUnlockedQuest(quest.Quest.QuestId))
+                if (CalculatorQuest.IsQuestLocked(quest.Quest.QuestId))
                     continue;
 
                 _quest = quest;

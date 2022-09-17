@@ -35,7 +35,6 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         private const string RetreatStamina_ = "Stamina used:";
 
         private readonly QuestBattleContext _questBattleContext;
-        private readonly int _chapterId;
         private readonly EventQuestData _quest;
 
         private bool _isFarming;
@@ -54,10 +53,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         private TimeSpan _currentLimitTime;
         private Timer _timer;
 
-        public RetreatFarmDialog(NierReinContexts rein, int chapterId, EventQuestData quest)
+        public RetreatFarmDialog(NierReinContexts rein, EventQuestData quest)
         {
             _questBattleContext = rein.Battles.CreateQuestContext();
-            _chapterId = chapterId;
             _quest = quest;
 
             _timer = new Timer(TimerInterval_.TotalMilliseconds);
@@ -200,7 +198,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             battleCheck.Enabled = false;
             _isFarming = true;
 
-            await SingleFarm(_chapterId, _quest);
+            await SingleFarm(_quest);
             _isFarming = false;
 
             Close();
@@ -214,7 +212,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             battleCheck.Enabled = false;
             _isFarming = true;
 
-            var isSuccessful = await RetreatFarm(_chapterId, _quest);
+            var isSuccessful = await RetreatFarm(_quest);
             _isFarming = false;
 
             if (isSuccessful)
@@ -244,14 +242,14 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             return _isFarming;
         }
 
-        private async Task SingleFarm(int chapterId, EventQuestData quest)
+        private async Task SingleFarm(EventQuestData quest)
         {
             var deckNumber = decks.SelectedItem.Content.UserDeckNumber;
             var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), deckNumber, DeckType.QUEST);
 
             _questBattleContext.RequestRatioReached += RequestRatioReached;
 
-            var battleResult = await _questBattleContext.ExecuteEventQuest(chapterId, quest, deck);
+            var battleResult = await _questBattleContext.ExecuteEventQuest(quest.Quest.ChapterId, quest, deck);
 
             (Application.Instance.MainForm as MainForm).UpdateUser();
             (Application.Instance.MainForm as MainForm).UpdateStamina();
@@ -266,7 +264,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             _questBattleContext.RequestRatioReached -= RequestRatioReached;
         }
 
-        private async Task<bool> RetreatFarm(int chapterId, EventQuestData quest)
+        private async Task<bool> RetreatFarm(EventQuestData quest)
         {
             var deckNumber = decks.SelectedItem.Content.UserDeckNumber;
             var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), deckNumber, DeckType.QUEST);
@@ -287,7 +285,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 countLabel.Caption = $"{repeats}";
                 timeLabel.Caption = $"{stopwatch.Elapsed}";
 
-                var battleResult = await _questBattleContext.ExecuteEventQuest(chapterId, quest, deck);
+                var battleResult = await _questBattleContext.ExecuteEventQuest(quest.Quest.ChapterId, quest, deck);
 
                 (Application.Instance.MainForm as MainForm).UpdateUser();
                 (Application.Instance.MainForm as MainForm).UpdateStamina();
