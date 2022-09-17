@@ -16,6 +16,7 @@
         private static readonly string BattlePointRecoverySecondKey = "USER_BATTLE_POINT_RECOVERY_SECOND";
         private static readonly string CostumeLimitBreakAvailableCountKey = "COSTUME_LIMIT_BREAK_AVAILABLE_COUNT";
         private static readonly string WeaponLimitBreakAvailableCountKey = "WEAPON_LIMIT_BREAK_AVAILABLE_COUNT";
+        private static readonly string CostumeAwakenAvailableCount= "COSTUME_AWAKEN_AVAILABLE_COUNT";
         private static readonly string MaterialSameWeaponExpCoefficientPermilKey = "MATERIAL_SAME_WEAPON_EXP_COEFFICIENT_PERMIL";
         private static readonly string WeaponEnhanceCalcCoefficientPermilKey = "WEAPON_ENHANCE_CALC_COEFFICIENT_PERMIL";
         private static readonly string WeaponSellPriceCalcFixedValuePermilKey = "WEAPON_SELL_PRICE_CALC_FIXED_VALUE_PERMIL";
@@ -38,6 +39,7 @@
         private static readonly string UnlockTutorialMenuChapterId = "FUNCTION_UNLOCK_CHAPTER_ID_FOR_MENU";
         private static readonly string UnlockEventQuestMenuQuestId = "FUNCTION_UNLOCK_QUEST_ID_FOR_EVENT_QUEST";
         private static readonly string UnlockCharacterBoardQuestId = "FUNCTION_UNLOCK_QUEST_ID_FOR_CHARACTER_BOARD";
+        private static readonly string UnlockCharacterViewerQuestId= "FUNCTION_UNLOCK_QUEST_ID_FOR_CHARACTER_VIEWER";
         private static readonly string PortalCageSceneId = "PORTAL_CAGE_SCENE_ID";
         private static readonly string PortalCageFunctionUnlockQuestIdForPortalCage = "FUNCTION_UNLOCK_QUEST_ID_FOR_PORTAL_CAGE";
         private static readonly string MissionTapTargetActorId = "MISSION_TAP_TARGET_ACTOR_ID";
@@ -76,6 +78,18 @@
         private static readonly string MemoryPresetNameMaxLength = "PARTS_PRESET_NAME_MAX_LENGTH";
         private static readonly string MemoryPresetTagNameMinLength = "PARTS_PRESET_TAG_NAME_MIN_LENGTH";
         private static readonly string MemoryPresetTagNameMaxLength = "PARTS_PRESET_TAG_NAME_MAX_LENGTH";
+        private static readonly string UnlockBigHuntBoardEvaluateConditionId= "FUNCTION_UNLOCK_EVALUATE_CONDITION_ID_FOR_BIG_HUNT_BOARD";
+        private static readonly string NecessaryGemCountForGuerrillaOpen = "NECESSARY_GEM_COUNT_FOR_GUERRILLA_OPEN";
+        private static readonly string PossessionSellCountLimitAtOnce = "POSSESSION_SELL_COUNT_LIMIT_AT_ONCE";
+        private static readonly string MaterialMaxSalableCountAtOnce = "MATERIAL_MAX_SALABLE_COUNT_AT_ONCE";
+        private static readonly string ConsumableItemMaxSalableCountAtOnce= "CONSUMABLE_ITEM_MAX_SALABLE_COUNT_AT_ONCE";
+        private static readonly string LimitedShopId = "LIMITED_SHOP_ID";
+        private static readonly string UnlockDressupCostumeQuestId = "FUNCTION_UNLOCK_QUEST_ID_FOR_DRESSUP_COSTUME";
+
+        public static int GetCostumeAwakenAvailableCount()
+        {
+            return GetConfigIntValue(CostumeAwakenAvailableCount);
+        }
 
         public static int GetConsumableIdForGold()
         {

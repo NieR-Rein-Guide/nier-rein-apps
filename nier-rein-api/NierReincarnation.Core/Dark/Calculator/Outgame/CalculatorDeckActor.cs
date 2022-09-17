@@ -51,7 +51,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 SubWeapon01 = CalculatorWeapon.CreateDataWeaponInfo(userId, subWeapon1?.UserWeaponUuid),
                 SubWeapon02 = CalculatorWeapon.CreateDataWeaponInfo(userId, subWeapon2?.UserWeaponUuid),
                 Companion = CalculatorCompanion.CreateDataOutgameCompanionInfo(userId, character.UserCompanionUuid),
-                Thought = CalculatorThought.CreateDataOutgameThought(userId, character.UserThoughtUuid)
+                Thought = CalculatorThought.CreateDataOutgameThoughtInfo(userId, character.UserThoughtUuid)
             };
 
             foreach (var part in DatabaseDefine.User.EntityIUserDeckPartsGroupTable.All.Where(p => p.UserId == userId && p.UserDeckCharacterUuid == characterUuid))

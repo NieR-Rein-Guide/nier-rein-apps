@@ -196,6 +196,7 @@
 
             public static readonly string kBigHuntQuest = "ui.Outgame.Quest.BigHunt";
             public static readonly string kSearch = "ui.Outgame.Quest.Search";
+            public static readonly string kEventLimitContent = "ui.Outgame.LimitContent.Tab.Menu";
         }
 
         public static class Material

@@ -7,6 +7,7 @@
         PVP = 2,
         MULTI = 3,
         RESTRICTED_QUEST = 4,
-        BIG_HUNT = 5
+        BIG_HUNT = 5,
+        RESTRICTED_LIMIT_CONTENT_QUEST = 6
     }
 }

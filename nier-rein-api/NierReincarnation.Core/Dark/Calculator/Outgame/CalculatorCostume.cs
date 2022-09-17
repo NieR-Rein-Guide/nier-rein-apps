@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
@@ -78,6 +79,34 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             npcCostume.UserCostumeUuid = entityNpcCostume.BattleNpcCostumeUuid;
 
             return npcCostume;
+        }
+
+        public static bool HasCostume(long userId, int costumeId)
+        {
+            var table = DatabaseDefine.User.EntityIUserCostumeTable;
+            return table.All.Any(x => x.CostumeId == costumeId && x.UserId == userId);
+        }
+
+        public static DataOutgameCostume CreateMaxDataOutgameCostume(int id)
+        {
+            var masterCostume = GetEntityMCostume(id);
+            return CreateMaxDataOutgameCostume(masterCostume);
+        }
+
+        private static DataOutgameCostume CreateMaxDataOutgameCostume(EntityMCostume entityMCostume)
+        {
+            var limitBreak = Networking.Config.GetCostumeLimitBreakAvailableCount();
+
+            var maxSettings = CalculatorCalculationSetting.CreateMaxLevelCalculationSettingOnCostumeRarity(entityMCostume.RarityType);
+            var maxLevel = CostumeServal.calcMaxLevel(limitBreak, maxSettings.FunctionType, maxSettings.FunctionParameters);
+
+            var expParameterId = CalculatorCalculationSetting.GetCostumeExpNumericalParameterMapId(entityMCostume.RarityType);
+            var maxCostumeExp = CalculatorCalculationSetting.GetNumericalParameter(expParameterId, maxLevel);
+            var skillMaxLevel = GetCostumeSkillMaxLevel(entityMCostume.RarityType);
+
+            var awakenCount = Networking.Config.GetCostumeAwakenAvailableCount();
+
+            return CreateDataOutgameCostume(entityMCostume, limitBreak, maxLevel, maxCostumeExp, skillMaxLevel, awakenCount);
         }
 
         public static int GetCurrentLevel(string userCostumeUuid)

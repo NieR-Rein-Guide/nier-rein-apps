@@ -18,6 +18,10 @@ namespace NierReincarnation.Core.Dark
 
         public bool IsEmpty => UserDeckActors[0]?.Costume == null;
 
+        public bool IsMinimal => UserDeckActors[1] == null &&
+                                 UserDeckActors[2] == null &&
+                                (UserDeckActors[0]?.IsMinimal ?? true);
+
         public DataDeckInfo(DeckType deckType, int userDeckNumber) : this()
         {
             DeckType = deckType;
@@ -41,6 +45,10 @@ namespace NierReincarnation.Core.Dark
 
                 case DeckType.BIG_HUNT:
                     return UserInterfaceTextKey.Deck.kTypeBigHunt.Localize() + $"{UserDeckNumber}";
+
+                case DeckType.RESTRICTED_QUEST:
+                case DeckType.RESTRICTED_LIMIT_CONTENT_QUEST:
+                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize();
             }
 
             return string.Empty;

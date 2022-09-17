@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Game.TurnBattle;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
@@ -49,6 +45,18 @@ namespace NierReincarnation.Core.Dark.Calculator
                 [StatusKindType.HP] = CreateStatusCalculationSetting(statusCalc.HpNumericalFunctionId, baseStatus.Hp),
                 [StatusKindType.VITALITY] = CreateStatusCalculationSetting(statusCalc.VitalityNumericalFunctionId, baseStatus.Vitality)
             };
+        }
+
+        public static int GetCostumeExpNumericalParameterMapId(RarityType rarityType)
+        {
+            var table = DatabaseDefine.Master.EntityMCostumeRarityTable;
+            return table.FindByRarityType(rarityType).RequiredExpForLevelUpNumericalParameterMapId;
+        }
+
+        public static int GetNumericalParameter(int numericalParameterMapId, int key)
+        {
+            var table = DatabaseDefine.Master.EntityMNumericalParameterMapTable;
+            return table.FindByNumericalParameterMapIdAndParameterKey((numericalParameterMapId, key)).ParameterValue;
         }
 
         public static NumericalFunctionSetting CreatePartsMainStatusCalculationSetting(EntityMPartsStatusMain entityMPartsStatusMain)

@@ -1,4 +1,4 @@
-﻿using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+﻿using System.Linq;
 using NierReincarnation.Core.Subsystem.Serval;
 
 namespace NierReincarnation.Core.Dark
@@ -19,9 +19,12 @@ namespace NierReincarnation.Core.Dark
         // 0x38
         public DataOutgameCompanionInfo Companion { get; set; }
         // 0x40
-        public DataOutgameThought Thought { get; set; }
+        public DataOutgameThoughtInfo Thought { get; set; }
         // 0x48
         public DataOutgameMemoryInfo[] Memories { get; set; }
+
+        public bool IsMinimal => DressupCostumeId == 0 && SubWeapon01 == null && SubWeapon02 == null &&
+                                 Companion == null && Thought == null && Memories.All(x => x == null);
 
         public DataDeckActorInfo()
         {

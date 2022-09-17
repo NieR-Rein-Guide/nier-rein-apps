@@ -12,6 +12,7 @@
         END_CONTENTS = 7,
         PORTAL_CAGE = 8,
         SPECIAL = 9,
-        TOWER = 10
+        TOWER = 10,
+        LIMIT_CONTENT = 11
     }
 }

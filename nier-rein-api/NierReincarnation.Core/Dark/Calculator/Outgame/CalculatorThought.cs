@@ -18,6 +18,13 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 yield return CreateDataOutgameThought(userId, thought.UserThoughtUuid);
         }
 
+        public static IEnumerable<DataOutgameThoughtInfo> EnumerateThoughtsInfo(long userId)
+        {
+            var table = DatabaseDefine.User.EntityIUserThoughtTable;
+            foreach (var thought in table.All)
+                yield return CreateDataOutgameThoughtInfo(userId, thought.UserThoughtUuid);
+        }
+
         public static DataOutgameThought CreateDataOutgameThought(long userId, string userThoughtUuid)
         {
             var table = DatabaseDefine.User.EntityIUserThoughtTable;
@@ -32,6 +39,29 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 masterThought.AbilityLevel, masterThought.ThoughtAssetId, userThoughtUuid, thought.AcquisitionDatetime,
                 GetName(masterThought.ThoughtAssetId), GetDescription(masterThought.ThoughtAssetId),
                 CreateThoughtDataAbility(masterThought.AbilityId, masterThought.AbilityLevel, true), false);
+        }
+
+        public static DataOutgameThoughtInfo CreateDataOutgameThoughtInfo(long userId, string thoughtUuid)
+        {
+            var table = DatabaseDefine.User.EntityIUserThoughtTable;
+            if (!table.TryFindByUserIdAndUserThoughtUuid((userId, thoughtUuid), out var thought))
+                return null;
+
+            return CreateDataOutgameThoughtInfo(thought);
+        }
+
+        private static DataOutgameThoughtInfo CreateDataOutgameThoughtInfo(EntityIUserThought userThought)
+        {
+            var table1 = DatabaseDefine.Master.EntityMThoughtTable;
+            if (!table1.TryFindByThoughtId(userThought.ThoughtId, out var masterThought))
+                return null;
+
+            return new DataOutgameThoughtInfo
+            {
+                UserThoughtUuid = userThought.UserThoughtUuid,
+                RarityType = masterThought.RarityType,
+                ThoughtAssetId = masterThought.ThoughtAssetId
+            };
         }
 
         public static string GetName(int nameTextId)

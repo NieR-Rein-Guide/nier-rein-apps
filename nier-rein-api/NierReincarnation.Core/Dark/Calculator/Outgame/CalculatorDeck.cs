@@ -45,6 +45,16 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             }
         }
 
+        public static DataDeckInfo CreateDataDeckInfo(long userId, int userDeckNumber, DeckType deckType)
+        {
+            var table = DatabaseDefine.User.EntityIUserDeckTable;
+            var userDeck = table.FindByUserIdAndDeckTypeAndUserDeckNumber((userId, deckType, userDeckNumber));
+            if (userDeck == null)
+                return null;
+
+            return CreateDataDeckInfo(userDeck);
+        }
+
         private static DataDeckInfo CreateDataDeckInfo(EntityIUserDeck entityIUserDeck)
         {
             return new DataDeckInfo
