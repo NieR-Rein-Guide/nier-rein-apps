@@ -28,7 +28,12 @@
                 return true;
 
             // Check for big hunt quest
-            return BigHuntBattleContext.HasRunningBigHuntQuest();
+            result= BigHuntBattleContext.HasRunningBigHuntQuest();
+            if (result)
+                return true;
+
+            // Check for extra quest
+            return QuestBattleContext.HasRunningExtraQuest();
         }
     }
 }

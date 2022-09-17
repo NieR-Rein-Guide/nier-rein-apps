@@ -47,6 +47,12 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCageOrnamentReward> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.CageOrnamentId), Comparer<(long, int)>.Default);
+            return this;
+        }
+
         // RVA: 0x20154B4 Offset: 0x20154B4 VA: 0x20154B4
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCharacter> dataSource)
         {
@@ -170,6 +176,24 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserGimmick> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.GimmickSequenceScheduleId, user.GimmickSequenceId, user.GimmickId), Comparer<(long, int, int, int)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserGimmickOrnamentProgress> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.GimmickSequenceScheduleId, user.GimmickSequenceId, user.GimmickId, user.GimmickOrnamentIndex), Comparer<(long, int, int, int, int)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserGimmickSequence> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.GimmickSequenceScheduleId), Comparer<(long, int)>.Default);
+            return this;
+        }
+
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserMainQuestProgressStatus> dataSource)
         {
             AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
@@ -222,6 +246,12 @@ namespace NierReincarnation.Core.Dark
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserQuestMission> dataSource)
         {
             AppendCore(dataSource, user => (user.UserId, user.QuestId, user.QuestMissionId), Comparer<(long, int, int)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserQuestLimitContentStatus> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.QuestId), Comparer<(long, int)>.Default);
             return this;
         }
 

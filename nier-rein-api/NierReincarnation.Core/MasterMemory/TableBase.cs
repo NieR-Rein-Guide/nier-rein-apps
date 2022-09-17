@@ -34,7 +34,7 @@ namespace NierReincarnation.Core.MasterMemory
             throw new KeyNotFoundException($"DataType: {key.GetType().Name}, Key: {key}");
         }
 
-        protected static TElement FindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool throwIfNotFound = true)
+        protected static TElement FindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool throwIfNotFound = false)
         {
             var foundElement = indexArray.FirstOrDefault(x => comparer.Compare(keySelector(x), key) == 0);
 
@@ -48,7 +48,7 @@ namespace NierReincarnation.Core.MasterMemory
         {
             result = indexArray.FirstOrDefault(x => comparer.Compare(keySelector(x), key) == 0);
 
-            return result == null;
+            return result != null;
         }
 
         // TODO: Revisit method

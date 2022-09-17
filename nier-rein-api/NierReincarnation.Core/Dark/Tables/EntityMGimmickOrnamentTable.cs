@@ -12,6 +12,6 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => (element.GimmickOrnamentGroupId,element.GimmickOrnamentIndex);
         }
-        
+
     }
 }

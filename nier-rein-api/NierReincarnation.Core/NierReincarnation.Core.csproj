@@ -49,10 +49,12 @@
   <ItemGroup>
     <None Remove="proto\battle.proto" />
     <None Remove="proto\bighunt.proto" />
+    <None Remove="proto\cageornament.proto" />
     <None Remove="proto\consumableitem.proto" />
     <None Remove="proto\deck.proto" />
     <None Remove="proto\explore.proto" />
     <None Remove="proto\gacha.proto" />
+    <None Remove="proto\gimmick.proto" />
     <None Remove="proto\quest.proto" />
     <None Remove="proto\shop.proto" />
     <None Remove="proto\user.proto" />
@@ -64,6 +66,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Update="proto\cageornament.proto" GrpcServices="Client" />
+    <Protobuf Update="proto\gimmick.proto" GrpcServices="Client" />
     <Protobuf Update="proto\gacha.proto" GrpcServices="Client" />
     <Protobuf Update="proto\user.proto" GrpcServices="Client" />
     <Protobuf Update="proto\config.proto" GrpcServices="Client" />

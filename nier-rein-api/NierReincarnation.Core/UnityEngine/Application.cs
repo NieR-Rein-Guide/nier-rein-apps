@@ -7,6 +7,7 @@ namespace NierReincarnation.Core.UnityEngine
     // UnityEngine.Application
     public static class Application
     {
+        // CUSTOM: Versions and identifiers for each region the application can run in
         private static readonly IDictionary<Language, string> Versions = new Dictionary<Language, string>();
         private static readonly IDictionary<Language, string> Identifiers = new Dictionary<Language, string>();
 
@@ -74,6 +75,7 @@ namespace NierReincarnation.Core.UnityEngine
 
         #region System
 
+        // CUSTOM: Language specifier for which region the application should run
         public static Language Language { get; set; } = Language.English;
 
         public static string SystemLanguage => GetSystemLanguage();

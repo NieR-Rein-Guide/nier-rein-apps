@@ -9,8 +9,10 @@ package apb.api.quest;
 service QuestService {
 	rpc StartEventQuest (StartEventQuestRequest) returns (StartEventQuestResponse);
 	rpc StartMainQuest (StartMainQuestRequest) returns (StartMainQuestResponse);
+	rpc StartExtraQuest (StartExtraQuestRequest) returns (StartExtraQuestResponse);
 	rpc FinishEventQuest (FinishEventQuestRequest) returns (FinishEventQuestResponse);
 	rpc FinishMainQuest (FinishMainQuestRequest) returns (FinishMainQuestResponse);
+	rpc FinishExtraQuest (FinishExtraQuestRequest) returns (FinishExtraQuestResponse);
 	rpc UpdateEventQuestSceneProgress (UpdateEventQuestSceneProgressRequest) returns (UpdateEventQuestSceneProgressResponse);
 	rpc UpdateMainQuestSceneProgress (UpdateMainQuestSceneProgressRequest) returns (UpdateMainQuestSceneProgressResponse);
 	rpc UpdateMainFlowSceneProgress (UpdateMainFlowSceneProgressRequest) returns (UpdateMainFlowSceneProgressResponse);
@@ -40,6 +42,16 @@ message StartMainQuestRequest {
 }
 
 message StartMainQuestResponse {
+	repeated BattleDropReward BattleDropReward = 1;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
+}
+
+message StartExtraQuestRequest {
+	int32 questId = 1;
+	int32 userDeckNumber = 2;
+}
+
+message StartExtraQuestResponse {
 	repeated BattleDropReward BattleDropReward = 1;
 	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
@@ -85,6 +97,25 @@ message FinishMainQuestResponse {
 	bool isBigWin = 6;
 	repeated int32 bigWinClearedQuestMissionIdList = 7;
 	repeated QuestReward replayFlowFirstClearReward = 8;
+	map<string,apb.api.data.DiffData> diffUserData = 99;
+}
+
+message FinishExtraQuestRequest {
+	int32 questId = 1;
+	bool isRetired = 2;
+	bool isAnnihilated = 3;
+	int32 storySkipType = 4;
+	string vt = 200;
+}
+
+message FinishExtraQuestResponse {
+	repeated QuestReward dropReward = 1;
+	repeated QuestReward firstClearReward = 2;
+	repeated QuestReward missionClearReward = 3;
+	repeated QuestReward missionClearCompleteReward = 4;
+	bool isBigWin = 5;
+	repeated int32 bigWinClearedQuestMissionIdList = 6;
+	repeated QuestReward userStatusCampaignReward = 7;
 	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 

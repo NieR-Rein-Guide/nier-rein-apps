@@ -333,6 +333,128 @@ namespace NierReincarnation.Context
 
         #endregion
 
+        #region Extra Quests
+
+        public static bool HasRunningExtraQuest()
+        {
+            var userId = CalculatorStateUser.GetUserId();
+            var table = DatabaseDefine.User.EntityIUserExtraQuestProgressStatusTable;
+
+            return table.FindByUserId(userId)?.CurrentQuestId != 0;
+        }
+
+        public async Task<BattleResult> ExecuteExtraQuest(EntityMQuest quest, DataDeck deck)
+        {
+            var questId = quest.QuestId;
+            var sceneId = CalculatorQuest.CreateQuestFieldSceneList(questId).FirstOrDefault()?.QuestSceneId ?? 0;
+
+            // Ensure stamina
+            var refilled = await RefillStamina(quest.Stamina);
+            if (!refilled)
+                return new BattleResult(BattleStatus.OutOfStamina);
+
+            // Start battle
+            var (shouldQuit, shouldShutdown) = await StartExtraBattle(questId, deck);
+            if (shouldShutdown)
+                return new BattleResult(BattleStatus.ForceShutdown);
+
+            if (shouldQuit)
+                return await QuitExtraQuest(questId);
+
+            // Process waves
+            var waveDecks = CalculatorQuest.GetWaveDataList(questId, out var npcId);
+            for (var waveIndex = 0; waveIndex < waveDecks.Count; waveIndex++)
+            {
+                var waveDeck = waveDecks[waveIndex];
+
+                // Start wave
+                await StartQuestWave(deck, npcId, waveDeck);
+
+                // Finish wave
+                await FinishQuestWave(deck, npcId, waveDeck, waveIndex + 1, waveDecks.Count, sceneId);
+            }
+
+            // Finish battle
+            var rewards = await FinishExtraBattle(questId);
+
+            return new BattleResult(BattleStatus.Win, rewards);
+        }
+
+        public async Task<BattleResult> QuitExtraQuest(int questId)
+        {
+            await FinishExtraBattle(questId, true);
+            return new BattleResult(BattleStatus.Retire);
+        }
+
+        #region Start extra battle
+
+        private async Task<(bool, bool)> StartExtraBattle(int questId, DataDeck deck)
+        {
+            // Start battle
+            var startRes = await TryRequest(async () =>
+            {
+                var startReq = GetStartExtraBattleRequest(questId, deck.UserDeckNumber);
+                return await _dc.QuestService.StartExtraQuestAsync(startReq);
+            });
+
+            if (startRes == null)
+                return (false, true);
+
+            OnStartBattle(startRes.BattleDropReward, out var retire, out var shutdown);
+
+            return (retire, shutdown);
+        }
+
+        private StartExtraQuestRequest GetStartExtraBattleRequest(int questId, int deckNumber)
+        {
+            return new StartExtraQuestRequest
+            {
+                QuestId = questId,
+                UserDeckNumber = deckNumber
+            };
+        }
+
+        #endregion
+
+        #region Finish extra battle
+
+        private async Task<BattleDrops> FinishExtraBattle(int questId, bool retire = false)
+        {
+            // Finish battle
+            var finishRes = await TryRequest(async () =>
+            {
+                var finishReq = GetFinishExtraBattleRequest(questId, retire);
+                return await _dc.QuestService.FinishExtraQuestAsync(finishReq);
+            });
+
+            if (finishRes == null)
+                return BattleDrops.Empty;
+
+            var rewards = CreateBattleDrops(finishRes.DropReward, finishRes.FirstClearReward, finishRes.MissionClearCompleteReward, finishRes.MissionClearReward);
+            OnFinishBattle(rewards);
+
+            return rewards;
+        }
+
+        private FinishExtraQuestRequest GetFinishExtraBattleRequest(int questId, bool retire)
+        {
+            return new FinishExtraQuestRequest
+            {
+                QuestId = questId,
+
+                IsAnnihilated = false,  // Indicator if battle was won
+                IsRetired = retire,  // Retire battle; Loses stamina
+
+                StorySkipType = (int)QuestStorySkipType.SKIP_BY_BATTLE_ONLY_IN_SUB_FLOW,
+
+                Vt = DarkClient.CreateVerifierToken()
+            };
+        }
+
+        #endregion
+
+        #endregion
+
         #region Refill stamina
 
         private Task<bool> RefillStamina(int reqStamina)

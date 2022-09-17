@@ -6,11 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Battle;
 using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
+using Art.Framework.ApiNetwork.Grpc.Api.CageOrnament;
 using Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem;
 using Art.Framework.ApiNetwork.Grpc.Api.Data;
 using Art.Framework.ApiNetwork.Grpc.Api.Deck;
 using Art.Framework.ApiNetwork.Grpc.Api.Explore;
 using Art.Framework.ApiNetwork.Grpc.Api.Gacha;
+using Art.Framework.ApiNetwork.Grpc.Api.Gimmick;
 using Art.Framework.ApiNetwork.Grpc.Api.Quest;
 using Art.Framework.ApiNetwork.Grpc.Api.Shop;
 using Art.Framework.ApiNetwork.Grpc.Api.User;
@@ -24,7 +26,7 @@ using NierReincarnation.Core.Dark;
 namespace NierReincarnation.Core.Adam.Framework.Network
 {
     // Adam.Framework.Network.DarkClient
-    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService, IBigHuntService, IDeckService, IShopService
+    public class DarkClient : IBattleService, IConsumableItemService, IDataService, IGachaService, IUserService, IExploreService, IQuestService, IBigHuntService, IDeckService, IShopService, IGimmickService,ICageOrnamentService
     {
         // 0x00
         private static readonly int MAX_INTERCEPT = 10;
@@ -73,6 +75,10 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         public IDeckService DeckService => this;
 
         public IShopService ShopService => this;
+
+        public IGimmickService GimmickService => this;
+
+        public ICageOrnamentService CageOrnamentService => this;
 
         // Done
         public DarkClient(CancellationToken cancellationToken = default, TimeSpan? timeout = default, INetworkInterceptor[] interceptors = null)
@@ -232,6 +238,22 @@ namespace NierReincarnation.Core.Adam.Framework.Network
                     new ResponseContext<FinishMainQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).FinishMainQuestAsync((FinishMainQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
+        public Task<StartExtraQuestResponse> StartExtraQuestAsync(StartExtraQuestRequest request)
+        {
+            var path = "QuestService/StartExtraQuestAsync";
+            return InvokeAsync<StartExtraQuestResponse, StartExtraQuestRequest>(path, request,
+                ctx =>
+                    new ResponseContext<StartExtraQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).StartExtraQuestAsync((StartExtraQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        public Task<FinishExtraQuestResponse> FinishExtraQuestAsync(FinishExtraQuestRequest request)
+        {
+            var path = "QuestService/FinishExtraQuestAsync";
+            return InvokeAsync<FinishExtraQuestResponse, FinishExtraQuestRequest>(path, request,
+                ctx =>
+                    new ResponseContext<FinishExtraQuestResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).FinishExtraQuestAsync((FinishExtraQuestRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
         public Task<UpdateEventQuestSceneProgressResponse> UpdateEventQuestSceneProgressAsync(UpdateEventQuestSceneProgressRequest request)
         {
             var path = "QuestService/UpdateEventQuestSceneProgressAsync";
@@ -366,6 +388,30 @@ namespace NierReincarnation.Core.Adam.Framework.Network
             return InvokeAsync<CreatePurchaseTransactionResponse, CreatePurchaseTransactionRequest>(path, request,
                 ctx =>
                     new ResponseContext<CreatePurchaseTransactionResponse>(new ShopService.ShopServiceClient(GetCallInvoker(ctx.Channel)).CreatePurchaseTransactionAsync((CreatePurchaseTransactionRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        #endregion
+
+        #region IGimmickService
+
+        public Task<UpdateGimmickProgressResponse> UpdateGimmickProgressAsync(UpdateGimmickProgressRequest request)
+        {
+            var path = "GimmickService/UpdateGimmickProgressAsync";
+            return InvokeAsync<UpdateGimmickProgressResponse, UpdateGimmickProgressRequest>(path, request,
+                ctx =>
+                    new ResponseContext<UpdateGimmickProgressResponse>(new GimmickService.GimmickServiceClient(GetCallInvoker(ctx.Channel)).UpdateGimmickProgressAsync((UpdateGimmickProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
+        #endregion
+
+        #region ICageOrnamentService
+
+        public Task<ReceiveRewardResponse> ReceiveRewardAsync(ReceiveRewardRequest request)
+        {
+            var path = "CageOrnamentService/ReceiveRewardAsync";
+            return InvokeAsync<ReceiveRewardResponse, ReceiveRewardRequest>(path, request,
+                ctx =>
+                    new ResponseContext<ReceiveRewardResponse>(new CageOrnamentService.CageOrnamentServiceClient(GetCallInvoker(ctx.Channel)).ReceiveRewardAsync((ReceiveRewardRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
         #endregion

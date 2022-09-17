@@ -1,8 +1,10 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.Battle;
 using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
+using Art.Framework.ApiNetwork.Grpc.Api.CageOrnament;
 using Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem;
 using Art.Framework.ApiNetwork.Grpc.Api.Data;
 using Art.Framework.ApiNetwork.Grpc.Api.Deck;
+using Art.Framework.ApiNetwork.Grpc.Api.Gimmick;
 using Art.Framework.ApiNetwork.Grpc.Api.Quest;
 using Art.Framework.ApiNetwork.Grpc.Api.User;
 using Google.Protobuf.Collections;
@@ -58,6 +60,12 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api
 
                 case "Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem.UseEffectItemResponse":
                     return responseContext.GetResponseAs<UseEffectItemResponse>().Result?.DiffUserData;
+
+                case "Art.Framework.ApiNetwork.Grpc.Api.Gimmick.UpdateGimmickProgressResponse":
+                    return responseContext.GetResponseAs<UpdateGimmickProgressResponse>().Result?.DiffUserData;
+
+                case "Art.Framework.ApiNetwork.Grpc.Api.CageOrnament.ReceiveRewardResponse":
+                    return responseContext.GetResponseAs<ReceiveRewardResponse>().Result?.DiffUserData;
 
                 default:
                     return null;
