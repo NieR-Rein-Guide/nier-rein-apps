@@ -40,7 +40,11 @@ namespace NierReincarnation.Context
             var userId = CalculatorStateUser.GetUserId();
             var table = DatabaseDefine.User.EntityIUserBigHuntProgressStatusTable;
 
-            return table.FindByUserId(userId)?.CurrentQuestSceneId != 0;
+            var bugHuntStatus = table.FindByUserId(userId);
+            if (bugHuntStatus == null)
+                return false;
+
+            return bugHuntStatus.CurrentQuestSceneId != 0;
         }
 
         public async Task<BigHuntBattleStatus> ExecuteBigHuntQuest(BigHuntQuestData quest, int bigHuntDeckNumber, SubjugationGrade grade)
