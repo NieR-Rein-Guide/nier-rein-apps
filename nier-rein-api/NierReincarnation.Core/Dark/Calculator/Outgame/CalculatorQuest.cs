@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using MoreLinq;
 using NCrontab;
+using NierReincarnation.Core.Custom;
 using NierReincarnation.Core.Dark.Calculator.Factory;
 using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -19,6 +20,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorQuest
     {
+        public static readonly int kInvalidQuestId = 0; // 0x4
+
         private static readonly int kInvalidQuestMissionConditionGroupId = 0; // 0xC
         private static readonly int kCronLastMinuteDiff = 1; // 0x2C
         private static readonly Regex kTimeTableRegex = new Regex("\\*"); // 0x30
@@ -33,6 +36,14 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 return EventQuestType.UNKNOWN;
 
             return chapter.EventQuestType;
+        }
+
+        public static List<EventQuestChapterData> GetAllEventQuestChapters()
+        {
+            return GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.HUNT, EventQuestType.DUNGEON,
+                                         EventQuestType.DAY_OF_THE_WEEK, EventQuestType.GUERRILLA,
+                                         EventQuestType.CHARACTER, EventQuestType.END_CONTENTS,
+                                         EventQuestType.SPECIAL, EventQuestType.TOWER, EventQuestType.LIMIT_CONTENT);
         }
 
         // CUSTOM: Get event quest chapters by type
@@ -60,6 +71,28 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             }
 
             return result;
+        }
+
+        // CUSTOM: Get event quest chapters by ID
+        public static EventQuestChapterData GetEventQuestChapter(int eventQuestChapterId)
+        {
+            var chapterTable = DatabaseDefine.Master.EntityMEventQuestChapterTable;
+            var seqGroupTable = DatabaseDefine.Master.EntityMEventQuestSequenceGroupTable;
+
+            var chapter = chapterTable.FindByEventQuestChapterId(eventQuestChapterId);
+            if (chapter == null)
+                return null;
+
+            return new EventQuestChapterData
+            {
+                EventQuestChapterId = chapter.EventQuestChapterId,
+                EventQuestType = chapter.EventQuestType,
+                EventQuestName = GetEventQuestChapterName(chapter.NameEventQuestTextId, chapter.EventQuestType),
+                EventQuestChapterDifficultyTypes = seqGroupTable.All.Where(x => x.EventQuestSequenceGroupId == chapter.EventQuestSequenceGroupId).Select(x => x.DifficultyType).ToList(),
+
+                StartDatetime = chapter.StartDatetime,
+                EndDatetime = chapter.EndDatetime
+            };
         }
 
         // CUSTOM: Get main quest seasons
@@ -187,20 +220,35 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return result;
         }
 
-        public static int GetDailyEventChapterId()
+        public static QuestFieldEffectData[] GenerateQuestFieldEffectData(int fieldEffectGroupId)
         {
-            var dailyChapters = GetEventQuestChapters(EventQuestType.DAY_OF_THE_WEEK);
-            return dailyChapters.First().EventQuestChapterId;
+            var table = DatabaseDefine.Master.EntityMFieldEffectGroupTable;
+            var effectGroups = table.FindByFieldEffectGroupId(fieldEffectGroupId);
+
+            var result = new QuestFieldEffectData[effectGroups.Count];
+            for (var i = 0; i < effectGroups.Count; i++)
+            {
+                var effectGroup = effectGroups[i];
+                result[i] = new QuestFieldEffectData
+                {
+                    AbilityId = effectGroup.AbilityId,
+                    DefaultAbilityLevel = effectGroup.DefaultAbilityLevel,
+                    FieldEffectApplyScopeType = effectGroup.FieldEffectApplyScopeType,
+                    FieldEffectAssetId = effectGroup.FieldEffectAssetId,
+                    FieldEffectGroupId = effectGroup.FieldEffectGroupId
+                };
+            }
+
+            return result;
         }
 
         public static List<Term> GetCurrentEventChapterTodayTimeTable(int eventQuestChapterId)
         {
             var chapterQuests = GenerateEventQuestData(eventQuestChapterId, DifficultyType.NORMAL);
-            return chapterQuests
+            var distinctTimes = chapterQuests
                 .SelectMany(x => GetCurrentQuestTodayTimeTable(x.Quest.QuestId))
-                .DistinctBy(x => x.Start)
-                .OrderBy(x => x.Start)
-                .ToList();
+                .DistinctBy(x => x.Start);
+            return distinctTimes.OrderBy(x => x.Start).ToList();
         }
 
         private static List<Term> GetCurrentQuestTodayTimeTable(int questId)
@@ -208,7 +256,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var table = DatabaseDefine.Master.EntityMQuestScheduleCorrespondenceTable;
             var terms = table.All.Where(x => x.QuestId == questId).ToArray();
             if (!terms.Any())
-                return new List<Term> { new Term(CalculatorDateTime.GetTodayChangeDateTime(), CalculatorDateTime.GetNextChangeDateTime()) };
+                return new List<Term> { Term.CurrentDay };
 
             var result = new List<Term>();
 
@@ -232,7 +280,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 if (CalculatorDateTime.IsFuzzyEqualDateTime(firstOccurrence, new DateTime()))
                     continue;
 
-                result.Add(new Term(CalculatorDateTime.AsPst(firstOccurrence), CalculatorDateTime.AsPst(lastOccurrence)));
+                // HINT: CRON expressions are given based on different timezones based on the target region of the game
+                result.Add(DateTimeConversions.GetGuerillaTerm(firstOccurrence, lastOccurrence));
             }
 
             return result;
@@ -392,7 +441,10 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var questTable = DatabaseDefine.Master.EntityMQuestTable;
 
             var eventQuestChapter = chapterTable.FindByEventQuestChapterId(eventQuestChapterId);
-            var questGroup = seqGroupTable.FindByEventQuestSequenceGroupIdAndDifficultyType((eventQuestChapter.EventQuestSequenceGroupId, difficultyType));
+            var questGroup = seqGroupTable.FindByEventQuestSequenceGroupIdAndDifficultyType((eventQuestChapter.EventQuestSequenceGroupId, (int)difficultyType));
+            if (questGroup == null)
+                return new List<IQuest>();
+
             var quests = seqTable.All.Where(x => x.EventQuestSequenceId == questGroup.EventQuestSequenceId).OrderBy(x => x.SortOrder);
 
             var result = new List<IQuest>();
@@ -436,16 +488,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         {
             var questId = eventQuest.QuestId;
             var masterQuest = eventQuest.EntityQuest;
-            var dailyCount = masterQuest.DailyClearableCount;
 
-            var isUnlocked = IsUnlockedQuest(masterQuest.QuestReleaseConditionListId, userId);
-            var canPlay = CanPlayQuestCheckCount(userId, questId, dailyCount);
-
-            var isClear = IsClearQuest(questId, userId);
-            var isAvailable = !isClear || !masterQuest.IsNotShowAfterClear;
-            isAvailable &= IsWithinQuestTerm(questId);
-
-            isLock = !isAvailable || !isUnlocked || !canPlay;
+            isLock = IsQuestLocked(masterQuest, userId, out var isClear, out var isAvailable);
 
             var sceneId = CreateQuestFieldSceneList(eventQuest.QuestId).Select(x => x.QuestSceneId).FirstOrDefault();
 
@@ -469,23 +513,38 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             };
         }
 
+        // CUSTOM: Checks if quest is locked by Quest ID
+        public static bool IsQuestLocked(int questId)
+        {
+            var table = DatabaseDefine.Master.EntityMQuestTable;
+            var masterQuest = table.FindByQuestId(questId);
+
+            return IsQuestLocked(masterQuest, CalculatorStateUser.GetUserId(), out _, out _);
+        }
+
+        // CUSTOM: Checks if a quest is locked by quest information
+        private static bool IsQuestLocked(EntityMQuest quest, long userId, out bool isClear, out bool isAvailable)
+        {
+            var dailyCount = quest.DailyClearableCount;
+
+            var isUnlocked = IsUnlockedQuest(quest.QuestReleaseConditionListId, userId);
+            var canPlay = CanPlayQuestCheckCount(userId, quest.QuestId, dailyCount);
+
+            isClear = IsClearQuest(quest.QuestId, userId);
+            isAvailable = !isClear || !quest.IsNotShowAfterClear;
+            isAvailable &= IsWithinQuestTerm(quest.QuestId);
+
+            return !isAvailable || !isUnlocked || !canPlay;
+        }
+
         public static bool IsClearQuest(int questId, long userId)
         {
             var table = DatabaseDefine.User.EntityIUserQuestTable;
             return table.FindByUserIdAndQuestId((userId, questId))?.QuestStateType == 2;
         }
 
-        // CUSTOM: Check quest lock by quest ID
-        public static bool IsUnlockedQuest(int questId)
-        {
-            var masterQuest = DatabaseDefine.Master.EntityMQuestTable.FindByQuestId(questId);
-            if (masterQuest == null)
-                return false;
-
-            return IsUnlockedQuest(masterQuest.QuestReleaseConditionListId, CalculatorStateUser.GetUserId());
-        }
-
-        public static bool IsUnlockedQuest(int questReleaseConditionListId, long userId)
+        // CUSTOM: Made internal to reduce confusion in the public API
+        internal static bool IsUnlockedQuest(int questReleaseConditionListId, long userId)
         {
             var table = DatabaseDefine.Master.EntityMQuestReleaseConditionListTable;
             var table2 = DatabaseDefine.Master.EntityMQuestReleaseConditionGroupTable;
@@ -611,8 +670,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             if (userQuest.LastClearDatetime == 0)
                 throw new ArgumentNullException("Quest has invalid clear time.");
 
-            var isAfterToday = CalculatorDateTime.IsAfterTodaySpanningTime(CalculatorDateTime.FromUnixTime(userQuest.LastClearDatetime));
-            return userQuest.DailyClearCount < dailyClearableCount | !isAfterToday;
+            var isAfterToday = CalculatorDateTime.IsAfterTodaySpanningTime(userQuest.LastClearDatetime);
+            return userQuest.DailyClearCount < dailyClearableCount || !isAfterToday;
         }
 
         private static int GetClearCount(long userId, int questId)
@@ -659,7 +718,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return GetQuestName(masterQuest.NameQuestTextId);
         }
 
-        private static DataPossessionItem GenerateFirstReward(int questFirstClearRewardGroupId)
+        public static DataPossessionItem GenerateFirstReward(int questFirstClearRewardGroupId)
         {
             var table = DatabaseDefine.Master.EntityMQuestFirstClearRewardGroupTable;
             var rewardGroup = table.All.Where(x => x.QuestFirstClearRewardType == QuestFirstClearRewardType.NORMAL)

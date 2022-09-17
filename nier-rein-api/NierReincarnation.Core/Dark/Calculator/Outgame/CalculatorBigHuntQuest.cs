@@ -192,7 +192,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             if (bigHuntStatus == null)
                 return 0;
 
-            return CalculatorDateTime.IsAfterTodaySpanningTime(CalculatorDateTime.FromUnixTime(bigHuntStatus.LatestChallengeDatetime)) ? bigHuntStatus.DailyChallengeCount : 0;
+            return CalculatorDateTime.IsAfterTodaySpanningTime(bigHuntStatus.LatestChallengeDatetime) ? bigHuntStatus.DailyChallengeCount : 0;
         }
 
         public static string GetBigHuntBossNameByBigHuntBossQuestId(int bigHuntBossQuestId)

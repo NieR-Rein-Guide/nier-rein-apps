@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -16,7 +17,7 @@ namespace NierReincarnation.Core.Dark
         [Key(3)]
         public int DefaultAbilityLevel { get; set; } // 0x1C
         [Key(4)]
-        public int FieldEffectApplyScopeType { get; set; } // 0x20
+        public FieldEffectApplyScopeType FieldEffectApplyScopeType { get; set; } // 0x20
         [Key(5)]
         public int FieldEffectAssetId { get; set; } // 0x24
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using NierReincarnation.Core.Custom;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using TimeZoneConverter;
@@ -8,8 +9,10 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
     public static class CalculatorDateTime
     {
         // CUSTOM: PST Timezone
-        private static readonly TimeZoneInfo PstTimezone = TZConvert.GetTimeZoneInfo("Pacific Standard Time");
-        private static readonly TimeZoneInfo LocalTimezone = TimeZoneInfo.Local;
+        internal static readonly TimeZoneInfo KstTimezone = TZConvert.GetTimeZoneInfo("Korea Standard Time");
+        internal static readonly TimeZoneInfo PstTimezone = TZConvert.GetTimeZoneInfo("Pacific Standard Time");
+        internal static readonly TimeZoneInfo LocalTimezone = TimeZoneInfo.Local;
+        private const int KstDailyResetHour_ = 17;
 
         private static readonly int MinDays = 0; // 0x1C
         public static readonly int DayHours = 24; // 0x20
@@ -23,17 +26,13 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
 
         public static bool IsAfterTodaySpanningTime(long checkDateTime)
         {
-            // CUSTOM: Logic to check if checkDateTime is after start of current day
-            return IsAfterTodaySpanningTime(FromUnixTime(checkDateTime));
-        }
+            // CUSTOM: Logic to check if checkDateTime is after start of current day (17:00 KST)
+            var kstCheckDateTime = ToKst(FromUnixTime(checkDateTime));
+            var nextResetDateTime = kstCheckDateTime.Hour < KstDailyResetHour_ ?
+                kstCheckDateTime.Date + TimeSpan.FromHours(KstDailyResetHour_) :
+                kstCheckDateTime.Date + TimeSpan.FromHours(DayHours + KstDailyResetHour_);
 
-        public static bool IsAfterTodaySpanningTime(DateTimeOffset checkDateTime)
-        {
-            // CUSTOM: Logic to check if checkDateTime is after start of current day
-            var startOfDay = PstNow().Date;
-            var pstCheckDateTime = ToPst(checkDateTime.DateTime);
-
-            return pstCheckDateTime >= startOfDay;
+            return KstNow() < AsKst(nextResetDateTime);
         }
 
         public static bool IsWithinThePeriod(long startUnixTime, long endUnixTime)
@@ -55,7 +54,7 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         // CUSTOM: Checks if current time lies between two given DateTimeOffset structs
         public static bool IsWithinThePeriod(DateTimeOffset startUnixTime, DateTimeOffset endUnixTime, DateTimeOffset currentDateTime)
         {
-            return IsWithinThePeriod(ToUnixTime(startUnixTime), ToUnixTime(endUnixTime), ToUnixTime(currentDateTime));
+            return startUnixTime < currentDateTime && currentDateTime < endUnixTime;
         }
 
         public static long UnixTimeNow()
@@ -67,25 +66,13 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         // CUSTOM: Parse unix time to type-safe UTC
         public static DateTimeOffset FromUnixTime(long unixTime)
         {
-            return ToLocal(DateTimeOffset.FromUnixTimeMilliseconds(unixTime));
+            return DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
         }
 
         // CUSTOM: Parse type-safe UTC to unix time
         public static long ToUnixTime(DateTimeOffset dateTime)
         {
-            return ToPst(dateTime).ToUnixTimeMilliseconds();
-        }
-
-        public static DateTimeOffset GetTodayChangeDateTime()
-        {
-            var pstNow = PstNow();
-            return pstNow.Subtract(pstNow.TimeOfDay);
-        }
-
-        public static DateTimeOffset GetNextChangeDateTime()
-        {
-            var pstNow = PstNow();
-            return pstNow.Subtract(pstNow.TimeOfDay).AddDays(1);
+            return dateTime.ToUnixTimeMilliseconds();
         }
 
         public static bool IsFuzzyEqualDateTime(DateTime dateTime1, DateTime dateTime2)
@@ -94,6 +81,17 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             totalSecs = Math.Abs(totalSecs);
 
             return totalSecs < kBorderMilliseconds;
+        }
+
+        internal static DateTimeOffset GetTodayChangeDateTime()
+        {
+            // CUSTOM: Redirected to DateTimeConversions, since those date times are used in CRON related methods
+            return DateTimeConversions.GetTodayChangeDateTime();
+        }
+
+        internal static DateTimeOffset GetNextChangeDateTime()
+        {
+            return GetTodayChangeDateTime().AddDays(1);
         }
 
         #region String conversions
@@ -159,19 +157,38 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
 
         #endregion
 
+        #region KST methods
+
+        // CUSTOM: Gets the current date and time in KST timezone
+        private static DateTimeOffset KstNow() => ToKst(Now());
+
+        // CUSTOM: Converts the timezone of the given DateTimeOffset struct to KST
+        private static DateTimeOffset ToKst(DateTimeOffset dateTime)
+        {
+            return TimeZoneInfo.ConvertTime(dateTime, KstTimezone);
+        }
+
+        // CUSTOM: Sets the timezone of the given DateTime struct to KST without conversion
+        private static DateTimeOffset AsKst(DateTime dateTime)
+        {
+            return ChangeTimezone(dateTime, KstTimezone);
+        }
+
+        #endregion
+
         #region PST methods
 
-        // CUSTOM: Gets the current date and time in PST timezone
-        public static DateTimeOffset PstNow() => ToPst(Now());
+        // CUSTOM: Gets the current date and time in KST timezone
+        internal static DateTimeOffset PstNow() => ToPst(Now());
 
-        // CUSTOM: Converts the timezone of the given DateTimeOffset struct to PST
-        public static DateTimeOffset ToPst(DateTimeOffset dateTime)
+        // CUSTOM: Converts the timezone of the given DateTimeOffset struct to KST
+        private static DateTimeOffset ToPst(DateTimeOffset dateTime)
         {
             return TimeZoneInfo.ConvertTime(dateTime, PstTimezone);
         }
 
-        // CUSTOM: Sets the timezone of the given DateTime struct to PST without conversion
-        public static DateTimeOffset AsPst(DateTime dateTime)
+        // CUSTOM: Sets the timezone of the given DateTime struct to KST without conversion
+        internal static DateTimeOffset AsPst(DateTime dateTime)
         {
             return ChangeTimezone(dateTime, PstTimezone);
         }
@@ -181,7 +198,7 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         #region Support
 
         // CUSTOM: Sets timezone without conversion
-        private static DateTimeOffset ChangeTimezone(DateTime dateTime, TimeZoneInfo targetTimezone)
+        internal static DateTimeOffset ChangeTimezone(DateTime dateTime, TimeZoneInfo targetTimezone)
         {
             return new DateTimeOffset(dateTime, targetTimezone.BaseUtcOffset);
         }
