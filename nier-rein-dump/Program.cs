@@ -383,6 +383,39 @@ namespace NierReinDb
                 result.Add(innerResult);
             }
 
+            DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(costumeId, out EntityMCostumeAwaken costumeAwaken);
+            DatabaseDefine.Master.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(costumeId, out EntityMCostumeAwakenAbility awakenAbility);
+            var awakenAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(awakenAbility.AbilityId, 1);
+            var awakenAssetId = $"{awakenAbilityDetail.AssetCategoryId:D3}{awakenAbilityDetail.AssetVariationId:D3}";
+
+
+            if (_abilityCache.ContainsKey((awakenAbility.AbilityId, awakenAbility.AbilityLevel)))
+            {
+                result.Add(new List<(int, CostumeAbility)>()
+                {
+                    (abilityGroups.Count + 1, _abilityCache[(awakenAbility.AbilityId, awakenAbility.AbilityLevel)])
+                });
+            }
+            else
+            {
+                var costumeAwakenAbility = new CostumeAbility
+                {
+                    AbilityId = awakenAbility.AbilityId,
+                    AbilityLevel = awakenAbility.AbilityLevel,
+                    Name = CalculatorAbility.GetName(awakenAbilityDetail.NameAbilityTextId),
+                    Description = CalculatorAbility.GetDescriptionLong(awakenAbilityDetail.DescriptionAbilityTextId),
+                    ImagePathBase = $"ui/ability/ability{awakenAssetId}/ability{awakenAssetId}_",
+                    Costume = new List<CostumeAbilityLink>()
+                };
+
+                result.Add(new List<(int, CostumeAbility)>()
+                {
+                    (abilityGroups.Count + 1, costumeAwakenAbility)
+                });
+
+                _abilityCache[(awakenAbility.AbilityId, awakenAbility.AbilityLevel)] = costumeAwakenAbility;
+            }
+
             return result;
         }
 
