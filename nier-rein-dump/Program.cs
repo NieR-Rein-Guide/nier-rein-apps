@@ -247,7 +247,7 @@ namespace NierReinDb
                     s.CostumeSkill.Costume.Add(s);
 
                 // Create abilities
-                var abilities = GetAbilities(costume.CostumeAbilityGroupId);
+                var abilities = GetAbilities(costume.CostumeAbilityGroupId, costume.CostumeId);
 
                 model.Abilities = abilities?.SelectMany(x => x.Select(y => new CostumeAbilityLink
                 {
@@ -346,7 +346,7 @@ namespace NierReinDb
         }
 
         private static IDictionary<(int, int), CostumeAbility> _abilityCache = new Dictionary<(int, int), CostumeAbility>();
-        private static IList<IList<(int, CostumeAbility)>> GetAbilities(int abilityGroupId)
+        private static IList<IList<(int, CostumeAbility)>> GetAbilities(int abilityGroupId, int costumeId)
         {
             var abilityGroups = CalculatorMasterData.GetEntityCostumeAbilityGroupList(abilityGroupId);
 
