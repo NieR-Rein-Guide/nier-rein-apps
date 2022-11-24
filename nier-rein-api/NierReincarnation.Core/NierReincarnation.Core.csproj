@@ -18,6 +18,7 @@
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="ncrontab" Version="3.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NodaTime" Version="3.1.5" />
     <PackageReference Include="protobuf-net" Version="3.0.101" />
     <PackageReference Include="protobuf-net.Core" Version="3.0.101" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
@@ -47,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Dark\DarkUserMemoryDatabase.cs~RF5ce1d127.TMP" />
     <None Remove="proto\battle.proto" />
     <None Remove="proto\bighunt.proto" />
     <None Remove="proto\cageornament.proto" />
