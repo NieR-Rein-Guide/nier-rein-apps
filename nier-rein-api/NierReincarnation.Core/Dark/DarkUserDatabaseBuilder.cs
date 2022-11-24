@@ -152,6 +152,12 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserEventQuestDailyGroupCompleteReward> dataSource)
+        {
+            AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);
+            return this;
+        }
+
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserEventQuestGuerrillaFreeOpen> dataSource)
         {
             AppendCore(dataSource, user => user.UserId, Comparer<long>.Default);

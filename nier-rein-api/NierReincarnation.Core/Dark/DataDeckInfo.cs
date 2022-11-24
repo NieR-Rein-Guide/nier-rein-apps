@@ -1,4 +1,6 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
+﻿using System.Linq;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
@@ -47,8 +49,13 @@ namespace NierReincarnation.Core.Dark
                     return UserInterfaceTextKey.Deck.kTypeBigHunt.Localize() + $"{UserDeckNumber}";
 
                 case DeckType.RESTRICTED_QUEST:
+                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize() + $"{UserDeckNumber}";
+
                 case DeckType.RESTRICTED_LIMIT_CONTENT_QUEST:
-                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize();
+                    var quests = CalculatorLimitContent.CreateDataLimitContentCharacters().OrderBy(x => x.SortOrder).ToArray();
+                    var questIndex = (UserDeckNumber - 101) / 100;
+
+                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize() + $" {quests[questIndex].Costume.CharacterName}{UserDeckNumber % 100}";
             }
 
             return string.Empty;

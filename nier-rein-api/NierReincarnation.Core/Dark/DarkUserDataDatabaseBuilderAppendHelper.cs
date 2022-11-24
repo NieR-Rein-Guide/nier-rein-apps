@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using NierReincarnation.Core.Dark.Tables;
@@ -39,6 +40,7 @@ namespace NierReincarnation.Core.Dark
                 ["IUserDeckSubWeaponGroup"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserDeckSubWeaponGroup>()),
                 ["IUserDeckPartsGroup"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserDeckPartsGroup>()),
                 ["IUserDeckTypeNote"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserDeckTypeNote>()),
+                ["IUserEventQuestDailyGroupCompleteReward"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserEventQuestDailyGroupCompleteReward>()),
                 ["IUserEventQuestGuerrillaFreeOpen"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserEventQuestGuerrillaFreeOpen>()),
                 ["IUserEventQuestProgressStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserEventQuestProgressStatus>()),
                 ["IUserExtraQuestProgressStatus"] = records => records.Select(r => ((JObject)r).ToObject<EntityIUserExtraQuestProgressStatus>()),
@@ -87,6 +89,7 @@ namespace NierReincarnation.Core.Dark
                 ["IUserDeckSubWeaponGroup"] = (builder, records) => builder.Append(records.Cast<EntityIUserDeckSubWeaponGroup>()),
                 ["IUserDeckPartsGroup"] = (builder, records) => builder.Append(records.Cast<EntityIUserDeckPartsGroup>()),
                 ["IUserDeckTypeNote"] = (builder, records) => builder.Append(records.Cast<EntityIUserDeckTypeNote>()),
+                ["IUserEventQuestDailyGroupCompleteReward"] = (builder, records) => builder.Append(records.Cast<EntityIUserEventQuestDailyGroupCompleteReward>()),
                 ["IUserEventQuestGuerrillaFreeOpen"] = (builder, records) => builder.Append(records.Cast<EntityIUserEventQuestGuerrillaFreeOpen>()),
                 ["IUserEventQuestProgressStatus"] = (builder, records) => builder.Append(records.Cast<EntityIUserEventQuestProgressStatus>()),
                 ["IUserExtraQuestProgressStatus"] = (builder, records) => builder.Append(records.Cast<EntityIUserExtraQuestProgressStatus>()),
@@ -135,6 +138,7 @@ namespace NierReincarnation.Core.Dark
                 ["IUserDeckSubWeaponGroup"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckSubWeaponGroup)record, db.EntityIUserDeckSubWeaponGroupTable, r => db.EntityIUserDeckSubWeaponGroupTable.FindByUserIdAndUserDeckCharacterUuidAndUserWeaponUuid((r.UserId, r.UserDeckCharacterUuid, r.UserWeaponUuid))),
                 ["IUserDeckPartsGroup"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckPartsGroup)record, db.EntityIUserDeckPartsGroupTable, r => db.EntityIUserDeckPartsGroupTable.FindByUserIdAndUserDeckCharacterUuidAndUserPartsUuid((r.UserId, r.UserDeckCharacterUuid, r.UserPartsUuid))),
                 ["IUserDeckTypeNote"] = (db, record, mode) => ApplyData(mode, (EntityIUserDeckTypeNote)record, db.EntityIUserDeckTypeNoteTable, r => db.EntityIUserDeckTypeNoteTable.FindByUserIdAndDeckType((r.UserId, r.DeckType))),
+                ["IUserEventQuestDailyGroupCompleteReward"] = (db, record, mode) => ApplyData(mode, (EntityIUserEventQuestDailyGroupCompleteReward)record, db.EntityIUserEventQuestDailyGroupCompleteRewardTable, r => db.EntityIUserEventQuestDailyGroupCompleteRewardTable.FindByUserId(r.UserId)),
                 ["IUserEventQuestGuerrillaFreeOpen"] = (db, record, mode) => ApplyData(mode, (EntityIUserEventQuestGuerrillaFreeOpen)record, db.EntityIUserEventQuestGuerrillaFreeOpenTable, r => db.EntityIUserEventQuestGuerrillaFreeOpenTable.FindByUserId(r.UserId)),
                 ["IUserEventQuestProgressStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserEventQuestProgressStatus)record, db.EntityIUserEventQuestProgressStatusTable, r => db.EntityIUserEventQuestProgressStatusTable.FindByUserId(r.UserId)),
                 ["IUserExtraQuestProgressStatus"] = (db, record, mode) => ApplyData(mode, (EntityIUserExtraQuestProgressStatus)record, db.EntityIUserExtraQuestProgressStatusTable, r => db.EntityIUserExtraQuestProgressStatusTable.FindByUserId(r.UserId)),

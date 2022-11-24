@@ -80,1028 +80,1062 @@ namespace NierReincarnation.Core.Dark
         // 0x118
         public EntityMBattleCompanionSkillAiGroupTable EntityMBattleCompanionSkillAiGroupTable { get; private set; }
         // 0x120
-        public EntityMBattleCostumeSkillSeTable EntityMBattleCostumeSkillSeTable { get; private set; }
+        public EntityMBattleCostumeSkillFireActTable EntityMBattleCostumeSkillFireActTable { get; private set; }
         // 0x128
-        public EntityMBattleDropRewardTable EntityMBattleDropRewardTable { get; private set; }
+        public EntityMBattleCostumeSkillSeTable EntityMBattleCostumeSkillSeTable { get; private set; }
         // 0x130
-        public EntityMBattleEnemySizeTypeConfigTable EntityMBattleEnemySizeTypeConfigTable { get; private set; }
+        public EntityMBattleDropRewardTable EntityMBattleDropRewardTable { get; private set; }
         // 0x138
-        public EntityMBattleEventTable EntityMBattleEventTable { get; private set; }
+        public EntityMBattleEnemySizeTypeConfigTable EntityMBattleEnemySizeTypeConfigTable { get; private set; }
         // 0x140
-        public EntityMBattleEventGroupTable EntityMBattleEventGroupTable { get; private set; }
+        public EntityMBattleEventTable EntityMBattleEventTable { get; private set; }
         // 0x148
-        public EntityMBattleEventReceiverBehaviourGroupTable EntityMBattleEventReceiverBehaviourGroupTable { get; private set; }
+        public EntityMBattleEventGroupTable EntityMBattleEventGroupTable { get; private set; }
         // 0x150
-        public EntityMBattleEventReceiverBehaviourHudActSequenceTable EntityMBattleEventReceiverBehaviourHudActSequenceTable { get; private set; }
+        public EntityMBattleEventReceiverBehaviourGroupTable EntityMBattleEventReceiverBehaviourGroupTable { get; private set; }
         // 0x158
-        public EntityMBattleEventReceiverBehaviourRadioMessageTable EntityMBattleEventReceiverBehaviourRadioMessageTable { get; private set; }
+        public EntityMBattleEventReceiverBehaviourHudActSequenceTable EntityMBattleEventReceiverBehaviourHudActSequenceTable { get; private set; }
         // 0x160
-        public EntityMBattleEventTriggerBehaviourBattleStartTable EntityMBattleEventTriggerBehaviourBattleStartTable { get; private set; }
+        public EntityMBattleEventReceiverBehaviourRadioMessageTable EntityMBattleEventReceiverBehaviourRadioMessageTable { get; private set; }
         // 0x168
-        public EntityMBattleEventTriggerBehaviourGroupTable EntityMBattleEventTriggerBehaviourGroupTable { get; private set; }
+        public EntityMBattleEventTriggerBehaviourBattleStartTable EntityMBattleEventTriggerBehaviourBattleStartTable { get; private set; }
         // 0x170
-        public EntityMBattleEventTriggerBehaviourWaveStartTable EntityMBattleEventTriggerBehaviourWaveStartTable { get; private set; }
+        public EntityMBattleEventTriggerBehaviourGroupTable EntityMBattleEventTriggerBehaviourGroupTable { get; private set; }
         // 0x178
-        public EntityMBattleGeneralViewConfigurationTable EntityMBattleGeneralViewConfigurationTable { get; private set; }
+        public EntityMBattleEventTriggerBehaviourWaveStartTable EntityMBattleEventTriggerBehaviourWaveStartTable { get; private set; }
         // 0x180
+        public EntityMBattleGeneralViewConfigurationTable EntityMBattleGeneralViewConfigurationTable { get; private set; }
+        // 0x188
         public EntityMBattleGroupTable EntityMBattleGroupTable { get; private set; }
 
-        // 0x188
-        public EntityMBattleNpcTable EntityMBattleNpcTable { get; private set; }
         // 0x190
-        public EntityMBattleNpcCharacterTable EntityMBattleNpcCharacterTable { get; private set; }
+        public EntityMBattleNpcTable EntityMBattleNpcTable { get; private set; }
         // 0x198
-        public EntityMBattleNpcCharacterBoardTable EntityMBattleNpcCharacterBoardTable { get; private set; }
+        public EntityMBattleNpcCharacterTable EntityMBattleNpcCharacterTable { get; private set; }
         // 0x1A0
-        public EntityMBattleNpcCharacterBoardAbilityTable EntityMBattleNpcCharacterBoardAbilityTable { get; private set; }
+        public EntityMBattleNpcCharacterBoardTable EntityMBattleNpcCharacterBoardTable { get; private set; }
         // 0x1A8
-        public EntityMBattleNpcCharacterBoardCompleteRewardTable EntityMBattleNpcCharacterBoardCompleteRewardTable { get; private set; }
+        public EntityMBattleNpcCharacterBoardAbilityTable EntityMBattleNpcCharacterBoardAbilityTable { get; private set; }
         // 0x1B0
-        public EntityMBattleNpcCharacterBoardStatusUpTable EntityMBattleNpcCharacterBoardStatusUpTable { get; private set; }
+        public EntityMBattleNpcCharacterBoardCompleteRewardTable EntityMBattleNpcCharacterBoardCompleteRewardTable { get; private set; }
         // 0x1B8
-        public EntityMBattleNpcCharacterCostumeLevelBonusTable EntityMBattleNpcCharacterCostumeLevelBonusTable { get; private set; }
+        public EntityMBattleNpcCharacterBoardStatusUpTable EntityMBattleNpcCharacterBoardStatusUpTable { get; private set; }
         // 0x1C0
-        public EntityMBattleNpcCharacterViewerFieldTable EntityMBattleNpcCharacterViewerFieldTable { get; private set; }
+        public EntityMBattleNpcCharacterCostumeLevelBonusTable EntityMBattleNpcCharacterCostumeLevelBonusTable { get; private set; }
         // 0x1C8
-        public EntityMBattleNpcCompanionTable EntityMBattleNpcCompanionTable { get; private set; }
+        public EntityMBattleNpcCharacterViewerFieldTable EntityMBattleNpcCharacterViewerFieldTable { get; private set; }
         // 0x1D0
-        public EntityMBattleNpcCostumeTable EntityMBattleNpcCostumeTable { get; private set; }
+        public EntityMBattleNpcCompanionTable EntityMBattleNpcCompanionTable { get; private set; }
         // 0x1D8
+        public EntityMBattleNpcCostumeTable EntityMBattleNpcCostumeTable { get; private set; }
+        // 0x1E0
         public EntityMBattleNpcCostumeActiveSkillTable EntityMBattleNpcCostumeActiveSkillTable { get; private set; }
 
-        // 0x1E0
-        public EntityMBattleNpcCostumeAwakenStatusUpTable EntityMBattleNpcCostumeAwakenStatusUpTable { get; private set; }
         // 0x1E8
-        public EntityMBattleNpcCostumeLevelBonusReevaluateTable EntityMBattleNpcCostumeLevelBonusReevaluateTable { get; private set; }
+        public EntityMBattleNpcCostumeAwakenStatusUpTable EntityMBattleNpcCostumeAwakenStatusUpTable { get; private set; }
         // 0x1F0
-        public EntityMBattleNpcCostumeLevelBonusReleaseStatusTable EntityMBattleNpcCostumeLevelBonusReleaseStatusTable { get; private set; }
+        public EntityMBattleNpcCostumeLevelBonusReevaluateTable EntityMBattleNpcCostumeLevelBonusReevaluateTable { get; private set; }
         // 0x1F8
-        public EntityMBattleNpcDeckTable EntityMBattleNpcDeckTable { get; private set; }
+        public EntityMBattleNpcCostumeLevelBonusReleaseStatusTable EntityMBattleNpcCostumeLevelBonusReleaseStatusTable { get; private set; }
         // 0x200
+        public EntityMBattleNpcDeckTable EntityMBattleNpcDeckTable { get; private set; }
+        // 0x208
         public EntityMBattleNpcDeckCharacterTable EntityMBattleNpcDeckCharacterTable { get; private set; }
 
-        // 0x208
-        public EntityMBattleNpcDeckCharacterDressupCostumeTable EntityMBattleNpcDeckCharacterDressupCostumeTable { get; private set; }
         // 0x210
-        public EntityMBattleNpcDeckCharacterDropCategoryTable EntityMBattleNpcDeckCharacterDropCategoryTable { get; private set; }
+        public EntityMBattleNpcDeckCharacterDressupCostumeTable EntityMBattleNpcDeckCharacterDressupCostumeTable { get; private set; }
         // 0x218
-        public EntityMBattleNpcDeckCharacterTypeTable EntityMBattleNpcDeckCharacterTypeTable { get; private set; }
+        public EntityMBattleNpcDeckCharacterDropCategoryTable EntityMBattleNpcDeckCharacterDropCategoryTable { get; private set; }
         // 0x220
-        public EntityMBattleNpcDeckLimitContentRestrictedTable EntityMBattleNpcDeckLimitContentRestrictedTable { get; private set; }
+        public EntityMBattleNpcDeckCharacterTypeTable EntityMBattleNpcDeckCharacterTypeTable { get; private set; }
         // 0x228
-        public EntityMBattleNpcDeckPartsGroupTable EntityMBattleNpcDeckPartsGroupTable { get; private set; }
+        public EntityMBattleNpcDeckLimitContentRestrictedTable EntityMBattleNpcDeckLimitContentRestrictedTable { get; private set; }
         // 0x230
-        public EntityMBattleNpcDeckSubWeaponGroupTable EntityMBattleNpcDeckSubWeaponGroupTable { get; private set; }
+        public EntityMBattleNpcDeckPartsGroupTable EntityMBattleNpcDeckPartsGroupTable { get; private set; }
         // 0x238
-        public EntityMBattleNpcDeckTypeNoteTable EntityMBattleNpcDeckTypeNoteTable { get; private set; }
+        public EntityMBattleNpcDeckSubWeaponGroupTable EntityMBattleNpcDeckSubWeaponGroupTable { get; private set; }
         // 0x240
-        public EntityMBattleNpcPartsTable EntityMBattleNpcPartsTable { get; private set; }
+        public EntityMBattleNpcDeckTypeNoteTable EntityMBattleNpcDeckTypeNoteTable { get; private set; }
         // 0x248
-        public EntityMBattleNpcPartsGroupNoteTable EntityMBattleNpcPartsGroupNoteTable { get; private set; }
+        public EntityMBattleNpcPartsTable EntityMBattleNpcPartsTable { get; private set; }
         // 0x250
-        public EntityMBattleNpcPartsPresetTable EntityMBattleNpcPartsPresetTable { get; private set; }
+        public EntityMBattleNpcPartsGroupNoteTable EntityMBattleNpcPartsGroupNoteTable { get; private set; }
         // 0x258
-        public EntityMBattleNpcPartsPresetTagTable EntityMBattleNpcPartsPresetTagTable { get; private set; }
+        public EntityMBattleNpcPartsPresetTable EntityMBattleNpcPartsPresetTable { get; private set; }
         // 0x260
-        public EntityMBattleNpcPartsStatusSubTable EntityMBattleNpcPartsStatusSubTable { get; private set; }
+        public EntityMBattleNpcPartsPresetTagTable EntityMBattleNpcPartsPresetTagTable { get; private set; }
         // 0x268
-        public EntityMBattleNpcSpecialEndActTable EntityMBattleNpcSpecialEndActTable { get; private set; }
+        public EntityMBattleNpcPartsStatusSubTable EntityMBattleNpcPartsStatusSubTable { get; private set; }
         // 0x270
+        public EntityMBattleNpcSpecialEndActTable EntityMBattleNpcSpecialEndActTable { get; private set; }
+        // 0x278
         public EntityMBattleNpcWeaponTable EntityMBattleNpcWeaponTable { get; private set; }
 
-        // 0x278
-        public EntityMBattleNpcWeaponAbilityTable EntityMBattleNpcWeaponAbilityTable { get; private set; }
         // 0x280
-        public EntityMBattleNpcWeaponNoteTable EntityMBattleNpcWeaponNoteTable { get; private set; }
+        public EntityMBattleNpcWeaponAbilityTable EntityMBattleNpcWeaponAbilityTable { get; private set; }
         // 0x288
-        public EntityMBattleNpcWeaponSkillTable EntityMBattleNpcWeaponSkillTable { get; private set; }
+        public EntityMBattleNpcWeaponAbilityReevaluateTable EntityMBattleNpcWeaponAbilityReevaluateTable { get; private set; }
         // 0x290
-        public EntityMBattleNpcWeaponStoryTable EntityMBattleNpcWeaponStoryTable { get; private set; }
+        public EntityMBattleNpcWeaponNoteTable EntityMBattleNpcWeaponNoteTable { get; private set; }
         // 0x298
-        public EntityMBattleNpcWeaponStoryReevaluateTable EntityMBattleNpcWeaponStoryReevaluateTable { get; private set; }
+        public EntityMBattleNpcWeaponNoteReevaluateTable EntityMBattleNpcWeaponNoteReevaluateTable { get; private set; }
         // 0x2A0
-        public EntityMBattleProgressUiTypeTable EntityMBattleProgressUiTypeTable { get; private set; }
+        public EntityMBattleNpcWeaponSkillTable EntityMBattleNpcWeaponSkillTable { get; private set; }
         // 0x2A8
+        public EntityMBattleNpcWeaponStoryTable EntityMBattleNpcWeaponStoryTable { get; private set; }
+        // 0x2B0
+        public EntityMBattleNpcWeaponStoryReevaluateTable EntityMBattleNpcWeaponStoryReevaluateTable { get; private set; }
+        // 0x2B8
+        public EntityMBattleProgressUiTypeTable EntityMBattleProgressUiTypeTable { get; private set; }
+        // 0x2C0
         public EntityMBattleQuestSceneBgmTable EntityMBattleQuestSceneBgmTable { get; private set; }
 
-        // 0x2B0
+        // 0x2C8
         public EntityMBattleQuestSceneBgmSetGroupTable EntityMBattleQuestSceneBgmSetGroupTable { get; private set; }
-        // 0x2B8
+        // 0x2D0
         public EntityMBattleRentalDeckTable EntityMBattleRentalDeckTable { get; private set; }
 
-        // 0x2C0
-        public EntityMBattleSkillBehaviourHitDamageConfigurationTable EntityMBattleSkillBehaviourHitDamageConfigurationTable { get; private set; }
-        // 0x2C8
-        public EntityMBeginnerCampaignTable EntityMBeginnerCampaignTable { get; private set; }
-        // 0x2D0
-        public EntityMBigHuntBossTable EntityMBigHuntBossTable { get; private set; }
         // 0x2D8
+        public EntityMBattleSkillBehaviourHitDamageConfigurationTable EntityMBattleSkillBehaviourHitDamageConfigurationTable { get; private set; }
+        // 0x2E0
+        public EntityMBattleSkillFireActTable EntityMBattleSkillFireActTable { get; private set; }
+        // 0x2E8
+        public EntityMBattleSkillFireActConditionAttributeTypeTable EntityMBattleSkillFireActConditionAttributeTypeTable { get; private set; }
+        // 0x2F0
+        public EntityMBattleSkillFireActConditionGroupTable EntityMBattleSkillFireActConditionGroupTable { get; private set; }
+        // 0x2F8
+        public EntityMBattleSkillFireActConditionSkillCategoryTypeTable EntityMBattleSkillFireActConditionSkillCategoryTypeTable { get; private set; }
+        // 0x300
+        public EntityMBattleSkillFireActConditionWeaponTypeTable EntityMBattleSkillFireActConditionWeaponTypeTable { get; private set; }
+        // 0x308
+        public EntityMBeginnerCampaignTable EntityMBeginnerCampaignTable { get; private set; }
+        // 0x310
+        public EntityMBigHuntBossTable EntityMBigHuntBossTable { get; private set; }
+        // 0x318
         public EntityMBigHuntBossGradeGroupTable EntityMBigHuntBossGradeGroupTable { get; private set; }
 
-        // 0x2E0
+        // 0x320
         public EntityMBigHuntBossGradeGroupAttributeTable EntityMBigHuntBossGradeGroupAttributeTable { get; private set; }
-        // 0x2E8
+        // 0x328
         public EntityMBigHuntBossQuestTable EntityMBigHuntBossQuestTable { get; private set; } 
 
-        // 0x2F0
+        // 0x330
         public EntityMBigHuntBossQuestGroupTable EntityMBigHuntBossQuestGroupTable { get; private set; }
-        // 0x2F8
+        // 0x338
         public EntityMBigHuntBossQuestGroupChallengeCategoryTable EntityMBigHuntBossQuestGroupChallengeCategoryTable { get; private set; }
-        // 0x300
+        // 0x340
         public EntityMBigHuntLinkTable EntityMBigHuntLinkTable { get; private set; }
-        // 0x308
+        // 0x348
         public EntityMBigHuntQuestTable EntityMBigHuntQuestTable { get; private set; }
-        // 0x310
+        // 0x350
         public EntityMBigHuntQuestGroupTable EntityMBigHuntQuestGroupTable { get; private set; }
-        // 0x318
+        // 0x358
         public EntityMBigHuntQuestScoreCoefficientTable EntityMBigHuntQuestScoreCoefficientTable { get; private set; }
 
-        // 0x320
-        public EntityMBigHuntRewardGroupTable EntityMBigHuntRewardGroupTable { get; private set; }
-        // 0x328
-        public EntityMBigHuntScheduleTable EntityMBigHuntScheduleTable { get; private set; }
-        // 0x330
-        public EntityMBigHuntScoreRewardGroupTable EntityMBigHuntScoreRewardGroupTable { get; private set; }
-        // 0x338
-        public EntityMBigHuntScoreRewardGroupScheduleTable EntityMBigHuntScoreRewardGroupScheduleTable { get; private set; }
-        // 0x340
-        public EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable { get; private set; }
-        // 0x348
-        public EntityMCageMemoryTable EntityMCageMemoryTable { get; private set; }
-        // 0x350
-        public EntityMCageOrnamentTable EntityMCageOrnamentTable { get; private set; }
-        // 0x358
-        public EntityMCageOrnamentMainQuestChapterStillTable EntityMCageOrnamentMainQuestChapterStillTable { get; private set; }
         // 0x360
-        public EntityMCageOrnamentRewardTable EntityMCageOrnamentRewardTable { get; private set; }
+        public EntityMBigHuntRewardGroupTable EntityMBigHuntRewardGroupTable { get; private set; }
         // 0x368
-        public EntityMCageOrnamentStillReleaseConditionTable EntityMCageOrnamentStillReleaseConditionTable { get; private set; }
+        public EntityMBigHuntScheduleTable EntityMBigHuntScheduleTable { get; private set; }
         // 0x370
-        public EntityMCatalogCompanionTable EntityMCatalogCompanionTable { get; private set; }
+        public EntityMBigHuntScoreRewardGroupTable EntityMBigHuntScoreRewardGroupTable { get; private set; }
         // 0x378
-        public EntityMCatalogCostumeTable EntityMCatalogCostumeTable { get; private set; }
+        public EntityMBigHuntScoreRewardGroupScheduleTable EntityMBigHuntScoreRewardGroupScheduleTable { get; private set; }
         // 0x380
-        public EntityMCatalogPartsGroupTable EntityMCatalogPartsGroupTable { get; private set; }
+        public EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable { get; private set; }
         // 0x388
-        public EntityMCatalogTermTable EntityMCatalogTermTable { get; private set; }
+        public EntityMCageMemoryTable EntityMCageMemoryTable { get; private set; }
         // 0x390
+        public EntityMCageOrnamentTable EntityMCageOrnamentTable { get; private set; }
+        // 0x398
+        public EntityMCageOrnamentMainQuestChapterStillTable EntityMCageOrnamentMainQuestChapterStillTable { get; private set; }
+        // 0x3A0
+        public EntityMCageOrnamentRewardTable EntityMCageOrnamentRewardTable { get; private set; }
+        // 0x3A8
+        public EntityMCageOrnamentStillReleaseConditionTable EntityMCageOrnamentStillReleaseConditionTable { get; private set; }
+        // 0x3B0
+        public EntityMCatalogCompanionTable EntityMCatalogCompanionTable { get; private set; }
+        // 0x3B8
+        public EntityMCatalogCostumeTable EntityMCatalogCostumeTable { get; private set; }
+        // 0x3C0
+        public EntityMCatalogPartsGroupTable EntityMCatalogPartsGroupTable { get; private set; }
+        // 0x3C8
+        public EntityMCatalogTermTable EntityMCatalogTermTable { get; private set; }
+        // 0x3D0
         public EntityMCatalogThoughtTable EntityMCatalogThoughtTable { get; private set; }
 
-        // 0x398
+        // 0x3D8
         public EntityMCatalogWeaponTable EntityMCatalogWeaponTable { get; private set; }
-        // 0x3A0
+        // 0x3E0
         public EntityMCharacterTable EntityMCharacterTable { get; private set; }
 
-        // 0x3A8
-        public EntityMCharacterBoardTable EntityMCharacterBoardTable { get; private set; }
-        // 0x3B0
-        public EntityMCharacterBoardAbilityTable EntityMCharacterBoardAbilityTable { get; private set; }
-        // 0x3B8
-        public EntityMCharacterBoardAbilityMaxLevelTable EntityMCharacterBoardAbilityMaxLevelTable { get; private set; }
-        // 0x3C0
-        public EntityMCharacterBoardAssignmentTable EntityMCharacterBoardAssignmentTable { get; private set; }
-        // 0x3C8
-        public EntityMCharacterBoardCategoryTable EntityMCharacterBoardCategoryTable { get; private set; }
-        // 0x3D0
-        public EntityMCharacterBoardCompleteRewardTable EntityMCharacterBoardCompleteRewardTable { get; private set; }
-        // 0x3D8
-        public EntityMCharacterBoardCompleteRewardGroupTable EntityMCharacterBoardCompleteRewardGroupTable { get; private set; }
-        // 0x3E0
-        public EntityMCharacterBoardConditionTable EntityMCharacterBoardConditionTable { get; private set; }
         // 0x3E8
-        public EntityMCharacterBoardConditionDetailTable EntityMCharacterBoardConditionDetailTable { get; private set; }
+        public EntityMCharacterBoardTable EntityMCharacterBoardTable { get; private set; }
         // 0x3F0
-        public EntityMCharacterBoardConditionGroupTable EntityMCharacterBoardConditionGroupTable { get; private set; }
+        public EntityMCharacterBoardAbilityTable EntityMCharacterBoardAbilityTable { get; private set; }
         // 0x3F8
-        public EntityMCharacterBoardConditionIgnoreTable EntityMCharacterBoardConditionIgnoreTable { get; private set; }
+        public EntityMCharacterBoardAbilityMaxLevelTable EntityMCharacterBoardAbilityMaxLevelTable { get; private set; }
         // 0x400
-        public EntityMCharacterBoardEffectTargetGroupTable EntityMCharacterBoardEffectTargetGroupTable { get; private set; }
+        public EntityMCharacterBoardAssignmentTable EntityMCharacterBoardAssignmentTable { get; private set; }
         // 0x408
-        public EntityMCharacterBoardGroupTable EntityMCharacterBoardGroupTable { get; private set; }
+        public EntityMCharacterBoardCategoryTable EntityMCharacterBoardCategoryTable { get; private set; }
         // 0x410
-        public EntityMCharacterBoardPanelTable EntityMCharacterBoardPanelTable { get; private set; }
+        public EntityMCharacterBoardCompleteRewardTable EntityMCharacterBoardCompleteRewardTable { get; private set; }
         // 0x418
-        public EntityMCharacterBoardPanelReleaseEffectGroupTable EntityMCharacterBoardPanelReleaseEffectGroupTable { get; private set; }
+        public EntityMCharacterBoardCompleteRewardGroupTable EntityMCharacterBoardCompleteRewardGroupTable { get; private set; }
         // 0x420
-        public EntityMCharacterBoardPanelReleasePossessionGroupTable EntityMCharacterBoardPanelReleasePossessionGroupTable { get; private set; }
+        public EntityMCharacterBoardConditionTable EntityMCharacterBoardConditionTable { get; private set; }
         // 0x428
-        public EntityMCharacterBoardPanelReleaseRewardGroupTable EntityMCharacterBoardPanelReleaseRewardGroupTable { get; private set; }
+        public EntityMCharacterBoardConditionDetailTable EntityMCharacterBoardConditionDetailTable { get; private set; }
         // 0x430
-        public EntityMCharacterBoardStatusUpTable EntityMCharacterBoardStatusUpTable { get; private set; }
+        public EntityMCharacterBoardConditionGroupTable EntityMCharacterBoardConditionGroupTable { get; private set; }
         // 0x438
-        public EntityMCharacterDisplaySwitchTable EntityMCharacterDisplaySwitchTable { get; private set; }
+        public EntityMCharacterBoardConditionIgnoreTable EntityMCharacterBoardConditionIgnoreTable { get; private set; }
         // 0x440
+        public EntityMCharacterBoardEffectTargetGroupTable EntityMCharacterBoardEffectTargetGroupTable { get; private set; }
+        // 0x448
+        public EntityMCharacterBoardGroupTable EntityMCharacterBoardGroupTable { get; private set; }
+        // 0x450
+        public EntityMCharacterBoardPanelTable EntityMCharacterBoardPanelTable { get; private set; }
+        // 0x458
+        public EntityMCharacterBoardPanelReleaseEffectGroupTable EntityMCharacterBoardPanelReleaseEffectGroupTable { get; private set; }
+        // 0x460
+        public EntityMCharacterBoardPanelReleasePossessionGroupTable EntityMCharacterBoardPanelReleasePossessionGroupTable { get; private set; }
+        // 0x468
+        public EntityMCharacterBoardPanelReleaseRewardGroupTable EntityMCharacterBoardPanelReleaseRewardGroupTable { get; private set; }
+        // 0x470
+        public EntityMCharacterBoardStatusUpTable EntityMCharacterBoardStatusUpTable { get; private set; }
+        // 0x478
+        public EntityMCharacterDisplaySwitchTable EntityMCharacterDisplaySwitchTable { get; private set; }
+        // 0x480
         public EntityMCharacterLevelBonusAbilityGroupTable EntityMCharacterLevelBonusAbilityGroupTable { get; private set; }
 
-        // 0x448
-        public EntityMCharacterViewerActorIconTable EntityMCharacterViewerActorIconTable { get; private set; }
-        // 0x450
-        public EntityMCharacterViewerFieldTable EntityMCharacterViewerFieldTable { get; private set; }
-        // 0x458
-        public EntityMCharacterViewerFieldSettingsTable EntityMCharacterViewerFieldSettingsTable { get; private set; }
-        // 0x460
-        public EntityMCharacterVoiceUnlockConditionTable EntityMCharacterVoiceUnlockConditionTable { get; private set; }
-        // 0x468
-        public EntityMCollectionBonusEffectTable EntityMCollectionBonusEffectTable { get; private set; }
-        // 0x470
-        public EntityMCollectionBonusQuestAssignmentTable EntityMCollectionBonusQuestAssignmentTable { get; private set; }
-        // 0x478
-        public EntityMCollectionBonusQuestAssignmentGroupTable EntityMCollectionBonusQuestAssignmentGroupTable { get; private set; }
-        // 0x480
-        public EntityMComboCalculationSettingTable EntityMComboCalculationSettingTable { get; private set; }
         // 0x488
-        public EntityMComebackCampaignTable EntityMComebackCampaignTable { get; private set; }
+        public EntityMCharacterViewerActorIconTable EntityMCharacterViewerActorIconTable { get; private set; }
         // 0x490
-        public EntityMCompanionTable EntityMCompanionTable { get; private set; }
+        public EntityMCharacterViewerFieldTable EntityMCharacterViewerFieldTable { get; private set; }
         // 0x498
-        public EntityMCompanionAbilityGroupTable EntityMCompanionAbilityGroupTable { get; private set; }
+        public EntityMCharacterViewerFieldSettingsTable EntityMCharacterViewerFieldSettingsTable { get; private set; }
         // 0x4A0
-        public EntityMCompanionAbilityLevelTable EntityMCompanionAbilityLevelTable { get; private set; }
+        public EntityMCharacterVoiceUnlockConditionTable EntityMCharacterVoiceUnlockConditionTable { get; private set; }
         // 0x4A8
-        public EntityMCompanionBaseStatusTable EntityMCompanionBaseStatusTable { get; private set; }
+        public EntityMCollectionBonusEffectTable EntityMCollectionBonusEffectTable { get; private set; }
         // 0x4B0
+        public EntityMCollectionBonusQuestAssignmentTable EntityMCollectionBonusQuestAssignmentTable { get; private set; }
+        // 0x4B8
+        public EntityMCollectionBonusQuestAssignmentGroupTable EntityMCollectionBonusQuestAssignmentGroupTable { get; private set; }
+        // 0x4C0
+        public EntityMComboCalculationSettingTable EntityMComboCalculationSettingTable { get; private set; }
+        // 0x4C8
+        public EntityMComebackCampaignTable EntityMComebackCampaignTable { get; private set; }
+        // 0x4D0
+        public EntityMCompanionTable EntityMCompanionTable { get; private set; }
+        // 0x4D8
+        public EntityMCompanionAbilityGroupTable EntityMCompanionAbilityGroupTable { get; private set; }
+        // 0x4E0
+        public EntityMCompanionAbilityLevelTable EntityMCompanionAbilityLevelTable { get; private set; }
+        // 0x4E8
+        public EntityMCompanionBaseStatusTable EntityMCompanionBaseStatusTable { get; private set; }
+        // 0x4F0
         public EntityMCompanionCategoryTable EntityMCompanionCategoryTable { get; private set; }
 
-        // 0x4B8
+        // 0x4F8
         public EntityMCompanionDuplicationExchangePossessionGroupTable EntityMCompanionDuplicationExchangePossessionGroupTable { get; private set; }
-        // 0x4E8
+        // 0x528
         public EntityMConfigTable EntityMConfigTable { get; private set; }
 
-        // 0x4C0
+        // 0x500
         public EntityMCompanionEnhancedTable EntityMCompanionEnhancedTable { get; private set; }
 
-        // 0x4C8
+        // 0x508
         public EntityMCompanionEnhancementMaterialTable EntityMCompanionEnhancementMaterialTable { get; private set; }
-        // 0x4D0
+        // 0x510
         public EntityMCompanionSkillLevelTable EntityMCompanionSkillLevelTable { get; private set; }
-        // 0x4D8
+        // 0x518
         public EntityMCompanionStatusCalculationTable EntityMCompanionStatusCalculationTable { get; private set; }
 
-        // 0x4E0
+        // 0x520
         public EntityMCompleteMissionGroupTable EntityMCompleteMissionGroupTable { get; private set; }
-        // 0x4F0
+        // 0x530
         public EntityMConsumableItemTable EntityMConsumableItemTable { get; private set; }
-        // 0x4F8
+        // 0x538
         public EntityMConsumableItemEffectTable EntityMConsumableItemEffectTable { get; private set; }
-        // 0x500
+        // 0x540
         public EntityMConsumableItemTermTable EntityMConsumableItemTermTable { get; private set; }
 
-        // 0x508
+        // 0x548
         public EntityMContentsStoryTable EntityMContentsStoryTable { get; private set; }
-        // 0x510
+        // 0x550
         public EntityMCostumeTable EntityMCostumeTable { get; private set; }
-        // 0x518
+        // 0x558
         public EntityMCostumeAbilityGroupTable EntityMCostumeAbilityGroupTable { get; private set; }
-        // 0x520
+        // 0x560
         public EntityMCostumeAbilityLevelGroupTable EntityMCostumeAbilityLevelGroupTable { get; private set; }
 
-        // 0x528
+        // 0x568
         public EntityMCostumeActiveSkillEnhancementMaterialTable EntityMCostumeActiveSkillEnhancementMaterialTable { get; private set; }
-        // 0x530
+        // 0x570
         public EntityMCostumeActiveSkillGroupTable EntityMCostumeActiveSkillGroupTable { get; private set; }
 
-        // 0x538
+        // 0x578
         public EntityMCostumeAnimationStepTable EntityMCostumeAnimationStepTable { get; private set; }
-        // 0x540
+        // 0x580
         public EntityMCostumeAwakenTable EntityMCostumeAwakenTable { get; private set; }
 
-        // 0x548
+        // 0x588
         public EntityMCostumeAwakenAbilityTable EntityMCostumeAwakenAbilityTable { get; private set; }
-        // 0x550
+        // 0x590
         public EntityMCostumeAwakenEffectGroupTable EntityMCostumeAwakenEffectGroupTable { get; private set; }
-        // 0x558
+        // 0x598
         public EntityMCostumeAwakenItemAcquireTable EntityMCostumeAwakenItemAcquireTable { get; private set; }
-        // 0x560
+        // 0x5A0
         public EntityMCostumeAwakenMaterialGroupTable EntityMCostumeAwakenMaterialGroupTable { get; private set; }
-        // 0x568
+        // 0x5A8
         public EntityMCostumeAwakenPriceGroupTable EntityMCostumeAwakenPriceGroupTable { get; private set; }
-        // 0x570
+        // 0x5B0
         public EntityMCostumeAwakenStatusUpGroupTable EntityMCostumeAwakenStatusUpGroupTable { get; private set; }
-        // 0x578
+        // 0x5B8
         public EntityMCostumeAwakenStepMaterialGroupTable EntityMCostumeAwakenStepMaterialGroupTable { get; private set; }
-        // 0x580
+        // 0x5C0
         public EntityMCostumeBaseStatusTable EntityMCostumeBaseStatusTable { get; private set; }
 
-        // 0x588
+        // 0x5C8
         public EntityMCostumeCollectionBonusTable EntityMCostumeCollectionBonusTable { get; private set; }
-        // 0x590
+        // 0x5D0
         public EntityMCostumeCollectionBonusGroupTable EntityMCostumeCollectionBonusGroupTable { get; private set; }
-        // 0x598
+        // 0x5D8
         public EntityMCostumeDefaultSkillGroupTable EntityMCostumeDefaultSkillGroupTable { get; private set; }
-        // 0x5A0
+        // 0x5E0
         public EntityMCostumeDefaultSkillLotteryGroupTable EntityMCostumeDefaultSkillLotteryGroupTable { get; private set; }
-        // 0x5A8
+        // 0x5E8
         public EntityMCostumeDisplayCoordinateAdjustmentTable EntityMCostumeDisplayCoordinateAdjustmentTable { get; private set; }
-        // 0x5B0
+        // 0x5F0
         public EntityMCostumeDuplicationExchangePossessionGroupTable EntityMCostumeDuplicationExchangePossessionGroupTable { get; private set; }
-        // 0x5B8
+        // 0x5F8
         public EntityMCostumeEmblemTable EntityMCostumeEmblemTable { get; private set; }
-        // 0x5C0
+        // 0x600
         public EntityMCostumeEnhancedTable EntityMCostumeEnhancedTable { get; private set; }
 
-        // 0x5C8
+        // 0x608
         public EntityMCostumeLevelBonusTable EntityMCostumeLevelBonusTable { get; private set; }
-        // 0x5D0
+        // 0x610
         public EntityMCostumeLimitBreakMaterialGroupTable EntityMCostumeLimitBreakMaterialGroupTable { get; private set; }
-        // 0x5D8
+        // 0x618
         public EntityMCostumeLimitBreakMaterialRarityGroupTable EntityMCostumeLimitBreakMaterialRarityGroupTable { get; private set; }
-        // 0x5E0
+        // 0x620
         public EntityMCostumeOverflowExchangePossessionGroupTable EntityMCostumeOverflowExchangePossessionGroupTable { get; private set; }
-        // 0x5E8
+        // 0x628
         public EntityMCostumeRarityTable EntityMCostumeRarityTable { get; private set; }
 
-        // 0x5F0
+        // 0x630
         public EntityMCostumeSpecialActActiveSkillTable EntityMCostumeSpecialActActiveSkillTable { get; private set; }
-        // 0x5F8
+        // 0x638
+        public EntityMCostumeSpecialActActiveSkillConditionAttributeTable EntityMCostumeSpecialActActiveSkillConditionAttributeTable { get; private set; }
+        // 0x640
         public EntityMCostumeStatusCalculationTable EntityMCostumeStatusCalculationTable { get; private set; }
 
-        // 0x600
-        public EntityMDeckEntrustCoefficientAttributeTable EntityMDeckEntrustCoefficientAttributeTable { get; private set; }
-        // 0x608
-        public EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable { get; private set; }
-        // 0x610
-        public EntityMDeckEntrustCoefficientStatusTable EntityMDeckEntrustCoefficientStatusTable { get; private set; }
-        // 0x618
-        public EntityMDokanTable EntityMDokanTable { get; private set; }
-        // 0x620
-        public EntityMDokanContentGroupTable EntityMDokanContentGroupTable { get; private set; }
-        // 0x628
-        public EntityMDokanTextTable EntityMDokanTextTable { get; private set; }
-        // 0x630
-        public EntityMEnhanceCampaignTable EntityMEnhanceCampaignTable { get; private set; }
-        // 0x638
-        public EntityMEnhanceCampaignTargetGroupTable EntityMEnhanceCampaignTargetGroupTable { get; private set; }
-        // 0x640
-        public EntityMEvaluateConditionTable EntityMEvaluateConditionTable { get; private set; }
         // 0x648
-        public EntityMEvaluateConditionValueGroupTable EntityMEvaluateConditionValueGroupTable { get; private set; }
+        public EntityMDeckEntrustCoefficientAttributeTable EntityMDeckEntrustCoefficientAttributeTable { get; private set; }
         // 0x650
-        public EntityMEventQuestChapterTable EntityMEventQuestChapterTable { get; private set; }
+        public EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable { get; private set; }
         // 0x658
+        public EntityMDeckEntrustCoefficientStatusTable EntityMDeckEntrustCoefficientStatusTable { get; private set; }
+        // 0x660
+        public EntityMDokanTable EntityMDokanTable { get; private set; }
+        // 0x668
+        public EntityMDokanContentGroupTable EntityMDokanContentGroupTable { get; private set; }
+        // 0x670
+        public EntityMDokanTextTable EntityMDokanTextTable { get; private set; }
+        // 0x678
+        public EntityMEnhanceCampaignTable EntityMEnhanceCampaignTable { get; private set; }
+        // 0x680
+        public EntityMEnhanceCampaignTargetGroupTable EntityMEnhanceCampaignTargetGroupTable { get; private set; }
+        // 0x688
+        public EntityMEvaluateConditionTable EntityMEvaluateConditionTable { get; private set; }
+        // 0x690
+        public EntityMEvaluateConditionValueGroupTable EntityMEvaluateConditionValueGroupTable { get; private set; }
+        // 0x698
+        public EntityMEventQuestChapterTable EntityMEventQuestChapterTable { get; private set; }
+        // 0x6A0
         public EntityMEventQuestChapterCharacterTable EntityMEventQuestChapterCharacterTable { get; private set; }
 
-        // 0x660
+        // 0x6A8
         public EntityMEventQuestChapterDifficultyLimitContentUnlockTable EntityMEventQuestChapterDifficultyLimitContentUnlockTable { get; private set; }
-        // 0x668
+        // 0x6B0
         public EntityMEventQuestChapterLimitContentRelationTable EntityMEventQuestChapterLimitContentRelationTable { get; private set; }
-        // 0x670
+        // 0x6B8
+        public EntityMEventQuestDailyGroupTable EntityMEventQuestDailyGroupTable { get; private set; }
+        // 0x6C0
+        public EntityMEventQuestDailyGroupCompleteRewardTable EntityMEventQuestDailyGroupCompleteRewardTable { get; private set; }
+        // 0x6C8
+        public EntityMEventQuestDailyGroupMessageTable EntityMEventQuestDailyGroupMessageTable { get; private set; }
+        // 0x6D0
+        public EntityMEventQuestDailyGroupTargetChapterTable EntityMEventQuestDailyGroupTargetChapterTable { get; private set; }
+        // 0x6D8
         public EntityMEventQuestDisplayItemGroupTable EntityMEventQuestDisplayItemGroupTable { get; private set; }
-        // 0x678
+        // 0x6E0
         public EntityMEventQuestGuerrillaFreeOpenTable EntityMEventQuestGuerrillaFreeOpenTable { get; private set; }
 
-        // 0x680
+        // 0x6E8
         public EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondenceTable EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondenceTable { get; private set; }
-        // 0x688
+        // 0x6F0
         public EntityMEventQuestLimitContentTable EntityMEventQuestLimitContentTable { get; private set; }
-        // 0x690
+        // 0x6F8
         public EntityMEventQuestLinkTable EntityMEventQuestLinkTable { get; private set; }
-        // 0x698
+        // 0x700
         public EntityMEventQuestSequenceTable EntityMEventQuestSequenceTable { get; private set; }
-        // 0x6A0
+        // 0x708
         public EntityMEventQuestSequenceGroupTable EntityMEventQuestSequenceGroupTable { get; private set; }
 
-        // 0x6A8
-        public EntityMEventQuestTowerAccumulationRewardTable EntityMEventQuestTowerAccumulationRewardTable { get; private set; }
-        // 0x6B0
-        public EntityMEventQuestTowerAccumulationRewardGroupTable EntityMEventQuestTowerAccumulationRewardGroupTable { get; private set; }
-        // 0x6B8
-        public EntityMEventQuestTowerAssetTable EntityMEventQuestTowerAssetTable { get; private set; }
-        // 0x6C0
-        public EntityMEventQuestTowerRewardGroupTable EntityMEventQuestTowerRewardGroupTable { get; private set; }
-        // 0x6C8
-        public EntityMEventQuestUnlockConditionTable EntityMEventQuestUnlockConditionTable { get; private set; }
-        // 0x6D0
-        public EntityMExploreTable EntityMExploreTable { get; private set; }
-        // 0x6D8
-        public EntityMExploreGradeAssetTable EntityMExploreGradeAssetTable { get; private set; }
-        // 0x6E0
-        public EntityMExploreGradeScoreTable EntityMExploreGradeScoreTable { get; private set; }
-        // 0x6E8
-        public EntityMExploreGroupTable EntityMExploreGroupTable { get; private set; }
-        // 0x6F0
-        public EntityMExploreUnlockConditionTable EntityMExploreUnlockConditionTable { get; private set; }
-        // 0x6F8
-        public EntityMExtraQuestGroupTable EntityMExtraQuestGroupTable { get; private set; }
-        // 0x700
-        public EntityMExtraQuestGroupInMainQuestChapterTable EntityMExtraQuestGroupInMainQuestChapterTable { get; private set; }
-        // 0x708
-        public EntityMFieldEffectBlessRelationTable EntityMFieldEffectBlessRelationTable { get; private set; }
         // 0x710
-        public EntityMFieldEffectDecreasePointTable EntityMFieldEffectDecreasePointTable { get; private set; }
+        public EntityMEventQuestTowerAccumulationRewardTable EntityMEventQuestTowerAccumulationRewardTable { get; private set; }
         // 0x718
-        public EntityMFieldEffectGroupTable EntityMFieldEffectGroupTable { get; private set; }
+        public EntityMEventQuestTowerAccumulationRewardGroupTable EntityMEventQuestTowerAccumulationRewardGroupTable { get; private set; }
         // 0x720
-        public EntityMGachaMedalTable EntityMGachaMedalTable { get; private set; }
+        public EntityMEventQuestTowerAssetTable EntityMEventQuestTowerAssetTable { get; private set; }
         // 0x728
-        public EntityMGiftTextTable EntityMGiftTextTable { get; private set; }
+        public EntityMEventQuestTowerRewardGroupTable EntityMEventQuestTowerRewardGroupTable { get; private set; }
         // 0x730
-        public EntityMGimmickTable EntityMGimmickTable { get; private set; }
+        public EntityMEventQuestUnlockConditionTable EntityMEventQuestUnlockConditionTable { get; private set; }
         // 0x738
-        public EntityMGimmickAdditionalAssetTable EntityMGimmickAdditionalAssetTable { get; private set; }
+        public EntityMExploreTable EntityMExploreTable { get; private set; }
         // 0x740
-        public EntityMGimmickExtraQuestTable EntityMGimmickExtraQuestTable { get; private set; }
+        public EntityMExploreGradeAssetTable EntityMExploreGradeAssetTable { get; private set; }
         // 0x748
-        public EntityMGimmickGroupTable EntityMGimmickGroupTable { get; private set; }
+        public EntityMExploreGradeScoreTable EntityMExploreGradeScoreTable { get; private set; }
         // 0x750
-        public EntityMGimmickGroupEventLogTable EntityMGimmickGroupEventLogTable { get; private set; }
+        public EntityMExploreGroupTable EntityMExploreGroupTable { get; private set; }
         // 0x758
-        public EntityMGimmickIntervalTable EntityMGimmickIntervalTable { get; private set; }
+        public EntityMExploreUnlockConditionTable EntityMExploreUnlockConditionTable { get; private set; }
         // 0x760
-        public EntityMGimmickOrnamentTable EntityMGimmickOrnamentTable { get; private set; }
+        public EntityMExtraQuestGroupTable EntityMExtraQuestGroupTable { get; private set; }
         // 0x768
-        public EntityMGimmickSequenceTable EntityMGimmickSequenceTable { get; private set; }
+        public EntityMExtraQuestGroupInMainQuestChapterTable EntityMExtraQuestGroupInMainQuestChapterTable { get; private set; }
         // 0x770
-        public EntityMGimmickSequenceGroupTable EntityMGimmickSequenceGroupTable { get; private set; }
+        public EntityMFieldEffectBlessRelationTable EntityMFieldEffectBlessRelationTable { get; private set; }
         // 0x778
-        public EntityMGimmickSequenceRewardGroupTable EntityMGimmickSequenceRewardGroupTable { get; private set; }
+        public EntityMFieldEffectDecreasePointTable EntityMFieldEffectDecreasePointTable { get; private set; }
         // 0x780
-        public EntityMGimmickSequenceScheduleTable EntityMGimmickSequenceScheduleTable { get; private set; }
+        public EntityMFieldEffectGroupTable EntityMFieldEffectGroupTable { get; private set; }
         // 0x788
-        public EntityMHeadupDisplayViewTable EntityMHeadupDisplayViewTable { get; private set; }
+        public EntityMGachaMedalTable EntityMGachaMedalTable { get; private set; }
         // 0x790
-        public EntityMHelpTable EntityMHelpTable { get; private set; }
+        public EntityMGiftTextTable EntityMGiftTextTable { get; private set; }
         // 0x798
-        public EntityMHelpCategoryTable EntityMHelpCategoryTable { get; private set; }
+        public EntityMGimmickTable EntityMGimmickTable { get; private set; }
         // 0x7A0
-        public EntityMHelpItemTable EntityMHelpItemTable { get; private set; }
+        public EntityMGimmickAdditionalAssetTable EntityMGimmickAdditionalAssetTable { get; private set; }
         // 0x7A8
-        public EntityMHelpPageGroupTable EntityMHelpPageGroupTable { get; private set; }
+        public EntityMGimmickExtraQuestTable EntityMGimmickExtraQuestTable { get; private set; }
         // 0x7B0
+        public EntityMGimmickGroupTable EntityMGimmickGroupTable { get; private set; }
+        // 0x7B8
+        public EntityMGimmickGroupEventLogTable EntityMGimmickGroupEventLogTable { get; private set; }
+        // 0x7C0
+        public EntityMGimmickIntervalTable EntityMGimmickIntervalTable { get; private set; }
+        // 0x7C8
+        public EntityMGimmickOrnamentTable EntityMGimmickOrnamentTable { get; private set; }
+        // 0x7D0
+        public EntityMGimmickSequenceTable EntityMGimmickSequenceTable { get; private set; }
+        // 0x7D8
+        public EntityMGimmickSequenceGroupTable EntityMGimmickSequenceGroupTable { get; private set; }
+        // 0x7E0
+        public EntityMGimmickSequenceRewardGroupTable EntityMGimmickSequenceRewardGroupTable { get; private set; }
+        // 0x7E8
+        public EntityMGimmickSequenceScheduleTable EntityMGimmickSequenceScheduleTable { get; private set; }
+        // 0x7F0
+        public EntityMHeadupDisplayViewTable EntityMHeadupDisplayViewTable { get; private set; }
+        // 0x7F8
+        public EntityMHelpTable EntityMHelpTable { get; private set; }
+        // 0x800
+        public EntityMHelpCategoryTable EntityMHelpCategoryTable { get; private set; }
+        // 0x808
+        public EntityMHelpItemTable EntityMHelpItemTable { get; private set; }
+        // 0x810
+        public EntityMHelpPageGroupTable EntityMHelpPageGroupTable { get; private set; }
+        // 0x818
         public EntityMImportantItemTable EntityMImportantItemTable { get; private set; }
 
-        // 0x7B8
-        public EntityMImportantItemEffectTable EntityMImportantItemEffectTable { get; private set; }
-        // 0x7C0
-        public EntityMImportantItemEffectDropCountTable EntityMImportantItemEffectDropCountTable { get; private set; }
-        // 0x7C8
-        public EntityMImportantItemEffectDropRateTable EntityMImportantItemEffectDropRateTable { get; private set; }
-        // 0x7D0
-        public EntityMImportantItemEffectTargetItemGroupTable EntityMImportantItemEffectTargetItemGroupTable { get; private set; }
-        // 0x7D8
-        public EntityMImportantItemEffectTargetQuestGroupTable EntityMImportantItemEffectTargetQuestGroupTable { get; private set; }
-        // 0x7E0
-        public EntityMImportantItemEffectUnlockFunctionTable EntityMImportantItemEffectUnlockFunctionTable { get; private set; }
-        // 0x7E8
-        public EntityMLibraryEventQuestStoryGroupingTable EntityMLibraryEventQuestStoryGroupingTable { get; private set; }
-        // 0x7F0
-        public EntityMLibraryMovieTable EntityMLibraryMovieTable { get; private set; }
-        // 0x7F8
-        public EntityMLibraryMovieCategoryTable EntityMLibraryMovieCategoryTable { get; private set; }
-        // 0x800
-        public EntityMLibraryMovieUnlockConditionTable EntityMLibraryMovieUnlockConditionTable { get; private set; }
-        // 0x808
-        public EntityMLibraryRecordGroupingTable EntityMLibraryRecordGroupingTable { get; private set; }
-        // 0x810
-        public EntityMLimitedOpenTextTable EntityMLimitedOpenTextTable { get; private set; }
-        // 0x818
-        public EntityMLimitedOpenTextGroupTable EntityMLimitedOpenTextGroupTable { get; private set; }
         // 0x820
-        public EntityMLoginBonusTable EntityMLoginBonusTable { get; private set; }
+        public EntityMImportantItemEffectTable EntityMImportantItemEffectTable { get; private set; }
         // 0x828
-        public EntityMLoginBonusStampTable EntityMLoginBonusStampTable { get; private set; }
+        public EntityMImportantItemEffectDropCountTable EntityMImportantItemEffectDropCountTable { get; private set; }
         // 0x830
+        public EntityMImportantItemEffectDropRateTable EntityMImportantItemEffectDropRateTable { get; private set; }
+        // 0x838
+        public EntityMImportantItemEffectTargetItemGroupTable EntityMImportantItemEffectTargetItemGroupTable { get; private set; }
+        // 0x840
+        public EntityMImportantItemEffectTargetQuestGroupTable EntityMImportantItemEffectTargetQuestGroupTable { get; private set; }
+        // 0x848
+        public EntityMImportantItemEffectUnlockFunctionTable EntityMImportantItemEffectUnlockFunctionTable { get; private set; }
+        // 0x850
+        public EntityMLibraryEventQuestStoryGroupingTable EntityMLibraryEventQuestStoryGroupingTable { get; private set; }
+        // 0x858
+        public EntityMLibraryMovieTable EntityMLibraryMovieTable { get; private set; }
+        // 0x860
+        public EntityMLibraryMovieCategoryTable EntityMLibraryMovieCategoryTable { get; private set; }
+        // 0x868
+        public EntityMLibraryMovieUnlockConditionTable EntityMLibraryMovieUnlockConditionTable { get; private set; }
+        // 0x870
+        public EntityMLibraryRecordGroupingTable EntityMLibraryRecordGroupingTable { get; private set; }
+        // 0x878
+        public EntityMLimitedOpenTextTable EntityMLimitedOpenTextTable { get; private set; }
+        // 0x880
+        public EntityMLimitedOpenTextGroupTable EntityMLimitedOpenTextGroupTable { get; private set; }
+        // 0x888
+        public EntityMListSettingAbilityGroupTable EntityMListSettingAbilityGroupTable { get; private set; }
+        // 0x890
+        public EntityMListSettingAbilityGroupTargetTable EntityMListSettingAbilityGroupTargetTable { get; private set; }
+        // 0x898
+        public EntityMLoginBonusTable EntityMLoginBonusTable { get; private set; }
+        // 0x8A0
+        public EntityMLoginBonusStampTable EntityMLoginBonusStampTable { get; private set; }
+        // 0x8A8
         public EntityMMainQuestChapterTable EntityMMainQuestChapterTable { get; private set; }
 
-        // 0x838
+        // 0x8B0
         public EntityMMainQuestPortalCageCharacterTable EntityMMainQuestPortalCageCharacterTable { get; private set; }
-        // 0x840
+        // 0x8B8
         public EntityMMainQuestRouteTable EntityMMainQuestRouteTable { get; private set; }
-        // 0x848
+        // 0x8C0
         public EntityMMainQuestSeasonTable EntityMMainQuestSeasonTable { get; private set; }
-        // 0x850
+        // 0x8C8
         public EntityMMainQuestSequenceTable EntityMMainQuestSequenceTable { get; private set; }
-        // 0x858
+        // 0x8D0
         public EntityMMainQuestSequenceGroupTable EntityMMainQuestSequenceGroupTable { get; private set; }
 
-        // 0x860
+        // 0x8D8
         public EntityMMaintenanceTable EntityMMaintenanceTable { get; private set; }
-        // 0x868
+        // 0x8E0
         public EntityMMaintenanceGroupTable EntityMMaintenanceGroupTable { get; private set; }
-        // 0x870
+        // 0x8E8
         public EntityMMaterialTable EntityMMaterialTable { get; private set; }
 
-        // 0x878
+        // 0x8F0
         public EntityMMaterialSaleObtainPossessionTable EntityMMaterialSaleObtainPossessionTable { get; private set; }
-        // 0x880
+        // 0x8F8
         public EntityMMissionTable EntityMMissionTable { get; private set; }
-        // 0x888
+        // 0x900
+        public EntityMMissionClearConditionValueViewTable EntityMMissionClearConditionValueViewTable { get; private set; }
+        // 0x908
         public EntityMMissionGroupTable EntityMMissionGroupTable { get; private set; }
-        // 0x890
+        // 0x910
         public EntityMMissionLinkTable EntityMMissionLinkTable { get; private set; }
-        // 0x898
+        // 0x918
         public EntityMMissionRewardTable EntityMMissionRewardTable { get; private set; }
-        // 0x8A0
+        // 0x920
+        public EntityMMissionSubCategoryTextTable EntityMMissionSubCategoryTextTable { get; private set; }
+        // 0x928
         public EntityMMissionTermTable EntityMMissionTermTable { get; private set; }
-        // 0x8A8
+        // 0x930
         public EntityMMissionUnlockConditionTable EntityMMissionUnlockConditionTable { get; private set; }
-        // 0x8B0
+        // 0x938
         public EntityMMomBannerTable EntityMMomBannerTable { get; private set; }
-        // 0x8B8
+        // 0x940
         public EntityMMovieTable EntityMMovieTable { get; private set; }
-        // 0x8C0
+        // 0x948
         public EntityMNaviCutInTable EntityMNaviCutInTable { get; private set; }
-        // 0x8C8
+        // 0x950
         public EntityMNaviCutInContentGroupTable EntityMNaviCutInContentGroupTable { get; private set; }
-        // 0x8D0
+        // 0x958
         public EntityMNaviCutInTextTable EntityMNaviCutInTextTable { get; private set; }
-        // 0x8D8
+        // 0x960
         public EntityMNumericalFunctionTable EntityMNumericalFunctionTable { get; private set; }
-        // 0x8E0
+        // 0x968
         public EntityMNumericalFunctionParameterGroupTable EntityMNumericalFunctionParameterGroupTable { get; private set; }
 
-        // 0x8E8
+        // 0x970
         public EntityMNumericalParameterMapTable EntityMNumericalParameterMapTable { get; private set; }
-        // 0x8F0
+        // 0x978
         public EntityMOmikujiTable EntityMOmikujiTable { get; private set; }
-        // 0x8F8
+        // 0x980
         public EntityMOverrideHitEffectConditionCriticalTable EntityMOverrideHitEffectConditionCriticalTable { get; private set; }
-        // 0x900
+        // 0x988
         public EntityMOverrideHitEffectConditionDamageAttributeTable EntityMOverrideHitEffectConditionDamageAttributeTable { get; private set; }
-        // 0x908
+        // 0x990
         public EntityMOverrideHitEffectConditionGroupTable EntityMOverrideHitEffectConditionGroupTable { get; private set; }
-        // 0x910
+        // 0x998
         public EntityMOverrideHitEffectConditionSkillExecutorTable EntityMOverrideHitEffectConditionSkillExecutorTable { get; private set; }
-        // 0x918
+        // 0x9A0
         public EntityMPartsTable EntityMPartsTable { get; private set; }
-        // 0x920
+        // 0x9A8
         public EntityMPartsEnhancedTable EntityMPartsEnhancedTable { get; private set; }
 
-        // 0x928
+        // 0x9B0
         public EntityMPartsEnhancedSubStatusTable EntityMPartsEnhancedSubStatusTable { get; private set; }
-        // 0x930
+        // 0x9B8
         public EntityMPartsGroupTable EntityMPartsGroupTable { get; private set; }
 
-        // 0x938
+        // 0x9C0
         public EntityMPartsLevelUpPriceGroupTable EntityMPartsLevelUpPriceGroupTable { get; private set; }
-        // 0x940
+        // 0x9C8
         public EntityMPartsLevelUpRateGroupTable EntityMPartsLevelUpRateGroupTable { get; private set; }
-        // 0x948
+        // 0x9D0
         public EntityMPartsRarityTable EntityMPartsRarityTable { get; private set; }
-        // 0x950
+        // 0x9D8
         public EntityMPartsSeriesTable EntityMPartsSeriesTable { get; private set; }
-        // 0x958
+        // 0x9E0
         public EntityMPartsSeriesBonusAbilityGroupTable EntityMPartsSeriesBonusAbilityGroupTable { get; private set; }
-        // 0x960
+        // 0x9E8
         public EntityMPartsStatusMainTable EntityMPartsStatusMainTable { get; private set; }
-        // 0x968
+        // 0x9F0
         public EntityMPlatformPaymentTable EntityMPlatformPaymentTable { get; private set; }
 
-        // 0x970
+        // 0x9F8
         public EntityMPlatformPaymentPriceTable EntityMPlatformPaymentPriceTable { get; private set; }
-        // 0x978
+        // 0xA00
         public EntityMPortalCageAccessPointFunctionGroupTable EntityMPortalCageAccessPointFunctionGroupTable { get; private set; }
-        // 0x980
+        // 0xA08
         public EntityMPortalCageAccessPointFunctionGroupScheduleTable EntityMPortalCageAccessPointFunctionGroupScheduleTable { get; private set; }
-        // 0x988
+        // 0xA10
         public EntityMPortalCageCharacterGroupTable EntityMPortalCageCharacterGroupTable { get; private set; }
-        // 0x990
+        // 0xA18
         public EntityMPortalCageGateTable EntityMPortalCageGateTable { get; private set; }
-        // 0x998
+        // 0xA20
         public EntityMPortalCageSceneTable EntityMPortalCageSceneTable { get; private set; }
-        // 0x9A0
+        // 0xA28
         public EntityMPossessionAcquisitionRouteTable EntityMPossessionAcquisitionRouteTable { get; private set; }
-        // 0x9A8
+        // 0xA30
         public EntityMPowerCalculationConstantValueTable EntityMPowerCalculationConstantValueTable { get; private set; }
-        // 0x9B0
+        // 0xA38
         public EntityMPowerReferenceStatusGroupTable EntityMPowerReferenceStatusGroupTable { get; private set; }
 
-        // 0x9B8
-        public EntityMPvpBackgroundTable EntityMPvpBackgroundTable { get; private set; }
-        // 0x9C0
-        public EntityMPvpGradeTable EntityMPvpGradeTable { get; private set; }
-        // 0x9C8
-        public EntityMPvpGradeGroupTable EntityMPvpGradeGroupTable { get; private set; }
-        // 0x9D0
-        public EntityMPvpGradeOneMatchRewardTable EntityMPvpGradeOneMatchRewardTable { get; private set; }
-        // 0x9D8
-        public EntityMPvpGradeOneMatchRewardGroupTable EntityMPvpGradeOneMatchRewardGroupTable { get; private set; }
-        // 0x9E0
-        public EntityMPvpGradeWeeklyRewardGroupTable EntityMPvpGradeWeeklyRewardGroupTable { get; private set; }
-        // 0x9E8
-        public EntityMPvpRewardTable EntityMPvpRewardTable { get; private set; }
-        // 0x9F0
-        public EntityMPvpSeasonTable EntityMPvpSeasonTable { get; private set; }
-        // 0x9F8
-        public EntityMPvpSeasonGradeTable EntityMPvpSeasonGradeTable { get; private set; }
-        // 0xA00
-        public EntityMPvpSeasonGroupingTable EntityMPvpSeasonGroupingTable { get; private set; }
-        // 0xA08
-        public EntityMPvpSeasonRankRewardTable EntityMPvpSeasonRankRewardTable { get; private set; }
-        // 0xA10
-        public EntityMPvpSeasonRankRewardGroupTable EntityMPvpSeasonRankRewardGroupTable { get; private set; }
-        // 0xA18
-        public EntityMPvpSeasonRankRewardPerSeasonTable EntityMPvpSeasonRankRewardPerSeasonTable { get; private set; }
-        // 0xA20
-        public EntityMPvpSeasonRankRewardRankGroupTable EntityMPvpSeasonRankRewardRankGroupTable { get; private set; }
-        // 0xA28
-        public EntityMPvpWeeklyRankRewardGroupTable EntityMPvpWeeklyRankRewardGroupTable { get; private set; }
-        // 0xA30
-        public EntityMPvpWeeklyRankRewardRankGroupTable EntityMPvpWeeklyRankRewardRankGroupTable { get; private set; }
-        // 0xA38
-        public EntityMPvpWinStreakCountEffectTable EntityMPvpWinStreakCountEffectTable { get; private set; }
         // 0xA40
-        public EntityMQuestTable EntityMQuestTable { get; private set; }
+        public EntityMPvpBackgroundTable EntityMPvpBackgroundTable { get; private set; }
         // 0xA48
+        public EntityMPvpGradeTable EntityMPvpGradeTable { get; private set; }
+        // 0xA50
+        public EntityMPvpGradeGroupTable EntityMPvpGradeGroupTable { get; private set; }
+        // 0xA58
+        public EntityMPvpGradeOneMatchRewardTable EntityMPvpGradeOneMatchRewardTable { get; private set; }
+        // 0xA60
+        public EntityMPvpGradeOneMatchRewardGroupTable EntityMPvpGradeOneMatchRewardGroupTable { get; private set; }
+        // 0xA68
+        public EntityMPvpGradeWeeklyRewardGroupTable EntityMPvpGradeWeeklyRewardGroupTable { get; private set; }
+        // 0xA70
+        public EntityMPvpRewardTable EntityMPvpRewardTable { get; private set; }
+        // 0xA78
+        public EntityMPvpSeasonTable EntityMPvpSeasonTable { get; private set; }
+        // 0xA80
+        public EntityMPvpSeasonGradeTable EntityMPvpSeasonGradeTable { get; private set; }
+        // 0xA88
+        public EntityMPvpSeasonGroupingTable EntityMPvpSeasonGroupingTable { get; private set; }
+        // 0xA90
+        public EntityMPvpSeasonRankRewardTable EntityMPvpSeasonRankRewardTable { get; private set; }
+        // 0xA98
+        public EntityMPvpSeasonRankRewardGroupTable EntityMPvpSeasonRankRewardGroupTable { get; private set; }
+        // 0xAA0
+        public EntityMPvpSeasonRankRewardPerSeasonTable EntityMPvpSeasonRankRewardPerSeasonTable { get; private set; }
+        // 0xAA8
+        public EntityMPvpSeasonRankRewardRankGroupTable EntityMPvpSeasonRankRewardRankGroupTable { get; private set; }
+        // 0xAB0
+        public EntityMPvpWeeklyRankRewardGroupTable EntityMPvpWeeklyRankRewardGroupTable { get; private set; }
+        // 0xAB8
+        public EntityMPvpWeeklyRankRewardRankGroupTable EntityMPvpWeeklyRankRewardRankGroupTable { get; private set; }
+        // 0xAC0
+        public EntityMPvpWinStreakCountEffectTable EntityMPvpWinStreakCountEffectTable { get; private set; }
+        // 0xAC8
+        public EntityMQuestTable EntityMQuestTable { get; private set; }
+        // 0xAD0
         public EntityMQuestBonusTable EntityMQuestBonusTable { get; private set; }
 
-        // 0xA50
+        // 0xAD8
         public EntityMQuestBonusAbilityTable EntityMQuestBonusAbilityTable { get; private set; }
-        // 0xA58
+        // 0xAE0
         public EntityMQuestBonusCharacterGroupTable EntityMQuestBonusCharacterGroupTable { get; private set; }
 
-        // 0xA60
+        // 0xAE8
         public EntityMQuestBonusCostumeGroupTable EntityMQuestBonusCostumeGroupTable { get; private set; }
-        // 0xA68
+        // 0xAF0
         public EntityMQuestBonusCostumeSettingGroupTable EntityMQuestBonusCostumeSettingGroupTable { get; private set; }
 
-        // 0xA70
+        // 0xAF8
         public EntityMQuestBonusDropRewardTable EntityMQuestBonusDropRewardTable { get; private set; }
-        // 0xA78
+        // 0xB00
         public EntityMQuestBonusEffectGroupTable EntityMQuestBonusEffectGroupTable { get; private set; }
-        // 0xA80
+        // 0xB08
         public EntityMQuestBonusExpTable EntityMQuestBonusExpTable { get; private set; }
-        // 0xA88
+        // 0xB10
         public EntityMQuestBonusTermGroupTable EntityMQuestBonusTermGroupTable { get; private set; }
-        // 0xA90
+        // 0xB18
         public EntityMQuestBonusWeaponGroupTable EntityMQuestBonusWeaponGroupTable { get; private set; }
 
-        // 0xA98
+        // 0xB20
         public EntityMQuestCampaignTable EntityMQuestCampaignTable { get; private set; }
-        // 0xAA0
+        // 0xB28
         public EntityMQuestCampaignEffectGroupTable EntityMQuestCampaignEffectGroupTable { get; private set; }
-        // 0xAA8
+        // 0xB30
         public EntityMQuestCampaignTargetGroupTable EntityMQuestCampaignTargetGroupTable { get; private set; }
 
-        // 0xAB0
+        // 0xB38
         public EntityMQuestCampaignTargetItemGroupTable EntityMQuestCampaignTargetItemGroupTable { get; private set; }
-        // 0xAB8
+        // 0xB40
         public EntityMQuestDeckRestrictionGroupTable EntityMQuestDeckRestrictionGroupTable { get; private set; }
-        // 0xAC0
+        // 0xB48
         public EntityMQuestDeckRestrictionGroupUnlockTable EntityMQuestDeckRestrictionGroupUnlockTable { get; private set; }
-        // 0xAC8
+        // 0xB50
         public EntityMQuestDisplayAttributeGroupTable EntityMQuestDisplayAttributeGroupTable { get; private set; }
-        // 0xAD0
+        // 0xB58
         public EntityMQuestFirstClearRewardGroupTable EntityMQuestFirstClearRewardGroupTable { get; private set; }
-        // 0xAD8
+        // 0xB60
         public EntityMQuestMissionTable EntityMQuestMissionTable { get; private set; }
-        // 0xAE0
+        // 0xB68
         public EntityMQuestMissionConditionValueGroupTable EntityMQuestMissionConditionValueGroupTable { get; private set; }
-        // 0xAE8
+        // 0xB70
         public EntityMQuestMissionGroupTable EntityMQuestMissionGroupTable { get; private set; }
 
-        // 0xAF0
+        // 0xB78
         public EntityMQuestMissionRewardTable EntityMQuestMissionRewardTable { get; private set; }
-        // 0xAF8
+        // 0xB80
         public EntityMQuestPickupRewardGroupTable EntityMQuestPickupRewardGroupTable { get; private set; }
-        // 0xB00
+        // 0xB88
         public EntityMQuestRelationMainFlowTable EntityMQuestRelationMainFlowTable { get; private set; }
-        // 0xB08
+        // 0xB90
         public EntityMQuestReleaseConditionBigHuntScoreTable EntityMQuestReleaseConditionBigHuntScoreTable { get; private set; }
-        // 0xB10
+        // 0xB98
         public EntityMQuestReleaseConditionCharacterLevelTable EntityMQuestReleaseConditionCharacterLevelTable { get; private set; }
-        // 0xB18
+        // 0xBA0
         public EntityMQuestReleaseConditionDeckPowerTable EntityMQuestReleaseConditionDeckPowerTable { get; private set; }
-        // 0xB20
+        // 0xBA8
         public EntityMQuestReleaseConditionGroupTable EntityMQuestReleaseConditionGroupTable { get; private set; }
-        // 0xB28
+        // 0xBB0
         public EntityMQuestReleaseConditionListTable EntityMQuestReleaseConditionListTable { get; private set; }
-        // 0xB30
+        // 0xBB8
         public EntityMQuestReleaseConditionQuestChallengeTable EntityMQuestReleaseConditionQuestChallengeTable { get; private set; }
-        // 0xB38
+        // 0xBC0
         public EntityMQuestReleaseConditionQuestClearTable EntityMQuestReleaseConditionQuestClearTable { get; private set; }
-        // 0xB40
+        // 0xBC8
         public EntityMQuestReleaseConditionUserLevelTable EntityMQuestReleaseConditionUserLevelTable { get; private set; }
-        // 0xB48
+        // 0xBD0
         public EntityMQuestReleaseConditionWeaponAcquisitionTable EntityMQuestReleaseConditionWeaponAcquisitionTable { get; private set; }
 
-        // 0xB50
+        // 0xBD8
         public EntityMQuestReplayFlowRewardGroupTable EntityMQuestReplayFlowRewardGroupTable { get; private set; }
-        // 0xB58
+        // 0xBE0
         public EntityMQuestSceneTable EntityMQuestSceneTable { get; private set; }
-        // 0xB60
+        // 0xBE8
         public EntityMQuestSceneBattleTable EntityMQuestSceneBattleTable { get; private set; }
 
-        // 0xB68
+        // 0xBF0
         public EntityMQuestSceneNotConfirmTitleDialogTable EntityMQuestSceneNotConfirmTitleDialogTable { get; private set; }
-        // 0xB70
+        // 0xBF8
         public EntityMQuestSceneOutgameBlendshapeMotionTable EntityMQuestSceneOutgameBlendshapeMotionTable { get; private set; }
-        // 0xB78
+        // 0xC00
         public EntityMQuestScheduleTable EntityMQuestScheduleTable { get; private set; }
-        // 0xB80
+        // 0xC08
         public EntityMQuestScheduleCorrespondenceTable EntityMQuestScheduleCorrespondenceTable { get; private set; }
 
-        // 0xB88
+        // 0xC10
         public EntityMReportTable EntityMReportTable { get; private set; }
-        // 0xB90
+        // 0xC18
         public EntityMShopTable EntityMShopTable { get; private set; }
 
-        // 0xB98
+        // 0xC20
         public EntityMShopDisplayPriceTable EntityMShopDisplayPriceTable { get; private set; }
-        // 0xBA0
+        // 0xC28
         public EntityMShopItemTable EntityMShopItemTable { get; private set; }
 
-        // 0xBA8
+        // 0xC30
         public EntityMShopItemAdditionalContentTable EntityMShopItemAdditionalContentTable { get; private set; }
-        // 0xBB0
+        // 0xC38
         public EntityMShopItemCellTable EntityMShopItemCellTable { get; private set; }
-        // 0xBB8
+        // 0xC40
         public EntityMShopItemCellGroupTable EntityMShopItemCellGroupTable { get; private set; }
 
-        // 0xBC0
+        // 0xC48
         public EntityMShopItemCellLimitedOpenTable EntityMShopItemCellLimitedOpenTable { get; private set; }
-        // 0xBC8
+        // 0xC50
         public EntityMShopItemCellTermTable EntityMShopItemCellTermTable { get; private set; }
 
-        // 0xBD0
+        // 0xC58
         public EntityMShopItemContentEffectTable EntityMShopItemContentEffectTable { get; private set; }
-        // 0xBD8
+        // 0xC60
         public EntityMShopItemContentMissionTable EntityMShopItemContentMissionTable { get; private set; }
-        // 0xBE0
+        // 0xC68
         public EntityMShopItemContentPossessionTable EntityMShopItemContentPossessionTable { get; private set; }
-        // 0xBE8
+        // 0xC70
         public EntityMShopItemLimitedStockTable EntityMShopItemLimitedStockTable { get; private set; }
 
-        // 0xBF0
+        // 0xC78
         public EntityMShopItemUserLevelConditionTable EntityMShopItemUserLevelConditionTable { get; private set; }
-        // 0xBF8
+        // 0xC80
         public EntityMShopReplaceableGemTable EntityMShopReplaceableGemTable { get; private set; }
-        // 0xC00
+        // 0xC88
         public EntityMSideStoryQuestTable EntityMSideStoryQuestTable { get; private set; }
-        // 0xC08
+        // 0xC90
         public EntityMSideStoryQuestLimitContentTable EntityMSideStoryQuestLimitContentTable { get; private set; }
-        // 0xC10
+        // 0xC98
         public EntityMSideStoryQuestSceneTable EntityMSideStoryQuestSceneTable { get; private set; }
-        // 0xC18
+        // 0xCA0
         public EntityMSkillTable EntityMSkillTable { get; private set; }
 
-        // 0xC20
-        public EntityMSkillAbnormalTable EntityMSkillAbnormalTable { get; private set; }
-        // 0xC28
-        public EntityMSkillAbnormalBehaviourTable EntityMSkillAbnormalBehaviourTable { get; private set; }
-        // 0xC30
-        public EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable { get; private set; }
-        // 0xC38
-        public EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable { get; private set; }
-        // 0xC40
-        public EntityMSkillAbnormalBehaviourActionBuffResistanceTable EntityMSkillAbnormalBehaviourActionBuffResistanceTable { get; private set; }
-        // 0xC48
-        public EntityMSkillAbnormalBehaviourActionDamageTable EntityMSkillAbnormalBehaviourActionDamageTable { get; private set; }
-        // 0xC50
-        public EntityMSkillAbnormalBehaviourActionDamageMultiplyTable EntityMSkillAbnormalBehaviourActionDamageMultiplyTable { get; private set; }
-        // 0xC58
-        public EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable { get; private set; }
-        // 0xC60
-        public EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable { get; private set; }
-        // 0xC68
-        public EntityMSkillAbnormalBehaviourActionHitRatioDownTable EntityMSkillAbnormalBehaviourActionHitRatioDownTable { get; private set; }
-        // 0xC70
-        public EntityMSkillAbnormalBehaviourActionModifyHateValueTable EntityMSkillAbnormalBehaviourActionModifyHateValueTable { get; private set; }
-        // 0xC78
-        public EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable { get; private set; }
-        // 0xC80
-        public EntityMSkillAbnormalBehaviourActionRecoveryTable EntityMSkillAbnormalBehaviourActionRecoveryTable { get; private set; }
-        // 0xC88
-        public EntityMSkillAbnormalBehaviourActionTurnRestrictionTable EntityMSkillAbnormalBehaviourActionTurnRestrictionTable { get; private set; }
-        // 0xC90
-        public EntityMSkillAbnormalBehaviourGroupTable EntityMSkillAbnormalBehaviourGroupTable { get; private set; }
-        // 0xC98
-        public EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable { get; private set; }
-        // 0xCA0
-        public EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable { get; private set; }
         // 0xCA8
-        public EntityMSkillAbnormalDamageMultiplyDetailCriticalTable EntityMSkillAbnormalDamageMultiplyDetailCriticalTable { get; private set; }
+        public EntityMSkillAbnormalTable EntityMSkillAbnormalTable { get; private set; }
         // 0xCB0
-        public EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourTable EntityMSkillAbnormalBehaviourTable { get; private set; }
         // 0xCB8
-        public EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable { get; private set; }
         // 0xCC0
-        public EntityMSkillAbnormalLifetimeTable EntityMSkillAbnormalLifetimeTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable { get; private set; }
         // 0xCC8
-        public EntityMSkillAbnormalLifetimeBehaviourActivateCountTable EntityMSkillAbnormalLifetimeBehaviourActivateCountTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourActionBuffResistanceTable EntityMSkillAbnormalBehaviourActionBuffResistanceTable { get; private set; }
         // 0xCD0
-        public EntityMSkillAbnormalLifetimeBehaviourFrameCountTable EntityMSkillAbnormalLifetimeBehaviourFrameCountTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourActionDamageTable EntityMSkillAbnormalBehaviourActionDamageTable { get; private set; }
         // 0xCD8
-        public EntityMSkillAbnormalLifetimeBehaviourGroupTable EntityMSkillAbnormalLifetimeBehaviourGroupTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourActionDamageMultiplyTable EntityMSkillAbnormalBehaviourActionDamageMultiplyTable { get; private set; }
         // 0xCE0
-        public EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable { get; private set; }
         // 0xCE8
-        public EntityMSkillAbnormalLifetimeBehaviourTurnCountTable EntityMSkillAbnormalLifetimeBehaviourTurnCountTable { get; private set; }
+        public EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable { get; private set; }
         // 0xCF0
+        public EntityMSkillAbnormalBehaviourActionHitRatioDownTable EntityMSkillAbnormalBehaviourActionHitRatioDownTable { get; private set; }
+        // 0xCF8
+        public EntityMSkillAbnormalBehaviourActionModifyHateValueTable EntityMSkillAbnormalBehaviourActionModifyHateValueTable { get; private set; }
+        // 0xD00
+        public EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable { get; private set; }
+        // 0xD08
+        public EntityMSkillAbnormalBehaviourActionRecoveryTable EntityMSkillAbnormalBehaviourActionRecoveryTable { get; private set; }
+        // 0xD10
+        public EntityMSkillAbnormalBehaviourActionTurnRestrictionTable EntityMSkillAbnormalBehaviourActionTurnRestrictionTable { get; private set; }
+        // 0xD18
+        public EntityMSkillAbnormalBehaviourGroupTable EntityMSkillAbnormalBehaviourGroupTable { get; private set; }
+        // 0xD20
+        public EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable { get; private set; }
+        // 0xD28
+        public EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable { get; private set; }
+        // 0xD30
+        public EntityMSkillAbnormalDamageMultiplyDetailCriticalTable EntityMSkillAbnormalDamageMultiplyDetailCriticalTable { get; private set; }
+        // 0xD38
+        public EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable { get; private set; }
+        // 0xD40
+        public EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable { get; private set; }
+        // 0xD48
+        public EntityMSkillAbnormalLifetimeTable EntityMSkillAbnormalLifetimeTable { get; private set; }
+        // 0xD50
+        public EntityMSkillAbnormalLifetimeBehaviourActivateCountTable EntityMSkillAbnormalLifetimeBehaviourActivateCountTable { get; private set; }
+        // 0xD58
+        public EntityMSkillAbnormalLifetimeBehaviourFrameCountTable EntityMSkillAbnormalLifetimeBehaviourFrameCountTable { get; private set; }
+        // 0xD60
+        public EntityMSkillAbnormalLifetimeBehaviourGroupTable EntityMSkillAbnormalLifetimeBehaviourGroupTable { get; private set; }
+        // 0xD68
+        public EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable { get; private set; }
+        // 0xD70
+        public EntityMSkillAbnormalLifetimeBehaviourTurnCountTable EntityMSkillAbnormalLifetimeBehaviourTurnCountTable { get; private set; }
+        // 0xD78
         public EntityMSkillBehaviourTable EntityMSkillBehaviourTable { get; private set; }
 
-        // 0xCF8
-        public EntityMSkillBehaviourActionAbnormalTable EntityMSkillBehaviourActionAbnormalTable { get; private set; }
-        // 0xD00
-        public EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable { get; private set; }
-        // 0xD08
-        public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable { get; private set; }
-        // 0xD10
-        public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable { get; private set; }
-        // 0xD18
-        public EntityMSkillBehaviourActionAttackTable EntityMSkillBehaviourActionAttackTable { get; private set; }
-        // 0xD20
-        public EntityMSkillBehaviourActionAttackComboTable EntityMSkillBehaviourActionAttackComboTable { get; private set; }
-        // 0xD28
-        public EntityMSkillBehaviourActionAttackFixedDamageTable EntityMSkillBehaviourActionAttackFixedDamageTable { get; private set; }
-        // 0xD30
-        public EntityMSkillBehaviourActionAttackHpRatioTable EntityMSkillBehaviourActionAttackHpRatioTable { get; private set; }
-        // 0xD38
-        public EntityMSkillBehaviourActionAttackIgnoreVitalityTable EntityMSkillBehaviourActionAttackIgnoreVitalityTable { get; private set; }
-        // 0xD40
-        public EntityMSkillBehaviourActionAttackVitalityTable EntityMSkillBehaviourActionAttackVitalityTable { get; private set; }
-        // 0xD48
-        public EntityMSkillBehaviourActionAttributeDamageCorrectionTable EntityMSkillBehaviourActionAttributeDamageCorrectionTable { get; private set; }
-        // 0xD50
-        public EntityMSkillBehaviourActionBuffTable EntityMSkillBehaviourActionBuffTable { get; private set; }
-        // 0xD58
-        public EntityMSkillBehaviourActionChangestepTable EntityMSkillBehaviourActionChangestepTable { get; private set; }
-        // 0xD60
-        public EntityMSkillBehaviourActionDamageCorrectionHpRatioTable EntityMSkillBehaviourActionDamageCorrectionHpRatioTable { get; private set; }
-        // 0xD68
-        public EntityMSkillBehaviourActionDamageMultiplyTable EntityMSkillBehaviourActionDamageMultiplyTable { get; private set; }
-        // 0xD70
-        public EntityMSkillBehaviourActionDefaultSkillLotteryTable EntityMSkillBehaviourActionDefaultSkillLotteryTable { get; private set; }
-        // 0xD78
-        public EntityMSkillBehaviourActionHpRatioDamageTable EntityMSkillBehaviourActionHpRatioDamageTable { get; private set; }
         // 0xD80
-        public EntityMSkillBehaviourActionRecoveryTable EntityMSkillBehaviourActionRecoveryTable { get; private set; }
+        public EntityMSkillBehaviourActionAbnormalTable EntityMSkillBehaviourActionAbnormalTable { get; private set; }
         // 0xD88
-        public EntityMSkillBehaviourActionRemoveAbnormalTable EntityMSkillBehaviourActionRemoveAbnormalTable { get; private set; }
+        public EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable { get; private set; }
         // 0xD90
-        public EntityMSkillBehaviourActionRemoveBuffTable EntityMSkillBehaviourActionRemoveBuffTable { get; private set; }
+        public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable { get; private set; }
         // 0xD98
-        public EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable { get; private set; }
+        public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable { get; private set; }
         // 0xDA0
-        public EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable { get; private set; }
+        public EntityMSkillBehaviourActionAttackTable EntityMSkillBehaviourActionAttackTable { get; private set; }
         // 0xDA8
-        public EntityMSkillBehaviourActivationConditionActivationUpperCountTable EntityMSkillBehaviourActivationConditionActivationUpperCountTable { get; private set; }
+        public EntityMSkillBehaviourActionAttackComboTable EntityMSkillBehaviourActionAttackComboTable { get; private set; }
         // 0xDB0
-        public EntityMSkillBehaviourActivationConditionAttributeTable EntityMSkillBehaviourActivationConditionAttributeTable { get; private set; }
+        public EntityMSkillBehaviourActionAttackFixedDamageTable EntityMSkillBehaviourActionAttackFixedDamageTable { get; private set; }
         // 0xDB8
-        public EntityMSkillBehaviourActivationConditionGroupTable EntityMSkillBehaviourActivationConditionGroupTable { get; private set; }
+        public EntityMSkillBehaviourActionAttackHpRatioTable EntityMSkillBehaviourActionAttackHpRatioTable { get; private set; }
         // 0xDC0
-        public EntityMSkillBehaviourActivationConditionHpRatioTable EntityMSkillBehaviourActivationConditionHpRatioTable { get; private set; }
+        public EntityMSkillBehaviourActionAttackIgnoreVitalityTable EntityMSkillBehaviourActionAttackIgnoreVitalityTable { get; private set; }
         // 0xDC8
-        public EntityMSkillBehaviourActivationConditionInSkillFlowTable EntityMSkillBehaviourActivationConditionInSkillFlowTable { get; private set; }
+        public EntityMSkillBehaviourActionAttackVitalityTable EntityMSkillBehaviourActionAttackVitalityTable { get; private set; }
         // 0xDD0
-        public EntityMSkillBehaviourActivationConditionWaveNumberTable EntityMSkillBehaviourActivationConditionWaveNumberTable { get; private set; }
+        public EntityMSkillBehaviourActionAttributeDamageCorrectionTable EntityMSkillBehaviourActionAttributeDamageCorrectionTable { get; private set; }
         // 0xDD8
-        public EntityMSkillBehaviourActivationMethodTable EntityMSkillBehaviourActivationMethodTable { get; private set; }
+        public EntityMSkillBehaviourActionBuffTable EntityMSkillBehaviourActionBuffTable { get; private set; }
         // 0xDE0
+        public EntityMSkillBehaviourActionChangestepTable EntityMSkillBehaviourActionChangestepTable { get; private set; }
+        // 0xDE8
+        public EntityMSkillBehaviourActionDamageCorrectionHpRatioTable EntityMSkillBehaviourActionDamageCorrectionHpRatioTable { get; private set; }
+        // 0xDF0
+        public EntityMSkillBehaviourActionDamageMultiplyTable EntityMSkillBehaviourActionDamageMultiplyTable { get; private set; }
+        // 0xDF8
+        public EntityMSkillBehaviourActionDefaultSkillLotteryTable EntityMSkillBehaviourActionDefaultSkillLotteryTable { get; private set; }
+        // 0xE00
+        public EntityMSkillBehaviourActionHpRatioDamageTable EntityMSkillBehaviourActionHpRatioDamageTable { get; private set; }
+        // 0xE08
+        public EntityMSkillBehaviourActionRecoveryTable EntityMSkillBehaviourActionRecoveryTable { get; private set; }
+        // 0xE10
+        public EntityMSkillBehaviourActionRemoveAbnormalTable EntityMSkillBehaviourActionRemoveAbnormalTable { get; private set; }
+        // 0xE18
+        public EntityMSkillBehaviourActionRemoveBuffTable EntityMSkillBehaviourActionRemoveBuffTable { get; private set; }
+        // 0xE20
+        public EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable { get; private set; }
+        // 0xE28
+        public EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable { get; private set; }
+        // 0xE30
+        public EntityMSkillBehaviourActivationConditionActivationUpperCountTable EntityMSkillBehaviourActivationConditionActivationUpperCountTable { get; private set; }
+        // 0xE38
+        public EntityMSkillBehaviourActivationConditionAttributeTable EntityMSkillBehaviourActivationConditionAttributeTable { get; private set; }
+        // 0xE40
+        public EntityMSkillBehaviourActivationConditionGroupTable EntityMSkillBehaviourActivationConditionGroupTable { get; private set; }
+        // 0xE48
+        public EntityMSkillBehaviourActivationConditionHpRatioTable EntityMSkillBehaviourActivationConditionHpRatioTable { get; private set; }
+        // 0xE50
+        public EntityMSkillBehaviourActivationConditionInSkillFlowTable EntityMSkillBehaviourActivationConditionInSkillFlowTable { get; private set; }
+        // 0xE58
+        public EntityMSkillBehaviourActivationConditionWaveNumberTable EntityMSkillBehaviourActivationConditionWaveNumberTable { get; private set; }
+        // 0xE60
+        public EntityMSkillBehaviourActivationMethodTable EntityMSkillBehaviourActivationMethodTable { get; private set; }
+        // 0xE68
         public EntityMSkillBehaviourGroupTable EntityMSkillBehaviourGroupTable { get; private set; }
 
-        // 0xDE8
-        public EntityMSkillBuffTable EntityMSkillBuffTable { get; private set; }
-        // 0xDF0
-        public EntityMSkillCasttimeTable EntityMSkillCasttimeTable { get; private set; }
-        // 0xDF8
-        public EntityMSkillCasttimeBehaviourTable EntityMSkillCasttimeBehaviourTable { get; private set; }
-        // 0xE00
-        public EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable { get; private set; }
-        // 0xE08
-        public EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable { get; private set; }
-        // 0xE10
-        public EntityMSkillCasttimeBehaviourGroupTable EntityMSkillCasttimeBehaviourGroupTable { get; private set; }
-        // 0xE18
-        public EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable { get; private set; }
-        // 0xE20
-        public EntityMSkillCooltimeBehaviourTable EntityMSkillCooltimeBehaviourTable { get; private set; }
-        // 0xE28
-        public EntityMSkillCooltimeBehaviourGroupTable EntityMSkillCooltimeBehaviourGroupTable { get; private set; }
-        // 0xE30
-        public EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable { get; private set; }
-        // 0xE38
-        public EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable { get; private set; }
-        // 0xE40
-        public EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable { get; private set; }
-        // 0xE48
-        public EntityMSkillCooltimeBehaviourOnFrameUpdateTable EntityMSkillCooltimeBehaviourOnFrameUpdateTable { get; private set; }
-        // 0xE50
-        public EntityMSkillCooltimeBehaviourOnSkillDamageTable EntityMSkillCooltimeBehaviourOnSkillDamageTable { get; private set; }
-        // 0xE58
-        public EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable { get; private set; }
-        // 0xE60
-        public EntityMSkillDamageMultiplyDetailAbnormalAttachedTable EntityMSkillDamageMultiplyDetailAbnormalAttachedTable { get; private set; }
-        // 0xE68
-        public EntityMSkillDamageMultiplyDetailAlwaysTable EntityMSkillDamageMultiplyDetailAlwaysTable { get; private set; }
         // 0xE70
-        public EntityMSkillDamageMultiplyDetailBuffAttachedTable EntityMSkillDamageMultiplyDetailBuffAttachedTable { get; private set; }
+        public EntityMSkillBuffTable EntityMSkillBuffTable { get; private set; }
         // 0xE78
-        public EntityMSkillDamageMultiplyDetailCriticalTable EntityMSkillDamageMultiplyDetailCriticalTable { get; private set; }
+        public EntityMSkillCasttimeTable EntityMSkillCasttimeTable { get; private set; }
         // 0xE80
-        public EntityMSkillDamageMultiplyDetailHitIndexTable EntityMSkillDamageMultiplyDetailHitIndexTable { get; private set; }
+        public EntityMSkillCasttimeBehaviourTable EntityMSkillCasttimeBehaviourTable { get; private set; }
         // 0xE88
-        public EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable { get; private set; }
+        public EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable { get; private set; }
         // 0xE90
-        public EntityMSkillDamageMultiplyHitIndexValueGroupTable EntityMSkillDamageMultiplyHitIndexValueGroupTable { get; private set; }
+        public EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable { get; private set; }
         // 0xE98
-        public EntityMSkillDetailTable EntityMSkillDetailTable { get; private set; }
+        public EntityMSkillCasttimeBehaviourGroupTable EntityMSkillCasttimeBehaviourGroupTable { get; private set; }
         // 0xEA0
+        public EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable { get; private set; }
+        // 0xEA8
+        public EntityMSkillCooltimeBehaviourTable EntityMSkillCooltimeBehaviourTable { get; private set; }
+        // 0xEB0
+        public EntityMSkillCooltimeBehaviourGroupTable EntityMSkillCooltimeBehaviourGroupTable { get; private set; }
+        // 0xEB8
+        public EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable { get; private set; }
+        // 0xEC0
+        public EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable { get; private set; }
+        // 0xEC8
+        public EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable { get; private set; }
+        // 0xED0
+        public EntityMSkillCooltimeBehaviourOnFrameUpdateTable EntityMSkillCooltimeBehaviourOnFrameUpdateTable { get; private set; }
+        // 0xED8
+        public EntityMSkillCooltimeBehaviourOnSkillDamageTable EntityMSkillCooltimeBehaviourOnSkillDamageTable { get; private set; }
+        // 0xEE0
+        public EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable { get; private set; }
+        // 0xEE8
+        public EntityMSkillDamageMultiplyDetailAbnormalAttachedTable EntityMSkillDamageMultiplyDetailAbnormalAttachedTable { get; private set; }
+        // 0xEF0
+        public EntityMSkillDamageMultiplyDetailAlwaysTable EntityMSkillDamageMultiplyDetailAlwaysTable { get; private set; }
+        // 0xEF8
+        public EntityMSkillDamageMultiplyDetailBuffAttachedTable EntityMSkillDamageMultiplyDetailBuffAttachedTable { get; private set; }
+        // 0xF00
+        public EntityMSkillDamageMultiplyDetailCriticalTable EntityMSkillDamageMultiplyDetailCriticalTable { get; private set; }
+        // 0xF08
+        public EntityMSkillDamageMultiplyDetailHitIndexTable EntityMSkillDamageMultiplyDetailHitIndexTable { get; private set; }
+        // 0xF10
+        public EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable { get; private set; }
+        // 0xF18
+        public EntityMSkillDamageMultiplyHitIndexValueGroupTable EntityMSkillDamageMultiplyHitIndexValueGroupTable { get; private set; }
+        // 0xF20
+        public EntityMSkillDetailTable EntityMSkillDetailTable { get; private set; }
+        // 0xF28
         public EntityMSkillLevelGroupTable EntityMSkillLevelGroupTable { get; private set; }
 
-        // 0xEA8
+        // 0xF30
         public EntityMSkillRemoveAbnormalTargetAbnormalGroupTable EntityMSkillRemoveAbnormalTargetAbnormalGroupTable { get; private set; }
-        // 0xEB0
+        // 0xF38
         public EntityMSkillRemoveBuffFilterStatusKindTable EntityMSkillRemoveBuffFilterStatusKindTable { get; private set; }
-        // 0xEB8
+        // 0xF40
         public EntityMSkillReserveUiTypeTable EntityMSkillReserveUiTypeTable { get; private set; }
-        // 0xEC0
+        // 0xF48
         public EntityMSmartphoneChatGroupTable EntityMSmartphoneChatGroupTable { get; private set; }
-        // 0xEC8
+        // 0xF50
         public EntityMSmartphoneChatGroupMessageTable EntityMSmartphoneChatGroupMessageTable { get; private set; }
-        // 0xED0
+        // 0xF58
         public EntityMSpeakerTable EntityMSpeakerTable { get; private set; }
-        // 0xED8
+        // 0xF60
         public EntityMThoughtTable EntityMThoughtTable { get; private set; }
 
-        // 0xEE0
+        // 0xF68
         public EntityMTipTable EntityMTipTable { get; private set; }
-        // 0xEE8
+        // 0xF70
         public EntityMTipBackgroundAssetTable EntityMTipBackgroundAssetTable { get; private set; }
-        // 0xEF0
+        // 0xF78
         public EntityMTipDisplayConditionGroupTable EntityMTipDisplayConditionGroupTable { get; private set; }
-        // 0xEF8
+        // 0xF80
         public EntityMTipGroupTable EntityMTipGroupTable { get; private set; }
-        // 0xF00
+        // 0xF88
         public EntityMTipGroupBackgroundAssetTable EntityMTipGroupBackgroundAssetTable { get; private set; }
-        // 0xF08
+        // 0xF90
         public EntityMTipGroupBackgroundAssetRelationTable EntityMTipGroupBackgroundAssetRelationTable { get; private set; }
-        // 0xF10
+        // 0xF98
         public EntityMTipGroupSelectionTable EntityMTipGroupSelectionTable { get; private set; }
-        // 0xF18
+        // 0xFA0
         public EntityMTipGroupSituationTable EntityMTipGroupSituationTable { get; private set; }
-        // 0xF20
+        // 0xFA8
         public EntityMTipGroupSituationSeasonTable EntityMTipGroupSituationSeasonTable { get; private set; }
-        // 0xF28
+        // 0xFB0
         public EntityMTitleFlowMovieTable EntityMTitleFlowMovieTable { get; private set; }
-        // 0xF30
+        // 0xFB8
         public EntityMTitleStillTable EntityMTitleStillTable { get; private set; }
-        // 0xF38
+        // 0xFC0
         public EntityMTitleStillGroupTable EntityMTitleStillGroupTable { get; private set; }
-        // 0xF40
+        // 0xFC8
         public EntityMTutorialDialogTable EntityMTutorialDialogTable { get; private set; }
-        // 0xF48
+        // 0xFD0
         public EntityMTutorialUnlockConditionTable EntityMTutorialUnlockConditionTable { get; private set; }
-        // 0xF50
+        // 0xFD8
         public EntityMUserLevelTable EntityMUserLevelTable { get; private set; }
-        // 0xF58
+        // 0xFE0
         public EntityMUserQuestSceneGrantPossessionTable EntityMUserQuestSceneGrantPossessionTable { get; private set; }
-        // 0xF60
+        // 0xFE8
         public EntityMWeaponTable EntityMWeaponTable { get; private set; }
 
-        // 0xF68
+        // 0xFF0
         public EntityMWeaponAbilityEnhancementMaterialTable EntityMWeaponAbilityEnhancementMaterialTable { get; private set; }
-        // 0xF70
+        // 0xFF8
         public EntityMWeaponAbilityGroupTable EntityMWeaponAbilityGroupTable { get; private set; }
-        // 0xF78
+        // 0x1000
         public EntityMWeaponBaseStatusTable EntityMWeaponBaseStatusTable { get; private set; }
 
-        // 0xF80
+        // 0x1008
         public EntityMWeaponConsumeExchangeConsumableItemGroupTable EntityMWeaponConsumeExchangeConsumableItemGroupTable { get; private set; }
-        // 0xF88
+        // 0x1010
         public EntityMWeaponEnhancedTable EntityMWeaponEnhancedTable { get; private set; }
 
-        // 0xF90
+        // 0x1018
         public EntityMWeaponEnhancedAbilityTable EntityMWeaponEnhancedAbilityTable { get; private set; }
-        // 0xF98
+        // 0x1020
         public EntityMWeaponEnhancedSkillTable EntityMWeaponEnhancedSkillTable { get; private set; }
-        // 0xFA0
+        // 0x1028
         public EntityMWeaponEvolutionGroupTable EntityMWeaponEvolutionGroupTable { get; private set; }
 
-        // 0xFA8
+        // 0x1030
         public EntityMWeaponEvolutionMaterialGroupTable EntityMWeaponEvolutionMaterialGroupTable { get; private set; }
-        // 0xFB0
+        // 0x1038
         public EntityMWeaponRarityTable EntityMWeaponRarityTable { get; private set; }
 
-        // 0xFB8
+        // 0x1040
         public EntityMWeaponRarityLimitBreakMaterialGroupTable EntityMWeaponRarityLimitBreakMaterialGroupTable { get; private set; }
-        // 0xFC0
+        // 0x1048
         public EntityMWeaponSkillEnhancementMaterialTable EntityMWeaponSkillEnhancementMaterialTable { get; private set; }
-        // 0xFC8
+        // 0x1050
         public EntityMWeaponSkillGroupTable EntityMWeaponSkillGroupTable { get; private set; }
-        // 0xFD0
+        // 0x1058
         public EntityMWeaponSpecificEnhanceTable EntityMWeaponSpecificEnhanceTable { get; private set; }
 
-        // 0xFD8
+        // 0x1060
         public EntityMWeaponSpecificLimitBreakMaterialGroupTable EntityMWeaponSpecificLimitBreakMaterialGroupTable { get; private set; }
-        // 0xFE0
+        // 0x1068
         public EntityMWeaponStatusCalculationTable EntityMWeaponStatusCalculationTable { get; private set; }
 
-        // 0xFE8
+        // 0x1070
         public EntityMWeaponStoryReleaseConditionGroupTable EntityMWeaponStoryReleaseConditionGroupTable { get; private set; }
-        // 0xFF0
+        // 0x1078
         public EntityMWeaponStoryReleaseConditionOperationTable EntityMWeaponStoryReleaseConditionOperationTable { get; private set; }
-        // 0xFF8
+        // 0x1080
         public EntityMWeaponStoryReleaseConditionOperationGroupTable EntityMWeaponStoryReleaseConditionOperationGroupTable { get; private set; }
-        // 0x1000
+        // 0x1088
         public EntityMWebviewMissionTable EntityMWebviewMissionTable { get; private set; }
-        // 0x1008
+        // 0x1090
         public EntityMWebviewMissionTitleTextTable EntityMWebviewMissionTitleTextTable { get; private set; }
-        // 0x1010
+        // 0x1098
         public EntityMWebviewPanelMissionTable EntityMWebviewPanelMissionTable { get; private set; }
-        // 0x1018
+        // 0x10A0
         public EntityMWebviewPanelMissionCompleteFlavorTextTable EntityMWebviewPanelMissionCompleteFlavorTextTable { get; private set; }
-        // 0x1020
+        // 0x10A8
         public EntityMWebviewPanelMissionPageTable EntityMWebviewPanelMissionPageTable { get; private set; }
         public DarkMasterMemoryDatabase(byte[] databaseBinary, bool internString = true, IFormatterResolver formatterResolver = null) :
             base(databaseBinary, internString, formatterResolver)
@@ -1685,6 +1719,23 @@ namespace NierReincarnation.Core.Dark
             EntityMWebviewPanelMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMission[], EntityMWebviewPanelMissionTable>(data => new EntityMWebviewPanelMissionTable(data)));
             EntityMWebviewPanelMissionCompleteFlavorTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMissionCompleteFlavorText[], EntityMWebviewPanelMissionCompleteFlavorTextTable>(data => new EntityMWebviewPanelMissionCompleteFlavorTextTable(data)));
             EntityMWebviewPanelMissionPageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMissionPage[], EntityMWebviewPanelMissionPageTable>(data => new EntityMWebviewPanelMissionPageTable(data)));
+            EntityMBattleCostumeSkillFireActTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleCostumeSkillFireAct[], EntityMBattleCostumeSkillFireActTable>(data => new EntityMBattleCostumeSkillFireActTable(data)));
+            EntityMBattleNpcWeaponAbilityReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponAbilityReevaluate[], EntityMBattleNpcWeaponAbilityReevaluateTable>(data => new EntityMBattleNpcWeaponAbilityReevaluateTable(data)));
+            EntityMBattleNpcWeaponNoteReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponNoteReevaluate[], EntityMBattleNpcWeaponNoteReevaluateTable>(data => new EntityMBattleNpcWeaponNoteReevaluateTable(data)));
+            EntityMBattleSkillFireActTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireAct[], EntityMBattleSkillFireActTable>(data => new EntityMBattleSkillFireActTable(data)));
+            EntityMBattleSkillFireActConditionAttributeTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionAttributeType[], EntityMBattleSkillFireActConditionAttributeTypeTable>(data => new EntityMBattleSkillFireActConditionAttributeTypeTable(data)));
+            EntityMBattleSkillFireActConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionGroup[], EntityMBattleSkillFireActConditionGroupTable>(data => new EntityMBattleSkillFireActConditionGroupTable(data)));
+            EntityMBattleSkillFireActConditionSkillCategoryTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionSkillCategoryType[], EntityMBattleSkillFireActConditionSkillCategoryTypeTable>(data => new EntityMBattleSkillFireActConditionSkillCategoryTypeTable(data)));
+            EntityMBattleSkillFireActConditionWeaponTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionWeaponType[], EntityMBattleSkillFireActConditionWeaponTypeTable>(data => new EntityMBattleSkillFireActConditionWeaponTypeTable(data)));
+            EntityMCostumeSpecialActActiveSkillConditionAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeSpecialActActiveSkillConditionAttribute[], EntityMCostumeSpecialActActiveSkillConditionAttributeTable>(data => new EntityMCostumeSpecialActActiveSkillConditionAttributeTable(data)));
+            EntityMEventQuestDailyGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroup[], EntityMEventQuestDailyGroupTable>(data => new EntityMEventQuestDailyGroupTable(data)));
+            EntityMEventQuestDailyGroupCompleteRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupCompleteReward[], EntityMEventQuestDailyGroupCompleteRewardTable>(data => new EntityMEventQuestDailyGroupCompleteRewardTable(data)));
+            EntityMEventQuestDailyGroupMessageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupMessage[], EntityMEventQuestDailyGroupMessageTable>(data => new EntityMEventQuestDailyGroupMessageTable(data)));
+            EntityMEventQuestDailyGroupTargetChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupTargetChapter[], EntityMEventQuestDailyGroupTargetChapterTable>(data => new EntityMEventQuestDailyGroupTargetChapterTable(data)));
+            EntityMListSettingAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMListSettingAbilityGroup[], EntityMListSettingAbilityGroupTable>(data => new EntityMListSettingAbilityGroupTable(data)));
+            EntityMListSettingAbilityGroupTargetTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMListSettingAbilityGroupTarget[], EntityMListSettingAbilityGroupTargetTable>(data => new EntityMListSettingAbilityGroupTargetTable(data)));
+            EntityMMissionClearConditionValueViewTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionClearConditionValueView[], EntityMMissionClearConditionValueViewTable>(data => new EntityMMissionClearConditionValueViewTable(data)));
+            EntityMMissionSubCategoryTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionSubCategoryText[], EntityMMissionSubCategoryTextTable>(data => new EntityMMissionSubCategoryTextTable(data)));
         }
     }
 }
