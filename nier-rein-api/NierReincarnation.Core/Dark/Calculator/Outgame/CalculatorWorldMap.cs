@@ -11,7 +11,32 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
     {
         private static readonly float kHalf = 2f; // 0x20
 
-        // CUSTOM: Only retrieve all gimmicks without checking for clear state
+        // CUSTOM: Enumerate all gimmicks of a chapter without checking for clear state
+        public static IEnumerable<WorldMapGimmickOutGame> EnumerateAllChapterGimmickDataAsync(int chapterId)
+        {
+            var result = GimmickManager.Instance.GenerateWorldMapGimmickOutGameAsync(chapterId);
+            if (result != WorldMapGimmickModelResultType.Success)
+                yield break;
+
+            var worldGimmickCount = GimmickManager.Instance.GetWorldMapGimmickOutGamesCount();
+            if (worldGimmickCount <= 0)
+                yield break;
+
+            for (var i = 0; i < worldGimmickCount; i++)
+            {
+                GimmickManager.Instance.GetWorldMapGimmickOutGame(i, out var worldGimmick);
+                yield return worldGimmick;
+            }
+        }
+
+        // CUSTOM: Enumerate all gimmicks of a chapter
+        public static IEnumerable<WorldMapGimmickOutGame> EnumerateChapterGimmickDataAsync(int chapterId)
+        {
+            var unixNow = CalculatorDateTime.UnixTimeNow();
+            return EnumerateAllChapterGimmickDataAsync(chapterId).Where(x => IsAvailableGimmick(x, unixNow));
+        }
+
+        // CUSTOM: Retrieve all gimmicks without checking for clear state
         public static void GenerateAllChapterGimmickDataAsync(int chapterId, List<WorldMapGimmickOutGame> allGimmickList)
         {
             allGimmickList.Clear();

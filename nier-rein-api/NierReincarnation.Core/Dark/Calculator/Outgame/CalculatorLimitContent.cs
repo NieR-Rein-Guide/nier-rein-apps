@@ -13,87 +13,112 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         private static readonly int kInvalidLimitContentSideStoryQuestId = -1; // 0x10
         public static readonly int kInvalidLimitContentDeckGroupNumber = -1; // 0x14
 
+        public static DataLimitContentCharacter CreateDataLimitContentCharacter(int questId)
+        {
+            var eventQuest = CalculatorQuest.CreateEventQuestData(questId);
+
+            var table = DatabaseDefine.Master.EntityMEventQuestChapterLimitContentRelationTable;
+            var relation = table.FindByEventQuestChapterId(eventQuest.Quest.ChapterId);
+            if (relation == null)
+                return null;
+
+            var table1 = DatabaseDefine.Master.EntityMEventQuestLimitContentTable;
+            var limitQuest = table1.FindByEventQuestLimitContentId(relation.EventQuestLimitContentId);
+            if (limitQuest == null)
+                return null;
+
+            return CreateDataLimitContentCharacter(limitQuest);
+        }
+
         public static List<DataLimitContentCharacter> CreateDataLimitContentCharacters()
         {
             var characters = new List<DataLimitContentCharacter>();
 
             var table = DatabaseDefine.Master.EntityMEventQuestLimitContentTable;
-            var table1 = DatabaseDefine.Master.EntityMEventQuestChapterLimitContentRelationTable;
-            var userTable = DatabaseDefine.User.EntityIUserQuestLimitContentStatusTable;
-
             foreach (var limitQuest in table.All)
             {
                 if (!CalculatorDateTime.IsWithinThePeriod(limitQuest.StartDatetime, limitQuest.EndDatetime))
                     continue;
 
-                var relations = table1.FindByEventQuestLimitContentId(limitQuest.EventQuestLimitContentId);
-                if (relations.Count == 0)
+                var character = CreateDataLimitContentCharacter(limitQuest);
+                if (character == null)
                     continue;
 
-                var maxDifficulty = CalculatorOutgame.kMaxDifficulty;
-                var minDifficulty = CalculatorOutgame.kMinDifficulty;
-                var levelProgress = new Dictionary<DifficultyType, DataLimitContentLevelClearProgress>(maxDifficulty);
-
-                var difficulties = CalculatorOutgame.kSortedDifficulties;
-                foreach (var difficulty in difficulties)
-                {
-                    var clearCount = 0;
-                    var levelCount = 0;
-
-                    foreach (var relation in relations)
-                    {
-                        levelCount++;
-
-                        var chapterQuests = CalculatorQuest.GenerateEventQuestData(relation.EventQuestChapterId, difficulty);
-                        if (chapterQuests.Count <= 0)
-                            continue;
-
-                        var limitStatus = userTable.FindByUserIdAndQuestId((CalculatorStateUser.GetUserId(), chapterQuests.Last().Quest.QuestId));
-                        if (limitStatus == null)
-                        {
-                            if (difficulty != DifficultyType.NORMAL)
-                                continue;
-
-                            if (minDifficulty != CalculatorQuest.kInvalidQuestId)
-                                continue;
-
-                            minDifficulty = chapterQuests.Last().Quest.QuestId;
-                        }
-                        else
-                        {
-                            if (limitStatus.LimitContentQuestStatusType != 1)
-                                continue;
-
-                            clearCount++;
-                            if (difficulty == DifficultyType.NORMAL)
-                                minDifficulty = limitStatus.QuestId;
-                        }
-                    }
-
-                    levelProgress[difficulty] = new DataLimitContentLevelClearProgress
-                    {
-                        LevelCount = levelCount,
-                        LevelClearCount = clearCount
-                    };
-                }
-
-                var costume = CalculatorCostume.CreateMaxDataOutgameCostume(limitQuest.CostumeId);
-
-                var character = new DataLimitContentCharacter
-                {
-                    EventQuestLimitContentId = limitQuest.EventQuestLimitContentId,
-                    SortOrder = limitQuest.SortOrder,
-                    LevelClearProgresses = levelProgress,
-
-                    Costume = costume,
-                    IsCostumeAcquired = CalculatorCostume.HasCostume(CalculatorStateUser.GetUserId(), limitQuest.CostumeId)
-
-                    //IsLock = ,
-                };
                 characters.Add(character);
             }
 
             return characters;
+        }
+
+        private static DataLimitContentCharacter CreateDataLimitContentCharacter(EntityMEventQuestLimitContent limitQuest)
+        {
+            var table1 = DatabaseDefine.Master.EntityMEventQuestChapterLimitContentRelationTable;
+            var userTable = DatabaseDefine.User.EntityIUserQuestLimitContentStatusTable;
+
+            var relations = table1.FindByEventQuestLimitContentId(limitQuest.EventQuestLimitContentId);
+            if (relations.Count == 0)
+                return null;
+
+            var maxDifficulty = CalculatorOutgame.kMaxDifficulty;
+            var minDifficulty = CalculatorOutgame.kMinDifficulty;
+            var levelProgress = new Dictionary<DifficultyType, DataLimitContentLevelClearProgress>(maxDifficulty);
+
+            var difficulties = CalculatorOutgame.kSortedDifficulties;
+            foreach (var difficulty in difficulties)
+            {
+                var clearCount = 0;
+                var levelCount = 0;
+
+                foreach (var relation in relations)
+                {
+                    levelCount++;
+
+                    var chapterQuests = CalculatorQuest.GenerateEventQuestData(relation.EventQuestChapterId, difficulty);
+                    if (chapterQuests.Count <= 0)
+                        continue;
+
+                    var limitStatus = userTable.FindByUserIdAndQuestId((CalculatorStateUser.GetUserId(), chapterQuests.Last().Quest.QuestId));
+                    if (limitStatus == null)
+                    {
+                        if (difficulty != DifficultyType.NORMAL)
+                            continue;
+
+                        if (minDifficulty != CalculatorQuest.kInvalidQuestId)
+                            continue;
+
+                        minDifficulty = chapterQuests.Last().Quest.QuestId;
+                    }
+                    else
+                    {
+                        if (limitStatus.LimitContentQuestStatusType != 1)
+                            continue;
+
+                        clearCount++;
+                        if (difficulty == DifficultyType.NORMAL)
+                            minDifficulty = limitStatus.QuestId;
+                    }
+                }
+
+                levelProgress[difficulty] = new DataLimitContentLevelClearProgress
+                {
+                    LevelCount = levelCount,
+                    LevelClearCount = clearCount
+                };
+            }
+
+            var costume = CalculatorCostume.CreateMaxDataOutgameCostume(limitQuest.CostumeId);
+
+            return new DataLimitContentCharacter
+            {
+                EventQuestLimitContentId = limitQuest.EventQuestLimitContentId,
+                SortOrder = limitQuest.SortOrder,
+                LevelClearProgresses = levelProgress,
+
+                Costume = costume,
+                IsCostumeAcquired = CalculatorCostume.HasCostume(CalculatorStateUser.GetUserId(), limitQuest.CostumeId)
+
+                //IsLock = ,
+            };
         }
 
         public static List<DifficultyType> CreateLimitContentDifficulties(int eventQuestLimitContentId)
@@ -157,7 +182,6 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             if (chapterQuests.Count <= 0)
                 return null;
 
-            var table = DatabaseDefine.User.EntityIUserQuestLimitContentStatusTable;
             var questClearCount = 0;
             var fieldEffectGroupIds = new SortedSet<int>();
             foreach (var chapterQuest in chapterQuests)
@@ -166,7 +190,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
                 //var questStatus = table.FindByUserIdAndQuestId((userId, chapterQuest.Quest.QuestId));
                 //if (questStatus != null && questStatus.LimitContentQuestStatusType == 1)
-                if(chapterQuest.IsClearQuest)
+                if (chapterQuest.IsClearQuest)
                     questClearCount++;
             }
 
