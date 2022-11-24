@@ -14,7 +14,7 @@ namespace NierReincarnation
 
         public GimmickContext Gimmicks { get; } = new GimmickContext();
 
-        //public QuestContext Quests { get; } = new QuestContext();
+        public QuestContext Quests { get; } = new QuestContext();
 
         public DeckContext Decks { get; } = new DeckContext();
 

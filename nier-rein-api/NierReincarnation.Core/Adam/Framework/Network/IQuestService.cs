@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Quest;
+using Google.Protobuf.WellKnownTypes;
 
 namespace NierReincarnation.Core.Adam.Framework.Network
 {
@@ -22,5 +23,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network
         Task<UpdateMainQuestSceneProgressResponse> UpdateMainQuestSceneProgressAsync(UpdateMainQuestSceneProgressRequest request);
 
         Task<UpdateMainFlowSceneProgressResponse> UpdateMainFlowSceneProgressAsync(UpdateMainFlowSceneProgressRequest request);
+
+        Task<ReceiveDailyQuestGroupCompleteRewardResponse> ReceiveDailyQuestGroupCompleteRewardAsync(Empty request);
     }
 }

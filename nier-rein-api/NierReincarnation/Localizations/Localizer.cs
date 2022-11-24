@@ -10,7 +10,7 @@ namespace NierReincarnation.Localizations
 {
     class Localizer
     {
-        private static string[] _exclusions =
+        private static readonly string[] Exclusions =
         {
             "credit.asset",
             "pb_text_garbled.asset"
@@ -29,7 +29,7 @@ namespace NierReincarnation.Localizations
             foreach (var locFile in Directory.EnumerateFiles(locPath, "*", SearchOption.AllDirectories))
             {
                 // Exclude certain files, since they don't contain localizations
-                if (_exclusions.Any(x => x == Path.GetFileName(locFile)))
+                if (Exclusions.Any(x => x == Path.GetFileName(locFile)))
                     continue;
 
                 var locContent = Resources.LoadText(Path.GetRelativePath(rootPath, locFile));

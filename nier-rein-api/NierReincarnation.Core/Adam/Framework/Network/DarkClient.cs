@@ -278,6 +278,14 @@ namespace NierReincarnation.Core.Adam.Framework.Network
                     new ResponseContext<UpdateMainFlowSceneProgressResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).UpdateMainFlowSceneProgressAsync((UpdateMainFlowSceneProgressRequest)ctx.Request, ctx.Headers, ctx.Deadline)));
         }
 
+        public Task<ReceiveDailyQuestGroupCompleteRewardResponse> ReceiveDailyQuestGroupCompleteRewardAsync(Empty request)
+        {
+            var path = "QuestService/ReceiveDailyQuestGroupCompleteRewardAsync";
+            return InvokeAsync<ReceiveDailyQuestGroupCompleteRewardResponse, Empty>(path, request,
+                ctx =>
+                    new ResponseContext<ReceiveDailyQuestGroupCompleteRewardResponse>(new QuestService.QuestServiceClient(GetCallInvoker(ctx.Channel)).ReceiveDailyQuestGroupCompleteRewardAsync((Empty)ctx.Request, ctx.Headers, ctx.Deadline)));
+        }
+
         #endregion
 
         #region IUserService

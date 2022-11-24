@@ -52,6 +52,8 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api
                     return responseContext.GetResponseAs<FinishEventQuestResponse>().Result?.DiffUserData;
                 case "Art.Framework.ApiNetwork.Grpc.Api.Quest.UpdateEventQuestSceneProgressResponse":
                     return responseContext.GetResponseAs<UpdateEventQuestSceneProgressResponse>().Result?.DiffUserData;
+                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.ReceiveDailyQuestGroupCompleteRewardResponse":
+                    return responseContext.GetResponseAs<ReceiveDailyQuestGroupCompleteRewardResponse>().Result?.DiffUserData;
 
                 case "Art.Framework.ApiNetwork.Grpc.Api.Battle.StartWaveResponse":
                     return responseContext.GetResponseAs<StartWaveResponse>().Result?.DiffUserData;

@@ -19,6 +19,7 @@ namespace NierReincarnation.Core.UnityEngine
         private static readonly Lazy<PlayerPrefs> Lazy = new Lazy<PlayerPrefs>(() => new PlayerPrefs(PlayerPrefsPath));
         public static PlayerPrefs Instance => Lazy.Value;
 
+        // CUSTOM: Tells if the preference file exists
         public static bool Exists => File.Exists(PlayerPrefsPath);
 
         public PlayerPrefs(string filePath)

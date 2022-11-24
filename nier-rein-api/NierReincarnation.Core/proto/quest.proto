@@ -2,6 +2,7 @@
 
 option csharp_namespace = "Art.Framework.ApiNetwork.Grpc.Api.Quest";
 
+import "google/protobuf/empty.proto";
 import "proto/data.proto";
 
 package apb.api.quest;
@@ -16,6 +17,7 @@ service QuestService {
 	rpc UpdateEventQuestSceneProgress (UpdateEventQuestSceneProgressRequest) returns (UpdateEventQuestSceneProgressResponse);
 	rpc UpdateMainQuestSceneProgress (UpdateMainQuestSceneProgressRequest) returns (UpdateMainQuestSceneProgressResponse);
 	rpc UpdateMainFlowSceneProgress (UpdateMainFlowSceneProgressRequest) returns (UpdateMainFlowSceneProgressResponse);
+	rpc ReceiveDailyQuestGroupCompleteReward (google.protobuf.Empty) returns (ReceiveDailyQuestGroupCompleteRewardResponse);
 }
 
 message StartEventQuestRequest {
@@ -140,6 +142,10 @@ message UpdateMainFlowSceneProgressRequest {
 }
 
 message UpdateMainFlowSceneProgressResponse {
+	map<string,apb.api.data.DiffData> diffUserData = 99;
+}
+
+message ReceiveDailyQuestGroupCompleteRewardResponse {
 	map<string,apb.api.data.DiffData> diffUserData = 99;
 }
 

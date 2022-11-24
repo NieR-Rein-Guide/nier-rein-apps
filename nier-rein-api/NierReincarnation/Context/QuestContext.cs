@@ -1,41 +1,21 @@
-﻿using System.Collections.Generic;
-using NierReincarnation.Core.Dark;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Preference;
-using NierReincarnation.Core.Dark.View.UserInterface;
-using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+﻿using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
+using NierReincarnation.Core.Adam.Framework.Network;
 
 namespace NierReincarnation.Context
 {
-    public class QuestContext
+    public class QuestContext:BaseContext
     {
-        internal QuestContext() { }
+        private readonly DarkClient _dc;
 
-        public IList<EventQuestChapterData> GetEventChapters()
+        internal QuestContext()
         {
-            return CalculatorQuest.GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.TOWER, EventQuestType.HUNT, EventQuestType.SPECIAL);
+            _dc = new DarkClient();
         }
 
-        public IList<EventQuestChapterData> GetDungeonEventChapters()
+        public Task ReceiveDailyRewards()
         {
-            return CalculatorQuest.GetEventQuestChapters(EventQuestType.DUNGEON);
-        }
-
-        public IList<CharacterQuestChapterData> GetCharacterEventChapters()
-        {
-            return CalculatorQuest.GetCharacterQuestChapters();
-        }
-
-        public IList<CharacterQuestChapterData> GetEndEventChapters()
-        {
-            return CalculatorQuest.GetEndQuestChapters();
-        }
-
-        public IList<EventQuestData> GetEventQuests(int chapterId, DifficultyType difficulty)
-        {
-            return CalculatorQuest.GenerateEventQuestData(chapterId, difficulty);
+            return TryRequest(() => _dc.QuestService.ReceiveDailyQuestGroupCompleteRewardAsync(new Empty()));
         }
     }
 }
