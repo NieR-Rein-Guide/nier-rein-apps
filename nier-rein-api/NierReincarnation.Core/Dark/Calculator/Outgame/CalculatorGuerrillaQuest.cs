@@ -15,6 +15,18 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         private static readonly int kDefaultFreeOpenMaxCount = 1; // 0x4
         private static readonly int kDefaultGuerrillaFreeOpenOpeningTimeMinutes = 60; // 0x8
 
+        // TODO: Implement
+        public static bool IsValidGuerrillaQuestTerm(int eventQuestId, long userId)
+        {
+            throw new NotImplementedException();
+            //if (!TryGetQuestMaxEndTime(eventQuestId, 0, out var maxEndTime) &&
+            //    !IsQuestWithinTermByGuerrillaFreeOpenScheduleCorrespondence(eventQuestId) ||
+            //    !IsTermGuerrillaFreeOpenByQuestId(eventQuestId, userId))
+            //    return false;
+
+            //return true;
+        }
+
         public static int GetFreeOpenRemainCount(long userId)
         {
             if (!TryGetGuerrillaFreeOpen(out var freeOpen))
@@ -58,7 +70,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 var formattedStartTime = CalculatorDateTime.ToLocal(term.Start).ToString(timeTableFormat);
                 var formattedEndTime = CalculatorDateTime.ToLocal(term.End).ToString(timeTableFormat);
 
-                result += UserInterfaceTextKey.Quest.kEventQuestHoldTermTemplate.LocalizeWithParams(i + 1, formattedStartTime, formattedEndTime)+Environment.NewLine;
+                result += UserInterfaceTextKey.Quest.kEventQuestHoldTermTemplate.LocalizeWithParams(i + 1, formattedStartTime, formattedEndTime) + Environment.NewLine;
             }
 
             return result;

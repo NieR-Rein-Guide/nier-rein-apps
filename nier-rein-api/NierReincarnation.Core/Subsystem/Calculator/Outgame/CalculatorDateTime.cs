@@ -14,6 +14,8 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
         internal static readonly TimeZoneInfo LocalTimezone = TimeZoneInfo.Local;
         private const int KstDailyResetHour_ = 17;
 
+        public static int kUnixTimeSecond = 1000; // 0x0
+
         private static readonly int MinDays = 0; // 0x1C
         public static readonly int DayHours = 24; // 0x20
         private static readonly int MinHours = 0; // 0x24
@@ -57,10 +59,23 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             return startUnixTime < currentDateTime && currentDateTime < endUnixTime;
         }
 
+        public static bool IsSameDay(long unixTime)
+        {
+            var inputBase = UnixTimeToBaseTime(unixTime);
+            var nowBase = UnixTimeToBaseTime(UnixTimeNow());
+
+            return inputBase.Day == nowBase.Day && inputBase.Month == nowBase.Month && inputBase.Year == nowBase.Year;
+        }
+
         public static long UnixTimeNow()
         {
             // CUSTOM: Implement unix epoch time
             return ToUnixTime(Now());
+        }
+
+        public static DateTime UnixTimeToBaseTime(long unixTime)
+        {
+            return LocalizeTime.GetBaseTimeZoneTime(unixTime).DateTime;
         }
 
         // CUSTOM: Parse unix time to type-safe UTC
