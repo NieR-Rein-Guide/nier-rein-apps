@@ -24,6 +24,9 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
         public static readonly int kMaxDeckCount = 15;
 
+        // CUSTOM: Max amount of recollections of dusk decks
+        public static readonly int kMaxLimitContentDeckCount = 5;
+
         // CUSTOM: Enumerates all decks with shallow information; Returning efficiently acquired information such as ID and name
         public static IEnumerable<DataDeckInfo> EnumerateDeckInfo(long userId, DeckType deckType)
         {
