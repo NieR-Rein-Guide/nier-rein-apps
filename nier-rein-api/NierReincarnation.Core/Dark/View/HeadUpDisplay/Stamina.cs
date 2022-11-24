@@ -13,8 +13,8 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay
         {
             var userId = CalculatorStateUser.GetUserId();
 
-            var table = DatabaseDefine.User.EntityIUserStatusTable;
-            var userStatus = table.FindByUserId(userId);
+            var table = DatabaseDefine.User?.EntityIUserStatusTable;
+            var userStatus = table?.FindByUserId(userId);
             if (userStatus == null)
                 return 0;
 

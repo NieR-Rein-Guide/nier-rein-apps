@@ -9,10 +9,10 @@ namespace NierReincarnation.Core.Dark.Calculator
         {
             var userId = CalculatorStateUser.GetUserId();
 
-            var table = DatabaseDefine.User.EntityIUserStatusTable;
-            var userStatus = table.FindByUserId(userId);
+            var table = DatabaseDefine.User?.EntityIUserStatusTable;
+            var userStatus = table?.FindByUserId(userId);
 
-            var lvl = userStatus.Level;
+            var lvl = userStatus?.Level ?? 1;
 
             // CUSTOM: Calculate max stamina by user level
             // HINT: It's unclear how this part works exactly, since the code references MasterTable that is seemingly unrelated to any stamina values
@@ -24,10 +24,10 @@ namespace NierReincarnation.Core.Dark.Calculator
         {
             var userId = CalculatorStateUser.GetUserId();
 
-            var table = DatabaseDefine.User.EntityIUserStatusTable;
-            var userStatus = table.FindByUserId(userId);
+            var table = DatabaseDefine.User?.EntityIUserStatusTable;
+            var userStatus = table?.FindByUserId(userId);
 
-            return userStatus.Level;
+            return userStatus?.Level ?? 0;
         }
 
         public static int GetCurrentStamina()

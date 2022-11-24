@@ -11,8 +11,8 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
 
         private static EntityIUserProfile GetEntityIUserProfile(long userId)
         {
-            var table = DatabaseDefine.User.EntityIUserProfileTable;
-            return table.FindByUserId(userId);
+            var table = DatabaseDefine.User?.EntityIUserProfileTable;
+            return table?.FindByUserId(userId);
         }
     }
 }
