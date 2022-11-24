@@ -20,7 +20,8 @@ namespace NierReincarnation.Context
 
         internal NotificationContext()
         {
-            ApplicationApi.Run();
+            Generator.OnEntrypoint();
+
             _client = new HttpClient();
         }
 

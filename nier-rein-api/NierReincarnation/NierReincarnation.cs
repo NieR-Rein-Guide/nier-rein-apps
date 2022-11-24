@@ -43,7 +43,7 @@ namespace NierReincarnation
         {
             SetResourceRootPath(DefaultResourceRoot_);
 
-            ApplicationApi.Run();
+            Generator.OnEntrypoint();
 
             DarkOctoSetupper.StartSetup(!OctoManager.IsSetupped, true);
         }
@@ -97,11 +97,6 @@ namespace NierReincarnation
             // Set network error handler
             ErrorHandlingInterceptor.OnErrorAction = OnNetworkError;
 
-            // Initialize global application instance
-            // HINT: We do that here again beside the ctor, for future possible dependency of changed language between calling this method and constructing the class
-            Console.WriteLine("Setup application systems.");
-            ApplicationApi.Run();
-
             // Initialize asset system
             // HINT: Call taken from Adam.Framework.Resource.AssetBundleLookupTableOctoDatabase$$Initialize until further investigation into asset management
             Console.WriteLine("Setup asset management system.");
@@ -110,8 +105,8 @@ namespace NierReincarnation
             // Initialize global network system
             InitializeNetwork();
 
-            // Setup server resolver, master data version delegates, and response handlers
-            Generator.SetupApiSystem();
+            // Generate various system instances
+            Generator.OnEntrypoint();
 
             // Initialize global user preferences and information
             Console.WriteLine("Initialize player preferences.");
@@ -193,16 +188,12 @@ namespace NierReincarnation
             // Update master data
             var isMasterSuccess = await UpdateMasterData();
             if (!isMasterSuccess)
-            {
                 return;
-            }
 
             // Update user data
             var isUserSuccess = await UpdateUserData();
             if (!isUserSuccess)
-            {
                 return;
-            }
 
             // Update user preferences with current user data from API
             UpdateUserPreferences(DatabaseDefine.User.EntityIUserTable.FindByUserId(activePlayer.UserId));
