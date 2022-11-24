@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Grpc.Core;
+using NierReincarnation.Context.Support;
 using NierReincarnation.Core.Dark.Calculator;
 
 namespace NierReincarnation.Context
 {
     public abstract class BaseContext
     {
-        private static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
-
         public event Func<RpcException, Task> GeneralError;
-
-        public event Action<TimeSpan> RequestRatioReached;
 
         public event Action BeforeUnauthenticated;
         public event Action<bool> AfterUnauthenticated;
@@ -43,11 +40,11 @@ namespace NierReincarnation.Context
 
                     // Handle rate limiting
                     case StatusCode.PermissionDenied:
-                        // Invoke ratio event
-                        OnRequestRatioReached(RateTimeout);
+                        // Start cooldown timer
+                        CooldownTimer.Start();
 
                         // Wait out rate limit
-                        await Task.Delay(RateTimeout);
+                        await Task.Delay(CooldownTimer.CurrentCooldown);
 
                         break;
 
@@ -78,11 +75,6 @@ namespace NierReincarnation.Context
         {
             if (GeneralError != null)
                 await GeneralError(error);
-        }
-
-        protected void OnRequestRatioReached(TimeSpan timeout)
-        {
-            RequestRatioReached?.Invoke(timeout);
         }
 
         protected void OnBeforeUnauthenticated()
