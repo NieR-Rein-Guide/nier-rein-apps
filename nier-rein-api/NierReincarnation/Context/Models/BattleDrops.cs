@@ -1,23 +1,29 @@
 ﻿using System;
-using NierReincarnation.Context.Models.Events;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NierReincarnation.Context.Models
 {
     public class BattleDrops
     {
-        public static BattleDrops Empty = new BattleDrops(Array.Empty<Reward>(), Array.Empty<Reward>(), Array.Empty<Reward>(), Array.Empty<Reward>());
+        public static BattleDrops Empty = new BattleDrops(Array.Empty<QuestReward>(), Array.Empty<QuestReward>(), Array.Empty<QuestReward>(), Array.Empty<QuestReward>());
 
-        public Reward[] DropRewards { get; }
-        public Reward[] FirstClearRewards { get; }
-        public Reward[] MissionRewards { get; }
-        public Reward[] MissionCompleteRewards { get; }
+        public QuestReward[] DropRewards { get; }
+        public QuestReward[] FirstClearRewards { get; }
+        public QuestReward[] MissionRewards { get; }
+        public QuestReward[] MissionCompleteRewards { get; }
 
-        public BattleDrops(Reward[] drops, Reward[] firstClears, Reward[] missions, Reward[] missionsComplete)
+        public BattleDrops(QuestReward[] drops, QuestReward[] firstClears, QuestReward[] missions, QuestReward[] missionsComplete)
         {
             DropRewards = drops;
             FirstClearRewards = firstClears;
             MissionRewards = missions;
             MissionCompleteRewards = missionsComplete;
+        }
+
+        public IEnumerable<QuestReward> EnumerateAll()
+        {
+            return DropRewards.Concat(FirstClearRewards).Concat(MissionRewards).Concat(MissionCompleteRewards);
         }
     }
 }

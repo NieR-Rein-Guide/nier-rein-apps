@@ -17,6 +17,7 @@ using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using QuestReward = Art.Framework.ApiNetwork.Grpc.Api.Quest.QuestReward;
 
 namespace NierReincarnation.Context
 {
@@ -31,7 +32,6 @@ namespace NierReincarnation.Context
 
         internal QuestBattleContext()
         {
-            _stamina.RequestRatioReached += OnRequestRatioReached;
             _stamina.BeforeUnauthenticated += OnBeforeUnauthenticated;
             _stamina.AfterUnauthenticated += OnAfterUnauthenticated;
         }
@@ -43,7 +43,11 @@ namespace NierReincarnation.Context
             var userId = CalculatorStateUser.GetUserId();
             var table = DatabaseDefine.User.EntityIUserMainQuestProgressStatusTable;
 
-            return table.FindByUserId(userId)?.CurrentQuestSceneId != 0;
+            var entry = table.FindByUserId(userId);
+            if (entry == null)
+                return false;
+
+            return entry.CurrentQuestSceneId != 0 && entry.CurrentQuestFlowType == 1;
         }
 
         public async Task<BattleResult> ExecuteMainQuest(QuestCellData quest, DataDeck deck)
@@ -115,6 +119,9 @@ namespace NierReincarnation.Context
                   return await _dc.QuestService.StartMainQuestAsync(startReq);
               });
 
+            if (startRes == null)
+                return (false, true);
+
             // Update main quest progress
             await TryRequest(async () =>
             {
@@ -156,6 +163,9 @@ namespace NierReincarnation.Context
                 var finishReq = GetFinishMainBattleRequest(quest.Quest.QuestId, quest.IsStoryQuest, quest.DifficultyType == DifficultyType.NORMAL && !quest.IsClear, retire);
                 return await _dc.QuestService.FinishMainQuestAsync(finishReq);
             });
+
+            if (finishRes == null)
+                return BattleDrops.Empty;
 
             var rewards = CreateBattleDrops(finishRes.DropReward, finishRes.FirstClearReward, finishRes.MissionClearCompleteReward, finishRes.MissionClearReward);
             OnFinishBattle(rewards);
@@ -201,26 +211,40 @@ namespace NierReincarnation.Context
             var userId = CalculatorStateUser.GetUserId();
             var table = DatabaseDefine.User.EntityIUserEventQuestProgressStatusTable;
 
-            return table.FindByUserId(userId)?.CurrentEventQuestChapterId != 0;
+            var entry = table.FindByUserId(userId);
+            if (entry == null)
+                return false;
+
+            return entry.CurrentEventQuestChapterId != 0;
         }
 
-        public async Task<BattleResult> ExecuteEventQuest(int chapterId, EventQuestData quest, DataDeck deck)
+        public Task<BattleResult> ExecuteEventQuest(int chapterId, LimitDailyQuestData quest, DataDeck deck)
+        {
+            return ExecuteEventQuest(chapterId, quest.Quest.EntityQuest.Stamina, quest.Quest.QuestId, quest.SceneId, deck);
+        }
+
+        public Task<BattleResult> ExecuteEventQuest(int chapterId, EventQuestData quest, DataDeck deck)
+        {
+            return ExecuteEventQuest(chapterId, quest.Quest.EntityQuest.Stamina, quest.Quest.QuestId, quest.SceneId, deck);
+        }
+
+        private async Task<BattleResult> ExecuteEventQuest(int chapterId, int stamina, int questId, int sceneId, DataDeck deck)
         {
             // Ensure stamina
-            var refilled = await RefillStamina(quest.Quest.EntityQuest.Stamina);
+            var refilled = await RefillStamina(stamina);
             if (!refilled)
                 return new BattleResult(BattleStatus.OutOfStamina);
 
             // Start battle
-            var (shouldQuit, shouldShutdown) = await StartEventBattle(chapterId, quest, deck);
+            var (shouldQuit, shouldShutdown) = await StartEventBattle(chapterId, questId, sceneId, deck);
             if (shouldShutdown)
                 return new BattleResult(BattleStatus.ForceShutdown);
 
             if (shouldQuit)
-                return await QuitEventQuest(chapterId, quest);
+                return await QuitEventQuest(chapterId, questId);
 
             // Process waves
-            var waveDecks = CalculatorQuest.GetWaveDataList(quest.Quest.QuestId, out var npcId);
+            var waveDecks = CalculatorQuest.GetWaveDataList(questId, out var npcId);
             for (var waveIndex = 0; waveIndex < waveDecks.Count; waveIndex++)
             {
                 var waveDeck = waveDecks[waveIndex];
@@ -229,29 +253,29 @@ namespace NierReincarnation.Context
                 await StartQuestWave(deck, npcId, waveDeck);
 
                 // Finish wave
-                await FinishQuestWave(deck, npcId, waveDeck, waveIndex + 1, waveDecks.Count, quest.SceneId);
+                await FinishQuestWave(deck, npcId, waveDeck, waveIndex + 1, waveDecks.Count, sceneId);
             }
 
             // Finish battle
-            var rewards = await FinishEventBattle(chapterId, quest.Quest.QuestId);
+            var rewards = await FinishEventBattle(chapterId, questId);
 
             return new BattleResult(BattleStatus.Win, rewards);
         }
 
-        public async Task<BattleResult> QuitEventQuest(int chapterId, EventQuestData quest)
+        public async Task<BattleResult> QuitEventQuest(int chapterId, int questId)
         {
-            await FinishEventBattle(chapterId, quest.Quest.QuestId, true);
+            await FinishEventBattle(chapterId, questId, true);
             return new BattleResult(BattleStatus.Retire);
         }
 
         #region Start event battle
 
-        private async Task<(bool, bool)> StartEventBattle(int chapterId, EventQuestData quest, DataDeck deck)
+        private async Task<(bool, bool)> StartEventBattle(int chapterId, int questId, int sceneId, DataDeck deck)
         {
             // Start battle
             var startRes = await TryRequest(async () =>
             {
-                var startReq = GetStartEventBattleRequest(chapterId, quest.Quest.QuestId, deck.UserDeckNumber);
+                var startReq = GetStartEventBattleRequest(chapterId, questId, deck.UserDeckNumber);
                 return await _dc.QuestService.StartEventQuestAsync(startReq);
             });
 
@@ -261,7 +285,7 @@ namespace NierReincarnation.Context
             // Update quest progress
             await TryRequest(async () =>
             {
-                var progressReq = new UpdateEventQuestSceneProgressRequest { QuestSceneId = quest.SceneId };
+                var progressReq = new UpdateEventQuestSceneProgressRequest { QuestSceneId = sceneId };
                 return await _dc.UpdateEventQuestSceneProgressAsync(progressReq);
             });
 
@@ -283,7 +307,7 @@ namespace NierReincarnation.Context
             };
 
             // We're always battle-only, instead of special quests, where this option would result in an exception
-            var type = CalculatorQuest.GetEventQuestChapterType(chapterId);
+            var type = CalculatorEventQuest.GetEventQuestTypeByChapterId(chapterId);
             if (type != EventQuestType.SPECIAL)
                 req.IsBattleOnly = true;
 
@@ -340,7 +364,11 @@ namespace NierReincarnation.Context
             var userId = CalculatorStateUser.GetUserId();
             var table = DatabaseDefine.User.EntityIUserExtraQuestProgressStatusTable;
 
-            return table.FindByUserId(userId)?.CurrentQuestId != 0;
+            var entry = table.FindByUserId(userId);
+            if (entry == null)
+                return false;
+
+            return entry.CurrentQuestId != 0;
         }
 
         public async Task<BattleResult> ExecuteExtraQuest(EntityMQuest quest, DataDeck deck)
@@ -549,10 +577,10 @@ namespace NierReincarnation.Context
 
         private BattleDrops CreateBattleDrops(RepeatedField<QuestReward> drops, RepeatedField<QuestReward> firstClear, RepeatedField<QuestReward> missionClearComplete, RepeatedField<QuestReward> missionClear)
         {
-            var dropRewards = drops.Select(x => new Reward(x)).ToArray();
-            var firstClearRewards = firstClear.Select(x => new Reward(x)).ToArray();
-            var missionCompleteRewards = missionClearComplete.Select(x => new Reward(x)).ToArray();
-            var missionRewards = missionClear.Select(x => new Reward(x)).ToArray();
+            var dropRewards = drops.Select(x => new Models.QuestReward(x)).ToArray();
+            var firstClearRewards = firstClear.Select(x => new Models.QuestReward(x)).ToArray();
+            var missionCompleteRewards = missionClearComplete.Select(x => new Models.QuestReward(x)).ToArray();
+            var missionRewards = missionClear.Select(x => new Models.QuestReward(x)).ToArray();
 
             return new BattleDrops(dropRewards, firstClearRewards, missionCompleteRewards, missionRewards);
         }

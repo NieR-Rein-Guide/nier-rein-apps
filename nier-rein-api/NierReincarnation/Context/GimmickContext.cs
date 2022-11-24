@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.CageOrnament;
 using Art.Framework.ApiNetwork.Grpc.Api.Gimmick;
@@ -7,6 +9,7 @@ using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Component.WorldMap;
 using NierReincarnation.Core.Dark.Generated.Type;
+using GimmickReward = NierReincarnation.Context.Models.GimmickReward;
 
 namespace NierReincarnation.Context
 {
@@ -33,7 +36,7 @@ namespace NierReincarnation.Context
             }
         }
 
-        public async Task Collect(WorldMapGimmickOutGame gimmick)
+        public async Task<IList<GimmickReward>> Collect(WorldMapGimmickOutGame gimmick)
         {
             switch (gimmick.GimmickType)
             {
@@ -43,13 +46,11 @@ namespace NierReincarnation.Context
 
                 // Fickle Black Birds
                 case GimmickType.CAGE_TREASURE_HUNT:
-                    await CollectGimmickRewards(gimmick);
-                    break;
+                    return await CollectGimmickRewards(gimmick);
 
                 // Black Birds
                 case GimmickType.MAP_ONLY_CAGE_TREASURE_HUNT:
-                    await CollectCageOrnament(gimmick);
-                    break;
+                    return await CollectCageOrnament(gimmick);
 
                 // Stray Scarecrows
                 case GimmickType.MAP_ONLY_HIDE_OBELISK:
@@ -60,33 +61,44 @@ namespace NierReincarnation.Context
             }
         }
 
-        private Task CollectGimmickRewards(WorldMapGimmickOutGame gimmick)
+        private async Task<IList<GimmickReward>> CollectGimmickRewards(WorldMapGimmickOutGame gimmick)
         {
-            return TryRequest(() =>
-            {
-                var req = new UpdateGimmickProgressRequest
-                {
-                    GimmickSequenceScheduleId = gimmick.GimmickSequenceScheduleId,
-                    GimmickSequenceId = gimmick.GimmickSequenceId,
-                    GimmickId = gimmick.GimmickId,
-                    GimmickOrnamentIndex = gimmick.GimmickOrnamentIndex,
-                    ProgressValueBit = gimmick.UserGimmickProgressValueBit | (1 << (gimmick.GimmickOrnamentIndex - 1)),
-                    FlowType = gimmick.GimmickFlowType
-                };
-                return _dc.GimmickService.UpdateGimmickProgressAsync(req);
-            });
+            var progRes = await TryRequest(() =>
+              {
+                  var req = new UpdateGimmickProgressRequest
+                  {
+                      GimmickSequenceScheduleId = gimmick.GimmickSequenceScheduleId,
+                      GimmickSequenceId = gimmick.GimmickSequenceId,
+                      GimmickId = gimmick.GimmickId,
+                      GimmickOrnamentIndex = gimmick.GimmickOrnamentIndex,
+                      ProgressValueBit = gimmick.UserGimmickProgressValueBit | (1 << (gimmick.GimmickOrnamentIndex - 1)),
+                      FlowType = gimmick.GimmickFlowType
+                  };
+                  return _dc.GimmickService.UpdateGimmickProgressAsync(req);
+              });
+
+            var res = new List<GimmickReward>();
+            res.AddRange(progRes.GimmickOrnamentReward.Select(x => new GimmickReward(x)));
+            res.AddRange(progRes.GimmickSequenceClearReward.Select(x => new GimmickReward(x)));
+
+            return res;
         }
 
-        private Task CollectCageOrnament(WorldMapGimmickOutGame gimmick)
+        private async Task<IList<GimmickReward>> CollectCageOrnament(WorldMapGimmickOutGame gimmick)
         {
-            return TryRequest(() =>
-            {
-                var req = new ReceiveRewardRequest
-                {
-                    CageOrnamentId = gimmick.CageOrnamentId
-                };
-                return _dc.CageOrnamentService.ReceiveRewardAsync(req);
-            });
+            var rewardRes = await TryRequest(() =>
+             {
+                 var req = new ReceiveRewardRequest
+                 {
+                     CageOrnamentId = gimmick.CageOrnamentId
+                 };
+                 return _dc.CageOrnamentService.ReceiveRewardAsync(req);
+             });
+
+            var res = new List<GimmickReward>();
+            res.AddRange(rewardRes.CageOrnamentReward.Select(x => new GimmickReward(x)));
+
+            return res;
         }
 
         private Task CollectHideObelisk(WorldMapGimmickOutGame gimmick, DataDeck deck)
