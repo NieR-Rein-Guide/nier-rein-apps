@@ -129,6 +129,8 @@
             public static readonly string kEventQuestGuerrilla = "ui.Unlock.Event.05"; // 0x48
             public static readonly string kEventQuestCharacter = "ui.Outgame.Quest.CharacterQuest"; // 0x50
             public static readonly string kEventQuestEndContents = "ui.Outgame.EndContents.Tab.Menu"; // 0x58
+            public static readonly string kEventQuestDungeon = "ui.Outgame.Dungeon.Tab.Menu";
+            public static readonly string kEventQuestLimitDailyQuest= "ui.Outgame.LimitDailyQuest.Tab.Menu"; // 0x80
             public static readonly string kEventQuestBoss = "ui.Outgame.Quest.Confirmation.Boss"; // 0x60
             public static readonly string kEventQuestEnemy = "ui.Outgame.Quest.Confirmation.Enemy"; // 0x68
             public static readonly string kMainQuest = "ui.Outgame.Quest.Main"; // 0x70
@@ -197,6 +199,10 @@
             public static readonly string kBigHuntQuest = "ui.Outgame.Quest.BigHunt";
             public static readonly string kSearch = "ui.Outgame.Quest.Search";
             public static readonly string kEventLimitContent = "ui.Outgame.LimitContent.Tab.Menu";
+            public static readonly string kExQuestTitle = "ui.Outgame.Quest.ExQuest";
+            public static readonly string kSuggestedPower = "ui.Outgame.Quest.Confirmation.RecommendPower";
+            public static readonly string kStamina = "ui.Outgame.Quest.Confirmation.Stamina";
+            public static readonly string kRewardReceive = "ui.Outgame.Quest.Reward.Receive";
         }
 
         public static class Material
