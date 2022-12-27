@@ -176,7 +176,7 @@ namespace NierReincarnation.Core.Art.Library.Masterdata.Download
             Array.Copy(versionArray, result, versionArray.Length);
             Array.Copy(headContent, 0, result, versionArray.Length, headContent.Length);
 
-            var tempCachePath = Path.Combine(Application.UserDataPath, "cache");
+            var tempCachePath = Path.Combine(Application.PersistentDataPath, "cache");
             Directory.CreateDirectory(tempCachePath);
 
             return tempCachePath + "/mst-" + CalculateChecksum(result);

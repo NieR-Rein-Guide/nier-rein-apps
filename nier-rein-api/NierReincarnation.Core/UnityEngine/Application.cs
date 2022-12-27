@@ -21,7 +21,8 @@ namespace NierReincarnation.Core.UnityEngine
         public static string DataPath => Path.Combine(Root, "data", Identifier);
 
         // CUSTOM: To access data in the accessible storage of the user (eg. /storage/emulated/0/Android/[...])
-        public static string UserDataPath => Path.Combine(Root, "user", "data", Identifier);
+        // HINT: https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html
+        public static string PersistentDataPath => Path.Combine(Root, "user", "data", Identifier);
 
         // CUSTOM: To access assets from the APK
         public static string ApkPath => Path.Combine(Root, "apk");
@@ -87,7 +88,7 @@ namespace NierReincarnation.Core.UnityEngine
         private static void EnsurePaths()
         {
             EnsureDirectory(DataPath);
-            EnsureDirectory(UserDataPath);
+            EnsureDirectory(PersistentDataPath);
             EnsureDirectory(ApkPath);
 
             EnsureDirectory(SharedPrefsPath);

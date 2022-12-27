@@ -20,7 +20,7 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
         public DataStorage(string fileName = "")
         {
             // CUSTOM: Base directory based on Unity reimplementation
-            _path = Path.Combine(Application.UserDataPath, "files", "adrata", "ud");
+            _path = Path.Combine(Application.PersistentDataPath, "files", "adrata", "ud");
             _fileName = string.IsNullOrEmpty(fileName) ? ".data.bin" : fileName;
         }
 
