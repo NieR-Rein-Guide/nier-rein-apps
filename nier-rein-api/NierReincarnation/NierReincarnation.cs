@@ -81,6 +81,11 @@ namespace NierReincarnation
 
             if (!IsLoggedIn())
             {
+                if (string.IsNullOrEmpty(username))
+                    throw new InvalidOperationException("A username is required for an initial login.");
+                if (string.IsNullOrEmpty(password))
+                    throw new InvalidOperationException("A password is required for an initial login.");
+
                 var isLoggedIn = await Login(username, password, otpCallback);
                 if (!isLoggedIn)
                     return;

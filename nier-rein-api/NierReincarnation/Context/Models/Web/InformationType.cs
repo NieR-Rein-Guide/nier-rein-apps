@@ -6,8 +6,10 @@
         Event,
         SummonsUpdate,
         Campaign,
-        Issue
+        Issue,
 
-        // Seemingly no notices with type 6+ issued yet
+        Information = 7,
+
+        Mission = 11
     }
 }
