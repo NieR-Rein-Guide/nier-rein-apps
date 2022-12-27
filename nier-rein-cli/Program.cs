@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
-using NierReincarnation;
-using NierReincarnation.Context.Models;
-using NierReincarnation.Context.Models.Events;
+using NierReincarnation.Core.Dark.Calculator;
+using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Localizations;
+using NierReincarnation.Core.UnityEngine;
 
 namespace nier_rein_cli
 {
     class Options
     {
-        [Option('u', "username", Required = true, HelpText = "Set the username to log in with")]
+        [Option('u', "username", HelpText = "Set the username to log in with")]
         public string Username { get; set; }
 
-        [Option('p', "password", Required = true, HelpText = "Set the password to log in with")]
+        [Option('p', "password", HelpText = "Set the password to log in with")]
         public string Password { get; set; }
 
-        [Option('m', "mode", Required = true, HelpText = "Set the mode to execute\n  1: future quests\n  2: current quests\n  3: decks\n  4: notices\n  5: download all assets\n  [EXPERIMENTAL]99: Retreat farm Rion Easy")]
+        [Option('m', "mode", Required = true, HelpText = "Set the mode to execute\n  1: future quests\n  2: current quests\n  3: decks\n  4: notices\n  5: download all assets\n  6: download all sound assets")]
         public int Mode { get; set; }
     }
 
@@ -32,9 +29,7 @@ namespace nier_rein_cli
         Decks,
         Notices,
         AssetDownload,
-
-        SoundAssetDownload = 98,
-        RetreatExperiment = 99
+        SoundAssetDownload
     }
 
     class Program
@@ -63,132 +58,51 @@ namespace nier_rein_cli
 
         private static async Task Execute(Options o)
         {
-            await NierReincarnation.NierReincarnation.PrepareCommandLine(o.Username, o.Password);
-            await NierReincarnation.NierReincarnation.LoadLocalizations(Language.En);
-
-            var rein = NierReincarnation.NierReincarnation.GetContexts();
-
+            // Setup necessary systems
             switch ((Mode)o.Mode)
             {
                 case Mode.FutureQuests:
-                    PrintQuests(rein, false);
+                case Mode.CurrentQuests:
+                case Mode.Decks:
+                    await NierReincarnation.NierReincarnation.PrepareCommandLine(o.Username, o.Password);
+                    await NierReincarnation.NierReincarnation.LoadLocalizations(Language.English);
+                    break;
+            }
+
+            // Execute mode
+            switch ((Mode)o.Mode)
+            {
+                case Mode.FutureQuests:
+                    PrintFutureQuests();
                     break;
 
                 case Mode.CurrentQuests:
-                    PrintQuests(rein, true);
+                    PrintCurrentQuests();
                     break;
 
                 case Mode.Decks:
-                    PrintDecks(rein);
+                    PrintDecks();
                     break;
 
                 case Mode.Notices:
-                    await PrintNotices(rein);
+                    await PrintNotices();
                     break;
 
                 case Mode.AssetDownload:
-                    await rein.Assets.DownloadAllAssets();
-                    await rein.Assets.DownloadAllResources();
+                    await NierReincarnation.NierReincarnation.Assets.DownloadAllAssets();
+                    await NierReincarnation.NierReincarnation.Assets.DownloadAllResources();
                     break;
 
                 case Mode.SoundAssetDownload:
-                    await rein.Assets.DownloadAssets(s => s.name.StartsWith("audio"));
+                    await NierReincarnation.NierReincarnation.Assets.DownloadAssets(s => s.name.StartsWith("audio"));
                     break;
-
-                case Mode.RetreatExperiment:
-                    Console.Write("Retire before purple drop? [y/n] ");
-                    var quitPurple = Console.ReadLine();
-
-                    await RetreatFarm(rein, quitPurple == "y");
-                    break;
-
-                default:
-                    await StartEventQuest(rein);
-                    return;
             }
         }
 
-        private static async Task RetreatFarm(NierReinContexts rein, bool quitPurple)
-        {
-            var deck = rein.Decks.GetQuestDecks().ElementAt(0);
-
-            var endEvent = rein.Quests.GetEndEventChapters().Skip(3).FirstOrDefault();
-            var endQuests = rein.Quests.GetEventQuests(endEvent.EventQuestChapterId, DifficultyType.NORMAL);
-            var endEasyDaily = endQuests[0];
-
-            rein.Battles.BattleStarted += (sender, args) =>
-            {
-                args.ShouldQuitBattle = !args.RewardCategories.Contains(RewardCategory.SS_RARE);
-                args.ForceShutdown = quitPurple && !args.ShouldQuitBattle;
-            };
-            rein.Battles.BattleFinished += (sender, args) => PrintRewards(args);
-
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            var repeats = 0;
-            while (true)
-            {
-                var battleResult = await rein.Battles.ExecuteEventQuest(endEvent.EventQuestChapterId, endEasyDaily, deck);
-
-                if (battleResult.Status == BattleStatus.OutOfStamina)
-                {
-                    Console.WriteLine("\r\nUser is out of stamina.");
-                    return;
-                }
-
-                if (battleResult.Status == BattleStatus.ForceShutdown)
-                    Console.WriteLine("\r\nShutdown application after encountering purple drop.");
-
-                if (battleResult.Status != BattleStatus.Retire)
-                    break;
-
-                repeats++;
-                Console.Write($"\rRetreated {repeats} rounds in {stopwatch.Elapsed} with {repeats * endEasyDaily.Quest.EntityQuest.Stamina} stamina used.");
-            }
-
-            stopwatch.Stop();
-        }
-
-        private static async Task StartEventQuest(NierReinContexts rein)
-        {
-            var deck = rein.Decks.GetQuestDecks().ElementAt(0);
-
-            rein.Battles.BattleFinished += (sender, args) => PrintRewards(args);
-
-            var chapters = rein.Quests.GetEventChapters().Where(x => x.IsCurrent());
-            foreach (var chapter in chapters)
-            {
-                var diffs = chapter.EventQuestChapterDifficultyTypes.Select(y => (y, rein.Quests.GetEventQuests(chapter.EventQuestChapterId, y)));
-                foreach (var diff in diffs)
-                {
-                    foreach (var quest in diff.Item2)
-                    {
-                        Console.WriteLine($"{diff.y} {quest.QuestName}");
-                        await rein.Battles.ExecuteEventQuest(chapter.EventQuestChapterId, quest, deck);
-                    }
-                }
-            }
-        }
-
-        private static void PrintRewards(FinishBattleEventArgs args)
-        {
-            if (args.Rewards.DropRewards.Any())
-                Console.WriteLine($"Rewards: {string.Join(Environment.NewLine, args.Rewards.DropRewards.Select(x => $"{x.RewardCategory} {x.PossessionName} x{x.Count}"))}");
-        }
-
-        private static void PrintQuests(NierReinContexts rein, bool printCurrent)
-        {
-            if (printCurrent)
-                PrintCurrentQuests(rein);
-            else
-                PrintFutureQuests(rein);
-        }
-
-        private static void PrintCurrentQuests(NierReinContexts rein)
+        private static void PrintCurrentQuests()
         {
             Console.WriteLine("Current events:");
-            foreach (var chapter in rein.Quests.GetEventChapters())
+            foreach (var chapter in CalculatorQuest.GetAllEventQuestChapters())
             {
                 if (!chapter.IsCurrent())
                     continue;
@@ -200,7 +114,7 @@ namespace nier_rein_cli
                 {
                     Console.WriteLine($"  Difficulty: {diff}");
 
-                    foreach (var dq in rein.Quests.GetEventQuests(chapter.EventQuestChapterId, diff))
+                    foreach (var dq in CalculatorQuest.GenerateEventQuestData(chapter.EventQuestChapterId, diff))
                         Console.WriteLine($"    {(dq.IsLock ? "[Locked] " : "")}{dq.QuestName}");
                 }
 
@@ -208,10 +122,10 @@ namespace nier_rein_cli
             }
         }
 
-        private static void PrintFutureQuests(NierReinContexts rein)
+        private static void PrintFutureQuests()
         {
             Console.WriteLine("Future events:");
-            foreach (var chapter in rein.Quests.GetEventChapters())
+            foreach (var chapter in CalculatorQuest.GetAllEventQuestChapters())
             {
                 if (!chapter.IsFuture())
                     continue;
@@ -223,7 +137,7 @@ namespace nier_rein_cli
                 {
                     Console.WriteLine($"  Difficulty: {diff}");
 
-                    foreach (var dq in rein.Quests.GetEventQuests(chapter.EventQuestChapterId, diff))
+                    foreach (var dq in CalculatorQuest.GenerateEventQuestData(chapter.EventQuestChapterId, diff))
                         Console.WriteLine($"    {(dq.IsLock ? "[Locked] " : "")}{dq.QuestName}");
                 }
 
@@ -231,10 +145,10 @@ namespace nier_rein_cli
             }
         }
 
-        private static void PrintDecks(NierReinContexts rein)
+        private static void PrintDecks()
         {
             Console.WriteLine("Quest decks:");
-            foreach (var ql in rein.Decks.GetQuestDecks())
+            foreach (var ql in CalculatorDeck.EnumerateDeckDataList(CalculatorStateUser.GetUserId(), DeckType.QUEST))
             {
                 var deckName = ql.Name == string.Empty ? "Quest " + ql.UserDeckNumber : ql.Name;
 
@@ -283,13 +197,13 @@ namespace nier_rein_cli
             }
         }
 
-        private static async Task PrintNotices(NierReinContexts rein)
+        private static async Task PrintNotices()
         {
             // Print notices
             Console.WriteLine("Latest 10 notices:");
             Console.WriteLine();
 
-            await foreach (var n in rein.Notifications.GetNotifications())
+            await foreach (var n in NierReincarnation.NierReincarnation.Notifications.GetNotifications(1, 20))
             {
                 Console.WriteLine($"[{n.informationType}] {n.title}");
                 if (!string.IsNullOrEmpty(n.thumbnailImagePath))
