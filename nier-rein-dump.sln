@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation", "nier-r
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudio", "nier-rein-api\AssetStudio\AssetStudio\AssetStudio.csproj", "{DB65B0AE-9005-487C-B4F5-2CA8BB22E7E1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "nier-rein-api\AssetStudio\AssetStudioUtility\AssetStudioUtility.csproj", "{861B7C36-0DFD-49F2-985F-32B831208E62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DB65B0AE-9005-487C-B4F5-2CA8BB22E7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB65B0AE-9005-487C-B4F5-2CA8BB22E7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB65B0AE-9005-487C-B4F5-2CA8BB22E7E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{861B7C36-0DFD-49F2-985F-32B831208E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{861B7C36-0DFD-49F2-985F-32B831208E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{861B7C36-0DFD-49F2-985F-32B831208E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{861B7C36-0DFD-49F2-985F-32B831208E62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
