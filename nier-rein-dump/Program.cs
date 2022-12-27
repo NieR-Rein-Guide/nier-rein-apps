@@ -982,7 +982,7 @@ namespace NierReinDb
                     ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
 
                     Name = CalculatorThought.GetName(debris.ThoughtAssetId),
-                    ImagePathBase = $"ui/companion/{debris.ThoughtAssetId}/{debris.ThoughtAssetId}.png"
+                    ImagePathBase = $"ui/thought/thought{debris.ThoughtAssetId}/thought{debris.ThoughtAssetId}_standard.png"
                 };
 
                 await db.Thoughts.AddAsync(model);
