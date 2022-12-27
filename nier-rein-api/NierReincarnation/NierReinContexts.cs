@@ -18,6 +18,6 @@ namespace NierReincarnation
 
         public DeckContext Decks { get; } = new DeckContext();
 
-        public AssetContext Assets { get; } = new AssetContext();
+        //public AssetContext Assets { get; } = new AssetContext();
     }
 }
