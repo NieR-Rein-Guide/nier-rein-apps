@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
@@ -9,12 +7,11 @@ using ImGuiNET;
 using nier_rein_gui.Dialogs.FarmDialogs;
 using nier_rein_gui.Forms.Panels.SubQuests.Quests.Base;
 using NierReincarnation;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
-namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
+namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
 {
     class LimitQuestListPanel : ClosableQuestListPanel<EventQuestData>
     {

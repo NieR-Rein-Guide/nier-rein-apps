@@ -5,7 +5,6 @@ using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Models;
 using ImGuiNET;
 using nier_rein_gui.Controls.Buttons;
-using nier_rein_gui.Forms.Panels.SubQuests.Quests;
 using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -13,7 +12,7 @@ using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
-namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
+namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
 {
     partial class LimitQuestBundlePanel
     {
@@ -67,7 +66,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
             {
                 Alignment = Alignment.Horizontal,
                 ItemSpacing = 5,
-                Size = new Size(1f, -1),
+                Size = Size.WidthAlign,
                 Items =
                 {
                     backBtn
@@ -81,7 +80,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
             }
 
             if (difficultyBtn != null)
-                layout.Items.Add(new StackItem(difficultyBtn) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Right });
+                layout.Items.Add(new StackItem(difficultyBtn) { Size = Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Right });
 
             return layout;
         }

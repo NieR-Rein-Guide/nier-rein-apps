@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using nier_rein_gui.Controls.Buttons.Items;
+using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -25,7 +26,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _currentThought = currentThought;
             _deckThoughts = deckThoughts;
 
-            Caption = "Debris";
+            Caption = LocalizationResources.DebrisTitle;
 
             InitializeThoughtDataInfo();
         }

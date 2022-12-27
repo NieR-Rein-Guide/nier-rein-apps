@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
-using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Modals;
-using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Controls.Buttons.Items;
 using nier_rein_gui.Controls.CheckBoxes;
@@ -51,7 +49,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         private CheckBox allWeaponCheck;
         private CheckBox allRarityCheck;
 
-        private readonly List itemList;
+        private readonly ZLayout itemList;
 
         private readonly NierButton selectButton;
         private readonly NierItemRemoveButton removeButton;
@@ -70,10 +68,10 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _attributeFilter = new List<AttributeType>();
             _rarityFilter = new List<RarityType>();
 
-            itemList = new List { ItemSpacing = LayoutItemSpacing_ };
+            itemList = new ZLayout { ItemSpacing = new Vector2(FilterItemSpacing_, FilterItemSpacing_) };
 
-            var cancelButton = new NierButton { Caption = "Cancel" };
-            selectButton = new NierButton { Caption = "Select", Enabled = false };
+            var cancelButton = new NierButton { Caption = LocalizationResources.Cancel };
+            selectButton = new NierButton { Caption = LocalizationResources.Select, Enabled = false };
             removeButton = new NierItemRemoveButton();
 
             cancelButton.Clicked += CancelButton_Clicked;
@@ -94,7 +92,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
                         ItemSpacing = LayoutItemSpacing_,
                         Alignment = Alignment.Horizontal,
                         HorizontalAlignment = HorizontalAlignment.Right,
-                        Size = new Size(1f,-1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         Items =
                         {
                             cancelButton,
@@ -131,7 +129,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
         {
             var layout = new TableLayout
             {
-                Size = new Size(1f, -1),
+                Size = ImGui.Forms.Models.Size.WidthAlign,
                 Spacing = new Vector2(5, 3)
             };
 
@@ -279,44 +277,20 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
         protected void UpdateItems()
         {
-            CleanIcons();
-
-            var widthCount = (int)Math.Floor(Size.X / (NierResources.ItemSlotSize.X + FilterItemSpacing_));
-
-            StackLayout currentRow = null;
-            var weaponIndex = 0;
+            ClearIcons();
 
             // Add remove button
             if (ShowRemoveButton)
-            {
-                currentRow = new StackLayout { Alignment = Alignment.Horizontal, ItemSpacing = FilterItemSpacing_ };
-                itemList.Items.Add(currentRow);
-
-                currentRow.Items.Add(removeButton);
-
-                weaponIndex++;
-            }
+                itemList.Items.Add(removeButton);
 
             // Add remaining items
             foreach (var item in EnumerateItems(_attributeFilter, _weaponFilter, _rarityFilter))
-            {
-                if (weaponIndex % widthCount == 0)
-                {
-                    currentRow = new StackLayout { Alignment = Alignment.Horizontal, ItemSpacing = FilterItemSpacing_ };
-                    itemList.Items.Add(currentRow);
-                }
-
-                var button = GetButton(item);
-
-                currentRow?.Items.Add(button);
-
-                weaponIndex++;
-            }
+                itemList.Items.Add(GetButton(item));
         }
 
         protected abstract T GetItem(NierItemButton button);
 
-        private void CleanIcons()
+        private void ClearIcons()
         {
             itemList.Items.Clear();
         }

@@ -95,6 +95,7 @@ namespace nier_rein_gui.Resources
         private static readonly Rectangle MemoryPlaceholder = new Rectangle(469, 1555, 108, 108);
 
         private static readonly Vector2 IconPadSize = new Vector2(102, 102);
+
         public static readonly Vector2 ItemSlotSize = new Vector2(82, 82);
         public static readonly Vector2 IconSize = new Vector2(25, 25);
         public static readonly Vector2 RarityStarSize = new Vector2(15, 15);
@@ -111,7 +112,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var placeHolder = IconsAtlas.Clone(context => context.Crop(CostumePlaceholder));
-            return CostumePlaceholderResource = LoadItemResource(placeHolder);
+            return CostumePlaceholderResource = LoadResource(placeHolder);
         }
 
         public static ImageResource LoadThoughtPlaceholder()
@@ -122,7 +123,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var placeHolder = IconsAtlas.Clone(context => context.Crop(ThoughtPlaceholder));
-            return ThoughtPlaceholderResource = LoadItemResource(placeHolder);
+            return ThoughtPlaceholderResource = LoadResource(placeHolder);
         }
 
         public static ImageResource LoadWeaponPlaceholder()
@@ -133,7 +134,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var placeHolder = IconsAtlas.Clone(context => context.Crop(WeaponPlaceholder));
-            return WeaponPlaceholderResource = LoadItemResource(placeHolder);
+            return WeaponPlaceholderResource = LoadResource(placeHolder);
         }
 
         public static ImageResource LoadCompanionPlaceholder()
@@ -144,7 +145,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var placeHolder = IconsAtlas.Clone(context => context.Crop(CompanionPlaceholder));
-            return CompanionPlaceholderResource = LoadItemResource(placeHolder);
+            return CompanionPlaceholderResource = LoadResource(placeHolder);
         }
 
         public static ImageResource LoadMemoryPlaceholder()
@@ -155,7 +156,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var placeHolder = IconsAtlas.Clone(context => context.Crop(MemoryPlaceholder));
-            return MemoryPlaceholderResource = LoadItemResource(placeHolder);
+            return MemoryPlaceholderResource = LoadResource(placeHolder);
         }
 
         #endregion
@@ -221,7 +222,7 @@ namespace nier_rein_gui.Resources
             }
 
             var icon = IconsAtlas.Clone(context => context.Crop(crop));
-            return AttributeIcons[attribute] = LoadIconResource(icon);
+            return AttributeIcons[attribute] = LoadResource(icon);
         }
 
         public static ImageResource LoadWeaponTypeIcon(WeaponType weaponType)
@@ -263,7 +264,7 @@ namespace nier_rein_gui.Resources
             }
 
             var icon = IconsAtlas.Clone(context => context.Crop(crop));
-            return WeaponIcons[weaponType] = LoadIconResource(icon);
+            return WeaponIcons[weaponType] = LoadResource(icon);
         }
 
         public static ImageResource LoadRarityStarIcon(RarityType rarity)
@@ -294,7 +295,7 @@ namespace nier_rein_gui.Resources
             }
 
             var starIcon = IconsAtlas.Clone(context => context.Crop(crop));
-            return RarityStarIcons[rarity] = LoadStarResource(starIcon);
+            return RarityStarIcons[rarity] = LoadResource(starIcon);
         }
 
         public static ImageResource LoadExIcon()
@@ -305,7 +306,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var icon = IconsAtlas.Clone(context => context.Crop(IsExIcon));
-            return IsEndIconResource = LoadIconResource(icon);
+            return IsEndIconResource = LoadResource(icon);
         }
 
         public static ImageResource LoadEditIcon()
@@ -316,7 +317,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var icon = IconsAtlas.Clone(context => context.Crop(EditIcon));
-            return EditIconResource = LoadResource(icon, RarityStarSize);
+            return EditIconResource = LoadResource(icon);
         }
 
         public static ImageResource LoadBonusIcon()
@@ -347,7 +348,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var icon = IconsAtlas.Clone(context => context.Crop(AwakenDefaultIcon));
-            return AwakenDefaultIconResource = LoadIconResource(icon);
+            return AwakenDefaultIconResource = LoadResource(icon);
         }
 
         public static ImageResource LoadAwakenFullIcon()
@@ -358,7 +359,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var icon = IconsAtlas.Clone(context => context.Crop(AwakenFullIcon));
-            return AwakenFullIconResource = LoadIconResource(icon);
+            return AwakenFullIconResource = LoadResource(icon);
         }
 
         #endregion
@@ -393,7 +394,7 @@ namespace nier_rein_gui.Resources
             }
 
             var item = IconsAtlas.Clone(context => context.Crop(crop));
-            return RarityBackgrounds[rarity] = LoadItemResource(item);
+            return RarityBackgrounds[rarity] = LoadResource(item);
         }
 
         public static ImageResource LoadRarityBorder(RarityType rarity)
@@ -424,7 +425,7 @@ namespace nier_rein_gui.Resources
             }
 
             var item = IconsAtlas.Clone(context => context.Crop(crop));
-            return RarityBorders[rarity] = LoadItemResource(item);
+            return RarityBorders[rarity] = LoadResource(item);
         }
 
         public static ImageResource LoadDefaultBackground()
@@ -435,7 +436,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var item = IconsAtlas.Clone(context => context.Crop(CompanionBackground));
-            return CompanionBackgroundResource = LoadItemResource(item);
+            return CompanionBackgroundResource = LoadResource(item);
         }
 
         public static ImageResource LoadDefaultBorder()
@@ -446,7 +447,7 @@ namespace nier_rein_gui.Resources
             EnsureIconsAtlas();
 
             var item = IconsAtlas.Clone(context => context.Crop(CompanionBorder));
-            return CompanionBorderResource = LoadItemResource(item);
+            return CompanionBorderResource = LoadResource(item);
         }
 
         #endregion
@@ -461,29 +462,6 @@ namespace nier_rein_gui.Resources
             var iconsStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(IconsAtlasPath_);
 
             IconsAtlas = Image.Load<Bgra32>(iconsStream);
-        }
-
-        private static ImageResource LoadItemResource(Image<Bgra32> image)
-        {
-            return LoadResource(image, ItemSlotSize);
-        }
-
-        private static ImageResource LoadIconResource(Image<Bgra32> image)
-        {
-            return LoadResource(image, IconSize);
-        }
-
-        private static ImageResource LoadStarResource(Image<Bgra32> image)
-        {
-            return LoadResource(image, RarityStarSize);
-        }
-
-        private static ImageResource LoadResource(Image<Bgra32> image, Vector2 size)
-        {
-            var asset = new ImageAsset(image);
-            asset.Image.Mutate(x => x.Resize(new Size((int)size.X, (int)size.Y)));
-
-            return ImageResource.FromStream(asset.AsStream());
         }
 
         private static ImageResource LoadResource(Image<Bgra32> image)
@@ -507,7 +485,7 @@ namespace nier_rein_gui.Resources
                 return CostumeItems[assetId.StringId];
 
             var asset = LoadAsset(string.Format(CostumeIconPath_, assetId));
-            PadResizeItem(asset, AnchorPositionMode.BottomRight);
+            PadItem(asset, AnchorPositionMode.BottomRight);
 
             return CostumeItems[assetId.StringId] = ImageResource.FromStream(asset.AsStream());
         }
@@ -521,7 +499,7 @@ namespace nier_rein_gui.Resources
                 return WeaponItems[assetId.StringId];
 
             var asset = LoadAsset(string.Format(WeaponIconPath_, assetId));
-            PadResizeItem(asset, AnchorPositionMode.Center);
+            PadItem(asset, AnchorPositionMode.Center);
 
             return WeaponItems[assetId.StringId] = ImageResource.FromStream(asset.AsStream());
         }
@@ -535,7 +513,7 @@ namespace nier_rein_gui.Resources
                 return CompanionItems[assetId.StringId];
 
             var asset = LoadAsset(string.Format(CompanionIconPath_, assetId));
-            PadResizeItem(asset, AnchorPositionMode.Bottom);
+            PadItem(asset, AnchorPositionMode.Bottom);
 
             return CompanionItems[assetId.StringId] = ImageResource.FromStream(asset.AsStream());
         }
@@ -549,7 +527,7 @@ namespace nier_rein_gui.Resources
                 return ThoughtItems[thoughtId];
 
             var asset = LoadAsset(string.Format(ThoughtIconPath_, thoughtId));
-            //PadResizeItem(asset, AnchorPositionMode.Bottom);
+            //PadItem(asset, AnchorPositionMode.Bottom);
 
             return ThoughtItems[thoughtId] = ImageResource.FromStream(asset.AsStream());
         }
@@ -563,7 +541,7 @@ namespace nier_rein_gui.Resources
                 return MemoryItems[groupAssetId];
 
             var asset = LoadAsset(string.Format(MemoryIconPath_, groupAssetId));
-            PadResizeItem(asset, AnchorPositionMode.Center);
+            PadItem(asset, AnchorPositionMode.Center);
 
             return MemoryItems[groupAssetId] = ImageResource.FromStream(asset.AsStream());
         }
@@ -577,7 +555,7 @@ namespace nier_rein_gui.Resources
                 return ConsumableItems[(categoryId, variationId)];
 
             var asset = LoadAsset(string.Format(ConsumableItemPath_, categoryId, variationId));
-            PadResizeItem(asset, AnchorPositionMode.Center);
+            PadItem(asset, AnchorPositionMode.Center);
 
             return ConsumableItems[(categoryId, variationId)] = ImageResource.FromStream(asset.AsStream());
         }
@@ -587,16 +565,18 @@ namespace nier_rein_gui.Resources
             return NierReincarnation.Core.UnityEngine.Resources.LoadImage(path);
         }
 
-        private static void PadResizeItem(ImageAsset asset, AnchorPositionMode position)
+        private static void PadItem(ImageAsset asset, AnchorPositionMode position)
         {
-            asset.Image.Mutate(i => i.Resize(new ResizeOptions
+            // Resize to padding
+            var paddingOptions = new ResizeOptions
             {
-                // First pad to icon dimensions
-                Size = new Size(Math.Max((int)IconPadSize.X, asset.Image.Width), Math.Max((int)IconPadSize.Y, asset.Image.Height)),
+                Size = new Size(Math.Max((int) IconPadSize.X, asset.Image.Width), Math.Max((int) IconPadSize.Y, asset.Image.Height)),
                 Mode = ResizeMode.BoxPad,
                 Sampler = KnownResamplers.NearestNeighbor,
                 Position = position
-            }).Resize(new Size((int)ItemSlotSize.X, (int)ItemSlotSize.Y)));
+            };
+
+            asset.Image.Mutate(i => i.Resize(paddingOptions));
         }
 
         #endregion

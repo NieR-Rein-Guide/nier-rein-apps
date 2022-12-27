@@ -15,6 +15,7 @@
     <None Remove="Resources\Images\nierReinEx.ico" />
     <None Remove="Resources\Images\nierReinEx.png" />
     <None Remove="Resources\Images\test.jpg" />
+    <None Remove="Resources\Localizations\en.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +23,12 @@
     <EmbeddedResource Include="Resources\Images\lock.png" />
     <EmbeddedResource Include="Resources\Images\nierReinEx.ico" />
     <EmbeddedResource Include="Resources\Images\icons_1.png" />
+    <EmbeddedResource Include="Resources\Localizations\en.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ImGui.Forms" Version="1.0.20" />
-    <PackageReference Include="NierReincarnation" Version="1.3.0" />
+    <PackageReference Include="ImGui.Forms" Version="1.0.21" />
+    <PackageReference Include="NierReincarnation" Version="1.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 

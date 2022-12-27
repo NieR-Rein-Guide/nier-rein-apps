@@ -12,28 +12,48 @@ namespace nier_rein_gui.Forms.Panels
     {
         private NierButton mainQuestButton;
         private NierButton subQuestButton;
+        private NierButton exQuestButton;
         private NierButton bigHuntButton;
         private NierButton explorationButton;
 
         private void InitializeComponent()
         {
-            mainQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kMainQuest.Localize(), Width = .5f, Padding = new Vector2(0, 5) };
-            subQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kEventQuestTitle.Localize(), Width = .5f, Padding = new Vector2(0, 5) };
-            bigHuntButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kBigHuntQuest.Localize(), Width = .5f, Padding = new Vector2(0, 5) };
-            explorationButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kSearch.Localize(), Width = .5f, Padding = new Vector2(0, 5), Enabled = false };
+            mainQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kMainQuest.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
+            subQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kEventQuestTitle.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
+            exQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kExQuestTitle.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
+            bigHuntButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kBigHuntQuest.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
+            explorationButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kSearch.Localize(), Width = .3f, Padding = new Vector2(0, 5), Enabled = false };
 
-            Content = new StackLayout
+            Content = new TableLayout
             {
-                Alignment = Alignment.Vertical,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Size = new Size(-1, 1f),
-                ItemSpacing = 5,
-                Items =
+                Size = Size.HeightAlign,
+                Spacing = new Vector2(5, 5),
+                Rows =
                 {
-                    mainQuestButton,
-                    subQuestButton,
-                    bigHuntButton,
-                    explorationButton
+                    new TableRow
+                    {
+                        Cells =
+                        {
+                            mainQuestButton,
+                            subQuestButton
+                        }
+                    },
+                    new TableRow
+                    {
+                        Cells =
+                        {
+                            exQuestButton,
+                            bigHuntButton
+                        }
+                    },
+                    new TableRow
+                    {
+                        Cells =
+                        {
+                            explorationButton
+                        }
+                    }
                 }
             };
         }

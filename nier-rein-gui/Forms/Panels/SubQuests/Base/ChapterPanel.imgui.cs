@@ -5,22 +5,22 @@ using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
 using NierReincarnation;
-using NierReincarnation.Core.Dark.Calculator;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.View.UserInterface;
 
 namespace nier_rein_gui.Forms.Panels.SubQuests.Base
 {
     abstract partial class ChapterPanel<TChapterData>
     {
         private StackLayout chapterLayout;
-        private List chapterList;
+        private ActivableList chapterList;
 
         protected TChapterData CurrentChapter { get; set; }
 
         private void InitializeComponent()
         {
-            chapterList = new List { ItemSpacing = 5 };
+            chapterList = new ActivableList
+            {
+                ItemSpacing = 5
+            };
 
             Content = chapterLayout = new StackLayout
             {
@@ -28,7 +28,10 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Base
                 ItemSpacing = 5,
                 Items =
                 {
-                    new StackItem(chapterList) {Size = new Size(.35f, 1f)}
+                    new StackItem(chapterList)
+                    {
+                        Size = new Size(.35f, 1f)
+                    }
                 }
             };
         }
@@ -69,16 +72,13 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Base
                 Width = 1f,
                 Padding = new Vector2(0, 2)
             };
-            result.Clicked += (s, e) => ChapterBtn_Clicked((NierButton)s, chapter);
+            result.Clicked += (s, e) => ChapterBtn_Clicked(chapter);
 
             return result;
         }
 
-        private void ChapterBtn_Clicked(NierButton sender, TChapterData chapter)
+        private void ChapterBtn_Clicked(TChapterData chapter)
         {
-            foreach (var chapterBtn in chapterList.Items)
-                (chapterBtn as NierButton).Active = chapterBtn == sender;
-
             CurrentChapter = chapter;
             UpdateQuestList(_rein, chapter);
         }

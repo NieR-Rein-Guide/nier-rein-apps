@@ -4,6 +4,7 @@ using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons.Items;
+using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -36,7 +37,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _currentWeapons = currentWeapons;
             _deckOtherWeapons = deckOtherWeapons;
 
-            Caption = "Weapons";
+            Caption = LocalizationResources.WeaponsTitle;
 
             questSelection = AddQuestSelection();
             questSelection.SelectedItemChanged += QuestSelection_SelectedItemChanged;
@@ -134,7 +135,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             var cells = ((Content as StackLayout).Items[0].Content as TableLayout).Rows[0].Cells;
 
             var selection = new ComboBox<QuestItem>();
-            cells.Add(new TableCell(selection) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Right });
+            cells.Add(new TableCell(selection) { Size = ImGui.Forms.Models.Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Right });
 
             return selection;
         }
@@ -174,7 +175,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
             public override string ToString()
             {
-                return IsEmpty ? "None" : Name;
+                return IsEmpty ? LocalizationResources.WeaponsNone : Name;
             }
         }
     }

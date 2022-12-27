@@ -1,6 +1,7 @@
 ﻿using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
+using nier_rein_gui.Resources;
 
 namespace nier_rein_gui.Dialogs
 {
@@ -10,13 +11,13 @@ namespace nier_rein_gui.Dialogs
 
         public ReAuthDialog()
         {
-            Caption = "Re-Authorization";
+            Caption = LocalizationResources.AuthTitle;
             Content = new StackLayout
             {
                 Alignment = Alignment.Vertical,
                 Items =
                 {
-                    new StackItem(new Label {Caption = "Initialize data..."})
+                    new StackItem(new Label {Caption = LocalizationResources.AuthDescription})
                     {
                         VerticalAlignment = VerticalAlignment.Center,
                         HorizontalAlignment = HorizontalAlignment.Center,

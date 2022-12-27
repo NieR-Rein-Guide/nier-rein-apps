@@ -4,9 +4,12 @@ using System.Linq;
 using System.Numerics;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Controls.Lists;
+using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Dialogs.FarmDialogs;
+using nier_rein_gui.Resources;
+using nier_rein_gui.Support;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Component.WorldMap;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -77,13 +80,17 @@ namespace nier_rein_gui.Forms.Panels.Map
             var button = new NierButton
             {
                 Enabled = isAvailable,
-                Caption = "Collect"
+                Caption = LocalizationResources.MapCollect
             };
 
             switch (gimmick.GimmickType)
             {
                 case GimmickType.CAGE_INTERVAL_DROP_ITEM:
-                //case GimmickType.MAP_ONLY_CAGE_INTERVAL_DROP_ITEM:
+                    //case GimmickType.MAP_ONLY_CAGE_INTERVAL_DROP_ITEM:
+                    button.Caption += $" ({gimmick.GetAvailableIntervalGimmickCount(unixNow)}/{gimmick.MaxValue})";
+                    button.Clicked += (s, e) => CollectButtonClick(button, gimmick);
+                    break;
+
                 case GimmickType.MAP_ONLY_CAGE_TREASURE_HUNT:
                 case GimmickType.CAGE_TREASURE_HUNT:
                     button.Clicked += (s, e) => CollectButtonClick(button, gimmick);
@@ -103,22 +110,22 @@ namespace nier_rein_gui.Forms.Panels.Map
             {
                 case GimmickType.CAGE_INTERVAL_DROP_ITEM:
                 case GimmickType.MAP_ONLY_CAGE_INTERVAL_DROP_ITEM:
-                    return "Lost Items";
+                    return LocalizationResources.MapLostItems;
 
                 case GimmickType.MAP_ONLY_CAGE_TREASURE_HUNT:
-                    return "Black Birds";
+                    return LocalizationResources.MapBlackBirds;
 
                 case GimmickType.CAGE_TREASURE_HUNT:
-                    return "Fickle Black Birds";
+                    return LocalizationResources.MapFickleBlackBirds;
 
                 case GimmickType.REPORT:
-                    return "Hidden Stories";
+                    return LocalizationResources.MapHiddenStories;
 
                 case GimmickType.CAGE_MEMORY:
-                    return "Lost Archives";
+                    return LocalizationResources.MapLostArchives;
 
                 case GimmickType.MAP_ONLY_HIDE_OBELISK:
-                    return "Stray Scarecrows";
+                    return LocalizationResources.MapStrayScarecrows;
 
                 default:
                     return "Gimmick.Placeholder";
@@ -129,9 +136,16 @@ namespace nier_rein_gui.Forms.Panels.Map
 
         private async void CollectButtonClick(NierButton sender, WorldMapGimmickOutGame gimmick)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             sender.Enabled = false;
 
-            await _rein.Gimmicks.Collect(gimmick);
+            var rewards = await _rein.Gimmicks.Collect(gimmick);
+
+            // Print rewards
+            var rewardText = string.Join(Environment.NewLine, rewards.Select(x => CalculatorPossession.GetItemName(x.PossessionType, x.PossessionId) + " x" + x.Count));
+            await MessageBox.ShowInformationAsync(LocalizationResources.MapCollected, rewardText);
 
             UpdateChapterGimmicks(_chapter.MainQuestChapterId);
             UpdateGimmicks(_allGimmicks);

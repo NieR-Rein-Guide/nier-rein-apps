@@ -9,39 +9,38 @@ using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace nier_rein_gui.Dialogs.FarmDialogs
 {
-    class EventQuestFarmDialog : QuestFarmDialog<EventQuestData>
+    class LimitDailyFarmDialog : QuestFarmDialog<LimitDailyQuestData>
     {
-        public EventQuestFarmDialog(NierReinContexts rein, IList<EventQuestData> questList, EventQuestData quest, DeckType deckType = DeckType.QUEST) :
-            base(rein, questList, quest, deckType)
+        public LimitDailyFarmDialog(NierReinContexts rein, IList<LimitDailyQuestData> quests, LimitDailyQuestData currentQuest) : base(rein, quests, currentQuest, DeckType.QUEST)
         {
         }
 
-        protected override int GetQuestId(EventQuestData data)
+        protected override int GetQuestId(LimitDailyQuestData data)
         {
             return data.Quest.QuestId;
         }
 
-        protected override string GetQuestName(EventQuestData data)
+        protected override string GetQuestName(LimitDailyQuestData data)
         {
-            return data.QuestName;
+            return string.Empty;
         }
 
-        protected override int GetQuestDailyCount(EventQuestData data)
+        protected override int GetQuestDailyCount(LimitDailyQuestData data)
         {
             return data.Quest.EntityQuest.DailyClearableCount;
         }
 
-        protected override bool IsQuestLocked(EventQuestData data)
+        protected override bool IsQuestLocked(LimitDailyQuestData data)
         {
             return CalculatorQuest.IsQuestLocked(data.Quest.QuestId);
         }
 
-        protected override void SetQuestLocked(EventQuestData data, bool isLock)
+        protected override void SetQuestLocked(LimitDailyQuestData data, bool isLock)
         {
             data.IsLock = isLock;
         }
 
-        protected override Task<BattleResult> ExecuteQuest(EventQuestData quest, DataDeck deck)
+        protected override Task<BattleResult> ExecuteQuest(LimitDailyQuestData quest, DataDeck deck)
         {
             return BattleContext.ExecuteEventQuest(quest.Quest.ChapterId, quest, deck);
         }

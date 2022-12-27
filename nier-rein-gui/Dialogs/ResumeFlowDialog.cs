@@ -54,7 +54,7 @@ namespace nier_rein_gui.Dialogs
                             quitButton,
                             continueButton
                         }
-                    }){Size = new Size(1f,-1),HorizontalAlignment = HorizontalAlignment.Center}
+                    }){Size = ImGui.Forms.Models.Size.WidthAlign,HorizontalAlignment = HorizontalAlignment.Center}
                 }
             };
         }
@@ -77,7 +77,7 @@ namespace nier_rein_gui.Dialogs
             if (QuestBattleContext.HasRunningEventQuest())
             {
                 var runningEventQuest = DatabaseDefine.User.EntityIUserEventQuestProgressStatusTable.FindByUserId(CalculatorStateUser.GetUserId());
-                await _questBattleContext.QuitEventQuest(runningEventQuest.CurrentEventQuestChapterId, CalculatorQuest.CreateEventQuestData(runningEventQuest.CurrentQuestId));
+                await _questBattleContext.QuitEventQuest(runningEventQuest.CurrentEventQuestChapterId, runningEventQuest.CurrentQuestId);
             }
             else if (QuestBattleContext.HasRunningMainQuest())
             {

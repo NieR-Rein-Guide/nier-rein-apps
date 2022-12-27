@@ -30,12 +30,17 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             return string.Empty;
         }
 
+        protected override int GetQuestDailyCount(EntityMQuest data)
+        {
+            return data.DailyClearableCount;
+        }
+
         protected override bool IsQuestLocked(EntityMQuest data)
         {
             return CalculatorQuest.IsQuestLocked(data.QuestId);
         }
 
-        protected override void SetLock(EntityMQuest data, bool isLock)
+        protected override void SetQuestLocked(EntityMQuest data, bool isLock)
         {
         }
 

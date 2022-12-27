@@ -27,20 +27,28 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             return data.QuestName;
         }
 
+        protected override int GetQuestDailyCount(EventQuestData data)
+        {
+            return data.Quest.EntityQuest.DailyClearableCount;
+        }
+
         protected override bool IsQuestLocked(EventQuestData data)
         {
             return CalculatorQuest.IsQuestLocked(data.Quest.QuestId);
         }
 
-        protected override void SetLock(EventQuestData data, bool isLock)
+        protected override void SetQuestLocked(EventQuestData data, bool isLock)
         {
             data.IsLock = isLock;
         }
 
         protected override IEnumerable<DataDeckInfo> EnumerateDecks(IList<EventQuestData> quests, EventQuestData quest, DeckType deckType)
         {
+            var limitCharacter = CalculatorLimitContent.CreateDataLimitContentCharacter(quest.Quest.QuestId);
+
             var index = quests.IndexOf(quest);
-            return base.EnumerateDecks(quests, quest, deckType).Where(x => x.UserDeckNumber == 101 + index);
+            var baseIndex = limitCharacter.SortOrder * 100;
+            return base.EnumerateDecks(quests, quest, deckType).Where(x => x.UserDeckNumber == baseIndex + index + 1);
         }
 
         protected override Task<BattleResult> ExecuteQuest(EventQuestData quest, DataDeck deck)

@@ -38,10 +38,14 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                 Items =
                 {
                     costumeButton,
-                    new Label{Caption = "Weapons"},
+                    new Label
+                    {
+                        Caption = LocalizationResources.DeckWeaponTitle
+                    },
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
+                        Size = Size.WidthAlign,
                         ItemSpacing = 5,
                         Items =
                         {
@@ -52,31 +56,48 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     },
                     new TableLayout
                     {
-                        Spacing = new Vector2(5,5),
+                        Size = Size.WidthAlign,
+                        Spacing = new Vector2(5, 5),
                         Rows =
                         {
                             new TableRow
                             {
                                 Cells =
                                 {
-                                    new TableCell(new Label{Caption = "Companion"}){Size = new Size((int)NierResources.ItemSlotSize.X*2+5,-1)},
-                                    new Label{Caption = "Debris"}
+                                    new TableCell(new Label
+                                    {
+                                        Caption = LocalizationResources.DeckCompanionTitle
+                                    })
+                                    {
+                                        Size = new Size((int)NierResources.ItemSlotSize.X * 2 + 5, SizeValue.Content)
+                                    },
+                                    new Label
+                                    {
+                                        Caption = LocalizationResources.DeckDebrisTitle
+                                    }
                                 }
                             },
                             new TableRow
                             {
                                 Cells =
                                 {
-                                    new TableCell(companionButton){Size = new Size((int)NierResources.ItemSlotSize.X*2+5,-1)},
+                                    new TableCell(companionButton)
+                                    {
+                                        Size = new Size((int)NierResources.ItemSlotSize.X * 2 + 5, SizeValue.Content)
+                                    },
                                     thoughtButton
                                 }
                             }
                         }
                     },
-                    new Label{Caption = "Memoirs"},
+                    new Label
+                    {
+                        Caption = LocalizationResources.DeckMemoirTitle
+                    },
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
+                        Size = Size.WidthAlign,
                         ItemSpacing = 5,
                         Items =
                         {

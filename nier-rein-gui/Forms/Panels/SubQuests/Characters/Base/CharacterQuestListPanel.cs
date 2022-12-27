@@ -14,7 +14,7 @@ using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.View.UserInterface;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
-namespace nier_rein_gui.Forms.Panels.SubQuests.Quests
+namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.Base
 {
     class CharacterQuestListPanel : ClosableQuestListPanel<EventQuestData>
     {

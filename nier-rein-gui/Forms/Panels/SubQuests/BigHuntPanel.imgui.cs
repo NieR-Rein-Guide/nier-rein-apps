@@ -8,12 +8,12 @@ namespace nier_rein_gui.Forms.Panels.SubQuests
 {
     partial class BigHuntPanel
     {
-        private List bossList;
+        private ActivableList bossList;
         private List questList;
 
         private void InitializeComponent()
         {
-            bossList = new List { ItemSpacing = 5 };
+            bossList = new ActivableList { ItemSpacing = 5 };
             questList = new List { ItemSpacing = 5 };
 
             Content = new StackLayout

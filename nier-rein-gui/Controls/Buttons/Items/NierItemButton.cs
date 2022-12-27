@@ -11,7 +11,6 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace nier_rein_gui.Controls.Buttons.Items
 {
-    // TODO: Implement base class for item slot buttons
     abstract class NierItemButton : Component
     {
         private static readonly uint HoverColor = Color.FromArgb(0x50, 0xC5, 0xC1, 0xB0).ToUInt32();
@@ -51,16 +50,15 @@ namespace nier_rein_gui.Controls.Buttons.Items
             ImGuiNET.ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0);
             ImGuiNET.ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0);
 
-            var isClicked = ImGuiNET.ImGui.Button(string.Empty, contentRect.Size);
-            var isHovered = ImGuiNET.ImGui.IsItemHovered();
+            var shouldClick = ImGuiNET.ImGui.Button(string.Empty, contentRect.Size);;
 
             ImGuiNET.ImGui.PopStyleColor(3);
 
             // Draw content
-            DrawContent(contentRect, isHovered);
+            DrawContent(contentRect, IsHoveredCore());
 
             // Invoke click event
-            if (isHovered && isClicked && Enabled)
+            if (shouldClick && Enabled)
                 OnClicked();
         }
 
@@ -78,7 +76,7 @@ namespace nier_rein_gui.Controls.Buttons.Items
 
         protected virtual void UpdateIcon(int iconIndex, Rectangle iconRect) { }
 
-        protected virtual void OnClicked()
+        protected void OnClicked()
         {
             Clicked?.Invoke(this, new EventArgs());
         }
@@ -119,10 +117,10 @@ namespace nier_rein_gui.Controls.Buttons.Items
                 if (icon == null)
                     continue;
 
-                ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)icon, iconPos, iconPos + icon.Size);
-                UpdateIcon(iconIndex++, new Rectangle((int)iconPos.X, (int)iconPos.Y, (int)icon.Size.X, (int)icon.Size.Y));
+                ImGuiNET.ImGui.GetWindowDrawList().AddImage((IntPtr)icon, iconPos, iconPos + NierResources.IconSize);
+                UpdateIcon(iconIndex++, new Rectangle((int)iconPos.X, (int)iconPos.Y, (int)NierResources.IconSize.X, (int)NierResources.IconSize.Y));
 
-                iconPos += new Vector2(0, icon.Height);
+                iconPos += new Vector2(0, NierResources.IconSize.Y);
             }
 
             // Draw hint text
@@ -155,13 +153,13 @@ namespace nier_rein_gui.Controls.Buttons.Items
                 case HintType.Current:
                     bgColor = ImGuiNET.ImGui.GetColorU32(ImGuiCol.ButtonActive);
                     txtColor = TextActiveColor;
-                    text = "Chosen";
+                    text = LocalizationResources.ItemChosen;
                     break;
 
                 case HintType.InDeck:
                     bgColor = ImGuiNET.ImGui.GetColorU32(ImGuiCol.Button);
                     txtColor = ImGuiNET.ImGui.GetColorU32(ImGuiCol.Text);
-                    text = "In Deck";
+                    text = LocalizationResources.ItemInDeck;
                     break;
 
                 default:

@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ImGui.Forms;
@@ -8,6 +7,7 @@ using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
 using ImGui.Forms.Modals.IO;
 using nier_rein_gui.Properties;
+using nier_rein_gui.Resources;
 using Size = ImGui.Forms.Models.Size;
 
 namespace nier_rein_gui.Dialogs
@@ -18,13 +18,13 @@ namespace nier_rein_gui.Dialogs
 
         public VersionMaintenanceDialog()
         {
-            var warningLabel = new Label { Caption = "There is either a new game version or a maintenance." };
-            var secondWarningLabel = new Label { Caption = $"Manually change the current game version ({NierReincarnation.Core.UnityEngine.Application.Version}) before restarting the app,\nif a new game version released!" };
-            var versionButton = new Button { Caption = "Change version", Width = 130 };
-            var quitButton = new Button { Caption = "Quit", Width = 50 };
+            var warningLabel = new Label { Caption = LocalizationResources.VersionMaintenanceWarning };
+            var secondWarningLabel = new Label { Caption = string.Format(LocalizationResources.VersionMaintenanceManualWarning, NierReincarnation.Core.UnityEngine.Application.Version) };
+            var versionButton = new Button { Caption = LocalizationResources.VersionMaintenanceChangeVersion, Width = 130 };
+            var quitButton = new Button { Caption = LocalizationResources.VersionMaintenanceQuit, Width = 50 };
 
             Size = new Vector2(500, 80);
-            Caption = "Maintenance/Version update";
+            Caption = LocalizationResources.VersionMaintenanceTitle;
             Content = new StackLayout
             {
                 ItemSpacing = 5,
@@ -43,13 +43,13 @@ namespace nier_rein_gui.Dialogs
                     },
                     new StackLayout
                     {
-                        Size = new Size(1f,-1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         ItemSpacing = 5,
                         Alignment = Alignment.Horizontal,
                         Items =
                         {
                             versionButton,
-                            new StackItem(quitButton){Size = new Size(1f,-1),HorizontalAlignment = HorizontalAlignment.Right}
+                            new StackItem(quitButton){Size = ImGui.Forms.Models.Size.WidthAlign,HorizontalAlignment = HorizontalAlignment.Right}
                         }
                     }
                 }
@@ -61,20 +61,25 @@ namespace nier_rein_gui.Dialogs
 
         private async void VersionButton_Clicked(object sender, System.EventArgs e)
         {
-            var newVersion = await InputBox.ShowAsync("Change game version", "Game version", NierReincarnation.Core.UnityEngine.Application.Version, "Version e.g. 2.11.0");
-            if (newVersion != null)
+            var newVersion = await InputBox.ShowAsync(
+                LocalizationResources.VersionMaintenanceChangeVersionTitle,
+                LocalizationResources.VersionMaintenanceChangeVersionDescription,
+                NierReincarnation.Core.UnityEngine.Application.Version,
+                LocalizationResources.VersionMaintenanceChangeVersionPlaceholder);
+            if (newVersion == null)
+                return;
+
+            if (!VersionPattern.IsMatch(newVersion))
             {
-                if (!VersionPattern.IsMatch(newVersion))
-                {
-                    await MessageBox.ShowErrorAsync("Wrong version pattern", $"The entered version \"{newVersion}\" is not correct.");
-                    return;
-                }
-
-                NierReincarnation.Core.UnityEngine.Application.Version = newVersion;
-
-                Settings.Default.AppVersion = newVersion;
-                Settings.Default.Save();
+                await MessageBox.ShowErrorAsync(LocalizationResources.VersionMaintenanceChangeVersionErrorTitle, 
+                    string.Format(LocalizationResources.VersionMaintenanceChangeVersionErrorDescription, newVersion));
+                return;
             }
+
+            NierReincarnation.Core.UnityEngine.Application.Version = newVersion;
+
+            Settings.Default.AppVersion = newVersion;
+            Settings.Default.Save();
         }
 
         private void QuitButton_Clicked(object sender, System.EventArgs e)

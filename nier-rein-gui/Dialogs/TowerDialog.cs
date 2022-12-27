@@ -8,6 +8,7 @@ using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using ImGuiNET;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Resources;
 using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Dark;
@@ -49,7 +50,7 @@ namespace nier_rein_gui.Dialogs
             nextButton = new ArrowButton { Direction = ImGuiDir.Right };
             nextButton.Clicked += NextButton_Clicked;
 
-            clearButton = new NierButton { Caption = "Clear" };
+            clearButton = new NierButton { Caption = LocalizationResources.Clear };
             clearButton.Clicked += ClearButton_Clicked;
 
             captionLabel = new Label { Caption = quest.QuestName };
@@ -60,7 +61,7 @@ namespace nier_rein_gui.Dialogs
             missionList = new List();
             UpdateMissionList(missionList, _quest);
 
-            Caption = "Abyss";
+            Caption = LocalizationResources.AbyssTitle;
             Size = new Vector2(500, 150);
             Content = new StackLayout
             {
@@ -71,16 +72,16 @@ namespace nier_rein_gui.Dialogs
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        Size = new Size(1f,-1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         ItemSpacing = 5,
                         Items =
                         {
                             previousButton,
-                            new StackItem(captionLabel){Size = new Size(1f,-1)},
+                            new StackItem(captionLabel){Size = ImGui.Forms.Models.Size.WidthAlign},
                             nextButton
                         }
                     },
-                    new StackItem(decks){Size = new Size(1f,-1)},
+                    new StackItem(decks){Size = ImGui.Forms.Models.Size.WidthAlign},
                     missionList,
                     new StackItem(clearButton){HorizontalAlignment = HorizontalAlignment.Right}
                 }

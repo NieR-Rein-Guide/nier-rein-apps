@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using System.Timers;
 using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
@@ -12,10 +11,13 @@ using ImGui.Forms.Modals;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Extensions;
 using nier_rein_gui.Forms;
+using nier_rein_gui.Resources;
+using nier_rein_gui.Support;
 using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Context.Models.Events;
+using NierReincarnation.Context.Support;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -27,13 +29,6 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 {
     class RetreatFarmDialog : Modal
     {
-        private static readonly TimeSpan TimerInterval_ = TimeSpan.FromSeconds(1);
-        private const string LimitText_ = "Request limit reached. Waiting {0:m\\:ss}...";
-
-        private const string RetreatCount_ = "Rounds:";
-        private const string RetreatTime_ = "Time:";
-        private const string RetreatStamina_ = "Stamina used:";
-
         private readonly QuestBattleContext _questBattleContext;
         private readonly EventQuestData _quest;
 
@@ -46,43 +41,42 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         private Label countLabel;
         private Label timeLabel;
         private Label staminaLabel;
-        private Button singleButton;
-        private Button cancelButton;
-        private Button startButton;
-
-        private TimeSpan _currentLimitTime;
-        private Timer _timer;
+        private NierButton singleButton;
+        private NierButton cancelButton;
+        private NierButton startButton;
 
         public RetreatFarmDialog(NierReinContexts rein, EventQuestData quest)
         {
             _questBattleContext = rein.Battles.CreateQuestContext();
             _quest = quest;
 
-            _timer = new Timer(TimerInterval_.TotalMilliseconds);
-            _timer.Elapsed += _timer_Elapsed;
-
             _questBattleContext.SetupReAuthorization(null, null);
 
-            limitLabel = new Label { Caption = string.Empty, TextColor = Color.Firebrick };
+            limitLabel = new Label
+            {
+                Caption = string.Empty,
+                TextColor = Color.Firebrick,
+                Visible = false
+            };
 
             decks = new ComboBox<DataDeckInfo>();
             InitializeDecks(decks);
 
-            battleCheck = new CheckBox { Caption = "Do not battle", Checked = true };
+            battleCheck = new CheckBox { Caption = LocalizationResources.DoNotBattle, Checked = true };
             countLabel = new Label();
             timeLabel = new Label();
             staminaLabel = new Label();
 
-            singleButton = new NierButton { Caption = "Clear x1", Padding = new Vector2(2, 2) };
+            singleButton = new NierButton { Caption = LocalizationResources.ClearOnce, Padding = new Vector2(2, 2) };
             singleButton.Clicked += SingleButton_Clicked;
 
-            cancelButton = new NierButton { Caption = "Cancel", Padding = new Vector2(2, 2), Enabled = false };
+            cancelButton = new NierButton { Caption = LocalizationResources.Cancel, Padding = new Vector2(2, 2), Enabled = false };
             cancelButton.Clicked += CancelButton_Clicked;
 
-            startButton = new NierButton { Caption = "Start", Padding = new Vector2(2, 2) };
+            startButton = new NierButton { Caption = LocalizationResources.Start, Padding = new Vector2(2, 2) };
             startButton.Clicked += StartButton_Clicked;
 
-            Caption = "Retreat farm";
+            Caption = LocalizationResources.TitleFarmingRetreat;
             Size = new Vector2(300, 150);
             Content = new StackLayout
             {
@@ -90,7 +84,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 ItemSpacing = 5,
                 Items =
                 {
-                    new Label {Caption = $"Quest: {quest.QuestName}"},
+                    new Label {Caption = string.Format(LocalizationResources.QuestName,quest.QuestName)},
                     new StackItem(null){Size = new Size(0,0)},
                     new StackLayout
                     {
@@ -99,17 +93,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                         HasBorder = true,
                         Items =
                         {
-                            new StackLayout
-                            {
-                                Alignment = Alignment.Vertical,
-                                ItemSpacing = 5,
-                                Size = new Size(.2f, 1f),
-                                Items =
-                                {
-                                    new Label {Caption = "Decks:"},
-                                    decks
-                                }
-                            },
+                            new StackItem(decks){Size = new Size(.2f, 1f)},
                             new TableLayout
                             {
                                 HorizontalAlignment = HorizontalAlignment.Left,
@@ -121,7 +105,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                                     {
                                         Cells =
                                         {
-                                            new Label {Caption = RetreatCount_},
+                                            new Label {Caption = LocalizationResources.RoundCounter},
                                             countLabel
                                         }
                                     },
@@ -129,7 +113,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                                     {
                                         Cells =
                                         {
-                                            new Label {Caption = RetreatTime_},
+                                            new Label {Caption = LocalizationResources.RetreatTimer},
                                             timeLabel
                                         }
                                     },
@@ -137,7 +121,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                                     {
                                         Cells =
                                         {
-                                            new Label {Caption = RetreatStamina_},
+                                            new Label {Caption = LocalizationResources.RetreatStamina},
                                             staminaLabel
                                         }
                                     }
@@ -149,7 +133,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        Size = new Size(1f, -1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         Items =
                         {
                             singleButton,
@@ -158,7 +142,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                                 Alignment = Alignment.Horizontal,
                                 HorizontalAlignment = HorizontalAlignment.Right,
                                 ItemSpacing = 5,
-                                Size = new Size(1f, -1),
+                                Size = ImGui.Forms.Models.Size.WidthAlign,
                                 Items =
                                 {
                                     cancelButton,
@@ -169,16 +153,60 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                     }
                 }
             };
+
+            if (CooldownTimer.IsRunning)
+            {
+                SetLimitLabelCaption(CooldownTimer.CurrentCooldown);
+                SetLimitLabel(limitLabel);
+            }
+
+            CooldownTimer.CooldownStart += CooldownTimer_CooldownStart;
+            CooldownTimer.CooldownFinish += CooldownTimer_CooldownFinish;
+            CooldownTimer.Elapsed += CooldownTimer_Elapsed;
         }
 
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        protected override Task CloseInternal()
         {
-            limitLabel.Caption = string.Format(LimitText_, _currentLimitTime);
-            _currentLimitTime -= TimerInterval_;
+            CooldownTimer.CooldownStart -= CooldownTimer_CooldownStart;
+            CooldownTimer.CooldownFinish -= CooldownTimer_CooldownFinish;
+            CooldownTimer.Elapsed -= CooldownTimer_Elapsed;
 
-            if (_currentLimitTime.TotalMilliseconds == 0)
-                _timer.Start();
+            return Task.CompletedTask;
         }
+
+        #region Cooldown events
+
+        private void CooldownTimer_Elapsed(object sender, TimeSpan e)
+        {
+            SetLimitLabelCaption(e);
+        }
+
+        private void CooldownTimer_CooldownFinish(object sender, EventArgs e)
+        {
+            SetLimitLabelCaption(TimeSpan.Zero);
+            SetLimitLabel(null);
+        }
+
+        private void CooldownTimer_CooldownStart(object sender, TimeSpan e)
+        {
+            SetLimitLabelCaption(e);
+            SetLimitLabel(limitLabel);
+        }
+
+        private void SetLimitLabel(Label label)
+        {
+            if (label == null)
+                (Content as StackLayout).Items[1] = new StackItem(null) { Size = ImGui.Forms.Models.Size.Empty };
+            else
+                (Content as StackLayout).Items[1] = new StackItem(label) { Size = ImGui.Forms.Models.Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Center };
+        }
+
+        private void SetLimitLabelCaption(TimeSpan time)
+        {
+            limitLabel.Caption = string.Format(LocalizationResources.LimitTimer, time);
+        }
+
+        #endregion
 
         private void InitializeDecks(ComboBox<DataDeckInfo> deckBox)
         {
@@ -192,6 +220,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
         private async void SingleButton_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             cancelButton.Enabled = false;
             singleButton.Enabled = false;
             startButton.Enabled = false;
@@ -206,6 +237,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
         private async void StartButton_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             cancelButton.Enabled = true;
             singleButton.Enabled = false;
             startButton.Enabled = false;
@@ -247,8 +281,6 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             var deckNumber = decks.SelectedItem.Content.UserDeckNumber;
             var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), deckNumber, DeckType.QUEST);
 
-            _questBattleContext.RequestRatioReached += RequestRatioReached;
-
             var battleResult = await _questBattleContext.ExecuteEventQuest(quest.Quest.ChapterId, quest, deck);
 
             (Application.Instance.MainForm as MainForm).UpdateUser();
@@ -258,10 +290,8 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             {
                 var purpleDrop = battleResult.Rewards.DropRewards.FirstOrDefault(x => x.RewardCategory == RewardCategory.SS_RARE);
                 if (purpleDrop != null)
-                    await MessageBox.ShowInformationAsync("Finished", $"Farmed '{purpleDrop.PossessionName}'!");
+                    await MessageBox.ShowInformationAsync(LocalizationResources.RetreatFinishedTitle, string.Format(LocalizationResources.RetreatFinishedDescription1, purpleDrop.PossessionName));
             }
-
-            _questBattleContext.RequestRatioReached -= RequestRatioReached;
         }
 
         private async Task<bool> RetreatFarm(EventQuestData quest)
@@ -270,7 +300,6 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             var deck = CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), deckNumber, DeckType.QUEST);
 
             _questBattleContext.BattleStarted += Battles_BattleStarted;
-            _questBattleContext.RequestRatioReached += RequestRatioReached;
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -292,20 +321,20 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
                 if (battleResult.Status == BattleStatus.OutOfStamina)
                 {
-                    await MessageBox.ShowErrorAsync("Out of Stamina", "You're out of stamina!");
+                    await MessageBox.ShowErrorAsync(LocalizationResources.StaminaTitle, LocalizationResources.StaminaDescription);
                     break;
                 }
 
                 if (battleResult.Status == BattleStatus.ForceShutdown)
                 {
-                    await MessageBox.ShowInformationAsync("Finished", "Purple drop encountered. Go into the game and finish the quest!");
+                    await MessageBox.ShowInformationAsync(LocalizationResources.RetreatFinishedTitle, LocalizationResources.RetreatFinishedDescription2);
                     break;
                 }
 
                 if (battleResult.Status == BattleStatus.Win)
                 {
                     var purpleDrop = battleResult.Rewards.DropRewards.FirstOrDefault(x => x.RewardCategory == RewardCategory.SS_RARE);
-                    await MessageBox.ShowInformationAsync("Finished", $"Farmed '{purpleDrop.PossessionName}'!");
+                    await MessageBox.ShowInformationAsync(LocalizationResources.RetreatFinishedTitle, string.Format(LocalizationResources.RetreatFinishedDescription1, purpleDrop.PossessionName));
                     break;
                 }
 
@@ -318,7 +347,6 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             stopwatch.Stop();
 
             _questBattleContext.BattleStarted -= Battles_BattleStarted;
-            _questBattleContext.RequestRatioReached -= RequestRatioReached;
 
             staminaLabel.Caption = $"{repeats * quest.Quest.EntityQuest.Stamina}";
             countLabel.Caption = $"{repeats}";
@@ -331,22 +359,6 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         {
             e.ShouldQuitBattle = !e.RewardCategories.Contains(RewardCategory.SS_RARE);
             e.ForceShutdown = battleCheck.Checked && !e.ShouldQuitBattle;
-        }
-
-        private void RequestRatioReached(TimeSpan timeout)
-        {
-            SetLimitLabel(limitLabel);
-
-            _currentLimitTime = timeout;
-            _timer.Start();
-        }
-
-        private void SetLimitLabel(Label label)
-        {
-            if (label == null)
-                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new Size(0, 0) };
-            else
-                (Content as StackLayout).Items[1] = new StackItem(label) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
         }
     }
 }

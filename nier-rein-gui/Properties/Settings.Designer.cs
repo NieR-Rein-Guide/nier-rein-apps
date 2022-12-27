@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
+using NierReincarnation.Context.Models;
 
 namespace nier_rein_gui.Properties {
     
@@ -39,10 +39,9 @@ namespace nier_rein_gui.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(null)]
-        public global::NierReincarnation.Context.Models.StaminaType[] StaminaPreference {
+        public StaminaType[] StaminaPreference {
             get {
-                return ((global::NierReincarnation.Context.Models.StaminaType[])(this["StaminaPreference"]));
+                return ((StaminaType[])(this["StaminaPreference"]));
             }
             set {
                 this["StaminaPreference"] = value;

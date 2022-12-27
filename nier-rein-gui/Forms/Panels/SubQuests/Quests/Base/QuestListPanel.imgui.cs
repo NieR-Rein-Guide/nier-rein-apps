@@ -57,9 +57,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
             Content = layout;
         }
 
-        protected virtual void InitializeComponent(StackLayout listLayout)
-        {
-        }
+        protected virtual void InitializeComponent(StackLayout listLayout) { }
 
         protected abstract IQuest GetBaseQuest(TQuestData quest);
 
@@ -111,7 +109,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
             var result = new StackLayout
             {
                 Alignment = Alignment.Horizontal,
-                Size = new Size(1f, -1),
+                Size = Size.WidthAlign,
                 ItemSpacing = 5
             };
 
@@ -122,7 +120,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
             }
 
             if (difficulty != null)
-                result.Items.Add(new StackItem(difficulty) { Size = new Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Right });
+                result.Items.Add(new StackItem(difficulty) { Size = Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Right });
 
             return result;
         }

@@ -1,6 +1,5 @@
 ﻿using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Base;
-using nier_rein_gui.Controls;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -50,10 +49,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests
 
         private void BossQuestButton_Clicked(object sender, System.EventArgs e)
         {
-            foreach (var btn in bossList.Items)
-                (btn as NierButton).Active = btn == sender;
-
-            var index = bossList.Items.IndexOf((Component)sender);
+            var index = bossList.Items.IndexOf((ActivableComponent)sender);
             _currentBossQuest = _bossQuests[index];
 
             UpdateQuest(index);

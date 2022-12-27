@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using ImGui.Forms.Controls;
 using nier_rein_gui.Forms.Panels.SubQuests.Characters.Base;
-using nier_rein_gui.Forms.Panels.SubQuests.Quests;
 using nier_rein_gui.Forms.Panels.SubQuests.Quests.Base;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -10,7 +8,7 @@ using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
 {
-    class CharacterQuestPanel : CharacterListPanel<CharacterQuestChapterData, ClosableQuestListPanel<EventQuestData>>
+    class CharacterQuestPanel : ButtonListPanel<CharacterQuestChapterData, ClosableQuestListPanel<EventQuestData>>
     {
         private readonly NierReinContexts _rein;
 
@@ -19,22 +17,22 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
             _rein = rein;
         }
 
-        protected override IList<CharacterQuestChapterData> GetCharacters()
+        protected override IList<CharacterQuestChapterData> GetDataElements()
         {
             return CalculatorQuest.GetCharacterQuestChapters();
         }
 
-        protected override int GetCharacterId(CharacterQuestChapterData chapter)
+        protected override string GetCaption(CharacterQuestChapterData chapter)
         {
-            return chapter.CharacterId;
+            return CalculatorCharacter.CharacterName(chapter.CharacterId, true);
         }
 
-        protected override bool IsChapterLocked(CharacterQuestChapterData chapter)
+        protected override bool IsButtonEnabled(CharacterQuestChapterData chapter)
         {
-            return chapter.IsLock;
+            return !chapter.IsLock;
         }
 
-        protected override ClosableQuestListPanel<EventQuestData> CreateCharacterPanel(CharacterQuestChapterData chapter, IList<CharacterQuestChapterData> chapters)
+        protected override ClosableQuestListPanel<EventQuestData> CreatePanel(CharacterQuestChapterData chapter, IList<CharacterQuestChapterData> chapters)
         {
             return new CharacterQuestListPanel(_rein, chapter, chapters, false);
         }

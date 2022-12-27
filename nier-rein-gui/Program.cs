@@ -32,7 +32,7 @@ namespace nier_rein_gui
             return new MainForm
             {
                 DefaultFont = FontResources.FotRodin(13),
-                Size = new Vector2(1000, 600)
+                Size = new Vector2(1000, 620)
             };
         }
 

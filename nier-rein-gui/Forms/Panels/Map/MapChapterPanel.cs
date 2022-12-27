@@ -5,6 +5,7 @@ using NierReincarnation;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface;
+using Veldrid;
 
 namespace nier_rein_gui.Forms.Panels.Map
 {

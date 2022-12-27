@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using nier_rein_gui.Controls.Buttons.Items;
+using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -25,7 +26,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _currentCompanion = currentCompanion;
             _deckCompanions = deckCompanions;
 
-            Caption = "Costumes";
+            Caption = LocalizationResources.CostumesTitle;
 
             InitializeCostumeDataInfo();
         }

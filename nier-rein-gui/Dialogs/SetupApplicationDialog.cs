@@ -9,6 +9,7 @@ using ImGui.Forms.Modals;
 using ImGui.Forms.Modals.IO;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
+using nier_rein_gui.Resources;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.UnityEngine;
@@ -25,7 +26,7 @@ namespace nier_rein_gui.Dialogs
             Result = DialogResult.Cancel;
 
             Size = new Vector2(200, 100);
-            Caption = "Startup";
+            Caption = LocalizationResources.StartupTitle;
         }
 
         protected override async void ShowInternal()
@@ -46,13 +47,13 @@ namespace nier_rein_gui.Dialogs
             var isInitialized = await EnsureInitialized();
             if (!isInitialized)
             {
-                await MessageBox.ShowInformationAsync("Missing data", "Could not retrieve some data. Application will be closed.\nRe-Open the application to try again.");
+                await MessageBox.ShowInformationAsync(LocalizationResources.MissingDataTitle, LocalizationResources.MissingDataDescription);
 
                 Close(DialogResult.Cancel);
                 return;
             }
 
-            _assetContext = NierReincarnation.NierReincarnation.GetContexts().Assets;
+            _assetContext = NierReincarnation.NierReincarnation.Assets;
 
             // Ensure text assets
             await EnsureTextAssets(Application.Language);
@@ -132,7 +133,7 @@ namespace nier_rein_gui.Dialogs
 
         private Task<string> ReceiveOtp()
         {
-            return InputBox.ShowAsync("OTP", "Please enter your OTP");
+            return InputBox.ShowAsync(LocalizationResources.OtpTitle, LocalizationResources.OtpDescription);
         }
 
         #endregion
@@ -160,7 +161,7 @@ namespace nier_rein_gui.Dialogs
             var assetSize = _assetContext.GetTextAssetSize(language);
 
             // Set setup design
-            SetupAssetDownloadLayout("text files", assetCount, assetSize);
+            SetupAssetDownloadLayout(LocalizationResources.DownloadTexts, assetCount, assetSize);
 
             // Download assets
             await NierReincarnation.NierReincarnation.LoadLocalizations(language);
@@ -182,7 +183,7 @@ namespace nier_rein_gui.Dialogs
             var assetSize = _assetContext.GetAssetSize(IconSelector);
 
             // Set setup design
-            SetupAssetDownloadLayout("icons", assetCount, assetSize);
+            SetupAssetDownloadLayout(LocalizationResources.DownloadIcons, assetCount, assetSize);
 
             // Download assets
             await _assetContext.DownloadAssets(IconSelector);
@@ -199,7 +200,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = "Setup application..."})
+                    new StackItem(new Label {Caption = LocalizationResources.SetupDescription})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
@@ -217,7 +218,7 @@ namespace nier_rein_gui.Dialogs
             var errMsg = new Label { TextColor = Color.Firebrick };
             var userBox = new TextBox { Width = SizeValue.Relative(1) };
             var passBox = new TextBox { Width = SizeValue.Relative(1), IsMasked = true };
-            var loginBtn = new NierButton { Caption = "Login" };
+            var loginBtn = new NierButton { Caption = LocalizationResources.LoginButton };
 
             userBox.TextChanged += (s, e) => username = userBox.Text;
             passBox.TextChanged += (s, e) => password = passBox.Text;
@@ -231,7 +232,7 @@ namespace nier_rein_gui.Dialogs
 
                 var isLoggedIn = await TryLogin(username, password);
                 if (!isLoggedIn)
-                    errMsg.Caption = "Couldn't login.";
+                    errMsg.Caption = LocalizationResources.LoginError;
 
                 userBox.IsReadOnly = false;
                 passBox.IsReadOnly = false;
@@ -241,7 +242,7 @@ namespace nier_rein_gui.Dialogs
                     await AfterLogin();
             };
 
-            Caption = "SquareEnix Bridge Login";
+            Caption = LocalizationResources.LoginTitle;
             Content = new StackLayout
             {
                 Alignment = Alignment.Vertical,
@@ -258,7 +259,7 @@ namespace nier_rein_gui.Dialogs
                             {
                                 Cells =
                                 {
-                                    new Label {Caption = "Username:"},
+                                    new Label {Caption = LocalizationResources.LoginUsername},
                                     userBox
                                 }
                             },
@@ -266,7 +267,7 @@ namespace nier_rein_gui.Dialogs
                             {
                                 Cells =
                                 {
-                                    new Label {Caption = "Password:"},
+                                    new Label {Caption = LocalizationResources.LoginPassword},
                                     passBox
                                 }
                             }
@@ -284,7 +285,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = "Initialize data..."})
+                    new StackItem(new Label {Caption = LocalizationResources.DataDescription})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
@@ -302,7 +303,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = $"Download {assetCount} {itemName} ({assetSize/1024f/1024:0.0}MB) ..."})
+                    new StackItem(new Label {Caption = string.Format(LocalizationResources.DownloadDescription,assetCount,itemName,assetSize/1024f/1024)})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,

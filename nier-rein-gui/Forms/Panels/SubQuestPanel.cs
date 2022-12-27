@@ -18,6 +18,7 @@ namespace nier_rein_gui.Forms.Panels
 
             mainQuestButton.Clicked += MainQuestButton_Clicked;
             subQuestButton.Clicked += SubQuestButton_Clicked;
+            exQuestButton.Clicked += ExQuestButton_Clicked;
             bigHuntButton.Clicked += BigHuntButton_Clicked;
             explorationButton.Clicked += ExplorationButton_Clicked;
         }
@@ -30,6 +31,11 @@ namespace nier_rein_gui.Forms.Panels
         private void SubQuestButton_Clicked(object sender, System.EventArgs e)
         {
             _main.SetMenuContent(new EventQuestChapterPanel(_rein));
+        }
+
+        private void ExQuestButton_Clicked(object sender, System.EventArgs e)
+        {
+            _main.SetMenuContent(new ExQuestChapterPanel(_rein));
         }
 
         private void BigHuntButton_Clicked(object sender, System.EventArgs e)

@@ -7,8 +7,10 @@ using nier_rein_gui.Dialogs;
 using nier_rein_gui.Forms.Panels;
 using nier_rein_gui.Forms.Panels.Loadouts;
 using nier_rein_gui.Properties;
+using nier_rein_gui.Support;
 using NierReincarnation;
 using NierReincarnation.Context;
+using NierReincarnation.Context.Support;
 using Application = NierReincarnation.Core.UnityEngine.Application;
 
 namespace nier_rein_gui.Forms
@@ -92,9 +94,6 @@ namespace nier_rein_gui.Forms
             if (subMenu is LoadoutPanel)
                 return;
 
-            foreach (var btn in btnList)
-                btn.Active = btn == sender;
-
             SetMenuContent(new LoadoutPanel(_rein, this));
         }
 
@@ -103,9 +102,6 @@ namespace nier_rein_gui.Forms
             if (subMenu is SubQuestPanel)
                 return;
 
-            foreach (var btn in btnList)
-                btn.Active = btn == sender;
-
             SetMenuContent(new SubQuestPanel(_rein, this));
         }
 
@@ -113,9 +109,6 @@ namespace nier_rein_gui.Forms
         {
             if (subMenu is MapSeasonPanel)
                 return;
-
-            foreach (var btn in btnList)
-                btn.Active = btn == sender;
 
             SetMenuContent(new MapSeasonPanel(_rein, this));
         }

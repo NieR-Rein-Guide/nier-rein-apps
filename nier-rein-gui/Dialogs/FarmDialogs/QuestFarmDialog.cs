@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using System.Timers;
 using ImGui.Forms;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
@@ -14,9 +13,12 @@ using ImGuiNET;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Extensions;
 using nier_rein_gui.Forms;
+using nier_rein_gui.Resources;
+using nier_rein_gui.Support;
 using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
+using NierReincarnation.Context.Support;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -27,11 +29,6 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 {
     abstract class QuestFarmDialog<TQuestData> : Modal
     {
-        private static readonly TimeSpan TimerInterval = TimeSpan.FromSeconds(1);
-
-        private const string LimitText_ = "Request limit reached. Waiting {0:m\\:ss}...";
-        private const string RestrictionText_ = "Restrictions apply:";
-
         private readonly IDictionary<int, int> _rewardCache;
         private readonly IDictionary<int, Costume> _costumeCache;
 
@@ -53,12 +50,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         private ComboBox<DataDeckInfo> decks;
         private DataTable<Reward> rewards;
         private DataTable<Costume> costumes;
-        private Button singleButton;
-        private Button cancelButton;
-        private Button startButton;
-
-        private TimeSpan _currentLimitTime;
-        private Timer _timer;
+        private NierButton singleButton;
+        private NierButton cancelButton;
+        private NierButton startButton;
 
         protected QuestBattleContext BattleContext { get; }
 
@@ -72,12 +66,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             _quests = quests;
             _deckType = deckType;
 
-            _timer = new Timer(TimerInterval.TotalMilliseconds);
-            _timer.Elapsed += _timer_Elapsed;
-
             BattleContext.SetupReAuthorization(null, null);
 
-            roundCaptionLabel = new Label { Caption = "Rounds:" };
+            roundCaptionLabel = new Label { Caption = LocalizationResources.RoundCounter };
             roundLabel = new Label();
 
             previousButton = new ArrowButton { Direction = ImGuiDir.Left };
@@ -87,8 +78,12 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             nextButton.Clicked += NextButton_Clicked;
 
             captionLabel = new Label();
-            limitLabel = new Label { Caption = string.Empty, TextColor = Color.Firebrick };
-            restrictionLabel = new Label { Caption = RestrictionText_ };
+            limitLabel = new Label
+            {
+                Caption = string.Empty,
+                TextColor = Color.Firebrick
+            };
+            restrictionLabel = new Label { Caption = LocalizationResources.DeckRestrictions };
 
             decks = new ComboBox<DataDeckInfo>();
 
@@ -98,8 +93,8 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 IsResizable = true,
                 Columns =
                 {
-                    new DataTableColumn<Reward>(reward => reward.Name,nameof(Reward.Name)),
-                    new DataTableColumn<Reward>(reward => $"{reward.Count}",nameof(Reward.Count))
+                    new DataTableColumn<Reward>(reward => reward.Name, LocalizationResources.RewardsColumnName),
+                    new DataTableColumn<Reward>(reward => $"{reward.Count}", LocalizationResources.RewardsColumnCount)
                 },
                 Rows = new List<DataTableRow<Reward>>()
             };
@@ -111,23 +106,23 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 Size = new ImGui.Forms.Models.Size(1f, 75),
                 Columns =
                 {
-                    new DataTableColumn<Costume>(costume => costume.Name, nameof(Costume.Name)),
-                    new DataTableColumn<Costume>(costume => $"{costume.Level}", nameof(Costume.Level)),
-                    new DataTableColumn<Costume>(costume => $"{costume.Rank}", nameof(Costume.Rank))
+                    new DataTableColumn<Costume>(costume => costume.Name, LocalizationResources.CostumesColumnName),
+                    new DataTableColumn<Costume>(costume => $"{costume.Level}", LocalizationResources.CostumesColumnLevel),
+                    new DataTableColumn<Costume>(costume => $"{costume.Rank}", LocalizationResources.CostumesColumnRank)
                 },
                 Rows = new List<DataTableRow<Costume>>()
             };
 
-            singleButton = new NierButton { Caption = "Clear x1", Padding = new Vector2(2, 2) };
+            singleButton = new NierButton { Caption = LocalizationResources.ClearOnce, Padding = new Vector2(2, 2) };
             singleButton.Clicked += SingleButton_Clicked;
 
-            cancelButton = new NierButton { Caption = "Cancel", Padding = new Vector2(2, 2), Enabled = false };
+            cancelButton = new NierButton { Caption = LocalizationResources.Cancel, Padding = new Vector2(2, 2), Enabled = false };
             cancelButton.Clicked += CancelButton_Clicked;
 
-            startButton = new NierButton { Caption = "Start", Padding = new Vector2(2, 2) };
+            startButton = new NierButton { Caption = LocalizationResources.Start, Padding = new Vector2(2, 2) };
             startButton.Clicked += StartButton_Clicked;
 
-            Caption = "Farming";
+            Caption = LocalizationResources.TitleFarmingGeneral;
             Size = new Vector2(270, 300);
             Content = new StackLayout
             {
@@ -138,20 +133,20 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        Size = new ImGui.Forms.Models.Size(1f,-1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         ItemSpacing = 5,
                         Items =
                         {
                             previousButton,
-                            new StackItem(captionLabel){Size = new ImGui.Forms.Models.Size(1f,-1)},
+                            new StackItem(captionLabel){Size = ImGui.Forms.Models.Size.WidthAlign},
                             nextButton
                         }
                     },
-                    new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
-                    new StackItem(null){Size = new ImGui.Forms.Models.Size(0,0)},
+                    new StackItem(null){Size = ImGui.Forms.Models.Size.Empty},
+                    new StackItem(null){Size = ImGui.Forms.Models.Size.Empty},
                     new StackLayout
                     {
-                        Size = new ImGui.Forms.Models.Size(1f,-1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         ItemSpacing = 5,
                         Alignment = Alignment.Horizontal,
                         Items =
@@ -175,7 +170,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        Size = new ImGui.Forms.Models.Size(1f, -1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         Items =
                         {
                             singleButton,
@@ -184,7 +179,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                                 Alignment = Alignment.Horizontal,
                                 HorizontalAlignment = HorizontalAlignment.Right,
                                 ItemSpacing = 5,
-                                Size = new ImGui.Forms.Models.Size(1f, -1),
+                                Size = ImGui.Forms.Models.Size.WidthAlign,
                                 Items =
                                 {
                                     cancelButton,
@@ -197,14 +192,68 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             };
 
             UpdateQuest(currentQuest, true);
+
+            if (CooldownTimer.IsRunning)
+            {
+                SetLimitLabelCaption(CooldownTimer.CurrentCooldown);
+                SetLimitLabel(limitLabel);
+            }
+
+            CooldownTimer.CooldownStart += CooldownTimer_CooldownStart;
+            CooldownTimer.CooldownFinish += CooldownTimer_CooldownFinish;
+            CooldownTimer.Elapsed += CooldownTimer_Elapsed;
         }
 
         protected abstract int GetQuestId(TQuestData data);
         protected abstract string GetQuestName(TQuestData data);
+        protected abstract int GetQuestDailyCount(TQuestData data);
         protected abstract bool IsQuestLocked(TQuestData data);
-        protected abstract void SetLock(TQuestData data, bool isLock);
+        protected abstract void SetQuestLocked(TQuestData data, bool isLock);
 
         protected abstract Task<BattleResult> ExecuteQuest(TQuestData quest, DataDeck deck);
+
+        protected override Task CloseInternal()
+        {
+            CooldownTimer.CooldownStart -= CooldownTimer_CooldownStart;
+            CooldownTimer.CooldownFinish -= CooldownTimer_CooldownFinish;
+            CooldownTimer.Elapsed -= CooldownTimer_Elapsed;
+
+            return Task.CompletedTask;
+        }
+
+        #region Cooldown events
+
+        private void CooldownTimer_Elapsed(object sender, TimeSpan e)
+        {
+            SetLimitLabelCaption(e);
+        }
+
+        private void CooldownTimer_CooldownFinish(object sender, EventArgs e)
+        {
+            SetLimitLabelCaption(TimeSpan.Zero);
+            SetLimitLabel(null);
+        }
+
+        private void CooldownTimer_CooldownStart(object sender, TimeSpan e)
+        {
+            SetLimitLabelCaption(e);
+            SetLimitLabel(limitLabel);
+        }
+
+        private void SetLimitLabel(Label label)
+        {
+            if (label == null)
+                (Content as StackLayout).Items[1] = new StackItem(null) { Size = ImGui.Forms.Models.Size.Empty };
+            else
+                (Content as StackLayout).Items[1] = new StackItem(label) { Size = ImGui.Forms.Models.Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Center };
+        }
+
+        private void SetLimitLabelCaption(TimeSpan time)
+        {
+            limitLabel.Caption = string.Format(LocalizationResources.LimitTimer, time);
+        }
+
+        #endregion
 
         private TQuestData GetNextQuest()
         {
@@ -216,7 +265,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                     continue;
 
                 _currentQuest = quest;
-                SetLock(quest, false);
+                SetQuestLocked(quest, false);
 
                 return quest;
             }
@@ -234,7 +283,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                     continue;
 
                 _currentQuest = quest;
-                SetLock(quest, false);
+                SetQuestLocked(quest, false);
 
                 return quest;
             }
@@ -288,10 +337,10 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         {
             // Update quest information
             _currentQuest = quest;
-            captionLabel.Caption = $"Quest: {GetQuestName(quest)}";
+            captionLabel.Caption = string.Format(LocalizationResources.QuestName, GetQuestName(quest));
 
             // Update restrictions
-            restrictionLabel.Caption = RestrictionText_;
+            restrictionLabel.Caption = LocalizationResources.DeckRestrictions;
 
             var restrictionText = GetRestrictionText(GetQuestId(quest));
             if (!string.IsNullOrEmpty(restrictionText))
@@ -303,6 +352,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             // Clear rewards and costumes
             rewards.Rows.Clear();
             costumes.Rows.Clear();
+
+            // Activate start button for non-daily quests
+            startButton.Enabled = GetQuestDailyCount(quest) <= 0;
         }
 
         private string GetRestrictionText(int questId)
@@ -319,96 +371,38 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             switch (restriction.QuestDeckRestrictionType)
             {
                 case QuestDeckRestrictionType.CHARACTER_ID:
-                    return $"Character: {CalculatorCharacter.GetCharacterName(restriction.RestrictionValue)}";
+                    return string.Format(LocalizationResources.DeckRestrictionsCharacter, GetRestrictionSlotName(restriction.SlotNumber), CalculatorCharacter.GetCharacterName(restriction.RestrictionValue));
 
                 case QuestDeckRestrictionType.COSTUME_ID:
-                    return $"Costume: {CalculatorCostume.CostumeName(restriction.RestrictionValue)}";
+                    return string.Format(LocalizationResources.DeckRestrictionsCostume, GetRestrictionSlotName(restriction.SlotNumber), CalculatorCostume.CostumeName(restriction.RestrictionValue));
 
                 default:
                     return string.Empty;
             }
         }
 
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        private string GetRestrictionSlotName(int slotNumber)
         {
-            limitLabel.Caption = string.Format(LimitText_, _currentLimitTime);
-            _currentLimitTime -= TimerInterval;
+            switch (slotNumber)
+            {
+                case 1:
+                    return LocalizationResources.DeckRestrictionsSlot1;
 
-            if (_currentLimitTime.TotalMilliseconds == 0)
-                _timer.Start();
-        }
+                case 2:
+                    return LocalizationResources.DeckRestrictionsSlot2;
 
-        private async void SingleButton_Clicked(object sender, EventArgs e)
-        {
-            previousButton.Enabled = false;
-            nextButton.Enabled = false;
-            cancelButton.Enabled = false;
-            singleButton.Enabled = false;
-            startButton.Enabled = false;
-            _isFarming = true;
+                case 3:
+                    return LocalizationResources.DeckRestrictionsSlot3;
 
-            _costumeCache.Clear();
-            _rewardCache.Clear();
-            costumes.Rows.Clear();
-            rewards.Rows.Clear();
-
-            SetRound(0);
-
-            // Prepare deck
-            var deck = _isRental ?
-                CalculatorDeck.CreateRentalDeck(GetQuestId(_currentQuest)) :
-                CalculatorDeck.CreateDataDeck(CalculatorStateUser.GetUserId(), decks.SelectedItem.Content.UserDeckNumber, _deckType);
-
-            // Prepare costume table
-            foreach (var actor in deck.UserDeckActors)
-                if (actor != null)
-                    _costumeCache[actor.Costume.CostumeId] = new Costume
-                    {
-                        CostumeId = actor.Costume.CostumeId,
-                        Uuid = actor.Costume.UserCostumeUuid,
-                        Name = actor.Costume.CharacterName,
-                        Level = actor.Costume.CostumeStatus.Level,
-                        Rank = CalculatorCharacterRank.GetCharacterRank(actor.Costume.CharacterId)
-                    };
-
-            foreach (var costume in _costumeCache)
-                costumes.Rows.Add(new DataTableRow<Costume>(costume.Value));
-
-            BattleContext.BattleFinished += Battles_BattleFinished;
-            BattleContext.RequestRatioReached += RequestRatioReached;
-            BattleContext.GeneralError += BattleContext_GeneralError;
-
-            await ExecuteQuest(_currentQuest, deck);
-
-            BattleContext.BattleFinished -= Battles_BattleFinished;
-            BattleContext.RequestRatioReached -= RequestRatioReached;
-            BattleContext.GeneralError -= BattleContext_GeneralError;
-
-            SetRound(1);
-
-            (Application.Instance.MainForm as MainForm).UpdateUser();
-            (Application.Instance.MainForm as MainForm).UpdateStamina();
-
-            _isFarming = false;
-            cancelButton.Enabled = false;
-            singleButton.Enabled = true;
-            startButton.Enabled = true;
-            previousButton.Enabled = true;
-            nextButton.Enabled = true;
+                default:
+                    throw new InvalidOperationException("Invalid restriction slot.");
+            }
         }
 
         private async Task BattleContext_GeneralError(Grpc.Core.RpcException e)
         {
             Log.Fatal(e, "Exception executing quest.");
-            await MessageBox.ShowInformationAsync("General Error", "An error occurred executing this quest.\nSee the log for more info.");
-        }
-
-        private void RequestRatioReached(TimeSpan timeout)
-        {
-            SetLimitLabel(limitLabel);
-
-            _currentLimitTime = timeout;
-            _timer.Start();
+            await MessageBox.ShowInformationAsync(LocalizationResources.ErrorTitle, LocalizationResources.ErrorDescription);
         }
 
         private void InitializeDecks(ComboBox<DataDeckInfo> deckBox, int questId)
@@ -425,7 +419,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             foreach (var deck in validDecks)
                 deckBox.Items.Add(deck);
 
-            deckBox.SelectedItem = selectedIndex < deckBox.Items.Count&&selectedIndex>=0 ? deckBox.Items[selectedIndex] : deckBox.Items[0];
+            deckBox.SelectedItem = selectedIndex < deckBox.Items.Count && selectedIndex >= 0 ? deckBox.Items[selectedIndex] : deckBox.Items[0];
         }
 
         private IEnumerable<DataDeckInfo> GetValidDecks(DataDeckRestriction[] restrictions)
@@ -477,45 +471,20 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             return true;
         }
 
+        private async void SingleButton_Clicked(object sender, EventArgs e)
+        {
+            await ExecuteBattle(1, false);
+        }
+
         private async void StartButton_Clicked(object sender, EventArgs e)
         {
-            previousButton.Enabled = false;
-            nextButton.Enabled = false;
-            cancelButton.Enabled = true;
-            singleButton.Enabled = false;
-            startButton.Enabled = false;
-            _isFarming = true;
-
-            _costumeCache.Clear();
-            _rewardCache.Clear();
-            costumes.Rows.Clear();
-            rewards.Rows.Clear();
-
-            var isSuccessful = await Farm();
-            _isFarming = false;
-
-            if (isSuccessful)
-            {
-                Close();
-                return;
-            }
-
-            _isCancel = false;
-            cancelButton.Enabled = false;
-            previousButton.Enabled = true;
-            nextButton.Enabled = true;
+            await ExecuteBattle(-1, true);
         }
 
         private void CancelButton_Clicked(object sender, EventArgs e)
         {
             _isCancel = true;
-            _isFarming = false;
-
             cancelButton.Enabled = false;
-            singleButton.Enabled = true;
-            startButton.Enabled = true;
-            previousButton.Enabled = true;
-            nextButton.Enabled = true;
         }
 
         protected override bool ShouldCancelClose()
@@ -523,11 +492,48 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             return _isFarming;
         }
 
-        private async Task<bool> Farm()
+        private async Task ExecuteBattle(int rounds, bool cancellable)
+        {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
+            _costumeCache.Clear();
+            _rewardCache.Clear();
+            costumes.Rows.Clear();
+            rewards.Rows.Clear();
+
+            _isCancel = false;
+            _isFarming = true;
+
+            // HINT: Necessary to keep state of UpdateQuest for startButton
+            var startBtnValue = startButton.Enabled;
+
+            previousButton.Enabled = false;
+            nextButton.Enabled = false;
+            cancelButton.Enabled = cancellable;
+            singleButton.Enabled = false;
+            startButton.Enabled = false;
+
+            var roundCount = await Farm(rounds);
+
+            cancelButton.Enabled = false;
+            previousButton.Enabled = true;
+            nextButton.Enabled = true;
+            singleButton.Enabled = true;
+            startButton.Enabled = startBtnValue;
+
+            _isFarming = false;
+
+            var dailyCount = GetQuestDailyCount(_currentQuest);
+            if (dailyCount > 0 && roundCount >= dailyCount)
+                Close(DialogResult.Ok);
+        }
+
+        private async Task<int> Farm(int rounds = -1)
         {
             // Prepare battle events
             BattleContext.BattleFinished += Battles_BattleFinished;
-            BattleContext.RequestRatioReached += RequestRatioReached;
+            BattleContext.GeneralError += BattleContext_GeneralError;
 
             // Prepare deck
             var deck = _isRental ?
@@ -550,41 +556,40 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 costumes.Rows.Add(new DataTableRow<Costume>(costume.Value));
 
             // Set rounds
-            var rounds = 0;
-            SetRound(rounds);
+            var roundCount = 0;
+            SetRound(roundCount);
 
             // Execute farming
-            var isCancelled = false;
-            while (!_isCancel)
+            //var isCancelled = false;
+            while (!_isCancel && (rounds < 0 || roundCount < rounds))
             {
-                SetLimitLabel(null);
-
                 var battleResult = await ExecuteQuest(_currentQuest, deck);
 
                 (Application.Instance.MainForm as MainForm).UpdateUser();
                 (Application.Instance.MainForm as MainForm).UpdateStamina();
-
-                SetRound(++rounds);
 
                 if (battleResult.Status == BattleStatus.ForceShutdown)
                     break;
 
                 if (battleResult.Status == BattleStatus.OutOfStamina)
                 {
-                    await MessageBox.ShowErrorAsync("Out of Stamina", "You're out of stamina!");
+                    await MessageBox.ShowErrorAsync(LocalizationResources.StaminaTitle, LocalizationResources.StaminaDescription);
                     break;
                 }
+
+                // Update round count only after successful battle round
+                SetRound(++roundCount);
 
                 // TODO: Create ending conditions based on rewards
             }
 
             BattleContext.BattleFinished -= Battles_BattleFinished;
-            BattleContext.RequestRatioReached -= RequestRatioReached;
+            BattleContext.GeneralError -= BattleContext_GeneralError;
 
-            if (_isCancel)
-                isCancelled = true;
+            //if (_isCancel)
+            //    isCancelled = true;
 
-            return !isCancelled;
+            return roundCount;
         }
 
         private void Battles_BattleFinished(object sender, NierReincarnation.Context.Models.Events.FinishBattleEventArgs e)
@@ -610,26 +615,18 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             }
         }
 
-        private void SetLimitLabel(Label label)
-        {
-            if (label == null)
-                (Content as StackLayout).Items[1] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
-            else
-                (Content as StackLayout).Items[1] = new StackItem(label) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
-        }
-
         private void SetRestrictionLabel(Label label)
         {
             if (label == null)
-                (Content as StackLayout).Items[2] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
+                (Content as StackLayout).Items[2] = new StackItem(null) { Size = ImGui.Forms.Models.Size.Empty };
             else
-                (Content as StackLayout).Items[2] = new StackItem(label) { Size = new ImGui.Forms.Models.Size(1f, -1), HorizontalAlignment = HorizontalAlignment.Center };
+                (Content as StackLayout).Items[2] = new StackItem(label) { Size = ImGui.Forms.Models.Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Center };
         }
 
         private void SetDeckBox(ComboBox<DataDeckInfo> deckBox)
         {
             if (deckBox == null)
-                ((Content as StackLayout).Items[3].Content as StackLayout).Items[0] = new StackItem(null) { Size = new ImGui.Forms.Models.Size(0, 0) };
+                ((Content as StackLayout).Items[3].Content as StackLayout).Items[0] = new StackItem(null) { Size = ImGui.Forms.Models.Size.Empty };
             else
                 ((Content as StackLayout).Items[3].Content as StackLayout).Items[0] = new StackItem(deckBox) { Size = ImGui.Forms.Models.Size.Content };
         }

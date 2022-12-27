@@ -5,6 +5,8 @@ using ImGui.Forms.Modals;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
 using nier_rein_gui.Extensions;
+using nier_rein_gui.Resources;
+using nier_rein_gui.Support;
 using NierReincarnation;
 using NierReincarnation.Context;
 using NierReincarnation.Context.Models;
@@ -42,7 +44,7 @@ namespace nier_rein_gui.Dialogs
             grades = new ComboBox<SubjugationGrade>();
             InitializeGrades(grades);
 
-            clearButton = new NierButton { Caption = "Clear", Padding = new Vector2(2, 2) };
+            clearButton = new NierButton { Caption = LocalizationResources.Clear, Padding = new Vector2(2, 2) };
             clearButton.Clicked += ClearButton_Clicked;
 
             Size = new Vector2(250, 100);
@@ -67,10 +69,10 @@ namespace nier_rein_gui.Dialogs
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        Size = new Size(1f, -1),
+                        Size = ImGui.Forms.Models.Size.WidthAlign,
                         Items =
                         {
-                            new StackItem(clearButton){Size = new Size(1f,-1),HorizontalAlignment = HorizontalAlignment.Right}
+                            new StackItem(clearButton){Size = ImGui.Forms.Models.Size.WidthAlign,HorizontalAlignment = HorizontalAlignment.Right}
                         }
                     }
                 }
@@ -79,6 +81,9 @@ namespace nier_rein_gui.Dialogs
 
         private async void ClearButton_Clicked(object sender, System.EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             clearButton.Enabled = false;
             _cancelClose = true;
 
@@ -105,7 +110,7 @@ namespace nier_rein_gui.Dialogs
         private void InitializeGrades(ComboBox<SubjugationGrade> grades)
         {
             var maxGrade = Grade.SSS;
-            var maxRank = 1;
+            var maxRank = 10;
 
             var maxOrder = new SubjugationGrade
             {

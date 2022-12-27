@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 using ImGui.Forms.Controls.Layouts;
+using ImGui.Forms.Controls.Lists;
 using ImGui.Forms.Models;
 using nier_rein_gui.Controls.Buttons;
 
@@ -9,17 +10,17 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Base
     abstract partial class SeasonPanel<TSeasonData>
     {
         private StackLayout mainLayout;
-        private StackLayout seasonLayout;
+        private ActivableList seasonList;
 
         protected TSeasonData CurrentSeason { get; set; }
 
         private void InitializeComponent()
         {
-            seasonLayout = new StackLayout
+            seasonList = new ActivableList
             {
                 Alignment = Alignment.Horizontal,
                 ItemSpacing = 5,
-                Size = new Size(1f, -1)
+                Size = Size.WidthAlign
             };
 
             Content = mainLayout = new StackLayout
@@ -28,28 +29,31 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Base
                 ItemSpacing = 5,
                 Items =
                 {
-                    seasonLayout,
+                    seasonList,
                     new StackItem(null)
                 }
             };
+
+            UpdateLayout(mainLayout);
         }
+
+        protected virtual void UpdateLayout(StackLayout layout) { }
 
         private void UpdateSeasonList(IList<TSeasonData> seasons)
         {
             CurrentSeason = seasons[0];
 
             // Clear layout
-            for (var i = seasonLayout.Items.Count - 1; i >= 0; i++)
-                seasonLayout.Items.RemoveAt(i);
+            seasonList.Items.Clear();
 
             // Add seasons
             foreach (var season in seasons)
-                seasonLayout.Items.Add(CreateSeasonButton(season));
+                seasonList.Items.Add(CreateSeasonButton(season));
         }
 
-        private void UpdateChapterPanel(TSeasonData season)
+        protected void UpdateChapterPanel(TSeasonData season)
         {
-            var chapterPanel = GetChapterPanel(_rein,season);
+            var chapterPanel = GetChapterPanel(_rein, season);
 
             var items = mainLayout.Items;
             var item = new StackItem(chapterPanel) { Size = new Size(.65f, 1f) };
@@ -67,19 +71,16 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Base
                 Caption = GetSeasonName(season),
                 Active = CurrentSeason.Equals(season),
                 IsClickActive = true,
-                Width = 0.125f,
+                Width = 120,
                 Padding = new Vector2(0, 2)
             };
-            result.Clicked += (s, e) => SeasonBtn_Clicked((NierButton)s, season);
+            result.Clicked += (s, e) => SeasonBtn_Clicked(season);
 
             return result;
         }
 
-        private void SeasonBtn_Clicked(NierButton sender, TSeasonData season)
+        private void SeasonBtn_Clicked(TSeasonData season)
         {
-            foreach (var seasonBtn in seasonLayout.Items)
-                (seasonBtn.Content as NierButton).Active = sender == seasonBtn.Content;
-
             CurrentSeason = season;
             UpdateChapterPanel(season);
         }

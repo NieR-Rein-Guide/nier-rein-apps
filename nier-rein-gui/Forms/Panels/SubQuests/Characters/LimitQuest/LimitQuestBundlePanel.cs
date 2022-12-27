@@ -5,11 +5,9 @@ using nier_rein_gui.Controls.Base;
 using NierReincarnation;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
-namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
+namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
 {
     partial class LimitQuestBundlePanel : Panel, IClosablePanel
     {

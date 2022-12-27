@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using nier_rein_gui.Controls.Buttons.Items;
+using nier_rein_gui.Resources;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
@@ -27,7 +29,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             _currentMemories = currentMemories;
             _deckOtherMemories = deckOtherMemories;
 
-            Caption = "Memoirs";
+            Caption = LocalizationResources.MemoirsTitle;
 
             InitializeCostumeDataInfo();
         }

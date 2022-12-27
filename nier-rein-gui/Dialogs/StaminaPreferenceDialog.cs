@@ -24,7 +24,7 @@ namespace nier_rein_gui.Dialogs
         public StaminaPreferenceDialog()
         {
             Size = new Vector2(300, 350);
-            Caption = "Stamina Usage Preference";
+            Caption = LocalizationResources.StaminaPreferenceTitle;
             Content = orderList = CreateList();
         }
 
@@ -64,7 +64,7 @@ namespace nier_rein_gui.Dialogs
                             ItemSpacing = 5,
                             Items =
                             {
-                                new StackItem(new Label{Caption = dataItem.Name}){Size = new Size(1f, -1)},
+                                new StackItem(new Label{Caption = dataItem.Name}){Size = ImGui.Forms.Models.Size.WidthAlign},
                                 new StackItem(new Label{Caption = dataItem.Description}){Size = ImGui.Forms.Models.Size.Parent,VerticalAlignment = VerticalAlignment.Center}
                             }
                         },
@@ -78,7 +78,7 @@ namespace nier_rein_gui.Dialogs
                                 upButton,
                                 downButton
                             }
-                        }){Size = new Size(-1,1f),VerticalAlignment = VerticalAlignment.Center}
+                        }){Size = ImGui.Forms.Models.Size.HeightAlign ,VerticalAlignment = VerticalAlignment.Center}
                     }
                 });
             }

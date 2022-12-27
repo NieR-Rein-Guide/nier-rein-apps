@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Models;
@@ -39,11 +40,6 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         protected int CurrentDeckNumber { get; private set; }
         protected DeckType CurrentDeckType { get; private set; } = DeckType.QUEST;
-        private DataDeckInfo CurrentDeck
-        {
-            get => Decks[GetDeckIndex(CurrentDeckNumber, CurrentDeckType)];
-            set => Decks[GetDeckIndex(CurrentDeckNumber, CurrentDeckType)] = value;
-        }
 
         private void InitializeComponent()
         {
@@ -52,14 +48,17 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
             deckTypeBox = new ComboBox<DeckType>();
             deckNameLabel = new Label();
-            deckNameButton = new ImageButton { Image = NierResources.LoadEditIcon() };
+            deckNameButton = new ImageButton { Image = NierResources.LoadEditIcon(), ImageSize = NierResources.RarityStarSize };
             actor1 = new LoadoutActorPanel(_rein, this, 0);
             actor2 = new LoadoutActorPanel(_rein, this, 1);
             actor3 = new LoadoutActorPanel(_rein, this, 2);
             deleteButton = new NierButton { Caption = UserInterfaceTextKey.Deck.kDeleteDeck.Localize() };
 
             foreach (var deckType in _deckTypes)
-                deckTypeBox.Items.Add(new ComboBoxItem<DeckType>(deckType, GetDeckTypeName(deckType)));
+            {
+                if (GetMaxDeckCount(deckType) > 0)
+                    deckTypeBox.Items.Add(new ComboBoxItem<DeckType>(deckType, GetDeckTypeName(deckType)));
+            }
             deckTypeBox.SelectedItem = deckTypeBox.Items[0];
 
             Content = new StackLayout
@@ -71,12 +70,12 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     new StackLayout
                     {
                         Alignment = Alignment.Horizontal,
-                        Size = new Size(1f,-1),
+                        Size = Size.WidthAlign,
                         ItemSpacing = 5,
                         Items =
                         {
                             new Label {Font = FontResources.FotRodin(20), Caption = UserInterfaceTextKey.Deck.kOrganization.Localize()},
-                            new StackItem(deckTypeBox){Size = new Size(1f,-1),HorizontalAlignment = HorizontalAlignment.Right}
+                            new StackItem(deckTypeBox){Size = Size.WidthAlign,HorizontalAlignment = HorizontalAlignment.Right}
                         }
                     },
                     new StackLayout
@@ -96,7 +95,7 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                                     {
                                         Alignment = Alignment.Horizontal,
                                         ItemSpacing = 5,
-                                        Size = new Size(1f,-1),
+                                        Size = Size.WidthAlign,
                                         Items =
                                         {
                                             new StackItem(deckNameLabel){VerticalAlignment = VerticalAlignment.Center},
@@ -138,7 +137,7 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize();
 
                 case DeckType.RESTRICTED_LIMIT_CONTENT_QUEST:
-                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize() + " Rec.o.Dusk";
+                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize() + " " + LocalizationResources.DeckDuskExtra;
 
                 default:
                     return null;
@@ -153,10 +152,13 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     return UserInterfaceTextKey.Deck.kTypeQuest.Localize() + $"{deckNumber}";
 
                 case DeckType.RESTRICTED_QUEST:
-                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize();
+                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize() + $"{deckNumber}";
 
                 case DeckType.RESTRICTED_LIMIT_CONTENT_QUEST:
-                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize();
+                    var quests = CalculatorLimitContent.CreateDataLimitContentCharacters().OrderBy(x => x.SortOrder).ToArray();
+                    var questIndex = (deckNumber - 101) / 100;
+
+                    return UserInterfaceTextKey.Deck.kRestrictionDeck.Localize() + $" {quests[questIndex].Costume.CharacterName}{deckNumber % 100}";
 
                 default:
                     return null;
@@ -166,8 +168,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
         private void UpdateDeck(int index)
         {
             CurrentDeckNumber = GetDeckNumber(index, CurrentDeckType);
+            var currentDeck = GetCurrentDeck();
 
-            if (CurrentDeck.IsEmpty)
+            if (currentDeck?.IsEmpty ?? true)
             {
                 actor1.Reset(true);
                 actor2.Reset(false);
@@ -179,25 +182,25 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                 return;
             }
 
-            deckNameLabel.Caption = CurrentDeck.ToString();
-            deleteButton.Enabled = CurrentDeckType != DeckType.RESTRICTED_QUEST || !CurrentDeck.IsMinimal;
+            deckNameLabel.Caption = currentDeck.ToString();
+            deleteButton.Enabled = CurrentDeckType != DeckType.RESTRICTED_QUEST || !currentDeck.IsMinimal;
 
-            for (var i = 0; i < CurrentDeck.UserDeckActors.Length; i++)
+            for (var i = 0; i < currentDeck.UserDeckActors.Length; i++)
             {
                 var actorPanel = i == 0 ? actor1 : i == 1 ? actor2 : actor3;
-                if (CurrentDeck.UserDeckActors[i] == null)
+                if (currentDeck.UserDeckActors[i] == null)
                 {
-                    actorPanel.Reset(i == 0 || CurrentDeck.UserDeckActors[i - 1]?.Costume != null);
+                    actorPanel.Reset(i == 0 || currentDeck.UserDeckActors[i - 1]?.Costume != null);
                     continue;
                 }
 
-                actorPanel.Update(CurrentDeck.UserDeckActors[i]);
+                actorPanel.Update(currentDeck.UserDeckActors[i]);
             }
         }
 
         private void InitializeDecks(DeckType deckType)
         {
-            Decks = new DataDeckInfo[GetMaxDeckCount(CurrentDeckType) + 1];
+            Decks = new DataDeckInfo[GetMaxDeckCount(CurrentDeckType)];
             foreach (var deck in CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), deckType))
                 Decks[GetDeckIndex(deck.UserDeckNumber, deckType)] = deck;
 
@@ -213,10 +216,10 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     return CalculatorDeck.kMaxDeckCount;
 
                 case DeckType.RESTRICTED_QUEST:
-                    return 1;
+                    return CalculatorDeck.EnumerateDeckInfo(CalculatorStateUser.GetUserId(), DeckType.RESTRICTED_QUEST).Count();
 
                 case DeckType.RESTRICTED_LIMIT_CONTENT_QUEST:
-                    return 5;
+                    return CalculatorLimitContent.CreateDataLimitContentCharacters().Count * CalculatorDeck.kMaxLimitContentDeckCount;
 
                 default:
                     throw new InvalidOperationException("Unknown deck type.");
@@ -232,7 +235,8 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     return deckNumber - 1;
 
                 case DeckType.RESTRICTED_LIMIT_CONTENT_QUEST:
-                    return deckNumber - 101;
+                    var batch = deckNumber / 100 - 1;
+                    return batch * CalculatorDeck.kMaxLimitContentDeckCount + deckNumber % 100 - 1;
 
                 default:
                     throw new InvalidOperationException("Unknown deck type.");
@@ -248,11 +252,30 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     return index + 1;
 
                 case DeckType.RESTRICTED_LIMIT_CONTENT_QUEST:
-                    return index + 101;
+                    var batch = index / CalculatorDeck.kMaxLimitContentDeckCount + 1;
+                    return batch * 100 + index % CalculatorDeck.kMaxLimitContentDeckCount + 1;
 
                 default:
                     throw new InvalidOperationException("Unknown deck type.");
             }
+        }
+
+        protected DataDeckInfo GetCurrentDeck()
+        {
+            var index = GetDeckIndex(CurrentDeckNumber, CurrentDeckType);
+            if (index >= Decks.Length)
+                return null;
+
+            return Decks[index];
+        }
+
+        protected void SetCurrentDeck(DataDeckInfo deck)
+        {
+            var index = GetDeckIndex(CurrentDeckNumber, CurrentDeckType);
+            if (index >= Decks.Length)
+                return;
+
+            Decks[index] = deck;
         }
     }
 }

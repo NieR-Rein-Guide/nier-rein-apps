@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ImGui.Forms.Controls;
 using nier_rein_gui.Controls.Buttons.Items;
 using nier_rein_gui.Dialogs.LoadoutSelectionDialogs;
+using nier_rein_gui.Support;
 using NierReincarnation;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
@@ -110,6 +111,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void CostumeButton_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (costumeInfo, _) = await SelectCostume(_actor?.Costume);
             if (costumeInfo == null)
                 return;
@@ -129,6 +133,8 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                 return;
 
             _actor ??= _loadoutPanel.CreateActor(_pos);
+            if (_actor == null)
+                return;
 
             _actor.Costume = costumeInfo;
             _actor.MainWeapon = weaponInfo;
@@ -167,6 +173,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void MainWeaponButton_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (weaponInfo, _) = await SelectWeapon(_actor?.MainWeapon, true);
             if (weaponInfo == null)
                 return;
@@ -181,6 +190,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void SubWeapon1Button_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (weaponInfo, shouldRemove) = await SelectWeapon(_actor?.SubWeapon01, false);
             if (weaponInfo == null && !shouldRemove)
                 return;
@@ -209,6 +221,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void SubWeapon2Button_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (weaponInfo, shouldRemove) = await SelectWeapon(_actor?.SubWeapon02, false);
             if (weaponInfo == null && !shouldRemove)
                 return;
@@ -259,6 +274,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void CompanionButton_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (companionInfo, shouldRemove) = await SelectCompanion(_actor?.Companion);
             if (companionInfo == null && !shouldRemove)
                 return;
@@ -287,6 +305,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void ThoughtButton_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (thought, shouldRemove) = await SelectThought(_actor?.Thought);
             if (thought == null && !shouldRemove)
                 return;
@@ -315,6 +336,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void Memoir1Button_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (memoryInfo, shouldRemove) = await SelectMemory(_actor?.Memories[0]);
             if (memoryInfo == null && !shouldRemove)
                 return;
@@ -362,6 +386,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void Memoir2Button_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (memoryInfo, shouldRemove) = await SelectMemory(_actor?.Memories[1]);
             if (memoryInfo == null && !shouldRemove)
                 return;
@@ -407,6 +434,9 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void Memoir3Button_Clicked(object sender, EventArgs e)
         {
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
             var (memoryInfo, shouldRemove) = await SelectMemory(_actor?.Memories[2]);
             if (memoryInfo == null && !shouldRemove)
                 return;

@@ -6,6 +6,9 @@ using ImGui.Forms.Modals.IO;
 using nier_rein_gui.Extensions;
 using NierReincarnation;
 using System.Threading.Tasks;
+using nier_rein_gui.Resources;
+using nier_rein_gui.Support;
+using NierReincarnation.Context.Support;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -18,6 +21,8 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 {
     partial class LoadoutPanel : Panel
     {
+        private const int MaxDeckCharacters_ = 10;
+
         private readonly NierReinContexts _rein;
         private readonly MainForm _mainForm;
 
@@ -53,15 +58,22 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void DeleteButton_Clicked(object sender, EventArgs e)
         {
-            var result = await MessageBox.ShowYesNoAsync(UserInterfaceTextKey.Deck.kDeleteTitleTextKey.Localize(), $"Are you sure you want to delete '{CurrentDeck}'?");
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
+            var currentDeck = GetCurrentDeck();
+            if (currentDeck == null)
+                return;
+
+            var result = await MessageBox.ShowYesNoAsync(UserInterfaceTextKey.Deck.kDeleteTitleTextKey.Localize(), string.Format(LocalizationResources.DeckDeleteDescription, currentDeck));
             if (result != DialogResult.Yes)
                 return;
 
-            await _rein.Decks.Remove(CurrentDeckNumber, CurrentDeck.DeckType);
+            await _rein.Decks.Remove(CurrentDeckNumber, currentDeck.DeckType);
 
-            CurrentDeck = CurrentDeckType == DeckType.RESTRICTED_QUEST ? 
-                CalculatorDeck.CreateDataDeckInfo(CalculatorStateUser.GetUserId(), CurrentDeckNumber, CurrentDeckType) : 
-                new DataDeckInfo(CurrentDeckType, CurrentDeckNumber);
+            SetCurrentDeck(CurrentDeckType == DeckType.RESTRICTED_QUEST ?
+                CalculatorDeck.CreateDataDeckInfo(CalculatorStateUser.GetUserId(), CurrentDeckNumber, CurrentDeckType) :
+                new DataDeckInfo(CurrentDeckType, CurrentDeckNumber));
 
             UpdateDeck(GetDeckIndex(CurrentDeckNumber, CurrentDeckType));
         }
@@ -86,19 +98,23 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async void DeckNameButton_Clicked(object sender, EventArgs e)
         {
-            if (CurrentDeck.IsEmpty)
+            if (await CooldownHelper.IsOnCooldown())
+                return;
+
+            var currentDeck = GetCurrentDeck();
+            if (currentDeck?.IsEmpty ?? true)
             {
-                await MessageBox.ShowInformationAsync("", "Cannot rename empty loadout.");
+                await MessageBox.ShowInformationAsync(string.Empty, LocalizationResources.DeckRenameError);
                 return;
             }
 
-            var name = await InputBox.ShowAsync("Change deck name", "New deck name", CurrentDeck.Name, "Name");
-            if (name == null || name == CurrentDeck.Name)
+            var name = await InputBox.ShowAsync(LocalizationResources.DeckRenameTitle, LocalizationResources.DeckRenameDescription, currentDeck.Name, LocalizationResources.DeckRenamePlaceholder, MaxDeckCharacters_);
+            if (name == null || name == currentDeck.Name)
                 return;
 
             await RenameDeck(name);
 
-            deckNameLabel.Caption = CurrentDeck.ToString();
+            deckNameLabel.Caption = currentDeck.ToString();
         }
 
         private void Decks_AfterUnauthenticated(bool hasReauthorized)
@@ -116,13 +132,21 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
         private async Task RenameDeck(string name)
         {
-            await _rein.Decks.Rename(CurrentDeck.UserDeckNumber, CurrentDeck.DeckType, name);
+            var currentDeck = GetCurrentDeck();
+            if (currentDeck == null)
+                return;
 
-            CurrentDeck.Name = name;
+            await _rein.Decks.Rename(currentDeck.UserDeckNumber, currentDeck.DeckType, name);
+
+            currentDeck.Name = name;
         }
 
         internal DataDeckActorInfo CreateActor(int pos)
         {
+            var currentDeck = GetCurrentDeck();
+            if (currentDeck == null)
+                return null;
+
             if (pos < 2)
             {
                 var actorPanel = pos == 0 ? actor2 : actor3;
@@ -131,47 +155,50 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
             deleteButton.Enabled = true;
 
-            return CurrentDeck.UserDeckActors[pos] = new DataDeckActorInfo();
+            return currentDeck.UserDeckActors[pos] = new DataDeckActorInfo();
         }
 
         internal DataOutgameCostumeInfo[] GetOtherDeckCostumes(int pos)
         {
-            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Costume).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCostumeInfo>();
+            return GetCurrentDeck()?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Costume).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCostumeInfo>();
         }
 
         internal DataWeaponInfo[] GetOtherDeckWeapons(int pos)
         {
-            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).SelectMany(x => new[] { x?.MainWeapon, x?.SubWeapon01, x?.SubWeapon02 }).Where(x => x != null).ToArray() ?? Array.Empty<DataWeaponInfo>();
+            return GetCurrentDeck()?.UserDeckActors.Where((x, i) => i != pos).SelectMany(x => new[] { x?.MainWeapon, x?.SubWeapon01, x?.SubWeapon02 }).Where(x => x != null).ToArray() ?? Array.Empty<DataWeaponInfo>();
         }
 
         internal DataOutgameCompanionInfo[] GetDeckCompanions(int pos)
         {
-            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Companion).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
+            return GetCurrentDeck()?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Companion).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameCompanionInfo>();
         }
 
         internal DataOutgameThoughtInfo[] GetDeckThoughts(int pos)
         {
-            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Thought).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameThoughtInfo>();
+            return GetCurrentDeck()?.UserDeckActors.Where((x, i) => i != pos).Select(x => x?.Thought).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameThoughtInfo>();
         }
 
         internal DataOutgameMemoryInfo[] GetDeckMemoirs(int pos)
         {
-            return CurrentDeck?.UserDeckActors.Where((x, i) => i != pos).SelectMany(x => x?.Memories).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
+            return GetCurrentDeck()?.UserDeckActors.Where((x, i) => i != pos).SelectMany(x => x?.Memories).Where(x => x != null).ToArray() ?? Array.Empty<DataOutgameMemoryInfo>();
         }
 
         internal void UpdateActor(int pos)
         {
-            deleteButton.Enabled = CurrentDeck?.DeckType != DeckType.RESTRICTED_QUEST
-                ? !CurrentDeck?.IsEmpty ?? false
-                : !CurrentDeck?.IsMinimal ?? false;
+            var currentDeck = GetCurrentDeck();
+
+            deleteButton.Enabled = currentDeck?.DeckType != DeckType.RESTRICTED_QUEST
+                ? !currentDeck?.IsEmpty ?? false
+                : !currentDeck?.IsMinimal ?? false;
         }
 
         internal async Task ReplaceDeck()
         {
-            if (CurrentDeck.IsEmpty)
+            var currentDeck = GetCurrentDeck();
+            if (currentDeck?.IsEmpty ?? true)
                 return;
 
-            await _rein.Decks.Replace(CurrentDeck);
+            await _rein.Decks.Replace(currentDeck);
         }
 
         #endregion
