@@ -63,8 +63,8 @@ namespace NierReincarnation.Context
 
         private async Task<IList<GimmickReward>> CollectGimmickRewards(WorldMapGimmickOutGame gimmick)
         {
-            var progRes = await TryRequest(() =>
-              {
+            var progRes = await TryRequest(() => 
+            {
                   var req = new UpdateGimmickProgressRequest
                   {
                       GimmickSequenceScheduleId = gimmick.GimmickSequenceScheduleId,
@@ -75,7 +75,10 @@ namespace NierReincarnation.Context
                       FlowType = gimmick.GimmickFlowType
                   };
                   return _dc.GimmickService.UpdateGimmickProgressAsync(req);
-              });
+            });
+
+            if (progRes == null)
+                return Array.Empty<GimmickReward>();
 
             var res = new List<GimmickReward>();
             res.AddRange(progRes.GimmickOrnamentReward.Select(x => new GimmickReward(x)));
