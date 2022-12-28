@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="NierReincarnation" Version="1.4.2" />
+    <PackageReference Include="NierReincarnation" Version="1.4.3" />
   </ItemGroup>
 
 </Project>
