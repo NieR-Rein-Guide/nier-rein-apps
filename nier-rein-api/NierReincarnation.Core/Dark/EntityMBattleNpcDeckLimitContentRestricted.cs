@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -16,7 +17,7 @@ namespace NierReincarnation.Core.Dark
         [Key(3)]
         public string DeckRestrictedUuid { get; set; } // 0x20
         [Key(4)]
-        public int PossessionType { get; set; } // 0x28
+        public PossessionType PossessionType { get; set; } // 0x28
         [Key(5)]
         public string TargetUuid { get; set; } // 0x30
     }

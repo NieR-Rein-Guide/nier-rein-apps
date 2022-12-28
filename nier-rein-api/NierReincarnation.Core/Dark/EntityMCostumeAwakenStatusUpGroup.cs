@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,9 +13,9 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public int SortOrder { get; set; } // 0x14
         [Key(2)]
-        public int StatusKindType { get; set; } // 0x18
+        public StatusKindType StatusKindType { get; set; } // 0x18
         [Key(3)]
-        public int StatusCalculationType { get; set; } // 0x1C
+        public StatusCalculationType StatusCalculationType { get; set; } // 0x1C
         [Key(4)]
         public int EffectValue { get; set; } // 0x20
     }

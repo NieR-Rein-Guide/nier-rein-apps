@@ -6,6 +6,7 @@
         TOWER = 1,
         PICTURE_BOOK = 2,
         FIELD = 3,
-        NOVEL = 4
+        NOVEL = 4,
+        LIMIT_CONTENT = 5
     }
 }

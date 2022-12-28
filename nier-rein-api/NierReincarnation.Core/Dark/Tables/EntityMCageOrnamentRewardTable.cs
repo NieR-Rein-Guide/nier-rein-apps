@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMCageOrnamentRewardTable : TableBase<EntityMCageOrnamentReward>
     {
-        private readonly Func<EntityMCageOrnamentReward, (int,int,int)> primaryIndexSelector;
+        private readonly Func<EntityMCageOrnamentReward, (int, PossessionType, int)> primaryIndexSelector;
 
         public EntityMCageOrnamentRewardTable(EntityMCageOrnamentReward[] sortedData) : base(sortedData)
         {

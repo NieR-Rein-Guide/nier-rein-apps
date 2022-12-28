@@ -11,6 +11,7 @@
         BATTLE_POINT_RECOVERY_SHOP = 6,
         PREMIUM_PACK_SHOP = 7,
         PACK_SHOP = 8,
-        MISSION_SHOP = 9
+        MISSION_SHOP = 9,
+        MOM_SHOP = 10
     }
 }

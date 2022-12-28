@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -14,6 +15,6 @@ namespace NierReincarnation.Core.Dark
         [Key(2)]
         public int SortOrder { get; set; } // 0x18
         [Key(3)]
-        public int CharacterBoardAssignmentType { get; set; } // 0x1C
+        public CharacterBoardAssignmentType CharacterBoardAssignmentType { get; set; } // 0x1C
     }
 }

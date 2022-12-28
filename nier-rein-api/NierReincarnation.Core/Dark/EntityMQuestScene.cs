@@ -27,7 +27,7 @@ namespace NierReincarnation.Core.Dark
         [Key(8)] // RVA: 0x1DE29E0 Offset: 0x1DE29E0 VA: 0x1DE29E0
         public bool IsBattleOnlyTarget { get; set; } // 0x2D
         [Key(9)] // RVA: 0x1DE29F4 Offset: 0x1DE29F4 VA: 0x1DE29F4
-        public int QuestResultType { get; set; } // 0x30
+        public QuestResultType QuestResultType { get; set; } // 0x30
         [Key(10)] // RVA: 0x1DE2A08 Offset: 0x1DE2A08 VA: 0x1DE2A08
         public bool IsStorySkipTarget { get; set; } // 0x34
 	}

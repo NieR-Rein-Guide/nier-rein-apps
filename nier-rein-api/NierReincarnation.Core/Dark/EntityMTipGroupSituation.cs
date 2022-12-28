@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -8,7 +9,7 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTipGroupSituation
     {
         [Key(0)]
-        public int TipSituationType { get; set; } // 0x10
+        public TipSituationType TipSituationType { get; set; } // 0x10
         [Key(1)]
         public int TipGroupId { get; set; } // 0x14
         [Key(2)]

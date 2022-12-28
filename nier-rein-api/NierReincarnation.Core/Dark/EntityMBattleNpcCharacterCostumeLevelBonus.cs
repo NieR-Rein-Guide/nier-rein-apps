@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,7 +13,7 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public int CharacterId { get; set; } // 0x18
         [Key(2)]
-        public int StatusCalculationType { get; set; } // 0x1C
+        public StatusCalculationType StatusCalculationType { get; set; } // 0x1C
         [Key(3)]
         public int Hp { get; set; } // 0x20
         [Key(4)]

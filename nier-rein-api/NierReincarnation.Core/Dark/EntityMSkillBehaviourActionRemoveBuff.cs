@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,12 +13,12 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public int RemoveCount { get; set; } // 0x14
         [Key(2)]
-        public int BuffType { get; set; } // 0x18
+        public BuffType BuffType { get; set; } // 0x18
         [Key(3)]
-        public int SkillRemoveBuffFilteringType { get; set; } // 0x1C
+        public SkillRemoveBuffFilteringType SkillRemoveBuffFilteringType { get; set; } // 0x1C
         [Key(4)]
         public int SkillRemoveBuffFilteringId { get; set; } // 0x20
         [Key(5)]
-        public int SkillRemoveBuffChoosingType { get; set; } // 0x24
+        public SkillRemoveBuffChoosingType SkillRemoveBuffChoosingType { get; set; } // 0x24
     }
 }

@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,7 +13,7 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public int AbnormalLifetimeBehaviourIndex { get; set; } // 0x14
         [Key(2)]
-        public int AbnormalLifetimeMethodType { get; set; } // 0x18
+        public AbnormalLifetimeMethodType AbnormalLifetimeMethodType { get; set; } // 0x18
         [Key(3)]
         public int SkillAbnormalLifetimeBehaviourId { get; set; } // 0x1C
     }

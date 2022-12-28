@@ -1,4 +1,6 @@
-﻿namespace NierReincarnation.Core.Dark.Component.WorldMap
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+
+namespace NierReincarnation.Core.Dark.Component.WorldMap
 {
     public struct GimmickSequence
     {
@@ -7,7 +9,7 @@
         public int GimmickGroupId  { get; set; }
         public long ProgressRequireHour  { get; set; }
         public long ProgressStartDatetime  { get; set; }
-        public int FlowType  { get; set; }
+        public FlowType FlowType  { get; set; }
 
         public void Reset()
         {

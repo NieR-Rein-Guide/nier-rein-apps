@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -8,7 +9,7 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopDisplayPrice
     {
         [Key(0)]
-        public int PriceType { get; set; } // 0x10
+        public PriceType PriceType { get; set; } // 0x10
         [Key(1)]
         public int PriceId { get; set; } // 0x14
         [Key(2)]

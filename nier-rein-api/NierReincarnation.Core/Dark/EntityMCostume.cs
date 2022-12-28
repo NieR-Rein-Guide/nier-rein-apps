@@ -15,7 +15,7 @@ namespace NierReincarnation.Core.Dark
 		[Key(2)] // RVA: 0x1DDBDB0 Offset: 0x1DDBDB0 VA: 0x1DDBDB0
 		public int ActorId { get; set; } // 0x18
 		[Key(3)] // RVA: 0x1DDBDC4 Offset: 0x1DDBDC4 VA: 0x1DDBDC4
-		public int CostumeAssetCategoryType { get; set; } // 0x1C
+		public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; } // 0x1C
 		[Key(4)] // RVA: 0x1DDBDD8 Offset: 0x1DDBDD8 VA: 0x1DDBDD8
 		public int ActorSkeletonId { get; set; }	// 0x20
 		[Key(5)] // RVA: 0x1DDBDEC Offset: 0x1DDBDEC VA: 0x1DDBDEC

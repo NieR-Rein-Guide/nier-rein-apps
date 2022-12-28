@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -14,7 +15,7 @@ namespace NierReincarnation.Core.Dark
         [Key(2)] // RVA: 0x1DE7914 Offset: 0x1DE7914 VA: 0x1DE7914
         public int OsType { get; set; }
         [Key(3)] // RVA: 0x1DE7928 Offset: 0x1DE7928 VA: 0x1DE7928
-        public int PlatformType { get; set; }
+        public PlatformType PlatformType { get; set; }
         [Key(4)] // RVA: 0x1DE793C Offset: 0x1DE793C VA: 0x1DE793C
         public int UserRestrictionType { get; set; }
         [Key(5)] // RVA: 0x1DE7950 Offset: 0x1DE7950 VA: 0x1DE7950

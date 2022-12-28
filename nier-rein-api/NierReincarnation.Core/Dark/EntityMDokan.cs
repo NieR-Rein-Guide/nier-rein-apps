@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,7 +13,7 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public int SortOrder { get; set; } // 0x14
         [Key(2)]
-        public int DokanType { get; set; } // 0x18
+        public DokanType DokanType { get; set; } // 0x18
         [Key(3)]
         public long StartDatetime { get; set; } // 0x20
         [Key(4)]
@@ -20,8 +21,8 @@ namespace NierReincarnation.Core.Dark
         [Key(5)]
         public int DokanContentGroupId { get; set; } // 0x30
         [Key(6)]
-        public int TargetUserStatusType { get; set; } // 0x34
+        public TargetUserStatusType TargetUserStatusType { get; set; } // 0x34
         [Key(7)]
-        public int UnlockMainFunctionType { get; set; } // 0x38
+        public MainFunctionType UnlockMainFunctionType { get; set; } // 0x38
     }
 }

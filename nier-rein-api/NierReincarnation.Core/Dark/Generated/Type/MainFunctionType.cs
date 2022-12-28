@@ -14,6 +14,10 @@
         PREMIUM_GACHA = 9,
         BIG_HUNT = 10,
         CHARACTER_BOARD = 11,
-        WORLD_MAP = 12
+        WORLD_MAP = 12,
+        DRESSUP_COSTUME = 13,
+        AWAKEN_COSTUME = 14,
+        LIMIT_CONTENT = 15,
+        CHARACTER_VIEWER = 16
     }
 }

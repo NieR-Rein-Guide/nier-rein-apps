@@ -282,7 +282,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var skelId = entityMCostume.ActorSkeletonId;
 
             var skelCategory = SkeletonId.SkeletonCategory.Enemy;
-            if (entityMCostume.CostumeAssetCategoryType == 1)
+            if (entityMCostume.CostumeAssetCategoryType == CostumeAssetCategoryType.NORMAL)
                 skelCategory = SkeletonId.SkeletonCategory.Character;
 
             var skeletonId = new SkeletonId(skelCategory, skelId);
