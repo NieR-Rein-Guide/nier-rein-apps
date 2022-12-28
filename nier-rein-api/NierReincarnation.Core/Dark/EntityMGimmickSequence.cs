@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -18,7 +19,7 @@ namespace NierReincarnation.Core.Dark
         [Key(4)]
         public int GimmickSequenceRewardGroupId { get; set; } // 0x20
         [Key(5)]
-        public int FlowType { get; set; } // 0x24
+        public FlowType FlowType { get; set; } // 0x24
         [Key(6)]
         public int ProgressRequireHour { get; set; } // 0x28
         [Key(7)]

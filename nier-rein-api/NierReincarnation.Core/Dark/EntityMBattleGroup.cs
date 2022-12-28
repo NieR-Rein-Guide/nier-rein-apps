@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -22,6 +23,6 @@ namespace NierReincarnation.Core.Dark
         [Key(6)] // RVA: 0x1DD7BBC Offset: 0x1DD7BBC VA: 0x1DD7BBC
         public int BattlePointIndex { get; set; } // 0x28
         [Key(7)] // RVA: 0x1DD7BD0 Offset: 0x1DD7BD0 VA: 0x1DD7BD0
-        public int BattleStartCameraType { get; set; } // 0x2C
+        public BattleStartCameraType BattleStartCameraType { get; set; } // 0x2C
 	}
 }

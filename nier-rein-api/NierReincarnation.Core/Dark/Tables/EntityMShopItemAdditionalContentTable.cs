@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMShopItemAdditionalContentTable : TableBase<EntityMShopItemAdditionalContent>
     {
-        private readonly Func<EntityMShopItemAdditionalContent, (int,int,int)> primaryIndexSelector;
+        private readonly Func<EntityMShopItemAdditionalContent, (int, PossessionType, int)> primaryIndexSelector;
 
         public EntityMShopItemAdditionalContentTable(EntityMShopItemAdditionalContent[] sortedData) : base(sortedData)
         {

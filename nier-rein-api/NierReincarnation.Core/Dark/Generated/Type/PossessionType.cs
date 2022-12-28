@@ -15,6 +15,7 @@
         PARTS_ENHANCED = 10,
         PAID_GEM = 11,
         FREE_GEM = 12,
-        IMPORTANT_ITEM = 13
+        IMPORTANT_ITEM = 13,
+        THOUGHT = 14
     }
 }

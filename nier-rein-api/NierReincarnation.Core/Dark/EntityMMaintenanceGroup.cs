@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -16,7 +17,7 @@ namespace NierReincarnation.Core.Dark
         [Key(3)]
         public int ScreenTransitionType { get; set; } // 0x24
         [Key(4)]
-        public int BlockFunctionType { get; set; } // 0x28
+        public MaintenanceBlockFunctionType BlockFunctionType { get; set; } // 0x28
         [Key(5)]
         public string BlockFunctionValue { get; set; } // 0x30
     }

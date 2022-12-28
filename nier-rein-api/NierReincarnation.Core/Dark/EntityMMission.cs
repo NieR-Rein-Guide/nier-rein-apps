@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -22,7 +23,7 @@ namespace NierReincarnation.Core.Dark
         [Key(6)]
         public int MissionLinkId { get; set; } // 0x28
         [Key(7)]
-        public int MissionClearConditionType { get; set; } // 0x2C
+        public MissionClearConditionType MissionClearConditionType { get; set; } // 0x2C
         [Key(8)]
         public int MissionClearConditionGroupId { get; set; } // 0x30
         [Key(9)]
@@ -36,7 +37,7 @@ namespace NierReincarnation.Core.Dark
         [Key(13)]
         public int MinExpirationDays { get; set; } // 0x44
         [Key(14)]
-        public int RelatedMainFunctionType { get; set; } // 0x48
+        public MainFunctionType RelatedMainFunctionType { get; set; } // 0x48
         [Key(15)]
         public int MissionClearConditionOptionDetailGroupId { get; set; } // 0x4C
         [Key(16)]

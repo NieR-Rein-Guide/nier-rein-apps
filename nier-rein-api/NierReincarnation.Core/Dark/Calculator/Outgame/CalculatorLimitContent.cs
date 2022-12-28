@@ -230,7 +230,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         public static int GetLimitContentLevelUnlockEvaluateConditionId(int eventQuestChapterId, DifficultyType difficultyType)
         {
             var table = DatabaseDefine.Master.EntityMEventQuestChapterDifficultyLimitContentUnlockTable;
-            if (!table.TryFindByEventQuestChapterIdAndDifficultyType((eventQuestChapterId, (int)difficultyType), out var unlockCond))
+            if (!table.TryFindByEventQuestChapterIdAndDifficultyType((eventQuestChapterId, difficultyType), out var unlockCond))
                 return CalculatorEvaluateCondition.kInvalidEvaluateConditionId;
 
             return unlockCond.UnlockEvaluateConditionId;

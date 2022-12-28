@@ -966,120 +966,120 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
             switch (questMissionConditionType)
             {
-                case QuestMissionConditionType.pLESS_THAN_OR_EQUAL_X_PEOPLE_NOT_ALIVE:
+                case QuestMissionConditionType.LESS_THAN_OR_EQUAL_X_PEOPLE_NOT_ALIVE:
                     if (value == 0)
                         missionTextKey += UserInterfaceTextKey.Quest.kMissionMainTitleLimitedTextKeySuffix;
 
                     keyParam = $"{value}";
                     break;
 
-                case QuestMissionConditionType.pSPECIFIED_COSTUME_IS_IN_DECK:
+                case QuestMissionConditionType.SPECIFIED_COSTUME_IS_IN_DECK:
                     keyParam = CalculatorCostume.CostumeName(value);
                     break;
 
-                case QuestMissionConditionType.pSPECIFIED_CHARACTER_IS_IN_DECK:
+                case QuestMissionConditionType.SPECIFIED_CHARACTER_IS_IN_DECK:
                     keyParam = CalculatorCharacter.CharacterName(value);
                     break;
 
-                case QuestMissionConditionType.pSPECIFIED_ATTRIBUTE_MAIN_WEAPON_IS_IN_DECK:
-                case QuestMissionConditionType.pSPECIFIED_ATTRIBUTE_WEAPON_IS_IN_DECK:
-                case QuestMissionConditionType.pSPECIFIED_ATTRIBUTE_MAIN_WEAPON_ALL_CHARACTER:
-                case QuestMissionConditionType.pSPECIFIED_ATTRIBUTE_WEAPON_ALL_CHARACTER:
-                case QuestMissionConditionType.pCOMPANION_ATTRIBUTE:
+                case QuestMissionConditionType.SPECIFIED_ATTRIBUTE_MAIN_WEAPON_IS_IN_DECK:
+                case QuestMissionConditionType.SPECIFIED_ATTRIBUTE_WEAPON_IS_IN_DECK:
+                case QuestMissionConditionType.SPECIFIED_ATTRIBUTE_MAIN_WEAPON_ALL_CHARACTER:
+                case QuestMissionConditionType.SPECIFIED_ATTRIBUTE_WEAPON_ALL_CHARACTER:
+                case QuestMissionConditionType.COMPANION_ATTRIBUTE:
                     keyParam = CalculatorAttribute.GetAttributeText((AttributeType)value);
                     break;
 
-                case QuestMissionConditionType.pCOSTUME_SKILLFUL_WEAPON_ALL_CHARACTER:
-                case QuestMissionConditionType.pCOSTUME_SKILLFUL_WEAPON_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAN_SKILLFUL_WEAPON_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_SKILLFUL_WEAPON_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAN_SKILLFUL_WEAPON_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_SKILLFUL_WEAPON_ANY_CHARACTER:
+                case QuestMissionConditionType.COSTUME_SKILLFUL_WEAPON_ALL_CHARACTER:
+                case QuestMissionConditionType.COSTUME_SKILLFUL_WEAPON_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAN_SKILLFUL_WEAPON_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_SKILLFUL_WEAPON_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAN_SKILLFUL_WEAPON_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_SKILLFUL_WEAPON_ANY_CHARACTER:
                     keyParam = CalculatorWeaponType.GetWeaponTypeText(value);
                     break;
 
-                case QuestMissionConditionType.pCOSTUME_RARITY_EQ_ALL_CHARACTER:
-                case QuestMissionConditionType.pCOSTUME_RARITY_GE_ALL_CHARACTER:
-                case QuestMissionConditionType.pCOSTUME_RARITY_LE_ALL_CHARACTER:
-                case QuestMissionConditionType.pCOSTUME_RARITY_EQ_ANY_CHARACTER:
-                case QuestMissionConditionType.pCOSTUME_RARITY_GE_ANY_CHARACTER:
-                case QuestMissionConditionType.pCOSTUME_RARITY_LE_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_RARITY_EQ_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_RARITY_GE_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_RARITY_LE_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAIN_RARITY_EQ_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAIN_RARITY_GE_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAIN_RARITY_LE_ALL_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_RARITY_EQ_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_RARITY_GE_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_RARITY_LE_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAIN_RARITY_EQ_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAIN_RARITY_GE_ANY_CHARACTER:
-                case QuestMissionConditionType.pWEAPON_MAIN_RARITY_LE_ANY_CHARACTER:
-                case QuestMissionConditionType.pPARTS_RARITY_EQ:
-                case QuestMissionConditionType.pPARTS_RARITY_GE:
-                case QuestMissionConditionType.pPARTS_RARITY_LE:
+                case QuestMissionConditionType.COSTUME_RARITY_EQ_ALL_CHARACTER:
+                case QuestMissionConditionType.COSTUME_RARITY_GE_ALL_CHARACTER:
+                case QuestMissionConditionType.COSTUME_RARITY_LE_ALL_CHARACTER:
+                case QuestMissionConditionType.COSTUME_RARITY_EQ_ANY_CHARACTER:
+                case QuestMissionConditionType.COSTUME_RARITY_GE_ANY_CHARACTER:
+                case QuestMissionConditionType.COSTUME_RARITY_LE_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_RARITY_EQ_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_RARITY_GE_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_RARITY_LE_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAIN_RARITY_EQ_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAIN_RARITY_GE_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAIN_RARITY_LE_ALL_CHARACTER:
+                case QuestMissionConditionType.WEAPON_RARITY_EQ_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_RARITY_GE_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_RARITY_LE_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAIN_RARITY_EQ_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAIN_RARITY_GE_ANY_CHARACTER:
+                case QuestMissionConditionType.WEAPON_MAIN_RARITY_LE_ANY_CHARACTER:
+                case QuestMissionConditionType.PARTS_RARITY_EQ:
+                case QuestMissionConditionType.PARTS_RARITY_GE:
+                case QuestMissionConditionType.PARTS_RARITY_LE:
                     keyParam = CalculatorRarity.GetRarityName(value);
                     break;
 
-                case QuestMissionConditionType.pCOMPANION_ID:
+                case QuestMissionConditionType.COMPANION_ID:
                     keyParam = CalculatorCompanion.CompanionName(value);
                     break;
 
-                case QuestMissionConditionType.pCOMPANION_CATEGORY:
+                case QuestMissionConditionType.COMPANION_CATEGORY:
                     keyParam = CalculatorCompanion.GetCompanionCategoryName(value);
                     break;
 
-                case QuestMissionConditionType.pPARTS_ID:
+                case QuestMissionConditionType.PARTS_ID:
                     keyParam = CalculatorMemory.MemoryName(value);
                     break;
 
-                case QuestMissionConditionType.pPARTS_GROUP_ID:
+                case QuestMissionConditionType.PARTS_GROUP_ID:
                     keyParam = CalculatorMemory.MemorySeriesName(value);
                     break;
 
-                case QuestMissionConditionType.pCHARACTER_CONTAIN_ALL:
+                case QuestMissionConditionType.CHARACTER_CONTAIN_ALL:
                     var connectionWord = UserInterfaceTextKey.Quest.kQuestMissionAnd.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorCharacter.GetCharacterName);
                     break;
 
-                case QuestMissionConditionType.pCHARACTER_CONTAIN_ANY:
+                case QuestMissionConditionType.CHARACTER_CONTAIN_ANY:
                     connectionWord = UserInterfaceTextKey.Quest.kQuestMissionOr.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorCharacter.GetCharacterName);
                     break;
 
-                case QuestMissionConditionType.pCOSTUME_CONTAIN_ALL:
+                case QuestMissionConditionType.COSTUME_CONTAIN_ALL:
                     connectionWord = UserInterfaceTextKey.Quest.kQuestMissionAnd.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorCostume.CostumeName);
                     break;
 
-                case QuestMissionConditionType.pCOSTUME_CONTAIN_ANY:
+                case QuestMissionConditionType.COSTUME_CONTAIN_ANY:
                     connectionWord = UserInterfaceTextKey.Quest.kQuestMissionOr.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorCostume.CostumeName);
                     break;
 
-                case QuestMissionConditionType.pCOSTUME_SKILLFUL_WEAPON_CONTAIN_ALL:
-                case QuestMissionConditionType.pWEAPON_MAN_SKILLFUL_WEAPON_CONTAIN_ALL:
-                case QuestMissionConditionType.pWEAPON_SKILLFUL_WEAPON_CONTAIN_ALL:
+                case QuestMissionConditionType.COSTUME_SKILLFUL_WEAPON_CONTAIN_ALL:
+                case QuestMissionConditionType.WEAPON_MAN_SKILLFUL_WEAPON_CONTAIN_ALL:
+                case QuestMissionConditionType.WEAPON_SKILLFUL_WEAPON_CONTAIN_ALL:
                     connectionWord = UserInterfaceTextKey.Quest.kQuestMissionAnd.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorWeaponType.GetWeaponTypeText);
                     break;
 
-                case QuestMissionConditionType.pCOSTUME_SKILLFUL_WEAPON_CONTAIN_ANY:
-                case QuestMissionConditionType.pWEAPON_MAN_SKILLFUL_WEAPON_CONTAIN_ANY:
-                case QuestMissionConditionType.pWEAPON_SKILLFUL_WEAPON_CONTAIN_ANY:
+                case QuestMissionConditionType.COSTUME_SKILLFUL_WEAPON_CONTAIN_ANY:
+                case QuestMissionConditionType.WEAPON_MAN_SKILLFUL_WEAPON_CONTAIN_ANY:
+                case QuestMissionConditionType.WEAPON_SKILLFUL_WEAPON_CONTAIN_ANY:
                     connectionWord = UserInterfaceTextKey.Quest.kQuestMissionOr.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorWeaponType.GetWeaponTypeText);
                     break;
 
-                case QuestMissionConditionType.pATTRIBUTE_MAIN_WEAPON_CONTAIN_ALL:
-                case QuestMissionConditionType.pATTRIBUTE_WEAPON_CONTAIN_ALL:
+                case QuestMissionConditionType.ATTRIBUTE_MAIN_WEAPON_CONTAIN_ALL:
+                case QuestMissionConditionType.ATTRIBUTE_WEAPON_CONTAIN_ALL:
                     connectionWord = UserInterfaceTextKey.Quest.kQuestMissionAnd.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorAttribute.GetAttributeText);
                     break;
 
-                case QuestMissionConditionType.pATTRIBUTE_MAIN_WEAPON_CONTAIN_ANY:
-                case QuestMissionConditionType.pATTRIBUTE_WEAPON_CONTAIN_ANY:
+                case QuestMissionConditionType.ATTRIBUTE_MAIN_WEAPON_CONTAIN_ANY:
+                case QuestMissionConditionType.ATTRIBUTE_WEAPON_CONTAIN_ANY:
                     connectionWord = UserInterfaceTextKey.Quest.kQuestMissionOr.Localize();
                     keyParam = GenerateTextValueFromConditionValueList(questMissionConditionValueList, connectionWord, CalculatorAttribute.GetAttributeText);
                     break;

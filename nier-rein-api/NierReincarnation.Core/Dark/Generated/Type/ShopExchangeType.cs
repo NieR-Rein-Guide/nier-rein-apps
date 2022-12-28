@@ -9,6 +9,7 @@
         PVP = 4,
         EVENT = 5,
         GACHA_MEDAL = 6,
-        BIG_HUNT = 7
+        BIG_HUNT = 7,
+        MOM_POINT = 8
     }
 }

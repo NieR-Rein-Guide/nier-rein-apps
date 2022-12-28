@@ -43,7 +43,7 @@ namespace NierReincarnation.Core.Dark
 		[Key(16)] // RVA: 0x1DE5980 Offset: 0x1DE5980 VA: 0x1DE5980
 		public int SkillPowerBaseValue { get; set; } // 0x4C
 		[Key(17)] // RVA: 0x1DE5994 Offset: 0x1DE5994 VA: 0x1DE5994
-		public int PowerCalculationReferenceStatusType { get; set; } // 0x50
+		public PowerCalculationReferenceStatusType PowerCalculationReferenceStatusType { get; set; } // 0x50
 		[Key(18)] // RVA: 0x1DE59A8 Offset: 0x1DE59A8 VA: 0x1DE59A8
 		public int PowerReferenceStatusGroupId { get; set; } // 0x54
 		[Key(19)] // RVA: 0x1DE59BC Offset: 0x1DE59BC VA: 0x1DE59BC

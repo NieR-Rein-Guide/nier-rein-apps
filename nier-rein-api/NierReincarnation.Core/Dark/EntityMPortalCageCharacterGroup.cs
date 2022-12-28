@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -16,6 +17,6 @@ namespace NierReincarnation.Core.Dark
         [Key(3)]
         public int NaviMenuActorObjectId { get; set; } // 0x1C
         [Key(4)]
-        public int TutorialType { get; set; } // 0x20
+        public TutorialType TutorialType { get; set; } // 0x20
     }
 }

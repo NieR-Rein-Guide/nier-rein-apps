@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMBattleNpcDeckTypeNoteTable : TableBase<EntityMBattleNpcDeckTypeNote>
     {
-        private readonly Func<EntityMBattleNpcDeckTypeNote, (long,int)> primaryIndexSelector;
+        private readonly Func<EntityMBattleNpcDeckTypeNote, (long, DeckType)> primaryIndexSelector;
 
         public EntityMBattleNpcDeckTypeNoteTable(EntityMBattleNpcDeckTypeNote[] sortedData) : base(sortedData)
         {

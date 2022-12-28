@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,7 +13,7 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public int DamageMultiplyDetailType { get; set; } // 0x14
         [Key(2)]
-        public int DamageMultiplyTargetType { get; set; } // 0x18
+        public DamageMultiplyTargetType DamageMultiplyTargetType { get; set; } // 0x18
         [Key(3)]
         public int DamageMultiplyAbnormalDetailId { get; set; } // 0x1C
     }

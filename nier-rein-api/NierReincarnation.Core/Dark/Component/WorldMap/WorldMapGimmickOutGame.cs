@@ -33,7 +33,7 @@ namespace NierReincarnation.Core.Dark.Component.WorldMap
 
         // CUSTOM
         public int GimmickSequenceId { get; set; }
-        public int GimmickFlowType { get; set; }
+        public FlowType GimmickFlowType { get; set; }
         public int CageOrnamentId { get; set; }
 
         public void Reset()

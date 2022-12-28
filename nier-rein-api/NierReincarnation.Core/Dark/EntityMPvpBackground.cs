@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -20,7 +21,7 @@ namespace NierReincarnation.Core.Dark
         [Key(5)]
         public int BattleCameraControllerAssetId { get; set; } // 0x24
         [Key(6)]
-        public int BattleStartCameraType { get; set; } // 0x28
+        public BattleStartCameraType BattleStartCameraType { get; set; } // 0x28
         [Key(7)]
         public int WaveStartActAssetId { get; set; } // 0x2C
         [Key(8)]

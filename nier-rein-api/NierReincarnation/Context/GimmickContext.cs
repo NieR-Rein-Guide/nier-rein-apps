@@ -72,7 +72,7 @@ namespace NierReincarnation.Context
                       GimmickId = gimmick.GimmickId,
                       GimmickOrnamentIndex = gimmick.GimmickOrnamentIndex,
                       ProgressValueBit = gimmick.UserGimmickProgressValueBit | (1 << (gimmick.GimmickOrnamentIndex - 1)),
-                      FlowType = gimmick.GimmickFlowType
+                      FlowType = (int)gimmick.GimmickFlowType
                   };
                   return _dc.GimmickService.UpdateGimmickProgressAsync(req);
             });

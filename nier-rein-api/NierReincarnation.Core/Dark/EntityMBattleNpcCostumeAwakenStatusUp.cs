@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,7 +13,7 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public string BattleNpcCostumeUuid { get; set; } // 0x18
         [Key(2)]
-        public int StatusCalculationType { get; set; } // 0x20
+        public StatusCalculationType StatusCalculationType { get; set; } // 0x20
         [Key(3)]
         public int Hp { get; set; } // 0x24
         [Key(4)]

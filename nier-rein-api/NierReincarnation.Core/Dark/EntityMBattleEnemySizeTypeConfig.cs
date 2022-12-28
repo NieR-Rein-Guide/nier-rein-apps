@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -8,10 +9,10 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleEnemySizeTypeConfig
     {
         [Key(0)]
-        public int CostumeAssetCategoryType { get; set; } // 0x10
+        public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; } // 0x10
         [Key(1)]
         public int ActorSkeletonId { get; set; } // 0x14
         [Key(2)]
-        public int EnemySizeType { get; set; } // 0x18
+        public EnemySizeType EnemySizeType { get; set; } // 0x18
     }
 }

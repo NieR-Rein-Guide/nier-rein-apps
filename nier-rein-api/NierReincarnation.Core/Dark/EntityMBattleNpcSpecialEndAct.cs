@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -16,6 +17,6 @@ namespace NierReincarnation.Core.Dark
         [Key(3)]
         public string BattleNpcDeckCharacterUuid { get; set; } // 0x20
         [Key(4)]
-        public int SpecialEndBattleActType { get; set; } // 0x28
+        public SpecialEndBattleActType SpecialEndBattleActType { get; set; } // 0x28
     }
 }

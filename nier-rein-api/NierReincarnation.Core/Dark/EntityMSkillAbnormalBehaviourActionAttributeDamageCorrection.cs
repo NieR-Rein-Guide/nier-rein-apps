@@ -1,4 +1,5 @@
 using MessagePack;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -12,11 +13,11 @@ namespace NierReincarnation.Core.Dark
         [Key(1)]
         public int AttributeType { get; set; } // 0x14
         [Key(2)]
-        public int CorrectionTargetDamageType { get; set; } // 0x18
+        public CorrectionTargetDamageType CorrectionTargetDamageType { get; set; } // 0x18
         [Key(3)]
         public int CorrectionValuePermil { get; set; } // 0x1C
         [Key(4)]
-        public int DamageCorrectionOverlapType { get; set; } // 0x20
+        public DamageCorrectionOverlapType DamageCorrectionOverlapType { get; set; } // 0x20
         [Key(5)]
         public bool IsExcepting { get; set; } // 0x24
     }
