@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Core.Subsystem.Serval
@@ -87,11 +86,13 @@ namespace NierReincarnation.Core.Subsystem.Serval
 
         public static int calcPartsMainOption(int value, int[] functionParameters)
         {
-            var poly0 = Math.Min(0xd, (value - 1) & (value - 1) >> 0x1F ^ 0xFFFFFFFF);
-            var poly1 = functionParameters[0] * poly0 / 1000;
+            var poly0 = Math.Min(13, (int)((value - 1) & (value - 1) >> 31 ^ 0xFFFFFFFF));
+            poly0 = functionParameters[0] * poly0 / 1000;
 
-            poly0 = Math.Min(1, (value - 0xE) & (value - 0xE) >> 0x1F ^ 0xFFFFFFFF);
-            return (int)(poly1 + functionParameters[1] * poly0);
+            var poly1 = Math.Min(1, (int)((value - 14) & (value - 14) >> 31 ^ 0xFFFFFFFF));
+            poly1 = functionParameters[1] * poly1;
+
+            return poly0 + poly1;
         }
     }
 }
