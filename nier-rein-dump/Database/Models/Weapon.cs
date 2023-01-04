@@ -11,6 +11,8 @@ namespace NierReinDb.Database.Models
         [Key]
         public int WeaponId { get; set; }
 
+        public string AssetId { get; set; }
+
         public int EvolutionGroupId { get; set; }
 
         public int EvolutionOrder { get; set; }
