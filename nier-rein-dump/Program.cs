@@ -313,7 +313,7 @@ namespace NierReinDb
 
             for (var i = CalculatorSkill.MIN_LEVEL; i <= CalculatorSkill.MAX_LEVEL; i++)
             {
-                var skill = (DataCostumeSkill)CalculatorCostume.GetCostumeActiveDataSkill(costumeId, i, 1);
+                var skill = (DataCostumeSkill)CalculatorCostume.GetCostumeActiveDataSkill(costumeId, i, Config.GetCostumeLimitBreakAvailableCount());
                 var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
 
                 if (_skillCache.ContainsKey((skill.SkillId, i)))

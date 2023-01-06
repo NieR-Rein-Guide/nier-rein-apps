@@ -115,17 +115,17 @@ namespace nier_rein_gui.Dialogs
                 var masterMission = CalculatorQuest.GetEntityMQuestMission(mission.MissionId);
                 switch (mission.QuestMissionConditionType)
                 {
-                    case QuestMissionConditionType.pCRITICAL_COUNT_GE:
+                    case QuestMissionConditionType.CRITICAL_COUNT_GE:
                         if (e.WaveNumber == 1)
                             e.BattleDetail.CriticalCount = masterMission.ConditionValue;
                         break;
 
-                    case QuestMissionConditionType.pCOMBO_COUNT_GE:
+                    case QuestMissionConditionType.COMBO_COUNT_GE:
                         if (e.WaveNumber == 1)
                             e.BattleDetail.ComboCount = masterMission.ConditionValue;
                         break;
 
-                    case QuestMissionConditionType.pMAX_DAMAGE:
+                    case QuestMissionConditionType.MAX_DAMAGE:
                         if (e.WaveNumber == 1)
                             e.BattleDetail.MaxDamage = masterMission.ConditionValue;
                         break;
