@@ -12,6 +12,7 @@
         TUTORIAL = 7,
         MISSION_CLEAR = 8,
         QUEST_MISSION_CLEAR = 9,
-        OTHER_GIMMICK_BIT_COUNT = 10
+        OTHER_GIMMICK_BIT_COUNT = 10,
+        QUEST_SCENE_CHOICE = 11
     }
 }
