@@ -973,6 +973,7 @@ namespace NierReinDb
             {
                 var thoughtCatalog = DatabaseDefine.Master.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == debris.ThoughtId);
                 var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(thoughtCatalog.CatalogTermId);
+                var ThoughtAssetId = debris.ThoughtAssetId.ToString().PadLeft(6, '0');
 
                 var model = new Thought
                 {
@@ -982,7 +983,7 @@ namespace NierReinDb
                     ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
 
                     Name = CalculatorThought.GetName(debris.ThoughtAssetId),
-                    ImagePathBase = $"ui/thought/thought{debris.ThoughtAssetId}/thought{debris.ThoughtAssetId}_standard.png"
+                    ImagePathBase = $"ui/thought/thought{ThoughtAssetId}/thought{ThoughtAssetId}_standard.png"
                 };
 
                 await db.Thoughts.AddAsync(model);
