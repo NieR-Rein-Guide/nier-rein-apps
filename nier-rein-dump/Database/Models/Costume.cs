@@ -13,6 +13,8 @@ namespace NierReinDb.Database.Models
 
         public int CharacterId { get; set; }
 
+        public string AssetId { get; set; }
+
         public int? EmblemId { get; set; }
 
         public string WeaponType { get; set; }

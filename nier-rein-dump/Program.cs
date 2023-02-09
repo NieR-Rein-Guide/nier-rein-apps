@@ -212,6 +212,7 @@ namespace NierReinDb
                 {
                     CostumeId = costume.CostumeId,
                     CharacterId = costume.CharacterId,
+                    AssetId = assetId.ToString(),
                     EmblemId = emblem == null ? null : (int?)costume.CostumeEmblemAssetId,
 
                     CostumeSlug = Slugify(costumeName),
@@ -484,6 +485,7 @@ namespace NierReinDb
                     var model = new Weapon
                     {
                         WeaponId = weapon.WeaponId,
+                        AssetId = assetId.ToString(),
                         EvolutionGroupId = evolutionGroup.Key,
                         EvolutionOrder = stage.EvolutionOrder,
 
