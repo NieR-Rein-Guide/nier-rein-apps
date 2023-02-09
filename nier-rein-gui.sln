@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation", "nier-r
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudio", "nier-rein-api\AssetStudio\AssetStudio\AssetStudio.csproj", "{7BCEFCD5-ED32-4FCE-8D07-977DE0475BB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImGui.Forms", "..\..\..\..\Projekte\ImGui.Forms\ImGui.Forms\ImGui.Forms.csproj", "{724838FA-EE95-41B4-B573-D806228A15D8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "nier-rein-api\AssetStudio\AssetStudioUtility\AssetStudioUtility.csproj", "{2047A7EE-A44D-4B78-BAD1-446289D4030E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Texture2DDecoderWrapper", "nier-rein-api\AssetStudio\Texture2DDecoderWrapper\Texture2DDecoderWrapper.csproj", "{04894A2F-9C4F-4369-B568-9333A81C683D}"
@@ -43,10 +41,6 @@ Global
 		{7BCEFCD5-ED32-4FCE-8D07-977DE0475BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BCEFCD5-ED32-4FCE-8D07-977DE0475BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BCEFCD5-ED32-4FCE-8D07-977DE0475BB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{724838FA-EE95-41B4-B573-D806228A15D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{724838FA-EE95-41B4-B573-D806228A15D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{724838FA-EE95-41B4-B573-D806228A15D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{724838FA-EE95-41B4-B573-D806228A15D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2047A7EE-A44D-4B78-BAD1-446289D4030E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2047A7EE-A44D-4B78-BAD1-446289D4030E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2047A7EE-A44D-4B78-BAD1-446289D4030E}.Release|Any CPU.ActiveCfg = Release|Any CPU
