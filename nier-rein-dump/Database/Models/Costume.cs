@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nier_rein_dump.Database.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,9 @@ namespace NierReinDb.Database.Models
         public string AssetId { get; set; }
 
         public int? EmblemId { get; set; }
+
+        [Column("debris_id")]
+        public int ThoughtId { get; set; }
 
         public string WeaponType { get; set; }
 
@@ -41,6 +45,9 @@ namespace NierReinDb.Database.Models
 
         [ForeignKey(nameof(EmblemId))]
         public virtual Emblem Emblem { get; set; }
+
+        [ForeignKey(nameof(ThoughtId))]
+        public virtual Thought Thought { get; set; }
 
         public virtual ICollection<CostumeSkillLink> Skills { get; set; }
 

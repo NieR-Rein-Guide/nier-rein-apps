@@ -31,7 +31,7 @@ namespace NierReinDb.Database
             modelBuilder.Entity<CharacterRankBonus>().HasKey(c => new { c.RankBonusId, c.RankBonusLevel });
             modelBuilder.Entity<CostumeAbility>().HasKey(a => new { a.AbilityId, a.AbilityLevel });
             modelBuilder.Entity<CostumeSkill>().HasKey(a => new { a.SkillId, a.SkillLevel });
-            modelBuilder.Entity<CostumeStat>().HasKey(a => new { a.CostumeId, a.Level });
+            modelBuilder.Entity<CostumeStat>().HasKey(a => new { a.CostumeId, a.Level, a.AwakeningStep });
             modelBuilder.Entity<Weapon>().HasAlternateKey(a => new { a.EvolutionGroupId, a.EvolutionOrder });
             modelBuilder.Entity<WeaponSkill>().HasKey(a => new { a.SkillId, a.SkillLevel });
             modelBuilder.Entity<WeaponAbility>().HasKey(a => new { a.AbilityId, a.AbilityLevel });

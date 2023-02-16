@@ -15,6 +15,7 @@ using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
+using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.UnityEngine;
 using NierReinDb.Database;
@@ -23,7 +24,7 @@ using NierReinDb.Models;
 
 namespace NierReinDb
 {
-    class Program
+    static class Program
     {
         private const string DbConfigJsonPath_ = "config/dbConfig.json";
         private const string NierReinConfigJsonPath_ = "config/userConfig.json";
@@ -38,7 +39,6 @@ namespace NierReinDb
             await AddWeapons(db);
             await AddCompanions(db);
             await AddMemoirs(db);
-            await AddThoughts(db);
 
             await db.SaveChangesAsync();
         }
@@ -91,7 +91,7 @@ namespace NierReinDb
 
         #endregion
 
-        #region Databse methods
+        #region Database methods
 
         #region Notification methods
 
@@ -268,6 +268,9 @@ namespace NierReinDb
                 // Create stats
                 model.Stats = GetCostumeStats(costume);
 
+                // Create debris
+                model.Thought = GetCostumeDebris(costume);
+
                 foreach (var stat in model.Stats)
                     stat.Costume = model;
 
@@ -427,32 +430,123 @@ namespace NierReinDb
             var status = CalculatorCostume.GetDataCostumeStatus(costume);
 
             var lvls = new[] { 1, CalculatorCostume.GetMaxLevel(costume, 0), CalculatorCostume.GetMaxLevel(costume, Config.GetCostumeLimitBreakAvailableCount()) };
+            var awakeningSteps = Enumerable.Range(0, Config.GetCostumeAwakenAvailableCount() + 1).ToArray();
             var limitBreaks = new[] { 0, 0, Config.GetCostumeLimitBreakAvailableCount() };
 
-            for (var i = 0; i < 3; i++)
+            DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(costume.CostumeId, out var costumeAwaken);
+            var costumeAwakenEffects = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable.All
+                .Where(x => x.CostumeAwakenEffectGroupId == costumeAwaken.CostumeAwakenEffectGroupId);
+
+            for (var i = 0; i < lvls.Length; i++)
             {
                 status.Level = lvls[i];
+                var baseStatus = GetBaseStatus(status);
+                var costumeAbilities = CalculatorCostume.CreateCostumeDataAbilityList(costume.CostumeAbilityGroupId, limitBreaks[i]);
 
-                var abilities = CalculatorCostume.CreateCostumeDataAbilityList(costume.CostumeAbilityGroupId, limitBreaks[i]);
-                var abilityStatus = abilities.Where(x => !x.IsLocked).SelectMany(x => x.AbilityStatusList).ToList();
-
-                var statusValue = CalculatorStatus.GetCostumeStatus(status, null, null, abilityStatus, null, null);
-                result.Add(new CostumeStat
+                foreach (var awakeningStep in awakeningSteps)
                 {
-                    CostumeId = costume.CostumeId,
-                    Level = status.Level,
+                    var abilities = GetCostumeAbilities(costumeAbilities, costumeAwakenEffects, awakeningStep);
+                    var abilityStatus = abilities.Where(x => !x.IsLocked).SelectMany(x => x.AbilityStatusList).ToList();
 
-                    Attack = statusValue.Attack,
-                    Agility = statusValue.Agility,
-                    CriticalAttack = statusValue.CriticalAttack,
-                    CriticalRate = statusValue.CriticalRatio,
-                    EvasionRate = statusValue.EvasionRatio,
-                    Hp = statusValue.Hp,
-                    Vitality = statusValue.Vitality
-                });
+                    var statusValue = CalculatorStatus.GetCostumeStatus(status, null, null, abilityStatus, null, null);
+                    var awakeningStatus = GetAwakeningStatus(costumeAwakenEffects, baseStatus, awakeningStep);
+
+                    result.Add(new CostumeStat
+                    {
+                        CostumeId = costume.CostumeId,
+                        Level = status.Level,
+                        AwakeningStep = awakeningStep,
+
+                        Attack = (statusValue + awakeningStatus).Attack,
+                        Agility = (statusValue + awakeningStatus).Agility,
+                        CriticalAttack = (statusValue + awakeningStatus).CriticalAttack,
+                        CriticalRate = (statusValue + awakeningStatus).CriticalRatio,
+                        EvasionRate = (statusValue + awakeningStatus).EvasionRatio,
+                        Hp = (statusValue + awakeningStatus).Hp,
+                        Vitality = (statusValue + awakeningStatus).Vitality
+                    });
+                }
             }
 
             return result;
+        }
+
+        private static List<DataAbility> GetCostumeAbilities(DataAbility[] costumeAbilities, IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, int awakeningStep)
+        {
+            List<DataAbility> abilities = new();
+
+            // Add standard abilities
+            abilities.AddRange(costumeAbilities);
+
+            // Add awakening abilities
+            foreach (var costumeAwakenEffect in costumeAwakenEffects.Where(x => x.CostumeAwakenEffectType == CostumeAwakenEffectType.ABILITY && x.AwakenStep <= awakeningStep))
+            {
+                if (DatabaseDefine.Master.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(costumeAwakenEffect.CostumeAwakenEffectId, out var awakenAbility))
+                {
+                    abilities.Add(CalculatorAbility.CreateDataAbility(awakenAbility.AbilityId, CalculatorAbility.MIN_LEVEL, CalculatorAbility.MIN_LEVEL));
+                }
+            }
+
+            return abilities;
+        }
+
+        private static StatusValue GetBaseStatus(DataCostumeStatus status)
+        {
+            CalculatorStatus.GetCostumeBaseStatus(status, out int agility, out int attack, out int criticalAttack, out int criticalRatio, out int evasionRatio, out int hp, out int vitality);
+
+            return new StatusValue(agility, attack, criticalAttack, criticalRatio, evasionRatio, hp, vitality);
+        }
+
+        private static StatusValue GetAwakeningStatus(IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, StatusValue baseStatus, int awakeningStep)
+        {
+            decimal awakeningMultiplier = costumeAwakenEffects
+                    .Where(x => x.CostumeAwakenEffectType == CostumeAwakenEffectType.STATUS_UP && x.AwakenStep <= awakeningStep)
+                    .Select(x => DatabaseDefine.Master.EntityMCostumeAwakenStatusUpGroupTable.All.FirstOrDefault(y => y.CostumeAwakenStatusUpGroupId == x.CostumeAwakenEffectId))
+                    .Sum(x => x.EffectValue) / 1000M;
+
+            return new StatusValue
+            {
+                Attack = (int)(baseStatus.Attack * awakeningMultiplier),
+                Hp = (int)(baseStatus.Hp * awakeningMultiplier),
+                Vitality = (int)(baseStatus.Vitality * awakeningMultiplier)
+            };
+        }
+
+        private static readonly IDictionary<int, Thought> _debrisCache = new Dictionary<int, Thought>();
+
+        private static Thought GetCostumeDebris(EntityMCostume costume)
+        {
+            DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(costume.CostumeId, out var costumeAwaken);
+            var costumeAwakenEffects = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable
+                .FindByCostumeAwakenEffectGroupIdAndCostumeAwakenEffectType((costumeAwaken.CostumeAwakenEffectGroupId, CostumeAwakenEffectType.ITEM_ACQUIRE));
+
+            if (costumeAwakenEffects.Count == 0) return null;
+
+            DatabaseDefine.Master.EntityMThoughtTable.TryFindByThoughtId(costumeAwakenEffects[0].CostumeAwakenEffectId, out var thought);
+
+            if (thought == null) return null;
+
+            if (_debrisCache.ContainsKey(thought.ThoughtId)) return _debrisCache[thought.ThoughtId];
+
+            var thoughtCatalog = DatabaseDefine.Master.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == thought.ThoughtId);
+            var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(thoughtCatalog.CatalogTermId);
+
+            var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(thought.AbilityId, thought.AbilityLevel);
+
+            var model = new Thought
+            {
+                ThoughtId = thought.ThoughtId,
+                RarityType = thought.RarityType,
+                ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
+                Name = CalculatorThought.GetName(thought.ThoughtAssetId),
+                ImagePathBase = $"ui/thought/thought{thought.ThoughtAssetId}/thought{thought.ThoughtAssetId}_standard.png",
+                DescriptionShort = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
+                DescriptionLong = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId)
+            };
+
+            _debrisCache.Add(model.ThoughtId, model);
+
+            return model;
         }
 
         #endregion
