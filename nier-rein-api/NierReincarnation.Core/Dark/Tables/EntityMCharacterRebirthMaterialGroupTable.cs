@@ -14,8 +14,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.CharacterRebirthMaterialGroupId,element.MaterialId);
             secondaryIndexSelector = element => element.CharacterRebirthMaterialGroupId;
         }
-        
-        public RangeView<EntityMCharacterRebirthMaterialGroup> FindByCharacterRebirthMaterialGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
 
+        public RangeView<EntityMCharacterRebirthMaterialGroup> FindByCharacterRebirthMaterialGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
     }
 }

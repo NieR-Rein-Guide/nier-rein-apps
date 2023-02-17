@@ -14,8 +14,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.EventQuestLabyrinthRewardGroupId,element.SortOrder);
             secondaryIndexSelector = element => element.EventQuestLabyrinthRewardGroupId;
         }
-        
-        public RangeView<EntityMEventQuestLabyrinthRewardGroup> FindByEventQuestLabyrinthRewardGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
 
+        public RangeView<EntityMEventQuestLabyrinthRewardGroup> FindByEventQuestLabyrinthRewardGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
     }
 }

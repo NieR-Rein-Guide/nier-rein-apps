@@ -12,8 +12,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => (element.CharacterRebirthStepGroupId,element.BeforeRebirthCount);
         }
-        
-        public EntityMCharacterRebirthStepGroup FindByCharacterRebirthStepGroupIdAndBeforeRebirthCount(ValueTuple<int, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key); }
 
+        public EntityMCharacterRebirthStepGroup FindByCharacterRebirthStepGroupIdAndBeforeRebirthCount(ValueTuple<int, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key); }
     }
 }

@@ -12,8 +12,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.WeaponAwakenAbilityId;
         }
-        
-        public EntityMWeaponAwakenAbility FindByWeaponAwakenAbilityId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
+        public EntityMWeaponAwakenAbility FindByWeaponAwakenAbilityId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
     }
 }

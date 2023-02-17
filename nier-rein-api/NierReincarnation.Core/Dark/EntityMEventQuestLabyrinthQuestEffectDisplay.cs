@@ -17,6 +17,6 @@ namespace NierReincarnation.Core.Dark
         [Key(3)]
         public int EventQuestLabyrinthQuestEffectDescriptionId { get; set; } // 0x1C
         [Key(4)]
-        public int EffectTargetWeaponAttributeType { get; set; } // 0x20
+        public AttributeType EffectTargetWeaponAttributeType { get; set; } // 0x20
     }
 }

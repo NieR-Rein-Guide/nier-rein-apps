@@ -12,8 +12,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.QuestId;
         }
-        
-        public bool TryFindByQuestId(int key, out EntityMEventQuestLabyrinthQuestDisplay result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
 
+        public bool TryFindByQuestId(int key, out EntityMEventQuestLabyrinthQuestDisplay result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
     }
 }

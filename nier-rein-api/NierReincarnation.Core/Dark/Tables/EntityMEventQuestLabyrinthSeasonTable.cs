@@ -14,11 +14,9 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.EventQuestChapterId,element.SeasonNumber);
             secondaryIndexSelector = element => element.EventQuestChapterId;
         }
-        
+
         public EntityMEventQuestLabyrinthSeason FindByEventQuestChapterIdAndSeasonNumber(ValueTuple<int, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key); }
 
-	
         public RangeView<EntityMEventQuestLabyrinthSeason> FindByEventQuestChapterId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
-
     }
 }

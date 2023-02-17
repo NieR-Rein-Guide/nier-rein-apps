@@ -14,8 +14,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.EventQuestLabyrinthStageAccumulationRewardGroupId,element.QuestMissionClearCount);
             secondaryIndexSelector = element => element.EventQuestLabyrinthStageAccumulationRewardGroupId;
         }
-        
-        public RangeView<EntityMEventQuestLabyrinthStageAccumulationRewardGroup> FindByEventQuestLabyrinthStageAccumulationRewardGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
 
+        public RangeView<EntityMEventQuestLabyrinthStageAccumulationRewardGroup> FindByEventQuestLabyrinthStageAccumulationRewardGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
     }
 }

@@ -19,6 +19,5 @@ namespace NierReincarnation.Core.Dark.Tables
         public EntityMCharacterRebirth FindByCharacterId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
         public RangeView<EntityMCharacterRebirth> FindByCharacterAssignmentType(CharacterAssignmentType key) { return FindManyCore(data, secondaryIndexSelector, Comparer<CharacterAssignmentType>.Default, key); }
-
     }
 }

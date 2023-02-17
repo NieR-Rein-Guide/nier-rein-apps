@@ -12,8 +12,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => (element.WeaponAwakenEffectGroupId,element.WeaponAwakenEffectType);
         }
-        
-        public EntityMWeaponAwakenEffectGroup FindByWeaponAwakenEffectGroupIdAndWeaponAwakenEffectType(ValueTuple<int, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key); }
 
+        public EntityMWeaponAwakenEffectGroup FindByWeaponAwakenEffectGroupIdAndWeaponAwakenEffectType(ValueTuple<int, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key); }
     }
 }

@@ -12,8 +12,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => (element.WeaponAwakenMaterialGroupId,element.MaterialId);
         }
-        
-        public RangeView<EntityMWeaponAwakenMaterialGroup> FindRangeByWeaponAwakenMaterialGroupIdAndMaterialId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, min, max, ascendant); }
 
+        public RangeView<EntityMWeaponAwakenMaterialGroup> FindRangeByWeaponAwakenMaterialGroupIdAndMaterialId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, min, max, ascendant); }
     }
 }
