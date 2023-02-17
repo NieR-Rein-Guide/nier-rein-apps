@@ -12,6 +12,7 @@
         ACTIVATION_UPPER_COUNT = 7,
         WAVE_NUMBER = 8,
         IS_EXECUTOR_ALIVE = 9,
-        ATTRIBUTE = 10
+        ATTRIBUTE = 10,
+        SKILLFUL_MAIN_WEAPON_TYPE = 11
     }
 }

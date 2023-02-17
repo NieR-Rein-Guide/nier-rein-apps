@@ -13,6 +13,7 @@
         PORTAL_CAGE = 8,
         SPECIAL = 9,
         TOWER = 10,
-        LIMIT_CONTENT = 11
+        LIMIT_CONTENT = 11,
+        LABYRINTH = 12
     }
 }
