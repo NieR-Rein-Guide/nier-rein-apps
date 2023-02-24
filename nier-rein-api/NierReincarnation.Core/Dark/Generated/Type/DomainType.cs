@@ -33,6 +33,7 @@
         FRIEND = 28,
         BIG_HUNT = 29,
         CHARACTER_BOARD = 30,
-        QUEST_EXHARD = 31
+        QUEST_EXHARD = 31,
+        CHARACTER_REBIRTH = 32
     }
 }

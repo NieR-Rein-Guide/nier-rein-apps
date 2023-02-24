@@ -13,6 +13,7 @@
         ABNORMAL_RESISTANCE = 8,
         BUFF_RESISTANCE = 9,
         OVERRIDE_HIT_EFFECT = 10,
-        MODIFY_HATE_VALUE = 11
+        MODIFY_HATE_VALUE = 11,
+        UNDEAD = 12
     }
 }
