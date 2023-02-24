@@ -9,6 +9,8 @@ namespace NierReinDb.Database.Models
 
         public int Level { get; set; }
 
+        public int AwakeningStep { get; set; }
+
         [Column("agi")]
         public int Agility { get; set; }
 

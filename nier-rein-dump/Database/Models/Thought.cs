@@ -19,6 +19,10 @@ namespace nier_rein_dump.Database.Models
 
         public string Name { get; set; }
 
+        public string DescriptionShort { get; set; }
+
+        public string DescriptionLong { get; set; }
+
         public string ImagePathBase { get; set; }
     }
 }
