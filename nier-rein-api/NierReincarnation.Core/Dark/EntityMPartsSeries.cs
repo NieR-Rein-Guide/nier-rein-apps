@@ -13,5 +13,7 @@ namespace NierReincarnation.Core.Dark
         public int PartsSeriesBonusAbilityGroupId { get; set; } // 0x14
         [Key(2)] // RVA: 0x1DE05D8 Offset: 0x1DE05D8 VA: 0x1DE05D8
         public int PartsSeriesAssetId { get; set; } // 0x18
+        [Key(3)]
+        public long ListSettingDisplayStartDatetime { get; set; } // 0x20
     }
 }

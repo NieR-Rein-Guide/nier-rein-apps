@@ -25,5 +25,7 @@ namespace NierReincarnation.Core.Dark
         public int PvpSeasonRankRewardRankGroupId { get; set; } // 0x3C
         [Key(8)]
         public int PvpGradeGroupId { get; set; } // 0x40
+        [Key(9)]
+        public int PvpInitialPointAdditionGroupId { get; set; } // 0x44
     }
 }

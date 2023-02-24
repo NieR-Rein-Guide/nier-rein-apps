@@ -29,5 +29,9 @@ namespace NierReincarnation.Core.Dark
         public int MaxLevelNumericalFunctionId { get; set; } // 0x34
         [Key(10)] // RVA: 0x1DDA3D0 Offset: 0x1DDA3D0 VA: 0x1DDA3D0
         public int RequiredExpForLevelUpNumericalParameterMapId { get; set; } // 0x38
-	}
+        [Key(11)]
+        public int ListSettingCostumeGroupType { get; set; } // 0x3C
+        [Key(11)]
+        public long ListSettingDisplayStartDatetime { get; set; } // 0x40
+    }
 }

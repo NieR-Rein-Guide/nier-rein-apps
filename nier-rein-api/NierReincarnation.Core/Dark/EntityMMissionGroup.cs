@@ -20,5 +20,7 @@ namespace NierReincarnation.Core.Dark
         public int AssetId { get; set; } // 0x20
         [Key(5)]
         public int MissionGroupUnlockConditionGroupId { get; set; } // 0x24
+        [Key(6)]
+        public int MissionSubCategoryId { get; set; } // 0x28
     }
 }

@@ -27,5 +27,7 @@ namespace NierReincarnation.Core.Dark
         public int CageMemoryId { get; set; } // 0x30
         [Key(9)] // RVA: 0x1F79AC0 Offset: 0x1F79AC0 VA: 0x1F79AC0
         public int ImportantItemType { get; set; } // 0x34
+        [Key(10)]
+        public int ExternalReferenceId { get; set; } // 0x38
     }
 }

@@ -19,5 +19,7 @@ namespace NierReincarnation.Core.Dark
         public int EnvSeId { get; set; } // 0x1C
         [Key(5)]
         public int WaveWinSeId { get; set; } // 0x20
+        [Key(6)]
+        public bool IsDisablePlayWinTimeline { get; set; } // 0x24
     }
 }

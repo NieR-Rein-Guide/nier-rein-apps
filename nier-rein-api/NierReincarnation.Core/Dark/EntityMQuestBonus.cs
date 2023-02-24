@@ -17,5 +17,7 @@ namespace NierReincarnation.Core.Dark
         public int QuestBonusWeaponGroupId { get; set; } // 0x1C
         [Key(4)] // RVA: 0x1EA42B4 Offset: 0x1EA42B4 VA: 0x1EA42B4
         public int QuestBonusCostumeSettingGroupId { get; set; } // 0x20
-	}
+        [Key(5)]
+        public int QuestBonusAllyCharacterId { get; set; } // 0x24
+    }
 }
