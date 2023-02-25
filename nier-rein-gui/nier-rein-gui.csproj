@@ -28,13 +28,8 @@
 
   <ItemGroup>
     <PackageReference Include="ImGui.Forms" Version="1.0.37" />
-    <PackageReference Include="NierReincarnation" Version="1.4.4" />
+    <PackageReference Include="NierReincarnation" Version="1.5.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\nier-rein-api\NierReincarnation.Core\NierReincarnation.Core.csproj" />
-    <ProjectReference Include="..\nier-rein-api\NierReincarnation\NierReincarnation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
