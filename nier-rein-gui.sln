@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioFBXWrapper", "ni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudio.PInvoke", "nier-rein-api\AssetStudio\AssetStudio.PInvoke\AssetStudio.PInvoke.csproj", "{0C9D3959-E0E9-4BD6-9DDD-1F0349849895}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImGui.Forms", "..\..\..\..\Projekte\ImGui.Forms\ImGui.Forms\ImGui.Forms.csproj", "{387DCA06-63E7-4133-831B-FE7336C6BDDF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,10 +57,6 @@ Global
 		{0C9D3959-E0E9-4BD6-9DDD-1F0349849895}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C9D3959-E0E9-4BD6-9DDD-1F0349849895}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C9D3959-E0E9-4BD6-9DDD-1F0349849895}.Release|Any CPU.Build.0 = Release|Any CPU
-		{387DCA06-63E7-4133-831B-FE7336C6BDDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{387DCA06-63E7-4133-831B-FE7336C6BDDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{387DCA06-63E7-4133-831B-FE7336C6BDDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{387DCA06-63E7-4133-831B-FE7336C6BDDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
