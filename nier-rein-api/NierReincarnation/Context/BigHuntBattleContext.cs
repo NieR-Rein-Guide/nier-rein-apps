@@ -15,10 +15,11 @@ using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+using static NierReincarnation.Core.Dark.View.UserInterface.Text.UserInterfaceTextKey;
 
 namespace NierReincarnation.Context
 {
-    public class BigHuntBattleContext: BaseContext
+    public class BigHuntBattleContext : BaseContext
     {
         private const int BigHuntBasePermil_ = 1000;
         private const int BigHuntMaxSurvivalPermil_ = 2000;
@@ -28,7 +29,7 @@ namespace NierReincarnation.Context
         private const int BaseKnockdownPermil_ = 4000;
 
         private static readonly int[] WaveKnockdownModifierPermil = { 0, 250, 500 };
-        private static readonly int[] DifficultyKnockdownModifierPermil = { 0, 1000, 2000, 3000 };
+        private static readonly int[] DifficultyKnockdownModifierPermil = { 0, 1000, 2000, 3000, 6000 };
 
         private readonly Random _random = new Random();
         private readonly DarkClient _dc = new DarkClient();
@@ -50,7 +51,7 @@ namespace NierReincarnation.Context
         public async Task<BigHuntBattleStatus> ExecuteBigHuntQuest(BigHuntQuestData quest, int bigHuntDeckNumber, SubjugationGrade grade)
         {
             // Check if grade and resulting total damage is valid
-            var totalDmg = GetGradeDamage(grade, quest.DifficultyBonusPermilValue);
+            var totalDmg = GetGradeDamage(grade, quest.BigHuntBossQuestId, quest.DifficultyBonusPermilValue);
             if (totalDmg < 0)
                 return BigHuntBattleStatus.Aborted;
 
@@ -63,7 +64,11 @@ namespace NierReincarnation.Context
 
             var sceneId = CalculatorQuest.CreateQuestFieldSceneList(quest.Quest.QuestId)[0].QuestSceneId;
 
-            var difficultyKnockdownPermil = DifficultyKnockdownModifierPermil[quest.SortOrder - 1];
+            var questOrder = quest.SortOrder - 1;
+            var difficultyKnockdownPermil = questOrder >= DifficultyKnockdownModifierPermil.Length ?
+                DifficultyKnockdownModifierPermil[^1] :
+                DifficultyKnockdownModifierPermil[questOrder];
+
             var deckDmg = GetDeckDamage(userDecks, totalDmg);
             var localDmg = 0L;
 
@@ -193,9 +198,12 @@ namespace NierReincarnation.Context
 
         #region Support
 
-        private long GetGradeDamage(SubjugationGrade grade, int difficultyPermil)
+        private long GetGradeDamage(SubjugationGrade grade, int bigHuntBossQuestId, int difficultyPermil)
         {
-            var gradeScore = GetGradeScore(grade);
+            var bossId = CalculatorBigHuntQuest.GetCurrentBossIdByBossQuestId(bigHuntBossQuestId);
+            var boss = CalculatorBigHuntQuest.GetEntityMBigHuntBoss(bossId);
+
+            var gradeScore = GetGradeScore(grade, boss.BigHuntBossGradeGroupId);
             var gradePermil = (BigHuntBasePermil_ + difficultyPermil + BigHuntMaxSurvivalPermil_ + BigHuntMaxComboPermil_) / 10.0;
 
             var baseScore = (int)(gradeScore / gradePermil * 100);
@@ -203,16 +211,16 @@ namespace NierReincarnation.Context
             return baseScore * 100 + _random.Next(0, 99);
         }
 
-        private long GetGradeScore(SubjugationGrade grade)
+        private long GetGradeScore(SubjugationGrade grade, int gradeGroupId)
         {
             var gradeOrder = grade.GetOrder();
-            var gradeData = DatabaseDefine.Master.EntityMBigHuntBossGradeGroupTable.All;
+            var gradeData = DatabaseDefine.Master.EntityMBigHuntBossGradeGroupTable.All.Where(x => x.BigHuntBossGradeGroupId == gradeGroupId).ToArray();
 
-            if (gradeOrder < 0 || gradeData.Count <= gradeOrder)
+            if (gradeOrder < 0 || gradeData.Length <= gradeOrder)
                 return -1;
 
             var nextGradeOrder = gradeOrder + 1;
-            if (gradeData.Count <= nextGradeOrder)
+            if (gradeData.Length <= nextGradeOrder)
                 return gradeData[gradeOrder].NecessaryScore + _random.Next(0, 1000000);
 
             // TODO: Create long Random?

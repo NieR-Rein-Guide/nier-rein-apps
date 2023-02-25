@@ -22,7 +22,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
             return CalculatorQuest.GetCharacterQuestChapters();
         }
 
-        protected override string GetCaption(CharacterQuestChapterData chapter)
+        protected override string GetText(CharacterQuestChapterData chapter)
         {
             return CalculatorCharacter.CharacterName(chapter.CharacterId, true);
         }

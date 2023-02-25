@@ -18,10 +18,10 @@ namespace nier_rein_gui.Dialogs
 
         public VersionMaintenanceDialog()
         {
-            var warningLabel = new Label { Caption = LocalizationResources.VersionMaintenanceWarning };
-            var secondWarningLabel = new Label { Caption = string.Format(LocalizationResources.VersionMaintenanceManualWarning, NierReincarnation.Core.UnityEngine.Application.Version) };
-            var versionButton = new Button { Caption = LocalizationResources.VersionMaintenanceChangeVersion, Width = 130 };
-            var quitButton = new Button { Caption = LocalizationResources.VersionMaintenanceQuit, Width = 50 };
+            var warningLabel = new Label { Text = LocalizationResources.VersionMaintenanceWarning };
+            var secondWarningLabel = new Label { Text = string.Format(LocalizationResources.VersionMaintenanceManualWarning, NierReincarnation.Core.UnityEngine.Application.Version) };
+            var versionButton = new Button { Text = LocalizationResources.VersionMaintenanceChangeVersion, Width = 130 };
+            var quitButton = new Button { Text = LocalizationResources.VersionMaintenanceQuit, Width = 50 };
 
             Size = new Vector2(500, 80);
             Caption = LocalizationResources.VersionMaintenanceTitle;

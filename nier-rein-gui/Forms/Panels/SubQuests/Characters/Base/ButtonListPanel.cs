@@ -15,7 +15,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.Base
 
         protected abstract IList<TChapterData> GetDataElements();
 
-        protected abstract string GetCaption(TChapterData chapter);
+        protected abstract string GetText(TChapterData chapter);
 
         protected abstract bool IsButtonEnabled(TChapterData chapter);
 

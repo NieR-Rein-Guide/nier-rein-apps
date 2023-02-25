@@ -200,7 +200,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = LocalizationResources.SetupDescription})
+                    new StackItem(new Label {Text = LocalizationResources.SetupDescription})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
@@ -218,13 +218,13 @@ namespace nier_rein_gui.Dialogs
             var errMsg = new Label { TextColor = Color.Firebrick };
             var userBox = new TextBox { Width = SizeValue.Relative(1) };
             var passBox = new TextBox { Width = SizeValue.Relative(1), IsMasked = true };
-            var loginBtn = new NierButton { Caption = LocalizationResources.LoginButton };
+            var loginBtn = new NierButton { Text = LocalizationResources.LoginButton };
 
             userBox.TextChanged += (s, e) => username = userBox.Text;
             passBox.TextChanged += (s, e) => password = passBox.Text;
             loginBtn.Clicked += async (s, e) =>
             {
-                errMsg.Caption = string.Empty;
+                errMsg.Text = string.Empty;
 
                 userBox.IsReadOnly = true;
                 passBox.IsReadOnly = true;
@@ -232,7 +232,7 @@ namespace nier_rein_gui.Dialogs
 
                 var isLoggedIn = await TryLogin(username, password);
                 if (!isLoggedIn)
-                    errMsg.Caption = LocalizationResources.LoginError;
+                    errMsg.Text = LocalizationResources.LoginError;
 
                 userBox.IsReadOnly = false;
                 passBox.IsReadOnly = false;
@@ -259,7 +259,7 @@ namespace nier_rein_gui.Dialogs
                             {
                                 Cells =
                                 {
-                                    new Label {Caption = LocalizationResources.LoginUsername},
+                                    new Label {Text = LocalizationResources.LoginUsername},
                                     userBox
                                 }
                             },
@@ -267,7 +267,7 @@ namespace nier_rein_gui.Dialogs
                             {
                                 Cells =
                                 {
-                                    new Label {Caption = LocalizationResources.LoginPassword},
+                                    new Label {Text = LocalizationResources.LoginPassword},
                                     passBox
                                 }
                             }
@@ -285,7 +285,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = LocalizationResources.DataDescription})
+                    new StackItem(new Label {Text = LocalizationResources.DataDescription})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
@@ -303,7 +303,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Horizontal,
                 Items =
                 {
-                    new StackItem(new Label {Caption = string.Format(LocalizationResources.DownloadDescription,assetCount,itemName,assetSize/1024f/1024)})
+                    new StackItem(new Label {Text = string.Format(LocalizationResources.DownloadDescription,assetCount,itemName,assetSize/1024f/1024)})
                     {
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,

@@ -34,7 +34,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
                 diffIndex = 0;
 
             CurrentDifficulty = _difficulties[diffIndex];
-            difficultyButton.Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)CurrentDifficulty).Localize();
+            difficultyButton.Text = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)CurrentDifficulty).Localize();
 
             UpdateQuestList(CurrentDifficulty);
         }

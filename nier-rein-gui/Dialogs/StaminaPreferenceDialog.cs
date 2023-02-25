@@ -64,8 +64,8 @@ namespace nier_rein_gui.Dialogs
                             ItemSpacing = 5,
                             Items =
                             {
-                                new StackItem(new Label{Caption = dataItem.Name}){Size = ImGui.Forms.Models.Size.WidthAlign},
-                                new StackItem(new Label{Caption = dataItem.Description}){Size = ImGui.Forms.Models.Size.Parent,VerticalAlignment = VerticalAlignment.Center}
+                                new StackItem(new Label{Text = dataItem.Name}){Size = ImGui.Forms.Models.Size.WidthAlign},
+                                new StackItem(new Label{Text = dataItem.Description}){Size = ImGui.Forms.Models.Size.Parent,VerticalAlignment = VerticalAlignment.Center}
                             }
                         },
                         new StackItem(new StackLayout
@@ -97,8 +97,8 @@ namespace nier_rein_gui.Dialogs
 
             for (var i = 0; i < _order.Length; i++)
             {
-                (((orderList.Items[i] as StackLayout).Items[1].Content as StackLayout).Items[0].Content as Label).Caption = CalculatorConsumable.ConsumableItemName((int)_order[i]);
-                (((orderList.Items[i] as StackLayout).Items[1].Content as StackLayout).Items[1].Content as Label).Caption = CalculatorConsumable.ConsumableItemDescription((int)_order[i]);
+                (((orderList.Items[i] as StackLayout).Items[1].Content as StackLayout).Items[0].Content as Label).Text = CalculatorConsumable.ConsumableItemName((int)_order[i]);
+                (((orderList.Items[i] as StackLayout).Items[1].Content as StackLayout).Items[1].Content as Label).Text = CalculatorConsumable.ConsumableItemDescription((int)_order[i]);
             }
 
             // Update order in settings

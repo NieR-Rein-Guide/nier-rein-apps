@@ -18,7 +18,7 @@ namespace nier_rein_gui.Controls.Buttons
         public bool IsClickActive { get; set; }
 
         public FontResource Font { get; set; }
-        public string Caption { get; set; }
+        public string Text { get; set; }
 
         public SizeValue Width { get; set; } = SizeValue.Content;
 
@@ -27,7 +27,7 @@ namespace nier_rein_gui.Controls.Buttons
             if (Font != null)
                 ImGuiNET.ImGui.PushFont((ImFontPtr)Font);
 
-            var textSize = FontResource.MeasureText(EscapeCaption(Caption));
+            var textSize = FontResource.MeasureText(EscapeText(Text));
             var borderSize = GetContentSize();
 
             SizeValue width = Width.IsContentAligned ? (int)Math.Ceiling(textSize.X) + (int)borderSize.X : Width;
@@ -51,7 +51,7 @@ namespace nier_rein_gui.Controls.Buttons
             ApplyStyles(isHoveredLocal, isActiveLocal, isEnabledLocal, fontLocal);
 
             // Create main component
-            var shouldClick = ImGuiNET.ImGui.Button(EscapeCaption(Caption), contentRect.Size);
+            var shouldClick = ImGuiNET.ImGui.Button(EscapeText(Text), contentRect.Size);
 
             _isMarkedHovered = IsHoveredCore();
             _isMarkedActive = shouldClick && Enabled ? ToggleActive(IsClickActive) : IsActive();

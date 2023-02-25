@@ -12,6 +12,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorBigHuntQuest
     {
+        private static readonly AttributeType[] BigHuntAttributeTypes = { AttributeType.FIRE, AttributeType.WATER, AttributeType.WIND, AttributeType.LIGHT, AttributeType.DARK }; // 0x50
+
         public static long GetHighScoreByBigHuntBossId(long userId, int bigHuntBossId)
         {
             var table = DatabaseDefine.User.EntityIUserBigHuntMaxScoreTable;
@@ -153,6 +155,95 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             };
         }
 
+        private static BigHuntAttributeData[] GetBigHuntAttributeData(long userId, long lastWeeklyVersion, long weekBeforeLastVersion)
+        {
+            var scheduleTable = DatabaseDefine.Master.EntityMBigHuntScheduleTable;
+            var currentSchedule = scheduleTable.All.FirstOrDefault(x => CalculatorDateTime.IsWithinThePeriod(x.ChallengeStartDatetime, x.ChallengeEndDatetime));
+
+            var isWithinLastWeek = false;
+            var isWithinWeekBefore = false;
+            List<EntityMBigHuntBoss> bosses = null;
+            List<EntityIUserBigHuntScheduleMaxScore> scheduleScores = null;
+            if (currentSchedule != null)
+            {
+                var maxScoreTable = DatabaseDefine.User.EntityIUserBigHuntScheduleMaxScoreTable;
+                scheduleScores = maxScoreTable.All.Where(x => x.UserId == userId && x.BigHuntScheduleId == currentSchedule.BigHuntScheduleId).ToList();
+
+                bosses = new List<EntityMBigHuntBoss>();
+                foreach (var scheduleScore in scheduleScores)
+                {
+                    var bigHuntBossTable = DatabaseDefine.Master.EntityMBigHuntBossTable;
+                    var bigHuntBoss = bigHuntBossTable.FindByBigHuntBossId(scheduleScore.BigHuntBossId);
+
+                    bosses.Add(bigHuntBoss);
+                }
+
+                isWithinLastWeek = CalculatorDateTime.IsWithinThePeriod(currentSchedule.ChallengeStartDatetime, currentSchedule.ChallengeEndDatetime, lastWeeklyVersion);
+                isWithinWeekBefore = CalculatorDateTime.IsWithinThePeriod(currentSchedule.ChallengeStartDatetime, currentSchedule.ChallengeEndDatetime, weekBeforeLastVersion);
+            }
+
+            var result = new BigHuntAttributeData[BigHuntAttributeTypes.Length];
+            for (var i = 0; i < BigHuntAttributeTypes.Length; i++)
+            {
+                var data = result[i] = new BigHuntAttributeData();
+                data.AttributeType = BigHuntAttributeTypes[i];
+
+                if (isWithinWeekBefore)
+                {
+                    var weeklyMaxScoreTable = DatabaseDefine.User.EntityIUserBigHuntWeeklyMaxScoreTable;
+                    if (weeklyMaxScoreTable.TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType((userId, weekBeforeLastVersion, (int)data.AttributeType), out var weeklyMaxScore))
+                    {
+                        result[i].BeforeScore = weeklyMaxScore.MaxScore;
+
+                        var gradeGroupSchedule = GetUserBossGradeGroupScheduleAttribute(userId, data.AttributeType, weekBeforeLastVersion);
+                        if (gradeGroupSchedule != null)
+                            result[i].BeforeAssetGradeIconId = gradeGroupSchedule.AssetGradeIconId;
+                    }
+                }
+
+                if (isWithinLastWeek)
+                {
+                    var weeklyMaxScoreTable = DatabaseDefine.User.EntityIUserBigHuntWeeklyMaxScoreTable;
+                    if (weeklyMaxScoreTable.TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType((userId, lastWeeklyVersion, (int)data.AttributeType), out var weeklyMaxScore))
+                    {
+                        result[i].AfterScore = weeklyMaxScore.MaxScore;
+
+                        var gradeGroupSchedule = GetUserBossGradeGroupScheduleAttribute(userId, data.AttributeType, lastWeeklyVersion);
+                        if (gradeGroupSchedule != null)
+                            result[i].AfterAssetGradeIconId = gradeGroupSchedule.AssetGradeIconId;
+                    }
+                }
+
+                if (bosses == null)
+                    continue;
+
+                var bossIndex = bosses.FindIndex(huntBoss => huntBoss.AttributeType == data.AttributeType);
+                if (bossIndex <= -1)
+                    continue;
+
+                data.CurrentScore = scheduleScores[bossIndex].MaxScore;
+
+                var gradeGroupId = bosses[bossIndex].BigHuntBossGradeGroupId;
+                var maxScore = scheduleScores[bossIndex].MaxScore;
+
+                var gradeGroup = GetEntityMBigHuntBossGradeGroup(gradeGroupId, maxScore);
+                if (gradeGroup != null)
+                    data.CurrentAssetGradeIconId = gradeGroup.AssetGradeIconId;
+            }
+
+            return result;
+        }
+
+        private static EntityMBigHuntBossGradeGroup GetUserBossGradeGroupScheduleAttribute(long userId, AttributeType attribute, long weeklyVersion)
+        {
+            return null;
+        }
+
+        private static EntityMBigHuntBossGradeGroup GetEntityMBigHuntBossGradeGroup(int bigHuntBossGradeGroupId, long highScore)
+        {
+            return null;
+        }
+
         public static bool IsClearBigHuntBoss(long userId, int bigHuntBossQuestId)
         {
             var bossId = GetCurrentBossIdByBossQuestId(bigHuntBossQuestId);
@@ -204,6 +295,13 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var boss = bossTable.FindByBigHuntBossId(bossQuest.BigHuntBossId);
 
             return GetBigHuntBossName(boss.NameBigHuntBossTextId);
+        }
+
+        // CUSTOM: Make method public
+        public static EntityMBigHuntBoss GetEntityMBigHuntBoss(int bigHuntBossId)
+        {
+            var bossTable = DatabaseDefine.Master.EntityMBigHuntBossTable;
+            return bossTable.FindByBigHuntBossId(bigHuntBossId);
         }
 
         private static string GetBigHuntBossName(int nameBigHuntBossTextId)

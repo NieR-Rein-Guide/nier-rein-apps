@@ -32,7 +32,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.Base
                 var charButton = new NierButton
                 {
                     Width = 1f,
-                    Caption = GetCaption(chapter),
+                    Text = GetText(chapter),
                     Enabled = IsButtonEnabled(chapter)
                 };
                 charButton.Clicked += (s, e) =>

@@ -52,7 +52,7 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
             actor1 = new LoadoutActorPanel(_rein, this, 0);
             actor2 = new LoadoutActorPanel(_rein, this, 1);
             actor3 = new LoadoutActorPanel(_rein, this, 2);
-            deleteButton = new NierButton { Caption = UserInterfaceTextKey.Deck.kDeleteDeck.Localize() };
+            deleteButton = new NierButton { Text = UserInterfaceTextKey.Deck.kDeleteDeck.Localize() };
 
             foreach (var deckType in _deckTypes)
             {
@@ -74,7 +74,7 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                         ItemSpacing = 5,
                         Items =
                         {
-                            new Label {Font = FontResources.FotRodin(20), Caption = UserInterfaceTextKey.Deck.kOrganization.Localize()},
+                            new Label {Font = FontResources.FotRodin(20), Text = UserInterfaceTextKey.Deck.kOrganization.Localize()},
                             new StackItem(deckTypeBox){Size = Size.WidthAlign,HorizontalAlignment = HorizontalAlignment.Right}
                         }
                     },
@@ -176,13 +176,13 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                 actor2.Reset(false);
                 actor3.Reset(false);
 
-                deckNameLabel.Caption = GetDefaultDeckName(CurrentDeckNumber, CurrentDeckType);
+                deckNameLabel.Text = GetDefaultDeckName(CurrentDeckNumber, CurrentDeckType);
                 deleteButton.Enabled = false;
 
                 return;
             }
 
-            deckNameLabel.Caption = currentDeck.ToString();
+            deckNameLabel.Text = currentDeck.ToString();
             deleteButton.Enabled = CurrentDeckType != DeckType.RESTRICTED_QUEST || !currentDeck.IsMinimal;
 
             for (var i = 0; i < currentDeck.UserDeckActors.Length; i++)

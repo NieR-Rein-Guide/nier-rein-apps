@@ -52,7 +52,8 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests
             switch (_chapter.EventQuestType)
             {
                 case EventQuestType.TOWER:
-                    farmDlg = new TowerDialog(_rein, quests, quest);
+                case EventQuestType.LABYRINTH:
+                    farmDlg = new TowerDialog(_rein, quests, quest, _chapter.EventQuestType);
                     break;
 
                 case EventQuestType.DUNGEON:

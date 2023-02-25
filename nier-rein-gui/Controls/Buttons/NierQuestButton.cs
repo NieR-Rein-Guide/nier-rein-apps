@@ -41,7 +41,7 @@ namespace nier_rein_gui.Controls.Buttons
 
         #region Properties
 
-        public string Caption { get; set; }
+        public string Text { get; set; }
 
         public SizeValue Width { get; set; } = SizeValue.Content;
 
@@ -62,7 +62,7 @@ namespace nier_rein_gui.Controls.Buttons
         public override Size GetSize()
         {
             // Get quest name size
-            var questNameSize = FontResource.MeasureText(Caption);
+            var questNameSize = FontResource.MeasureText(Text);
 
             // Get attribute size
             var attributeSize = NierResources.IconSize + new Vector2(LabelDistance_, 0);
@@ -170,7 +170,7 @@ namespace nier_rein_gui.Controls.Buttons
 
             // Draw quest name
             var questNameColor = IsActive() && Enabled ? TextActiveColor : Style.GetColor(ImGuiCol.Text).ToUInt32();
-            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLine, questNameColor, Caption ?? string.Empty);
+            ImGuiNET.ImGui.GetWindowDrawList().AddText(topLine, questNameColor, Text ?? string.Empty);
 
             // Draw daily label
             var clearOff = 0;

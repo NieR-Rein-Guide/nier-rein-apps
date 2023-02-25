@@ -40,11 +40,11 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         private bool _isFarming;
         private bool _isCancel;
 
-        private Label roundCaptionLabel;
+        private Label roundTextLabel;
         private Label roundLabel;
         private ArrowButton previousButton;
         private ArrowButton nextButton;
-        private Label captionLabel;
+        private Label TextLabel;
         private Label limitLabel;
         private Label restrictionLabel;
         private ComboBox<DataDeckInfo> decks;
@@ -68,7 +68,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
             BattleContext.SetupReAuthorization(null, null);
 
-            roundCaptionLabel = new Label { Caption = LocalizationResources.RoundCounter };
+            roundTextLabel = new Label { Text = LocalizationResources.RoundCounter };
             roundLabel = new Label();
 
             previousButton = new ArrowButton { Direction = ImGuiDir.Left };
@@ -77,13 +77,13 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
             nextButton = new ArrowButton { Direction = ImGuiDir.Right };
             nextButton.Clicked += NextButton_Clicked;
 
-            captionLabel = new Label();
+            TextLabel = new Label();
             limitLabel = new Label
             {
-                Caption = string.Empty,
+                Text = string.Empty,
                 TextColor = Color.Firebrick
             };
-            restrictionLabel = new Label { Caption = LocalizationResources.DeckRestrictions };
+            restrictionLabel = new Label { Text = LocalizationResources.DeckRestrictions };
 
             decks = new ComboBox<DataDeckInfo>();
 
@@ -113,13 +113,13 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 Rows = new List<DataTableRow<Costume>>()
             };
 
-            singleButton = new NierButton { Caption = LocalizationResources.ClearOnce, Padding = new Vector2(2, 2) };
+            singleButton = new NierButton { Text = LocalizationResources.ClearOnce, Padding = new Vector2(2, 2) };
             singleButton.Clicked += SingleButton_Clicked;
 
-            cancelButton = new NierButton { Caption = LocalizationResources.Cancel, Padding = new Vector2(2, 2), Enabled = false };
+            cancelButton = new NierButton { Text = LocalizationResources.Cancel, Padding = new Vector2(2, 2), Enabled = false };
             cancelButton.Clicked += CancelButton_Clicked;
 
-            startButton = new NierButton { Caption = LocalizationResources.Start, Padding = new Vector2(2, 2) };
+            startButton = new NierButton { Text = LocalizationResources.Start, Padding = new Vector2(2, 2) };
             startButton.Clicked += StartButton_Clicked;
 
             Caption = LocalizationResources.TitleFarmingGeneral;
@@ -138,7 +138,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                         Items =
                         {
                             previousButton,
-                            new StackItem(captionLabel){Size = ImGui.Forms.Models.Size.WidthAlign},
+                            new StackItem(TextLabel){Size = ImGui.Forms.Models.Size.WidthAlign},
                             nextButton
                         }
                     },
@@ -159,7 +159,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                                 ItemSpacing = 5,
                                 Items =
                                 {
-                                    roundCaptionLabel,
+                                    roundTextLabel,
                                     new StackItem(roundLabel){Size = new ImGui.Forms.Models.Size(60,-1)}
                                 }
                             }
@@ -195,7 +195,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
             if (CooldownTimer.IsRunning)
             {
-                SetLimitLabelCaption(CooldownTimer.CurrentCooldown);
+                SetLimitLabelText(CooldownTimer.CurrentCooldown);
                 SetLimitLabel(limitLabel);
             }
 
@@ -225,18 +225,18 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
         private void CooldownTimer_Elapsed(object sender, TimeSpan e)
         {
-            SetLimitLabelCaption(e);
+            SetLimitLabelText(e);
         }
 
         private void CooldownTimer_CooldownFinish(object sender, EventArgs e)
         {
-            SetLimitLabelCaption(TimeSpan.Zero);
+            SetLimitLabelText(TimeSpan.Zero);
             SetLimitLabel(null);
         }
 
         private void CooldownTimer_CooldownStart(object sender, TimeSpan e)
         {
-            SetLimitLabelCaption(e);
+            SetLimitLabelText(e);
             SetLimitLabel(limitLabel);
         }
 
@@ -248,9 +248,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 (Content as StackLayout).Items[1] = new StackItem(label) { Size = ImGui.Forms.Models.Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Center };
         }
 
-        private void SetLimitLabelCaption(TimeSpan time)
+        private void SetLimitLabelText(TimeSpan time)
         {
-            limitLabel.Caption = string.Format(LocalizationResources.LimitTimer, time);
+            limitLabel.Text = string.Format(LocalizationResources.LimitTimer, time);
         }
 
         #endregion
@@ -337,14 +337,14 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
         {
             // Update quest information
             _currentQuest = quest;
-            captionLabel.Caption = string.Format(LocalizationResources.QuestName, GetQuestName(quest));
+            TextLabel.Text = string.Format(LocalizationResources.QuestName, GetQuestName(quest));
 
             // Update restrictions
-            restrictionLabel.Caption = LocalizationResources.DeckRestrictions;
+            restrictionLabel.Text = LocalizationResources.DeckRestrictions;
 
             var restrictionText = GetRestrictionText(GetQuestId(quest));
             if (!string.IsNullOrEmpty(restrictionText))
-                restrictionLabel.Caption += Environment.NewLine + restrictionText;
+                restrictionLabel.Text += Environment.NewLine + restrictionText;
 
             // Update decks
             UpdateDecks(GetQuestId(quest), forceDeckUpdate);
@@ -633,7 +633,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
         private void SetRound(int rounds)
         {
-            roundLabel.Caption = $"{rounds}";
+            roundLabel.Text = $"{rounds}";
         }
 
         class Reward

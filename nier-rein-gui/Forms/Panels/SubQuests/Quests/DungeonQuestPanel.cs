@@ -27,19 +27,19 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests
             return CalculatorQuest.GetEventQuestChapters(EventQuestType.DUNGEON);
         }
 
-        protected override string GetCaption(EventQuestChapterData chapter)
+        protected override string GetText(EventQuestChapterData chapter)
         {
             return chapter.EventQuestName;
         }
 
         protected override bool IsButtonEnabled(EventQuestChapterData chapter)
         {
-            return false; //chapter.IsCurrent();
+            return chapter.IsCurrent();
         }
 
         protected override ClosableQuestListPanel<EventQuestData> CreatePanel(EventQuestChapterData chapter, IList<EventQuestChapterData> chapters)
         {
-            return new DungeonQuestListPanel(chapter);
+            return new DungeonQuestListPanel(_rein,chapter);
         }
 
         //private readonly NierReinContexts _rein;

@@ -28,8 +28,8 @@ namespace nier_rein_gui.Dialogs
             _questBattleContext = rein.Battles.CreateQuestContext();
             _bigHuntBattleContext = rein.Battles.CreateBigHuntContext();
 
-            quitButton = new NierButton { Caption = UserInterfaceTextKey.Flow.kRetryCancelTextKey.Localize(), Width = 80 };
-            continueButton = new NierButton { Caption = UserInterfaceTextKey.Flow.kRetrySelectTextKey.Localize(), Width = 80, Enabled = false };
+            quitButton = new NierButton { Text = UserInterfaceTextKey.Flow.kRetryCancelTextKey.Localize(), Width = 80 };
+            continueButton = new NierButton { Text = UserInterfaceTextKey.Flow.kRetrySelectTextKey.Localize(), Width = 80, Enabled = false };
 
             quitButton.Clicked += QuitButton_Clicked;
             continueButton.Clicked += ContinueButton_Clicked;
@@ -43,7 +43,7 @@ namespace nier_rein_gui.Dialogs
                 ItemSpacing = 5,
                 Items =
                 {
-                    new StackItem(new Label{Caption = UserInterfaceTextKey.Flow.kRetryQuestDescription.Localize()}){Size = ImGui.Forms.Models.Size.Parent},
+                    new StackItem(new Label{Text = UserInterfaceTextKey.Flow.kRetryQuestDescription.Localize()}){Size = ImGui.Forms.Models.Size.Parent},
                     new StackItem(new StackLayout
                     {
                         Alignment = Alignment.Horizontal,

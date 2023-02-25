@@ -27,6 +27,7 @@
         A,
         S,
         SS,
-        SSS
+        SSS,
+        SSSS
     }
 }

@@ -40,7 +40,7 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     costumeButton,
                     new Label
                     {
-                        Caption = LocalizationResources.DeckWeaponTitle
+                        Text = LocalizationResources.DeckWeaponTitle
                     },
                     new StackLayout
                     {
@@ -66,14 +66,14 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                                 {
                                     new TableCell(new Label
                                     {
-                                        Caption = LocalizationResources.DeckCompanionTitle
+                                        Text = LocalizationResources.DeckCompanionTitle
                                     })
                                     {
                                         Size = new Size((int)NierResources.ItemSlotSize.X * 2 + 5, SizeValue.Content)
                                     },
                                     new Label
                                     {
-                                        Caption = LocalizationResources.DeckDebrisTitle
+                                        Text = LocalizationResources.DeckDebrisTitle
                                     }
                                 }
                             },
@@ -92,7 +92,7 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
                     },
                     new Label
                     {
-                        Caption = LocalizationResources.DeckMemoirTitle
+                        Text = LocalizationResources.DeckMemoirTitle
                     },
                     new StackLayout
                     {

@@ -46,23 +46,23 @@ namespace nier_rein_gui.Forms
         {
             userLabel = new Label
             {
-                Caption = GetUserString(),
+                Text = GetUserString(),
                 Font = FontResources.FotRodin(11)
             };
             staminaLabel = new Label
             {
-                Caption = GetStaminaString(),
+                Text = GetStaminaString(),
                 Font = FontResources.FotRodin(11)
             };
             versionLabel = new Label
             {
                 Font = FontResources.FotRodin(11),
-                Caption = string.Format(LocalizationResources.GameVersion, Application.Version),
+                Text = string.Format(LocalizationResources.GameVersion, Application.Version),
             };
             cooldownLabel = new Label
             {
                 Font = FontResources.FotRodin(11),
-                Caption = GetCooldownString(TimeSpan.Zero),
+                Text = GetCooldownString(TimeSpan.Zero),
                 TextColor = Color.Firebrick,
                 Visible = false
             };
@@ -70,7 +70,7 @@ namespace nier_rein_gui.Forms
             var staminaRefreshButton = new StaminaPreferenceButton();
             loadoutButton = new NierButton
             {
-                Caption = UserInterfaceTextKey.Footer.kLoadout.Localize(),
+                Text = UserInterfaceTextKey.Footer.kLoadout.Localize(),
                 Padding = new Vector2(0, 15),
                 IsClickActive = true,
 
@@ -78,7 +78,7 @@ namespace nier_rein_gui.Forms
             };
             questsButton = new NierButton
             {
-                Caption = UserInterfaceTextKey.Footer.kQuests.Localize(),
+                Text = UserInterfaceTextKey.Footer.kQuests.Localize(),
                 Padding = new Vector2(0, 15),
                 IsClickActive = true,
 
@@ -86,7 +86,7 @@ namespace nier_rein_gui.Forms
             };
             mapButton = new NierButton
             {
-                Caption = UserInterfaceTextKey.Footer.kMap.Localize(),
+                Text = UserInterfaceTextKey.Footer.kMap.Localize(),
                 Padding = new Vector2(0, 15),
                 IsClickActive = true,
 
@@ -168,12 +168,12 @@ namespace nier_rein_gui.Forms
 
         public void UpdateUser()
         {
-            userLabel.Caption = GetUserString();
+            userLabel.Text = GetUserString();
         }
 
         public void UpdateStamina()
         {
-            staminaLabel.Caption = GetStaminaString();
+            staminaLabel.Text = GetStaminaString();
         }
 
         private string GetUserString()
@@ -195,14 +195,14 @@ namespace nier_rein_gui.Forms
 
         private void CooldownTimer_Elapsed(object sender, TimeSpan e)
         {
-            cooldownLabel.Caption = GetCooldownString(e);
+            cooldownLabel.Text = GetCooldownString(e);
         }
 
         private void CooldownTimer_CooldownFinish(object sender, EventArgs e)
         {
             SetCooldownLabel(null);
 
-            cooldownLabel.Caption = GetCooldownString(TimeSpan.Zero);
+            cooldownLabel.Text = GetCooldownString(TimeSpan.Zero);
             cooldownLabel.Visible = false;
         }
 
@@ -210,7 +210,7 @@ namespace nier_rein_gui.Forms
         {
             SetCooldownLabel(cooldownLabel);
 
-            cooldownLabel.Caption = GetCooldownString(e);
+            cooldownLabel.Text = GetCooldownString(e);
             cooldownLabel.Visible = true;
         }
 

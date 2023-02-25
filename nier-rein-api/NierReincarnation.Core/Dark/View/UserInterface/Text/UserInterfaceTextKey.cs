@@ -130,7 +130,7 @@
             public static readonly string kEventQuestCharacter = "ui.Outgame.Quest.CharacterQuest"; // 0x50
             public static readonly string kEventQuestEndContents = "ui.Outgame.EndContents.Tab.Menu"; // 0x58
             public static readonly string kEventQuestDungeon = "ui.Outgame.Dungeon.Tab.Menu";
-            public static readonly string kEventQuestLimitDailyQuest= "ui.Outgame.LimitDailyQuest.Tab.Menu"; // 0x80
+            public static readonly string kEventQuestLimitDailyQuest = "ui.Outgame.LimitDailyQuest.Tab.Menu"; // 0x80
             public static readonly string kEventQuestBoss = "ui.Outgame.Quest.Confirmation.Boss"; // 0x60
             public static readonly string kEventQuestEnemy = "ui.Outgame.Quest.Confirmation.Enemy"; // 0x68
             public static readonly string kMainQuest = "ui.Outgame.Quest.Main"; // 0x70
@@ -203,6 +203,20 @@
             public static readonly string kSuggestedPower = "ui.Outgame.Quest.Confirmation.RecommendPower";
             public static readonly string kStamina = "ui.Outgame.Quest.Confirmation.Stamina";
             public static readonly string kRewardReceive = "ui.Outgame.Quest.Reward.Receive";
+
+            public static class Labyrinth
+            {
+                public static readonly string kQuestListTitle = "ui.Outgame.Quest.Event.Labyrinth.QuestList.Title"; // 0x0
+                public static readonly string KQuestListStageName = "ui.Outgame.Quest.Event.Labyrinth.QuestList.Stage"; // 0x8
+                public static readonly string kMissionRewardTitle = "ui.Outgame.Quest.Event.Labyrinth.MissionReward.Title"; // 0x10
+                public static readonly string kMissionRewardSubtitle = "ui.Outgame.Quest.Event.Labyrinth.MissionReward.Subtitle"; // 0x18
+                public static readonly string kMissionDescription = "ui.Outgame.Quest.Event.Labyrinth.MissionReward.Description"; // 0x20
+                public static readonly string kReachRewardTitle = "ui.Outgame.Quest.Event.Labyrinth.ReachReward.Title"; // 0x28
+                public static readonly string kReachRewardReachQuest = "ui.Outgame.Quest.Event.Labyrinth.ReachReward.ReachQuest"; // 0x30
+                public static readonly string kReachRewardStage = "ui.Outgame.Quest.Event.Labyrinth.ReachReward.Stage"; // 0x38
+                public static readonly string kReachRewardResultTitle = "ui.Outgame.Quest.Event.Labyrinth.ReachRewardResult.Title"; // 0x40
+                public static readonly string kReachRewardResultReachDetail = "ui.Outgame.Quest.Event.Labyrinth.ReachRewardResult.ReachDetail"; // 0x48
+            }
         }
 
         public static class Material
@@ -294,8 +308,8 @@
 
         public static class Common
         {
-            public static readonly string kTimeHour= "ui.Outgame.Common.Time.Hour"; // 0x128
-            public static readonly string kTimeMinute= "ui.Outgame.Common.Time.Minute"; // 0x130
+            public static readonly string kTimeHour = "ui.Outgame.Common.Time.Hour"; // 0x128
+            public static readonly string kTimeMinute = "ui.Outgame.Common.Time.Minute"; // 0x130
             public static readonly string kRarityName = "ui.Outgame.Common.RarityType.Name.{0:D2}"; // 0x148
             public static readonly string kAttributeTextKey = "ui.Outgame.Attribute.{0}"; // 0x1B8
             public static readonly string kWeaponTypeTextKey = "ui.Outgame.WeaponType.{0}"; // 0x1C0

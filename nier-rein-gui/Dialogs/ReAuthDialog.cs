@@ -17,7 +17,7 @@ namespace nier_rein_gui.Dialogs
                 Alignment = Alignment.Vertical,
                 Items =
                 {
-                    new StackItem(new Label {Caption = LocalizationResources.AuthDescription})
+                    new StackItem(new Label {Text = LocalizationResources.AuthDescription})
                     {
                         VerticalAlignment = VerticalAlignment.Center,
                         HorizontalAlignment = HorizontalAlignment.Center,

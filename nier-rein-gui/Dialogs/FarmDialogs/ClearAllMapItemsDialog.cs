@@ -45,8 +45,8 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
             countLabel = new Label();
             limitLabel = new Label { TextColor = Color.Firebrick };
-            startBtn = new NierButton { Caption = LocalizationResources.Start };
-            cancelBtn = new NierButton { Caption = LocalizationResources.Cancel, Enabled = false };
+            startBtn = new NierButton { Text = LocalizationResources.Start };
+            cancelBtn = new NierButton { Text = LocalizationResources.Cancel, Enabled = false };
 
             rewards = new DataTable<(string, int)>
             {
@@ -89,7 +89,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
             if (CooldownTimer.IsRunning)
             {
-                SetLimitLabelCaption(CooldownTimer.CurrentCooldown);
+                SetLimitLabelText(CooldownTimer.CurrentCooldown);
                 SetLimitLabel(limitLabel);
             }
 
@@ -111,18 +111,18 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
         private void CooldownTimer_Elapsed(object sender, TimeSpan e)
         {
-            SetLimitLabelCaption(e);
+            SetLimitLabelText(e);
         }
 
         private void CooldownTimer_CooldownFinish(object sender, EventArgs e)
         {
-            SetLimitLabelCaption(TimeSpan.Zero);
+            SetLimitLabelText(TimeSpan.Zero);
             SetLimitLabel(null);
         }
 
         private void CooldownTimer_CooldownStart(object sender, TimeSpan e)
         {
-            SetLimitLabelCaption(e);
+            SetLimitLabelText(e);
             SetLimitLabel(limitLabel);
         }
 
@@ -134,9 +134,9 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
                 (Content as StackLayout).Items[0] = new StackItem(label) { Size = ImGui.Forms.Models.Size.WidthAlign, HorizontalAlignment = HorizontalAlignment.Center };
         }
 
-        private void SetLimitLabelCaption(TimeSpan time)
+        private void SetLimitLabelText(TimeSpan time)
         {
-            limitLabel.Caption = string.Format(LocalizationResources.LimitTimer, time);
+            limitLabel.Text = string.Format(LocalizationResources.LimitTimer, time);
         }
 
         #endregion
@@ -244,7 +244,7 @@ namespace nier_rein_gui.Dialogs.FarmDialogs
 
         private void SetCountLabelText(int count)
         {
-            countLabel.Caption = string.Format(LocalizationResources.CollectItemsHeader, count, _gimmicks.Count);
+            countLabel.Text = string.Format(LocalizationResources.CollectItemsHeader, count, _gimmicks.Count);
         }
 
         private string GetItemText((PossessionType,int) reward)

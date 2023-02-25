@@ -28,7 +28,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests
             var chapters = new List<EventQuestChapterData>();
 
             chapters.Add(new EventQuestChapterData { EventQuestType = (EventQuestType)99, EndDatetime = CalculatorDateTime.UnixTimeNow() + 1000, EventQuestName = UserInterfaceTextKey.Quest.kEventQuestLimitDailyQuest.Localize() });
-            chapters.AddRange(CalculatorQuest.GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.HUNT, EventQuestType.SPECIAL, EventQuestType.TOWER));
+            chapters.AddRange(CalculatorQuest.GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.HUNT, EventQuestType.SPECIAL, EventQuestType.TOWER,EventQuestType.LABYRINTH));
             chapters.Add(new EventQuestChapterData { EventQuestType = EventQuestType.DAY_OF_THE_WEEK, EndDatetime = CalculatorDateTime.UnixTimeNow() + 1000, EventQuestName = UserInterfaceTextKey.Quest.kEventQuestDayOfTheWeek.Localize() });
             chapters.Add(new EventQuestChapterData { EventQuestType = EventQuestType.GUERRILLA, EndDatetime = CalculatorDateTime.UnixTimeNow() + 1000, EventQuestName = UserInterfaceTextKey.Quest.kEventQuestGuerrilla.Localize() });
             chapters.Add(new EventQuestChapterData { EventQuestType = EventQuestType.DUNGEON, EndDatetime = CalculatorDateTime.UnixTimeNow() + 1000, EventQuestName = UserInterfaceTextKey.Quest.kEventQuestDungeon.Localize() });
@@ -39,6 +39,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests
             var typeOrder = new[]
             {
                 (EventQuestType)99,
+                EventQuestType.LABYRINTH,
                 EventQuestType.MARATHON, EventQuestType.HUNT, EventQuestType.SPECIAL, EventQuestType.TOWER,
                 EventQuestType.DAY_OF_THE_WEEK, EventQuestType.GUERRILLA,
                 EventQuestType.DUNGEON,

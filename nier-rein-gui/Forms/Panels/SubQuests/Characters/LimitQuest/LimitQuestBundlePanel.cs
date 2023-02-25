@@ -54,7 +54,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
                 diffIndex = 0;
 
             CurrentDifficulty = _difficulties[diffIndex];
-            UpdateDifficultyCaption(CurrentDifficulty);
+            UpdateDifficultyText(CurrentDifficulty);
 
             UpdateQuestBundleList(_currentChapter, CurrentDifficulty);
         }
@@ -67,7 +67,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
 
             _difficulties = CalculatorLimitContent.CreateLimitContentDifficulties(_currentChapter.EventQuestLimitContentId);
             CurrentDifficulty = _difficulties[0];
-            UpdateDifficultyCaption(CurrentDifficulty);
+            UpdateDifficultyText(CurrentDifficulty);
 
             UpdateQuestBundleList(_currentChapter, CurrentDifficulty);
 
@@ -82,7 +82,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
 
             _difficulties = CalculatorLimitContent.CreateLimitContentDifficulties(_currentChapter.EventQuestLimitContentId);
             CurrentDifficulty = _difficulties[0];
-            UpdateDifficultyCaption(CurrentDifficulty);
+            UpdateDifficultyText(CurrentDifficulty);
 
             UpdateQuestBundleList(_currentChapter, CurrentDifficulty);
 

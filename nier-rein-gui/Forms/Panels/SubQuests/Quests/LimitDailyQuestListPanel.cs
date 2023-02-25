@@ -33,7 +33,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests
         {
             var receiveBtn = new NierButton
             {
-                Caption = UserInterfaceTextKey.Quest.kRewardReceive.Localize(),
+                Text = UserInterfaceTextKey.Quest.kRewardReceive.Localize(),
                 Enabled = CanReceiveReward()
             };
             receiveBtn.Clicked += ReceiveBtn_Clicked;

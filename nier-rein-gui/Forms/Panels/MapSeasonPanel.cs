@@ -43,7 +43,7 @@ namespace nier_rein_gui.Forms.Panels
         {
             var collectAllBtn = new NierButton
             {
-                Caption = LocalizationResources.CollectAllItems,
+                Text = LocalizationResources.CollectAllItems,
                 Enabled = ClearAllMapItemsDialog.HasCollectableGimmicks()
             };
             collectAllBtn.Clicked += CollectAllBtn_Clicked;

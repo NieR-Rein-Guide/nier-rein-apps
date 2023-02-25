@@ -65,7 +65,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Base
         {
             var result = new NierButton
             {
-                Caption = GetChapterName(chapter),
+                Text = GetChapterName(chapter),
                 Active = CurrentChapter.Equals(chapter),
                 Enabled = IsUnlocked(chapter),
                 IsClickActive = true,

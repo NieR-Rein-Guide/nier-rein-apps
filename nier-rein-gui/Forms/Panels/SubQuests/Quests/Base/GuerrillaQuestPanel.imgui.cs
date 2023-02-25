@@ -31,7 +31,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
 
         private void UpdateTimeTable(string timeTable)
         {
-            timeLabel.Caption = timeTable;
+            timeLabel.Text = timeTable;
         }
     }
 }

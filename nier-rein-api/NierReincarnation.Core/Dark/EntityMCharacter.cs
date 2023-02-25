@@ -31,7 +31,7 @@ namespace NierReincarnation.Core.Dark
         public int RequiredExpForLevelUpNumericalParameterMapId { get; set; } // 0x38
         [Key(11)]
         public int ListSettingCostumeGroupType { get; set; } // 0x3C
-        [Key(11)]
+        [Key(12)]
         public long ListSettingDisplayStartDatetime { get; set; } // 0x40
     }
 }

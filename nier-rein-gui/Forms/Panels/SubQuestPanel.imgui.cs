@@ -14,15 +14,13 @@ namespace nier_rein_gui.Forms.Panels
         private NierButton subQuestButton;
         private NierButton exQuestButton;
         private NierButton bigHuntButton;
-        private NierButton explorationButton;
 
         private void InitializeComponent()
         {
-            mainQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kMainQuest.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
-            subQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kEventQuestTitle.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
-            exQuestButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kExQuestTitle.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
-            bigHuntButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kBigHuntQuest.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
-            explorationButton = new NierButton { Caption = UserInterfaceTextKey.Quest.kSearch.Localize(), Width = .3f, Padding = new Vector2(0, 5), Enabled = false };
+            mainQuestButton = new NierButton { Text = UserInterfaceTextKey.Quest.kMainQuest.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
+            subQuestButton = new NierButton { Text = UserInterfaceTextKey.Quest.kEventQuestTitle.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
+            exQuestButton = new NierButton { Text = UserInterfaceTextKey.Quest.kExQuestTitle.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
+            bigHuntButton = new NierButton { Text = UserInterfaceTextKey.Quest.kBigHuntQuest.Localize(), Width = .3f, Padding = new Vector2(0, 5) };
 
             Content = new TableLayout
             {
@@ -45,13 +43,6 @@ namespace nier_rein_gui.Forms.Panels
                         {
                             exQuestButton,
                             bigHuntButton
-                        }
-                    },
-                    new TableRow
-                    {
-                        Cells =
-                        {
-                            explorationButton
                         }
                     }
                 }

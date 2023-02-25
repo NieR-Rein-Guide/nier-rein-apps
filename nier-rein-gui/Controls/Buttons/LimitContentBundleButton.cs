@@ -35,7 +35,7 @@ namespace nier_rein_gui.Controls.Buttons
             if (Font != null)
                 ImGuiNET.ImGui.PushFont((ImFontPtr)Font);
 
-            var textSize = FontResource.MeasureText(EscapeCaption(Caption));
+            var textSize = FontResource.MeasureText(EscapeText(Caption));
             var progressSize = FontResource.MeasureText("00/00");
             var borderSize = GetContentSize();
 
@@ -80,7 +80,7 @@ namespace nier_rein_gui.Controls.Buttons
             if (Font != null)
                 ImGuiNET.ImGui.PushFont((ImFontPtr)Font);
 
-            var caption = EscapeCaption(Caption);
+            var caption = EscapeText(Caption);
             var captionSize = FontResource.MeasureText(caption);
             var captionColor = IsActive() && Enabled ? TextActiveColor : Style.GetColor(ImGuiCol.Text).ToUInt32();
 

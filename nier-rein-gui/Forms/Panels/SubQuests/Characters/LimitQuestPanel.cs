@@ -21,7 +21,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
             return CalculatorLimitContent.CreateDataLimitContentCharacters();
         }
 
-        protected override string GetCaption(DataLimitContentCharacter chapter)
+        protected override string GetText(DataLimitContentCharacter chapter)
         {
             return CalculatorCharacter.CharacterName(chapter.Costume.CharacterId, true);
         }

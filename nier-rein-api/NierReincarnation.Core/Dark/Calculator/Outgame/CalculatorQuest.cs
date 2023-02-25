@@ -40,7 +40,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return GetEventQuestChapters(EventQuestType.MARATHON, EventQuestType.HUNT, EventQuestType.DUNGEON,
                                          EventQuestType.DAY_OF_THE_WEEK, EventQuestType.GUERRILLA,
                                          EventQuestType.CHARACTER, EventQuestType.END_CONTENTS,
-                                         EventQuestType.SPECIAL, EventQuestType.TOWER, EventQuestType.LIMIT_CONTENT);
+                                         EventQuestType.SPECIAL, EventQuestType.TOWER, EventQuestType.LIMIT_CONTENT, EventQuestType.LABYRINTH);
         }
 
         public static LimitDailyQuestData CreateLimitDailyQuestData(long userId, IQuest eventQuest)

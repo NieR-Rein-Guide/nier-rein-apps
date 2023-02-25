@@ -28,7 +28,7 @@ namespace nier_rein_gui.Dialogs
 
         private ArrowButton previousButton;
         private ArrowButton nextButton;
-        private Label captionLabel;
+        private Label TextLabel;
         private NierButton clearButton;
 
         private ComboBox<DataDeckInfo> decks;
@@ -36,7 +36,7 @@ namespace nier_rein_gui.Dialogs
 
         private bool _isWorking;
 
-        public TowerDialog(NierReinContexts rein, IList<EventQuestData> questList, EventQuestData quest)
+        public TowerDialog(NierReinContexts rein, IList<EventQuestData> questList, EventQuestData quest, EventQuestType type)
         {
             _battleContext = rein.Battles.CreateQuestContext();
             _questList = questList;
@@ -50,10 +50,10 @@ namespace nier_rein_gui.Dialogs
             nextButton = new ArrowButton { Direction = ImGuiDir.Right };
             nextButton.Clicked += NextButton_Clicked;
 
-            clearButton = new NierButton { Caption = LocalizationResources.Clear };
+            clearButton = new NierButton { Text = LocalizationResources.Clear };
             clearButton.Clicked += ClearButton_Clicked;
 
-            captionLabel = new Label { Caption = quest.QuestName };
+            TextLabel = new Label { Text = quest.QuestName };
 
             decks = new ComboBox<DataDeckInfo>();
             InitializeDecks(decks);
@@ -61,7 +61,8 @@ namespace nier_rein_gui.Dialogs
             missionList = new List();
             UpdateMissionList(missionList, _quest);
 
-            Caption = LocalizationResources.AbyssTitle;
+            Caption = type == EventQuestType.TOWER ? LocalizationResources.AbyssTitle :
+                type == EventQuestType.LABYRINTH ? LocalizationResources.LabyrinthTitle : string.Empty;
             Size = new Vector2(500, 150);
             Content = new StackLayout
             {
@@ -77,7 +78,7 @@ namespace nier_rein_gui.Dialogs
                         Items =
                         {
                             previousButton,
-                            new StackItem(captionLabel){Size = ImGui.Forms.Models.Size.WidthAlign},
+                            new StackItem(TextLabel){Size = ImGui.Forms.Models.Size.WidthAlign},
                             nextButton
                         }
                     },
@@ -145,7 +146,7 @@ namespace nier_rein_gui.Dialogs
                 _quest = quest;
                 quest.IsLock = false;
 
-                captionLabel.Caption = quest.QuestName;
+                TextLabel.Text = quest.QuestName;
 
                 UpdateMissionList(missionList, quest);
 
@@ -165,7 +166,7 @@ namespace nier_rein_gui.Dialogs
                 _quest = quest;
                 quest.IsLock = false;
 
-                captionLabel.Caption = quest.QuestName;
+                TextLabel.Text = quest.QuestName;
 
                 UpdateMissionList(missionList, quest);
 
@@ -198,7 +199,7 @@ namespace nier_rein_gui.Dialogs
                 {
                     Enabled = false,
                     Checked = mission.IsClear,
-                    Caption = mission.MissionTitle
+                    Text = mission.MissionTitle
                 });
         }
 

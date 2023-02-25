@@ -30,13 +30,13 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
 
         private void InitializeComponent(string name, IList<DifficultyType> difficulties)
         {
-            difficultyBtn = new NierButton { Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficulties[0]).Localize(), Width = 100 };
+            difficultyBtn = new NierButton { Text = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficulties[0]).Localize(), Width = 100 };
 
             backBtn = new ArrowButton { Direction = ImGuiDir.Left };
             prevBtn = new ArrowButton { Direction = ImGuiDir.Left };
             nextBtn = new ArrowButton { Direction = ImGuiDir.Right };
 
-            bundleList = new List { ItemSpacing = 5 };
+            bundleList = new List { ItemSpacing = 5, Size = Size.Parent};
 
             Content = mainLayout = new StackLayout
             {
@@ -75,7 +75,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
 
             if (!string.IsNullOrEmpty(name))
             {
-                nameLabel = new Label { Caption = name, Font = FontResources.FotRodin(20) };
+                nameLabel = new Label { Text = name, Font = FontResources.FotRodin(20) };
                 layout.Items.Add(nameLabel);
             }
 
@@ -88,12 +88,12 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters.LimitQuest
         protected void UpdateName(string name)
         {
             if (nameLabel != null)
-                nameLabel.Caption = name;
+                nameLabel.Text = name;
         }
 
-        private void UpdateDifficultyCaption(DifficultyType difficulty)
+        private void UpdateDifficultyText(DifficultyType difficulty)
         {
-            difficultyBtn.Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficulty).Localize();
+            difficultyBtn.Text = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficulty).Localize();
         }
 
         // TODO: Use correct button type

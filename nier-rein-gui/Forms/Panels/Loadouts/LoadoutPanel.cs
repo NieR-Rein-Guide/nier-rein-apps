@@ -114,7 +114,7 @@ namespace nier_rein_gui.Forms.Panels.Loadouts
 
             await RenameDeck(name);
 
-            deckNameLabel.Caption = currentDeck.ToString();
+            deckNameLabel.Text = currentDeck.ToString();
         }
 
         private void Decks_AfterUnauthenticated(bool hasReauthorized)

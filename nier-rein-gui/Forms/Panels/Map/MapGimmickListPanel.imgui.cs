@@ -53,7 +53,7 @@ namespace nier_rein_gui.Forms.Panels.Map
 
         private StackLayout CreateGimmickGroup(GimmickType type, IList<WorldMapGimmickOutGame> gimmicks)
         {
-            var groupLabel = new ImGui.Forms.Controls.Label { Caption = GetGimmickTypeName(type) + $" ({gimmicks.Count})" };
+            var groupLabel = new ImGui.Forms.Controls.Label { Text = GetGimmickTypeName(type) + $" ({gimmicks.Count})" };
             var gimmickList = new List { ItemSpacing = 5, Size = new Size(200, 200) };
 
             var unixNow = CalculatorDateTime.UnixTimeNow();
@@ -80,14 +80,14 @@ namespace nier_rein_gui.Forms.Panels.Map
             var button = new NierButton
             {
                 Enabled = isAvailable,
-                Caption = LocalizationResources.MapCollect
+                Text = LocalizationResources.MapCollect
             };
 
             switch (gimmick.GimmickType)
             {
                 case GimmickType.CAGE_INTERVAL_DROP_ITEM:
                     //case GimmickType.MAP_ONLY_CAGE_INTERVAL_DROP_ITEM:
-                    button.Caption += $" ({gimmick.GetAvailableIntervalGimmickCount(unixNow)}/{gimmick.MaxValue})";
+                    button.Text += $" ({gimmick.GetAvailableIntervalGimmickCount(unixNow)}/{gimmick.MaxValue})";
                     button.Clicked += (s, e) => CollectButtonClick(button, gimmick);
                     break;
 

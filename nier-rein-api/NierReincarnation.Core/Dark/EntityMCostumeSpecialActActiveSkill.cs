@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Dark
         public int SkillActIndex { get; set; } // 0x14
         [Key(2)]
         public int CostumeSpecialActActiveSkillConditionType { get; set; } // 0x18
-        [Key(2)]
+        [Key(3)]
         public int CostumeSpecialActActiveSkillConditionId { get; set; } // 0x1C
     }
 }

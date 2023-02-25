@@ -70,8 +70,8 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
 
             itemList = new ZLayout { ItemSpacing = new Vector2(FilterItemSpacing_, FilterItemSpacing_) };
 
-            var cancelButton = new NierButton { Caption = LocalizationResources.Cancel };
-            selectButton = new NierButton { Caption = LocalizationResources.Select, Enabled = false };
+            var cancelButton = new NierButton { Text = LocalizationResources.Cancel };
+            selectButton = new NierButton { Text = LocalizationResources.Select, Enabled = false };
             removeButton = new NierItemRemoveButton();
 
             cancelButton.Clicked += CancelButton_Clicked;
@@ -152,7 +152,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             windCheck = new NierAttributeCheckbox { Attribute = AttributeType.WIND };
             lightCheck = new NierAttributeCheckbox { Attribute = AttributeType.LIGHT };
             darkCheck = new NierAttributeCheckbox { Attribute = AttributeType.DARK };
-            allAttributeCheck = new CheckBox { Caption = UserInterfaceTextKey.Organization.kAll.Localize() };
+            allAttributeCheck = new CheckBox { Text = UserInterfaceTextKey.Organization.kAll.Localize() };
 
             fireCheck.CheckChanged += (s, e) => ToggleAttributeFilter(AttributeType.FIRE);
             waterCheck.CheckChanged += (s, e) => ToggleAttributeFilter(AttributeType.WATER);
@@ -192,7 +192,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             staffCheck = new NierWeaponCheckbox { WeaponType = WeaponType.STAFF };
             spearCheck = new NierWeaponCheckbox { WeaponType = WeaponType.SPEAR };
             fistCheck = new NierWeaponCheckbox { WeaponType = WeaponType.FIST };
-            allWeaponCheck = new CheckBox { Caption = UserInterfaceTextKey.Organization.kAll.Localize() };
+            allWeaponCheck = new CheckBox { Text = UserInterfaceTextKey.Organization.kAll.Localize() };
 
             swordCheck.CheckChanged += (s, e) => ToggleWeaponFilter(WeaponType.SWORD);
             bigSwordCheck.CheckChanged += (s, e) => ToggleWeaponFilter(WeaponType.BIG_SWORD);
@@ -232,7 +232,7 @@ namespace nier_rein_gui.Dialogs.LoadoutSelectionDialogs
             srCheck = new NierRarityCheckbox { RarityType = RarityType.S_RARE };
             ssrCheck = new NierRarityCheckbox { RarityType = RarityType.SS_RARE };
             legendCheck = new NierRarityCheckbox { RarityType = RarityType.LEGEND };
-            allRarityCheck = new CheckBox { Caption = UserInterfaceTextKey.Organization.kAll.Localize() };
+            allRarityCheck = new CheckBox { Text = UserInterfaceTextKey.Organization.kAll.Localize() };
 
             rareCheck.CheckChanged += (s, e) => ToggleRarityFilter(RarityType.RARE);
             srCheck.CheckChanged += (s, e) => ToggleRarityFilter(RarityType.S_RARE);

@@ -28,7 +28,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
             return CalculatorQuest.GetEndQuestChapters();
         }
 
-        protected override string GetCaption(CharacterQuestChapterData chapter)
+        protected override string GetText(CharacterQuestChapterData chapter)
         {
             return CalculatorCharacter.CharacterName(chapter.CharacterId, true);
         }
@@ -47,7 +47,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Characters
         {
             var clearAllButton = new NierButton
             {
-                Caption = LocalizationResources.ClearAllDailies,
+                Text = LocalizationResources.ClearAllDailies,
                 Enabled = ClearAllEndDailyDialog.HasDailyQuests()
             };
             clearAllButton.Clicked += ClearAllButton_Clicked;

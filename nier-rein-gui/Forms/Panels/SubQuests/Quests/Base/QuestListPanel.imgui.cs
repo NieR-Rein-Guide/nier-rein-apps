@@ -27,11 +27,12 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
         private void InitializeComponent(string name, IList<DifficultyType> difficulties)
         {
             if (difficulties.Count > 1)
-                difficultyButton = new NierButton { Caption = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficulties[0]).Localize(), Width = 100 };
+                difficultyButton = new NierButton { Text = string.Format(UserInterfaceTextKey.Quest.kQuestDifficulty, (int)difficulties[0]).Localize(), Width = 100 };
 
             questList = new List
             {
-                ItemSpacing = 5
+                ItemSpacing = 5,
+                Size = Size.Parent
             };
             layout = new StackLayout
             {
@@ -79,7 +80,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
                 {
                     Padding = new Vector2(2, 2),
                     Width = 1f,
-                    Caption = GetQuestName(quest),
+                    Text = GetQuestName(quest),
                     Stamina = baseQuest.EntityQuest.Stamina,
                     SuggestedPower = baseQuest.EntityQuest.RecommendedDeckPower,
                     IsClear = CalculatorQuest.IsClearQuest(baseQuest.QuestId, CalculatorStateUser.GetUserId()),
@@ -101,7 +102,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
         protected void UpdateName(string name)
         {
             if (nameLabel != null)
-                nameLabel.Caption = name;
+                nameLabel.Text = name;
         }
 
         private StackLayout CreateHeaderLayout(string name, NierButton difficulty)
@@ -115,7 +116,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests.Base
 
             if (!string.IsNullOrEmpty(name))
             {
-                nameLabel = new Label { Caption = name, Font = FontResources.FotRodin(20) };
+                nameLabel = new Label { Text = name, Font = FontResources.FotRodin(20) };
                 result.Items.Add(new StackItem(nameLabel) { VerticalAlignment = VerticalAlignment.Center });
             }
 

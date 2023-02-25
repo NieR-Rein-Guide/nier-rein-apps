@@ -68,7 +68,7 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Base
         {
             var result = new NierButton
             {
-                Caption = GetSeasonName(season),
+                Text = GetSeasonName(season),
                 Active = CurrentSeason.Equals(season),
                 IsClickActive = true,
                 Width = 120,

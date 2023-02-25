@@ -5,8 +5,10 @@ using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
 using ImGuiNET;
+using nier_rein_gui.Dialogs.FarmDialogs;
 using nier_rein_gui.Forms.Panels.SubQuests.Quests.Base;
 using nier_rein_gui.Resources;
+using NierReincarnation;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -17,10 +19,12 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests
 {
     class DungeonQuestListPanel : ClosableQuestListPanel<EventQuestData>
     {
+        private readonly NierReinContexts _rein;
         private readonly EventQuestChapterData _chapter;
 
-        public DungeonQuestListPanel(EventQuestChapterData chapter) : base(chapter.EventQuestName, chapter.EventQuestChapterDifficultyTypes)
+        public DungeonQuestListPanel(NierReinContexts rein, EventQuestChapterData chapter) : base(chapter.EventQuestName, chapter.EventQuestChapterDifficultyTypes)
         {
+            _rein = rein;
             _chapter = chapter;
 
             UpdateQuestList(chapter.EventQuestChapterDifficultyTypes[0]);
@@ -56,7 +60,10 @@ namespace nier_rein_gui.Forms.Panels.SubQuests.Quests
 
         protected override async Task FightAsync(IList<EventQuestData> quests, EventQuestData quest)
         {
-            await MessageBox.ShowErrorAsync(LocalizationResources.DungeonUnavailableTitle, LocalizationResources.DungeonUnavailableDescription);
+            var farmDlg = new EventQuestFarmDialog(_rein, quests, quest);
+            await farmDlg.ShowAsync();
+
+            //await MessageBox.ShowErrorAsync(LocalizationResources.DungeonUnavailableTitle, LocalizationResources.DungeonUnavailableDescription);
         }
     }
 }

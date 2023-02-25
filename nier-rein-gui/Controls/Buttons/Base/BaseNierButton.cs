@@ -54,9 +54,9 @@ namespace nier_rein_gui.Controls.Buttons.Base
             Clicked?.Invoke(this, new EventArgs());
         }
 
-        protected string EscapeCaption(string unescapedCaption)
+        protected string EscapeText(string unescapedText)
         {
-            return unescapedCaption?.Replace("\\n", Environment.NewLine) ?? string.Empty;
+            return unescapedText?.Replace("\\n", Environment.NewLine) ?? string.Empty;
         }
     }
 }

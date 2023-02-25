@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Linq;
+using System.Numerics;
 using ImGui.Forms.Controls;
 using ImGui.Forms.Controls.Layouts;
 using ImGui.Forms.Modals;
@@ -44,7 +46,7 @@ namespace nier_rein_gui.Dialogs
             grades = new ComboBox<SubjugationGrade>();
             InitializeGrades(grades);
 
-            clearButton = new NierButton { Caption = LocalizationResources.Clear, Padding = new Vector2(2, 2) };
+            clearButton = new NierButton { Text = LocalizationResources.Clear, Padding = new Vector2(2, 2) };
             clearButton.Clicked += ClearButton_Clicked;
 
             Size = new Vector2(250, 100);
@@ -54,7 +56,7 @@ namespace nier_rein_gui.Dialogs
                 ItemSpacing = 5,
                 Items =
                 {
-                    new Label { Caption = $"{CalculatorBigHuntQuest.GetBigHuntBossNameByBigHuntBossQuestId(quest.BigHuntBossQuestId)}:\n{quest.QuestName}" },
+                    new Label { Text = $"{CalculatorBigHuntQuest.GetBigHuntBossNameByBigHuntBossQuestId(quest.BigHuntBossQuestId)}:\n{quest.QuestName}" },
                     new StackItem(null){Size = new Size(0,0)},
                     new StackLayout
                     {
@@ -109,7 +111,7 @@ namespace nier_rein_gui.Dialogs
 
         private void InitializeGrades(ComboBox<SubjugationGrade> grades)
         {
-            var maxGrade = Grade.SSS;
+            var maxGrade = Enum.GetValues<Grade>().Max();
             var maxRank = 10;
 
             var maxOrder = new SubjugationGrade
