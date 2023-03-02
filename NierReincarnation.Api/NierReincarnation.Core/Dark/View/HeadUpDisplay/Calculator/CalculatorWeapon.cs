@@ -308,6 +308,12 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
             return WeaponServal.CalcMaxLevel(limitBreakCount, settings.FunctionType, settings.FunctionParameters);
         }
 
+        public static ActorAssetId ActorAssetId(int weaponId)
+        {
+            var weapon = GetEntityMWeapon(weaponId);
+            return weapon != null ? ActorAssetId(weapon) : Dark.ActorAssetId.InvalidActorAssetId;
+        }
+
         public static ActorAssetId ActorAssetId(EntityMWeapon entityMWeapon)
         {
             if (entityMWeapon == null)
