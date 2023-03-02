@@ -6,12 +6,13 @@ using MD5 = NierReincarnation.Core.Octo.Util.MD5;
 
 namespace NierReincarnation.Core.Octo.Data
 {
-    class AESCrypt
+    internal class AESCrypt
     {
         // Fields
-        private static readonly List<int> ValidKeyLengths = new List<int> { 128, 196, 256 }; // 0x0
-        private static readonly string IV = "LvAUtf+tnz"; // 0x8
-        private Aes _aesAlgo; // 0x10
+        private static readonly List<int> ValidKeyLengths = new() { 128, 196, 256 }; // 0x0
+
+        private const string IV = "LvAUtf+tnz"; // 0x8
+        private readonly Aes _aesAlgo; // 0x10
 
         // Methods
 
@@ -41,10 +42,16 @@ namespace NierReincarnation.Core.Octo.Data
         {
             var buffer = new byte[memoryStream.Length];
 
-            using var cs = new CryptoStream(memoryStream, _aesAlgo.CreateDecryptor(), CryptoStreamMode.Read);
-            using var br = new BinaryReader(cs);
+            using CryptoStream cs = new(memoryStream, _aesAlgo.CreateDecryptor(), CryptoStreamMode.Read);
+            using BinaryReader br = new(cs);
 
-            var actualLength = br.Read(buffer, 0, buffer.Length);
+            int actualLength = 0;
+            while (actualLength < buffer.Length)
+            {
+                int bytesRead = br.Read(buffer, actualLength, buffer.Length - actualLength);
+                if (bytesRead == 0) break;
+                actualLength += bytesRead;
+            }
 
             Array.Resize(ref buffer, actualLength);
             return buffer;
@@ -57,10 +64,10 @@ namespace NierReincarnation.Core.Octo.Data
 
         private byte[] _Encrypt(byte[] plainTextBytes)
         {
-            using var result = new MemoryStream();
+            using MemoryStream result = new();
 
-            using (var cs = new CryptoStream(result, _aesAlgo.CreateEncryptor(), CryptoStreamMode.Write))
-            using (var bw = new BinaryWriter(cs))
+            using (CryptoStream cs = new(result, _aesAlgo.CreateEncryptor(), CryptoStreamMode.Write))
+            using (BinaryWriter bw = new(cs))
                 bw.Write(plainTextBytes);
 
             return result.ToArray();
