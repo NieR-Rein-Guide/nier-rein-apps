@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <ApplicationIcon>nierReinEx.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\FOT-Rodin Pro DB.ttf" />
+    <None Remove="Resources\Fonts\FOT-Rodin.otf" />
+    <None Remove="Resources\Images\icons_1.png" />
+    <None Remove="Resources\Images\lock.png" />
+    <None Remove="Resources\Images\nierReinEx.ico" />
+    <None Remove="Resources\Images\nierReinEx.png" />
+    <None Remove="Resources\Images\test.jpg" />
+    <None Remove="Resources\Localizations\en.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\FOT-Rodin.otf" />
+    <EmbeddedResource Include="Resources\Images\lock.png" />
+    <EmbeddedResource Include="Resources\Images\nierReinEx.ico" />
+    <EmbeddedResource Include="Resources\Images\icons_1.png" />
+    <EmbeddedResource Include="Resources\Localizations\en.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ImGui.Forms" Version="1.0.37" />
+    <PackageReference Include="NierReincarnation" Version="1.6.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <!-- Debug -->
+  <Target Name="CopyNativeBinariesBuild" DependsOnTargets="CopyFilesToOutputDirectory" AfterTargets="Build" Condition="$(Configuration) == 'Debug'">
+	<Copy SourceFiles="$(TargetDir)/runtimes/win-x64/native/fmod.dll" DestinationFolder="$(TargetDir)/x64" />
+	<Copy SourceFiles="$(TargetDir)/runtimes/win-x64/native/Texture2DDecoderNative.dll" DestinationFolder="$(TargetDir)/x64" />
+  </Target>
+
+  <!-- Publish -->
+  <Target Name="CopyNativeBinaries" DependsOnTargets="CopyFilesToOutputDirectory" AfterTargets="Publish">
+    <Copy SourceFiles="$(TargetDir)/SDL2.dll" DestinationFolder="$(PublishDir)" />
+	<Copy SourceFiles="$(TargetDir)/fmod.dll" DestinationFolder="$(PublishDir)/x64" />
+	<Copy SourceFiles="$(TargetDir)/Texture2DDecoderNative.dll" DestinationFolder="$(PublishDir)/x64" />
+  </Target>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

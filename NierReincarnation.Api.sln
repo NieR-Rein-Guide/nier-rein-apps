@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation.Core", "NierReincarnation.Api\NierReincarnation.Core\NierReincarnation.Core.csproj", "{20ED95DE-2E96-4BF0-AAA4-4C3E2785F3C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation", "NierReincarnation.Api\NierReincarnation\NierReincarnation.csproj", "{2CCDC76C-CF2A-4D83-9061-170647A345BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudio", "NierReincarnation.Api\AssetStudio\AssetStudio\AssetStudio.csproj", "{EBD26746-4E3F-40C1-929F-2C027EABC232}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "NierReincarnation.Api\AssetStudio\AssetStudioUtility\AssetStudioUtility.csproj", "{88F9271F-F73E-4CE6-96DA-7234B7B66214}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Texture2DDecoderWrapper", "NierReincarnation.Api\AssetStudio\Texture2DDecoderWrapper\Texture2DDecoderWrapper.csproj", "{244F17B9-62BD-4BCA-AFE2-187039E2DA94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudio.PInvoke", "NierReincarnation.Api\AssetStudio\AssetStudio.PInvoke\AssetStudio.PInvoke.csproj", "{075486DC-8D85-446C-B640-86F83A82BED6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20ED95DE-2E96-4BF0-AAA4-4C3E2785F3C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20ED95DE-2E96-4BF0-AAA4-4C3E2785F3C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20ED95DE-2E96-4BF0-AAA4-4C3E2785F3C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20ED95DE-2E96-4BF0-AAA4-4C3E2785F3C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CCDC76C-CF2A-4D83-9061-170647A345BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CCDC76C-CF2A-4D83-9061-170647A345BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CCDC76C-CF2A-4D83-9061-170647A345BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CCDC76C-CF2A-4D83-9061-170647A345BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBD26746-4E3F-40C1-929F-2C027EABC232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBD26746-4E3F-40C1-929F-2C027EABC232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBD26746-4E3F-40C1-929F-2C027EABC232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBD26746-4E3F-40C1-929F-2C027EABC232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88F9271F-F73E-4CE6-96DA-7234B7B66214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88F9271F-F73E-4CE6-96DA-7234B7B66214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88F9271F-F73E-4CE6-96DA-7234B7B66214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88F9271F-F73E-4CE6-96DA-7234B7B66214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{244F17B9-62BD-4BCA-AFE2-187039E2DA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{244F17B9-62BD-4BCA-AFE2-187039E2DA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{244F17B9-62BD-4BCA-AFE2-187039E2DA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{244F17B9-62BD-4BCA-AFE2-187039E2DA94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0197A970-36E9-4733-810C-74D191C3C4DE}
+	EndGlobalSection
+EndGlobal
