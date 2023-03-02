@@ -27,6 +27,7 @@
 
   <ItemGroup>
 	<InternalsVisibleTo Include="NierReincarnation"/>
+	<InternalsVisibleTo Include="NierReincarnation.Datamine"/>
   </ItemGroup>
 
   <ItemGroup>
