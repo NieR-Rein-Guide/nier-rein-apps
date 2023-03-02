@@ -3,7 +3,7 @@ name: NierReincarnation Nuget
 on:
   push:
     paths:
-      - nier-rein-api/**
+      - NierReincarnation.Api/**
 
 jobs:
   build:
@@ -28,8 +28,8 @@ jobs:
     # Pack NierReincarnation
     - name: Pack NierReincarnation
       run: |
-        dotnet build ./nier-rein-api/NierReincarnation/NierReincarnation.csproj --configuration Release
-        dotnet pack ./nier-rein-api/NierReincarnation/NierReincarnation.csproj --configuration Release --output .\dist\nuget
+        dotnet build ./NierReincarnation.Api/NierReincarnation/NierReincarnation.csproj --configuration Release
+        dotnet pack ./NierReincarnation.Api/NierReincarnation/NierReincarnation.csproj --configuration Release --output .\dist\nuget
 
     # Upload NierReincarnation to nuget.org
     - name: Publish NierReincarnation
