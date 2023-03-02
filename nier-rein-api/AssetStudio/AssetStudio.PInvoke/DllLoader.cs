@@ -3,13 +3,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
-using Serilog;
 
 namespace AssetStudio.PInvoke
 {
     public static class DllLoader
     {
-        private const string NativePath_ = @"runtimes\{0}-{1}\native";
 
         public static void PreloadDll(string dllName)
         {
@@ -32,18 +30,7 @@ namespace AssetStudio.PInvoke
             var localPath = Process.GetCurrentProcess().MainModule.FileName;
             var localDir = Path.GetDirectoryName(localPath);
 
-            string platform;
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                platform = "win";
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                platform = "linux";
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                platform = "osx";
-            else
-                throw new NotSupportedException();
-
-            var subDir = Environment.Is64BitProcess ? string.Format(NativePath_, platform, "x64") : string.Format(NativePath_, platform, "x86");
+            var subDir = Environment.Is64BitProcess ? "x64" : "x86";
 
             var directedDllDir = Path.Combine(localDir, subDir);
 
@@ -52,12 +39,11 @@ namespace AssetStudio.PInvoke
 
         private static class Win32
         {
+
             internal static void LoadDll(string dllDir, string dllName)
             {
                 var dllFileName = $"{dllName}.dll";
                 var directedDllPath = Path.Combine(dllDir, dllFileName);
-
-                Log.Information("Try loading '{0}'", directedDllPath);
 
                 // Specify SEARCH_DLL_LOAD_DIR to load dependent libraries located in the same platform-specific directory.
                 var hLibrary = LoadLibraryEx(directedDllPath, IntPtr.Zero, LOAD_LIBRARY_SEARCH_DEFAULT_DIRS | LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR);
@@ -78,10 +64,12 @@ namespace AssetStudio.PInvoke
 
             private const uint LOAD_LIBRARY_SEARCH_DEFAULT_DIRS = 0x1000;
             private const uint LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR = 0x100;
+
         }
 
         private static class Posix
         {
+
             internal static void LoadDll(string dllDir, string dllName)
             {
                 string dllExtension;
@@ -101,8 +89,6 @@ namespace AssetStudio.PInvoke
 
                 var dllFileName = $"lib{dllName}{dllExtension}";
                 var directedDllPath = Path.Combine(dllDir, dllFileName);
-
-                Log.Information("Try loading '{0}'", directedDllPath);
 
                 const int ldFlags = RTLD_NOW | RTLD_GLOBAL;
                 var hLibrary = DlOpen(directedDllPath, ldFlags);
@@ -131,6 +117,8 @@ namespace AssetStudio.PInvoke
             private const int RTLD_LAZY = 0x1;
             private const int RTLD_NOW = 0x2;
             private const int RTLD_GLOBAL = 0x100;
+
         }
+
     }
 }

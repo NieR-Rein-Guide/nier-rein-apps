@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package >
-  <metadata>
-    <id>NierReincarnation</id>
-    <version>1.5.0</version>
-    <authors>onepiecefreak</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">GPL-3.0-only</license>
-    <projectUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</projectUrl>
-    <description>An API to communicate with the game NieR Reincarnation.</description>
-    <copyright>onepiecefreak</copyright>
-    <tags>API Nier Reincarnation</tags>
-	
-	  <dependencies>
-	    <dependency id="Google.Protobuf" version="3.18.0" />
-	    <dependency id="protobuf-net" version="3.0.101" />
-	    <dependency id="protobuf-net.Core" version="3.0.101" />
-	  
-	    <dependency id="Grpc.Core.Api" version="2.47.0" />
-	    <dependency id="Grpc.Core" version="2.44.0" />
-	    
-	    <dependency id="MessagePack" version="2.3.85" />
-	    <dependency id="Newtonsoft.Json" version="13.0.1" />
-	    <dependency id="Selenium.WebDriver" version="4.2.0" />
-	    <dependency id="Serilog" version="2.11.0" />
-	    <dependency id="Serilog.Sinks.File" version="5.0.0" />
-	    <dependency id="WebDriverManager" version="2.13.0" />
-      <dependency id="ncrontab" version="3.3.1" />
-      <dependency id="morelinq" version="3.3.2" />
-	    
-	    <dependency id="SixLabors.ImageSharp.Drawing" version="1.0.0-beta13" />
-	    <dependency id="K4os.Compression.LZ4" version="1.2.16" />
+<package>
+	<metadata>
+		<id>NierReincarnation</id>
+		<version>1.6.0</version>
+		<authors>onepiecefreak</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<license type="expression">GPL-3.0-only</license>
+		<projectUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</projectUrl>
+		<description>An API to communicate with the game NieR Reincarnation.</description>
+		<copyright>onepiecefreak</copyright>
+		<tags>API Nier Reincarnation</tags>
 
-	    <dependency id="TimeZoneConverter" version="5.0.0" />
-      <dependency id="NodaTime" version="3.1.5" />
-    </dependencies>
-  </metadata>
-  <files>
-	  <file src="bin\Release\net5.0\*.dll" target="lib\net5.0\"/>
-    <file src="lib\win-x64\*.dll" target="runtimes\win-x64\native\"/>
-  </files>
+		<dependencies>
+			<dependency id="Google.Protobuf" version="3.18.0" />
+			<dependency id="protobuf-net" version="3.0.101" />
+			<dependency id="protobuf-net.Core" version="3.0.101" />
+			<dependency id="Grpc.Core.Api" version="2.47.0" />
+			<dependency id="Grpc.Core" version="2.44.0" />
+			<dependency id="MessagePack" version="2.3.85" />
+			<dependency id="Newtonsoft.Json" version="13.0.1" />
+			<dependency id="Selenium.WebDriver" version="4.2.0" />
+			<dependency id="Serilog" version="2.11.0" />
+			<dependency id="Serilog.Sinks.File" version="5.0.0" />
+			<dependency id="WebDriverManager" version="2.13.0" />
+			<dependency id="ncrontab" version="3.3.1" />
+			<dependency id="morelinq" version="3.3.2" />
+			<dependency id="SixLabors.ImageSharp.Drawing" version="1.0.0-beta13" />
+			<dependency id="K4os.Compression.LZ4" version="1.2.16" />
+			<dependency id="TimeZoneConverter" version="5.0.0" />
+			<dependency id="NodaTime" version="3.1.5" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\net5.0\*.dll" target="lib\net5.0\" />
+		<file src="lib\win-x64\*.dll" target="runtimes\win-x64\native\" />
+	</files>
 </package>

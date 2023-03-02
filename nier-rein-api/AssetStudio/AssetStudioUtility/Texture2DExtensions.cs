@@ -17,8 +17,9 @@ namespace AssetStudio
                 {
                     var image = Image.LoadPixelData<Bgra32>(buff, m_Texture2D.m_Width, m_Texture2D.m_Height);
                     if (flip)
+                    {
                         image.Mutate(x => x.Flip(FlipMode.Vertical));
-
+                    }
                     return image;
                 }
                 return null;

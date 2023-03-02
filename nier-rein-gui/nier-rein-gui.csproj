@@ -28,14 +28,14 @@
 
   <ItemGroup>
     <PackageReference Include="ImGui.Forms" Version="1.0.37" />
-    <PackageReference Include="NierReincarnation" Version="1.5.0" />
+    <PackageReference Include="NierReincarnation" Version="1.6.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 
   <Target Name="CopyNativeBinaries" DependsOnTargets="CopyFilesToOutputDirectory" AfterTargets="Publish">
     <Copy SourceFiles="$(TargetDir)/SDL2.dll" DestinationFolder="$(PublishDir)" />
-    <Copy SourceFiles="$(TargetDir)/Texture2DDecoderWrapper.dll" DestinationFolder="$(PublishDir)/runtimes/win-x64/native" />
-    <Copy SourceFiles="$(TargetDir)/pvr_lib.dll" DestinationFolder="$(PublishDir)/runtimes/win-x64/native" />
+	<Copy SourceFiles="$(TargetDir)/fmod.dll" DestinationFolder="$(PublishDir)/x64" />
+	<Copy SourceFiles="$(TargetDir)/Texture2DDecoderNative.dll" DestinationFolder="$(PublishDir)/x64" />
   </Target>
 
   <ItemGroup>
