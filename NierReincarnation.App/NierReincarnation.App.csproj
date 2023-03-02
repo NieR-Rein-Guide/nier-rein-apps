@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="ImGui.Forms" Version="1.0.37" />
-    <PackageReference Include="NierReincarnation" Version="1.6.0" />
+    <PackageReference Include="NierReincarnation" Version="1.6.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 

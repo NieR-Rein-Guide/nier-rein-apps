@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "NierR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Texture2DDecoderWrapper", "NierReincarnation.Api\AssetStudio\Texture2DDecoderWrapper\Texture2DDecoderWrapper.csproj", "{244F17B9-62BD-4BCA-AFE2-187039E2DA94}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudio.PInvoke", "NierReincarnation.Api\AssetStudio\AssetStudio.PInvoke\AssetStudio.PInvoke.csproj", "{075486DC-8D85-446C-B640-86F83A82BED6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{244F17B9-62BD-4BCA-AFE2-187039E2DA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{244F17B9-62BD-4BCA-AFE2-187039E2DA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{244F17B9-62BD-4BCA-AFE2-187039E2DA94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075486DC-8D85-446C-B640-86F83A82BED6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

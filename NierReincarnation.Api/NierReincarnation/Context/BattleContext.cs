@@ -15,7 +15,7 @@
             return new BigHuntBattleContext();
         }
 
-        public bool HasRunningQuest()
+        public static bool HasRunningQuest()
         {
             // Check for event quest
             var result = QuestBattleContext.HasRunningEventQuest();
