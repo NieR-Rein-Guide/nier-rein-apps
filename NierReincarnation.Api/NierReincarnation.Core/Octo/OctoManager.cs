@@ -65,9 +65,9 @@ namespace NierReincarnation.Core.Octo
             return true;
         }
 
-        public static void StartDbUpdate(Action<DownloadError> onComplete, bool reset = false)
+        public static void StartDbUpdate(Action<DownloadError> onComplete, bool reset = false, int dbRevision = 0)
         {
-            var revision = reset ? 0 : Internal._dataManager.Revision;
+            var revision = reset ? dbRevision : Internal._dataManager.Revision;
             Internal._octoAPI.GetDatabaseDiff(revision, (bytes, error) =>
             {
                 if (error == null)

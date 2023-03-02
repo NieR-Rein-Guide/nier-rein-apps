@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Grpc.Core;
+﻿using Grpc.Core;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
@@ -15,14 +12,20 @@ using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Networking.DataSource.User;
 using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.Octo;
+using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.UnityEngine;
 using NierReincarnation.Localizations;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using Config = NierReincarnation.Core.Dark.EntryPoint.Config;
 
 namespace NierReincarnation
 {
-    // HINT: The whole class is static to go with the singleton nature of the application
-    // Doing an instance-based approach at this stage would require a rewrite of the fundamental code, to never use singleton instances.
+    /// <summary>
+    /// HINT: The whole class is static to go with the singleton nature of the application. Doing an instance-based approach at this stage would
+    ///       require a rewrite of the fundamental code, to never use singleton instances.
+    /// </summary>
     public static class NierReincarnation
     {
         private const int RetryCount_ = 3;
@@ -74,12 +77,16 @@ namespace NierReincarnation
         /// <param name="username">The user to log in with. Will only be used if a user is not already present.</param>
         /// <param name="password">The password of the user. Will only be used if a user is not already present.</param>
         /// <param name="otpCallback">A callback to receive the OTP for logging.</param>
+        /// <param name="isLogin">True if the user should be logged in, otherwise false</param>
+        /// <param name="isReset">True if the Master database should be reset, otherwise false</param>
+        /// <param name="dbRevision">The revision to reset the Master database to</param>
         /// <returns><see cref="Task"/> representing the setup operation.</returns>
-        public static async Task PrepareCommandLine(string username, string password, Func<Task<string>> otpCallback = null)
+        public static async Task PrepareCommandLine(string username, string password, Func<Task<string>> otpCallback = null,
+            bool isLogin = true, bool isReset = false, int dbRevision = 0)
         {
-            Setup();
+            Setup(isReset, dbRevision);
 
-            if (!IsLoggedIn())
+            if (isLogin && !IsLoggedIn())
             {
                 if (string.IsNullOrEmpty(username))
                     throw new InvalidOperationException("A username is required for an initial login.");
@@ -91,10 +98,10 @@ namespace NierReincarnation
                     return;
             }
 
-            await Initialize();
+            await Initialize(isLogin);
         }
 
-        public static void Setup()
+        public static void Setup(bool isReset = false, int dbRevision = 0)
         {
             if (IsSetup)
                 return;
@@ -119,7 +126,7 @@ namespace NierReincarnation
 
             // Setup asset management
             Console.WriteLine("Perform asset database update.");
-            OctoManager.StartDbUpdate(null);
+            OctoManager.StartDbUpdate(null, isReset, dbRevision);
 
             IsSetup = true;
         }
@@ -143,7 +150,7 @@ namespace NierReincarnation
         /// Sets up and initializes the application systems.
         /// </summary>
         /// <returns></returns>
-        public static async Task Initialize()
+        public static async Task Initialize(bool isLogin = true)
         {
             if (IsInitialized)
                 return;
@@ -153,7 +160,7 @@ namespace NierReincarnation
                 Setup();
 
             // Initialize remaining system and data
-            await InitializeCore();
+            await InitializeCore(isLogin);
         }
 
         public static async Task LoadLocalizations(Language lang)
@@ -177,29 +184,32 @@ namespace NierReincarnation
             LocalizationExtensions.Localizations = Localizer.Create();
         }
 
-        private static async Task InitializeCore()
+        private static async Task InitializeCore(bool isLogin = true)
         {
-            // If no active player is stored in preferences, log in user with credentials
-            var activePlayer = PlayerPreference.Instance.ActivePlayer ?? throw new InvalidOperationException("No user is logged in.");
+            if (isLogin)
+            {
+                // If no active player is stored in preferences, log in user with credentials
+                var activePlayer = PlayerPreference.Instance.ActivePlayer ?? throw new InvalidOperationException("No user is logged in.");
 
-            // Set logged in user globally
-            ApplicationScopeClientContext.Instance.User = new ApplicationScopeClientContext.UserInfo(activePlayer);
+                // Set logged in user globally
+                ApplicationScopeClientContext.Instance.User = new ApplicationScopeClientContext.UserInfo(activePlayer);
 
-            // Authorize user on API
-            await AuthorizeUser(activePlayer.UserId);
+                // Authorize user on API
+                await AuthorizeUser(activePlayer.UserId);
 
-            // Update master data
-            var isMasterSuccess = await UpdateMasterData();
-            if (!isMasterSuccess)
-                return;
+                // Update master data
+                var isMasterSuccess = await UpdateMasterData();
+                if (!isMasterSuccess)
+                    return;
 
-            // Update user data
-            var isUserSuccess = await UpdateUserData();
-            if (!isUserSuccess)
-                return;
+                // Update user data
+                var isUserSuccess = await UpdateUserData();
+                if (!isUserSuccess)
+                    return;
 
-            // Update user preferences with current user data from API
-            UpdateUserPreferences(DatabaseDefine.User.EntityIUserTable.FindByUserId(activePlayer.UserId));
+                // Update user preferences with current user data from API
+                UpdateUserPreferences(DatabaseDefine.User.EntityIUserTable.FindByUserId(activePlayer.UserId));
+            }
 
             IsInitialized = true;
         }
@@ -311,6 +321,12 @@ namespace NierReincarnation
         internal static void ClearNetworkError()
         {
             LastApiError = null;
+        }
+
+        public static void Reset()
+        {
+            IsSetup = false;
+            IsInitialized = false;
         }
     }
 }
