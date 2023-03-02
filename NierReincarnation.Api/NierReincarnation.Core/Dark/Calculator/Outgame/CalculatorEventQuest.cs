@@ -55,6 +55,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
                 list.Add(limitQuest);
             }
+            list.RemoveAll(x => x == null);
 
             return new LimitDailyQuestGroupData
             {
