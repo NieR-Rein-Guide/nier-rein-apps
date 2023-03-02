@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NierReincarnation.Db.Database.Models
+namespace NierReincarnation.Db.Database.Models;
+
+[Table("costume_ability")]
+internal class CostumeAbility
 {
-    [Table("costume_ability")]
-    internal class CostumeAbility
-    {
-        public int AbilityId { get; set; }
+    public int AbilityId { get; set; }
 
-        public int AbilityLevel { get; set; }
+    public int AbilityLevel { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public string Description { get; set; }
+    public string Description { get; set; }
 
-        public string ImagePathBase { get; set; }
+    public string ImagePathBase { get; set; }
 
-        public virtual ICollection<CostumeAbilityLink> Costume { get; set; }
-    }
+    public bool IsAwaken { get; set; }
+
+    public virtual ICollection<CostumeAbilityLink> Costume { get; set; }
 }
