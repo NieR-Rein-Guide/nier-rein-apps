@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CommandLine;
+﻿using CommandLine;
 using CommandLine.Text;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace nier_rein_cli
+namespace NierReincarnation.Cli
 {
-    class Options
+    internal class Options
     {
         [Option('u', "username", HelpText = "Set the username to log in with")]
         public string Username { get; set; }
@@ -32,9 +32,9 @@ namespace nier_rein_cli
         SoundAssetDownload
     }
 
-    class Program
+    internal static class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var parser = new Parser(parserSettings => parserSettings.AutoHelp = true);
 
@@ -45,7 +45,7 @@ namespace nier_rein_cli
                 .WithParsedAsync(Execute);
         }
 
-        private static void DisplayHelp<T>(ParserResult<T> result, IEnumerable<Error> errors)
+        private static void DisplayHelp<T>(ParserResult<T> result, IEnumerable<Error> _)
         {
             var helpText = HelpText.AutoBuild(result, h =>
             {
@@ -64,8 +64,8 @@ namespace nier_rein_cli
                 case Mode.FutureQuests:
                 case Mode.CurrentQuests:
                 case Mode.Decks:
-                    await NierReincarnation.NierReincarnation.PrepareCommandLine(o.Username, o.Password);
-                    await NierReincarnation.NierReincarnation.LoadLocalizations(Language.English);
+                    await NierReincarnation.PrepareCommandLine(o.Username, o.Password);
+                    await NierReincarnation.LoadLocalizations(Language.English);
                     break;
             }
 
@@ -89,12 +89,12 @@ namespace nier_rein_cli
                     break;
 
                 case Mode.AssetDownload:
-                    await NierReincarnation.NierReincarnation.Assets.DownloadAllAssets();
-                    await NierReincarnation.NierReincarnation.Assets.DownloadAllResources();
+                    await NierReincarnation.Assets.DownloadAllAssets();
+                    await NierReincarnation.Assets.DownloadAllResources();
                     break;
 
                 case Mode.SoundAssetDownload:
-                    await NierReincarnation.NierReincarnation.Assets.DownloadAssets(s => s.name.StartsWith("audio"));
+                    await NierReincarnation.Assets.DownloadAssets(s => s.name.StartsWith("audio"));
                     break;
             }
         }
@@ -150,7 +150,7 @@ namespace nier_rein_cli
             Console.WriteLine("Quest decks:");
             foreach (var ql in CalculatorDeck.EnumerateDeckDataList(CalculatorStateUser.GetUserId(), DeckType.QUEST))
             {
-                var deckName = ql.Name == string.Empty ? "Quest " + ql.UserDeckNumber : ql.Name;
+                var deckName = ql.Name?.Length == 0 ? "Quest " + ql.UserDeckNumber : ql.Name;
 
                 Console.WriteLine($"  {deckName} - Force: {ql.Power}");
                 for (var ci = 0; ci < ql.UserDeckActors.Length; ci++)
@@ -167,7 +167,6 @@ namespace nier_rein_cli
                     Console.WriteLine($"    Main Weapon: {cs.MainWeapon.Name} Lvl{cs.MainWeapon.WeaponStatus.Level} Hp{cs.MainWeapon.Hp} Atk{cs.MainWeapon.Attack} Def{cs.MainWeapon.Vitality}");
                     foreach (var ability in cs.MainWeapon.Abilities)
                         Console.WriteLine($"      {ability.AbilityName} {ability.AbilityLevel}/{ability.AbilityMaxLevel}");
-
 
                     if (cs.SubWeapon01 != null)
                     {
@@ -190,8 +189,12 @@ namespace nier_rein_cli
                     {
                         Console.WriteLine("    Memories:");
                         foreach (var mem in cs.Memories)
+                        {
                             if (mem != null)
+                            {
                                 Console.WriteLine($"      Memory:    {mem.Name} Lvl{mem.Level} [{mem.SeriesName}]");
+                            }
+                        }
                     }
                 }
             }
@@ -203,7 +206,7 @@ namespace nier_rein_cli
             Console.WriteLine("Latest 10 notices:");
             Console.WriteLine();
 
-            await foreach (var n in NierReincarnation.NierReincarnation.Notifications.GetNotifications(1, 20))
+            await foreach (var n in NierReincarnation.Notifications.GetNotifications(1, 20))
             {
                 Console.WriteLine($"[{n.informationType}] {n.title}");
                 if (!string.IsNullOrEmpty(n.thumbnailImagePath))
