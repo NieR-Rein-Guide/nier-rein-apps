@@ -382,13 +382,16 @@ public static class Program
         for (int i = CalculatorSkill.MIN_LEVEL; i <= CalculatorSkill.MAX_LEVEL; i++)
         {
             var skill = (DataCostumeSkill)CalculatorCostume.GetCostumeActiveDataSkill(darkCostume.CostumeId, i, Config.GetCostumeLimitBreakAvailableCount());
+            var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
+            var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
             var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
 
             if (!_costumeSkillCache.TryGetValue((skill.SkillId, i), out CostumeSkill dbCostumeSkill))
             {
                 dbCostumeSkill = new CostumeSkill
                 {
-                    CooldownTime = CalculatorSkill.GetEntityMSkillDetail(CalculatorSkill.GetSkillDetailId(skill.SkillId, i)).SkillCooltimeValue,
+                    ActType = darkSkillDetail.SkillActType,
+                    CooldownTime = darkSkillDetail.SkillCooltimeValue,
                     Description = skill.SkillDescriptionText,
                     GaugeRiseSpeed = skill.GaugeRiseSpeed,
                     ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
@@ -624,13 +627,16 @@ public static class Program
             for (var i = CalculatorSkill.MIN_LEVEL; i <= CalculatorSkill.MAX_LEVEL; i++)
             {
                 var skill = CalculatorSkill.CreateDataWeaponSkill(darkWeaponSkillGroup.SkillId, i, CalculatorSkill.MAX_LEVEL, evolution.Item2, darkWeaponSkillGroup.SlotNumber);
+                var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
+                var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
                 var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
 
                 if (!_weaponSkillCache.TryGetValue((skill.SkillId, i), out WeaponSkill dbWeaponSkill))
                 {
                     dbWeaponSkill = new WeaponSkill
                     {
-                        CooldownTime = CalculatorSkill.GetEntityMSkillDetail(CalculatorSkill.GetSkillDetailId(skill.SkillId, i)).SkillCooltimeValue,
+                        ActType = darkSkillDetail.SkillActType,
+                        CooldownTime = darkSkillDetail.SkillCooltimeValue,
                         Description = skill.SkillDescriptionText,
                         ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
                         Name = skill.SkillName,
@@ -684,8 +690,8 @@ public static class Program
 
                 _postgreDbContext.WeaponAbilityLinks.Add(new WeaponAbilityLink
                 {
-                    AbilityId = darkWeaponAbilityGroup.AbilityId,
-                    AbilityLevel = i,
+                    AbilityId = dbWeaponAbility.AbilityId,
+                    AbilityLevel = dbWeaponAbility.AbilityLevel,
                     SlotNumber = darkWeaponAbilityGroup.SlotNumber,
                     WeaponId = darkWeapon.WeaponId
                 });
@@ -724,8 +730,8 @@ public static class Program
 
                 _postgreDbContext.WeaponAbilityLinks.Add(new WeaponAbilityLink
                 {
-                    AbilityId = darkWeaponAwakenAbility.AbilityId,
-                    AbilityLevel = darkWeaponAwakenAbility.AbilityLevel,
+                    AbilityId = dbWeaponAwakenAbility.AbilityId,
+                    AbilityLevel = dbWeaponAwakenAbility.AbilityLevel,
                     SlotNumber = ++abilityCount,
                     WeaponId = darkWeapon.WeaponId
                 });
@@ -821,19 +827,22 @@ public static class Program
         for (var i = 1; i < 50; i++)
         {
             var skill = CalculatorCompanion.GetCompanionSkill(darkCompanion.SkillId, i);
+            var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
+            var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
             var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
 
             if (!_companionSkillCache.TryGetValue((skill.SkillId, skill.SkillLevel), out CompanionSkill dbCompanionSkill))
             {
                 dbCompanionSkill = new CompanionSkill
                 {
-                    CooldownTime = CalculatorSkill.GetEntityMSkillDetail(CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel)).SkillCooltimeValue,
+                    ActType = darkSkillDetail.SkillActType,
+                    CooldownTime = darkSkillDetail.SkillCooltimeValue,
                     Description = skill.SkillDescriptionText,
                     ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
                     Name = skill.SkillName,
                     ShortDescription = skill.SkillDescriptionShortText,
                     SkillId = skill.SkillId,
-                    SkillLevel = skill.SkillLevel,
+                    SkillLevel = skill.SkillLevel
                 };
 
                 _postgreDbContext.CompanionSkills.Add(dbCompanionSkill);
@@ -844,8 +853,8 @@ public static class Program
             {
                 CompanionId = darkCompanion.CompanionId,
                 CompanionLevel = i,
-                SkillId = skill.SkillId,
-                SkillLevel = skill.SkillLevel,
+                SkillId = dbCompanionSkill.SkillId,
+                SkillLevel = dbCompanionSkill.SkillLevel
             });
         }
     }
@@ -874,8 +883,8 @@ public static class Program
 
             _postgreDbContext.CompanionAbilityLinks.Add(new CompanionAbilityLink
             {
-                AbilityId = ability.AbilityId,
-                AbilityLevel = ability.AbilityLevel,
+                AbilityId = dbCompanionAbility.AbilityId,
+                AbilityLevel = dbCompanionAbility.AbilityLevel,
                 CompanionId = darkCompanion.CompanionId,
                 CompanionLevel = i
             });

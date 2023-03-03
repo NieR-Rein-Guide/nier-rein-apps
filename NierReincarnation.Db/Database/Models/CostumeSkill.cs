@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
@@ -20,6 +21,8 @@ internal class CostumeSkill
     public string ShortDescription { get; set; }
 
     public string ImagePath { get; set; }
+
+    public SkillActType ActType { get; set; }
 
     public virtual ICollection<CostumeSkillLink> Costume { get; set; }
 }
