@@ -13,6 +13,8 @@ internal class WeaponAbilityLink
 
     public int AbilityLevel { get; set; }
 
+    public bool IsAwaken { get; set; }
+
     public WeaponAbility WeaponAbility { get; set; }
 
     [ForeignKey(nameof(WeaponId))]

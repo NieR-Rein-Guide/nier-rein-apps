@@ -385,12 +385,17 @@ public static class Program
             var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
             var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
             var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
+            var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
+                .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
+                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType)
+                .ToArray();
 
             if (!_costumeSkillCache.TryGetValue((skill.SkillId, i), out CostumeSkill dbCostumeSkill))
             {
                 dbCostumeSkill = new CostumeSkill
                 {
                     ActType = darkSkillDetail.SkillActType,
+                    BehaviourTypes = behaviorTypes,
                     CooldownTime = darkSkillDetail.SkillCooltimeValue,
                     Description = skill.SkillDescriptionText,
                     GaugeRiseSpeed = skill.GaugeRiseSpeed,
@@ -424,6 +429,10 @@ public static class Program
             {
                 var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkCostumeAbility.AbilityId, i);
                 var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                    .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                    .ToArray();
 
                 if (!_costumeAbilityCache.TryGetValue((darkCostumeAbility.AbilityId, i), out CostumeAbility dbCostumeAbility))
                 {
@@ -431,6 +440,7 @@ public static class Program
                     {
                         AbilityId = darkCostumeAbility.AbilityId,
                         AbilityLevel = i,
+                        BehaviourTypes = behaviorTypes,
                         Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
                         ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
                         Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId)
@@ -454,6 +464,10 @@ public static class Program
         DatabaseDefine.Master.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(darkCostume.CostumeId, out EntityMCostumeAwakenAbility darkCostumeAwakenAbility);
         var awakenAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkCostumeAwakenAbility.AbilityId, 1);
         var awakenAssetId = $"{awakenAbilityDetail.AssetCategoryId:D3}{awakenAbilityDetail.AssetVariationId:D3}";
+        var awakenBehaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+            .Where(x => x.AbilityBehaviourGroupId == awakenAbilityDetail.AbilityBehaviourGroupId)
+            .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+            .ToArray();
 
         if (!_costumeAbilityCache.TryGetValue((darkCostumeAwakenAbility.AbilityId, darkCostumeAwakenAbility.AbilityLevel), out CostumeAbility dbCostumeAwakenAbility))
         {
@@ -461,10 +475,10 @@ public static class Program
             {
                 AbilityId = darkCostumeAwakenAbility.AbilityId,
                 AbilityLevel = darkCostumeAwakenAbility.AbilityLevel,
+                BehaviourTypes = awakenBehaviorTypes,
                 Name = CalculatorAbility.GetName(awakenAbilityDetail.NameAbilityTextId),
                 Description = CalculatorAbility.GetDescriptionLong(awakenAbilityDetail.DescriptionAbilityTextId),
-                ImagePathBase = $"ui/ability/ability{awakenAssetId}/ability{awakenAssetId}_",
-                IsAwaken = true
+                ImagePathBase = $"ui/ability/ability{awakenAssetId}/ability{awakenAssetId}_"
             };
 
             _postgreDbContext.CostumeAbilities.Add(dbCostumeAwakenAbility);
@@ -476,7 +490,8 @@ public static class Program
             CostumeId = darkCostume.CostumeId,
             AbilityId = dbCostumeAwakenAbility.AbilityId,
             AbilityLevel = dbCostumeAwakenAbility.AbilityLevel,
-            AbilitySlot = ++abilityCount
+            AbilitySlot = ++abilityCount,
+            IsAwaken = true
         });
     }
 
@@ -630,12 +645,17 @@ public static class Program
                 var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
                 var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
                 var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
+                    .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType)
+                    .ToArray();
 
                 if (!_weaponSkillCache.TryGetValue((skill.SkillId, i), out WeaponSkill dbWeaponSkill))
                 {
                     dbWeaponSkill = new WeaponSkill
                     {
                         ActType = darkSkillDetail.SkillActType,
+                        BehaviourTypes = behaviorTypes,
                         CooldownTime = darkSkillDetail.SkillCooltimeValue,
                         Description = skill.SkillDescriptionText,
                         ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
@@ -672,6 +692,10 @@ public static class Program
             {
                 var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkWeaponAbilityGroup.AbilityId, i);
                 var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                    .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                    .ToArray();
 
                 if (!_weaponAbilityCache.TryGetValue((darkWeaponAbilityGroup.AbilityId, i), out WeaponAbility dbWeaponAbility))
                 {
@@ -679,6 +703,7 @@ public static class Program
                     {
                         AbilityId = darkWeaponAbilityGroup.AbilityId,
                         AbilityLevel = i,
+                        BehaviourTypes = behaviorTypes,
                         Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
                         ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
                         Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId)
@@ -711,6 +736,10 @@ public static class Program
             {
                 var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkWeaponAwakenAbility.AbilityId, darkWeaponAwakenAbility.AbilityLevel);
                 var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                    .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                    .ToArray();
 
                 if (!_weaponAbilityCache.TryGetValue((darkWeaponAwakenAbility.AbilityId, darkWeaponAwakenAbility.AbilityLevel), out WeaponAbility dbWeaponAwakenAbility))
                 {
@@ -718,10 +747,10 @@ public static class Program
                     {
                         AbilityId = darkWeaponAwakenAbility.AbilityId,
                         AbilityLevel = darkWeaponAwakenAbility.AbilityLevel,
+                        BehaviourTypes = behaviorTypes,
                         Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
                         ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
-                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
-                        IsAwaken = true
+                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId)
                     };
 
                     _postgreDbContext.WeaponAbilities.Add(dbWeaponAwakenAbility);
@@ -732,6 +761,7 @@ public static class Program
                 {
                     AbilityId = dbWeaponAwakenAbility.AbilityId,
                     AbilityLevel = dbWeaponAwakenAbility.AbilityLevel,
+                    IsAwaken = true,
                     SlotNumber = ++abilityCount,
                     WeaponId = darkWeapon.WeaponId
                 });
@@ -824,18 +854,23 @@ public static class Program
 
     private static void CreateCompanionSkills(EntityMCompanion darkCompanion)
     {
-        for (var i = 1; i < 50; i++)
+        for (var i = 1; i <= 50; i++)
         {
             var skill = CalculatorCompanion.GetCompanionSkill(darkCompanion.SkillId, i);
             var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
             var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
             var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
+            var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
+                .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
+                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType)
+                .ToArray();
 
             if (!_companionSkillCache.TryGetValue((skill.SkillId, skill.SkillLevel), out CompanionSkill dbCompanionSkill))
             {
                 dbCompanionSkill = new CompanionSkill
                 {
                     ActType = darkSkillDetail.SkillActType,
+                    BehaviourTypes = behaviorTypes,
                     CooldownTime = darkSkillDetail.SkillCooltimeValue,
                     Description = skill.SkillDescriptionText,
                     ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
@@ -861,10 +896,15 @@ public static class Program
 
     private static void CreateCompanionAbilities(EntityMCompanion darkCompanion)
     {
-        for (var i = 1; i < 50; i++)
+        for (var i = 1; i <= 50; i++)
         {
             var ability = CalculatorCompanion.GetCompanionAbility(darkCompanion, i);
+            var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(ability.AbilityId, i);
             var assetId = $"{ability.AbilityCategoryId:D3}{ability.AbilityVariationId:D3}";
+            var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                .ToArray();
 
             if (!_companionAbilityCache.TryGetValue((ability.AbilityId, ability.AbilityLevel), out CompanionAbility dbCompanionAbility))
             {
@@ -872,6 +912,7 @@ public static class Program
                 {
                     AbilityId = ability.AbilityId,
                     AbilityLevel = ability.AbilityLevel,
+                    BehaviourTypes = behaviorTypes,
                     Description = ability.AbilityDescriptionText,
                     ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
                     Name = ability.AbilityName

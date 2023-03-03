@@ -13,6 +13,8 @@ internal class CostumeAbilityLink
 
     public int AbilityLevel { get; set; }
 
+    public bool IsAwaken { get; set; }
+
     [ForeignKey(nameof(CostumeId))]
     public virtual Costume Costume { get; set; }
 

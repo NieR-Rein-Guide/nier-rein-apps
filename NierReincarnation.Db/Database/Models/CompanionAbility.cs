@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
@@ -14,6 +15,8 @@ internal class CompanionAbility
     public string Description { get; set; }
 
     public string ImagePathBase { get; set; }
+
+    public AbilityBehaviourType[] BehaviourTypes { get; set; }
 
     public virtual ICollection<CompanionAbilityLink> Companions { get; set; }
 }

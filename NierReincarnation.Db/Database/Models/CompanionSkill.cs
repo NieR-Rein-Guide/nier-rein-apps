@@ -22,5 +22,7 @@ internal class CompanionSkill
 
     public SkillActType ActType { get; set; }
 
+    public SkillBehaviourType[] BehaviourTypes { get; set; }
+
     public virtual ICollection<CompanionSkillLink> Companions { get; set; }
 }

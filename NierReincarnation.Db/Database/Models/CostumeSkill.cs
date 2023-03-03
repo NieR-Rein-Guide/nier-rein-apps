@@ -24,5 +24,7 @@ internal class CostumeSkill
 
     public SkillActType ActType { get; set; }
 
+    public SkillBehaviourType[] BehaviourTypes { get; set; }
+
     public virtual ICollection<CostumeSkillLink> Costume { get; set; }
 }

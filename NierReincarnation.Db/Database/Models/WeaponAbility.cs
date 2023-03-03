@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
@@ -15,7 +16,7 @@ internal class WeaponAbility
 
     public string ImagePathBase { get; set; }
 
-    public bool IsAwaken { get; set; }
+    public AbilityBehaviourType[] BehaviourTypes { get; set; }
 
     public virtual ICollection<WeaponAbilityLink> Weapons { get; set; }
 }
