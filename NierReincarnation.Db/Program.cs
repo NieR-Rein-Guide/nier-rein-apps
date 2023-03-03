@@ -37,13 +37,12 @@ public static class Program
     private static List<int> _memoirCache;
     private static List<int> _memoirSeriesCache;
 
-    private static readonly Dictionary<(int, int), CostumeSkill> _costumeSkillCache = new();
-    private static readonly Dictionary<(int, int), CostumeAbility> _costumeAbilityCache = new();
-    private static readonly Dictionary<string, WeaponStory> _weaponStoryCache = new();
-    private static readonly Dictionary<(int, int), WeaponSkill> _weaponSkillCache = new();
-    private static readonly Dictionary<(int, int), WeaponAbility> _weaponAbilityCache = new();
-    private static readonly Dictionary<(int, int), CompanionSkill> _companionSkillCache = new();
-    private static readonly Dictionary<(int, int), CompanionAbility> _companionAbilityCache = new();
+    private static Dictionary<(int, int), CostumeSkill> _costumeSkillCache;
+    private static Dictionary<(int, int), CostumeAbility> _costumeAbilityCache;
+    private static Dictionary<(int, int), WeaponSkill> _weaponSkillCache;
+    private static Dictionary<(int, int), WeaponAbility> _weaponAbilityCache;
+    private static Dictionary<(int, int), CompanionSkill> _companionSkillCache;
+    private static Dictionary<(int, int), CompanionAbility> _companionAbilityCache;
 
     #endregion Cache
 
@@ -51,7 +50,7 @@ public static class Program
     {
         await SetupApplicationAsync();
 
-        await AddNotifications();
+        //await AddNotifications();
         await AddCharactersAsync();
         await AddCharacterRankBonusesAsync();
         await AddDebrisAsync();
@@ -79,12 +78,25 @@ public static class Program
         var dbConfig = GetDbConfig();
 
         _postgreDbContext = new PostgreDbContext(dbConfig);
+        List<Notification> notifications = new();
 
         if (_recreateDb)
         {
+            try
+            {
+                notifications = await _postgreDbContext.Notifications.ToListAsync();
+            }
+            catch (Exception) { }
             _postgreDbContext.Database.EnsureDeleted();
         }
         _postgreDbContext.Database.EnsureCreated();
+
+        // Save notifications from old db
+        if (notifications.Count > 0)
+        {
+            await _postgreDbContext.Notifications.AddRangeAsync(notifications);
+            await _postgreDbContext.SaveChangesAsync();
+        }
     }
 
     private static async Task SetupNierReinAsync()
@@ -108,6 +120,13 @@ public static class Program
         _companionCache = await _postgreDbContext.Companions.Select(x => x.CompanionId).ToListAsync();
         _memoirCache = await _postgreDbContext.Memoirs.Select(x => x.MemoirId).ToListAsync();
         _memoirSeriesCache = await _postgreDbContext.MemoirSeries.Select(x => x.MemoirSeriesId).ToListAsync();
+
+        _costumeSkillCache = await _postgreDbContext.CostumeSkills.ToDictionaryAsync(x => (x.SkillId, x.SkillLevel), x => x);
+        _costumeAbilityCache = await _postgreDbContext.CostumeAbilities.ToDictionaryAsync(x => (x.AbilityId, x.AbilityLevel), x => x);
+        _weaponSkillCache = await _postgreDbContext.WeaponSkills.ToDictionaryAsync(x => (x.SkillId, x.SkillLevel), x => x);
+        _weaponAbilityCache = await _postgreDbContext.WeaponAbilities.ToDictionaryAsync(x => (x.AbilityId, x.AbilityLevel), x => x);
+        _companionSkillCache = await _postgreDbContext.CompanionSkills.ToDictionaryAsync(x => (x.SkillId, x.SkillLevel), x => x);
+        _companionAbilityCache = await _postgreDbContext.CompanionAbilities.ToDictionaryAsync(x => (x.AbilityId, x.AbilityLevel), x => x);
     }
 
     private static NierReinConfig GetNierReinConfig()
@@ -258,7 +277,7 @@ public static class Program
                     RankBonusLevel = darkCharacterRankBonus.ActivationCharacterLevel,
                     Description = CalculatorAbility.GetDescriptionLongByAbilityId(darkCharacterRankBonus.AbilityId, darkCharacterRankBonus.AbilityLevel),
                     Stat = statusKind.ToString(),
-                    Type = statusList[0].AbilityBehaviourStatusChangeType.ToString(),
+                    Type = statusList[0].AbilityBehaviourStatusChangeType,
                     Amount = amount
                 });
             }
@@ -344,10 +363,10 @@ public static class Program
                 IsExCostume = darkCostume.CostumeId >= 40000 && darkCostume.CostumeId < 50000,
                 IsRdCostume = darkCostume.CostumeId >= 50000 && darkCostume.CostumeId < 60000,
                 Name = costumeName,
-                RarityType = darkCostume.RarityType.ToString(),
+                Rarity = darkCostume.RarityType,
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 ThoughtId = darkCostumeAwakenEffect?.CostumeAwakenEffectId,
-                WeaponType = darkCostume.SkillfulWeaponType.ToString()
+                WeaponType = darkCostume.SkillfulWeaponType
             });
 
             CreateCostumeSkills(darkCostume);
@@ -441,7 +460,8 @@ public static class Program
                 AbilityLevel = darkCostumeAwakenAbility.AbilityLevel,
                 Name = CalculatorAbility.GetName(awakenAbilityDetail.NameAbilityTextId),
                 Description = CalculatorAbility.GetDescriptionLong(awakenAbilityDetail.DescriptionAbilityTextId),
-                ImagePathBase = $"ui/ability/ability{awakenAssetId}/ability{awakenAssetId}_"
+                ImagePathBase = $"ui/ability/ability{awakenAssetId}/ability{awakenAssetId}_",
+                IsAwaken = true
             };
 
             _postgreDbContext.CostumeAbilities.Add(dbCostumeAwakenAbility);
@@ -570,17 +590,19 @@ public static class Program
             _postgreDbContext.Weapons.Add(new Weapon
             {
                 AssetId = assetId.ToString(),
-                Attribute = darkWeapon.AttributeType.ToString(),
+                Attribute = darkWeapon.AttributeType,
                 EvolutionGroupId = darkWeaponEvolution.WeaponEvolutionGroupId,
                 EvolutionOrder = darkWeaponEvolution.EvolutionOrder,
                 ImagePathBase = $"ui/weapon/{assetId}/{assetId}_",
-                IsExWeapon = false,
+                IsExWeapon = darkWeapon.WeaponId >= 410000 && darkWeapon.WeaponId < 500000,
+                IsSubjugationWeapon = darkWeapon.WeaponId >= 500000 && darkWeapon.WeaponId < 510000,
+                IsRdWeapon = darkWeapon.WeaponId >= 510000 && darkWeapon.WeaponId < 600000,
                 Name = weaponName,
-                Rarity = darkWeapon.RarityType.ToString(),
+                Rarity = darkWeapon.RarityType,
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 WeaponId = darkWeapon.WeaponId,
                 WeaponSlug = Slugify(weaponName),
-                WeaponType = darkWeapon.WeaponType.ToString()
+                WeaponType = darkWeapon.WeaponType
             });
 
             CreateWeaponSkills(darkWeapon);
@@ -692,7 +714,8 @@ public static class Program
                         AbilityLevel = darkWeaponAwakenAbility.AbilityLevel,
                         Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
                         ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
-                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId)
+                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
+                        IsAwaken = true
                     };
 
                     _postgreDbContext.WeaponAbilities.Add(dbWeaponAwakenAbility);
@@ -744,16 +767,11 @@ public static class Program
 
         foreach (var weaponStory in LocalizationExtensions.Localizations.Where(x => x.Key.StartsWith($"weapon.story.{assetId}.")).ToArray())
         {
-            if (!_weaponStoryCache.TryGetValue(weaponStory.Value, out WeaponStory dbWeaponStory))
+            WeaponStory dbWeaponStory = new()
             {
-                dbWeaponStory = new WeaponStory
-                {
-                    Story = weaponStory.Value
-                };
-                _postgreDbContext.WeaponStories.Add(dbWeaponStory);
-                _weaponStoryCache[weaponStory.Value] = dbWeaponStory;
-            }
-
+                Story = weaponStory.Value
+            };
+            _postgreDbContext.WeaponStories.Add(dbWeaponStory);
             _postgreDbContext.WeaponStoryLinks.Add(new WeaponStoryLink
             {
                 WeaponId = darkWeapon.WeaponId,
@@ -781,13 +799,13 @@ public static class Program
 
             _postgreDbContext.Companions.Add(new Companion
             {
-                Attribute = darkCompanion.AttributeType.ToString(),
+                Attribute = darkCompanion.AttributeType,
                 CompanionId = darkCompanion.CompanionId,
                 ImagePathBase = $"ui/companion/{actorAssetId}/{actorAssetId}_",
                 Name = CalculatorCompanion.CompanionName(darkCompanion.CompanionId),
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 Story = CalculatorCompanion.CompanionDescription(darkCompanion.CompanionId),
-                Type = darkCompanion.CompanionCategoryType.ToString()
+                Type = darkCompanion.CompanionCategoryType
             });
 
             CreateCompanionSkills(darkCompanion);
@@ -924,7 +942,7 @@ public static class Program
                 InitialLotteryId = darkMemoir.PartsInitialLotteryId,
                 MemoirId = darkMemoir.PartsId,
                 Name = CalculatorMemory.MemoryName(darkMemoir.PartsId),
-                Rarity = darkMemoir.RarityType.ToString(),
+                Rarity = darkMemoir.RarityType,
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 SeriesId = darkMemoirGroup.PartsSeriesId,
                 Story = CalculatorMemory.MemoryDescription(darkMemoir.PartsId)
@@ -953,7 +971,7 @@ public static class Program
             _postgreDbContext.Thoughts.Add(new Thought
             {
                 ThoughtId = darkThought.ThoughtId,
-                RarityType = darkThought.RarityType,
+                Rarity = darkThought.RarityType,
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 Name = CalculatorThought.GetName(darkThought.ThoughtAssetId),
                 ImagePathBase = $"ui/thought/thought{thoughtAssetId}/thought{thoughtAssetId}_standard.png",

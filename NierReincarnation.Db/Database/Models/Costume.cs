@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
@@ -18,10 +19,9 @@ internal class Costume
     [Column("debris_id")]
     public int? ThoughtId { get; set; }
 
-    public string WeaponType { get; set; }
+    public WeaponType WeaponType { get; set; }
 
-    [Column("rarity")]
-    public string RarityType { get; set; }
+    public RarityType Rarity { get; set; }
 
     public DateTimeOffset ReleaseTime { get; set; }
 

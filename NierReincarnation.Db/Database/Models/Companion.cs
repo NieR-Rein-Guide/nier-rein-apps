@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
@@ -9,9 +10,9 @@ internal class Companion
     [Key]
     public int CompanionId { get; set; }
 
-    public string Attribute { get; set; }
+    public AttributeType Attribute { get; set; }
 
-    public string Type { get; set; }
+    public int Type { get; set; }
 
     public DateTimeOffset ReleaseTime { get; set; }
 

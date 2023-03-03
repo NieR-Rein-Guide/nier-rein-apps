@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
@@ -12,7 +13,7 @@ internal class Memoir
     [Column("lottery_id")]
     public int InitialLotteryId { get; set; }
 
-    public string Rarity { get; set; }
+    public RarityType Rarity { get; set; }
 
     public DateTimeOffset ReleaseTime { get; set; }
 

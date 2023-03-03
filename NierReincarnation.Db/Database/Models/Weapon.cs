@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
@@ -15,13 +16,17 @@ internal class Weapon
 
     public int EvolutionOrder { get; set; }
 
-    public string WeaponType { get; set; }
+    public WeaponType WeaponType { get; set; }
 
-    public string Rarity { get; set; }
+    public RarityType Rarity { get; set; }
 
-    public string Attribute { get; set; }
+    public AttributeType Attribute { get; set; }
 
     public bool IsExWeapon { get; set; }
+
+    public bool IsSubjugationWeapon { get; set; }
+
+    public bool IsRdWeapon { get; set; }
 
     public DateTimeOffset? ReleaseTime { get; set; }
 

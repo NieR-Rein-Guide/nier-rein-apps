@@ -11,8 +11,7 @@ internal class Thought
     [Column("debris_id")]
     public int ThoughtId { get; set; }
 
-    [Column("rarity")]
-    public RarityType RarityType { get; set; }
+    public RarityType Rarity { get; set; }
 
     public DateTimeOffset ReleaseTime { get; set; }
 
