@@ -16,7 +16,7 @@ internal class CompanionAbility
 
     public string ImagePathBase { get; set; }
 
-    public AbilityBehaviourType[] BehaviourTypes { get; set; }
+    public string[] BehaviourTypes { get; set; }
 
     public virtual ICollection<CompanionAbilityLink> Companions { get; set; }
 }

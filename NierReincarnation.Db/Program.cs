@@ -50,7 +50,7 @@ public static class Program
     {
         await SetupApplicationAsync();
 
-        //await AddNotifications();
+        await AddNotifications();
         await AddCharactersAsync();
         await AddCharacterRankBonusesAsync();
         await AddDebrisAsync();
@@ -277,7 +277,7 @@ public static class Program
                     RankBonusLevel = darkCharacterRankBonus.ActivationCharacterLevel,
                     Description = CalculatorAbility.GetDescriptionLongByAbilityId(darkCharacterRankBonus.AbilityId, darkCharacterRankBonus.AbilityLevel),
                     Stat = statusKind.ToString(),
-                    Type = statusList[0].AbilityBehaviourStatusChangeType,
+                    Type = statusList[0].AbilityBehaviourStatusChangeType.ToString(),
                     Amount = amount
                 });
             }
@@ -363,10 +363,10 @@ public static class Program
                 IsExCostume = darkCostume.CostumeId >= 40000 && darkCostume.CostumeId < 50000,
                 IsRdCostume = darkCostume.CostumeId >= 50000 && darkCostume.CostumeId < 60000,
                 Name = costumeName,
-                Rarity = darkCostume.RarityType,
+                Rarity = darkCostume.RarityType.ToString(),
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 ThoughtId = darkCostumeAwakenEffect?.CostumeAwakenEffectId,
-                WeaponType = darkCostume.SkillfulWeaponType
+                WeaponType = darkCostume.SkillfulWeaponType.ToString()
             });
 
             CreateCostumeSkills(darkCostume);
@@ -387,14 +387,14 @@ public static class Program
             var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
             var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
                 .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
-                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType)
+                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType.ToString())
                 .ToArray();
 
             if (!_costumeSkillCache.TryGetValue((skill.SkillId, i), out CostumeSkill dbCostumeSkill))
             {
                 dbCostumeSkill = new CostumeSkill
                 {
-                    ActType = darkSkillDetail.SkillActType,
+                    ActType = darkSkillDetail.SkillActType.ToString(),
                     BehaviourTypes = behaviorTypes,
                     CooldownTime = darkSkillDetail.SkillCooltimeValue,
                     Description = skill.SkillDescriptionText,
@@ -431,7 +431,7 @@ public static class Program
                 var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
                 var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
                     .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
-                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
                     .ToArray();
 
                 if (!_costumeAbilityCache.TryGetValue((darkCostumeAbility.AbilityId, i), out CostumeAbility dbCostumeAbility))
@@ -466,7 +466,7 @@ public static class Program
         var awakenAssetId = $"{awakenAbilityDetail.AssetCategoryId:D3}{awakenAbilityDetail.AssetVariationId:D3}";
         var awakenBehaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
             .Where(x => x.AbilityBehaviourGroupId == awakenAbilityDetail.AbilityBehaviourGroupId)
-            .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+            .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
             .ToArray();
 
         if (!_costumeAbilityCache.TryGetValue((darkCostumeAwakenAbility.AbilityId, darkCostumeAwakenAbility.AbilityLevel), out CostumeAbility dbCostumeAwakenAbility))
@@ -608,7 +608,7 @@ public static class Program
             _postgreDbContext.Weapons.Add(new Weapon
             {
                 AssetId = assetId.ToString(),
-                Attribute = darkWeapon.AttributeType,
+                Attribute = darkWeapon.AttributeType.ToString(),
                 EvolutionGroupId = darkWeaponEvolution.WeaponEvolutionGroupId,
                 EvolutionOrder = darkWeaponEvolution.EvolutionOrder,
                 ImagePathBase = $"ui/weapon/{assetId}/{assetId}_",
@@ -616,11 +616,11 @@ public static class Program
                 IsSubjugationWeapon = darkWeapon.WeaponId >= 500000 && darkWeapon.WeaponId < 510000,
                 IsRdWeapon = darkWeapon.WeaponId >= 510000 && darkWeapon.WeaponId < 600000,
                 Name = weaponName,
-                Rarity = darkWeapon.RarityType,
+                Rarity = darkWeapon.RarityType.ToString(),
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 WeaponId = darkWeapon.WeaponId,
                 WeaponSlug = Slugify(weaponName),
-                WeaponType = darkWeapon.WeaponType
+                WeaponType = darkWeapon.WeaponType.ToString()
             });
 
             CreateWeaponSkills(darkWeapon);
@@ -647,14 +647,14 @@ public static class Program
                 var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
                 var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
                     .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
-                    .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType)
+                    .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType.ToString())
                     .ToArray();
 
                 if (!_weaponSkillCache.TryGetValue((skill.SkillId, i), out WeaponSkill dbWeaponSkill))
                 {
                     dbWeaponSkill = new WeaponSkill
                     {
-                        ActType = darkSkillDetail.SkillActType,
+                        ActType = darkSkillDetail.SkillActType.ToString(),
                         BehaviourTypes = behaviorTypes,
                         CooldownTime = darkSkillDetail.SkillCooltimeValue,
                         Description = skill.SkillDescriptionText,
@@ -694,7 +694,7 @@ public static class Program
                 var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
                 var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
                     .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
-                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
                     .ToArray();
 
                 if (!_weaponAbilityCache.TryGetValue((darkWeaponAbilityGroup.AbilityId, i), out WeaponAbility dbWeaponAbility))
@@ -738,7 +738,7 @@ public static class Program
                 var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
                 var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
                     .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
-                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
                     .ToArray();
 
                 if (!_weaponAbilityCache.TryGetValue((darkWeaponAwakenAbility.AbilityId, darkWeaponAwakenAbility.AbilityLevel), out WeaponAbility dbWeaponAwakenAbility))
@@ -835,7 +835,7 @@ public static class Program
 
             _postgreDbContext.Companions.Add(new Companion
             {
-                Attribute = darkCompanion.AttributeType,
+                Attribute = darkCompanion.AttributeType.ToString(),
                 CompanionId = darkCompanion.CompanionId,
                 ImagePathBase = $"ui/companion/{actorAssetId}/{actorAssetId}_",
                 Name = CalculatorCompanion.CompanionName(darkCompanion.CompanionId),
@@ -862,14 +862,14 @@ public static class Program
             var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
             var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
                 .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
-                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType)
+                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType.ToString())
                 .ToArray();
 
             if (!_companionSkillCache.TryGetValue((skill.SkillId, skill.SkillLevel), out CompanionSkill dbCompanionSkill))
             {
                 dbCompanionSkill = new CompanionSkill
                 {
-                    ActType = darkSkillDetail.SkillActType,
+                    ActType = darkSkillDetail.SkillActType.ToString(),
                     BehaviourTypes = behaviorTypes,
                     CooldownTime = darkSkillDetail.SkillCooltimeValue,
                     Description = skill.SkillDescriptionText,
@@ -903,7 +903,7 @@ public static class Program
             var assetId = $"{ability.AbilityCategoryId:D3}{ability.AbilityVariationId:D3}";
             var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
                 .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
-                .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType)
+                .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
                 .ToArray();
 
             if (!_companionAbilityCache.TryGetValue((ability.AbilityId, ability.AbilityLevel), out CompanionAbility dbCompanionAbility))
@@ -992,7 +992,7 @@ public static class Program
                 InitialLotteryId = darkMemoir.PartsInitialLotteryId,
                 MemoirId = darkMemoir.PartsId,
                 Name = CalculatorMemory.MemoryName(darkMemoir.PartsId),
-                Rarity = darkMemoir.RarityType,
+                Rarity = darkMemoir.RarityType.ToString(),
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 SeriesId = darkMemoirGroup.PartsSeriesId,
                 Story = CalculatorMemory.MemoryDescription(darkMemoir.PartsId)
@@ -1021,7 +1021,7 @@ public static class Program
             _postgreDbContext.Thoughts.Add(new Thought
             {
                 ThoughtId = darkThought.ThoughtId,
-                Rarity = darkThought.RarityType,
+                Rarity = darkThought.RarityType.ToString(),
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 Name = CalculatorThought.GetName(darkThought.ThoughtAssetId),
                 ImagePathBase = $"ui/thought/thought{thoughtAssetId}/thought{thoughtAssetId}_standard.png",

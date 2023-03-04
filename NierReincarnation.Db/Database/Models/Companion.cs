@@ -10,7 +10,7 @@ internal class Companion
     [Key]
     public int CompanionId { get; set; }
 
-    public AttributeType Attribute { get; set; }
+    public string Attribute { get; set; }
 
     public int Type { get; set; }
 

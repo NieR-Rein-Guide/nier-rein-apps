@@ -16,11 +16,11 @@ internal class Weapon
 
     public int EvolutionOrder { get; set; }
 
-    public WeaponType WeaponType { get; set; }
+    public string WeaponType { get; set; }
 
-    public RarityType Rarity { get; set; }
+    public string Rarity { get; set; }
 
-    public AttributeType Attribute { get; set; }
+    public string Attribute { get; set; }
 
     public bool IsExWeapon { get; set; }
 

@@ -22,9 +22,9 @@ internal class CostumeSkill
 
     public string ImagePath { get; set; }
 
-    public SkillActType ActType { get; set; }
+    public string ActType { get; set; }
 
-    public SkillBehaviourType[] BehaviourTypes { get; set; }
+    public string[] BehaviourTypes { get; set; }
 
     public virtual ICollection<CostumeSkillLink> Costume { get; set; }
 }

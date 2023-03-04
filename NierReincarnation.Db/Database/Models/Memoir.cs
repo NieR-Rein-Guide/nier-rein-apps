@@ -13,7 +13,7 @@ internal class Memoir
     [Column("lottery_id")]
     public int InitialLotteryId { get; set; }
 
-    public RarityType Rarity { get; set; }
+    public string Rarity { get; set; }
 
     public DateTimeOffset ReleaseTime { get; set; }
 

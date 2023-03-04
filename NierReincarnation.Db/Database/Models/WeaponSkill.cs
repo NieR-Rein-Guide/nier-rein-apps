@@ -20,9 +20,9 @@ internal class WeaponSkill
 
     public string ImagePath { get; set; }
 
-    public SkillActType ActType { get; set; }
+    public string ActType { get; set; }
 
-    public SkillBehaviourType[] BehaviourTypes { get; set; }
+    public string[] BehaviourTypes { get; set; }
 
     public virtual ICollection<WeaponSkillLink> Weapons { get; set; }
 }

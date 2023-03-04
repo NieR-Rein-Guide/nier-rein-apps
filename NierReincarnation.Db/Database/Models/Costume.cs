@@ -19,9 +19,9 @@ internal class Costume
     [Column("debris_id")]
     public int? ThoughtId { get; set; }
 
-    public WeaponType WeaponType { get; set; }
+    public string WeaponType { get; set; }
 
-    public RarityType Rarity { get; set; }
+    public string Rarity { get; set; }
 
     public DateTimeOffset ReleaseTime { get; set; }
 
