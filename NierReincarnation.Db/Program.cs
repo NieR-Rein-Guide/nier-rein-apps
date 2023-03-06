@@ -995,7 +995,8 @@ public static class Program
                 Rarity = darkMemoir.RarityType.ToString(),
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 SeriesId = darkMemoirGroup.PartsSeriesId,
-                Story = CalculatorMemory.MemoryDescription(darkMemoir.PartsId)
+                Story = CalculatorMemory.MemoryDescription(darkMemoir.PartsId),
+                IsVariationMemoir = darkMemoir.PartsId >= 8000,
             });
         }
 

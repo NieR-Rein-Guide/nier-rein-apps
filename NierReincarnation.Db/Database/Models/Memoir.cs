@@ -23,6 +23,8 @@ internal class Memoir
 
     public string ImagePathBase { get; set; }
 
+    public bool IsVariationMemoir { get; set; }
+
     [ForeignKey(nameof(SeriesId))]
     public virtual MemoirSeries MemoirSeries { get; set; }
 }
