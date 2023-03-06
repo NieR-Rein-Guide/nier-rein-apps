@@ -1,24 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NierReincarnation.Db.Database.Models
+namespace NierReincarnation.Db.Database.Models;
+
+[Table("weapon_stat")]
+internal class WeaponStat
 {
-    [Table("weapon_stat")]
-    internal class WeaponStat
-    {
-        public int WeaponId { get; set; }
+    public int WeaponId { get; set; }
 
-        public int Level { get; set; }
+    public int Level { get; set; }
 
-        [Column("atk")]
-        public int Attack { get; set; }
+    [Column("atk")]
+    public int Attack { get; set; }
 
-        [Column("hp")]
-        public int Hp { get; set; }
+    [Column("hp")]
+    public int Hp { get; set; }
 
-        [Column("vit")]
-        public int Vitality { get; set; }
+    [Column("vit")]
+    public int Vitality { get; set; }
 
-        [ForeignKey(nameof(WeaponId))]
-        public virtual Weapon Weapon { get; set; }
-    }
+    [ForeignKey(nameof(WeaponId))]
+    public virtual Weapon Weapon { get; set; }
 }

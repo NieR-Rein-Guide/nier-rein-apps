@@ -1,27 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NierReincarnation.Db.Database.Models
+namespace NierReincarnation.Db.Database.Models;
+
+[Table("costume_skill")]
+internal class CostumeSkill
 {
-    [Table("costume_skill")]
-    internal class CostumeSkill
-    {
-        public int SkillId { get; set; }
+    public int SkillId { get; set; }
 
-        public int SkillLevel { get; set; }
+    public int SkillLevel { get; set; }
 
-        public string GaugeRiseSpeed { get; set; }
+    public string GaugeRiseSpeed { get; set; }
 
-        public int CooldownTime { get; set; }
+    public int CooldownTime { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public string Description { get; set; }
+    public string Description { get; set; }
 
-        public string ShortDescription { get; set; }
+    public string ShortDescription { get; set; }
 
-        public string ImagePath { get; set; }
+    public string ImagePath { get; set; }
 
-        public virtual ICollection<CostumeSkillLink> Costume { get; set; }
-    }
+    public string ActType { get; set; }
+
+    public string[] BehaviourTypes { get; set; }
+
+    public virtual ICollection<CostumeSkillLink> Costume { get; set; }
 }

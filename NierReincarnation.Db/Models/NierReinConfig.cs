@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Db.Models
+﻿namespace NierReincarnation.Db.Models;
+
+internal class NierReinConfig
 {
-    internal class NierReinConfig
-    {
-        public string User { get; set; }
+    public string User { get; set; }
 
-        public string Password { get; set; }
+    public string Password { get; set; }
 
-        public string GameVersion { get; set; }
-    }
+    public string GameVersion { get; set; }
 }

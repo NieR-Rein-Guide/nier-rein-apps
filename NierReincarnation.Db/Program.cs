@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Database;
@@ -13,1123 +14,1025 @@ using NierReincarnation.Core.UnityEngine;
 using NierReincarnation.Db.Database;
 using NierReincarnation.Db.Database.Models;
 using NierReincarnation.Db.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace NierReincarnation.Db
+namespace NierReincarnation.Db;
+
+public static class Program
 {
-    internal static class Program
+    private const string _dbConfigJsonPath = "config/dbConfig.json";
+    private const string _nierReinConfigJsonPath = "config/userConfig.json";
+    private static PostgreDbContext _postgreDbContext;
+    private const bool _recreateDb = true;
+
+    #region Cache
+
+    private static List<int> _characterCache;
+    private static List<int> _characterRankBonusCache;
+    private static List<int> _costumeCache;
+    private static List<int> _debrisCache;
+    private static List<int> _emblemCache;
+    private static List<int> _weaponCache;
+    private static List<int> _companionCache;
+    private static List<int> _memoirCache;
+    private static List<int> _memoirSeriesCache;
+
+    private static Dictionary<(int, int), CostumeSkill> _costumeSkillCache;
+    private static Dictionary<(int, int), CostumeAbility> _costumeAbilityCache;
+    private static Dictionary<(int, int), WeaponSkill> _weaponSkillCache;
+    private static Dictionary<(int, int), WeaponAbility> _weaponAbilityCache;
+    private static Dictionary<(int, int), CompanionSkill> _companionSkillCache;
+    private static Dictionary<(int, int), CompanionAbility> _companionAbilityCache;
+
+    #endregion Cache
+
+    public static async Task Main(string[] _)
     {
-        private const string DbConfigJsonPath_ = "config/dbConfig.json";
-        private const string NierReinConfigJsonPath_ = "config/userConfig.json";
+        await SetupApplicationAsync();
 
-        private static async Task Main(string[] _)
+        await AddNotifications();
+        await AddCharactersAsync();
+        await AddCharacterRankBonusesAsync();
+        await AddDebrisAsync();
+        await AddCharacterDebrisAsync();
+        await AddCostumeEmblemsAsync();
+        await AddCostumesAsync();
+        await AddWeaponsAsync();
+        await AddCompanionsAsync();
+        await AddMemoirsAsync();
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    #region Setup
+
+    private static async Task SetupApplicationAsync()
+    {
+        await SetupNierReinAsync();
+        await SetupDatabaseAsync();
+        await SetupCachesAsync();
+    }
+
+    private static async Task SetupDatabaseAsync()
+    {
+        var dbConfig = GetDbConfig();
+
+        _postgreDbContext = new PostgreDbContext(dbConfig);
+        List<Notification> notifications = new();
+
+        if (_recreateDb)
         {
-            var db = EnsureDatabase();
-            await EnsureNierRein();
-
-            await AddNotifications(db);
-            await AddCharacters(db);
-            await AddWeapons(db);
-            await AddCompanions(db);
-            await AddMemoirs(db);
-            await AddThoughts(db);
-
-            await db.SaveChangesAsync();
-        }
-
-        #region Ensure methods
-
-        private static async Task EnsureNierRein()
-        {
-            var reinConfig = EnsureNierReinConfig();
-
-            Application.Version = reinConfig.GameVersion;
-
-            await NierReincarnation.PrepareCommandLine(reinConfig.User, reinConfig.Password);
-            await NierReincarnation.LoadLocalizations(Language.English);
-        }
-
-        private static NierReinConfig EnsureNierReinConfig()
-        {
-            if (!File.Exists(NierReinConfigJsonPath_))
+            try
             {
-                Console.WriteLine($"Nier Reincarnation configuration '{NierReinConfigJsonPath_}' not found.");
-                Environment.Exit(1);
+                notifications = await _postgreDbContext.Notifications.ToListAsync();
+            }
+            catch (Exception) { }
+            _postgreDbContext.Database.EnsureDeleted();
+        }
+        _postgreDbContext.Database.EnsureCreated();
+
+        // Save notifications from old db
+        if (notifications.Count > 0)
+        {
+            await _postgreDbContext.Notifications.AddRangeAsync(notifications);
+            await _postgreDbContext.SaveChangesAsync();
+        }
+    }
+
+    private static async Task SetupNierReinAsync()
+    {
+        var reinConfig = GetNierReinConfig();
+
+        Application.Version = reinConfig.GameVersion;
+
+        await NierReincarnation.PrepareCommandLine(reinConfig.User, reinConfig.Password);
+        await NierReincarnation.LoadLocalizations(Language.English);
+    }
+
+    private static async Task SetupCachesAsync()
+    {
+        _characterCache = await _postgreDbContext.Characters.Select(x => x.CharacterId).ToListAsync();
+        _characterRankBonusCache = await _postgreDbContext.CharacterRankBonuses.Select(x => x.CharacterId).ToListAsync();
+        _debrisCache = await _postgreDbContext.Thoughts.Select(x => x.ThoughtId).ToListAsync();
+        _costumeCache = await _postgreDbContext.Costumes.Select(x => x.CostumeId).ToListAsync();
+        _emblemCache = await _postgreDbContext.Emblems.Select(x => x.EmblemId).ToListAsync();
+        _weaponCache = await _postgreDbContext.Weapons.Select(x => x.WeaponId).ToListAsync();
+        _companionCache = await _postgreDbContext.Companions.Select(x => x.CompanionId).ToListAsync();
+        _memoirCache = await _postgreDbContext.Memoirs.Select(x => x.MemoirId).ToListAsync();
+        _memoirSeriesCache = await _postgreDbContext.MemoirSeries.Select(x => x.MemoirSeriesId).ToListAsync();
+
+        _costumeSkillCache = await _postgreDbContext.CostumeSkills.ToDictionaryAsync(x => (x.SkillId, x.SkillLevel), x => x);
+        _costumeAbilityCache = await _postgreDbContext.CostumeAbilities.ToDictionaryAsync(x => (x.AbilityId, x.AbilityLevel), x => x);
+        _weaponSkillCache = await _postgreDbContext.WeaponSkills.ToDictionaryAsync(x => (x.SkillId, x.SkillLevel), x => x);
+        _weaponAbilityCache = await _postgreDbContext.WeaponAbilities.ToDictionaryAsync(x => (x.AbilityId, x.AbilityLevel), x => x);
+        _companionSkillCache = await _postgreDbContext.CompanionSkills.ToDictionaryAsync(x => (x.SkillId, x.SkillLevel), x => x);
+        _companionAbilityCache = await _postgreDbContext.CompanionAbilities.ToDictionaryAsync(x => (x.AbilityId, x.AbilityLevel), x => x);
+    }
+
+    private static NierReinConfig GetNierReinConfig()
+    {
+        if (!File.Exists(_nierReinConfigJsonPath))
+        {
+            Console.WriteLine($"NieR Re[in]carnation configuration '{_nierReinConfigJsonPath}' not found.");
+            Environment.Exit(1);
+        }
+
+        return JsonConvert.DeserializeObject<NierReinConfig>(File.ReadAllText(_nierReinConfigJsonPath));
+    }
+
+    private static DbConfig GetDbConfig()
+    {
+        if (!File.Exists(_dbConfigJsonPath))
+        {
+            Console.WriteLine($"Database configuration '{_dbConfigJsonPath}' not found.");
+            Environment.Exit(1);
+        }
+
+        return JsonConvert.DeserializeObject<DbConfig>(File.ReadAllText(_dbConfigJsonPath));
+    }
+
+    #endregion Setup
+
+    #region Helper Methods
+
+    private static void WriteLineWithTimestamp(string text)
+    {
+        Console.WriteLine($"{DateTimeOffset.Now:T}: {text}");
+    }
+
+    private static (StatusKindType StatusKind, int Amount) GetStatus(StatusValue value)
+    {
+        if (value.Agility > 0)
+            return (StatusKindType.AGILITY, value.Agility);
+
+        if (value.Attack > 0)
+            return (StatusKindType.ATTACK, value.Attack);
+
+        if (value.CriticalAttack > 0)
+            return (StatusKindType.CRITICAL_ATTACK, value.CriticalAttack);
+
+        if (value.CriticalRatio > 0)
+            return (StatusKindType.CRITICAL_RATIO, value.CriticalRatio);
+
+        if (value.EvasionRatio > 0)
+            return (StatusKindType.EVASION_RATIO, value.EvasionRatio);
+
+        if (value.Hp > 0)
+            return (StatusKindType.HP, value.Hp);
+
+        if (value.Vitality > 0)
+            return (StatusKindType.VITALITY, value.Vitality);
+
+        return (StatusKindType.UNKNOWN, -1);
+    }
+
+    private static string Slugify(string input)
+    {
+        var lowered = input.ToLower();
+        var escaped = Regex.Replace(lowered, @"\s+", "-");
+        return string.Concat(Regex.Matches(escaped, @"[a-z0-9\-]+"));
+    }
+
+    #endregion Helper Methods
+
+    #region Notifications
+
+    private static async Task AddNotifications()
+    {
+        WriteLineWithTimestamp("Notifications");
+        await foreach (var darkNotification in NierReincarnation.Notifications.GetAllNotifications())
+        {
+            var darkNotificationDetails = await NierReincarnation.Notifications.GetNotification(darkNotification.informationId);
+            if (darkNotificationDetails == null) continue;
+
+            // Get or create db notification
+            var dbNotification = _postgreDbContext.Notifications.FirstOrDefault(x => x.NotificationId == darkNotification.informationId);
+
+            if (dbNotification == null)
+            {
+                dbNotification = new() { NotificationId = darkNotification.informationId };
+                _postgreDbContext.Notifications.Add(dbNotification);
             }
 
-            return JsonConvert.DeserializeObject<NierReinConfig>(File.ReadAllText(NierReinConfigJsonPath_));
+            // Update details
+            dbNotification.InformationType = darkNotification.informationType.ToString();
+            dbNotification.Title = darkNotification.title;
+            dbNotification.Body = darkNotificationDetails?.body ?? string.Empty;
+            dbNotification.ReleaseTime = CalculatorDateTime.FromUnixTime(darkNotification.publishStartDatetime);
+            dbNotification.ThumbnailPath = darkNotification.thumbnailImagePath;
         }
 
-        private static PostgreDbContext EnsureDatabase()
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    #endregion Notifications
+
+    #region Characters
+
+    private static async Task AddCharactersAsync()
+    {
+        WriteLineWithTimestamp("Characters");
+        foreach (var darkCharacter in DatabaseDefine.Master.EntityMCharacterTable.All)
         {
-            var dbConfig = EnsureDbConfig();
+            var defaultCostumeId = CalculatorCostume.ActorAssetId(darkCharacter.DefaultCostumeId);
+            if (string.IsNullOrEmpty(defaultCostumeId.StringId)) continue;
+            if (_characterCache.Contains(darkCharacter.CharacterId)) continue;
 
-            PostgreDbContext dbContext = new(dbConfig);
-
-            dbContext.Database.EnsureDeleted();
-            dbContext.Database.EnsureCreated();
-
-            return dbContext;
-        }
-
-        private static DbConfig EnsureDbConfig()
-        {
-            if (!File.Exists(DbConfigJsonPath_))
+            var characterName = CalculatorCharacter.CharacterName(darkCharacter.CharacterId, true);
+            Character dbCharacter = new()
             {
-                Console.WriteLine($"Database configuration '{DbConfigJsonPath_}' not found.");
-                Environment.Exit(1);
-            }
-
-            return JsonConvert.DeserializeObject<DbConfig>(File.ReadAllText(DbConfigJsonPath_));
+                CharacterId = darkCharacter.CharacterId,
+                CharacterSlug = Slugify(characterName),
+                Name = characterName,
+                ImagePath = $"ui/actor/{defaultCostumeId}/{defaultCostumeId}_01_actor_icon.png"
+            };
+            _postgreDbContext.Characters.Add(dbCharacter);
         }
 
-        #endregion Ensure methods
+        await _postgreDbContext.SaveChangesAsync();
+    }
 
-        #region Database methods
-
-        #region Notification methods
-
-        private static async Task AddNotifications(PostgreDbContext db)
+    private static async Task AddCharacterRankBonusesAsync()
+    {
+        WriteLineWithTimestamp("Character Rank Bonuses");
+        foreach (var darkCharacter in DatabaseDefine.Master.EntityMCharacterTable.All)
         {
-            Console.WriteLine("Dump notifications");
+            var defaultCostumeId = CalculatorCostume.ActorAssetId(darkCharacter.DefaultCostumeId);
+            if (string.IsNullOrEmpty(defaultCostumeId.StringId)) continue;
+            if (_characterRankBonusCache.Contains(darkCharacter.CharacterId)) continue;
 
-            await foreach (var notification in NierReincarnation.Notifications.GetAllNotifications())
+            foreach (var darkCharacterRankBonus in DatabaseDefine.Master.EntityMCharacterLevelBonusAbilityGroupTable.All
+                .Where(x => x.CharacterLevelBonusAbilityGroupId == darkCharacter.CharacterLevelBonusAbilityGroupId))
             {
-                var details = await NierReincarnation.Notifications.GetNotification(notification.informationId);
-                if (details == null)
-                    continue;
-
-                await db.Notifications.AddAsync(new Notification
-                {
-                    NotificationId = notification.informationId,
-                    InformationType = notification.informationType.ToString(),
-
-                    Title = notification.title,
-                    Body = details.body,
-
-                    ReleaseTime = CalculatorDateTime.FromUnixTime(notification.publishStartDatetime),
-
-                    ThumbnailPath = notification.thumbnailImagePath
-                });
-            }
-        }
-
-        #endregion Notification methods
-
-        #region Character methods
-
-        private static async Task AddCharacters(PostgreDbContext db)
-        {
-            Console.WriteLine("Dump characters.");
-
-            var rankBonuses = CreateRankBonuses();
-            var costumes = CreateCostumes();
-
-            foreach (var character in DatabaseDefine.Master.EntityMCharacterTable.All)
-            {
-                var defaultCostumeId = CalculatorCostume.ActorAssetId(character.DefaultCostumeId);
-                if (string.IsNullOrEmpty(defaultCostumeId.StringId))
-                    continue;
-
-                var characterName = CalculatorCharacter.CharacterName(character.CharacterId, true);
-                var model = new Character
-                {
-                    CharacterId = character.CharacterId,
-
-                    CharacterSlug = Slugify(characterName),
-                    Name = characterName,
-                    ImagePath = $"ui/actor/{defaultCostumeId}/{defaultCostumeId}_01_actor_icon.png",
-
-                    RankBonuses = rankBonuses.Where(rb => rb.RankBonusId == character.CharacterLevelBonusAbilityGroupId).ToList(),
-                    Costumes = costumes.Where(c => c.CharacterId == character.CharacterId).ToList()
-                };
-                await db.Characters.AddAsync(model);
-
-                foreach (var rank in rankBonuses.Where(rb => rb.RankBonusId == character.CharacterLevelBonusAbilityGroupId))
-                {
-                    rank.Character = model;
-                    rank.CharacterId = model.CharacterId;
-                }
-                foreach (var costume in costumes.Where(c => c.CharacterId == character.CharacterId))
-                    costume.Character = model;
-            }
-        }
-
-        private static IList<CharacterRankBonus> CreateRankBonuses()
-        {
-            var result = new List<CharacterRankBonus>();
-
-            foreach (var rankBonus in DatabaseDefine.Master.EntityMCharacterLevelBonusAbilityGroupTable.All)
-            {
-                var statusList = new List<DataAbilityStatus>();
-                var skillList = new List<DataSkill>();
-
-                var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(rankBonus.AbilityId, rankBonus.AbilityLevel);
+                List<DataAbilityStatus> statusList = new();
+                List<DataSkill> skillList = new();
+                var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkCharacterRankBonus.AbilityId, darkCharacterRankBonus.AbilityLevel);
                 CalculatorAbility.CreateDataAbilityBehaviours(abilityDetail.AbilityBehaviourGroupId, statusList, skillList);
+                (StatusKindType statusKind, int amount) = GetStatus(statusList[0].StatusChangeValue);
 
-                var status = GetStatus(statusList[0].StatusChangeValue);
-                result.Add(new CharacterRankBonus
+                _postgreDbContext.CharacterRankBonuses.Add(new CharacterRankBonus
                 {
-                    RankBonusId = rankBonus.CharacterLevelBonusAbilityGroupId,
-                    RankBonusLevel = rankBonus.ActivationCharacterLevel,
-                    Description = CalculatorAbility.GetDescriptionLongByAbilityId(rankBonus.AbilityId, rankBonus.AbilityLevel),
-                    Stat = status.Item1.ToString(),
+                    CharacterId = darkCharacter.CharacterId,
+                    RankBonusId = darkCharacterRankBonus.CharacterLevelBonusAbilityGroupId,
+                    RankBonusLevel = darkCharacterRankBonus.ActivationCharacterLevel,
+                    Description = CalculatorAbility.GetDescriptionLongByAbilityId(darkCharacterRankBonus.AbilityId, darkCharacterRankBonus.AbilityLevel),
+                    Stat = statusKind.ToString(),
                     Type = statusList[0].AbilityBehaviourStatusChangeType.ToString(),
-                    Amount = status.Item2
+                    Amount = amount
                 });
             }
-
-            return result;
         }
 
-        #region Costume methods
+        await _postgreDbContext.SaveChangesAsync();
+    }
 
-        private static IList<Costume> CreateCostumes()
+    private static async Task AddCharacterDebrisAsync()
+    {
+        foreach (var darkMissionReward in DatabaseDefine.Master.EntityMMissionRewardTable.All.Where(x => x.PossessionType == PossessionType.THOUGHT))
         {
-            var result = new List<Costume>();
-            var emblems = CreateEmblems();
+            var darkMission = DatabaseDefine.Master.EntityMMissionTable.All.FirstOrDefault(x => x.MissionRewardId == darkMissionReward.MissionRewardId);
+            var characterName = $"mission.name.{darkMission.NameMissionTextId}".Localize()
+                .Replace("Exalt", string.Empty)
+                .Replace("5 times", string.Empty)
+                .Trim();
+            var dbCharacter = _postgreDbContext.Characters.FirstOrDefault(x => x.Name == characterName);
 
-            foreach (var costume in DatabaseDefine.Master.EntityMCostumeTable.All)
+            if (dbCharacter != null)
             {
-                if (costume.CostumeId >= 100000)
-                    continue;
-
-                // Create costume
-                var assetId = CalculatorCostume.ActorAssetId(costume.CostumeId);
-                DatabaseDefine.Master.EntityMCatalogCostumeTable.TryFindByCostumeId(costume.CostumeId, out var costumeCatalog);
-                var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(costumeCatalog.CatalogTermId);
-
-                var emblem = emblems.FirstOrDefault(x => x.EmblemId == costume.CostumeEmblemAssetId);
-                var costumeName = CalculatorCostume.CostumeName(costume.CostumeId);
-
-                var model = new Costume
-                {
-                    CostumeId = costume.CostumeId,
-                    CharacterId = costume.CharacterId,
-                    AssetId = assetId.ToString(),
-                    EmblemId = emblem == null ? null : (int?)costume.CostumeEmblemAssetId,
-
-                    CostumeSlug = Slugify(costumeName),
-                    Name = costumeName,
-                    Description = CalculatorCostume.CostumeDescription(costume.CostumeId),
-                    ImagePathBase = $"ui/costume/{assetId}/{assetId}_",
-
-                    WeaponType = costume.SkillfulWeaponType.ToString(),
-                    RarityType = costume.RarityType.ToString(),
-
-                    IsExCostume = costume.CostumeId >= 40000 && costume.CostumeId < 50000,
-                    ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
-
-                    Emblem = emblem
-                };
-
-                emblem?.Costumes.Add(model);
-
-                // Create skill
-                var skills = GetSkillLevels(costume.CostumeId);
-
-                model.Skills = skills.ConvertAll(x => new CostumeSkillLink
-                {
-                    CostumeId = costume.CostumeId,
-                    SkillId = x.SkillId,
-                    SkillLevel = x.SkillLevel,
-
-                    CostumeSkill = x,
-                    Costume = model
-                });
-
-                foreach (var s in model.Skills)
-                    s.CostumeSkill.Costume.Add(s);
-
-                // Create abilities
-                var abilities = GetAbilities(costume.CostumeAbilityGroupId, costume.CostumeId);
-
-                model.Abilities = abilities?.SelectMany(x => x.Select(y => new CostumeAbilityLink
-                {
-                    CostumeId = costume.CostumeId,
-                    AbilitySlot = y.Item1,
-                    AbilityId = y.Item2.AbilityId,
-                    AbilityLevel = y.Item2.AbilityLevel,
-
-                    CostumeAbility = y.Item2,
-                    Costume = model
-                })).ToList();
-
-                if (model.Abilities != null)
-                {
-                    foreach (var a in model.Abilities)
-                    {
-                        a.CostumeAbility.Costume.Add(a);
-                    }
-                }
-
-                // Create stats
-                model.Stats = GetCostumeStats(costume);
-
-                // Create debris
-                model.Thought = GetCostumeDebris(costume);
-
-                foreach (var stat in model.Stats)
-                    stat.Costume = model;
-
-                result.Add(model);
+                dbCharacter.ThoughtId = darkMissionReward.PossessionId;
             }
-
-            return result;
         }
 
-        private static IList<Emblem> CreateEmblems()
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    #endregion Characters
+
+    #region Costumes
+
+    private static async Task AddCostumeEmblemsAsync()
+    {
+        WriteLineWithTimestamp("Costume Emblems");
+        foreach (var darkEmblemId in DatabaseDefine.Master.EntityMCostumeTable.All.Select(x => x.CostumeEmblemAssetId).Distinct())
         {
-            var result = new List<Emblem>();
+            if (darkEmblemId <= 0) continue;
+            if (_emblemCache.Contains(darkEmblemId)) continue;
 
-            var emblemIds = DatabaseDefine.Master.EntityMCostumeTable.All.Select(x => x.CostumeEmblemAssetId).Distinct();
-            foreach (var emblemId in emblemIds)
+            var main = LocalizationExtensions.Localizations.Where(x => x.Key.StartsWith($"costume.emblem.production.result.{darkEmblemId:D3}"));
+            var sub = LocalizationExtensions.Localizations.Where(x => x.Key.StartsWith($"costume.emblem.production.{darkEmblemId:D3}"));
+
+            _postgreDbContext.Emblems.Add(new Emblem
             {
-                if (emblemId <= 0)
-                    continue;
-
-                var main = LocalizationExtensions.Localizations.Where(x =>
-                    x.Key.StartsWith($"costume.emblem.production.result.{emblemId:D3}"));
-                var sub = LocalizationExtensions.Localizations.Where(x =>
-                    x.Key.StartsWith($"costume.emblem.production.{emblemId:D3}"));
-
-                result.Add(new Emblem
-                {
-                    EmblemId = emblemId,
-                    Name = CalculatorCostumeEmblem.GetEmblemName(emblemId),
-                    MainMessage = string.Join('\n', main.Select(x => x.Value)),
-                    SmallMessages = string.Join('\n', sub.ToArray()[..^3].Select(x => x.Value)),
-                    ImagePath = $"timeline/costume_emblem/common/texture/costume_emblem_{emblemId}/emblem.png",
-
-                    Costumes = new List<Costume>()
-                });
-            }
-
-            return result;
+                EmblemId = darkEmblemId,
+                Name = CalculatorCostumeEmblem.GetEmblemName(darkEmblemId),
+                MainMessage = string.Join('\n', main.Select(x => x.Value)),
+                SmallMessages = string.Join('\n', sub.ToArray()[..^3].Select(x => x.Value)),
+                ImagePath = $"timeline/costume_emblem/common/texture/costume_emblem_{darkEmblemId}/emblem.png"
+            });
         }
 
-        private static readonly IDictionary<(int, int), CostumeSkill> _skillCache = new Dictionary<(int, int), CostumeSkill>();
+        await _postgreDbContext.SaveChangesAsync();
+    }
 
-        private static List<CostumeSkill> GetSkillLevels(int costumeId)
+    private static async Task AddCostumesAsync()
+    {
+        WriteLineWithTimestamp("Costumes");
+        foreach (var darkCostume in DatabaseDefine.Master.EntityMCostumeTable.All)
         {
-            var result = new List<CostumeSkill>();
+            if (darkCostume.CostumeId >= 100000) continue;
+            if (_costumeCache.Contains(darkCostume.CostumeId)) continue;
 
-            for (var i = CalculatorSkill.MIN_LEVEL; i <= CalculatorSkill.MAX_LEVEL; i++)
+            DatabaseDefine.Master.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostume.CostumeId, out var darkCostumeCatalog);
+            var darkCatalogTerm = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(darkCostumeCatalog.CatalogTermId);
+            var assetId = CalculatorCostume.ActorAssetId(darkCostume.CostumeId);
+            var costumeName = CalculatorCostume.CostumeName(darkCostume.CostumeId);
+
+            DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(darkCostume.CostumeId, out var costumeAwaken);
+            var darkCostumeAwakenEffect = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable
+                .FindByCostumeAwakenEffectGroupIdAndCostumeAwakenEffectType((costumeAwaken.CostumeAwakenEffectGroupId, CostumeAwakenEffectType.ITEM_ACQUIRE))[0];
+
+            _postgreDbContext.Costumes.Add(new Costume
             {
-                var skill = (DataCostumeSkill)CalculatorCostume.GetCostumeActiveDataSkill(costumeId, i, Config.GetCostumeLimitBreakAvailableCount());
-                var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
+                AssetId = assetId.ToString(),
+                CharacterId = darkCostume.CharacterId,
+                CostumeId = darkCostume.CostumeId,
+                CostumeSlug = Slugify(costumeName),
+                Description = CalculatorCostume.CostumeDescription(darkCostume.CostumeId),
+                EmblemId = darkCostume.CostumeEmblemAssetId > 0 ? darkCostume.CostumeEmblemAssetId : null,
+                ImagePathBase = $"ui/costume/{assetId}/{assetId}_",
+                IsExCostume = darkCostume.CostumeId >= 40000 && darkCostume.CostumeId < 50000,
+                IsRdCostume = darkCostume.CostumeId >= 50000 && darkCostume.CostumeId < 60000,
+                Name = costumeName,
+                Rarity = darkCostume.RarityType.ToString(),
+                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                ThoughtId = darkCostumeAwakenEffect?.CostumeAwakenEffectId,
+                WeaponType = darkCostume.SkillfulWeaponType.ToString()
+            });
 
-                if (_skillCache.ContainsKey((skill.SkillId, i)))
+            CreateCostumeSkills(darkCostume);
+            CreateCostumeAbilities(darkCostume);
+            CreateCostumeStats(darkCostume);
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static void CreateCostumeSkills(EntityMCostume darkCostume)
+    {
+        for (int i = CalculatorSkill.MIN_LEVEL; i <= CalculatorSkill.MAX_LEVEL; i++)
+        {
+            var skill = (DataCostumeSkill)CalculatorCostume.GetCostumeActiveDataSkill(darkCostume.CostumeId, i, Config.GetCostumeLimitBreakAvailableCount());
+            var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
+            var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
+            var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
+            var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
+                .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
+                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType.ToString())
+                .ToArray();
+
+            if (!_costumeSkillCache.TryGetValue((skill.SkillId, i), out CostumeSkill dbCostumeSkill))
+            {
+                dbCostumeSkill = new CostumeSkill
                 {
-                    result.Add(_skillCache[(skill.SkillId, i)]);
-                    continue;
-                }
-
-                var model = new CostumeSkill
-                {
-                    SkillId = skill.SkillId,
-                    SkillLevel = i,
-
-                    GaugeRiseSpeed = skill.GaugeRiseSpeed,
-                    CooldownTime = CalculatorSkill.GetEntityMSkillDetail(CalculatorSkill.GetSkillDetailId(skill.SkillId, i)).SkillCooltimeValue,
-
-                    Name = skill.SkillName,
+                    ActType = darkSkillDetail.SkillActType.ToString(),
+                    BehaviourTypes = behaviorTypes,
+                    CooldownTime = darkSkillDetail.SkillCooltimeValue,
                     Description = skill.SkillDescriptionText,
-                    ShortDescription = skill.SkillDescriptionShortText,
+                    GaugeRiseSpeed = skill.GaugeRiseSpeed,
                     ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
-
-                    Costume = new List<CostumeSkillLink>()
+                    Name = skill.SkillName,
+                    ShortDescription = skill.SkillDescriptionShortText,
+                    SkillId = skill.SkillId,
+                    SkillLevel = i
                 };
 
-                result.Add(model);
-                _skillCache[(skill.SkillId, i)] = model;
+                _postgreDbContext.CostumeSkills.Add(dbCostumeSkill);
+                _costumeSkillCache[(skill.SkillId, i)] = dbCostumeSkill;
             }
 
-            return result;
-        }
-
-        private static readonly IDictionary<(int, int), CostumeAbility> _abilityCache = new Dictionary<(int, int), CostumeAbility>();
-
-        private static IList<IList<(int, CostumeAbility)>> GetAbilities(int abilityGroupId, int costumeId)
-        {
-            var abilityGroups = CalculatorMasterData.GetEntityCostumeAbilityGroupList(abilityGroupId);
-
-            var result = new List<IList<(int, CostumeAbility)>>();
-            foreach (var abilityGroup in abilityGroups.OrderBy(x => x.SlotNumber))
+            _postgreDbContext.CostumeSkillLinks.Add(new CostumeSkillLink
             {
-                var innerResult = new List<(int, CostumeAbility)>();
-                for (var i = CalculatorAbility.MIN_LEVEL; i <= 4; i++)
+                CostumeId = darkCostume.CostumeId,
+                SkillId = dbCostumeSkill.SkillId,
+                SkillLevel = dbCostumeSkill.SkillLevel
+            });
+        }
+    }
+
+    private static void CreateCostumeAbilities(EntityMCostume darkCostume)
+    {
+        int abilityCount = 0;
+        foreach (var darkCostumeAbility in CalculatorMasterData.GetEntityCostumeAbilityGroupList(darkCostume.CostumeAbilityGroupId).OrderBy(x => x.SlotNumber))
+        {
+            abilityCount++;
+            for (var i = CalculatorAbility.MIN_LEVEL; i <= 4; i++)
+            {
+                var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkCostumeAbility.AbilityId, i);
+                var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                    .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
+                    .ToArray();
+
+                if (!_costumeAbilityCache.TryGetValue((darkCostumeAbility.AbilityId, i), out CostumeAbility dbCostumeAbility))
                 {
-                    var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(abilityGroup.AbilityId, i);
-                    var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
-
-                    if (_abilityCache.ContainsKey((abilityGroup.AbilityId, i)))
+                    dbCostumeAbility = new CostumeAbility
                     {
-                        innerResult.Add((abilityGroup.SlotNumber, _abilityCache[(abilityGroup.AbilityId, i)]));
-                        continue;
-                    }
-
-                    var costumeAbility = new CostumeAbility
-                    {
-                        AbilityId = abilityGroup.AbilityId,
+                        AbilityId = darkCostumeAbility.AbilityId,
                         AbilityLevel = i,
-                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
+                        BehaviourTypes = behaviorTypes,
                         Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
                         ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
-
-                        Costume = new List<CostumeAbilityLink>()
+                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId)
                     };
 
-                    innerResult.Add((abilityGroup.SlotNumber, costumeAbility));
-                    _abilityCache[(abilityGroup.AbilityId, i)] = costumeAbility;
+                    _postgreDbContext.CostumeAbilities.Add(dbCostumeAbility);
+                    _costumeAbilityCache[(darkCostumeAbility.AbilityId, i)] = dbCostumeAbility;
                 }
 
-                result.Add(innerResult);
-            }
-
-            DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(costumeId, out EntityMCostumeAwaken costumeAwaken);
-            DatabaseDefine.Master.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(costumeId, out EntityMCostumeAwakenAbility awakenAbility);
-            var awakenAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(awakenAbility.AbilityId, 1);
-            var awakenAssetId = $"{awakenAbilityDetail.AssetCategoryId:D3}{awakenAbilityDetail.AssetVariationId:D3}";
-
-            if (_abilityCache.ContainsKey((awakenAbility.AbilityId, awakenAbility.AbilityLevel)))
-            {
-                result.Add(new List<(int, CostumeAbility)>()
+                _postgreDbContext.CostumeAbilityLinks.Add(new CostumeAbilityLink
                 {
-                    (abilityGroups.Count + 1, _abilityCache[(awakenAbility.AbilityId, awakenAbility.AbilityLevel)])
+                    AbilityId = darkCostumeAbility.AbilityId,
+                    AbilityLevel = i,
+                    AbilitySlot = darkCostumeAbility.SlotNumber,
+                    CostumeId = darkCostume.CostumeId
                 });
             }
-            else
-            {
-                var costumeAwakenAbility = new CostumeAbility
-                {
-                    AbilityId = awakenAbility.AbilityId,
-                    AbilityLevel = awakenAbility.AbilityLevel,
-                    Name = CalculatorAbility.GetName(awakenAbilityDetail.NameAbilityTextId),
-                    Description = CalculatorAbility.GetDescriptionLong(awakenAbilityDetail.DescriptionAbilityTextId),
-                    ImagePathBase = $"ui/ability/ability{awakenAssetId}/ability{awakenAssetId}_",
-                    Costume = new List<CostumeAbilityLink>()
-                };
-
-                result.Add(new List<(int, CostumeAbility)>()
-                {
-                    (abilityGroups.Count + 1, costumeAwakenAbility)
-                });
-
-                _abilityCache[(awakenAbility.AbilityId, awakenAbility.AbilityLevel)] = costumeAwakenAbility;
-            }
-
-            return result;
         }
 
-        private static List<CostumeStat> GetCostumeStats(EntityMCostume costume)
+        DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(darkCostume.CostumeId, out EntityMCostumeAwaken darkCostumeAwaken);
+        DatabaseDefine.Master.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(darkCostume.CostumeId, out EntityMCostumeAwakenAbility darkCostumeAwakenAbility);
+        var awakenAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkCostumeAwakenAbility.AbilityId, 1);
+        var awakenAssetId = $"{awakenAbilityDetail.AssetCategoryId:D3}{awakenAbilityDetail.AssetVariationId:D3}";
+        var awakenBehaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+            .Where(x => x.AbilityBehaviourGroupId == awakenAbilityDetail.AbilityBehaviourGroupId)
+            .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
+            .ToArray();
+
+        if (!_costumeAbilityCache.TryGetValue((darkCostumeAwakenAbility.AbilityId, darkCostumeAwakenAbility.AbilityLevel), out CostumeAbility dbCostumeAwakenAbility))
         {
-            var result = new List<CostumeStat>();
-
-            var status = CalculatorCostume.GetDataCostumeStatus(costume);
-
-            var lvls = new[] { 1, CalculatorCostume.GetMaxLevel(costume, 0), CalculatorCostume.GetMaxLevel(costume, Config.GetCostumeLimitBreakAvailableCount()) };
-            var awakeningSteps = Enumerable.Range(0, Config.GetCostumeAwakenAvailableCount() + 1).ToArray();
-            var limitBreaks = new[] { 0, 0, Config.GetCostumeLimitBreakAvailableCount() };
-
-            DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(costume.CostumeId, out var costumeAwaken);
-            var costumeAwakenEffects = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable.All
-                .Where(x => x.CostumeAwakenEffectGroupId == costumeAwaken.CostumeAwakenEffectGroupId);
-
-            for (var i = 0; i < lvls.Length; i++)
+            dbCostumeAwakenAbility = new CostumeAbility
             {
-                status.Level = lvls[i];
-                var baseStatus = GetBaseStatus(status);
-                var costumeAbilities = CalculatorCostume.CreateCostumeDataAbilityList(costume.CostumeAbilityGroupId, limitBreaks[i]);
-
-                foreach (var awakeningStep in awakeningSteps)
-                {
-                    var abilities = GetCostumeAbilities(costumeAbilities, costumeAwakenEffects, awakeningStep);
-                    var abilityStatus = abilities.Where(x => !x.IsLocked).SelectMany(x => x.AbilityStatusList).ToList();
-
-                    var statusValue = CalculatorStatus.GetCostumeStatus(status, null, null, abilityStatus, null, null);
-                    var awakeningStatus = GetAwakeningStatus(costumeAwakenEffects, baseStatus, awakeningStep);
-
-                    result.Add(new CostumeStat
-                    {
-                        CostumeId = costume.CostumeId,
-                        Level = status.Level,
-                        AwakeningStep = awakeningStep,
-
-                        Attack = (statusValue + awakeningStatus).Attack,
-                        Agility = (statusValue + awakeningStatus).Agility,
-                        CriticalAttack = (statusValue + awakeningStatus).CriticalAttack,
-                        CriticalRate = (statusValue + awakeningStatus).CriticalRatio,
-                        EvasionRate = (statusValue + awakeningStatus).EvasionRatio,
-                        Hp = (statusValue + awakeningStatus).Hp,
-                        Vitality = (statusValue + awakeningStatus).Vitality
-                    });
-                }
-            }
-
-            return result;
-        }
-
-        private static List<DataAbility> GetCostumeAbilities(DataAbility[] costumeAbilities, IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, int awakeningStep)
-        {
-            List<DataAbility> abilities = new();
-
-            // Add standard abilities
-            abilities.AddRange(costumeAbilities);
-
-            // Add awakening abilities
-            foreach (var costumeAwakenEffect in costumeAwakenEffects.Where(x => x.CostumeAwakenEffectType == CostumeAwakenEffectType.ABILITY && x.AwakenStep <= awakeningStep))
-            {
-                if (DatabaseDefine.Master.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(costumeAwakenEffect.CostumeAwakenEffectId, out var awakenAbility))
-                {
-                    abilities.Add(CalculatorAbility.CreateDataAbility(awakenAbility.AbilityId, CalculatorAbility.MIN_LEVEL, CalculatorAbility.MIN_LEVEL));
-                }
-            }
-
-            return abilities;
-        }
-
-        private static StatusValue GetBaseStatus(DataCostumeStatus status)
-        {
-            CalculatorStatus.GetCostumeBaseStatus(status, out int agility, out int attack, out int criticalAttack, out int criticalRatio, out int evasionRatio, out int hp, out int vitality);
-
-            return new StatusValue(agility, attack, criticalAttack, criticalRatio, evasionRatio, hp, vitality);
-        }
-
-        private static StatusValue GetAwakeningStatus(IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, StatusValue baseStatus, int awakeningStep)
-        {
-            decimal awakeningMultiplier = costumeAwakenEffects
-                    .Where(x => x.CostumeAwakenEffectType == CostumeAwakenEffectType.STATUS_UP && x.AwakenStep <= awakeningStep)
-                    .Select(x => DatabaseDefine.Master.EntityMCostumeAwakenStatusUpGroupTable.All.FirstOrDefault(y => y.CostumeAwakenStatusUpGroupId == x.CostumeAwakenEffectId))
-                    .Sum(x => x.EffectValue) / 1000M;
-
-            return new StatusValue
-            {
-                Attack = (int)(baseStatus.Attack * awakeningMultiplier),
-                Hp = (int)(baseStatus.Hp * awakeningMultiplier),
-                Vitality = (int)(baseStatus.Vitality * awakeningMultiplier)
-            };
-        }
-
-        private static readonly IDictionary<int, Thought> _debrisCache = new Dictionary<int, Thought>();
-
-        private static Thought GetCostumeDebris(EntityMCostume costume)
-        {
-            DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(costume.CostumeId, out var costumeAwaken);
-            var costumeAwakenEffects = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable
-                .FindByCostumeAwakenEffectGroupIdAndCostumeAwakenEffectType((costumeAwaken.CostumeAwakenEffectGroupId, CostumeAwakenEffectType.ITEM_ACQUIRE));
-
-            if (costumeAwakenEffects.Count == 0) return null;
-
-            DatabaseDefine.Master.EntityMThoughtTable.TryFindByThoughtId(costumeAwakenEffects[0].CostumeAwakenEffectId, out var thought);
-
-            if (thought == null) return null;
-
-            if (_debrisCache.ContainsKey(thought.ThoughtId)) return _debrisCache[thought.ThoughtId];
-
-            var thoughtCatalog = DatabaseDefine.Master.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == thought.ThoughtId);
-            var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(thoughtCatalog.CatalogTermId);
-
-            var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(thought.AbilityId, thought.AbilityLevel);
-
-            var model = new Thought
-            {
-                ThoughtId = thought.ThoughtId,
-                RarityType = thought.RarityType,
-                ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
-                Name = CalculatorThought.GetName(thought.ThoughtAssetId),
-                ImagePathBase = $"ui/thought/thought{thought.ThoughtAssetId}/thought{thought.ThoughtAssetId}_standard.png",
-                DescriptionShort = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
-                DescriptionLong = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId)
+                AbilityId = darkCostumeAwakenAbility.AbilityId,
+                AbilityLevel = darkCostumeAwakenAbility.AbilityLevel,
+                BehaviourTypes = awakenBehaviorTypes,
+                Name = CalculatorAbility.GetName(awakenAbilityDetail.NameAbilityTextId),
+                Description = CalculatorAbility.GetDescriptionLong(awakenAbilityDetail.DescriptionAbilityTextId),
+                ImagePathBase = $"ui/ability/ability{awakenAssetId}/ability{awakenAssetId}_"
             };
 
-            _debrisCache.Add(model.ThoughtId, model);
-
-            return model;
+            _postgreDbContext.CostumeAbilities.Add(dbCostumeAwakenAbility);
+            _costumeAbilityCache[(darkCostumeAwakenAbility.AbilityId, darkCostumeAwakenAbility.AbilityLevel)] = dbCostumeAwakenAbility;
         }
 
-        #endregion Costume methods
-
-        #endregion Character methods
-
-        #region Weapons methods
-
-        public static async Task AddWeapons(PostgreDbContext db)
+        _postgreDbContext.CostumeAbilityLinks.Add(new CostumeAbilityLink
         {
-            Console.WriteLine("Dump weapons.");
+            CostumeId = darkCostume.CostumeId,
+            AbilityId = dbCostumeAwakenAbility.AbilityId,
+            AbilityLevel = dbCostumeAwakenAbility.AbilityLevel,
+            AbilitySlot = ++abilityCount,
+            IsAwaken = true
+        });
+    }
 
-            var evolutionGroups = DatabaseDefine.Master.EntityMWeaponEvolutionGroupTable.All.GroupBy(x => x.WeaponEvolutionGroupId);
-            foreach (var evolutionGroup in evolutionGroups)
-            {
-                var stage0 = evolutionGroup.ElementAt(0);
+    private static void CreateCostumeStats(EntityMCostume darkCostume)
+    {
+        var status = CalculatorCostume.GetDataCostumeStatus(darkCostume);
 
-                var baseWeapon = DatabaseDefine.Master.EntityMWeaponTable.FindByWeaponId(stage0.WeaponId);
-                var baseWeaponCatalog = DatabaseDefine.Master.EntityMCatalogWeaponTable.FindByWeaponId(baseWeapon.WeaponId);
-                var baseTermCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(baseWeaponCatalog.CatalogTermId);
+        var lvls = new[] { 1, CalculatorCostume.GetMaxLevel(darkCostume, 0), CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount()) };
+        var awakeningSteps = Enumerable.Range(0, Config.GetCostumeAwakenAvailableCount() + 1).ToArray();
+        var limitBreaks = new[] { 0, 0, Config.GetCostumeLimitBreakAvailableCount() };
 
-                foreach (var stage in evolutionGroup)
-                {
-                    var weapon = DatabaseDefine.Master.EntityMWeaponTable.FindByWeaponId(stage.WeaponId);
+        DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(darkCostume.CostumeId, out var darkCostumeAwaken);
+        var costumeAwakenEffects = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable.All
+            .Where(x => x.CostumeAwakenEffectGroupId == darkCostumeAwaken.CostumeAwakenEffectGroupId);
 
-                    var assetId = CalculatorWeapon.ActorAssetId(weapon);
-                    var weaponStories = GetWeaponStories(assetId).ToArray();
-                    var weaponName = CalculatorWeapon.WeaponName(weapon.WeaponId);
-
-                    var model = new Weapon
-                    {
-                        WeaponId = weapon.WeaponId,
-                        AssetId = assetId.ToString(),
-                        EvolutionGroupId = evolutionGroup.Key,
-                        EvolutionOrder = stage.EvolutionOrder,
-
-                        WeaponType = weapon.WeaponType.ToString(),
-                        Rarity = weapon.RarityType.ToString(),
-                        Attribute = weapon.AttributeType.ToString(),
-
-                        IsExWeapon = evolutionGroup.Count() > 2,
-                        ReleaseTime = CalculatorDateTime.FromUnixTime(baseTermCatalog.StartDatetime),
-
-                        WeaponSlug = Slugify(weaponName),
-                        Name = weaponName,
-                        ImagePathBase = $"ui/weapon/{assetId}/{assetId}_"
-                    };
-
-                    // Add weapon stories
-                    model.Stories = weaponStories.Select(x => new WeaponStoryLink
-                    {
-                        WeaponId = weapon.WeaponId,
-                        WeaponStoryId = x.Id,
-
-                        Story = x,
-                        Weapon = model
-                    }).ToList();
-
-                    foreach (var story in model.Stories)
-                        story.Story.Weapons.Add(story);
-
-                    // Add weapon skills
-                    var skills = GetWeaponSkillLevels(weapon.WeaponSkillGroupId, weapon.WeaponId);
-
-                    model.Skills = skills.SelectMany(x => x.Item2.Select(y => new WeaponSkillLink
-                    {
-                        WeaponId = weapon.WeaponId,
-                        SlotNumber = x.Item1,
-                        SkillId = y.SkillId,
-                        SkillLevel = y.SkillLevel,
-
-                        WeaponSkill = y,
-                        Weapon = model
-                    })).ToList();
-
-                    foreach (var s in model.Skills)
-                        s.WeaponSkill.Weapons.Add(s);
-
-                    // Add weapon abilities
-                    var abilities = GetWeaponAbilityLevels(weapon.WeaponAbilityGroupId);
-
-                    model.Abilities = abilities.SelectMany(x => x.Item2.Select(y => new WeaponAbilityLink
-                    {
-                        WeaponId = weapon.WeaponId,
-                        SlotNumber = x.Item1,
-                        AbilityId = y.AbilityId,
-                        AbilityLevel = y.AbilityLevel,
-
-                        WeaponAbility = y,
-                        Weapon = model
-                    })).ToList();
-
-                    foreach (var s in model.Abilities)
-                        s.WeaponAbility.Weapons.Add(s);
-
-                    // Add weapon status
-                    model.Stats = GetWeaponStats(weapon);
-
-                    foreach (var s in model.Stats)
-                        s.Weapon = model;
-
-                    await db.Weapons.AddAsync(model);
-                }
-            }
-        }
-
-        private static int _weaponStoryId = 1;
-        private static readonly IDictionary<string, WeaponStory> _storyCache = new Dictionary<string, WeaponStory>();
-
-        private static IEnumerable<WeaponStory> GetWeaponStories(ActorAssetId assetId)
+        for (var i = 0; i < lvls.Length; i++)
         {
-            var stories = LocalizationExtensions.Localizations.Where(x => x.Key.StartsWith($"weapon.story.{assetId}.")).ToArray();
-            foreach (var story in stories)
+            status.Level = lvls[i];
+            var baseStatus = GetBaseStatus(status);
+            var costumeAbilities = CalculatorCostume.CreateCostumeDataAbilityList(darkCostume.CostumeAbilityGroupId, limitBreaks[i]);
+
+            foreach (var awakeningStep in awakeningSteps)
             {
-                if (_storyCache.ContainsKey(story.Value))
-                {
-                    yield return _storyCache[story.Value];
-                    continue;
-                }
-
-                var result = new WeaponStory
-                {
-                    Id = _weaponStoryId++,
-                    Story = story.Value,
-
-                    Weapons = new List<WeaponStoryLink>()
-                };
-                _storyCache[story.Value] = result;
-
-                yield return result;
-            }
-        }
-
-        private static readonly IDictionary<(int, int), WeaponSkill> _weaponSkillCache = new Dictionary<(int, int), WeaponSkill>();
-
-        private static List<(int, List<WeaponSkill>)> GetWeaponSkillLevels(int skillGroupId, int weaponId)
-        {
-            var result = new List<(int, List<WeaponSkill>)>();
-
-            var evolution = CalculatorWeapon.GetWeaponEvolutionGroupIdAndEvolutionOrder(weaponId);
-            var skillGroups = CalculatorMasterData.GetEntityMWeaponSkillGroups(skillGroupId);
-
-            foreach (var skillGroup in skillGroups)
-            {
-                var innerResult = new List<WeaponSkill>();
-                for (var skillLvl = CalculatorSkill.MIN_LEVEL; skillLvl <= CalculatorSkill.MAX_LEVEL; skillLvl++)
-                {
-                    var skill = CalculatorSkill.CreateDataWeaponSkill(skillGroup.SkillId, skillLvl, CalculatorSkill.MAX_LEVEL, evolution.Item2, skillGroup.SlotNumber);
-                    var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
-
-                    if (_weaponSkillCache.ContainsKey((skill.SkillId, skillLvl)))
-                    {
-                        innerResult.Add(_weaponSkillCache[(skill.SkillId, skillLvl)]);
-                        continue;
-                    }
-
-                    var model = new WeaponSkill
-                    {
-                        SkillId = skill.SkillId,
-                        SkillLevel = skillLvl,
-
-                        CooldownTime = CalculatorSkill.GetEntityMSkillDetail(CalculatorSkill.GetSkillDetailId(skill.SkillId, skillLvl)).SkillCooltimeValue,
-
-                        Name = skill.SkillName,
-                        Description = skill.SkillDescriptionText,
-                        ShortDescription = skill.SkillDescriptionShortText,
-                        ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
-
-                        Weapons = new List<WeaponSkillLink>()
-                    };
-
-                    innerResult.Add(model);
-                    _weaponSkillCache[(skill.SkillId, skillLvl)] = model;
-                }
-
-                result.Add((skillGroup.SlotNumber, innerResult));
-            }
-
-            return result;
-        }
-
-        private static readonly IDictionary<(int, int), WeaponAbility> _weaponAbilityCache = new Dictionary<(int, int), WeaponAbility>();
-
-        private static List<(int, List<WeaponAbility>)> GetWeaponAbilityLevels(int abilityGroupId)
-        {
-            var abilityGroup = CalculatorMasterData.GetEntityMWeaponAbilityGroupList(abilityGroupId);
-
-            var result = new List<(int, List<WeaponAbility>)>();
-            foreach (var ability in abilityGroup)
-            {
-                var innerResult = new List<WeaponAbility>();
-                for (var i = CalculatorAbility.MIN_LEVEL; i <= CalculatorAbility.MAX_LEVEL; i++)
-                {
-                    var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(ability.AbilityId, i);
-                    var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
-
-                    if (_weaponAbilityCache.ContainsKey((ability.AbilityId, i)))
-                    {
-                        innerResult.Add(_weaponAbilityCache[(ability.AbilityId, i)]);
-                        continue;
-                    }
-
-                    var weaponAbility = new WeaponAbility
-                    {
-                        AbilityId = ability.AbilityId,
-                        AbilityLevel = i,
-                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
-                        Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
-                        ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
-
-                        Weapons = new List<WeaponAbilityLink>()
-                    };
-
-                    innerResult.Add(weaponAbility);
-                    _weaponAbilityCache[(ability.AbilityId, i)] = weaponAbility;
-                }
-
-                result.Add((ability.SlotNumber, innerResult));
-            }
-
-            return result;
-        }
-
-        private static List<WeaponStat> GetWeaponStats(EntityMWeapon weapon)
-        {
-            var result = new List<WeaponStat>();
-
-            var status = CalculatorWeapon.GetDataWeaponStatus(weapon);
-
-            var lvls = new[] { 1, CalculatorWeapon.GetWeaponMaxLevel(weapon, 0), CalculatorWeapon.GetWeaponMaxLevel(weapon, Config.GetWeaponLimitBreakAvailableCount()) };
-            var limitBreaks = new[] { 0, 0, Config.GetWeaponLimitBreakAvailableCount() };
-
-            for (var i = 0; i < 3; i++)
-            {
-                status.Level = lvls[i];
-
-                // Collect abilities
-                var abilities = new List<DataAbility>();
-
-                var abilityGroups = CalculatorMasterData.GetEntityMWeaponAbilityGroupList(weapon.WeaponAbilityGroupId);
-                foreach (var abilityGroup in abilityGroups)
-                {
-                    var abilityMaxLvl = CalculatorWeapon.GetWeaponMaxAbilityLevel(weapon.WeaponSpecificEnhanceId, weapon.RarityType, limitBreaks[i]);
-                    var abilityLvl = Math.Min(abilityMaxLvl, CalculatorAbility.MAX_LEVEL);
-
-                    abilities.Add(CalculatorAbility.CreateDataAbility(abilityGroup.AbilityId, abilityGroup.SlotNumber, abilityLvl, abilityMaxLvl));
-                }
-
+                var abilities = GetCostumeAbilities(costumeAbilities, costumeAwakenEffects, awakeningStep);
                 var abilityStatus = abilities.Where(x => !x.IsLocked).SelectMany(x => x.AbilityStatusList).ToList();
 
-                // Create status value
-                var statusValue = CalculatorStatus.GetWeaponStatus(status, abilityStatus);
-                result.Add(new WeaponStat
+                var statusValue = CalculatorStatus.GetCostumeStatus(status, null, null, abilityStatus, null, null);
+                var awakeningStatus = GetAwakeningStatus(costumeAwakenEffects, baseStatus, awakeningStep);
+
+                _postgreDbContext.CostumeStats.Add(new CostumeStat
                 {
-                    WeaponId = weapon.WeaponId,
+                    Agility = (statusValue + awakeningStatus).Agility,
+                    Attack = (statusValue + awakeningStatus).Attack,
+                    AwakeningStep = awakeningStep,
+                    CostumeId = darkCostume.CostumeId,
+                    CriticalAttack = (statusValue + awakeningStatus).CriticalAttack,
+                    CriticalRate = (statusValue + awakeningStatus).CriticalRatio,
+                    EvasionRate = (statusValue + awakeningStatus).EvasionRatio,
+                    Hp = (statusValue + awakeningStatus).Hp,
                     Level = status.Level,
-
-                    Attack = statusValue.Attack,
-                    Hp = statusValue.Hp,
-                    Vitality = statusValue.Vitality
+                    Vitality = (statusValue + awakeningStatus).Vitality
                 });
             }
-
-            return result;
         }
+    }
 
-        #endregion Weapons methods
+    private static List<DataAbility> GetCostumeAbilities(DataAbility[] costumeAbilities, IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, int awakeningStep)
+    {
+        List<DataAbility> abilities = new();
 
-        #region Companion methods
+        // Add standard abilities
+        abilities.AddRange(costumeAbilities);
 
-        private static async Task AddCompanions(PostgreDbContext db)
+        // Add awakening abilities
+        foreach (var costumeAwakenEffect in costumeAwakenEffects.Where(x => x.CostumeAwakenEffectType == CostumeAwakenEffectType.ABILITY && x.AwakenStep <= awakeningStep))
         {
-            Console.WriteLine("Dump companions.");
-
-            foreach (var companion in DatabaseDefine.Master.EntityMCompanionTable.All)
+            if (DatabaseDefine.Master.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(costumeAwakenEffect.CostumeAwakenEffectId, out var awakenAbility))
             {
-                if (companion.CompanionId >= 8000000)
-                    continue;
-
-                var actorAssetId = CalculatorCompanion.ActorAssetId(companion);
-
-                var companionCatalog = DatabaseDefine.Master.EntityMCatalogCompanionTable.FindByCompanionId(companion.CompanionId);
-                var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(companionCatalog.CatalogTermId);
-
-                var model = new Companion
-                {
-                    CompanionId = companion.CompanionId,
-
-                    Attribute = companion.AttributeType.ToString(),
-                    Type = companion.CompanionCategoryType.ToString(),
-
-                    ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
-
-                    Name = CalculatorCompanion.CompanionName(companion.CompanionId),
-                    Story = CalculatorCompanion.CompanionDescription(companion.CompanionId),
-                    ImagePathBase = $"ui/companion/{actorAssetId}/{actorAssetId}_"
-                };
-
-                // Add companion skill
-                var skill = GetCompanionSkillLevels(companion.SkillId);
-
-                model.Skill = skill.ConvertAll(x => new CompanionSkillLink
-                {
-                    CompanionId = companion.CompanionId,
-                    CompanionLevel = x.Item1,
-                    SkillId = x.Item2.SkillId,
-                    SkillLevel = x.Item2.SkillLevel,
-
-                    Companion = model,
-                    Skill = x.Item2
-                });
-
-                foreach (var s in model.Skill)
-                    s.Skill.Companions.Add(s);
-
-                // Add companion ability
-                var ability = GetCompanionAbilityLevels(companion);
-
-                model.Ability = ability.ConvertAll(x => new CompanionAbilityLink
-                {
-                    CompanionId = companion.CompanionId,
-                    CompanionLevel = x.Item1,
-                    AbilityId = x.Item2.AbilityId,
-                    AbilityLevel = x.Item2.AbilityLevel,
-
-                    Companion = model,
-                    Ability = x.Item2
-                });
-
-                foreach (var s in model.Ability)
-                    s.Ability.Companions.Add(s);
-
-                // Add companion stats
-                model.Stats = GetCompanionStats(companion);
-
-                foreach (var s in model.Stats)
-                    s.Companion = model;
-
-                await db.Companions.AddAsync(model);
+                abilities.Add(CalculatorAbility.CreateDataAbility(awakenAbility.AbilityId, CalculatorAbility.MIN_LEVEL, CalculatorAbility.MIN_LEVEL));
             }
         }
 
-        private static readonly IDictionary<(int, int), CompanionSkill> _compSkillCache = new Dictionary<(int, int), CompanionSkill>();
+        return abilities;
+    }
 
-        private static List<(int, CompanionSkill)> GetCompanionSkillLevels(int skillId)
+    private static StatusValue GetBaseStatus(DataCostumeStatus status)
+    {
+        CalculatorStatus.GetCostumeBaseStatus(status, out int agility, out int attack, out int criticalAttack, out int criticalRatio, out int evasionRatio, out int hp, out int vitality);
+
+        return new StatusValue(agility, attack, criticalAttack, criticalRatio, evasionRatio, hp, vitality);
+    }
+
+    private static StatusValue GetAwakeningStatus(IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, StatusValue baseStatus, int awakeningStep)
+    {
+        decimal awakeningMultiplier = costumeAwakenEffects
+                .Where(x => x.CostumeAwakenEffectType == CostumeAwakenEffectType.STATUS_UP && x.AwakenStep <= awakeningStep)
+                .Select(x => DatabaseDefine.Master.EntityMCostumeAwakenStatusUpGroupTable.All.FirstOrDefault(y => y.CostumeAwakenStatusUpGroupId == x.CostumeAwakenEffectId))
+                .Sum(x => x.EffectValue) / 1000M;
+
+        return new StatusValue
         {
-            var result = new List<(int, CompanionSkill)>();
-            for (var companionLevel = 1; companionLevel <= 50; companionLevel++)
-            {
-                var skill = CalculatorCompanion.GetCompanionSkill(skillId, companionLevel);
+            Attack = (int)(baseStatus.Attack * awakeningMultiplier),
+            Hp = (int)(baseStatus.Hp * awakeningMultiplier),
+            Vitality = (int)(baseStatus.Vitality * awakeningMultiplier)
+        };
+    }
 
+    #endregion Costumes
+
+    #region Weapons
+
+    private static async Task AddWeaponsAsync()
+    {
+        WriteLineWithTimestamp("Weapons");
+        foreach (var darkWeapon in DatabaseDefine.Master.EntityMWeaponTable.All)
+        {
+            if (darkWeapon.WeaponId >= 8000000) continue;
+            if (_weaponCache.Contains(darkWeapon.WeaponId)) continue;
+
+            var darkWeaponEvolution = DatabaseDefine.Master.EntityMWeaponEvolutionGroupTable.FindByWeaponId(darkWeapon.WeaponId).FirstOrDefault();
+            if (darkWeaponEvolution == null) continue;
+
+            var baseDarkWeaponId = darkWeaponEvolution.EvolutionOrder == 1
+                ? darkWeapon.WeaponId
+                : DatabaseDefine.Master.EntityMWeaponEvolutionGroupTable.FindClosestByWeaponEvolutionGroupIdAndEvolutionOrder((darkWeaponEvolution.WeaponEvolutionGroupId, 1))?.WeaponId;
+            if (baseDarkWeaponId == null) continue;
+
+            var darkBaseCatalogWeapon = DatabaseDefine.Master.EntityMCatalogWeaponTable.FindByWeaponId(baseDarkWeaponId.Value);
+            var darkCatalogTerm = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(darkBaseCatalogWeapon.CatalogTermId);
+
+            var assetId = CalculatorWeapon.ActorAssetId(darkWeapon);
+            var weaponName = CalculatorWeapon.WeaponName(darkWeapon.WeaponId);
+
+            _postgreDbContext.Weapons.Add(new Weapon
+            {
+                AssetId = assetId.ToString(),
+                Attribute = darkWeapon.AttributeType.ToString(),
+                EvolutionGroupId = darkWeaponEvolution.WeaponEvolutionGroupId,
+                EvolutionOrder = darkWeaponEvolution.EvolutionOrder,
+                ImagePathBase = $"ui/weapon/{assetId}/{assetId}_",
+                IsExWeapon = darkWeapon.WeaponId >= 410000 && darkWeapon.WeaponId < 500000,
+                IsSubjugationWeapon = darkWeapon.WeaponId >= 500000 && darkWeapon.WeaponId < 510000,
+                IsRdWeapon = darkWeapon.WeaponId >= 510000 && darkWeapon.WeaponId < 600000,
+                Name = weaponName,
+                Rarity = darkWeapon.RarityType.ToString(),
+                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                WeaponId = darkWeapon.WeaponId,
+                WeaponSlug = Slugify(weaponName),
+                WeaponType = darkWeapon.WeaponType.ToString()
+            });
+
+            CreateWeaponSkills(darkWeapon);
+            CreateWeaponAbilities(darkWeapon);
+            CreateWeaponStats(darkWeapon);
+            CreateWeaponStories(darkWeapon);
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static void CreateWeaponSkills(EntityMWeapon darkWeapon)
+    {
+        var evolution = CalculatorWeapon.GetWeaponEvolutionGroupIdAndEvolutionOrder(darkWeapon.WeaponId);
+        var darkWeaponSkillGroups = CalculatorMasterData.GetEntityMWeaponSkillGroups(darkWeapon.WeaponSkillGroupId);
+
+        foreach (var darkWeaponSkillGroup in darkWeaponSkillGroups)
+        {
+            for (var i = CalculatorSkill.MIN_LEVEL; i <= CalculatorSkill.MAX_LEVEL; i++)
+            {
+                var skill = CalculatorSkill.CreateDataWeaponSkill(darkWeaponSkillGroup.SkillId, i, CalculatorSkill.MAX_LEVEL, evolution.Item2, darkWeaponSkillGroup.SlotNumber);
+                var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
+                var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
                 var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
+                    .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType.ToString())
+                    .ToArray();
 
-                if (_compSkillCache.ContainsKey((skill.SkillId, skill.SkillLevel)))
+                if (!_weaponSkillCache.TryGetValue((skill.SkillId, i), out WeaponSkill dbWeaponSkill))
                 {
-                    result.Add((companionLevel, _compSkillCache[(skill.SkillId, skill.SkillLevel)]));
-                    continue;
+                    dbWeaponSkill = new WeaponSkill
+                    {
+                        ActType = darkSkillDetail.SkillActType.ToString(),
+                        BehaviourTypes = behaviorTypes,
+                        CooldownTime = darkSkillDetail.SkillCooltimeValue,
+                        Description = skill.SkillDescriptionText,
+                        ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
+                        Name = skill.SkillName,
+                        ShortDescription = skill.SkillDescriptionShortText,
+                        SkillId = skill.SkillId,
+                        SkillLevel = i
+                    };
+
+                    _postgreDbContext.WeaponSkills.Add(dbWeaponSkill);
+                    _weaponSkillCache[(skill.SkillId, i)] = dbWeaponSkill;
                 }
 
-                var model = new CompanionSkill
+                _postgreDbContext.WeaponSkillLinks.Add(new WeaponSkillLink
                 {
-                    SkillId = skill.SkillId,
-                    SkillLevel = skill.SkillLevel,
-
-                    CooldownTime = CalculatorSkill.GetEntityMSkillDetail(CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel)).SkillCooltimeValue,
-
-                    Name = skill.SkillName,
-                    Description = skill.SkillDescriptionText,
-                    ShortDescription = skill.SkillDescriptionShortText,
-                    ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
-
-                    Companions = new List<CompanionSkillLink>()
-                };
-
-                result.Add((companionLevel, model));
-                _compSkillCache[(skill.SkillId, skill.SkillLevel)] = model;
+                    SkillId = dbWeaponSkill.SkillId,
+                    SkillLevel = dbWeaponSkill.SkillLevel,
+                    SlotNumber = skill.SlotNumber,
+                    WeaponId = darkWeapon.WeaponId
+                });
             }
+        }
+    }
 
-            return result;
+    private static void CreateWeaponAbilities(EntityMWeapon darkWeapon)
+    {
+        int abilityCount = 0;
+        var darkWeaponAbilityGroups = CalculatorMasterData.GetEntityMWeaponAbilityGroupList(darkWeapon.WeaponAbilityGroupId);
+
+        foreach (var darkWeaponAbilityGroup in darkWeaponAbilityGroups)
+        {
+            abilityCount++;
+            for (var i = CalculatorAbility.MIN_LEVEL; i <= CalculatorAbility.MAX_LEVEL; i++)
+            {
+                var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkWeaponAbilityGroup.AbilityId, i);
+                var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                    .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
+                    .ToArray();
+
+                if (!_weaponAbilityCache.TryGetValue((darkWeaponAbilityGroup.AbilityId, i), out WeaponAbility dbWeaponAbility))
+                {
+                    dbWeaponAbility = new WeaponAbility
+                    {
+                        AbilityId = darkWeaponAbilityGroup.AbilityId,
+                        AbilityLevel = i,
+                        BehaviourTypes = behaviorTypes,
+                        Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
+                        ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
+                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId)
+                    };
+
+                    _postgreDbContext.WeaponAbilities.Add(dbWeaponAbility);
+                    _weaponAbilityCache[(darkWeaponAbilityGroup.AbilityId, i)] = dbWeaponAbility;
+                }
+
+                _postgreDbContext.WeaponAbilityLinks.Add(new WeaponAbilityLink
+                {
+                    AbilityId = dbWeaponAbility.AbilityId,
+                    AbilityLevel = dbWeaponAbility.AbilityLevel,
+                    SlotNumber = darkWeaponAbilityGroup.SlotNumber,
+                    WeaponId = darkWeapon.WeaponId
+                });
+            }
         }
 
-        private static readonly IDictionary<(int, int), CompanionAbility> _compAbilityCache = new Dictionary<(int, int), CompanionAbility>();
+        DatabaseDefine.Master.EntityMWeaponAwakenTable.TryFindByWeaponId(darkWeapon.WeaponId, out EntityMWeaponAwaken darkWeaponAwaken);
 
-        private static List<(int, CompanionAbility)> GetCompanionAbilityLevels(EntityMCompanion companion)
+        if (darkWeaponAwaken != null)
         {
-            var result = new List<(int, CompanionAbility)>();
-            for (var companionLevel = 1; companionLevel <= 50; companionLevel++)
-            {
-                var ability = CalculatorCompanion.GetCompanionAbility(companion, companionLevel);
-                var assetId = $"{ability.AbilityCategoryId:D3}{ability.AbilityVariationId:D3}";
+            var darkWeaponAwakenEffectGroup = DatabaseDefine.Master.EntityMWeaponAwakenEffectGroupTable
+                .FindByWeaponAwakenEffectGroupIdAndWeaponAwakenEffectType((darkWeaponAwaken.WeaponAwakenEffectGroupId, (int)CostumeAwakenEffectType.ABILITY));
 
-                if (_compAbilityCache.ContainsKey((ability.AbilityId, ability.AbilityLevel)))
+            var darkWeaponAwakenAbility = DatabaseDefine.Master.EntityMWeaponAwakenAbilityTable.FindByWeaponAwakenAbilityId(darkWeaponAwakenEffectGroup.WeaponAwakenEffectId);
+
+            if (darkWeaponAwakenAbility != null)
+            {
+                var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkWeaponAwakenAbility.AbilityId, darkWeaponAwakenAbility.AbilityLevel);
+                var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
+                var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                    .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                    .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
+                    .ToArray();
+
+                if (!_weaponAbilityCache.TryGetValue((darkWeaponAwakenAbility.AbilityId, darkWeaponAwakenAbility.AbilityLevel), out WeaponAbility dbWeaponAwakenAbility))
                 {
-                    result.Add((companionLevel, _compAbilityCache[(ability.AbilityId, ability.AbilityLevel)]));
-                    continue;
+                    dbWeaponAwakenAbility = new WeaponAbility
+                    {
+                        AbilityId = darkWeaponAwakenAbility.AbilityId,
+                        AbilityLevel = darkWeaponAwakenAbility.AbilityLevel,
+                        BehaviourTypes = behaviorTypes,
+                        Description = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId),
+                        ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
+                        Name = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId)
+                    };
+
+                    _postgreDbContext.WeaponAbilities.Add(dbWeaponAwakenAbility);
+                    _weaponAbilityCache[(darkWeaponAwakenAbility.AbilityId, darkWeaponAwakenAbility.AbilityLevel)] = dbWeaponAwakenAbility;
                 }
 
-                var companionAbility = new CompanionAbility
+                _postgreDbContext.WeaponAbilityLinks.Add(new WeaponAbilityLink
+                {
+                    AbilityId = dbWeaponAwakenAbility.AbilityId,
+                    AbilityLevel = dbWeaponAwakenAbility.AbilityLevel,
+                    IsAwaken = true,
+                    SlotNumber = ++abilityCount,
+                    WeaponId = darkWeapon.WeaponId
+                });
+            }
+        }
+    }
+
+    private static void CreateWeaponStats(EntityMWeapon darkWeapon)
+    {
+        DataWeaponStatus status = CalculatorWeapon.GetDataWeaponStatus(darkWeapon);
+
+        int[] lvls = new[] { 1, CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, 0), CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount()) };
+        int[] limitBreaks = new[] { 0, 0, Config.GetWeaponLimitBreakAvailableCount() };
+
+        for (var i = 0; i < lvls.Length; i++)
+        {
+            status.Level = lvls[i];
+            var abilityStatuses = CalculatorMasterData.GetEntityMWeaponAbilityGroupList(darkWeapon.WeaponAbilityGroupId)
+                .Select(x => CalculatorAbility.CreateDataAbility(x.AbilityId, x.SlotNumber, status.Level, CalculatorAbility.MAX_LEVEL))
+                .Where(x => !x.IsLocked)
+                .SelectMany(x => x.AbilityStatusList)
+                .ToList();
+            StatusValue stats = CalculatorStatus.GetWeaponStatus(status, abilityStatuses);
+
+            _postgreDbContext.WeaponStats.Add(new WeaponStat
+            {
+                Attack = stats.Attack,
+                Hp = stats.Hp,
+                Level = status.Level,
+                Vitality = stats.Vitality,
+                WeaponId = darkWeapon.WeaponId
+            });
+        }
+    }
+
+    private static void CreateWeaponStories(EntityMWeapon darkWeapon)
+    {
+        var assetId = CalculatorWeapon.ActorAssetId(darkWeapon);
+
+        foreach (var weaponStory in LocalizationExtensions.Localizations.Where(x => x.Key.StartsWith($"weapon.story.{assetId}.")).ToArray())
+        {
+            WeaponStory dbWeaponStory = new()
+            {
+                Story = weaponStory.Value
+            };
+            _postgreDbContext.WeaponStories.Add(dbWeaponStory);
+            _postgreDbContext.WeaponStoryLinks.Add(new WeaponStoryLink
+            {
+                WeaponId = darkWeapon.WeaponId,
+                Story = dbWeaponStory
+            });
+        }
+    }
+
+    #endregion Weapons
+
+    #region Companion methods
+
+    private static async Task AddCompanionsAsync()
+    {
+        WriteLineWithTimestamp("Companions");
+
+        foreach (var darkCompanion in DatabaseDefine.Master.EntityMCompanionTable.All)
+        {
+            if (darkCompanion.CompanionId >= 8000000) continue;
+            if (_companionCache.Contains(darkCompanion.CompanionId)) continue;
+
+            var darkCatalogCompanion = DatabaseDefine.Master.EntityMCatalogCompanionTable.FindByCompanionId(darkCompanion.CompanionId);
+            var darkCatalogTerm = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogCompanion.CatalogTermId);
+            var actorAssetId = CalculatorCompanion.ActorAssetId(darkCompanion);
+
+            _postgreDbContext.Companions.Add(new Companion
+            {
+                Attribute = darkCompanion.AttributeType.ToString(),
+                CompanionId = darkCompanion.CompanionId,
+                ImagePathBase = $"ui/companion/{actorAssetId}/{actorAssetId}_",
+                Name = CalculatorCompanion.CompanionName(darkCompanion.CompanionId),
+                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                Story = CalculatorCompanion.CompanionDescription(darkCompanion.CompanionId),
+                Type = darkCompanion.CompanionCategoryType
+            });
+
+            CreateCompanionSkills(darkCompanion);
+            CreateCompanionAbilities(darkCompanion);
+            CreateCompanionStats(darkCompanion);
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static void CreateCompanionSkills(EntityMCompanion darkCompanion)
+    {
+        for (var i = 1; i <= 50; i++)
+        {
+            var skill = CalculatorCompanion.GetCompanionSkill(darkCompanion.SkillId, i);
+            var skillDetailId = CalculatorSkill.GetSkillDetailId(skill.SkillId, skill.SkillLevel);
+            var darkSkillDetail = CalculatorSkill.GetEntityMSkillDetail(skillDetailId);
+            var assetId = $"{skill.AssetCategoryId:D3}{skill.AssetVariationId:D3}";
+            var behaviorTypes = DatabaseDefine.Master.EntityMSkillBehaviourGroupTable.All
+                .Where(x => x.SkillBehaviourGroupId == darkSkillDetail.SkillBehaviourGroupId)
+                .Select(x => DatabaseDefine.Master.EntityMSkillBehaviourTable.FindBySkillBehaviourId(x.SkillBehaviourId).SkillBehaviourType.ToString())
+                .ToArray();
+
+            if (!_companionSkillCache.TryGetValue((skill.SkillId, skill.SkillLevel), out CompanionSkill dbCompanionSkill))
+            {
+                dbCompanionSkill = new CompanionSkill
+                {
+                    ActType = darkSkillDetail.SkillActType.ToString(),
+                    BehaviourTypes = behaviorTypes,
+                    CooldownTime = darkSkillDetail.SkillCooltimeValue,
+                    Description = skill.SkillDescriptionText,
+                    ImagePath = $"ui/skill/skillcategory{skill.AssetCategoryId}/skill{assetId}/skill{assetId}_standard.png",
+                    Name = skill.SkillName,
+                    ShortDescription = skill.SkillDescriptionShortText,
+                    SkillId = skill.SkillId,
+                    SkillLevel = skill.SkillLevel
+                };
+
+                _postgreDbContext.CompanionSkills.Add(dbCompanionSkill);
+                _companionSkillCache[(skill.SkillId, skill.SkillLevel)] = dbCompanionSkill;
+            }
+
+            _postgreDbContext.CompanionSkillLinks.Add(new CompanionSkillLink
+            {
+                CompanionId = darkCompanion.CompanionId,
+                CompanionLevel = i,
+                SkillId = dbCompanionSkill.SkillId,
+                SkillLevel = dbCompanionSkill.SkillLevel
+            });
+        }
+    }
+
+    private static void CreateCompanionAbilities(EntityMCompanion darkCompanion)
+    {
+        for (var i = 1; i <= 50; i++)
+        {
+            var ability = CalculatorCompanion.GetCompanionAbility(darkCompanion, i);
+            var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(ability.AbilityId, i);
+            var assetId = $"{ability.AbilityCategoryId:D3}{ability.AbilityVariationId:D3}";
+            var behaviorTypes = DatabaseDefine.Master.EntityMAbilityBehaviourGroupTable.All
+                .Where(x => x.AbilityBehaviourGroupId == abilityDetail.AbilityBehaviourGroupId)
+                .Select(x => DatabaseDefine.Master.EntityMAbilityBehaviourTable.FindByAbilityBehaviourId(x.AbilityBehaviourId).AbilityBehaviourType.ToString())
+                .ToArray();
+
+            if (!_companionAbilityCache.TryGetValue((ability.AbilityId, ability.AbilityLevel), out CompanionAbility dbCompanionAbility))
+            {
+                dbCompanionAbility = new CompanionAbility
                 {
                     AbilityId = ability.AbilityId,
                     AbilityLevel = ability.AbilityLevel,
-                    Name = ability.AbilityName,
+                    BehaviourTypes = behaviorTypes,
                     Description = ability.AbilityDescriptionText,
                     ImagePathBase = $"ui/ability/ability{assetId}/ability{assetId}_",
-
-                    Companions = new List<CompanionAbilityLink>()
+                    Name = ability.AbilityName
                 };
 
-                result.Add((companionLevel, companionAbility));
-                _compAbilityCache[(companionAbility.AbilityId, companionAbility.AbilityLevel)] = companionAbility;
+                _postgreDbContext.CompanionAbilities.Add(dbCompanionAbility);
+                _companionAbilityCache[(ability.AbilityId, ability.AbilityLevel)] = dbCompanionAbility;
             }
 
-            return result;
-        }
-
-        private static List<CompanionStat> GetCompanionStats(EntityMCompanion companion)
-        {
-            var result = new List<CompanionStat>();
-
-            var status = CalculatorCompanion.GetDataCompanionStatus(companion);
-
-            var lvls = new[] { 1, 50 };
-
-            for (var i = 0; i < 2; i++)
+            _postgreDbContext.CompanionAbilityLinks.Add(new CompanionAbilityLink
             {
-                status.Level = lvls[i];
-
-                // Get ability
-                var ability = CalculatorCompanion.GetCompanionAbility(companion, status.Level);
-
-                // Create status value
-                var statusValue = CalculatorStatus.GetCompanionStatus(status, ability.AbilityStatusList);
-
-                result.Add(new CompanionStat
-                {
-                    CompanionId = companion.CompanionId,
-                    Level = status.Level,
-
-                    Attack = statusValue.Attack,
-                    Hp = statusValue.Hp,
-                    Vitality = statusValue.Vitality
-                });
-            }
-
-            return result;
+                AbilityId = dbCompanionAbility.AbilityId,
+                AbilityLevel = dbCompanionAbility.AbilityLevel,
+                CompanionId = darkCompanion.CompanionId,
+                CompanionLevel = i
+            });
         }
-
-        #endregion Companion methods
-
-        #region Memoir methods
-
-        private static async Task AddMemoirs(PostgreDbContext db)
-        {
-            Console.WriteLine("Dump memoirs.");
-
-            var memoirSeries = GetMemoirSeries();
-
-            foreach (var memoir in DatabaseDefine.Master.EntityMPartsTable.All.OrderBy(x => x.PartsId))
-            {
-                if (memoir.PartsId >= 8000)
-                    continue;
-
-                var memoirGroup = DatabaseDefine.Master.EntityMPartsGroupTable.FindByPartsGroupId(memoir.PartsGroupId);
-                var series = memoirSeries.Find(x => x.MemoirSeriesId == memoirGroup.PartsSeriesId);
-
-                var partsCatalog = DatabaseDefine.Master.EntityMCatalogPartsGroupTable.FindByPartsGroupId(memoirGroup.PartsGroupId);
-                var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(partsCatalog.CatalogTermId);
-
-                var model = new Memoir
-                {
-                    MemoirId = memoir.PartsId,
-                    InitialLotteryId = memoir.PartsInitialLotteryId,
-                    Rarity = memoir.RarityType.ToString(),
-
-                    ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
-
-                    Name = CalculatorMemory.MemoryName(memoir.PartsId),
-                    Story = CalculatorMemory.MemoryDescription(memoir.PartsId),
-                    ImagePathBase = $"ui/memory/memory{memoirGroup.PartsGroupAssetId:D3}/memory{memoirGroup.PartsGroupAssetId:D3}_",
-
-                    MemoirSeries = series
-                };
-
-                series?.Memoirs.Add(model);
-
-                await db.Memoirs.AddAsync(model);
-            }
-        }
-
-        private static List<MemoirSeries> GetMemoirSeries()
-        {
-            var result = new List<MemoirSeries>();
-
-            foreach (var series in DatabaseDefine.Master.EntityMPartsSeriesTable.All)
-            {
-                var abilityGroup = CalculatorMemory.GetEntityMPartsSeriesBonusAbilityGroup(series.PartsSeriesBonusAbilityGroupId, CalculatorMemory.kMaxBonusSetCount);
-
-                var smallAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(abilityGroup[0].AbilityId, abilityGroup[0].AbilityLevel);
-                var largeAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(abilityGroup[1].AbilityId, abilityGroup[1].AbilityLevel);
-
-                result.Add(new MemoirSeries
-                {
-                    MemoirSeriesId = series.PartsSeriesId,
-
-                    Name = CalculatorMemory.MemorySeriesName(series.PartsSeriesId),
-                    SmallSetDescription = CalculatorAbility.GetDescriptionLong(smallAbilityDetail.DescriptionAbilityTextId),
-                    LargeSetDescription = CalculatorAbility.GetDescriptionLong(largeAbilityDetail.DescriptionAbilityTextId),
-
-                    Memoirs = new List<Memoir>()
-                });
-            }
-
-            return result;
-        }
-
-        #endregion Memoir methods
-
-        #region Debris methods
-
-        private static async Task AddThoughts(PostgreDbContext db)
-        {
-            Console.WriteLine("Dump debris.");
-
-            foreach (var debris in DatabaseDefine.Master.EntityMThoughtTable.All)
-            {
-                var thoughtCatalog = DatabaseDefine.Master.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == debris.ThoughtId);
-                var termCatalog = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(thoughtCatalog.CatalogTermId);
-                var ThoughtAssetId = debris.ThoughtAssetId.ToString().PadLeft(6, '0');
-
-                var model = new Thought
-                {
-                    ThoughtId = debris.ThoughtId,
-                    RarityType = debris.RarityType,
-
-                    ReleaseTime = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
-
-                    Name = CalculatorThought.GetName(debris.ThoughtAssetId),
-                    ImagePathBase = $"ui/thought/thought{ThoughtAssetId}/thought{ThoughtAssetId}_standard.png"
-                };
-
-                await db.Thoughts.AddAsync(model);
-            }
-        }
-
-        #endregion Debris methods
-
-        private static (StatusKindType, int) GetStatus(StatusValue value)
-        {
-            if (value.Agility > 0)
-                return (StatusKindType.AGILITY, value.Agility);
-
-            if (value.Attack > 0)
-                return (StatusKindType.ATTACK, value.Attack);
-
-            if (value.CriticalAttack > 0)
-                return (StatusKindType.CRITICAL_ATTACK, value.CriticalAttack);
-
-            if (value.CriticalRatio > 0)
-                return (StatusKindType.CRITICAL_RATIO, value.CriticalRatio);
-
-            if (value.EvasionRatio > 0)
-                return (StatusKindType.EVASION_RATIO, value.EvasionRatio);
-
-            if (value.Hp > 0)
-                return (StatusKindType.HP, value.Hp);
-
-            if (value.Vitality > 0)
-                return (StatusKindType.VITALITY, value.Vitality);
-
-            return (StatusKindType.UNKNOWN, -1);
-        }
-
-        private static string Slugify(string input)
-        {
-            var lowered = input.ToLower();
-            var escaped = Regex.Replace(lowered, @"\s+", "-");
-            return string.Concat(Regex.Matches(escaped, @"[a-z0-9\-]+"));
-        }
-
-        #endregion Database methods
     }
+
+    private static void CreateCompanionStats(EntityMCompanion darkCompanion)
+    {
+        var status = CalculatorCompanion.GetDataCompanionStatus(darkCompanion);
+        int[] lvls = new[] { 1, 50 };
+
+        for (var i = 0; i < lvls.Length; i++)
+        {
+            status.Level = lvls[i];
+            var ability = CalculatorCompanion.GetCompanionAbility(darkCompanion, status.Level);
+            var stats = CalculatorStatus.GetCompanionStatus(status, ability.AbilityStatusList);
+
+            _postgreDbContext.CompanionStats.Add(new CompanionStat
+            {
+                Attack = stats.Attack,
+                CompanionId = darkCompanion.CompanionId,
+                Hp = stats.Hp,
+                Level = status.Level,
+                Vitality = stats.Vitality
+            });
+        }
+    }
+
+    #endregion Companion methods
+
+    #region Memoir methods
+
+    private static async Task AddMemoirsAsync()
+    {
+        WriteLineWithTimestamp("Memoirs");
+
+        foreach (var darkMemoirSeries in DatabaseDefine.Master.EntityMPartsSeriesTable.All)
+        {
+            if (_memoirSeriesCache.Contains(darkMemoirSeries.PartsSeriesId)) continue;
+            var abilityGroup = CalculatorMemory.GetEntityMPartsSeriesBonusAbilityGroup(darkMemoirSeries.PartsSeriesBonusAbilityGroupId, CalculatorMemory.kMaxBonusSetCount);
+            var smallAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(abilityGroup[0].AbilityId, abilityGroup[0].AbilityLevel);
+            var largeAbilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(abilityGroup[1].AbilityId, abilityGroup[1].AbilityLevel);
+
+            _postgreDbContext.MemoirSeries.Add(new MemoirSeries
+            {
+                MemoirSeriesId = darkMemoirSeries.PartsSeriesId,
+                Name = CalculatorMemory.MemorySeriesName(darkMemoirSeries.PartsSeriesId),
+                SmallSetDescription = CalculatorAbility.GetDescriptionLong(smallAbilityDetail.DescriptionAbilityTextId),
+                LargeSetDescription = CalculatorAbility.GetDescriptionLong(largeAbilityDetail.DescriptionAbilityTextId)
+            });
+        }
+
+        foreach (var darkMemoir in DatabaseDefine.Master.EntityMPartsTable.All.OrderBy(x => x.PartsId))
+        {
+            if (_memoirCache.Contains(darkMemoir.PartsId)) continue;
+
+            var darkMemoirGroup = DatabaseDefine.Master.EntityMPartsGroupTable.FindByPartsGroupId(darkMemoir.PartsGroupId);
+            var darkCatalogPartsGroup = DatabaseDefine.Master.EntityMCatalogPartsGroupTable.FindByPartsGroupId(darkMemoirGroup.PartsGroupId);
+            var darkCatalogTerm = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogPartsGroup.CatalogTermId);
+
+            _postgreDbContext.Memoirs.Add(new Memoir
+            {
+                ImagePathBase = $"ui/memory/memory{darkMemoirGroup.PartsGroupAssetId:D3}/memory{darkMemoirGroup.PartsGroupAssetId:D3}_",
+                InitialLotteryId = darkMemoir.PartsInitialLotteryId,
+                MemoirId = darkMemoir.PartsId,
+                Name = CalculatorMemory.MemoryName(darkMemoir.PartsId),
+                Rarity = darkMemoir.RarityType.ToString(),
+                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                SeriesId = darkMemoirGroup.PartsSeriesId,
+                Story = CalculatorMemory.MemoryDescription(darkMemoir.PartsId),
+                IsVariationMemoir = darkMemoir.PartsId >= 8000,
+            });
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    #endregion Memoir methods
+
+    #region Debris
+
+    private static async Task AddDebrisAsync()
+    {
+        WriteLineWithTimestamp("Debris");
+
+        foreach (var darkThought in DatabaseDefine.Master.EntityMThoughtTable.All)
+        {
+            if (_debrisCache.Contains(darkThought.ThoughtId)) continue;
+            var darkCatalogThought = DatabaseDefine.Master.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == darkThought.ThoughtId);
+            var darkCatalogTerm = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogThought.CatalogTermId);
+            var thoughtAssetId = darkThought.ThoughtAssetId.ToString().PadLeft(6, '0');
+            var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkThought.AbilityId, darkThought.AbilityLevel);
+
+            _postgreDbContext.Thoughts.Add(new Thought
+            {
+                ThoughtId = darkThought.ThoughtId,
+                Rarity = darkThought.RarityType.ToString(),
+                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                Name = CalculatorThought.GetName(darkThought.ThoughtAssetId),
+                ImagePathBase = $"ui/thought/thought{thoughtAssetId}/thought{thoughtAssetId}_standard.png",
+                DescriptionShort = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
+                DescriptionLong = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId)
+            });
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    #endregion Debris
 }
