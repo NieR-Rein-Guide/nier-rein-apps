@@ -41,9 +41,21 @@ namespace NierReincarnation.Core.Dark
             return this;
         }
 
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBigHuntScheduleMaxScore> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.BigHuntScheduleId, user.BigHuntBossId), Comparer<(long, int, int)>.Default);
+            return this;
+        }
+
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBigHuntStatus> dataSource)
         {
             AppendCore(dataSource, user => (user.UserId, user.BigHuntBossQuestId), Comparer<(long, int)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBigHuntWeeklyMaxScore> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.BigHuntWeeklyVersion, user.AttributeType), Comparer<(long, long, int)>.Default);
             return this;
         }
 
@@ -84,6 +96,12 @@ namespace NierReincarnation.Core.Dark
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCharacterCostumeLevelBonus> dataSource)
         {
             AppendCore(dataSource, user => (user.UserId, user.CharacterId, user.StatusCalculationType), Comparer<(long, int, StatusCalculationType)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCharacterRebirth> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId, user.CharacterId), Comparer<(long, int)>.Default);
             return this;
         }
 
@@ -252,6 +270,12 @@ namespace NierReincarnation.Core.Dark
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserQuestMission> dataSource)
         {
             AppendCore(dataSource, user => (user.UserId, user.QuestId, user.QuestMissionId), Comparer<(long, int, int)>.Default);
+            return this;
+        }
+
+        public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserQuestSceneChoice> dataSource)
+        {
+            AppendCore(dataSource, user => (user.UserId,user.QuestSceneChoiceGroupingId), Comparer<(long, int)>.Default);
             return this;
         }
 

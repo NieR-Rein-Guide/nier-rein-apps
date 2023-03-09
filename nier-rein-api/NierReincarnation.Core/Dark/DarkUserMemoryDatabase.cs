@@ -36,95 +36,102 @@ namespace NierReincarnation.Core.Dark
         public EntityIUserCharacterBoardStatusUpTable EntityIUserCharacterBoardStatusUpTable { get; private set; }
         // 0x90
         public EntityIUserCharacterCostumeLevelBonusTable EntityIUserCharacterCostumeLevelBonusTable { get; private set; }
+        // 0x98
+        public EntityIUserCharacterRebirthTable EntityIUserCharacterRebirthTable { get; private set; }
 
-        // 0xA0
-        public EntityIUserComebackCampaignTable EntityIUserComebackCampaignTable { get; private set; }
         // 0xA8
-        public EntityIUserCompanionTable EntityIUserCompanionTable { get; private set; }
+        public EntityIUserComebackCampaignTable EntityIUserComebackCampaignTable { get; private set; }
         // 0xB0
+        public EntityIUserCompanionTable EntityIUserCompanionTable { get; private set; }
+        // 0xB8
         public EntityIUserConsumableItemTable EntityIUserConsumableItemTable { get; private set; }
 
-        // 0xC0
-        public EntityIUserCostumeTable EntityIUserCostumeTable { get; private set; }
         // 0xC8
+        public EntityIUserCostumeTable EntityIUserCostumeTable { get; private set; }
+        // 0xD0
         public EntityIUserCostumeActiveSkillTable EntityIUserCostumeActiveSkillTable { get; private set; }
 
-        // 0xE0
-        public EntityIUserDeckTable EntityIUserDeckTable { get; private set; }
         // 0xE8
-        public EntityIUserDeckCharacterTable EntityIUserDeckCharacterTable { get; private set; }
+        public EntityIUserDeckTable EntityIUserDeckTable { get; private set; }
         // 0xF0
+        public EntityIUserDeckCharacterTable EntityIUserDeckCharacterTable { get; private set; }
+        // 0xF8
         public EntityIUserDeckCharacterDressupCostumeTable EntityIUserDeckCharacterDressupCostumeTable { get; private set; }
 
-        // 0x100
-        public EntityIUserDeckPartsGroupTable EntityIUserDeckPartsGroupTable { get; private set; }
         // 0x108
-        public EntityIUserDeckSubWeaponGroupTable EntityIUserDeckSubWeaponGroupTable { get; private set; }
+        public EntityIUserDeckPartsGroupTable EntityIUserDeckPartsGroupTable { get; private set; }
         // 0x110
+        public EntityIUserDeckSubWeaponGroupTable EntityIUserDeckSubWeaponGroupTable { get; private set; }
+        // 0x118
         public EntityIUserDeckTypeNoteTable EntityIUserDeckTypeNoteTable { get; private set; }
 
-        // 0x120
-        public EntityIUserEventQuestDailyGroupCompleteRewardTable EntityIUserEventQuestDailyGroupCompleteRewardTable { get; private set; }
         // 0x128
-        public EntityIUserEventQuestGuerrillaFreeOpenTable EntityIUserEventQuestGuerrillaFreeOpenTable { get; private set; }
+        public EntityIUserEventQuestDailyGroupCompleteRewardTable EntityIUserEventQuestDailyGroupCompleteRewardTable { get; private set; }
         // 0x130
+        public EntityIUserEventQuestGuerrillaFreeOpenTable EntityIUserEventQuestGuerrillaFreeOpenTable { get; private set; }
+
+        // 0x148
         public EntityIUserEventQuestProgressStatusTable EntityIUserEventQuestProgressStatusTable { get; private set; }
 
-        // 0x150
+        // 0x168
         public EntityIUserExtraQuestProgressStatusTable EntityIUserExtraQuestProgressStatusTable { get; private set; }
 
-        // 0x160
-        public EntityIUserGemTable EntityIUserGemTable { get; private set; }
-        // 0x168
-        public EntityIUserGimmickTable EntityIUserGimmickTable { get; private set; }
-        // 0x170
-        public EntityIUserGimmickOrnamentProgressTable EntityIUserGimmickOrnamentProgressTable { get; private set; }
         // 0x178
+        public EntityIUserGemTable EntityIUserGemTable { get; private set; }
+        // 0x180
+        public EntityIUserGimmickTable EntityIUserGimmickTable { get; private set; }
+        // 0x188
+        public EntityIUserGimmickOrnamentProgressTable EntityIUserGimmickOrnamentProgressTable { get; private set; }
+        // 0x190
         public EntityIUserGimmickSequenceTable EntityIUserGimmickSequenceTable { get; private set; }
 
-        // 0x190
+        // 0x1A8
         public EntityIUserLimitedOpenTable EntityIUserLimitedOpenTable { get; private set; }
 
-        // 0x1B8
+        // 0x1D0
         public EntityIUserMainQuestProgressStatusTable EntityIUserMainQuestProgressStatusTable { get; private set; }
 
-        // 0x1C8
+        // 0x1E0
         public EntityIUserMainQuestSeasonRouteTable EntityIUserMainQuestSeasonRouteTable { get; private set; }
-        // 0x1D0
+        // 0x1E8
         public EntityIUserMaterialTable EntityIUserMaterialTable { get; private set; }
 
-        // 0x200
+        // 0x218
         public EntityIUserPartsTable EntityIUserPartsTable { get; private set; }
 
-        // 0x220
+        // 0x238
         public EntityIUserPartsStatusSubTable EntityIUserPartsStatusSubTable { get; private set; }
 
-        // 0x238
+        // 0x250
         public EntityIUserProfileTable EntityIUserProfileTable { get; private set; }
 
-        // 0x250
+        // 0x270
         public EntityIUserQuestTable EntityIUserQuestTable { get; private set; }
 
-        // 0x260
+        // 0x280
         public EntityIUserQuestLimitContentStatusTable EntityIUserQuestLimitContentStatusTable { get; private set; }
-        // 0x268
+        // 0x288
         public EntityIUserQuestMissionTable EntityIUserQuestMissionTable { get; private set; }
 
-        // 0x280
+        // 0x298
+        public EntityIUserQuestSceneChoiceTable EntityIUserQuestSceneChoiceTable { get; private set; }
+
+        // 0x2B0
         public EntityIUserShopItemTable EntityIUserShopItemTable { get; private set; }
 
-        // 0x2A8
+        // 0x2D8
         public EntityIUserStatusTable EntityIUserStatusTable { get; private set; }
-        // 0x2B0
+        // 0x2E0
         public EntityIUserThoughtTable EntityIUserThoughtTable { get; private set; }
 
-        // 0x2C8
+        // 0x2F8
         public EntityIUserWeaponTable EntityIUserWeaponTable { get; private set; }
-        // 0x2D0
+        // 0x300
         public EntityIUserWeaponAbilityTable EntityIUserWeaponAbilityTable { get; private set; }
-        // 0x2D8
+
+        // 0x310
         public EntityIUserWeaponNoteTable EntityIUserWeaponNoteTable { get; private set; }
-        // 0x2E0
+        // 0x318
         public EntityIUserWeaponSkillTable EntityIUserWeaponSkillTable { get; private set; }
 
         public DarkUserMemoryDatabase(byte[] databaseBinary, bool internString = true, IFormatterResolver formatterResolver = null) :
@@ -175,15 +182,15 @@ namespace NierReincarnation.Core.Dark
             EntityIUserEventQuestGuerrillaFreeOpenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserEventQuestGuerrillaFreeOpen[], EntityIUserEventQuestGuerrillaFreeOpenTable>(opens => new EntityIUserEventQuestGuerrillaFreeOpenTable(opens)));
             EntityIUserMainQuestSeasonRouteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserMainQuestSeasonRoute[], EntityIUserMainQuestSeasonRouteTable>(routes => new EntityIUserMainQuestSeasonRouteTable(routes)));
             EntityIUserQuestLimitContentStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserQuestLimitContentStatus[], EntityIUserQuestLimitContentStatusTable>(statuses => new EntityIUserQuestLimitContentStatusTable(statuses)));
-
             EntityIUserGimmickTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserGimmick[], EntityIUserGimmickTable>(gimmicks => new EntityIUserGimmickTable(gimmicks)));
             EntityIUserGimmickOrnamentProgressTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserGimmickOrnamentProgress[], EntityIUserGimmickOrnamentProgressTable>(progresses => new EntityIUserGimmickOrnamentProgressTable(progresses)));
             EntityIUserGimmickSequenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserGimmickSequence[], EntityIUserGimmickSequenceTable>(sequences => new EntityIUserGimmickSequenceTable(sequences)));
             EntityIUserCageOrnamentRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCageOrnamentReward[], EntityIUserCageOrnamentRewardTable>(rewards => new EntityIUserCageOrnamentRewardTable(rewards)));
             EntityIUserEventQuestDailyGroupCompleteRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserEventQuestDailyGroupCompleteReward[], EntityIUserEventQuestDailyGroupCompleteRewardTable>(rewards => new EntityIUserEventQuestDailyGroupCompleteRewardTable(rewards)));
-
             EntityIUserBigHuntScheduleMaxScoreTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserBigHuntScheduleMaxScore[], EntityIUserBigHuntScheduleMaxScoreTable>(scores => new EntityIUserBigHuntScheduleMaxScoreTable(scores)));
             EntityIUserBigHuntWeeklyMaxScoreTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserBigHuntWeeklyMaxScore[], EntityIUserBigHuntWeeklyMaxScoreTable>(scores => new EntityIUserBigHuntWeeklyMaxScoreTable(scores)));
+            EntityIUserQuestSceneChoiceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserQuestSceneChoice[], EntityIUserQuestSceneChoiceTable>(choices => new EntityIUserQuestSceneChoiceTable(choices)));
+            EntityIUserCharacterRebirthTable= ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCharacterRebirth[], EntityIUserCharacterRebirthTable>(rebirths => new EntityIUserCharacterRebirthTable(rebirths)));
         }
     }
 }

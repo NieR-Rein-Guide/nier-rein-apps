@@ -22,6 +22,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         public static readonly int kInvalidCostumeLevel = 0; // 0x20
         public static readonly int kDefaultDressupCostumeId = 0; // 0x24
         private static readonly float kCostumePerMille = 1000f; // 0x28
+        private static readonly int kNpcRebirthCount = 0; // 0x2C
 
         // CUSTOM: Enumerate all user-owned costumes
         public static IEnumerable<DataOutgameCostumeInfo> EnumerateCostumeInfo(long userId)
@@ -75,7 +76,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             //if (npcActiveSkill == null)
             //    return null;    // CUSTOM: Should throw null argument, but I can retrieve NPC loadouts of probably invalid or incomplete quests
 
-            var npcCostume = CreateDataOutgameCostume(masterCostume, entityNpcCostume.LimitBreakCount, entityNpcCostume.Level, entityNpcCostume.Exp, activeSkillLvl, entityNpcCostume.AwakenCount, entityNpcCostume.AcquisitionDatetime);
+            var npcCostume = CreateDataOutgameCostume(masterCostume, entityNpcCostume.LimitBreakCount, entityNpcCostume.Level, entityNpcCostume.Exp, activeSkillLvl, entityNpcCostume.AwakenCount, kNpcRebirthCount, entityNpcCostume.AcquisitionDatetime);
             npcCostume.UserCostumeUuid = entityNpcCostume.BattleNpcCostumeUuid;
 
             return npcCostume;
@@ -96,9 +97,11 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         private static DataOutgameCostume CreateMaxDataOutgameCostume(EntityMCostume entityMCostume)
         {
             var limitBreak = Networking.Config.GetCostumeLimitBreakAvailableCount();
+            var rebirth = Networking.Config.GetCharacterRebirthAvailableCount();
 
+            var totalLevelLimitUp = CalculatorRebirth.GenerateTotalLevelLimitUpValueByCharacterId(entityMCostume.CharacterId, rebirth);
             var maxSettings = CalculatorCalculationSetting.CreateMaxLevelCalculationSettingOnCostumeRarity(entityMCostume.RarityType);
-            var maxLevel = CostumeServal.calcMaxLevel(limitBreak, maxSettings.FunctionType, maxSettings.FunctionParameters);
+            var maxLevel = CostumeServal.calcMaxLevel(limitBreak, totalLevelLimitUp, maxSettings.FunctionType, maxSettings.FunctionParameters);
 
             var expParameterId = CalculatorCalculationSetting.GetCostumeExpNumericalParameterMapId(entityMCostume.RarityType);
             var maxCostumeExp = CalculatorCalculationSetting.GetNumericalParameter(expParameterId, maxLevel);
@@ -106,7 +109,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
             var awakenCount = Networking.Config.GetCostumeAwakenAvailableCount();
 
-            return CreateDataOutgameCostume(entityMCostume, limitBreak, maxLevel, maxCostumeExp, skillMaxLevel, awakenCount);
+            return CreateDataOutgameCostume(entityMCostume, limitBreak, maxLevel, maxCostumeExp, skillMaxLevel, awakenCount, rebirth);
         }
 
         public static int GetCurrentLevel(string userCostumeUuid)
@@ -128,27 +131,30 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             var masterCostume = GetEntityMCostume(entityIUserCostume.CostumeId);
             var userId = CalculatorStateUser.GetUserId();
 
+            var rebirthCount = CalculatorRebirth.GetRebirthCount(userId, masterCostume.CharacterId);
             var activeSkill = GetCostumeActiveDataSkill(userId, masterCostume.CostumeId, entityIUserCostume.UserCostumeUuid, entityIUserCostume.LimitBreakCount);
-            var costume = CreateDataOutgameCostume(masterCostume, entityIUserCostume.LimitBreakCount, entityIUserCostume.Level, entityIUserCostume.Exp, activeSkill.SkillLevel, entityIUserCostume.AwakenCount, entityIUserCostume.AcquisitionDatetime);
+            var costume = CreateDataOutgameCostume(masterCostume, entityIUserCostume.LimitBreakCount, entityIUserCostume.Level, entityIUserCostume.Exp, activeSkill.SkillLevel, entityIUserCostume.AwakenCount, rebirthCount, entityIUserCostume.AcquisitionDatetime);
             costume.UserCostumeUuid = entityIUserCostume.UserCostumeUuid;
 
             return costume;
         }
 
-        private static DataOutgameCostume CreateDataOutgameCostume(EntityMCostume entityMCostume, int limitBreakCount, int level, int exp, int activeSkillLevel, int awakenCount, long acquisitionDatetime = 0)
+        private static DataOutgameCostume CreateDataOutgameCostume(EntityMCostume entityMCostume, int limitBreakCount, int level, int exp, int activeSkillLevel, int awakenCount, int rebirthCount, long acquisitionDatetime = 0)
         {
             if (entityMCostume == null)
                 return null;
 
-            var costume = CreateDataOutgameCostume(entityMCostume);
+            var userId = CalculatorStateUser.GetUserId();
+            var costume = CreateDataOutgameCostume(userId, entityMCostume);
 
-            costume.MaxLevel = GetMaxLevel(entityMCostume, limitBreakCount);
+            costume.MaxLevel = GetMaxLevel(entityMCostume, limitBreakCount, rebirthCount);
             costume.CostumeActiveSkill = GetCostumeActiveDataSkill(entityMCostume.CostumeId, activeSkillLevel, limitBreakCount);
             costume.CostumeAbilities = CreateCostumeDataAbilityList(entityMCostume.CostumeAbilityGroupId, limitBreakCount);
             costume.LimitBreakCount = limitBreakCount;
             costume.Exp = exp;
             costume.AcquisitionDatetime = acquisitionDatetime;
             costume.AwakenCount = awakenCount;
+            costume.RebirthCount = rebirthCount;
 
             costume.CostumeStatus.Level = level;
             UpdateStatusValue(costume);
@@ -156,15 +162,16 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return costume;
         }
 
-        // CUSTOM: Helpful method to retrieve costume max level at certain limit breaks
-        public static int GetMaxLevel(EntityMCostume entityMCostume, int limitBreakCount)
+        // CUSTOM: Helpful method to retrieve costume max level at certain limit breaks and rebirth counts
+        private static int GetMaxLevel(EntityMCostume entityMCostume, int limitBreakCount, int rebirthCount)
         {
             var maxLvlSetting = CalculatorCalculationSetting.CreateMaxLevelCalculationSettingOnCostumeRarity(entityMCostume.RarityType);
+            var totalLevelLimitUp = CalculatorRebirth.GenerateTotalLevelLimitUpValueByCharacterId(entityMCostume.CharacterId, rebirthCount);
 
             var functionType = maxLvlSetting.FunctionType;
             var funcParams = maxLvlSetting.FunctionParameters;
 
-            return CostumeServal.calcMaxLevel(limitBreakCount, functionType, funcParams);
+            return CostumeServal.calcMaxLevel(limitBreakCount, totalLevelLimitUp, functionType, funcParams);
         }
 
         public static DataAbility[] CreateCostumeDataAbilityList(int costumeAbilityGroupId, int limitBreakCount)
@@ -208,7 +215,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return levelGroup.AbilityLevel;
         }
 
-        private static DataOutgameCostume CreateDataOutgameCostume(EntityMCostume entityMCostume)
+        private static DataOutgameCostume CreateDataOutgameCostume(long userId, EntityMCostume entityMCostume)
         {
             var actorAssetId = ActorAssetId(entityMCostume);
 
@@ -223,8 +230,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 CostumeActiveSkillGroupId = entityMCostume.CostumeActiveSkillGroupId,
 
                 CharacterName = CalculatorCharacter.GetCharacterName(entityMCostume.CharacterId),
-                Name = GetName(actorAssetId),
-                Description = GetDescription(actorAssetId),
+                Name = GetName(userId, actorAssetId, entityMCostume.CostumeId),
+                Description = GetDescription(userId, actorAssetId, entityMCostume.CostumeId),
 
                 ActorId = entityMCostume.ActorId,
                 CostumeEmblemAssetId = entityMCostume.CostumeEmblemAssetId,
@@ -357,13 +364,44 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return kInvalidCostumeId;
         }
 
-        private static string GetName(ActorAssetId actorAssetId)
+        public static bool IsReplaceCostume(long userId, int costumeId)
         {
+            return HasCostumeCurrentQuestSceneChoice(userId, costumeId);
+        }
+
+        private static bool HasCostumeCurrentQuestSceneChoice(long userId, int costumeId)
+        {
+            var table = DatabaseDefine.Master.EntityMQuestSceneChoiceCostumeEffectGroupTable;
+            var table1 = DatabaseDefine.Master.EntityMQuestSceneChoiceEffectTable;
+
+            var groups = table.FindByCostumeId(costumeId);
+            foreach (var group in groups)
+            {
+                var effects = table1.FindByQuestSceneChoiceCostumeEffectGroupId(group.QuestSceneChoiceCostumeEffectGroupId);
+                foreach (var effect in effects)
+                {
+                    var found = DatabaseDefine.User.EntityIUserQuestSceneChoiceTable.TryFindByUserIdAndQuestSceneChoiceGroupingId((userId, effect.QuestSceneChoiceGroupingId), out var choice);
+                    if (found && choice.QuestSceneChoiceEffectId == effect.QuestSceneChoiceEffectId)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static string GetName(long userId, ActorAssetId actorAssetId, int costumeId)
+        {
+            if (IsReplaceCostume(userId, costumeId))
+                return string.Format(UserInterfaceTextKey.Costume.kNameReplace, actorAssetId).Localize();
+
             return string.Format(UserInterfaceTextKey.Costume.kName, actorAssetId).Localize();
         }
 
-        private static string GetDescription(ActorAssetId actorAssetId)
+        private static string GetDescription(long userId, ActorAssetId actorAssetId, int costumeId)
         {
+            if (IsReplaceCostume(userId, costumeId))
+                return string.Format(UserInterfaceTextKey.Costume.kDescriptionReplace, actorAssetId).Localize();
+
             return string.Format(UserInterfaceTextKey.Costume.kDescription, actorAssetId).Localize();
         }
 
@@ -373,7 +411,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             if (masterCostume == null)
                 return null;
 
-            return GetName(ActorAssetId(masterCostume));
+            return GetName(CalculatorStateUser.GetUserId(), ActorAssetId(masterCostume), id);
         }
 
         // CUSTOM: Code symmetry to CostumeName(int)
@@ -383,7 +421,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             if (masterCostume == null)
                 return null;
 
-            return GetDescription(ActorAssetId(masterCostume));
+            return GetDescription(CalculatorStateUser.GetUserId(), ActorAssetId(masterCostume), id);
         }
     }
 }

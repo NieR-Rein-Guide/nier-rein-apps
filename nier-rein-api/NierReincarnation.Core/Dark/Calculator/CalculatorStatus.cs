@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Subsystem.Serval;
 
@@ -38,7 +39,7 @@ namespace NierReincarnation.Core.Dark.Calculator
             List<DataCostumeLevelBonusStatus> costumeLevelBonusStatusList)
         {
             GetCostumeBaseStatus(costumeStatus, out var agi, out var atk, out var critAtk, out var critRatio, out var evaRatio, out var hp, out var vit);
-            
+
             var statusValue = new StatusValue(agi, atk, critAtk, critRatio, evaRatio, hp, vit);
             statusValue += GetAbilityStatusDiff(agi, atk, critAtk, critRatio, evaRatio, hp, vit, AttributeType.UNKNOWN, AbilityBehaviourStatusOrganizationConditionType.COSTUME, abilityStatusList);
 
@@ -483,7 +484,9 @@ namespace NierReincarnation.Core.Dark.Calculator
             if (!calculationSettings.TryGetValue(statusKindType, out var setting))
                 return 0;
 
-            return CostumeServal.calcStatusValue(setting.BaseValue, level, setting.NumericalFunctionType, setting.FunctionParameters);
+            var growthCoefThreshold = Config.GetCostumeGrowthCoefficientThreshold();
+            var growthCoef = Config.GetCostumeGrowthCoefficient();
+            return CostumeServal.calcStatusValue(setting.BaseValue, level, setting.NumericalFunctionType, setting.FunctionParameters, growthCoefThreshold, growthCoef);
         }
 
         private static int CalcWeaponStatus(Dictionary<StatusKindType, NumericalFunctionSetting> calculationSettings, int level, StatusKindType statusKindType)

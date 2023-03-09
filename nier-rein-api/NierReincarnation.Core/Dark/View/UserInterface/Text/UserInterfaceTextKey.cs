@@ -87,9 +87,12 @@
         public static class Costume
         {
             private static readonly string kCostumePrefix = "costume."; // 0x0
-            public static readonly string kName = kCostumePrefix + CommonKeyParts.kName; // 0x8
-            public static readonly string kDescription = kCostumePrefix + "description.{0}"; // 0x10
-            public static readonly string kEmblemName = kCostumePrefix + "emblem." + CommonKeyParts.kName; // 0x18
+            private static readonly string kCostumeReplacePrefix = "replace."; // 0x8
+            public static readonly string kName = kCostumePrefix + CommonKeyParts.kName; // 0x10
+            public static readonly string kNameReplace = kCostumePrefix + "name." + kCostumeReplacePrefix + Common.kOneValueFormat; // 0x18
+            public static readonly string kDescription = kCostumePrefix + "description." + Common.kOneValueFormat; // 0x20
+            public static readonly string kDescriptionReplace = kCostumePrefix + "description." + kCostumeReplacePrefix + Common.kOneValueFormat; // 0x28
+            public static readonly string kEmblemName = kCostumePrefix + "emblem." + CommonKeyParts.kName; // 0x30
         }
 
         public static class Weapon
@@ -313,6 +316,7 @@
             public static readonly string kRarityName = "ui.Outgame.Common.RarityType.Name.{0:D2}"; // 0x148
             public static readonly string kAttributeTextKey = "ui.Outgame.Attribute.{0}"; // 0x1B8
             public static readonly string kWeaponTypeTextKey = "ui.Outgame.WeaponType.{0}"; // 0x1C0
+            public static readonly string kOneValueFormat = "{0}"; // 0x1E0
         }
 
         private static class CommonKeyParts

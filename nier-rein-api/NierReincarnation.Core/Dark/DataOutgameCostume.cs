@@ -56,9 +56,11 @@ namespace NierReincarnation.Core.Dark
         // 0x98
         public int AwakenCount { get; set; }
         // 0x9C
+        public int RebirthCount { get; set; }
+        // 0xA0
         public StatusValue StatusValue { get; set; }
 
-        // 0xB8
+        // 0xBC
         public int Power { get; set; }
 
         public int Hp => StatusValue.Hp;

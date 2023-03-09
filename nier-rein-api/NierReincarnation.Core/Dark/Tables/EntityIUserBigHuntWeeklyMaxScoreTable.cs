@@ -12,7 +12,12 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = score => (score.UserId, score.BigHuntWeeklyVersion, score.AttributeType);
         }
-        
+
+        public EntityIUserBigHuntWeeklyMaxScore FindByUserIdAndBigHuntWeeklyVersionAndAttributeType(ValueTuple<long, long, int> key)
+        {
+            return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, long, int)>.Default, key);
+        }
+
         public bool TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType(ValueTuple<long, long, int> key, out EntityIUserBigHuntWeeklyMaxScore result)
         {
             return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, long, int)>.Default, key, out result);

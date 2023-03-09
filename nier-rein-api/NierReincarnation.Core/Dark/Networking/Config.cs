@@ -16,7 +16,7 @@
         private static readonly string BattlePointRecoverySecondKey = "USER_BATTLE_POINT_RECOVERY_SECOND";
         private static readonly string CostumeLimitBreakAvailableCountKey = "COSTUME_LIMIT_BREAK_AVAILABLE_COUNT";
         private static readonly string WeaponLimitBreakAvailableCountKey = "WEAPON_LIMIT_BREAK_AVAILABLE_COUNT";
-        private static readonly string CostumeAwakenAvailableCount= "COSTUME_AWAKEN_AVAILABLE_COUNT";
+        private static readonly string CostumeAwakenAvailableCount = "COSTUME_AWAKEN_AVAILABLE_COUNT";
         private static readonly string MaterialSameWeaponExpCoefficientPermilKey = "MATERIAL_SAME_WEAPON_EXP_COEFFICIENT_PERMIL";
         private static readonly string WeaponEnhanceCalcCoefficientPermilKey = "WEAPON_ENHANCE_CALC_COEFFICIENT_PERMIL";
         private static readonly string WeaponSellPriceCalcFixedValuePermilKey = "WEAPON_SELL_PRICE_CALC_FIXED_VALUE_PERMIL";
@@ -39,7 +39,7 @@
         private static readonly string UnlockTutorialMenuChapterId = "FUNCTION_UNLOCK_CHAPTER_ID_FOR_MENU";
         private static readonly string UnlockEventQuestMenuQuestId = "FUNCTION_UNLOCK_QUEST_ID_FOR_EVENT_QUEST";
         private static readonly string UnlockCharacterBoardQuestId = "FUNCTION_UNLOCK_QUEST_ID_FOR_CHARACTER_BOARD";
-        private static readonly string UnlockCharacterViewerQuestId= "FUNCTION_UNLOCK_QUEST_ID_FOR_CHARACTER_VIEWER";
+        private static readonly string UnlockCharacterViewerQuestId = "FUNCTION_UNLOCK_QUEST_ID_FOR_CHARACTER_VIEWER";
         private static readonly string PortalCageSceneId = "PORTAL_CAGE_SCENE_ID";
         private static readonly string PortalCageFunctionUnlockQuestIdForPortalCage = "FUNCTION_UNLOCK_QUEST_ID_FOR_PORTAL_CAGE";
         private static readonly string MissionTapTargetActorId = "MISSION_TAP_TARGET_ACTOR_ID";
@@ -78,13 +78,28 @@
         private static readonly string MemoryPresetNameMaxLength = "PARTS_PRESET_NAME_MAX_LENGTH";
         private static readonly string MemoryPresetTagNameMinLength = "PARTS_PRESET_TAG_NAME_MIN_LENGTH";
         private static readonly string MemoryPresetTagNameMaxLength = "PARTS_PRESET_TAG_NAME_MAX_LENGTH";
-        private static readonly string UnlockBigHuntBoardEvaluateConditionId= "FUNCTION_UNLOCK_EVALUATE_CONDITION_ID_FOR_BIG_HUNT_BOARD";
+        private static readonly string UnlockBigHuntBoardEvaluateConditionId = "FUNCTION_UNLOCK_EVALUATE_CONDITION_ID_FOR_BIG_HUNT_BOARD";
         private static readonly string NecessaryGemCountForGuerrillaOpen = "NECESSARY_GEM_COUNT_FOR_GUERRILLA_OPEN";
         private static readonly string PossessionSellCountLimitAtOnce = "POSSESSION_SELL_COUNT_LIMIT_AT_ONCE";
         private static readonly string MaterialMaxSalableCountAtOnce = "MATERIAL_MAX_SALABLE_COUNT_AT_ONCE";
-        private static readonly string ConsumableItemMaxSalableCountAtOnce= "CONSUMABLE_ITEM_MAX_SALABLE_COUNT_AT_ONCE";
+        private static readonly string ConsumableItemMaxSalableCountAtOnce = "CONSUMABLE_ITEM_MAX_SALABLE_COUNT_AT_ONCE";
         private static readonly string LimitedShopId = "LIMITED_SHOP_ID";
         private static readonly string UnlockDressupCostumeQuestId = "FUNCTION_UNLOCK_QUEST_ID_FOR_DRESSUP_COSTUME";
+        private static readonly string EndQuestTutorialWebViewPlayGuideId = "END_QUEST_TUTORIAL_WEB_VIEW_PLAY_GUIDE_ID"; // 0x290
+        private static readonly string LimitQuestTutorialWebViewPlayGuideId = "LIMIT_QUEST_TUTORIAL_WEB_VIEW_PLAY_GUIDE_ID"; // 0x298
+        private static readonly string UnDailyMissionV2 = "FUNCTION_UNLOCK_QUEST_ID_FOR_DAILY_MISSION_V2"; // 0x2A0
+        private static readonly string SwitchRewardReceiveFlowDateMilliSecondForBigHunt = "SWITCH_REWARD_RECEIVE_FLOW_DATE_MILLI_SECOND_FOR_BIG_HUNT"; // 0x2A8
+        private static readonly string SwitchRewardReceiveFlowDateMilliSecondForPvp = "SWITCH_REWARD_RECEIVE_FLOW_DATE_MILLI_SECOND_FOR_PVP"; // 0x2B0
+        private static readonly string ConsumableItemIdForMomPointKey = "CONSUMABLE_ITEM_ID_FOR_MOM_POINT"; // 0x2B8
+        private static readonly string MomPointShopId = "MOM_POINT_SHOP_ID"; // 0x2C0
+        private static readonly string MomPointOpenDateMilliSecond = "MOM_POINT_OPEN_DATE_MILLI_SECOND"; // 0x2C8
+        private static readonly string ConsumableItemIdForPremiumGachaTicket = "CONSUMABLE_ITEM_ID_FOR_PREMIUM_GACHA_TICKET"; // 0x2D0
+        private static readonly string CharacterRebirthAvailableCount = "CHARACTER_REBIRTH_AVAILABLE_COUNT"; // 0x2D8
+        private static readonly string CharacterRebirthConsumeGold = "CHARACTER_REBIRTH_CONSUME_GOLD"; // 0x2E0
+        private static readonly string CostumeGrowthCurveCoefficientThreshold = "COSTUME_STATUS_FUNCTION_THRESHOLD_LEVEL"; // 0x2E8
+        private static readonly string CostumeGrowthCurveCoefficient = "COSTUME_STATUS_FUNCTION_THRESHOLD_OVER_COEFFICIENT"; // 0x2F0
+        private static readonly string WeaponGrowthCurveCoefficientThreshold = "WEAPON_STATUS_FUNCTION_THRESHOLD_LEVEL"; // 0x2F8
+        private static readonly string WeaponGrowthCurveCoefficient = "WEAPON_STATUS_FUNCTION_THRESHOLD_OVER_COEFFICIENT"; // 0x300
 
         public static int GetCostumeAwakenAvailableCount()
         {
@@ -421,12 +436,155 @@
             return GetConfigIntValue(MemoryPresetTagNameMaxLength);
         }
 
+        // RVA: 0x2922958 Offset: 0x2922958 VA: 0x2922958
+        public static int GetUnlockBigHuntBoardEvaluateConditionId()
+        {
+            return GetConfigIntValue(UnlockBigHuntBoardEvaluateConditionId);
+        }
+
+        // RVA: 0x29229C0 Offset: 0x29229C0 VA: 0x29229C0
+        public static int GetNecessaryGemCountForGuerrillaOpen()
+        {
+            return GetConfigIntValue(NecessaryGemCountForGuerrillaOpen);
+        }
+
+        // RVA: 0x2922A28 Offset: 0x2922A28 VA: 0x2922A28
+        public static int GetPossessionSellCountLimitAtOnce()
+        {
+            return GetConfigIntValue(PossessionSellCountLimitAtOnce);
+        }
+
+        // RVA: 0x2922A90 Offset: 0x2922A90 VA: 0x2922A90
+        public static int GetMaterialMaxSalableCountAtOnce()
+        {
+            return GetConfigIntValue(MaterialMaxSalableCountAtOnce);
+        }
+
+        // RVA: 0x2922AF8 Offset: 0x2922AF8 VA: 0x2922AF8
+        public static int GetConsumableItemMaxSalableCountAtOnce()
+        {
+            return GetConfigIntValue(ConsumableItemMaxSalableCountAtOnce);
+        }
+
+        // RVA: 0x2922B60 Offset: 0x2922B60 VA: 0x2922B60
+        public static int GetLimitedShopId()
+        {
+            return GetConfigIntValue(LimitedShopId);
+        }
+
+        // RVA: 0x2922BC8 Offset: 0x2922BC8 VA: 0x2922BC8
+        public static int GetUnlockDressupCostumeQuestId()
+        {
+            return GetConfigIntValue(UnlockDressupCostumeQuestId);
+        }
+
+        // RVA: 0x2922C30 Offset: 0x2922C30 VA: 0x2922C30
+        public static int GetEndQuestTutorialWebViewPlayGuideId()
+        {
+            return GetConfigIntValue(EndQuestTutorialWebViewPlayGuideId);
+        }
+
+        // RVA: 0x2922C98 Offset: 0x2922C98 VA: 0x2922C98
+        public static int GetLimitQuestTutorialWebViewPlayGuideId()
+        {
+            return GetConfigIntValue(LimitQuestTutorialWebViewPlayGuideId);
+        }
+
+        // RVA: 0x2922D00 Offset: 0x2922D00 VA: 0x2922D00
+        public static int GetUnlockDailyMissionV2Id()
+        {
+            return GetConfigIntValue(UnDailyMissionV2);
+        }
+
+        // RVA: 0x2922D68 Offset: 0x2922D68 VA: 0x2922D68
+        public static long GetSwitchRewardReceiveFlowDateMilliSecondForBigHunt()
+        {
+            return GetConfigIntValue(SwitchRewardReceiveFlowDateMilliSecondForBigHunt);
+        }
+
+        // RVA: 0x2922E74 Offset: 0x2922E74 VA: 0x2922E74
+        public static long GetSwitchRewardReceiveFlowDateMilliSecondForPvp()
+        {
+            return GetConfigIntValue(SwitchRewardReceiveFlowDateMilliSecondForPvp);
+        }
+
+        // RVA: 0x2922EDC Offset: 0x2922EDC VA: 0x2922EDC
+        public static int GetConsumableIdForMomPoint()
+        {
+            return GetConfigIntValue(ConsumableItemIdForMomPointKey);
+        }
+
+        // RVA: 0x2922F44 Offset: 0x2922F44 VA: 0x2922F44
+        public static int GetMomPointShopId()
+        {
+            return GetConfigIntValue(MomPointShopId);
+        }
+
+        // RVA: 0x2922FAC Offset: 0x2922FAC VA: 0x2922FAC
+        public static long GetMomPointOpenDateMilliSecond()
+        {
+            return GetConfigIntValue(MomPointOpenDateMilliSecond);
+        }
+
+        // RVA: 0x2923014 Offset: 0x2923014 VA: 0x2923014
+        public static int GetConsumableItemIdForPremiumGachaTicket()
+        {
+            return GetConfigIntValue(ConsumableItemIdForPremiumGachaTicket);
+        }
+
+        // RVA: 0x292307C Offset: 0x292307C VA: 0x292307C
+        public static int GetCharacterRebirthAvailableCount()
+        {
+            return GetConfigIntValue(CharacterRebirthAvailableCount);
+        }
+
+        // RVA: 0x29230E4 Offset: 0x29230E4 VA: 0x29230E4
+        public static int GetCharacterRebirthConsumeGold()
+        {
+            return GetConfigIntValue(CharacterRebirthConsumeGold);
+        }
+
+        // RVA: 0x292314C Offset: 0x292314C VA: 0x292314C
+        public static int GetCostumeGrowthCoefficientThreshold()
+        {
+            return GetConfigIntValue(CostumeGrowthCurveCoefficientThreshold);
+        }
+
+        // RVA: 0x29231B4 Offset: 0x29231B4 VA: 0x29231B4
+        public static int GetCostumeGrowthCoefficient()
+        {
+            return GetConfigIntValue(CostumeGrowthCurveCoefficient);
+        }
+
+        // RVA: 0x292321C Offset: 0x292321C VA: 0x292321C
+        public static int GetWeaponGrowthCoefficientThreshold()
+        {
+            return GetConfigIntValue(WeaponGrowthCurveCoefficientThreshold);
+        }
+
+        // RVA: 0x2923284 Offset: 0x2923284 VA: 0x2923284
+        public static int GetWeaponGrowthCoefficient()
+        {
+            return GetConfigIntValue(WeaponGrowthCurveCoefficient);
+        }
+
         private static int GetConfigIntValue(string key)
         {
             if (DatabaseDefine.Master == null)
                 return 0;
 
             if (int.TryParse(DatabaseDefine.Master.EntityMConfigTable.FindByConfigKey(key).Value, out var configValue))
+                return configValue;
+
+            return 0;
+        }
+
+        private static long GetConfigLongValue(string key)
+        {
+            if (DatabaseDefine.Master == null)
+                return 0;
+
+            if (long.TryParse(DatabaseDefine.Master.EntityMConfigTable.FindByConfigKey(key).Value, out var configValue))
                 return configValue;
 
             return 0;
