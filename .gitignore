@@ -348,5 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-/nier-rein-dump/config/dbConfig.json
-/nier-rein-dump/config/userConfig.json
+
+# Db and user configuration files
+/NierReincarnation.Db/config/dbConfig.json
+/NierReincarnation.Db/config/userConfig.json

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="ConsoleTools" Version="1.1.1" />
+		<PackageReference Include="NierReincarnation" Version="1.6.2" />
+	</ItemGroup>
+
+	<!-- Debug -->
+	<Target Name="CopyNativeBinariesBuild" DependsOnTargets="CopyFilesToOutputDirectory" AfterTargets="Build" Condition="$(Configuration) == 'Debug'">
+		<Copy SourceFiles="$(TargetDir)/runtimes/win-x64/native/fmod.dll" DestinationFolder="$(TargetDir)/x64" />
+		<Copy SourceFiles="$(TargetDir)/runtimes/win-x64/native/Texture2DDecoderNative.dll" DestinationFolder="$(TargetDir)/x64" />
+	</Target>
+
+	<!-- Publish -->
+	<Target Name="CopyNativeBinaries" DependsOnTargets="CopyFilesToOutputDirectory" AfterTargets="Publish">
+		<Copy SourceFiles="$(TargetDir)/fmod.dll" DestinationFolder="$(PublishDir)/x64" />
+		<Copy SourceFiles="$(TargetDir)/Texture2DDecoderNative.dll" DestinationFolder="$(PublishDir)/x64" />
+	</Target>
+
+</Project>
