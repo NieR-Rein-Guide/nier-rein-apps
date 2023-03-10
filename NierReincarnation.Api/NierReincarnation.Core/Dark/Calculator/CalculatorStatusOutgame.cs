@@ -85,6 +85,7 @@ namespace NierReincarnation.Core.Dark.Calculator
             ClearCalculateBuffer();
 
             CollectWeaponAbilityStatus(dataWeapon, AbilityStatusListPool);
+            CollectWeaponAwakenStatus(dataWeapon, dataWeapon.WeaponStatus.WeaponAwakenStatusList);
 
             return CalculatorStatus.GetWeaponStatus(dataWeapon.WeaponStatus, AbilityStatusListPool);
         }
@@ -222,6 +223,14 @@ namespace NierReincarnation.Core.Dark.Calculator
 
                 abilityStatusList.AddRange(ability.AbilityStatusList);
             }
+        }
+
+        private static void CollectWeaponAwakenStatus(DataWeapon dataWeapon, List<DataWeaponAwakenStatus> weaponAwakenStatusList)
+        {
+            if (dataWeapon?.IsAwaken != true || dataWeapon.WeaponAwakenEffectGroupId < 1)
+                return;
+
+            CalculatorWeaponAwakenStatus.CreateDataWeaponAwakenStatusList(dataWeapon.WeaponAwakenEffectGroupId, weaponAwakenStatusList);
         }
 
         private static void CollectSubWeaponStatus(DataDeckActor deckActor)
