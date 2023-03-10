@@ -735,11 +735,21 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     private static void WriteFateBoardSeasonRewardInfo(FateBoardSeason fateBoardSeason)
     {
         Console.WriteLine("**Season Rewards**");
-        foreach (var seasonRewardQuest in fateBoardSeason.SeasonRewardQuests)
-        {
-            Console.WriteLine(seasonRewardQuest.Name);
 
-            foreach (var reward in seasonRewardQuest.SeasonRewards)
+        foreach (var seasonRewardQuestGroup in fateBoardSeason.SeasonRewardQuests.GroupBy(x => string.Join(",", x.SeasonRewards.Select(x => x.ToString()))))
+        {
+            var first = seasonRewardQuestGroup.First();
+            if (seasonRewardQuestGroup.Count() > 1)
+            {
+                var last = seasonRewardQuestGroup.Last();
+                Console.WriteLine($"{first.Name} - {last.Name}");
+            }
+            else
+            {
+                Console.WriteLine(first.Name);
+            }
+
+            foreach (var reward in first.SeasonRewards)
             {
                 Console.WriteLine($"- {reward}");
             }
