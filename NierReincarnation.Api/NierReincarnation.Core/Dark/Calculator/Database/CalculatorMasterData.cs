@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Generated.Type;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NierReincarnation.Core.Dark.Calculator.Database
 {
@@ -147,6 +147,12 @@ namespace NierReincarnation.Core.Dark.Calculator.Database
             var terms = table.FindByQuestBonusTermGroupId(questBonusTermGroupId);
 
             return terms.Any(t => CalculatorDateTime.IsWithinThePeriod(t.StartDatetime, t.EndDatetime, dateTime));
+        }
+
+        public static EntityMWeaponAwaken GetEntityWeaponAwaken(int weaponId)
+        {
+            var table = DatabaseDefine.Master.EntityMWeaponAwakenTable;
+            return table.FindByWeaponId(weaponId);
         }
     }
 }

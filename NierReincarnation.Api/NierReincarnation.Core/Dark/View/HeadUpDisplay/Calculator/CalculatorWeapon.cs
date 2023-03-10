@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Calculator;
+﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
@@ -11,6 +8,9 @@ using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.Subsystem.Serval;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
 {
@@ -98,8 +98,9 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
 
             var lvl = entityIUserWeapon.Level;
             var limitBreak = entityIUserWeapon.LimitBreakCount;
+            var isAwaken = DatabaseDefine.User.EntityIUserWeaponAwakenTable.TryFindByUserIdAndUserWeaponUuid((userId, entityIUserWeapon.UserWeaponUuid), out var _);
 
-            var weapon = CreateDataWeapon(masterWeapon, lvl, limitBreak);
+            var weapon = CreateDataWeapon(masterWeapon, lvl, limitBreak, isAwaken);
 
             var skillGroups = CalculatorMasterData.GetEntityMWeaponSkillGroups(masterWeapon.WeaponSkillGroupId);
             foreach (var skillGroup in skillGroups)
@@ -131,14 +132,17 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
             return weapon;
         }
 
-        private static DataWeapon CreateDataWeapon(EntityMWeapon entityMWeapon, int level, int limitBreakCount)
+        private static DataWeapon CreateDataWeapon(EntityMWeapon entityMWeapon, int level, int limitBreakCount, bool isAwaken)
         {
             var evolution = GetWeaponEvolutionGroupIdAndEvolutionOrder(entityMWeapon.WeaponId);
+            var weaponAwaken = CalculatorMasterData.GetEntityWeaponAwaken(entityMWeapon.WeaponId);
+            var awakenLevelLimitUp = isAwaken && weaponAwaken != null ? weaponAwaken.LevelLimitUp : 0;
 
             var result = new DataWeapon();
 
             result.WeaponStatus ??= GetDataWeaponStatus(entityMWeapon);
             result.WeaponStatus.Level = level;
+            result.WeaponStatus.WeaponAwakenStatusList = new List<DataWeaponAwakenStatus>();
 
             result.WeaponEvolutionOrder = evolution.Item2;
             result.WeaponId = entityMWeapon.WeaponId;
@@ -150,7 +154,7 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
 
             result.WeaponSkillGroupId = entityMWeapon.WeaponSkillGroupId;
             result.WeaponAbilityGroupId = entityMWeapon.WeaponAbilityGroupId;
-            result.MaxLevel = GetWeaponMaxLevel(entityMWeapon.WeaponSpecificEnhanceId, entityMWeapon.RarityType, limitBreakCount);
+            result.MaxLevel = GetWeaponMaxLevel(entityMWeapon.WeaponSpecificEnhanceId, entityMWeapon.RarityType, limitBreakCount, awakenLevelLimitUp);
             result.WeaponEvolutionMaterialGroupId = entityMWeapon.WeaponEvolutionMaterialGroupId;
             result.BaseEnhancementObtainedExp = GetBaseEnhancementObtainedExp(entityMWeapon.WeaponSpecificEnhanceId, entityMWeapon.RarityType);
             result.EndWeaponCharacterId = GetEndWeaponCharacterId(evolution.Item1);
@@ -163,10 +167,18 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
                 seedRarity = result.RarityType;
 
             result.SeedWeaponRarityType = seedRarity;
+
+            result.HasAwakenRelation = weaponAwaken != null;
+            result.IsRecyclable = entityMWeapon.IsRecyclable;
+            result.AwakenLevelLimitUp = awakenLevelLimitUp;
+            result.WeaponAwakenMaterialGroupId = weaponAwaken?.WeaponAwakenMaterialGroupId ?? 0;
+            result.WeaponAwakenEffectGroupId = weaponAwaken?.WeaponAwakenEffectGroupId ?? 0;
+
             result.ActorAssetId = actorAssetId;
 
             UpdateStatusValue(result);
             result.LimitBreakCount = limitBreakCount;
+            result.IsAwaken = isAwaken;
 
             return result;
         }
@@ -192,7 +204,7 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
             if (masterWeapon == null)
                 return null;
 
-            var npcWeapon = CreateDataWeapon(masterWeapon, entityNpcWeapon.Level, entityNpcWeapon.Exp);
+            var npcWeapon = CreateDataWeapon(masterWeapon, entityNpcWeapon.Level, entityNpcWeapon.LimitBreakCount, false);
 
             var skillGroups = CalculatorMasterData.GetEntityMWeaponSkillGroups(masterWeapon.WeaponSkillGroupId);
             foreach (var skillGroup in skillGroups)
@@ -297,15 +309,15 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
             return table.FindByRarityType(rarityType);
         }
 
-        public static int GetWeaponMaxLevel(EntityMWeapon weapon, int limitBreakCount)
+        public static int GetWeaponMaxLevel(EntityMWeapon weapon, int limitBreakCount, int awakenLevelLimitUp)
         {
-            return GetWeaponMaxLevel(weapon.WeaponSpecificEnhanceId, weapon.RarityType, limitBreakCount);
+            return GetWeaponMaxLevel(weapon.WeaponSpecificEnhanceId, weapon.RarityType, limitBreakCount, awakenLevelLimitUp);
         }
 
-        public static int GetWeaponMaxLevel(int weaponSpecificEnhanceId, RarityType rarityType, int limitBreakCount)
+        public static int GetWeaponMaxLevel(int weaponSpecificEnhanceId, RarityType rarityType, int limitBreakCount, int awakenLevelLimitUp)
         {
             var settings = CalculatorCalculationSetting.CreateMaxLevelCalculationSettingOnWeaponRarity(weaponSpecificEnhanceId, rarityType);
-            return WeaponServal.CalcMaxLevel(limitBreakCount, settings.FunctionType, settings.FunctionParameters);
+            return WeaponServal.CalcMaxLevel(limitBreakCount, awakenLevelLimitUp, settings.FunctionType, settings.FunctionParameters);
         }
 
         public static ActorAssetId ActorAssetId(int weaponId)

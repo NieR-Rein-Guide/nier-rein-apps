@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using NierReincarnation.Core.Dark.Generated.Type;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Subsystem.Serval;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Calculator
 {
@@ -104,8 +104,11 @@ namespace NierReincarnation.Core.Dark.Calculator
                 atk = localAtk >> 1;
             }
 
-            var baseStatus = new StatusValue(0, atk, 0, 0, 0, hp, vit);
-            return baseStatus + GetAbilityStatusDiff(0, atk, 0, 0, 0, hp, vit, weaponStatus.AttributeType, AbilityBehaviourStatusOrganizationConditionType.WEAPON, abilityStatusList);
+            var statusValue = new StatusValue(0, atk, 0, 0, 0, hp, vit);
+            statusValue += GetAbilityStatusDiff(0, atk, 0, 0, 0, hp, vit, weaponStatus.AttributeType, AbilityBehaviourStatusOrganizationConditionType.WEAPON, abilityStatusList);
+            statusValue += GetWeaponAwakenStatusDiff(atk, hp, vit, weaponStatus.WeaponAwakenStatusList);
+
+            return statusValue;
         }
 
         public static StatusValue GetWeaponStatus(DataWeaponStatus weaponStatus, List<DataAbilityStatus> abilityStatusList)
@@ -472,6 +475,55 @@ namespace NierReincarnation.Core.Dark.Calculator
             vitality = CalcWeaponStatus(weaponStatus.StatusCalculationSettings, weaponStatus.Level, StatusKindType.VITALITY);
         }
 
+        private static StatusValue GetWeaponAwakenStatusDiff(int attack, int hp, int vitality, List<DataWeaponAwakenStatus> weaponAwakenStatusList)
+        {
+            var addAgi = 0;
+            var addAtk = 0;
+            var addCritAtk = 0;
+            var addCritRate = 0;
+            var addEvaRate = 0;
+            var addHp = 0;
+            var addVit = 0;
+
+            var multAgi = 0;
+            var multAtk = 0;
+            var multCritAtk = 0;
+            var multCritRate = 0;
+            var multEvaRate = 0;
+            var multHp = 0;
+            var multVit = 0;
+
+            foreach (var weaponAwakenStatus in weaponAwakenStatusList)
+            {
+                if (weaponAwakenStatus.StatusCalculationType == StatusCalculationType.MULTIPLY)
+                {
+                    multAgi += weaponAwakenStatus.StatusChangeValue.Agility;
+                    multAtk += weaponAwakenStatus.StatusChangeValue.Attack;
+                    multCritAtk += weaponAwakenStatus.StatusChangeValue.CriticalAttack;
+                    multCritRate += weaponAwakenStatus.StatusChangeValue.CriticalRatio;
+                    multEvaRate += weaponAwakenStatus.StatusChangeValue.EvasionRatio;
+                    multHp += weaponAwakenStatus.StatusChangeValue.Hp;
+                    multVit += weaponAwakenStatus.StatusChangeValue.Vitality;
+                }
+                else if (weaponAwakenStatus.StatusCalculationType == StatusCalculationType.ADD)
+                {
+                    addAgi += weaponAwakenStatus.StatusChangeValue.Agility;
+                    addAtk += weaponAwakenStatus.StatusChangeValue.Attack;
+                    addCritAtk += weaponAwakenStatus.StatusChangeValue.CriticalAttack;
+                    addCritRate += weaponAwakenStatus.StatusChangeValue.CriticalRatio;
+                    addEvaRate += weaponAwakenStatus.StatusChangeValue.EvasionRatio;
+                    addHp += weaponAwakenStatus.StatusChangeValue.Hp;
+                    addVit += weaponAwakenStatus.StatusChangeValue.Vitality;
+                }
+            }
+
+            var addStatus = new StatusValue(addAgi, addAtk, addCritAtk, addCritRate, addEvaRate, addHp, addVit);
+            var multStatus = GetStatusDiff(0, attack, 0, 0, 0, hp, vitality, StatusCalculationType.MULTIPLY,
+                multAgi, multAtk, multCritAtk, multCritRate, multEvaRate, multHp, multVit);
+
+            return addStatus + multStatus;
+        }
+
         public static void GetCompanionBaseStatus(DataCompanionStatus companionStatus, out int attack, out int hp, out int vitality)
         {
             attack = CalcCompanionStatus(companionStatus.StatusCalculationSettings, companionStatus.Level, StatusKindType.ATTACK);
@@ -494,7 +546,9 @@ namespace NierReincarnation.Core.Dark.Calculator
             if (!calculationSettings.TryGetValue(statusKindType, out var setting))
                 return 0;
 
-            return WeaponServal.calcStatusValue(setting.BaseValue, level, setting.NumericalFunctionType, setting.FunctionParameters);
+            var growthCoefThreshold = Config.GetWeaponGrowthCoefficientThreshold();
+            var growthCoef = Config.GetWeaponGrowthCoefficient();
+            return WeaponServal.calcStatusValue(setting.BaseValue, level, setting.NumericalFunctionType, setting.FunctionParameters, growthCoefThreshold, growthCoef);
         }
 
         private static int CalcCompanionStatus(Dictionary<StatusKindType, NumericalFunctionSetting> calculationSettings, int level, StatusKindType statusKindType)

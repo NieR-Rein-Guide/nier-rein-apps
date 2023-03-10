@@ -1,73 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
-using NierReincarnation.Core.Dark.Generated.Type;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark
 {
     public class DataWeapon
     {
-        private int SkillAiId; // 0x3C
-        private int ActorMovableAreaPrefabId; // 0x40
+        private int SkillAiId; // 0x44
+        private int ActorMovableAreaPrefabId; // 0x48
 
         // 0x10
         public DataWeaponStatus WeaponStatus { get; set; }
+
         // 0x18
         public List<DataSkill> Skills { get; }
+
         // 0x20
         public List<DataAbility> Abilities { get; }
+
         // 0x28
-        public int WeaponId { get; set; }
-        // 0x2C
-        public int WeaponEvolutionGroupId { get; set; }
+        public List<DataAbility> BlessAbilities { get; }
+
         // 0x30
-        public int WeaponEvolutionOrder { get; set; }
+        public int WeaponId { get; set; }
+
         // 0x34
-        public RarityType RarityType { get; set; }
+        public int WeaponEvolutionGroupId { get; set; }
+
         // 0x38
+        public int WeaponEvolutionOrder { get; set; }
+
+        // 0x3C
+        public RarityType RarityType { get; set; }
+
+        // 0x40
         public int MaxLevel { get; set; }
 
-        // 0x44
-        public int WeaponSkillGroupId { get; set; }
-        // 0x48
-        public int WeaponAbilityGroupId { get; set; }
         // 0x4C
-        public int WeaponEvolutionMaterialGroupId { get; set; }
+        public int WeaponSkillGroupId { get; set; }
+
         // 0x50
-        public int BaseEnhancementObtainedExp { get; set; }
+        public int WeaponAbilityGroupId { get; set; }
+
+        // 0x54
+        public int WeaponEvolutionMaterialGroupId { get; set; }
+
         // 0x58
-        public string Name { get; set; }
+        public int BaseEnhancementObtainedExp { get; set; }
+
         // 0x60
-        public ActorAssetId ActorAssetId { get; set; }
+        public string Name { get; set; }
+
         // 0x68
-        public int WeaponSpecificEnhanceId { get; set; }
-        // 0x6C
-        public int WeaponSpecificLimitBreakMaterialGroupId { get; set; }
+        public ActorAssetId ActorAssetId { get; set; }
+
         // 0x70
-        public bool IsRestrictDiscard { get; set; }
+        public int WeaponSpecificEnhanceId { get; set; }
+
         // 0x74
-        public RarityType SeedWeaponRarityType { get; set; }
+        public int WeaponSpecificLimitBreakMaterialGroupId { get; set; }
+
         // 0x78
-        public int EndWeaponCharacterId { get; set; }
+        public bool IsRestrictDiscard { get; set; }
+
+        // 0x79
+        public bool IsRecyclable { get; set; }
+
         // 0x7C
-        public int LimitBreakCount { get; set; }
+        public RarityType SeedWeaponRarityType { get; set; }
+
         // 0x80
-        public string UserWeaponUuid { get; set; }
+        public int EndWeaponCharacterId { get; set; }
+
+        // 0x84
+        public bool HasAwakenRelation { get; set; }
+
         // 0x88
-        public long AcquisitionDatetime { get; set; }
+        public int AwakenLevelLimitUp { get; set; }
+
+        // 0x8C
+        public int WeaponAwakenMaterialGroupId { get; set; }
+
         // 0x90
-        public int Exp { get; set; }
+        public int WeaponAwakenEffectGroupId { get; set; }
+
         // 0x94
+        public int LimitBreakCount { get; set; }
+
+        // 0x98
+        public string UserWeaponUuid { get; set; }
+
+        // 0xA0
+        public long AcquisitionDatetime { get; set; }
+
+        // 0xA8
+        public int Exp { get; set; }
+
+        // 0xAC
         public StatusValue StatusValue { get; set; }
-        // 0xB0
+
+        // 0xC8
         public int Power { get; set; }
-        // 0xB8
+
+        // 0xCC
+        public bool IsAwaken { get; set; }
+
+        public int ActualAwakenLevelLimitUp { get; }
+
+        // 0xD0
         public Action<bool> OnChangeProtected { get; set; }
-        // 0xC0
+
+        // 0xD8
         public bool IsProtected { get; set; }
 
         public int Hp => StatusValue.Hp;
+
         public int Attack => StatusValue.Attack;
+
         public int Vitality => StatusValue.Vitality;
 
         public DataWeapon()
