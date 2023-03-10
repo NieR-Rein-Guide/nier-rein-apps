@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Calculator.Database;
+﻿using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.Subsystem.Serval;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
@@ -163,7 +163,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         }
 
         // CUSTOM: Helpful method to retrieve costume max level at certain limit breaks and rebirth counts
-        private static int GetMaxLevel(EntityMCostume entityMCostume, int limitBreakCount, int rebirthCount)
+        public static int GetMaxLevel(EntityMCostume entityMCostume, int limitBreakCount, int rebirthCount)
         {
             var maxLvlSetting = CalculatorCalculationSetting.CreateMaxLevelCalculationSettingOnCostumeRarity(entityMCostume.RarityType);
             var totalLevelLimitUp = CalculatorRebirth.GenerateTotalLevelLimitUpValueByCharacterId(entityMCostume.CharacterId, rebirthCount);
