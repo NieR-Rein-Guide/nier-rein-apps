@@ -118,8 +118,11 @@ namespace NierReincarnation.Core.Dark.Calculator
 
             GetWeaponBaseStatus(weaponStatus, out var atk, out var hp, out var vit);
 
-            var baseStatus = new StatusValue(0, atk, 0, 0, 0, hp, vit);
-            return baseStatus + GetAbilityStatusDiff(0, atk, 0, 0, 0, hp, vit, weaponStatus.AttributeType, AbilityBehaviourStatusOrganizationConditionType.WEAPON, abilityStatusList);
+            var statusValue = new StatusValue(0, atk, 0, 0, 0, hp, vit);
+            statusValue += GetAbilityStatusDiff(0, atk, 0, 0, 0, hp, vit, weaponStatus.AttributeType, AbilityBehaviourStatusOrganizationConditionType.WEAPON, abilityStatusList);
+            statusValue += GetWeaponAwakenStatusDiff(atk, hp, vit, weaponStatus.WeaponAwakenStatusList);
+
+            return statusValue;
         }
 
         public static StatusValue GetCompanionStatus(DataCompanionStatus companionStatus, List<DataAbilityStatus> abilityStatusList)

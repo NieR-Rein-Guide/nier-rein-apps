@@ -1,6 +1,7 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -153,6 +154,20 @@ namespace NierReincarnation.Core.Dark.Calculator.Database
         {
             var table = DatabaseDefine.Master.EntityMWeaponAwakenTable;
             return table.FindByWeaponId(weaponId);
+        }
+
+        public static EntityMWeaponAwakenStatusUpGroup[] GetEntityMWeaponAwakenStatusUpGroupsByEffectGroupId(int weaponAwakenEffectGroupId)
+        {
+            var awakenEffectGroup = DatabaseDefine.Master.EntityMWeaponAwakenEffectGroupTable.FindByWeaponAwakenEffectGroupIdAndWeaponAwakenEffectType((weaponAwakenEffectGroupId, 1));
+
+            if (awakenEffectGroup == null)
+            {
+                return Array.Empty<EntityMWeaponAwakenStatusUpGroup>();
+            }
+
+            var weaponAwakenStatusUps = DatabaseDefine.Master.EntityMWeaponAwakenStatusUpGroupTable.FindByWeaponAwakenStatusUpGroupId(awakenEffectGroup.WeaponAwakenEffectId);
+
+            return weaponAwakenStatusUps.ToArray();
         }
     }
 }

@@ -188,12 +188,20 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
         {
             var baseStatus = GetEntityMWeaponBaseStatus(weapon.WeaponBaseStatusId);
 
-            var result = new DataWeaponStatus();
+            DataWeaponStatus result = new();
 
             var setting = CalculatorCalculationSetting.CreateWeaponStatusCalculationSetting(weapon, baseStatus);
             result.StatusCalculationSettings = setting;
             result.WeaponType = weapon.WeaponType;
             result.AttributeType = weapon.AttributeType;
+            result.WeaponAwakenStatusList = new List<DataWeaponAwakenStatus>();
+
+            var weaponAwaken = DatabaseDefine.Master.EntityMWeaponAwakenTable.FindByWeaponId(weapon.WeaponId);
+
+            if (weaponAwaken != null)
+            {
+                CalculatorWeaponAwakenStatus.CreateDataWeaponAwakenStatusList(weaponAwaken.WeaponAwakenEffectGroupId, result.WeaponAwakenStatusList);
+            }
 
             return result;
         }
