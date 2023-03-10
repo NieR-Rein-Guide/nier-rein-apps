@@ -17,9 +17,6 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
         var darkEventChapter = arg.Entity ?? MasterDb.EntityMEventQuestChapterTable.All.FirstOrDefault(x => x.EventQuestChapterId == arg.EntityId);
         if (darkEventChapter == null) return null;
 
-        if (arg.FromDate > CalculatorDateTime.FromUnixTime(darkEventChapter.StartDatetime)) return null;
-        if (arg.ToDate < CalculatorDateTime.FromUnixTime(darkEventChapter.StartDatetime)) return null;
-
         FateBoard fateBoard = new()
         {
             Name = string.Format(UserInterfaceTextKey.Quest.kEventChapterTitle, darkEventChapter.NameEventQuestTextId).Localize(),

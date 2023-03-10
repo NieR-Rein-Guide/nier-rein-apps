@@ -20,10 +20,10 @@ public class FetchAllFateBoardsCommand : AbstractDbQueryCommand<FetchAllFateBoar
                 ToDate = arg.ToDate
             });
 
-            if (fateBoard != null)
-            {
-                fateBoards.Add(fateBoard);
-            }
+            if (fateBoard == null) continue;
+            if (!arg.IncludeEmptyBoards && fateBoard.Seasons.Count == 0) continue;
+
+            fateBoards.Add(fateBoard);
         }
 
         return fateBoards;
@@ -32,4 +32,5 @@ public class FetchAllFateBoardsCommand : AbstractDbQueryCommand<FetchAllFateBoar
 
 public class FetchAllFateBoardsCommandArg : AbstractCommandWithDatesArg
 {
+    public bool IncludeEmptyBoards { get; init; }
 }
