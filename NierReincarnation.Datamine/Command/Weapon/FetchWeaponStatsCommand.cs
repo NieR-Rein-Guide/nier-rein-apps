@@ -18,9 +18,10 @@ public class FetchWeaponStatsCommand : AbstractDbQueryCommand<FetchWeaponStatsCo
         var darkWeapon = arg.Entity ?? MasterDb.EntityMWeaponTable.FindByWeaponId(arg.EntityId);
         if (darkWeapon == null) return Task.FromResult<WeaponStats>(null);
 
+        var darkWeaponAwaken = MasterDb.EntityMWeaponAwakenTable.FindByWeaponId(darkWeapon.WeaponId);
         DataWeaponStatus status = CalculatorWeapon.GetDataWeaponStatus(darkWeapon);
         int maxLmb = Config.GetWeaponLimitBreakAvailableCount();
-        status.Level = CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, maxLmb);
+        status.Level = CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, maxLmb, darkWeaponAwaken?.LevelLimitUp ?? 0);
         StatusValue stats = GetWeaponStatus(status, darkWeapon);
 
         return Task.FromResult(new WeaponStats

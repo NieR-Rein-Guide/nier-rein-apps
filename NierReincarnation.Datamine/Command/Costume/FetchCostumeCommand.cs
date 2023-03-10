@@ -25,7 +25,7 @@ public class FetchCostumeCommand : AbstractDbQueryCommand<FetchCostumeCommandArg
         {
             Name = CalculatorCostume.CostumeName(darkCostume.CostumeId),
             AssetId = CalculatorCostume.ActorAssetId(darkCostume.CostumeId).StringId,
-            Level = CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount()),
+            Level = CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount(), Config.GetCharacterRebirthAvailableCount()),
             RarityType = darkCostume.RarityType,
             WeaponType = darkCostume.SkillfulWeaponType,
             ReleaseDateTimeOffset = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),

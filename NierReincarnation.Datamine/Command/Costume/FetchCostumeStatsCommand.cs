@@ -23,7 +23,7 @@ public class FetchCostumeStatsCommand : AbstractDbQueryCommand<FetchCostumeStats
             .FindByCostumeAwakenEffectGroupIdAndCostumeAwakenEffectType((darkCostumeAwaken.CostumeAwakenEffectGroupId, CostumeAwakenEffectType.STATUS_UP));
         DataCostumeStatus status = CalculatorCostume.GetDataCostumeStatus(darkCostume);
         int maxLmb = Config.GetCostumeLimitBreakAvailableCount();
-        status.Level = CalculatorCostume.GetMaxLevel(darkCostume, maxLmb);
+        status.Level = CalculatorCostume.GetMaxLevel(darkCostume, maxLmb, Config.GetCharacterRebirthAvailableCount());
 
         DataAbility[] abilities = CalculatorCostume.CreateCostumeDataAbilityList(darkCostume.CostumeAbilityGroupId, maxLmb);
         DataAbility[] awakenAbilities = GetCostumeAwakenAbilities(darkCostume, abilities);
@@ -95,7 +95,7 @@ public class FetchCostumeStatsCommand : AbstractDbQueryCommand<FetchCostumeStats
         if (MasterDb.EntityMCostumeAwakenAbilityTable.TryFindByCostumeAwakenAbilityId(darkCostume.CostumeId, out EntityMCostumeAwakenAbility awakenAbility))
         {
             Array.Resize(ref awakenAbilities, awakenAbilities.Length + 1);
-            awakenAbilities[^1] = CalculatorAbility.CreateDataAbility(awakenAbility.AbilityId, 1, 1);
+            awakenAbilities[^1] = CalculatorAbility.CreateDataAbility(awakenAbility.AbilityId, awakenAbility.AbilityLevel, awakenAbility.AbilityLevel);
         }
 
         return awakenAbilities;

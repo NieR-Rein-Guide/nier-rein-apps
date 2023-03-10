@@ -30,11 +30,13 @@ public class FetchWeaponCommand : AbstractDbQueryCommand<FetchWeaponCommandArg, 
         if (arg.FromDate.HasValue && arg.FromDate.Value > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
         if (arg.ToDate.HasValue && arg.ToDate.Value < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
 
+        var darkWeaponAwaken = MasterDb.EntityMWeaponAwakenTable.FindByWeaponId(darkWeapon.WeaponId);
+
         return new Weapon
         {
             Name = CalculatorWeapon.WeaponName(darkWeapon.WeaponId),
             AssetId = CalculatorWeapon.ActorAssetId(darkWeapon.WeaponId).StringId,
-            Level = CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount()),
+            Level = CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount(), darkWeaponAwaken?.LevelLimitUp ?? 0),
             AttributeType = darkWeapon.AttributeType,
             RarityType = darkWeapon.RarityType,
             WeaponType = darkWeapon.WeaponType,
