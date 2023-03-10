@@ -1,0 +1,25 @@
+using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
+
+namespace NierReincarnation.Core.Dark.Tables
+{
+    public class EntityIUserEventQuestLabyrinthSeasonTable : TableBase<EntityIUserEventQuestLabyrinthSeason>
+    {
+        private readonly Func<EntityIUserEventQuestLabyrinthSeason, (long, int)> primaryIndexSelector;
+
+        public EntityIUserEventQuestLabyrinthSeasonTable(EntityIUserEventQuestLabyrinthSeason[] sortedData) : base(sortedData)
+        {
+            primaryIndexSelector = element => (element.UserId, element.EventQuestChapterId);
+        }
+
+        public EntityIUserEventQuestLabyrinthSeason FindByUserIdAndEventQuestChapterId(ValueTuple<long, int> key)
+        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+
+        public bool TryFindByUserIdAndEventQuestChapterId(ValueTuple<long, int> key, out EntityIUserEventQuestLabyrinthSeason result)
+        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+
+        public RangeView<EntityIUserEventQuestLabyrinthSeason> FindRangeByUserIdAndEventQuestChapterId(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true)
+        { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant); }
+    }
+}
