@@ -36,7 +36,9 @@ public static class DateTimeExtensions
 
     public static string ToFormattedDateStr(long startDateTime, long endDateTime, bool @long = false) => $"({startDateTime.ToFormattedDate(@long)} ~ {endDateTime.ToFormattedDate(@long)})";
 
-    public static string ToFormattedDateStr(DateTimeOffset startDateTime, DateTimeOffset endDateTime, bool @long = false) => $"({startDateTime.ToFormattedDate(@long)} ~ {endDateTime.ToFormattedDate(@long)})";
+    public static string ToFormattedDateStr(DateTimeOffset startDateTime, DateTimeOffset endDateTime, bool @long = false) => endDateTime < NextYearV2
+            ? $"({startDateTime.ToFormattedDate(@long)} ~ {endDateTime.ToFormattedDate(@long)})"
+            : $"({startDateTime.ToFormattedDate(@long)})";
 
     public static string GetExtraScheduleStr(DateTimeOffset start, DateTimeOffset end, DateTimeOffset? compareStart, DateTimeOffset? compareEnd)
     {
