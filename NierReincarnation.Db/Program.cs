@@ -499,15 +499,20 @@ public static class Program
     {
         var status = CalculatorCostume.GetDataCostumeStatus(darkCostume);
 
-        var lvls = new[] { 1, CalculatorCostume.GetMaxLevel(darkCostume, 0), CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount()) };
-        var awakeningSteps = Enumerable.Range(0, Config.GetCostumeAwakenAvailableCount() + 1).ToArray();
-        var limitBreaks = new[] { 0, 0, Config.GetCostumeLimitBreakAvailableCount() };
+        List<int> lvls = new()
+        {
+            CalculatorCostume.GetMaxLevel(darkCostume, 0, 0),
+            CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount(), 0),
+            CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount(), Config.GetCharacterRebirthAvailableCount())
+        };
+        List<int> awakeningSteps = Enumerable.Range(0, Config.GetCostumeAwakenAvailableCount() + 1).ToList();
+        List<int> limitBreaks = new() { 0, Config.GetCostumeLimitBreakAvailableCount(), Config.GetCostumeLimitBreakAvailableCount() };
 
         DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(darkCostume.CostumeId, out var darkCostumeAwaken);
         var costumeAwakenEffects = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable.All
             .Where(x => x.CostumeAwakenEffectGroupId == darkCostumeAwaken.CostumeAwakenEffectGroupId);
 
-        for (var i = 0; i < lvls.Length; i++)
+        for (var i = 0; i < lvls.Count; i++)
         {
             status.Level = lvls[i];
             var baseStatus = GetBaseStatus(status);
@@ -771,13 +776,20 @@ public static class Program
 
     private static void CreateWeaponStats(EntityMWeapon darkWeapon)
     {
-        DataWeaponStatus status = CalculatorWeapon.GetDataWeaponStatus(darkWeapon);
+        var darkWeaponAwaken = DatabaseDefine.Master.EntityMWeaponAwakenTable.FindByWeaponId(darkWeapon.WeaponId);
 
-        int[] lvls = new[] { 1, CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, 0), CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount()) };
-        int[] limitBreaks = new[] { 0, 0, Config.GetWeaponLimitBreakAvailableCount() };
+        List<int> lvls = new() { CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, 0, 0), CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount(), 0) };
+        List<int> limitBreaks = new() { 0, 0, Config.GetWeaponLimitBreakAvailableCount() };
+        List<bool> isRefined = new() { false, false, true };
 
-        for (var i = 0; i < lvls.Length; i++)
+        if (darkWeaponAwaken != null)
         {
+            lvls.Add(CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount(), darkWeaponAwaken.LevelLimitUp));
+        }
+
+        for (var i = 0; i < lvls.Count; i++)
+        {
+            DataWeaponStatus status = CalculatorWeapon.GetDataWeaponStatus(darkWeapon, isRefined[i]);
             status.Level = lvls[i];
             var abilityStatuses = CalculatorMasterData.GetEntityMWeaponAbilityGroupList(darkWeapon.WeaponAbilityGroupId)
                 .Select(x => CalculatorAbility.CreateDataAbility(x.AbilityId, x.SlotNumber, status.Level, CalculatorAbility.MAX_LEVEL))
@@ -792,7 +804,8 @@ public static class Program
                 Hp = stats.Hp,
                 Level = status.Level,
                 Vitality = stats.Vitality,
-                WeaponId = darkWeapon.WeaponId
+                WeaponId = darkWeapon.WeaponId,
+                IsRefined = isRefined[i]
             });
         }
     }

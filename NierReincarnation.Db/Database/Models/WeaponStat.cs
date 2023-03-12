@@ -18,6 +18,8 @@ internal class WeaponStat
     [Column("vit")]
     public int Vitality { get; set; }
 
+    public bool IsRefined { get; set; }
+
     [ForeignKey(nameof(WeaponId))]
     public virtual Weapon Weapon { get; set; }
 }
