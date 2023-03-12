@@ -138,9 +138,9 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
             var weaponAwaken = CalculatorMasterData.GetEntityWeaponAwaken(entityMWeapon.WeaponId);
             var awakenLevelLimitUp = isAwaken && weaponAwaken != null ? weaponAwaken.LevelLimitUp : 0;
 
-            var result = new DataWeapon();
+            DataWeapon result = new();
 
-            result.WeaponStatus ??= GetDataWeaponStatus(entityMWeapon);
+            result.WeaponStatus ??= GetDataWeaponStatus(entityMWeapon, isAwaken);
             result.WeaponStatus.Level = level;
             result.WeaponStatus.WeaponAwakenStatusList = new List<DataWeaponAwakenStatus>();
 
@@ -184,23 +184,26 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
         }
 
         // CUSTOM: Helpful method to retrieve weapon status information for further processing
-        public static DataWeaponStatus GetDataWeaponStatus(EntityMWeapon weapon)
+        public static DataWeaponStatus GetDataWeaponStatus(EntityMWeapon weapon, bool isAwaken)
         {
             var baseStatus = GetEntityMWeaponBaseStatus(weapon.WeaponBaseStatusId);
 
-            DataWeaponStatus result = new();
-
-            var setting = CalculatorCalculationSetting.CreateWeaponStatusCalculationSetting(weapon, baseStatus);
-            result.StatusCalculationSettings = setting;
-            result.WeaponType = weapon.WeaponType;
-            result.AttributeType = weapon.AttributeType;
-            result.WeaponAwakenStatusList = new List<DataWeaponAwakenStatus>();
-
-            var weaponAwaken = DatabaseDefine.Master.EntityMWeaponAwakenTable.FindByWeaponId(weapon.WeaponId);
-
-            if (weaponAwaken != null)
+            DataWeaponStatus result = new()
             {
-                CalculatorWeaponAwakenStatus.CreateDataWeaponAwakenStatusList(weaponAwaken.WeaponAwakenEffectGroupId, result.WeaponAwakenStatusList);
+                StatusCalculationSettings = CalculatorCalculationSetting.CreateWeaponStatusCalculationSetting(weapon, baseStatus),
+                WeaponType = weapon.WeaponType,
+                AttributeType = weapon.AttributeType,
+                WeaponAwakenStatusList = new List<DataWeaponAwakenStatus>()
+            };
+
+            if (isAwaken)
+            {
+                var weaponAwaken = DatabaseDefine.Master.EntityMWeaponAwakenTable.FindByWeaponId(weapon.WeaponId);
+
+                if (weaponAwaken != null)
+                {
+                    CalculatorWeaponAwakenStatus.CreateDataWeaponAwakenStatusList(weaponAwaken.WeaponAwakenEffectGroupId, result.WeaponAwakenStatusList);
+                }
             }
 
             return result;
