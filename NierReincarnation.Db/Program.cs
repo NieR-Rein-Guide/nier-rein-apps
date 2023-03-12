@@ -345,7 +345,7 @@ public static class Program
             DatabaseDefine.Master.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostume.CostumeId, out var darkCostumeCatalog);
             var darkCatalogTerm = DatabaseDefine.Master.EntityMCatalogTermTable.FindByCatalogTermId(darkCostumeCatalog.CatalogTermId);
             var assetId = CalculatorCostume.ActorAssetId(darkCostume.CostumeId);
-            var costumeName = CalculatorCostume.CostumeName(darkCostume.CostumeId);
+            var costumeName = CalculatorCostume.CostumeName(darkCostume.CostumeId).Replace("\\n", string.Empty);
 
             DatabaseDefine.Master.EntityMCostumeAwakenTable.TryFindByCostumeId(darkCostume.CostumeId, out var costumeAwaken);
             var darkCostumeAwakenEffect = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable
