@@ -504,7 +504,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
             List<string> uniqueNames = new();
             Console.WriteLine("__**Hidden Stories**__");
 
-            foreach (var hiddenStoryGroup in hiddenStories.GroupBy(x => x.ProgressStartDateTimeOffset))
+            foreach (var hiddenStoryGroup in hiddenStories.OrderBy(x => x.ProgressStartDateTimeOffset).GroupBy(x => x.ProgressStartDateTimeOffset))
             {
                 Console.WriteLine(hiddenStoryGroup.Key.ToFormattedDate());
 
