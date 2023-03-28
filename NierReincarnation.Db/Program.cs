@@ -351,6 +351,8 @@ public static class Program
             var darkCostumeAwakenEffect = DatabaseDefine.Master.EntityMCostumeAwakenEffectGroupTable
                 .FindByCostumeAwakenEffectGroupIdAndCostumeAwakenEffectType((costumeAwaken.CostumeAwakenEffectGroupId, CostumeAwakenEffectType.ITEM_ACQUIRE))[0];
 
+            DatabaseDefine.Master.EntityMCostumeProperAttributeHpBonusTable.TryFindByCostumeId(darkCostume.CostumeId, out var darkCostumeProperAttribute);
+
             _postgreDbContext.Costumes.Add(new Costume
             {
                 AssetId = assetId.ToString(),
@@ -366,7 +368,8 @@ public static class Program
                 Rarity = darkCostume.RarityType.ToString(),
                 ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
                 ThoughtId = darkCostumeAwakenEffect?.CostumeAwakenEffectId,
-                WeaponType = darkCostume.SkillfulWeaponType.ToString()
+                WeaponType = darkCostume.SkillfulWeaponType.ToString(),
+                Attribute = darkCostumeProperAttribute?.CostumeProperAttributeType.ToString()
             });
 
             CreateCostumeSkills(darkCostume);
