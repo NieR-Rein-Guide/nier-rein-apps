@@ -1,5 +1,5 @@
-﻿using Art.Framework.ApiNetwork.Grpc.Api.Deck;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
+﻿using NierReincarnation.Core.Dark.Calculator.Outgame;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.Octo.Data;
 using System.Text.RegularExpressions;
@@ -59,7 +59,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
         Console.WriteLine();
         Console.WriteLine();
         Console.WriteLine("**Unreleased costumes**");
-        Console.WriteLine("```");
+        Console.WriteLine("```diff");
         foreach ((string costume, List<string> _) in unreleasedCostumes.OrderBy(x => x.Key))
         {
             Console.WriteLine($"{costume}");
@@ -73,21 +73,14 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
     {
         Dictionary<string, string> result = new();
 
-        foreach (var darkCharacter in MasterDb.EntityMCharacterTable.All)
+        foreach (var darkCostume in MasterDb.EntityMCostumeTable.All)
         {
-            string characterNameStr = CalculatorCharacter.CharacterName(darkCharacter.CharacterId, true);
-            if (string.IsNullOrWhiteSpace(characterNameStr)) continue;
+            if (darkCostume.CostumeId > 100000) continue;
+            string characterIdStr = $"ch{darkCostume.ActorSkeletonId:000}";
+            if (result.ContainsKey(characterIdStr)) continue;
 
-            string characterIdStr = $"ch{darkCharacter.CharacterAssetId.ToString()[^3..]}";
-            result.TryAdd(characterIdStr, characterNameStr);
-
-            var darkCharacterSwitch = MasterDb.EntityMCharacterDisplaySwitchTable.FindByCharacterId(darkCharacter.CharacterId);
-
-            if (darkCharacterSwitch != null)
-            {
-                characterIdStr = $"ch{darkCharacterSwitch.CharacterAssetId.ToString()[^3..]}";
-                result.TryAdd(characterIdStr, characterNameStr);
-            }
+            string characterNameStr = $"character.name.{darkCostume.CharacterId}".Localize(); // Lazy
+            result.Add(characterIdStr, characterNameStr);
         }
 
         return result;
