@@ -25,7 +25,7 @@ public class ExportEnhanceCampaignsMenuCommand : AbstractMenuCommand
             foreach (var targetGroup in targetGroups.GroupBy(x => $"campaign.name.{(int)CampaignType.Enhance:00}.{(int)enhanceCampaign.EnhanceCampaignEffectType:00}.{(int)x.EnhanceCampaignTargetType:00}".Localize()))
             {
                 var targetGroupOne = targetGroup.First();
-                var descStr = $"campaign.description.{(int)CampaignType.Enhance:00}.{enhanceCampaign.EnhanceCampaignEffectType:00}.{(int)targetGroupOne.EnhanceCampaignTargetType:00}".Localize();
+                var descStr = $"campaign.description.{(int)CampaignType.Enhance:00}.{(int)enhanceCampaign.EnhanceCampaignEffectType:00}.{(int)targetGroupOne.EnhanceCampaignTargetType:00}".Localize();
                 var targetStr = targetGroupOne.EnhanceCampaignTargetType.ToFormattedStr(targetItems.FirstOrDefault());
                 var userTargetStr = enhanceCampaign.TargetUserStatusType != TargetUserStatusType.ALL
                     ? $"({enhanceCampaign.TargetUserStatusType.ToFormattedStr()} players) "
