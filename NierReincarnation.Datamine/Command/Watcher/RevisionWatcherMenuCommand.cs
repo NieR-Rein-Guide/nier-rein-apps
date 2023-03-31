@@ -10,6 +10,8 @@ public class RevisionWatcherMenuCommand : AbstractWatcherMenuCommand<RevisionWat
 
     public override bool Login => false;
 
+    public override bool UseLocalizations => false;
+
     public override int Revision => Program.AppSettings.DbRevision;
 
     public override int Interval => 5000;

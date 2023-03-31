@@ -2,6 +2,7 @@
 using DustInTheWind.ConsoleTools.Controls.Musical;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.UnityEngine;
 using NierReincarnation.Datamine.Extension;
 
@@ -23,6 +24,8 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
     protected static DarkMasterMemoryDatabase MasterDb => DatabaseDefine.Master;
 
+    private static bool IsLocalizationInitialized => LocalizationExtensions.Localizations?.Count > 0;
+
     public abstract void Execute();
 
     protected async Task Setup()
@@ -42,7 +45,7 @@ public abstract class AbstractSimpleMenuCommand : ICommand
                 await InitializeNierReinApi(Revision, Login);
             }
 
-            if (UseLocalizations)
+            if (UseLocalizations && !IsLocalizationInitialized)
             {
                 await InitializeLocalizations();
             }

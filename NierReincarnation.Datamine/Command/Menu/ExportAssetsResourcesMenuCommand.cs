@@ -1,4 +1,6 @@
-﻿using static NierReincarnation.Core.Octo.OctoManager;
+﻿using NierReincarnation.Core.Dark.Localization;
+using NierReincarnation.Core.UnityEngine;
+using static NierReincarnation.Core.Octo.OctoManager;
 
 namespace NierReincarnation.Datamine.Command;
 
@@ -9,6 +11,8 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
     public override bool Reset => true;
 
     public override bool Login => false;
+
+    public override bool UseLocalizations => false;
 
     public override int Revision => Program.AppSettings.DbRevision;
 
@@ -53,7 +57,15 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
                 }
         });
 
+        // Update revision and save changes
         Program.AppSettings.DbRevision = DbRevision;
         await new SaveConfigurationCommand().ExecuteAsync();
+
+        // Reload localizations
+        if (LocalizationExtensions.Localizations?.Count > 0)
+        {
+            Console.WriteLine("Reloading localizations");
+            await NierReincarnation.LoadLocalizations(Language.English);
+        }
     }
 }

@@ -12,6 +12,8 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand
 
     public override bool Reset => true;
 
+    public override bool UseLocalizations => false;
+
     internal static DataManager DataManager => OctoManager.Database as DataManager;
 
     public override async Task ExecuteAsync()
