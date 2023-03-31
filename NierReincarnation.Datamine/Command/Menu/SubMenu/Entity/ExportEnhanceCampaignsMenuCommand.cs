@@ -22,7 +22,7 @@ public class ExportEnhanceCampaignsMenuCommand : AbstractMenuCommand
             var targetGroups = MasterDb.EntityMEnhanceCampaignTargetGroupTable.All.Where(x => x.EnhanceCampaignTargetGroupId == enhanceCampaign.EnhanceCampaignTargetGroupId);
             var targetItems = targetGroups.Select(x => x.EnhanceCampaignTargetValue).Where(x => x > 0).Distinct();
 
-            foreach (var targetGroup in targetGroups.GroupBy(x => $"campaign.name.{(int)CampaignType.Enhance:00}.{enhanceCampaign.EnhanceCampaignEffectType:00}.{(int)x.EnhanceCampaignTargetType:00}".Localize()))
+            foreach (var targetGroup in targetGroups.GroupBy(x => $"campaign.name.{(int)CampaignType.Enhance:00}.{(int)enhanceCampaign.EnhanceCampaignEffectType:00}.{(int)x.EnhanceCampaignTargetType:00}".Localize()))
             {
                 var targetGroupOne = targetGroup.First();
                 var descStr = $"campaign.description.{(int)CampaignType.Enhance:00}.{enhanceCampaign.EnhanceCampaignEffectType:00}.{(int)targetGroupOne.EnhanceCampaignTargetType:00}".Localize();
