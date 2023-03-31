@@ -35,11 +35,8 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand
             if (File.Exists(filePath) && await File.ReadAllTextAsync(filePath) == json) continue;
 
             // Write file with changes
-            if (Program.AppSettings.UseTemp)
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
-            }
-            await File.WriteAllTextAsync(Program.AppSettings.UseTemp ? tempFilePath : filePath, json);
+            Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
+            await File.WriteAllTextAsync(tempFilePath, json);
             exportedTables.Add(filePath);
         }
         Console.Write($"\r{emptyString}");

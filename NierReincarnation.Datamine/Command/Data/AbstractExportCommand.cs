@@ -75,11 +75,10 @@ public abstract class AbstractExportCommand : IAsyncCommand<BaseExportEntityComm
             // Process added or updated items only
             if (item.state == Data.DataState.Add || item.state == Data.DataState.Update)
             {
-                string filePath = Path.Combine(arg.DownloadPath, itemName);
                 string tempFilePath = Path.Combine(arg.DownloadPath, Constants.TempFolder, $"{DataManager.Revision}", itemName);
 
                 // Skip existing file
-                if (Program.AppSettings.UseTemp && File.Exists(tempFilePath)) return;
+                if (File.Exists(tempFilePath)) return;
 
                 // Download item
                 HttpClient client = new()
@@ -101,15 +100,8 @@ public abstract class AbstractExportCommand : IAsyncCommand<BaseExportEntityComm
                 byte[] responseBytes = await GetResponseBytesAsync(response, item);
 
                 // Write item to disk
-                if (Program.AppSettings.UseTemp)
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
-                }
-                else
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                }
-                await File.WriteAllBytesAsync(Program.AppSettings.UseTemp ? tempFilePath : filePath, responseBytes);
+                Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
+                await File.WriteAllBytesAsync(tempFilePath, responseBytes);
 
                 lock (_lockObj)
                 {

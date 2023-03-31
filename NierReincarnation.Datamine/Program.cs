@@ -35,9 +35,6 @@ public static class Program
         [Option("autocopy", Required = false, Default = false, HelpText = "Automatically copy assets to main folder")]
         public bool AutoCopyAssets { get; set; }
 
-        [Option("usetemp", Required = false, Default = true, HelpText = "Place new files in a temp folder")]
-        public bool UseTemp { get; set; } = true;
-
         [Option("timeout", Required = false, HelpText = "Timeout for asset downloads")]
         public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(2);
 
