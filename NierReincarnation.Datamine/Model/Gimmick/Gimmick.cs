@@ -6,8 +6,6 @@ public class Gimmick
 {
     public int ChapterId { get; init; }
 
-    public int SequenceId { get; init; }
-
     public GimmickType GimmickType { get; init; }
 
     public FlowType FlowType { get; init; }

@@ -13,35 +13,53 @@ public class FetchAllGimmicksCommand : AbstractDbQueryCommand<FetchAllGimmicksCo
     {
         List<Gimmick> gimmicks = new();
 
-        foreach (EntityMGimmickOrnament darkGimmickOrnament in MasterDb.EntityMGimmickOrnamentTable.All.OrderBy(x => x.ChapterId))
+        foreach (EntityMGimmickOrnament darkGimmickOrnament in MasterDb.EntityMGimmickOrnamentTable.All.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder))
         {
             EntityMGimmick darkGimmick = MasterDb.EntityMGimmickTable.All.FirstOrDefault(x => x.GimmickOrnamentGroupId == darkGimmickOrnament.GimmickOrnamentGroupId);
 
             if (arg.GimmickTypes?.Length > 0 && !arg.GimmickTypes.Contains(darkGimmick.GimmickType)) continue;
 
             EntityMGimmickGroup darkGimmickGroup = MasterDb.EntityMGimmickGroupTable.All.FirstOrDefault(x => x.GimmickId == darkGimmick.GimmickId);
-            EntityMGimmickSequence darkGimmickSequence = MasterDb.EntityMGimmickSequenceTable.All.FirstOrDefault(x => x.GimmickGroupId == darkGimmickGroup.GimmickGroupId);
-            EntityMGimmickSequenceSchedule darkGimmickSequenceSchedule = MasterDb.EntityMGimmickSequenceScheduleTable.All.FirstOrDefault(x => x.FirstGimmickSequenceId == darkGimmickSequence.GimmickSequenceId);
-            Gimmick gimmick = CreateGimmickModel(darkGimmickOrnament, darkGimmick, darkGimmickSequenceSchedule, darkGimmickSequence);
 
-            if (gimmick == null || gimmicks.Any(x => x.SequenceId == gimmick.SequenceId)) continue;
-            gimmicks.Add(gimmick);
-
-            while (darkGimmickSequence.NextGimmickSequenceGroupId != 0)
+            foreach (var darkGimmickSequenceSchedule in MasterDb.EntityMGimmickSequenceScheduleTable.All)
             {
-                EntityMGimmickSequenceGroup darkGimmickSequenceGroup = MasterDb.EntityMGimmickSequenceGroupTable.All.FirstOrDefault(x => x.GimmickSequenceGroupId == darkGimmickSequence.NextGimmickSequenceGroupId);
-                darkGimmickSequence = MasterDb.EntityMGimmickSequenceTable.All.FirstOrDefault(x => x.GimmickSequenceId == darkGimmickSequenceGroup.GimmickSequenceId);
-                darkGimmickGroup = MasterDb.EntityMGimmickGroupTable.All.FirstOrDefault(x => x.GimmickGroupId == darkGimmickSequence.GimmickGroupId);
-                darkGimmick = MasterDb.EntityMGimmickTable.All.FirstOrDefault(x => x.GimmickId == darkGimmickGroup.GimmickId);
-                EntityMGimmickOrnament darkGimmickOrnament2 = MasterDb.EntityMGimmickOrnamentTable.All.FirstOrDefault(x => x.GimmickOrnamentGroupId == darkGimmick.GimmickOrnamentGroupId);
-                gimmick = CreateGimmickModel(darkGimmickOrnament2, darkGimmick, darkGimmickSequenceSchedule, darkGimmickSequence, gimmick);
+                int sequenceId = darkGimmickSequenceSchedule.FirstGimmickSequenceId;
 
-                if (gimmick == null || gimmicks.Any(x => x.SequenceId == gimmick.SequenceId)) break;
-                gimmicks.Add(gimmick);
+                do
+                {
+                    int nextSequenceId = GetNextGimmickSequenceId(sequenceId);
+                    EntityMGimmickSequence darkGimmickSequence = MasterDb.EntityMGimmickSequenceTable.All
+                        .FirstOrDefault(x => x.GimmickGroupId == darkGimmickGroup.GimmickGroupId && x.GimmickSequenceId == sequenceId);
+
+                    if (darkGimmickSequence != null)
+                    {
+                        Gimmick gimmick = CreateGimmickModel(darkGimmickOrnament, darkGimmick, darkGimmickSequenceSchedule, darkGimmickSequence);
+
+                        if (gimmick != null)
+                        {
+                            gimmicks.Add(gimmick);
+                        }
+                    }
+
+                    sequenceId = nextSequenceId;
+                }
+                while (sequenceId != 0);
             }
         }
 
         return Task.FromResult(gimmicks);
+    }
+
+    private int GetNextGimmickSequenceId(int gimmickSequenceId)
+    {
+        EntityMGimmickSequence darkGimmickSequence = MasterDb.EntityMGimmickSequenceTable.All
+            .FirstOrDefault(x => x.GimmickSequenceId == gimmickSequenceId);
+
+        if (darkGimmickSequence == null || darkGimmickSequence.NextGimmickSequenceGroupId == 0) return 0;
+
+        EntityMGimmickSequenceGroup darkGimmickSequenceGroup = MasterDb.EntityMGimmickSequenceGroupTable.All.FirstOrDefault(x => x.GimmickSequenceGroupId == darkGimmickSequence.NextGimmickSequenceGroupId);
+
+        return darkGimmickSequenceGroup.GimmickSequenceId;
     }
 
     private Gimmick CreateGimmickModel(EntityMGimmickOrnament darkGimmickOrnament, EntityMGimmick darkGimmick,
@@ -61,7 +79,6 @@ public class FetchAllGimmicksCommand : AbstractDbQueryCommand<FetchAllGimmicksCo
         Gimmick gimmick = new()
         {
             ChapterId = darkGimmickOrnament.ChapterId,
-            SequenceId = darkGimmickSequence.GimmickSequenceId,
             GimmickType = darkGimmick.GimmickType,
             FlowType = darkGimmickSequence.FlowType,
             StartDateTimeOffset = darkGimmickSequenceSchedule != null ? CalculatorDateTime.FromUnixTime(darkGimmickSequenceSchedule.StartDatetime) : null,

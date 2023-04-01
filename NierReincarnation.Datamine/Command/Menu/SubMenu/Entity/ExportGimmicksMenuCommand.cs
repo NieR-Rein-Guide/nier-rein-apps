@@ -23,7 +23,7 @@ public class ExportGimmicksMenuCommand : AbstractMenuCommand
                 {
                     var internalStr = string.Join(",", gimmickGroup.OrderBy(x => x.IntervalValue).Select(x => x.IntervalValue / 60));
 
-                    Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()} (Every {internalStr} hours, up to {gimmickGroup.First().MaxValue} items)");
+                    Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()} (Every {internalStr} hours, up to {gimmickGroup.Max(x => x.MaxValue)} items)");
                 }
                 else if (gimmickGroup.Key == GimmickType.CAGE_MEMORY)
                 {
@@ -36,7 +36,7 @@ public class ExportGimmicksMenuCommand : AbstractMenuCommand
                     Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()} ({gimmickGroup.Count()})");
                     Console.WriteLine($"- {pastGimmicks.Count()} birds in the past");
 
-                    foreach (var gimmick in gimmickGroup.Except(pastGimmicks))
+                    foreach (var gimmick in gimmickGroup.Except(pastGimmicks).OrderBy(x => x.StartDateTimeOffset))
                     {
                         Console.WriteLine($"- {gimmick.StartDateTimeOffset.Value.ToFormattedDate()} ~ {gimmick.EndDateTimeOffset.Value.ToFormattedDate()}");
                     }
@@ -54,13 +54,13 @@ public class ExportGimmicksMenuCommand : AbstractMenuCommand
                     Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()}");
                     foreach (var gimmick in gimmickGroup.OrderBy(x => x.ProgressStartDateTimeOffset))
                     {
-                        Console.WriteLine($"- {gimmick.ProgressStartDateTimeOffset.ToFormattedDate(true)} - {gimmick.StartDateTimeOffset?.ToFormattedDate(true)} - {gimmick.Reward.Name} -> {string.Join(" & ", gimmick.ClearConditions)}");
+                        Console.WriteLine($"- {gimmick.ProgressStartDateTimeOffset.ToFormattedDate(true)} - {gimmick.Reward.Name} -> {string.Join(" & ", gimmick.ClearConditions)}");
                     }
                 }
                 else
                 {
                     Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()}");
-                    foreach (var gimmick in gimmickGroup)
+                    foreach (var gimmick in gimmickGroup.OrderBy(x => x.StartDateTimeOffset))
                     {
                         Console.WriteLine($"- {gimmick.StartDateTimeOffset.Value.ToFormattedDate(true)} ~ {gimmick.EndDateTimeOffset.Value.ToFormattedDate(true)}");
                     }
