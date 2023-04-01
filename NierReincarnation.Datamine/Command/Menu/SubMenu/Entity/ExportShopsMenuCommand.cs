@@ -2,6 +2,7 @@
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Tables;
+using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Datamine.Extension;
 
 namespace NierReincarnation.Datamine.Command;
@@ -13,60 +14,70 @@ public class ExportShopsMenuCommand : AbstractMenuCommand
     public override Task ExecuteAsync()
     {
         Console.WriteLine(nameof(EntityMShopTable));
-        foreach (var shop in MasterDb.EntityMShopTable.All
+        foreach (var darkShop in MasterDb.EntityMShopTable.All
             .Where(x => DateTimeExtensions.IsCurrentOrFuture(x.StartDatetime, x.EndDatetime))
             .OrderBy(x => x.StartDatetime))
         {
-            var shopStr = $"shop.name.{shop.NameShopTextId}".Localize();
+            var shopStr = $"shop.name.{darkShop.NameShopTextId}".Localize();
 
             if (shopStr.Contains("Weekly")) continue;
 
-            var shopItemCellGroups = MasterDb.EntityMShopItemCellGroupTable.All.Where(x => x.ShopItemCellGroupId == shop.ShopItemCellGroupId);
+            var darkShopItemCellGroups = MasterDb.EntityMShopItemCellGroupTable.All.Where(x => x.ShopItemCellGroupId == darkShop.ShopItemCellGroupId);
 
-            Console.WriteLine($"**{shopStr} ({shop.ShopType.ToFormattedStr()}) {shop.ToFormattedDateStr()}**");
+            Console.WriteLine($"**{shopStr} ({darkShop.ShopType.ToFormattedStr()}) {darkShop.ToFormattedDateStr()}**");
 
-            foreach (var shopItemCellGroup in shopItemCellGroups.OrderBy(x => x.SortOrder))
+            List<int> terms = new();
+            foreach (var darkShopItemCellGroup in darkShopItemCellGroups.OrderBy(x => x.ShopItemCellTermId).ThenBy(x => x.SortOrder))
             {
-                var shopItemCells = MasterDb.EntityMShopItemCellTable.All.Where(x => x.ShopItemCellId == shopItemCellGroup.ShopItemCellId);
-                foreach (var shopItem in shopItemCells.Select(x => MasterDb.EntityMShopItemTable.FindByShopItemId(x.ShopItemId)))
+                if (darkShopItemCellGroup.ShopItemCellTermId > 0 && !terms.Contains(darkShopItemCellGroup.ShopItemCellTermId))
                 {
-                    if (shop.ShopType == ShopType.MISSION_SHOP)
+                    terms.Add(darkShopItemCellGroup.ShopItemCellTermId);
+                    var darkShopItemCellTerm = MasterDb.EntityMShopItemCellTermTable.FindByShopItemCellTermId(darkShopItemCellGroup.ShopItemCellTermId);
+                    Console.WriteLine(DateTimeExtensions.GetExtraScheduleStr(CalculatorDateTime.FromUnixTime(darkShop.StartDatetime), CalculatorDateTime.FromUnixTime(darkShop.EndDatetime),
+                        CalculatorDateTime.FromUnixTime(darkShopItemCellTerm.StartDatetime), CalculatorDateTime.FromUnixTime(darkShopItemCellTerm.EndDatetime)));
+                }
+                var darkShopItemCells = MasterDb.EntityMShopItemCellTable.All.Where(x => x.ShopItemCellId == darkShopItemCellGroup.ShopItemCellId);
+                foreach (var darkShopItem in darkShopItemCells.Select(x => MasterDb.EntityMShopItemTable.FindByShopItemId(x.ShopItemId)))
+                {
+                    if (darkShop.ShopType == ShopType.MISSION_SHOP)
                     {
-                        var itemMission = MasterDb.EntityMShopItemContentMissionTable.FindByShopItemId(shopItem.ShopItemId);
-                        var missionGroup = MasterDb.EntityMMissionGroupTable.FindByMissionGroupId(itemMission.MissionGroupId);
+                        var darkShopItemMission = MasterDb.EntityMShopItemContentMissionTable.FindByShopItemId(darkShopItem.ShopItemId);
+                        var darkMissionGroup = MasterDb.EntityMMissionGroupTable.FindByMissionGroupId(darkShopItemMission.MissionGroupId);
 
-                        foreach (var mission in MasterDb.EntityMMissionTable.All.Where(x => x.MissionGroupId == missionGroup.MissionGroupId))
+                        foreach (var darkMission in MasterDb.EntityMMissionTable.All.Where(x => x.MissionGroupId == darkMissionGroup.MissionGroupId))
                         {
-                            var missionReward = MasterDb.EntityMMissionRewardTable.FindByMissionRewardId(mission.MissionRewardId);
+                            var darkMissionReward = MasterDb.EntityMMissionRewardTable.FindByMissionRewardId(darkMission.MissionRewardId);
 
-                            var missionStr = $"mission.name.{mission.NameMissionTextId}".Localize();
-                            var missionRewardStr = CalculatorPossession.GetItemName(missionReward.PossessionType, missionReward.PossessionId);
+                            var missionStr = $"mission.name.{darkMission.NameMissionTextId}".Localize();
+                            var missionRewardStr = CalculatorPossession.GetItemName(darkMissionReward.PossessionType, darkMissionReward.PossessionId);
 
                             Console.WriteLine($"{missionStr}");
-                            Console.WriteLine($"- {missionRewardStr} x{missionReward.Count}");
+                            Console.WriteLine($"- {missionRewardStr} x{darkMissionReward.Count}");
                         }
                     }
                     else
                     {
-                        var itemPosessions = MasterDb.EntityMShopItemContentPossessionTable.All.Where(x => x.ShopItemId == shopItem.ShopItemId);
-                        var itemLimitedStock = MasterDb.EntityMShopItemLimitedStockTable.All.FirstOrDefault(x => x.ShopItemLimitedStockId == shopItem.ShopItemLimitedStockId);
-                        var shopItemStr = $"shop.item.name.{shopItem.NameShopTextId}".Localize();
-                        var itemStockStr = itemLimitedStock != null ? $" x{itemLimitedStock.MaxCount}" : "";
-                        var itemPrice = shopItem.Price.ToString();
+                        var darkShopItemPosessions = MasterDb.EntityMShopItemContentPossessionTable.All.Where(x => x.ShopItemId == darkShopItem.ShopItemId);
+                        var darkShopItemLimitedStock = MasterDb.EntityMShopItemLimitedStockTable.All.FirstOrDefault(x => x.ShopItemLimitedStockId == darkShopItem.ShopItemLimitedStockId);
+                        var shopItemStr = $"shop.item.name.{darkShopItem.NameShopTextId}".Localize();
+                        var itemStockStr = darkShopItemLimitedStock != null ? $" x{darkShopItemLimitedStock.MaxCount}" : "";
+                        var itemPrice = darkShopItem.Price.ToString();
+                        //var itemCurrency = CalculatorPossession.GetItemName(PossessionType.CONSUMABLE_ITEM, darkShopItem.PriceId);
 
-                        if (shopItem.Price == 0)
+                        if (darkShopItem.PriceType == PriceType.PLATFORM_PAYMENT)
                         {
-                            var itemPaymentPrice = MasterDb.EntityMPlatformPaymentPriceTable.FindByPlatformPaymentIdAndPlatformType((shopItem.PriceId, PlatformType.GOOGLE_PLAY_STORE));
+                            var darkShopItemPaymentPrice = MasterDb.EntityMPlatformPaymentPriceTable.FindByPlatformPaymentIdAndPlatformType((darkShopItem.PriceId, PlatformType.GOOGLE_PLAY_STORE));
 
-                            if (itemPaymentPrice != null)
+                            if (darkShopItemPaymentPrice != null)
                             {
-                                itemPrice = $"¥{itemPaymentPrice.Price}";
+                                itemPrice = $"¥{darkShopItemPaymentPrice.Price}";
                             }
                         }
 
                         Console.WriteLine($"{shopItemStr}{itemStockStr} ({itemPrice})");
+                        //Console.WriteLine($"{shopItemStr}{itemStockStr} ({itemPrice} {itemCurrency})");
 
-                        foreach (var itemPosession in itemPosessions.OrderBy(x => x.SortOrder))
+                        foreach (var itemPosession in darkShopItemPosessions.OrderBy(x => x.SortOrder))
                         {
                             var itemPosessionStr = CalculatorPossession.GetItemName(itemPosession.PossessionType, itemPosession.PossessionId);
 

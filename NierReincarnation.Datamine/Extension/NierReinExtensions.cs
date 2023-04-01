@@ -21,7 +21,10 @@ public static class NierReinExtensions
 
     public static string ToFormattedDateStr(this EntityMShop entityMShop) => DateTimeExtensions.ToFormattedDateStr(entityMShop.StartDatetime, entityMShop.EndDatetime);
 
+    public static string ToFormattedDateStr(this EntityMShopItemCellTerm entityMShopItemCellTerm) => DateTimeExtensions.ToFormattedDateStr(entityMShopItemCellTerm.StartDatetime, entityMShopItemCellTerm.EndDatetime);
+
     public static string ToFormattedDateStr(this WorldMapGimmickOutGame worldMapGimmickOutGame) => DateTimeExtensions.ToFormattedDateStr(worldMapGimmickOutGame.StartDatetime, worldMapGimmickOutGame.EndDatetime);
+
     public static string ToFormattedDateStr(this EntityMEventQuestLabyrinthSeason entityMEventQuestLabyrinthSeason) => DateTimeExtensions.ToFormattedDateStr(entityMEventQuestLabyrinthSeason.StartDatetime, entityMEventQuestLabyrinthSeason.EndDatetime);
 
     #endregion Date Extensions
