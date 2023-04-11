@@ -27,8 +27,8 @@ public class FetchWeaponCommand : AbstractDbQueryCommand<FetchWeaponCommandArg, 
         var baseWeaponCatalog = MasterDb.EntityMCatalogWeaponTable.FindByWeaponId(baseWeapon.WeaponId);
         var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(baseWeaponCatalog.CatalogTermId);
 
-        if (arg.FromDate.HasValue && arg.FromDate.Value > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
-        if (arg.ToDate.HasValue && arg.ToDate.Value < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
 
         var darkWeaponAwaken = MasterDb.EntityMWeaponAwakenTable.FindByWeaponId(darkWeapon.WeaponId);
 
