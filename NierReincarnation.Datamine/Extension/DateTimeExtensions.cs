@@ -5,22 +5,18 @@ namespace NierReincarnation.Datamine.Extension;
 
 public static class DateTimeExtensions
 {
-    public static long Yesterday => DateTimeOffset.UtcNow.AddDays(-1).ToUnixTimeMilliseconds();
+    public static DateTimeOffset Yesterday => DateTimeOffset.UtcNow.AddDays(-1);
 
-    public static long Now => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    public static DateTimeOffset Now => DateTimeOffset.UtcNow;
 
-    public static long NextYear => DateTimeOffset.UtcNow.AddYears(1).ToUnixTimeMilliseconds();
-
-    public static DateTimeOffset YesterdayV2 => DateTimeOffset.UtcNow.AddDays(-1);
-
-    public static DateTimeOffset NowV2 => DateTimeOffset.UtcNow;
-
-    public static DateTimeOffset NextYearV2 => DateTimeOffset.UtcNow.AddYears(1);
+    public static DateTimeOffset NextYear => DateTimeOffset.UtcNow.AddYears(1);
 
     public static bool IsCurrentOrFuture(long startDateTime, long endDateTime)
     {
-        return endDateTime < NextYear &&
-            ((Now > startDateTime && Now < endDateTime) || Now < startDateTime);
+        var nowUnixTimeMs = Now.ToUnixTimeMilliseconds();
+        var nextYearUnixTimeMs = NextYear.ToUnixTimeMilliseconds();
+
+        return endDateTime >= nowUnixTimeMs && startDateTime <= nextYearUnixTimeMs && (startDateTime >= nowUnixTimeMs || endDateTime <= nextYearUnixTimeMs);
     }
 
     public static string ToFormattedDate(this long unixTimeMs, bool @long = false, bool useDiscordDate = true) => CalculatorDateTime.FromUnixTime(unixTimeMs).ToFormattedDate(@long, useDiscordDate);
@@ -36,7 +32,7 @@ public static class DateTimeExtensions
 
     public static string ToFormattedDateStr(long startDateTime, long endDateTime, bool @long = false) => $"({startDateTime.ToFormattedDate(@long)} ~ {endDateTime.ToFormattedDate(@long)})";
 
-    public static string ToFormattedDateStr(DateTimeOffset startDateTime, DateTimeOffset endDateTime, bool @long = false) => endDateTime < NextYearV2
+    public static string ToFormattedDateStr(DateTimeOffset startDateTime, DateTimeOffset endDateTime, bool @long = false) => endDateTime < NextYear
             ? $"({startDateTime.ToFormattedDate(@long)} ~ {endDateTime.ToFormattedDate(@long)})"
             : $"({startDateTime.ToFormattedDate(@long)})";
 

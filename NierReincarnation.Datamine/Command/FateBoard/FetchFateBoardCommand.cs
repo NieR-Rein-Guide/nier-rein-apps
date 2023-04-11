@@ -52,7 +52,11 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
                     DifficultyType = darkDifficulty
                 });
 
-                foreach (var darkLabyrinthStage in MasterDb.EntityMEventQuestLabyrinthStageTable.FindByEventQuestChapterId(darkLabyrinthSeason.EventQuestChapterId).OrderBy(x => x.StageOrder))
+                var darkLabyrinthStages = arg.OnlyLastStage
+                    ? new List<EntityMEventQuestLabyrinthStage> { MasterDb.EntityMEventQuestLabyrinthStageTable.FindByEventQuestChapterId(darkLabyrinthSeason.EventQuestChapterId).OrderBy(x => x.StageOrder).Last() }
+                    : MasterDb.EntityMEventQuestLabyrinthStageTable.FindByEventQuestChapterId(darkLabyrinthSeason.EventQuestChapterId).OrderBy(x => x.StageOrder).ToList();
+
+                foreach (var darkLabyrinthStage in darkLabyrinthStages)
                 {
                     FateBoardStage fateBoardStage = new()
                     {
@@ -125,6 +129,8 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
 
 public class FetchFateBoardCommandArg : AbstractEntityCommandWithDatesArg<EntityMEventQuestChapter>
 {
+    public bool OnlyLastStage { get; init; }
+
     public override bool IsValid()
     {
         return base.IsValid() && (Entity == null || Entity.EventQuestType == EventQuestType.LABYRINTH);

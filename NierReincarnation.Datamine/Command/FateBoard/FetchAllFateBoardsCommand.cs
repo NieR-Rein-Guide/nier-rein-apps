@@ -17,7 +17,8 @@ public class FetchAllFateBoardsCommand : AbstractDbQueryCommand<FetchAllFateBoar
             {
                 Entity = darkEventChapter,
                 FromDate = arg.FromDate,
-                ToDate = arg.ToDate
+                ToDate = arg.ToDate,
+                OnlyLastStage = arg.OnlyLastStage
             });
 
             if (fateBoard == null) continue;
@@ -33,4 +34,6 @@ public class FetchAllFateBoardsCommand : AbstractDbQueryCommand<FetchAllFateBoar
 public class FetchAllFateBoardsCommandArg : AbstractCommandWithDatesArg
 {
     public bool IncludeEmptyBoards { get; init; }
+
+    public bool OnlyLastStage { get; init; }
 }

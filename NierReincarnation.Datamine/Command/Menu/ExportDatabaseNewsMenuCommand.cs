@@ -37,7 +37,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         return await new FetchAllCostumesCommand().ExecuteAsync(new FetchAllCostumesCommandArg
         {
             Awakenings = new[] { 0, 5 },
-            FromDate = DateTimeExtensions.YesterdayV2
+            FromDate = DateTimeExtensions.Yesterday
         });
     }
 
@@ -133,7 +133,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllWeaponsCommand().ExecuteAsync(new FetchAllWeaponsCommandArg
         {
-            FromDate = DateTimeExtensions.YesterdayV2
+            FromDate = DateTimeExtensions.Yesterday
         });
     }
 
@@ -201,7 +201,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllDebrisCommand().ExecuteAsync(new FetchAllDebrisCommandArg
         {
-            FromDate = DateTimeExtensions.YesterdayV2
+            FromDate = DateTimeExtensions.Yesterday
         });
     }
 
@@ -231,7 +231,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllComanionsCommand().ExecuteAsync(new FetchAllComanionsCommandArg
         {
-            FromDate = DateTimeExtensions.YesterdayV2
+            FromDate = DateTimeExtensions.Yesterday
         });
     }
 
@@ -295,7 +295,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         {
             IncludeMemoirs = true,
             IncludeEmptySeries = false,
-            FromDate = DateTimeExtensions.YesterdayV2
+            FromDate = DateTimeExtensions.Yesterday
         });
     }
 
@@ -338,7 +338,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllRemnantsCommand().ExecuteAsync(new FetchAllRemnantsCommandArg
         {
-            FromDate = DateTimeExtensions.YesterdayV2
+            FromDate = DateTimeExtensions.Yesterday
         });
     }
 
@@ -371,8 +371,8 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         {
             IncludeQuests = true,
             IncludeEmptyEvents = false,
-            FromDate = DateTimeExtensions.YesterdayV2,
-            ToDate = DateTimeExtensions.NextYearV2
+            FromDate = DateTimeExtensions.Yesterday,
+            ToDate = DateTimeExtensions.NextYear
         });
     }
 
@@ -497,7 +497,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     private static async void WriteHiddenStoriesAsync()
     {
         var hiddenStories = await GetHiddenStoriesAsync();
-        hiddenStories.RemoveAll(x => x.ProgressStartDateTimeOffset < DateTimeExtensions.YesterdayV2);
+        hiddenStories.RemoveAll(x => x.ProgressStartDateTimeOffset < DateTimeExtensions.Yesterday);
 
         if (hiddenStories.Count > 0)
         {
@@ -531,8 +531,8 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         return await new FetchAllLoginBonusesCommand().ExecuteAsync(new FetchAllLoginBonusesCommandArg
         {
             IncludeRewards = true,
-            FromDate = DateTimeExtensions.YesterdayV2,
-            ToDate = DateTimeExtensions.NextYearV2
+            FromDate = DateTimeExtensions.Yesterday,
+            ToDate = DateTimeExtensions.NextYear
         });
     }
 
@@ -587,8 +587,8 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         {
             IncludeMissions = true,
             IncludeEmptyMissionGroups = false,
-            FromDate = DateTimeExtensions.YesterdayV2,
-            ToDate = DateTimeExtensions.NextYearV2
+            FromDate = DateTimeExtensions.Yesterday,
+            ToDate = DateTimeExtensions.NextYear
         });
     }
 
@@ -663,8 +663,9 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllFateBoardsCommand().ExecuteAsync(new FetchAllFateBoardsCommandArg
         {
-            FromDate = DateTimeExtensions.YesterdayV2,
-            ToDate = DateTimeExtensions.NextYearV2
+            FromDate = DateTimeExtensions.Yesterday,
+            ToDate = DateTimeExtensions.NextYear,
+            OnlyLastStage = true
         });
     }
 
