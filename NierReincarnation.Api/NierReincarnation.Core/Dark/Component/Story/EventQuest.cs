@@ -2,7 +2,7 @@
 
 namespace NierReincarnation.Core.Dark.Component.Story
 {
-    class EventQuest : IUniqueQuest<EntityMEventQuestChapter, EntityMEventQuestSequenceGroup, EntityMEventQuestSequence>
+    public class EventQuest : IUniqueQuest<EntityMEventQuestChapter, EntityMEventQuestSequenceGroup, EntityMEventQuestSequence>
     {
         public EntityMEventQuestChapter EntityQuestChapter { get; set; }
         public EntityMEventQuestSequenceGroup EntityQuestSequenceGroup { get; set; }
