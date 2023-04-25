@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Subsystem.Serval
 {
-    static class PowerServal
+    public static class PowerServal
     {
         public static int calcWeaponStatusPower(int statusValue, int coefficientPermil)
         {
@@ -12,7 +12,9 @@
             return coefficientPermil * statusValue / 1000;
         }
 
-        public static int calcStatusPower(int agility, int attack, int criticalAttack, int criticalRatio, int evasionRatio, int hp, int vitality, int agilityCoefficientPermil, int attackCoefficientPermil, int criticalAttackCoefficientPermil, int criticalRatioCoefficientPermil, int evasionRatioCoefficientPermil, int hpCoefficientPermil, int vitalityCoefficientPermil)
+        public static int calcStatusPower(int agility, int attack, int criticalAttack, int criticalRatio, int evasionRatio,
+            int hp, int vitality, int agilityCoefficientPermil, int attackCoefficientPermil, int criticalAttackCoefficientPermil,
+            int criticalRatioCoefficientPermil, int evasionRatioCoefficientPermil, int hpCoefficientPermil, int vitalityCoefficientPermil)
         {
             return (agility * agilityCoefficientPermil / 1000) +
                    (attack * attackCoefficientPermil / 1000) +

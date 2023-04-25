@@ -2,23 +2,48 @@
 
 namespace NierReincarnation.Core.Subsystem.Serval
 {
-    static class CostumeServal
+    public static class CostumeServal
     {
         public static int calcMaxLevel(int limitBreakCount, int rebirthLevelLimitUp, NumericalFunctionType functionType, int[] functionParameters)
         {
             return rebirthLevelLimitUp + FunctionsServal.calcParameter(functionType, functionParameters, new[] { limitBreakCount });
         }
 
+        public static int calcActiveSkillMaxLevel(NumericalFunctionType functionType, int[] functionParameters)
+        {
+            return FunctionsServal.calcParameter(functionType, functionParameters, new[] { 1 });
+        }
+
+        public static int calcEnhancementExp(int baseValue, bool isSameWeaponType, int weaponCoefficientPermil)
+        {
+            return EnhancementServal.calcEnhancementExpByMaterial(baseValue, isSameWeaponType, weaponCoefficientPermil);
+        }
+
+        public static int calcRequiredGoldForEnhancement(int materialCount, NumericalFunctionType functionType, int[] functionParameters)
+        {
+            return FunctionsServal.calcParameter(functionType, functionParameters, new[] { materialCount });
+        }
+
+        public static int calcRequiredGoldForActiveSkillEnhancement(int enhancedLevel, NumericalFunctionType functionType, int[] functionParameters)
+        {
+            return FunctionsServal.calcParameter(functionType, functionParameters, new[] { enhancedLevel });
+        }
+
+        public static int calcRequiredGoldForLimitBreak(int materialCount, NumericalFunctionType functionType, int[] functionParameters)
+        {
+            return FunctionsServal.calcParameter(functionType, functionParameters, new[] { materialCount });
+        }
+
         public static int calcStatusValue(int initialValue, int currentLevel, NumericalFunctionType functionType, int[] functionParameters, int growthCurveCoefficientThreshold, int growthCurveCoefficient)
         {
-            var rawValue = calcCurrentLevelRawStatusValue(initialValue, currentLevel, functionType, functionParameters);
+            var currentLevelStatus = calcCurrentLevelRawStatusValue(initialValue, currentLevel, functionType, functionParameters);
             if (growthCurveCoefficientThreshold >= currentLevel)
-                return rawValue;
+                return currentLevelStatus;
 
-            var rawGrowthValue = calcCurrentLevelRawStatusValue(initialValue, growthCurveCoefficientThreshold, functionType, functionParameters);
-            var growthCappedValue = (rawValue - rawGrowthValue) * growthCurveCoefficient / 1000;
+            var thresholdLevelStatus = calcCurrentLevelRawStatusValue(initialValue, growthCurveCoefficientThreshold, functionType, functionParameters);
+            var growthCappedValue = calcOverThresholdStatusDiffValue(currentLevelStatus, thresholdLevelStatus, growthCurveCoefficient);
 
-            return rawGrowthValue + growthCappedValue;
+            return thresholdLevelStatus + growthCappedValue;
         }
 
         public static int calcCurrentLevelRawStatusValue(int initialValue, int currentLevel, NumericalFunctionType functionType, int[] functionParameters)
@@ -26,9 +51,9 @@ namespace NierReincarnation.Core.Subsystem.Serval
             return initialValue + FunctionsServal.calcParameter(functionType, functionParameters, new[] { currentLevel });
         }
 
-        public static int calcActiveSkillMaxLevel(NumericalFunctionType functionType, int[] functionParameters)
+        public static int calcOverThresholdStatusDiffValue(int currentLevelStatus, int thresholdLevelStatus, int growthCurveCoefficient)
         {
-            return FunctionsServal.calcParameter(functionType, functionParameters, new[] { 1 });
+            return (currentLevelStatus - thresholdLevelStatus) * growthCurveCoefficient / 1000;
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿namespace NierReincarnation.Core.Subsystem.Serval
 {
-    class UserServal
+    public static class UserServal
     {
-        public static (long, long) calcCurrentStaminaMilliValueAndMaxRecoveryDatetime(
-            long lastStaminaMilli, long lastDatetime, long maxStaminaMilli,
-            long nowDatetime, int staminaRecoverySecond)
+        public static (long, long) calcCurrentStaminaMilliValueAndMaxRecoveryDatetime(long lastStaminaMilli,
+            long lastDatetime, long maxStaminaMilli, long nowDatetime, int staminaRecoverySecond)
         {
             if (lastStaminaMilli < maxStaminaMilli)
             {
@@ -20,7 +19,7 @@
                 if (local < maxStaminaMilli)
                 {
                     lastStaminaMilli = local;
-                    lastDatetime = nowDatetime + (maxStaminaMilli - local) * staminaRecoverySecond;
+                    lastDatetime = nowDatetime + ((maxStaminaMilli - local) * staminaRecoverySecond);
                 }
             }
 
