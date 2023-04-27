@@ -12,6 +12,7 @@
         PREMIUM_PACK_SHOP = 7,
         PACK_SHOP = 8,
         MISSION_SHOP = 9,
-        MOM_SHOP = 10
+        MOM_SHOP = 10,
+        PREMIUM_MISSION_PASS_SHOP = 11
     }
 }

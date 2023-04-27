@@ -24,8 +24,9 @@
             public static readonly string kUnlockDressupCostume = "ui.Unlock.DressupCostume"; // 0x88
             public static readonly string kUnlockCharacterViewer = "ui.Unlock.CharacterViewer"; // 0x90
             public static readonly string kUnlockLimitContent = "ui.Unlock.LimitContent"; // 0x98
-            public static readonly string kTitle = "ui.Unlock.Title"; // 0xA0
-            public static readonly string kUnLockSmartphone = "ui.Unlock.Smartphone"; // 0xA8
+            public static readonly string kUnlockMissionPassPremium = "ui.Unlock.MissionPass.Premium"; // 0xA0
+            public static readonly string kTitle = "ui.Unlock.Title"; // 0xA8
+            public static readonly string kUnLockSmartphone = "ui.Unlock.Smartphone"; // 0xB0
         }
     }
 }

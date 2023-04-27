@@ -10,6 +10,8 @@
         COMPLETE = 5,
         SHOP_PURCHASE = 6,
         EVALUATE = 7,
-        MOM_POINT = 8
+        MOM_POINT = 8,
+        MISSION_PASS_DAILY = 9,
+        MISSION_PASS_SPECIAL = 10
     }
 }

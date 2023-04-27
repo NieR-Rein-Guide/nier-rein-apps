@@ -16,6 +16,8 @@
         PAID_GEM = 11,
         FREE_GEM = 12,
         IMPORTANT_ITEM = 13,
-        THOUGHT = 14
+        THOUGHT = 14,
+        MISSION_PASS_POINT = 15,
+        PREMIUM_ITEM = 16
     }
 }

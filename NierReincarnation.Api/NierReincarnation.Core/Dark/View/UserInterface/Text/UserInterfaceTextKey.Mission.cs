@@ -20,6 +20,17 @@
             public static readonly string kDailyMissionTimeLimit = "ui.Outgame.Mission.DailyMissionTimeLimit"; // 0x68
             public static readonly string kEndTimeLimit = "ui.Outgame.Mission.EndTimeLimit"; // 0x70
             public static readonly string kDialogRewardReceiveFrameTitle = "ui.Outgame.Mission.Dialog.RewardReceive.Frame.Title"; // 0x78
+            public static readonly string kMissionPassTitle = "ui.Outgame.MissionPass.Title"; // 0x80
+            public static readonly string kMissionPassLevel = "ui.Outgame.MissionPass.Level"; // 0x88
+            public static readonly string kMissionPassRemainLong = "ui.Outgame.MissionPass.Remain.Long"; // 0x90
+            public static readonly string kMissionPassRemainShort = "ui.Outgame.MissionPass.Remain.Short"; // 0x98
+            public static readonly string kMissionPointName = "mission_point.name"; // 0xA0
+            public static readonly string kMissionPointDescription = "mission_point.description"; // 0xA8
+            public static readonly string kMissionPassExpiredTitle = "ui.Outgame.MissionPass.Expired.Title"; // 0xB0
+            public static readonly string kMissionPassExpiredMessage = "ui.Outgame.MissionPass.Expired.Message"; // 0xB8
+            public static readonly string kMissionPassRewardLevel = "ui.Outgame.MissionPass.Reward.Level"; // 0xC0
+            public static readonly string kMissionPassUnlockPremiumPass = "ui.Outgame.MissionPass.Unlock.PremiumPass"; // 0xC8
+            public static readonly string kMissionPassReceiveNone = "ui.Outgame.MissionPass.Receive.None"; // 0xD0
         }
     }
 }

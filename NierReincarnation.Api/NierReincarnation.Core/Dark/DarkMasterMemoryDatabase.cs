@@ -937,786 +937,796 @@ namespace NierReincarnation.Core.Dark
         public EntityMMissionLinkTable EntityMMissionLinkTable { get; private set; }
 
         // 0x9B8
+        public EntityMMissionPassTable EntityMMissionPassTable { get; private set; }
+        // 0x9C0
+        public EntityMMissionPassLevelGroupTable EntityMMissionPassLevelGroupTable { get; private set; }
+        // 0x9C8
+        public EntityMMissionPassMissionGroupTable EntityMMissionPassMissionGroupTable { get; private set; }
+        // 0x9D0
+        public EntityMMissionPassRewardGroupTable EntityMMissionPassRewardGroupTable { get; private set; }
+        // 0x9D8
         public EntityMMissionRewardTable EntityMMissionRewardTable { get; private set; }
 
-        // 0x9C0
+        // 0x9E0
         public EntityMMissionSubCategoryTextTable EntityMMissionSubCategoryTextTable { get; private set; }
 
-        // 0x9C8
+        // 0x9E8
         public EntityMMissionTermTable EntityMMissionTermTable { get; private set; }
 
-        // 0x9D0
+        // 0x9F0
         public EntityMMissionUnlockConditionTable EntityMMissionUnlockConditionTable { get; private set; }
 
-        // 0x9D8
+        // 0x9F8
         public EntityMMomBannerTable EntityMMomBannerTable { get; private set; }
 
-        // 0x9E0
+        // 0xA00
         public EntityMMomPointBannerTable EntityMMomPointBannerTable { get; private set; }
 
-        // 0x9E8
+        // 0xA08
         public EntityMMovieTable EntityMMovieTable { get; private set; }
 
-        // 0x9F0
+        // 0xA10
         public EntityMNaviCutInTable EntityMNaviCutInTable { get; private set; }
 
-        // 0x9F8
+        // 0xA18
         public EntityMNaviCutInContentGroupTable EntityMNaviCutInContentGroupTable { get; private set; }
 
-        // 0xA00
+        // 0xA20
         public EntityMNaviCutInTextTable EntityMNaviCutInTextTable { get; private set; }
 
-        // 0xA08
+        // 0xA28
         public EntityMNumericalFunctionTable EntityMNumericalFunctionTable { get; private set; }
 
-        // 0xA10
+        // 0xA30
         public EntityMNumericalFunctionParameterGroupTable EntityMNumericalFunctionParameterGroupTable { get; private set; }
 
-        // 0xA18
+        // 0xA38
         public EntityMNumericalParameterMapTable EntityMNumericalParameterMapTable { get; private set; }
 
-        // 0xA20
+        // 0xA40
         public EntityMOmikujiTable EntityMOmikujiTable { get; private set; }
 
-        // 0xA28
+        // 0xA48
         public EntityMOverrideHitEffectConditionCriticalTable EntityMOverrideHitEffectConditionCriticalTable { get; private set; }
 
-        // 0xA30
+        // 0xA50
         public EntityMOverrideHitEffectConditionDamageAttributeTable EntityMOverrideHitEffectConditionDamageAttributeTable { get; private set; }
 
-        // 0xA38
+        // 0xA58
         public EntityMOverrideHitEffectConditionGroupTable EntityMOverrideHitEffectConditionGroupTable { get; private set; }
 
-        // 0xA40
+        // 0xA60
         public EntityMOverrideHitEffectConditionSkillExecutorTable EntityMOverrideHitEffectConditionSkillExecutorTable { get; private set; }
 
-        // 0xA48
+        // 0xA68
         public EntityMPartsTable EntityMPartsTable { get; private set; }
 
-        // 0xA50
+        // 0xA70
         public EntityMPartsEnhancedTable EntityMPartsEnhancedTable { get; private set; }
 
-        // 0xA58
+        // 0xA78
         public EntityMPartsEnhancedSubStatusTable EntityMPartsEnhancedSubStatusTable { get; private set; }
 
-        // 0xA60
+        // 0xA80
         public EntityMPartsGroupTable EntityMPartsGroupTable { get; private set; }
 
-        // 0xA68
+        // 0xA88
         public EntityMPartsLevelUpPriceGroupTable EntityMPartsLevelUpPriceGroupTable { get; private set; }
 
-        // 0xA70
+        // 0xA90
         public EntityMPartsLevelUpRateGroupTable EntityMPartsLevelUpRateGroupTable { get; private set; }
 
-        // 0xA78
+        // 0xA98
         public EntityMPartsRarityTable EntityMPartsRarityTable { get; private set; }
 
-        // 0xA80
+        // 0xAA0
         public EntityMPartsSeriesTable EntityMPartsSeriesTable { get; private set; }
 
-        // 0xA88
+        // 0xAA8
         public EntityMPartsSeriesBonusAbilityGroupTable EntityMPartsSeriesBonusAbilityGroupTable { get; private set; }
 
-        // 0xA90
+        // 0xAB0
         public EntityMPartsStatusMainTable EntityMPartsStatusMainTable { get; private set; }
 
-        // 0xA98
+        // 0xAB8
         public EntityMPlatformPaymentTable EntityMPlatformPaymentTable { get; private set; }
 
-        // 0xAA0
+        // 0xAC0
         public EntityMPlatformPaymentPriceTable EntityMPlatformPaymentPriceTable { get; private set; }
 
-        // 0xAA8
+        // 0xAC8
         public EntityMPortalCageAccessPointFunctionGroupTable EntityMPortalCageAccessPointFunctionGroupTable { get; private set; }
 
-        // 0xAB0
+        // 0xAD0
         public EntityMPortalCageAccessPointFunctionGroupScheduleTable EntityMPortalCageAccessPointFunctionGroupScheduleTable { get; private set; }
 
-        // 0xAB8
+        // 0xAD8
         public EntityMPortalCageCharacterGroupTable EntityMPortalCageCharacterGroupTable { get; private set; }
 
-        // 0xAC0
+        // 0xAE0
         public EntityMPortalCageGateTable EntityMPortalCageGateTable { get; private set; }
 
-        // 0xAC8
+        // 0xAE8
         public EntityMPortalCageSceneTable EntityMPortalCageSceneTable { get; private set; }
 
-        // 0xAD0
+        // 0xAF0
         public EntityMPossessionAcquisitionRouteTable EntityMPossessionAcquisitionRouteTable { get; private set; }
 
-        // 0xAD8
+        // 0xAF8
         public EntityMPowerCalculationConstantValueTable EntityMPowerCalculationConstantValueTable { get; private set; }
 
-        // 0xAE0
+        // 0xB00
         public EntityMPowerReferenceStatusGroupTable EntityMPowerReferenceStatusGroupTable { get; private set; }
 
-        // 0xAE8
+        // 0xB08
+        public EntityMPremiumItemTable EntityMPremiumItemTable { get; private set; }
+        // 0xB10
         public EntityMPvpBackgroundTable EntityMPvpBackgroundTable { get; private set; }
 
-        // 0xAF0
+        // 0xB18
         public EntityMPvpGradeTable EntityMPvpGradeTable { get; private set; }
 
-        // 0xAF8
+        // 0xB20
         public EntityMPvpGradeGroupTable EntityMPvpGradeGroupTable { get; private set; }
 
-        // 0xB00
+        // 0xB28
         public EntityMPvpGradeOneMatchRewardTable EntityMPvpGradeOneMatchRewardTable { get; private set; }
 
-        // 0xB08
+        // 0xB30
         public EntityMPvpGradeOneMatchRewardGroupTable EntityMPvpGradeOneMatchRewardGroupTable { get; private set; }
 
-        // 0xB10
+        // 0xB38
         public EntityMPvpGradeWeeklyRewardGroupTable EntityMPvpGradeWeeklyRewardGroupTable { get; private set; }
 
-        // 0xB18
+        // 0xB40
         public EntityMPvpRewardTable EntityMPvpRewardTable { get; private set; }
 
-        // 0xB20
+        // 0xB48
         public EntityMPvpSeasonTable EntityMPvpSeasonTable { get; private set; }
 
-        // 0xB28
+        // 0xB50
         public EntityMPvpSeasonGradeTable EntityMPvpSeasonGradeTable { get; private set; }
 
-        // 0xB30
+        // 0xB58
         public EntityMPvpSeasonGroupingTable EntityMPvpSeasonGroupingTable { get; private set; }
 
-        // 0xB38
+        // 0xB60
         public EntityMPvpSeasonRankRewardTable EntityMPvpSeasonRankRewardTable { get; private set; }
 
-        // 0xB40
+        // 0xB68
         public EntityMPvpSeasonRankRewardGroupTable EntityMPvpSeasonRankRewardGroupTable { get; private set; }
 
-        // 0xB48
+        // 0xB70
         public EntityMPvpSeasonRankRewardPerSeasonTable EntityMPvpSeasonRankRewardPerSeasonTable { get; private set; }
 
-        // 0xB50
+        // 0xB78
         public EntityMPvpSeasonRankRewardRankGroupTable EntityMPvpSeasonRankRewardRankGroupTable { get; private set; }
 
-        // 0xB58
+        // 0xB80
         public EntityMPvpWeeklyRankRewardGroupTable EntityMPvpWeeklyRankRewardGroupTable { get; private set; }
 
-        // 0xB60
+        // 0xB88
         public EntityMPvpWeeklyRankRewardRankGroupTable EntityMPvpWeeklyRankRewardRankGroupTable { get; private set; }
 
-        // 0xB68
+        // 0xB90
         public EntityMPvpWinStreakCountEffectTable EntityMPvpWinStreakCountEffectTable { get; private set; }
 
-        // 0xB70
+        // 0xB98
         public EntityMQuestTable EntityMQuestTable { get; private set; }
 
-        // 0xB78
+        // 0xBA0
         public EntityMQuestBonusTable EntityMQuestBonusTable { get; private set; }
 
-        // 0xB80
+        // 0xBA8
         public EntityMQuestBonusAbilityTable EntityMQuestBonusAbilityTable { get; private set; }
 
-        // 0xB88
+        // 0xBB0
         public EntityMQuestBonusAllyCharacterTable EntityMQuestBonusAllyCharacterTable { get; private set; }
 
-        // 0xB90
+        // 0xBB8
         public EntityMQuestBonusCharacterGroupTable EntityMQuestBonusCharacterGroupTable { get; private set; }
 
-        // 0xB98
+        // 0xBC0
         public EntityMQuestBonusCostumeGroupTable EntityMQuestBonusCostumeGroupTable { get; private set; }
 
-        // 0xBA0
+        // 0xBC8
         public EntityMQuestBonusCostumeSettingGroupTable EntityMQuestBonusCostumeSettingGroupTable { get; private set; }
 
-        // 0xBA8
+        // 0xBD0
         public EntityMQuestBonusDropRewardTable EntityMQuestBonusDropRewardTable { get; private set; }
 
-        // 0xBB0
+        // 0xBD8
         public EntityMQuestBonusEffectGroupTable EntityMQuestBonusEffectGroupTable { get; private set; }
 
-        // 0xBB8
+        // 0xBE0
         public EntityMQuestBonusExpTable EntityMQuestBonusExpTable { get; private set; }
 
-        // 0xBC0
+        // 0xBE8
         public EntityMQuestBonusTermGroupTable EntityMQuestBonusTermGroupTable { get; private set; }
 
-        // 0xBC8
+        // 0xBF0
         public EntityMQuestBonusWeaponGroupTable EntityMQuestBonusWeaponGroupTable { get; private set; }
 
-        // 0xBD0
+        // 0xBF8
         public EntityMQuestCampaignTable EntityMQuestCampaignTable { get; private set; }
 
-        // 0xBD8
+        // 0xC00
         public EntityMQuestCampaignEffectGroupTable EntityMQuestCampaignEffectGroupTable { get; private set; }
 
-        // 0xBE0
+        // 0xC08
         public EntityMQuestCampaignTargetGroupTable EntityMQuestCampaignTargetGroupTable { get; private set; }
 
-        // 0xBE8
+        // 0xC10
         public EntityMQuestCampaignTargetItemGroupTable EntityMQuestCampaignTargetItemGroupTable { get; private set; }
 
-        // 0xBF0
+        // 0xC18
         public EntityMQuestDeckRestrictionGroupTable EntityMQuestDeckRestrictionGroupTable { get; private set; }
 
-        // 0xBF8
+        // 0xC20
         public EntityMQuestDeckRestrictionGroupUnlockTable EntityMQuestDeckRestrictionGroupUnlockTable { get; private set; }
 
-        // 0xC00
+        // 0xC28
         public EntityMQuestDisplayAttributeGroupTable EntityMQuestDisplayAttributeGroupTable { get; private set; }
 
-        // 0xC08
+        // 0xC30
         public EntityMQuestFirstClearRewardGroupTable EntityMQuestFirstClearRewardGroupTable { get; private set; }
 
-        // 0xC10
+        // 0xC38
         public EntityMQuestMissionTable EntityMQuestMissionTable { get; private set; }
 
-        // 0xC18
+        // 0xC40
         public EntityMQuestMissionConditionValueGroupTable EntityMQuestMissionConditionValueGroupTable { get; private set; }
 
-        // 0xC20
+        // 0xC48
         public EntityMQuestMissionGroupTable EntityMQuestMissionGroupTable { get; private set; }
 
-        // 0xC28
+        // 0xC50
         public EntityMQuestMissionRewardTable EntityMQuestMissionRewardTable { get; private set; }
 
-        // 0xC30
+        // 0xC58
         public EntityMQuestPickupRewardGroupTable EntityMQuestPickupRewardGroupTable { get; private set; }
 
-        // 0xC38
+        // 0xC60
         public EntityMQuestRelationMainFlowTable EntityMQuestRelationMainFlowTable { get; private set; }
 
-        // 0xC40
+        // 0xC68
         public EntityMQuestReleaseConditionBigHuntScoreTable EntityMQuestReleaseConditionBigHuntScoreTable { get; private set; }
 
-        // 0xC48
+        // 0xC70
         public EntityMQuestReleaseConditionCharacterLevelTable EntityMQuestReleaseConditionCharacterLevelTable { get; private set; }
 
-        // 0xC50
+        // 0xC78
         public EntityMQuestReleaseConditionDeckPowerTable EntityMQuestReleaseConditionDeckPowerTable { get; private set; }
 
-        // 0xC58
+        // 0xC80
         public EntityMQuestReleaseConditionGroupTable EntityMQuestReleaseConditionGroupTable { get; private set; }
 
-        // 0xC60
+        // 0xC88
         public EntityMQuestReleaseConditionListTable EntityMQuestReleaseConditionListTable { get; private set; }
 
-        // 0xC68
+        // 0xC90
         public EntityMQuestReleaseConditionQuestChallengeTable EntityMQuestReleaseConditionQuestChallengeTable { get; private set; }
 
-        // 0xC70
+        // 0xC98
         public EntityMQuestReleaseConditionQuestClearTable EntityMQuestReleaseConditionQuestClearTable { get; private set; }
 
-        // 0xC78
+        // 0xCA0
         public EntityMQuestReleaseConditionUserLevelTable EntityMQuestReleaseConditionUserLevelTable { get; private set; }
 
-        // 0xC80
+        // 0xCA8
         public EntityMQuestReleaseConditionWeaponAcquisitionTable EntityMQuestReleaseConditionWeaponAcquisitionTable { get; private set; }
 
-        // 0xC88
+        // 0xCB0
         public EntityMQuestReplayFlowRewardGroupTable EntityMQuestReplayFlowRewardGroupTable { get; private set; }
 
-        // 0xC90
+        // 0xCB8
         public EntityMQuestSceneTable EntityMQuestSceneTable { get; private set; }
 
-        // 0xC98
+        // 0xCC0
         public EntityMQuestSceneBattleTable EntityMQuestSceneBattleTable { get; private set; }
 
-        // 0xCA0
+        // 0xCC8
         public EntityMQuestSceneChoiceTable EntityMQuestSceneChoiceTable { get; private set; }
 
-        // 0xCA8
+        // 0xCD0
         public EntityMQuestSceneChoiceCostumeEffectGroupTable EntityMQuestSceneChoiceCostumeEffectGroupTable { get; private set; }
 
-        // 0xCB0
+        // 0xCD8
         public EntityMQuestSceneChoiceEffectTable EntityMQuestSceneChoiceEffectTable { get; private set; }
 
-        // 0xCB8
+        // 0xCE0
         public EntityMQuestSceneChoiceWeaponEffectGroupTable EntityMQuestSceneChoiceWeaponEffectGroupTable { get; private set; }
 
-        // 0xCC0
+        // 0xCE8
         public EntityMQuestSceneNotConfirmTitleDialogTable EntityMQuestSceneNotConfirmTitleDialogTable { get; private set; }
 
-        // 0xCC8
+        // 0xCF0
         public EntityMQuestSceneOutgameBlendshapeMotionTable EntityMQuestSceneOutgameBlendshapeMotionTable { get; private set; }
 
-        // 0xCD0
+        // 0xCF8
         public EntityMQuestScheduleTable EntityMQuestScheduleTable { get; private set; }
 
-        // 0xCD8
+        // 0xD00
         public EntityMQuestScheduleCorrespondenceTable EntityMQuestScheduleCorrespondenceTable { get; private set; }
 
-        // 0xCE0
+        // 0xD08
         public EntityMReportTable EntityMReportTable { get; private set; }
 
-        // 0xCE8
+        // 0xD10
         public EntityMShopTable EntityMShopTable { get; private set; }
 
-        // 0xCF0
+        // 0xD18
         public EntityMShopDisplayPriceTable EntityMShopDisplayPriceTable { get; private set; }
 
-        // 0xCF8
+        // 0xD20
         public EntityMShopItemTable EntityMShopItemTable { get; private set; }
 
-        // 0xD00
+        // 0xD28
         public EntityMShopItemAdditionalContentTable EntityMShopItemAdditionalContentTable { get; private set; }
 
-        // 0xD08
+        // 0xD30
         public EntityMShopItemCellTable EntityMShopItemCellTable { get; private set; }
 
-        // 0xD10
+        // 0xD38
         public EntityMShopItemCellGroupTable EntityMShopItemCellGroupTable { get; private set; }
 
-        // 0xD18
+        // 0xD40
         public EntityMShopItemCellLimitedOpenTable EntityMShopItemCellLimitedOpenTable { get; private set; }
 
-        // 0xD20
+        // 0xD48
         public EntityMShopItemCellTermTable EntityMShopItemCellTermTable { get; private set; }
 
-        // 0xD28
+        // 0xD50
         public EntityMShopItemContentEffectTable EntityMShopItemContentEffectTable { get; private set; }
 
-        // 0xD30
+        // 0xD58
         public EntityMShopItemContentMissionTable EntityMShopItemContentMissionTable { get; private set; }
 
-        // 0xD38
+        // 0xD60
         public EntityMShopItemContentPossessionTable EntityMShopItemContentPossessionTable { get; private set; }
 
-        // 0xD40
+        // 0xD68
         public EntityMShopItemLimitedStockTable EntityMShopItemLimitedStockTable { get; private set; }
 
-        // 0xD48
+        // 0xD70
         public EntityMShopItemUserLevelConditionTable EntityMShopItemUserLevelConditionTable { get; private set; }
 
-        // 0xD50
+        // 0xD78
         public EntityMShopReplaceableGemTable EntityMShopReplaceableGemTable { get; private set; }
 
-        // 0xD58
+        // 0xD80
         public EntityMSideStoryQuestTable EntityMSideStoryQuestTable { get; private set; }
 
-        // 0xD60
+        // 0xD88
         public EntityMSideStoryQuestLimitContentTable EntityMSideStoryQuestLimitContentTable { get; private set; }
 
-        // 0xD68
+        // 0xD90
         public EntityMSideStoryQuestSceneTable EntityMSideStoryQuestSceneTable { get; private set; }
 
-        // 0xD70
+        // 0xD98
         public EntityMSkillTable EntityMSkillTable { get; private set; }
 
-        // 0xD78
+        // 0xDA0
         public EntityMSkillAbnormalTable EntityMSkillAbnormalTable { get; private set; }
 
-        // 0xD80
+        // 0xDA8
         public EntityMSkillAbnormalBehaviourTable EntityMSkillAbnormalBehaviourTable { get; private set; }
 
-        // 0xD88
+        // 0xDB0
         public EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable { get; private set; }
 
-        // 0xD90
+        // 0xDB8
         public EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable { get; private set; }
 
-        // 0xD98
+        // 0xDC0
         public EntityMSkillAbnormalBehaviourActionBuffResistanceTable EntityMSkillAbnormalBehaviourActionBuffResistanceTable { get; private set; }
 
-        // 0xDA0
+        // 0xDC8
         public EntityMSkillAbnormalBehaviourActionDamageTable EntityMSkillAbnormalBehaviourActionDamageTable { get; private set; }
 
-        // 0xDA8
+        // 0xDD0
         public EntityMSkillAbnormalBehaviourActionDamageMultiplyTable EntityMSkillAbnormalBehaviourActionDamageMultiplyTable { get; private set; }
 
-        // 0xDB0
+        // 0xDD8
         public EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable { get; private set; }
 
-        // 0xDB8
+        // 0xDE0
         public EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable { get; private set; }
 
-        // 0xDC0
+        // 0xDE8
         public EntityMSkillAbnormalBehaviourActionHitRatioDownTable EntityMSkillAbnormalBehaviourActionHitRatioDownTable { get; private set; }
 
-        // 0xDC8
+        // 0xDF0
         public EntityMSkillAbnormalBehaviourActionModifyHateValueTable EntityMSkillAbnormalBehaviourActionModifyHateValueTable { get; private set; }
 
-        // 0xDD0
+        // 0xDF8
         public EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable { get; private set; }
 
-        // 0xDD8
+        // 0xE00
         public EntityMSkillAbnormalBehaviourActionRecoveryTable EntityMSkillAbnormalBehaviourActionRecoveryTable { get; private set; }
 
-        // 0xDE0
+        // 0xE08
         public EntityMSkillAbnormalBehaviourActionTurnRestrictionTable EntityMSkillAbnormalBehaviourActionTurnRestrictionTable { get; private set; }
 
-        // 0xDE8
+        // 0xE10
         public EntityMSkillAbnormalBehaviourGroupTable EntityMSkillAbnormalBehaviourGroupTable { get; private set; }
 
-        // 0xDF0
+        // 0xE18
         public EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable { get; private set; }
 
-        // 0xDF8
+        // 0xE20
         public EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable { get; private set; }
 
-        // 0xE00
+        // 0xE28
         public EntityMSkillAbnormalDamageMultiplyDetailCriticalTable EntityMSkillAbnormalDamageMultiplyDetailCriticalTable { get; private set; }
 
-        // 0xE08
+        // 0xE30
         public EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable { get; private set; }
 
-        // 0xE10
+        // 0xE38
         public EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable { get; private set; }
 
-        // 0xE18
+        // 0xE40
         public EntityMSkillAbnormalLifetimeTable EntityMSkillAbnormalLifetimeTable { get; private set; }
 
-        // 0xE20
+        // 0xE48
         public EntityMSkillAbnormalLifetimeBehaviourActivateCountTable EntityMSkillAbnormalLifetimeBehaviourActivateCountTable { get; private set; }
 
-        // 0xE28
+        // 0xE50
         public EntityMSkillAbnormalLifetimeBehaviourFrameCountTable EntityMSkillAbnormalLifetimeBehaviourFrameCountTable { get; private set; }
 
-        // 0xE30
+        // 0xE58
         public EntityMSkillAbnormalLifetimeBehaviourGroupTable EntityMSkillAbnormalLifetimeBehaviourGroupTable { get; private set; }
 
-        // 0xE38
+        // 0xE60
         public EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable { get; private set; }
 
-        // 0xE40
+        // 0xE68
         public EntityMSkillAbnormalLifetimeBehaviourTurnCountTable EntityMSkillAbnormalLifetimeBehaviourTurnCountTable { get; private set; }
 
-        // 0xE48
+        // 0xE70
         public EntityMSkillBehaviourTable EntityMSkillBehaviourTable { get; private set; }
 
-        // 0xE50
+        // 0xE78
         public EntityMSkillBehaviourActionAbnormalTable EntityMSkillBehaviourActionAbnormalTable { get; private set; }
 
-        // 0xE58
+        // 0xE80
         public EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable { get; private set; }
 
-        // 0xE60
+        // 0xE88
         public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable { get; private set; }
 
-        // 0xE68
+        // 0xE90
         public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable { get; private set; }
 
-        // 0xE70
+        // 0xE98
         public EntityMSkillBehaviourActionAttackTable EntityMSkillBehaviourActionAttackTable { get; private set; }
 
-        // 0xE78
+        // 0xEA0
         public EntityMSkillBehaviourActionAttackClampHpTable EntityMSkillBehaviourActionAttackClampHpTable { get; private set; }
 
-        // 0xE80
+        // 0xEA8
         public EntityMSkillBehaviourActionAttackComboTable EntityMSkillBehaviourActionAttackComboTable { get; private set; }
 
-        // 0xE88
+        // 0xEB0
         public EntityMSkillBehaviourActionAttackFixedDamageTable EntityMSkillBehaviourActionAttackFixedDamageTable { get; private set; }
 
-        // 0xE90
+        // 0xEB8
         public EntityMSkillBehaviourActionAttackHpRatioTable EntityMSkillBehaviourActionAttackHpRatioTable { get; private set; }
 
-        // 0xE98
+        // 0xEC0
         public EntityMSkillBehaviourActionAttackIgnoreVitalityTable EntityMSkillBehaviourActionAttackIgnoreVitalityTable { get; private set; }
 
-        // 0xEA0
+        // 0xEC8
         public EntityMSkillBehaviourActionAttackMainWeaponAttributeTable EntityMSkillBehaviourActionAttackMainWeaponAttributeTable { get; private set; }
 
-        // 0xEA8
+        // 0xED0
         public EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable { get; private set; }
 
-        // 0xEB0
+        // 0xED8
         public EntityMSkillBehaviourActionAttackVitalityTable EntityMSkillBehaviourActionAttackVitalityTable { get; private set; }
 
-        // 0xEB8
+        // 0xEE0
         public EntityMSkillBehaviourActionAttributeDamageCorrectionTable EntityMSkillBehaviourActionAttributeDamageCorrectionTable { get; private set; }
 
-        // 0xEC0
+        // 0xEE8
         public EntityMSkillBehaviourActionBuffTable EntityMSkillBehaviourActionBuffTable { get; private set; }
 
-        // 0xEC8
+        // 0xEF0
         public EntityMSkillBehaviourActionChangestepTable EntityMSkillBehaviourActionChangestepTable { get; private set; }
 
-        // 0xED0
+        // 0xEF8
         public EntityMSkillBehaviourActionDamageCorrectionHpRatioTable EntityMSkillBehaviourActionDamageCorrectionHpRatioTable { get; private set; }
 
-        // 0xED8
+        // 0xF00
         public EntityMSkillBehaviourActionDamageMultiplyTable EntityMSkillBehaviourActionDamageMultiplyTable { get; private set; }
 
-        // 0xEE0
+        // 0xF08
         public EntityMSkillBehaviourActionDefaultSkillLotteryTable EntityMSkillBehaviourActionDefaultSkillLotteryTable { get; private set; }
 
-        // 0xEE8
+        // 0xF10
         public EntityMSkillBehaviourActionHpRatioDamageTable EntityMSkillBehaviourActionHpRatioDamageTable { get; private set; }
 
-        // 0xEF0
+        // 0xF18
         public EntityMSkillBehaviourActionRecoveryTable EntityMSkillBehaviourActionRecoveryTable { get; private set; }
 
-        // 0xEF8
+        // 0xF20
         public EntityMSkillBehaviourActionRemoveAbnormalTable EntityMSkillBehaviourActionRemoveAbnormalTable { get; private set; }
 
-        // 0xF00
+        // 0xF28
         public EntityMSkillBehaviourActionRemoveBuffTable EntityMSkillBehaviourActionRemoveBuffTable { get; private set; }
 
-        // 0xF08
+        // 0xF30
         public EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable { get; private set; }
 
-        // 0xF10
+        // 0xF38
         public EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable { get; private set; }
 
-        // 0xF18
+        // 0xF40
         public EntityMSkillBehaviourActivationConditionActivationUpperCountTable EntityMSkillBehaviourActivationConditionActivationUpperCountTable { get; private set; }
 
-        // 0xF20
+        // 0xF48
         public EntityMSkillBehaviourActivationConditionAttributeTable EntityMSkillBehaviourActivationConditionAttributeTable { get; private set; }
 
-        // 0xF28
+        // 0xF50
         public EntityMSkillBehaviourActivationConditionGroupTable EntityMSkillBehaviourActivationConditionGroupTable { get; private set; }
 
-        // 0xF30
+        // 0xF58
         public EntityMSkillBehaviourActivationConditionHpRatioTable EntityMSkillBehaviourActivationConditionHpRatioTable { get; private set; }
 
-        // 0xF38
+        // 0xF60
         public EntityMSkillBehaviourActivationConditionInSkillFlowTable EntityMSkillBehaviourActivationConditionInSkillFlowTable { get; private set; }
 
-        // 0xF40
+        // 0xF68
         public EntityMSkillBehaviourActivationConditionWaveNumberTable EntityMSkillBehaviourActivationConditionWaveNumberTable { get; private set; }
 
-        // 0xF48
+        // 0xF70
         public EntityMSkillBehaviourActivationMethodTable EntityMSkillBehaviourActivationMethodTable { get; private set; }
 
-        // 0xF50
+        // 0xF78
         public EntityMSkillBehaviourGroupTable EntityMSkillBehaviourGroupTable { get; private set; }
 
-        // 0xF58
+        // 0xF80
         public EntityMSkillBuffTable EntityMSkillBuffTable { get; private set; }
 
-        // 0xF60
+        // 0xF88
         public EntityMSkillCasttimeTable EntityMSkillCasttimeTable { get; private set; }
 
-        // 0xF68
+        // 0xF90
         public EntityMSkillCasttimeBehaviourTable EntityMSkillCasttimeBehaviourTable { get; private set; }
 
-        // 0xF70
+        // 0xF98
         public EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable { get; private set; }
 
-        // 0xF78
+        // 0xFA0
         public EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable { get; private set; }
 
-        // 0xF80
+        // 0xFA8
         public EntityMSkillCasttimeBehaviourGroupTable EntityMSkillCasttimeBehaviourGroupTable { get; private set; }
 
-        // 0xF88
+        // 0xFB0
         public EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable { get; private set; }
 
-        // 0xF90
+        // 0xFB8
         public EntityMSkillCooltimeBehaviourTable EntityMSkillCooltimeBehaviourTable { get; private set; }
 
-        // 0xF98
+        // 0xFC0
         public EntityMSkillCooltimeBehaviourGroupTable EntityMSkillCooltimeBehaviourGroupTable { get; private set; }
 
-        // 0xFA0
+        // 0xFC8
         public EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable { get; private set; }
 
-        // 0xFA8
+        // 0xFD0
         public EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable { get; private set; }
 
-        // 0xFB0
+        // 0xFD8
         public EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable { get; private set; }
 
-        // 0xFB8
+        // 0xFE0
         public EntityMSkillCooltimeBehaviourOnFrameUpdateTable EntityMSkillCooltimeBehaviourOnFrameUpdateTable { get; private set; }
 
-        // 0xFC0
+        // 0xFE8
         public EntityMSkillCooltimeBehaviourOnSkillDamageTable EntityMSkillCooltimeBehaviourOnSkillDamageTable { get; private set; }
 
-        // 0xFC8
+        // 0xFF0
         public EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable { get; private set; }
 
-        // 0xFD0
+        // 0xFF8
         public EntityMSkillDamageMultiplyDetailAbnormalAttachedTable EntityMSkillDamageMultiplyDetailAbnormalAttachedTable { get; private set; }
 
-        // 0xFD8
+        // 0x1000
         public EntityMSkillDamageMultiplyDetailAlwaysTable EntityMSkillDamageMultiplyDetailAlwaysTable { get; private set; }
 
-        // 0xFE0
+        // 0x1008
         public EntityMSkillDamageMultiplyDetailBuffAttachedTable EntityMSkillDamageMultiplyDetailBuffAttachedTable { get; private set; }
 
-        // 0xFE8
+        // 0x1010
         public EntityMSkillDamageMultiplyDetailCriticalTable EntityMSkillDamageMultiplyDetailCriticalTable { get; private set; }
 
-        // 0xFF0
+        // 0x1018
         public EntityMSkillDamageMultiplyDetailHitIndexTable EntityMSkillDamageMultiplyDetailHitIndexTable { get; private set; }
 
-        // 0xFF8
+        // 0x1020
         public EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable { get; private set; }
 
-        // 0x1000
+        // 0x1028
         public EntityMSkillDamageMultiplyHitIndexValueGroupTable EntityMSkillDamageMultiplyHitIndexValueGroupTable { get; private set; }
 
-        // 0x1008
+        // 0x1030
         public EntityMSkillDetailTable EntityMSkillDetailTable { get; private set; }
 
-        // 0x1010
+        // 0x1038
         public EntityMSkillLevelGroupTable EntityMSkillLevelGroupTable { get; private set; }
 
-        // 0x1018
+        // 0x1040
         public EntityMSkillRemoveAbnormalTargetAbnormalGroupTable EntityMSkillRemoveAbnormalTargetAbnormalGroupTable { get; private set; }
 
-        // 0x1020
+        // 0x1048
         public EntityMSkillRemoveBuffFilterStatusKindTable EntityMSkillRemoveBuffFilterStatusKindTable { get; private set; }
 
-        // 0x1028
+        // 0x1050
         public EntityMSkillReserveUiTypeTable EntityMSkillReserveUiTypeTable { get; private set; }
 
-        // 0x1030
+        // 0x1058
         public EntityMSmartphoneChatGroupTable EntityMSmartphoneChatGroupTable { get; private set; }
 
-        // 0x1038
+        // 0x1060
         public EntityMSmartphoneChatGroupMessageTable EntityMSmartphoneChatGroupMessageTable { get; private set; }
 
-        // 0x1040
+        // 0x1068
         public EntityMSpeakerTable EntityMSpeakerTable { get; private set; }
 
-        // 0x1048
+        // 0x1070
         public EntityMStainedGlassTable EntityMStainedGlassTable { get; private set; }
 
-        // 0x1050
+        // 0x1078
         public EntityMStainedGlassStatusUpGroupTable EntityMStainedGlassStatusUpGroupTable { get; private set; }
 
-        // 0x1058
+        // 0x1080
         public EntityMStainedGlassStatusUpTargetGroupTable EntityMStainedGlassStatusUpTargetGroupTable { get; private set; }
 
-        // 0x1060
+        // 0x1088
         public EntityMThoughtTable EntityMThoughtTable { get; private set; }
 
-        // 0x1068
+        // 0x1090
         public EntityMTipTable EntityMTipTable { get; private set; }
 
-        // 0x1070
+        // 0x1098
         public EntityMTipBackgroundAssetTable EntityMTipBackgroundAssetTable { get; private set; }
 
-        // 0x1078
+        // 0x10A0
         public EntityMTipDisplayConditionGroupTable EntityMTipDisplayConditionGroupTable { get; private set; }
 
-        // 0x1080
+        // 0x10A8
         public EntityMTipGroupTable EntityMTipGroupTable { get; private set; }
 
-        // 0x1088
+        // 0x10B0
         public EntityMTipGroupBackgroundAssetTable EntityMTipGroupBackgroundAssetTable { get; private set; }
 
-        // 0x1090
+        // 0x10B8
         public EntityMTipGroupBackgroundAssetRelationTable EntityMTipGroupBackgroundAssetRelationTable { get; private set; }
 
-        // 0x1098
+        // 0x10C0
         public EntityMTipGroupSelectionTable EntityMTipGroupSelectionTable { get; private set; }
 
-        // 0x10A0
+        // 0x10C8
         public EntityMTipGroupSituationTable EntityMTipGroupSituationTable { get; private set; }
 
-        // 0x10A8
+        // 0x10D0
         public EntityMTipGroupSituationSeasonTable EntityMTipGroupSituationSeasonTable { get; private set; }
 
-        // 0x10B0
+        // 0x10D8
         public EntityMTitleFlowMovieTable EntityMTitleFlowMovieTable { get; private set; }
 
-        // 0x10B8
+        // 0x10E0
         public EntityMTitleStillTable EntityMTitleStillTable { get; private set; }
 
-        // 0x10C0
+        // 0x10E8
         public EntityMTitleStillGroupTable EntityMTitleStillGroupTable { get; private set; }
 
-        // 0x10C8
+        // 0x10F0
         public EntityMTutorialDialogTable EntityMTutorialDialogTable { get; private set; }
 
-        // 0x10D0
+        // 0x10F8
         public EntityMTutorialUnlockConditionTable EntityMTutorialUnlockConditionTable { get; private set; }
 
-        // 0x10D8
+        // 0x1100
         public EntityMUserLevelTable EntityMUserLevelTable { get; private set; }
 
-        // 0x10E0
+        // 0x1108
         public EntityMUserQuestSceneGrantPossessionTable EntityMUserQuestSceneGrantPossessionTable { get; private set; }
 
-        // 0x10E8
+        // 0x1110
         public EntityMWeaponTable EntityMWeaponTable { get; private set; }
 
-        // 0x10F0
+        // 0x1118
         public EntityMWeaponAbilityEnhancementMaterialTable EntityMWeaponAbilityEnhancementMaterialTable { get; private set; }
 
-        // 0x10F8
+        // 0x1120
         public EntityMWeaponAbilityGroupTable EntityMWeaponAbilityGroupTable { get; private set; }
 
-        // 0x1100
+        // 0x1128
         public EntityMWeaponAwakenTable EntityMWeaponAwakenTable { get; private set; }
 
-        // 0x1108
+        // 0x1130
         public EntityMWeaponAwakenAbilityTable EntityMWeaponAwakenAbilityTable { get; private set; }
 
-        // 0x1110
+        // 0x1138
         public EntityMWeaponAwakenEffectGroupTable EntityMWeaponAwakenEffectGroupTable { get; private set; }
 
-        // 0x1118
+        // 0x1140
         public EntityMWeaponAwakenMaterialGroupTable EntityMWeaponAwakenMaterialGroupTable { get; private set; }
 
-        // 0x1120
+        // 0x1148
         public EntityMWeaponAwakenStatusUpGroupTable EntityMWeaponAwakenStatusUpGroupTable { get; private set; }
 
-        // 0x1128
+        // 0x1150
         public EntityMWeaponBaseStatusTable EntityMWeaponBaseStatusTable { get; private set; }
 
-        // 0x1130
+        // 0x1158
         public EntityMWeaponConsumeExchangeConsumableItemGroupTable EntityMWeaponConsumeExchangeConsumableItemGroupTable { get; private set; }
 
-        // 0x1138
+        // 0x1160
         public EntityMWeaponEnhancedTable EntityMWeaponEnhancedTable { get; private set; }
 
-        // 0x1140
+        // 0x1168
         public EntityMWeaponEnhancedAbilityTable EntityMWeaponEnhancedAbilityTable { get; private set; }
 
-        // 0x1148
+        // 0x1170
         public EntityMWeaponEnhancedSkillTable EntityMWeaponEnhancedSkillTable { get; private set; }
 
-        // 0x1150
+        // 0x1178
         public EntityMWeaponEvolutionGroupTable EntityMWeaponEvolutionGroupTable { get; private set; }
 
-        // 0x1158
+        // 0x1180
         public EntityMWeaponEvolutionMaterialGroupTable EntityMWeaponEvolutionMaterialGroupTable { get; private set; }
 
-        // 0x1160
+        // 0x1188
         public EntityMWeaponFieldEffectDecreasePointTable EntityMWeaponFieldEffectDecreasePointTable { get; private set; }
 
-        // 0x1168
+        // 0x1190
         public EntityMWeaponRarityTable EntityMWeaponRarityTable { get; private set; }
 
-        // 0x1170
+        // 0x1198
         public EntityMWeaponRarityLimitBreakMaterialGroupTable EntityMWeaponRarityLimitBreakMaterialGroupTable { get; private set; }
 
-        // 0x1178
+        // 0x11A0
         public EntityMWeaponSkillEnhancementMaterialTable EntityMWeaponSkillEnhancementMaterialTable { get; private set; }
 
-        // 0x1180
+        // 0x11A8
         public EntityMWeaponSkillGroupTable EntityMWeaponSkillGroupTable { get; private set; }
 
-        // 0x1188
+        // 0x11B0
         public EntityMWeaponSpecificEnhanceTable EntityMWeaponSpecificEnhanceTable { get; private set; }
 
-        // 0x1190
+        // 0x11B8
         public EntityMWeaponSpecificLimitBreakMaterialGroupTable EntityMWeaponSpecificLimitBreakMaterialGroupTable { get; private set; }
 
-        // 0x1198
+        // 0x11C0
         public EntityMWeaponStatusCalculationTable EntityMWeaponStatusCalculationTable { get; private set; }
 
-        // 0x11A0
+        // 0x11C8
         public EntityMWeaponStoryReleaseConditionGroupTable EntityMWeaponStoryReleaseConditionGroupTable { get; private set; }
 
-        // 0x11A8
+        // 0x11D0
         public EntityMWeaponStoryReleaseConditionOperationTable EntityMWeaponStoryReleaseConditionOperationTable { get; private set; }
 
-        // 0x11B0
+        // 0x11D8
         public EntityMWeaponStoryReleaseConditionOperationGroupTable EntityMWeaponStoryReleaseConditionOperationGroupTable { get; private set; }
 
-        // 0x11B8
+        // 0x11E0
         public EntityMWebviewMissionTable EntityMWebviewMissionTable { get; private set; }
 
-        // 0x11C0
+        // 0x11E8
         public EntityMWebviewMissionTitleTextTable EntityMWebviewMissionTitleTextTable { get; private set; }
 
-        // 0x11C8
+        // 0x11F0
         public EntityMWebviewPanelMissionTable EntityMWebviewPanelMissionTable { get; private set; }
 
-        // 0x11D0
+        // 0x11F8
         public EntityMWebviewPanelMissionCompleteFlavorTextTable EntityMWebviewPanelMissionCompleteFlavorTextTable { get; private set; }
 
-        // 0x11D8
+        // 0x1200
         public EntityMWebviewPanelMissionPageTable EntityMWebviewPanelMissionPageTable { get; private set; }
 
         public DarkMasterMemoryDatabase(byte[] databaseBinary, bool internString = true, IFormatterResolver formatterResolver = null) :
@@ -1728,201 +1738,20 @@ namespace NierReincarnation.Core.Dark
         {
             EntityMAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbility[], EntityMAbilityTable>(abilities => new EntityMAbilityTable(abilities)));
             EntityMAbilityBehaviourTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviour[], EntityMAbilityBehaviourTable>(behaviours => new EntityMAbilityBehaviourTable(behaviours)));
+            EntityMAbilityBehaviourActionBlessTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourActionBless[], EntityMAbilityBehaviourActionBlessTable>(data => new EntityMAbilityBehaviourActionBlessTable(data)));
             EntityMAbilityBehaviourActionPassiveSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourActionPassiveSkill[], EntityMAbilityBehaviourActionPassiveSkillTable>(skills => new EntityMAbilityBehaviourActionPassiveSkillTable(skills)));
             EntityMAbilityBehaviourActionStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourActionStatus[], EntityMAbilityBehaviourActionStatusTable>(statuses => new EntityMAbilityBehaviourActionStatusTable(statuses)));
+            EntityMAbilityBehaviourActionStatusDownTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourActionStatusDown[], EntityMAbilityBehaviourActionStatusDownTable>(data => new EntityMAbilityBehaviourActionStatusDownTable(data)));
             EntityMAbilityBehaviourGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourGroup[], EntityMAbilityBehaviourGroupTable>(groups => new EntityMAbilityBehaviourGroupTable(groups)));
             EntityMAbilityDetailTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityDetail[], EntityMAbilityDetailTable>(details => new EntityMAbilityDetailTable(details)));
             EntityMAbilityLevelGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityLevelGroup[], EntityMAbilityLevelGroupTable>(groups => new EntityMAbilityLevelGroupTable(groups)));
             EntityMAbilityStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityStatus[], EntityMAbilityStatusTable>(statuses => new EntityMAbilityStatusTable(statuses)));
-            // ...
-            EntityMBattleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattle[], EntityMBattleTable>(battles => new EntityMBattleTable(battles)));
-            // ...
-            EntityMEventQuestLinkTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLink[], EntityMEventQuestLinkTable>(links => new EntityMEventQuestLinkTable(links)));
-            // ...
-            EntityMBattleGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleGroup[], EntityMBattleGroupTable>(groups => new EntityMBattleGroupTable(groups)));
-            // ...
-            EntityMBattleNpcCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCompanion[], EntityMBattleNpcCompanionTable>(companions => new EntityMBattleNpcCompanionTable(companions)));
-            EntityMBattleNpcCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostume[], EntityMBattleNpcCostumeTable>(costumes => new EntityMBattleNpcCostumeTable(costumes)));
-            EntityMBattleNpcCostumeActiveSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeActiveSkill[], EntityMBattleNpcCostumeActiveSkillTable>(skills => new EntityMBattleNpcCostumeActiveSkillTable(skills)));
-            // ...
-            EntityMBattleNpcDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeck[], EntityMBattleNpcDeckTable>(decks => new EntityMBattleNpcDeckTable(decks)));
-            EntityMBattleNpcDeckCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacter[], EntityMBattleNpcDeckCharacterTable>(characters => new EntityMBattleNpcDeckCharacterTable(characters)));
-            // ...
-            EntityMBattleNpcWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeapon[], EntityMBattleNpcWeaponTable>(weapons => new EntityMBattleNpcWeaponTable(weapons)));
-            // ...
-            EntityMBattleQuestSceneBgmTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleQuestSceneBgm[], EntityMBattleQuestSceneBgmTable>(bgms => new EntityMBattleQuestSceneBgmTable(bgms)));
-            // ...
-            EntityMBattleRentalDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleRentalDeck[], EntityMBattleRentalDeckTable>(decks => new EntityMBattleRentalDeckTable(decks)));
-            // ...
-            EntityMBigHuntBossTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBoss[], EntityMBigHuntBossTable>(bosses => new EntityMBigHuntBossTable(bosses)));
-            EntityMBigHuntBossGradeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossGradeGroup[], EntityMBigHuntBossGradeGroupTable>(groups => new EntityMBigHuntBossGradeGroupTable(groups)));
-            // ...
-            EntityMBigHuntBossQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossQuest[], EntityMBigHuntBossQuestTable>(quests => new EntityMBigHuntBossQuestTable(quests)));
-            // ...
-            EntityMBigHuntQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuest[], EntityMBigHuntQuestTable>(quests => new EntityMBigHuntQuestTable(quests)));
-            EntityMBigHuntQuestGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuestGroup[], EntityMBigHuntQuestGroupTable>(groups => new EntityMBigHuntQuestGroupTable(groups)));
-            EntityMBigHuntQuestScoreCoefficientTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuestScoreCoefficient[], EntityMBigHuntQuestScoreCoefficientTable>(coefficients => new EntityMBigHuntQuestScoreCoefficientTable(coefficients)));
-            // ...
-            EntityMCatalogCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCompanion[], EntityMCatalogCompanionTable>(companions => new EntityMCatalogCompanionTable(companions)));
-            EntityMCatalogCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCostume[], EntityMCatalogCostumeTable>(costumes => new EntityMCatalogCostumeTable(costumes)));
-            EntityMCatalogPartsGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogPartsGroup[], EntityMCatalogPartsGroupTable>(groups => new EntityMCatalogPartsGroupTable(groups)));
-            EntityMCatalogTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogTerm[], EntityMCatalogTermTable>(terms => new EntityMCatalogTermTable(terms)));
-            EntityMCatalogWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogWeapon[], EntityMCatalogWeaponTable>(weapons => new EntityMCatalogWeaponTable(weapons)));
-            EntityMCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacter[], EntityMCharacterTable>(characters => new EntityMCharacterTable(characters)));
-            // ...
-            EntityMCharacterDisplaySwitchTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterDisplaySwitch[], EntityMCharacterDisplaySwitchTable>(switches => new EntityMCharacterDisplaySwitchTable(switches)));
-            // ...
-            EntityMCharacterLevelBonusAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterLevelBonusAbilityGroup[], EntityMCharacterLevelBonusAbilityGroupTable>(groups => new EntityMCharacterLevelBonusAbilityGroupTable(groups)));
-            // ...
-            EntityMCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanion[], EntityMCompanionTable>(companions => new EntityMCompanionTable(companions)));
-            EntityMCompanionAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionAbilityGroup[], EntityMCompanionAbilityGroupTable>(groups => new EntityMCompanionAbilityGroupTable(groups)));
-            EntityMCompanionAbilityLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionAbilityLevel[], EntityMCompanionAbilityLevelTable>(levels => new EntityMCompanionAbilityLevelTable(levels)));
-            EntityMCompanionBaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionBaseStatus[], EntityMCompanionBaseStatusTable>(statuses => new EntityMCompanionBaseStatusTable(statuses)));
-            EntityMCompanionCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionCategory[], EntityMCompanionCategoryTable>(categories => new EntityMCompanionCategoryTable(categories)));
-            EntityMConfigTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConfig[], EntityMConfigTable>(configs => new EntityMConfigTable(configs)));
-            EntityMCompanionEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionEnhanced[], EntityMCompanionEnhancedTable>(enhanceds => new EntityMCompanionEnhancedTable(enhanceds)));
-            // ...
-            EntityMCompanionSkillLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionSkillLevel[], EntityMCompanionSkillLevelTable>(levels => new EntityMCompanionSkillLevelTable(levels)));
-            EntityMCompanionStatusCalculationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionStatusCalculation[], EntityMCompanionStatusCalculationTable>(calculations => new EntityMCompanionStatusCalculationTable(calculations)));
-            // ...
-            EntityMConsumableItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItem[], EntityMConsumableItemTable>(items => new EntityMConsumableItemTable(items)));
-            EntityMConsumableItemEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItemEffect[], EntityMConsumableItemEffectTable>(effects => new EntityMConsumableItemEffectTable(effects)));
-            EntityMConsumableItemTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItemTerm[], EntityMConsumableItemTermTable>(terms => new EntityMConsumableItemTermTable(terms)));
-            // ...
-            EntityMCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostume[], EntityMCostumeTable>(costumes => new EntityMCostumeTable(costumes)));
-            EntityMCostumeAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAbilityGroup[], EntityMCostumeAbilityGroupTable>(groups => new EntityMCostumeAbilityGroupTable(groups)));
-            EntityMCostumeAbilityLevelGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAbilityLevelGroup[], EntityMCostumeAbilityLevelGroupTable>(groups => new EntityMCostumeAbilityLevelGroupTable(groups)));
-            // ...
-            EntityMCostumeActiveSkillGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeActiveSkillGroup[], EntityMCostumeActiveSkillGroupTable>(groups => new EntityMCostumeActiveSkillGroupTable(groups)));
-            // ...
-            EntityMCostumeBaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeBaseStatus[], EntityMCostumeBaseStatusTable>(statuses => new EntityMCostumeBaseStatusTable(statuses)));
-            // ...
-            EntityMCostumeEmblemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeEmblem[], EntityMCostumeEmblemTable>(emblems => new EntityMCostumeEmblemTable(emblems)));
-            EntityMCostumeEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeEnhanced[], EntityMCostumeEnhancedTable>(enhanceds => new EntityMCostumeEnhancedTable(enhanceds)));
-            // ...
-            EntityMCostumeRarityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeRarity[], EntityMCostumeRarityTable>(rarities => new EntityMCostumeRarityTable(rarities)));
-            // ...
-            EntityMCostumeStatusCalculationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeStatusCalculation[], EntityMCostumeStatusCalculationTable>(calculations => new EntityMCostumeStatusCalculationTable(calculations)));
-            // ...
-            EntityMEventQuestSequenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestSequence[], EntityMEventQuestSequenceTable>(sequences => new EntityMEventQuestSequenceTable(sequences)));
-            // ...
-            EntityMImportantItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMImportantItem[], EntityMImportantItemTable>(items => new EntityMImportantItemTable(items)));
-            // ...
-            EntityMMainQuestChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestChapter[], EntityMMainQuestChapterTable>(chapters => new EntityMMainQuestChapterTable(chapters)));
-            // ...
-            EntityMMainQuestRouteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestRoute[], EntityMMainQuestRouteTable>(routes => new EntityMMainQuestRouteTable(routes)));
-            EntityMMainQuestSeasonTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSeason[], EntityMMainQuestSeasonTable>(seasons => new EntityMMainQuestSeasonTable(seasons)));
-            EntityMMainQuestSequenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSequence[], EntityMMainQuestSequenceTable>(sequences => new EntityMMainQuestSequenceTable(sequences)));
-            EntityMMainQuestSequenceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSequenceGroup[], EntityMMainQuestSequenceGroupTable>(groups => new EntityMMainQuestSequenceGroupTable(groups)));
-            // ...
-            EntityMMaterialTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMaterial[], EntityMMaterialTable>(materials => new EntityMMaterialTable(materials)));
-            // ...
-            EntityMQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuest[], EntityMQuestTable>(quests => new EntityMQuestTable(quests)));
-            EntityMQuestBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonus[], EntityMQuestBonusTable>(bonuses => new EntityMQuestBonusTable(bonuses)));
-            // ...
-            EntityMNumericalFunctionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNumericalFunction[], EntityMNumericalFunctionTable>(functions => new EntityMNumericalFunctionTable(functions)));
-            EntityMNumericalFunctionParameterGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNumericalFunctionParameterGroup[], EntityMNumericalFunctionParameterGroupTable>(groups => new EntityMNumericalFunctionParameterGroupTable(groups)));
-            // ...
-            EntityMEventQuestGuerrillaFreeOpenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestGuerrillaFreeOpen[], EntityMEventQuestGuerrillaFreeOpenTable>(opens => new EntityMEventQuestGuerrillaFreeOpenTable(opens)));
-            // ...
-            EntityMEventQuestChapterCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestChapterCharacter[], EntityMEventQuestChapterCharacterTable>(characters => new EntityMEventQuestChapterCharacterTable(characters)));
-            // ...
-            EntityMEventQuestSequenceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestSequenceGroup[], EntityMEventQuestSequenceGroupTable>(groups => new EntityMEventQuestSequenceGroupTable(groups)));
-            // ...
-            EntityMPartsEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsEnhanced[], EntityMPartsEnhancedTable>(enhanceds => new EntityMPartsEnhancedTable(enhanceds)));
-            EntityMPartsTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMParts[], EntityMPartsTable>(partses => new EntityMPartsTable(partses)));
-            // ...
-            EntityMPartsGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsGroup[], EntityMPartsGroupTable>(groups => new EntityMPartsGroupTable(groups)));
-            // ...
-            EntityMPartsSeriesTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsSeries[], EntityMPartsSeriesTable>(series => new EntityMPartsSeriesTable(series)));
-            EntityMPartsSeriesBonusAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsSeriesBonusAbilityGroup[], EntityMPartsSeriesBonusAbilityGroupTable>(groups => new EntityMPartsSeriesBonusAbilityGroupTable(groups)));
-            EntityMPartsStatusMainTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsStatusMain[], EntityMPartsStatusMainTable>(mains => new EntityMPartsStatusMainTable(mains)));
-            EntityMPlatformPaymentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPlatformPayment[], EntityMPlatformPaymentTable>(payments => new EntityMPlatformPaymentTable(payments)));
-            // ...
-            EntityMPowerCalculationConstantValueTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPowerCalculationConstantValue[], EntityMPowerCalculationConstantValueTable>(values => new EntityMPowerCalculationConstantValueTable(values)));
-            EntityMPowerReferenceStatusGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPowerReferenceStatusGroup[], EntityMPowerReferenceStatusGroupTable>(groups => new EntityMPowerReferenceStatusGroupTable(groups)));
-            // ...
-            EntityMQuestCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaign[], EntityMQuestCampaignTable>(campaigns => new EntityMQuestCampaignTable(campaigns)));
-            EntityMQuestCampaignEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignEffectGroup[], EntityMQuestCampaignEffectGroupTable>(groups => new EntityMQuestCampaignEffectGroupTable(groups)));
-            EntityMQuestCampaignTargetGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignTargetGroup[], EntityMQuestCampaignTargetGroupTable>(groups => new EntityMQuestCampaignTargetGroupTable(groups)));
-            // ...
-            EntityMQuestDeckRestrictionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDeckRestrictionGroup[], EntityMQuestDeckRestrictionGroupTable>(groups => new EntityMQuestDeckRestrictionGroupTable(groups)));
-            EntityMQuestDisplayAttributeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDisplayAttributeGroup[], EntityMQuestDisplayAttributeGroupTable>(groups => new EntityMQuestDisplayAttributeGroupTable(groups)));
-            EntityMQuestFirstClearRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestFirstClearRewardGroup[], EntityMQuestFirstClearRewardGroupTable>(groups => new EntityMQuestFirstClearRewardGroupTable(groups)));
-            EntityMQuestMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMission[], EntityMQuestMissionTable>(missions => new EntityMQuestMissionTable(missions)));
-            EntityMQuestMissionConditionValueGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMissionConditionValueGroup[], EntityMQuestMissionConditionValueGroupTable>(groups => new EntityMQuestMissionConditionValueGroupTable(groups)));
-            EntityMQuestMissionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMissionGroup[], EntityMQuestMissionGroupTable>(groups => new EntityMQuestMissionGroupTable(groups)));
-            // ...
-            EntityMQuestReleaseConditionBigHuntScoreTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionBigHuntScore[], EntityMQuestReleaseConditionBigHuntScoreTable>(scores => new EntityMQuestReleaseConditionBigHuntScoreTable(scores)));
-            EntityMQuestReleaseConditionCharacterLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionCharacterLevel[], EntityMQuestReleaseConditionCharacterLevelTable>(levels => new EntityMQuestReleaseConditionCharacterLevelTable(levels)));
-            EntityMQuestReleaseConditionDeckPowerTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionDeckPower[], EntityMQuestReleaseConditionDeckPowerTable>(powers => new EntityMQuestReleaseConditionDeckPowerTable(powers)));
-            EntityMQuestReleaseConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionGroup[], EntityMQuestReleaseConditionGroupTable>(groups => new EntityMQuestReleaseConditionGroupTable(groups)));
-            EntityMQuestReleaseConditionListTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionList[], EntityMQuestReleaseConditionListTable>(lists => new EntityMQuestReleaseConditionListTable(lists)));
-            EntityMQuestReleaseConditionQuestClearTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionQuestClear[], EntityMQuestReleaseConditionQuestClearTable>(clears => new EntityMQuestReleaseConditionQuestClearTable(clears)));
-            EntityMQuestReleaseConditionUserLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionUserLevel[], EntityMQuestReleaseConditionUserLevelTable>(levels => new EntityMQuestReleaseConditionUserLevelTable(levels)));
-            EntityMQuestReleaseConditionWeaponAcquisitionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionWeaponAcquisition[], EntityMQuestReleaseConditionWeaponAcquisitionTable>(acquisitions => new EntityMQuestReleaseConditionWeaponAcquisitionTable(acquisitions)));
-            // ...
-            EntityMQuestSceneTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestScene[], EntityMQuestSceneTable>(scenes => new EntityMQuestSceneTable(scenes)));
-            EntityMQuestSceneBattleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneBattle[], EntityMQuestSceneBattleTable>(battles => new EntityMQuestSceneBattleTable(battles)));
-            // ...
-            EntityMQuestScheduleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSchedule[], EntityMQuestScheduleTable>(schedules => new EntityMQuestScheduleTable(schedules)));
-            EntityMQuestScheduleCorrespondenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestScheduleCorrespondence[], EntityMQuestScheduleCorrespondenceTable>(correspondences => new EntityMQuestScheduleCorrespondenceTable(correspondences)));
-            // ...
-            EntityMShopTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShop[], EntityMShopTable>(shops => new EntityMShopTable(shops)));
-            // ...
-            EntityMShopItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItem[], EntityMShopItemTable>(items => new EntityMShopItemTable(items)));
-            // ...
-            EntityMShopItemCellTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCell[], EntityMShopItemCellTable>(cells => new EntityMShopItemCellTable(cells)));
-            EntityMShopItemCellGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCellGroup[], EntityMShopItemCellGroupTable>(groups => new EntityMShopItemCellGroupTable(groups)));
-            EntityMShopItemCellTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCellTerm[], EntityMShopItemCellTermTable>(terms => new EntityMShopItemCellTermTable(terms)));
-            // ...
-            EntityMShopItemContentPossessionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemContentPossession[], EntityMShopItemContentPossessionTable>(possessions => new EntityMShopItemContentPossessionTable(possessions)));
-            EntityMShopItemLimitedStockTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemLimitedStock[], EntityMShopItemLimitedStockTable>(stocks => new EntityMShopItemLimitedStockTable(stocks)));
-            // ...
-            EntityMSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkill[], EntityMSkillTable>(skills => new EntityMSkillTable(skills)));
-            // ...
-            EntityMSkillBehaviourTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviour[], EntityMSkillBehaviourTable>(behaviours => new EntityMSkillBehaviourTable(behaviours)));
-            // ...
-            EntityMSkillBehaviourActivationMethodTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActivationMethod[], EntityMSkillBehaviourActivationMethodTable>(methods => new EntityMSkillBehaviourActivationMethodTable(methods)));
-            EntityMSkillBehaviourGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourGroup[], EntityMSkillBehaviourGroupTable>(groups => new EntityMSkillBehaviourGroupTable(groups)));
-            // ...
-            EntityMSkillDetailTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDetail[], EntityMSkillDetailTable>(details => new EntityMSkillDetailTable(details)));
-            EntityMSkillLevelGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillLevelGroup[], EntityMSkillLevelGroupTable>(groups => new EntityMSkillLevelGroupTable(groups)));
-            // ...
-            EntityMWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeapon[], EntityMWeaponTable>(weapons => new EntityMWeaponTable(weapons)));
-            // ...
-            EntityMWeaponAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAbilityGroup[], EntityMWeaponAbilityGroupTable>(groups => new EntityMWeaponAbilityGroupTable(groups)));
-            EntityMWeaponBaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponBaseStatus[], EntityMWeaponBaseStatusTable>(statuses => new EntityMWeaponBaseStatusTable(statuses)));
-            // ...
-            EntityMEventQuestChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestChapter[], EntityMEventQuestChapterTable>(elements => new EntityMEventQuestChapterTable(elements)));
-            // ...
-            EntityMWeaponEvolutionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEvolutionGroup[], EntityMWeaponEvolutionGroupTable>(groups => new EntityMWeaponEvolutionGroupTable(groups)));
-            // ...
-            EntityMWeaponRarityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponRarity[], EntityMWeaponRarityTable>(rarities => new EntityMWeaponRarityTable(rarities)));
-            EntityMWeaponEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEnhanced[], EntityMWeaponEnhancedTable>(enhanceds => new EntityMWeaponEnhancedTable(enhanceds)));
-            // ...
-            EntityMWeaponStatusCalculationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStatusCalculation[], EntityMWeaponStatusCalculationTable>(calculations => new EntityMWeaponStatusCalculationTable(calculations)));
-            // ...
-            EntityMWeaponSkillGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSkillGroup[], EntityMWeaponSkillGroupTable>(groups => new EntityMWeaponSkillGroupTable(groups)));
-            EntityMWeaponSpecificEnhanceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSpecificEnhance[], EntityMWeaponSpecificEnhanceTable>(enhances => new EntityMWeaponSpecificEnhanceTable(enhances)));
-            // ...
-
-            EntityMQuestBonusCharacterGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusCharacterGroup[], EntityMQuestBonusCharacterGroupTable>(groups => new EntityMQuestBonusCharacterGroupTable(groups)));
-            EntityMQuestBonusCostumeSettingGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusCostumeSettingGroup[], EntityMQuestBonusCostumeSettingGroupTable>(groups => new EntityMQuestBonusCostumeSettingGroupTable(groups)));
-            EntityMQuestBonusTermGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusTermGroup[], EntityMQuestBonusTermGroupTable>(groups => new EntityMQuestBonusTermGroupTable(groups)));
-            EntityMQuestBonusWeaponGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusWeaponGroup[], EntityMQuestBonusWeaponGroupTable>(groups => new EntityMQuestBonusWeaponGroupTable(groups)));
-
-            EntityMThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMThought[], EntityMThoughtTable>(thoughts => new EntityMThoughtTable(thoughts)));
-            EntityMCostumeAwakenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwaken[], EntityMCostumeAwakenTable>(awakens => new EntityMCostumeAwakenTable(awakens)));
-            EntityMBeginnerCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBeginnerCampaign[], EntityMBeginnerCampaignTable>(campaigns => new EntityMBeginnerCampaignTable(campaigns)));
-            EntityMComebackCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMComebackCampaign[], EntityMComebackCampaignTable>(campaigns => new EntityMComebackCampaignTable(campaigns)));
-            EntityMCatalogThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogThought[], EntityMCatalogThoughtTable>(thoughts => new EntityMCatalogThoughtTable(thoughts)));
-            EntityMAbilityBehaviourActionBlessTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourActionBless[], EntityMAbilityBehaviourActionBlessTable>(data => new EntityMAbilityBehaviourActionBlessTable(data)));
             EntityMActorTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMActor[], EntityMActorTable>(data => new EntityMActorTable(data)));
             EntityMActorAnimationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMActorAnimation[], EntityMActorAnimationTable>(data => new EntityMActorAnimationTable(data)));
             EntityMActorAnimationCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMActorAnimationCategory[], EntityMActorAnimationCategoryTable>(data => new EntityMActorAnimationCategoryTable(data)));
             EntityMActorAnimationControllerTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMActorAnimationController[], EntityMActorAnimationControllerTable>(data => new EntityMActorAnimationControllerTable(data)));
             EntityMActorObjectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMActorObject[], EntityMActorObjectTable>(data => new EntityMActorObjectTable(data)));
+            EntityMAppealDialogTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAppealDialog[], EntityMAppealDialogTable>(data => new EntityMAppealDialogTable(data)));
             EntityMAssetBackgroundTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAssetBackground[], EntityMAssetBackgroundTable>(data => new EntityMAssetBackgroundTable(data)));
             EntityMAssetCalculatorTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAssetCalculator[], EntityMAssetCalculatorTable>(data => new EntityMAssetCalculatorTable(data)));
             EntityMAssetDataSettingTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAssetDataSetting[], EntityMAssetDataSettingTable>(data => new EntityMAssetDataSettingTable(data)));
@@ -1930,6 +1759,7 @@ namespace NierReincarnation.Core.Dark
             EntityMAssetGradeIconTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAssetGradeIcon[], EntityMAssetGradeIconTable>(data => new EntityMAssetGradeIconTable(data)));
             EntityMAssetTimelineTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAssetTimeline[], EntityMAssetTimelineTable>(data => new EntityMAssetTimelineTable(data)));
             EntityMAssetTurnbattlePrefabTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAssetTurnbattlePrefab[], EntityMAssetTurnbattlePrefabTable>(data => new EntityMAssetTurnbattlePrefabTable(data)));
+            EntityMBattleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattle[], EntityMBattleTable>(battles => new EntityMBattleTable(battles)));
             EntityMBattleActorAiTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleActorAi[], EntityMBattleActorAiTable>(data => new EntityMBattleActorAiTable(data)));
             EntityMBattleActorSkillAiGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleActorSkillAiGroup[], EntityMBattleActorSkillAiGroupTable>(data => new EntityMBattleActorSkillAiGroupTable(data)));
             EntityMBattleAdditionalAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleAdditionalAbility[], EntityMBattleAdditionalAbilityTable>(data => new EntityMBattleAdditionalAbilityTable(data)));
@@ -1942,6 +1772,7 @@ namespace NierReincarnation.Core.Dark
             EntityMBattleBigHuntKnockDownGaugeValueConfigGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleBigHuntKnockDownGaugeValueConfigGroup[], EntityMBattleBigHuntKnockDownGaugeValueConfigGroupTable>(data => new EntityMBattleBigHuntKnockDownGaugeValueConfigGroupTable(data)));
             EntityMBattleBigHuntPhaseGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleBigHuntPhaseGroup[], EntityMBattleBigHuntPhaseGroupTable>(data => new EntityMBattleBigHuntPhaseGroupTable(data)));
             EntityMBattleCompanionSkillAiGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleCompanionSkillAiGroup[], EntityMBattleCompanionSkillAiGroupTable>(data => new EntityMBattleCompanionSkillAiGroupTable(data)));
+            EntityMBattleCostumeSkillFireActTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleCostumeSkillFireAct[], EntityMBattleCostumeSkillFireActTable>(data => new EntityMBattleCostumeSkillFireActTable(data)));
             EntityMBattleCostumeSkillSeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleCostumeSkillSe[], EntityMBattleCostumeSkillSeTable>(data => new EntityMBattleCostumeSkillSeTable(data)));
             EntityMBattleDropRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleDropReward[], EntityMBattleDropRewardTable>(data => new EntityMBattleDropRewardTable(data)));
             EntityMBattleEnemySizeTypeConfigTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleEnemySizeTypeConfig[], EntityMBattleEnemySizeTypeConfigTable>(data => new EntityMBattleEnemySizeTypeConfigTable(data)));
@@ -1954,6 +1785,7 @@ namespace NierReincarnation.Core.Dark
             EntityMBattleEventTriggerBehaviourGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleEventTriggerBehaviourGroup[], EntityMBattleEventTriggerBehaviourGroupTable>(data => new EntityMBattleEventTriggerBehaviourGroupTable(data)));
             EntityMBattleEventTriggerBehaviourWaveStartTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleEventTriggerBehaviourWaveStart[], EntityMBattleEventTriggerBehaviourWaveStartTable>(data => new EntityMBattleEventTriggerBehaviourWaveStartTable(data)));
             EntityMBattleGeneralViewConfigurationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleGeneralViewConfiguration[], EntityMBattleGeneralViewConfigurationTable>(data => new EntityMBattleGeneralViewConfigurationTable(data)));
+            EntityMBattleGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleGroup[], EntityMBattleGroupTable>(groups => new EntityMBattleGroupTable(groups)));
             EntityMBattleNpcTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpc[], EntityMBattleNpcTable>(data => new EntityMBattleNpcTable(data)));
             EntityMBattleNpcCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacter[], EntityMBattleNpcCharacterTable>(data => new EntityMBattleNpcCharacterTable(data)));
             EntityMBattleNpcCharacterBoardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacterBoard[], EntityMBattleNpcCharacterBoardTable>(data => new EntityMBattleNpcCharacterBoardTable(data)));
@@ -1961,10 +1793,16 @@ namespace NierReincarnation.Core.Dark
             EntityMBattleNpcCharacterBoardCompleteRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacterBoardCompleteReward[], EntityMBattleNpcCharacterBoardCompleteRewardTable>(data => new EntityMBattleNpcCharacterBoardCompleteRewardTable(data)));
             EntityMBattleNpcCharacterBoardStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacterBoardStatusUp[], EntityMBattleNpcCharacterBoardStatusUpTable>(data => new EntityMBattleNpcCharacterBoardStatusUpTable(data)));
             EntityMBattleNpcCharacterCostumeLevelBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacterCostumeLevelBonus[], EntityMBattleNpcCharacterCostumeLevelBonusTable>(data => new EntityMBattleNpcCharacterCostumeLevelBonusTable(data)));
+            EntityMBattleNpcCharacterRebirthTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacterRebirth[], EntityMBattleNpcCharacterRebirthTable>(data => new EntityMBattleNpcCharacterRebirthTable(data)));
             EntityMBattleNpcCharacterViewerFieldTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacterViewerField[], EntityMBattleNpcCharacterViewerFieldTable>(data => new EntityMBattleNpcCharacterViewerFieldTable(data)));
+            EntityMBattleNpcCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCompanion[], EntityMBattleNpcCompanionTable>(companions => new EntityMBattleNpcCompanionTable(companions)));
+            EntityMBattleNpcCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostume[], EntityMBattleNpcCostumeTable>(costumes => new EntityMBattleNpcCostumeTable(costumes)));
+            EntityMBattleNpcCostumeActiveSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeActiveSkill[], EntityMBattleNpcCostumeActiveSkillTable>(skills => new EntityMBattleNpcCostumeActiveSkillTable(skills)));
             EntityMBattleNpcCostumeAwakenStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeAwakenStatusUp[], EntityMBattleNpcCostumeAwakenStatusUpTable>(data => new EntityMBattleNpcCostumeAwakenStatusUpTable(data)));
             EntityMBattleNpcCostumeLevelBonusReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLevelBonusReevaluate[], EntityMBattleNpcCostumeLevelBonusReevaluateTable>(data => new EntityMBattleNpcCostumeLevelBonusReevaluateTable(data)));
             EntityMBattleNpcCostumeLevelBonusReleaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLevelBonusReleaseStatus[], EntityMBattleNpcCostumeLevelBonusReleaseStatusTable>(data => new EntityMBattleNpcCostumeLevelBonusReleaseStatusTable(data)));
+            EntityMBattleNpcDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeck[], EntityMBattleNpcDeckTable>(decks => new EntityMBattleNpcDeckTable(decks)));
+            EntityMBattleNpcDeckCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacter[], EntityMBattleNpcDeckCharacterTable>(characters => new EntityMBattleNpcDeckCharacterTable(characters)));
             EntityMBattleNpcDeckCharacterDressupCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacterDressupCostume[], EntityMBattleNpcDeckCharacterDressupCostumeTable>(data => new EntityMBattleNpcDeckCharacterDressupCostumeTable(data)));
             EntityMBattleNpcDeckCharacterDropCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacterDropCategory[], EntityMBattleNpcDeckCharacterDropCategoryTable>(data => new EntityMBattleNpcDeckCharacterDropCategoryTable(data)));
             EntityMBattleNpcDeckCharacterTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacterType[], EntityMBattleNpcDeckCharacterTypeTable>(data => new EntityMBattleNpcDeckCharacterTypeTable(data)));
@@ -1978,18 +1816,36 @@ namespace NierReincarnation.Core.Dark
             EntityMBattleNpcPartsPresetTagTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcPartsPresetTag[], EntityMBattleNpcPartsPresetTagTable>(data => new EntityMBattleNpcPartsPresetTagTable(data)));
             EntityMBattleNpcPartsStatusSubTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcPartsStatusSub[], EntityMBattleNpcPartsStatusSubTable>(data => new EntityMBattleNpcPartsStatusSubTable(data)));
             EntityMBattleNpcSpecialEndActTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcSpecialEndAct[], EntityMBattleNpcSpecialEndActTable>(data => new EntityMBattleNpcSpecialEndActTable(data)));
+            EntityMBattleNpcWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeapon[], EntityMBattleNpcWeaponTable>(weapons => new EntityMBattleNpcWeaponTable(weapons)));
             EntityMBattleNpcWeaponAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponAbility[], EntityMBattleNpcWeaponAbilityTable>(data => new EntityMBattleNpcWeaponAbilityTable(data)));
+            EntityMBattleNpcWeaponAbilityReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponAbilityReevaluate[], EntityMBattleNpcWeaponAbilityReevaluateTable>(data => new EntityMBattleNpcWeaponAbilityReevaluateTable(data)));
+            EntityMBattleNpcWeaponAwakenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponAwaken[], EntityMBattleNpcWeaponAwakenTable>(data => new EntityMBattleNpcWeaponAwakenTable(data)));
             EntityMBattleNpcWeaponNoteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponNote[], EntityMBattleNpcWeaponNoteTable>(data => new EntityMBattleNpcWeaponNoteTable(data)));
+            EntityMBattleNpcWeaponNoteReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponNoteReevaluate[], EntityMBattleNpcWeaponNoteReevaluateTable>(data => new EntityMBattleNpcWeaponNoteReevaluateTable(data)));
             EntityMBattleNpcWeaponSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponSkill[], EntityMBattleNpcWeaponSkillTable>(data => new EntityMBattleNpcWeaponSkillTable(data)));
             EntityMBattleNpcWeaponStoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponStory[], EntityMBattleNpcWeaponStoryTable>(data => new EntityMBattleNpcWeaponStoryTable(data)));
             EntityMBattleNpcWeaponStoryReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponStoryReevaluate[], EntityMBattleNpcWeaponStoryReevaluateTable>(data => new EntityMBattleNpcWeaponStoryReevaluateTable(data)));
             EntityMBattleProgressUiTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleProgressUiType[], EntityMBattleProgressUiTypeTable>(data => new EntityMBattleProgressUiTypeTable(data)));
+            EntityMBattleQuestSceneBgmTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleQuestSceneBgm[], EntityMBattleQuestSceneBgmTable>(bgms => new EntityMBattleQuestSceneBgmTable(bgms)));
             EntityMBattleQuestSceneBgmSetGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleQuestSceneBgmSetGroup[], EntityMBattleQuestSceneBgmSetGroupTable>(data => new EntityMBattleQuestSceneBgmSetGroupTable(data)));
+            EntityMBattleRentalDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleRentalDeck[], EntityMBattleRentalDeckTable>(decks => new EntityMBattleRentalDeckTable(decks)));
             EntityMBattleSkillBehaviourHitDamageConfigurationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillBehaviourHitDamageConfiguration[], EntityMBattleSkillBehaviourHitDamageConfigurationTable>(data => new EntityMBattleSkillBehaviourHitDamageConfigurationTable(data)));
+            EntityMBattleSkillFireActTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireAct[], EntityMBattleSkillFireActTable>(data => new EntityMBattleSkillFireActTable(data)));
+            EntityMBattleSkillFireActConditionAttributeTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionAttributeType[], EntityMBattleSkillFireActConditionAttributeTypeTable>(data => new EntityMBattleSkillFireActConditionAttributeTypeTable(data)));
+            EntityMBattleSkillFireActConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionGroup[], EntityMBattleSkillFireActConditionGroupTable>(data => new EntityMBattleSkillFireActConditionGroupTable(data)));
+            EntityMBattleSkillFireActConditionSkillCategoryTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionSkillCategoryType[], EntityMBattleSkillFireActConditionSkillCategoryTypeTable>(data => new EntityMBattleSkillFireActConditionSkillCategoryTypeTable(data)));
+            EntityMBattleSkillFireActConditionWeaponTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionWeaponType[], EntityMBattleSkillFireActConditionWeaponTypeTable>(data => new EntityMBattleSkillFireActConditionWeaponTypeTable(data)));
+            EntityMBeginnerCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBeginnerCampaign[], EntityMBeginnerCampaignTable>(campaigns => new EntityMBeginnerCampaignTable(campaigns)));
+            EntityMBigHuntBossTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBoss[], EntityMBigHuntBossTable>(bosses => new EntityMBigHuntBossTable(bosses)));
+            EntityMBigHuntBossGradeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossGradeGroup[], EntityMBigHuntBossGradeGroupTable>(groups => new EntityMBigHuntBossGradeGroupTable(groups)));
             EntityMBigHuntBossGradeGroupAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossGradeGroupAttribute[], EntityMBigHuntBossGradeGroupAttributeTable>(data => new EntityMBigHuntBossGradeGroupAttributeTable(data)));
+            EntityMBigHuntBossQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossQuest[], EntityMBigHuntBossQuestTable>(quests => new EntityMBigHuntBossQuestTable(quests)));
             EntityMBigHuntBossQuestGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossQuestGroup[], EntityMBigHuntBossQuestGroupTable>(data => new EntityMBigHuntBossQuestGroupTable(data)));
             EntityMBigHuntBossQuestGroupChallengeCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntBossQuestGroupChallengeCategory[], EntityMBigHuntBossQuestGroupChallengeCategoryTable>(data => new EntityMBigHuntBossQuestGroupChallengeCategoryTable(data)));
             EntityMBigHuntLinkTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntLink[], EntityMBigHuntLinkTable>(data => new EntityMBigHuntLinkTable(data)));
+            EntityMBigHuntQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuest[], EntityMBigHuntQuestTable>(quests => new EntityMBigHuntQuestTable(quests)));
+            EntityMBigHuntQuestGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuestGroup[], EntityMBigHuntQuestGroupTable>(groups => new EntityMBigHuntQuestGroupTable(groups)));
+            EntityMBigHuntQuestScoreCoefficientTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntQuestScoreCoefficient[], EntityMBigHuntQuestScoreCoefficientTable>(coefficients => new EntityMBigHuntQuestScoreCoefficientTable(coefficients)));
             EntityMBigHuntRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntRewardGroup[], EntityMBigHuntRewardGroupTable>(data => new EntityMBigHuntRewardGroupTable(data)));
             EntityMBigHuntScheduleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntSchedule[], EntityMBigHuntScheduleTable>(data => new EntityMBigHuntScheduleTable(data)));
             EntityMBigHuntScoreRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBigHuntScoreRewardGroup[], EntityMBigHuntScoreRewardGroupTable>(data => new EntityMBigHuntScoreRewardGroupTable(data)));
@@ -2000,6 +1856,13 @@ namespace NierReincarnation.Core.Dark
             EntityMCageOrnamentMainQuestChapterStillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCageOrnamentMainQuestChapterStill[], EntityMCageOrnamentMainQuestChapterStillTable>(data => new EntityMCageOrnamentMainQuestChapterStillTable(data)));
             EntityMCageOrnamentRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCageOrnamentReward[], EntityMCageOrnamentRewardTable>(data => new EntityMCageOrnamentRewardTable(data)));
             EntityMCageOrnamentStillReleaseConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCageOrnamentStillReleaseCondition[], EntityMCageOrnamentStillReleaseConditionTable>(data => new EntityMCageOrnamentStillReleaseConditionTable(data)));
+            EntityMCatalogCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCompanion[], EntityMCatalogCompanionTable>(companions => new EntityMCatalogCompanionTable(companions)));
+            EntityMCatalogCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogCostume[], EntityMCatalogCostumeTable>(costumes => new EntityMCatalogCostumeTable(costumes)));
+            EntityMCatalogPartsGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogPartsGroup[], EntityMCatalogPartsGroupTable>(groups => new EntityMCatalogPartsGroupTable(groups)));
+            EntityMCatalogTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogTerm[], EntityMCatalogTermTable>(terms => new EntityMCatalogTermTable(terms)));
+            EntityMCatalogThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogThought[], EntityMCatalogThoughtTable>(thoughts => new EntityMCatalogThoughtTable(thoughts)));
+            EntityMCatalogWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCatalogWeapon[], EntityMCatalogWeaponTable>(weapons => new EntityMCatalogWeaponTable(weapons)));
+            EntityMCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacter[], EntityMCharacterTable>(characters => new EntityMCharacterTable(characters)));
             EntityMCharacterBoardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterBoard[], EntityMCharacterBoardTable>(data => new EntityMCharacterBoardTable(data)));
             EntityMCharacterBoardAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterBoardAbility[], EntityMCharacterBoardAbilityTable>(data => new EntityMCharacterBoardAbilityTable(data)));
             EntityMCharacterBoardAbilityMaxLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterBoardAbilityMaxLevel[], EntityMCharacterBoardAbilityMaxLevelTable>(data => new EntityMCharacterBoardAbilityMaxLevelTable(data)));
@@ -2018,6 +1881,11 @@ namespace NierReincarnation.Core.Dark
             EntityMCharacterBoardPanelReleasePossessionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterBoardPanelReleasePossessionGroup[], EntityMCharacterBoardPanelReleasePossessionGroupTable>(data => new EntityMCharacterBoardPanelReleasePossessionGroupTable(data)));
             EntityMCharacterBoardPanelReleaseRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterBoardPanelReleaseRewardGroup[], EntityMCharacterBoardPanelReleaseRewardGroupTable>(data => new EntityMCharacterBoardPanelReleaseRewardGroupTable(data)));
             EntityMCharacterBoardStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterBoardStatusUp[], EntityMCharacterBoardStatusUpTable>(data => new EntityMCharacterBoardStatusUpTable(data)));
+            EntityMCharacterDisplaySwitchTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterDisplaySwitch[], EntityMCharacterDisplaySwitchTable>(switches => new EntityMCharacterDisplaySwitchTable(switches)));
+            EntityMCharacterLevelBonusAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterLevelBonusAbilityGroup[], EntityMCharacterLevelBonusAbilityGroupTable>(groups => new EntityMCharacterLevelBonusAbilityGroupTable(groups)));
+            EntityMCharacterRebirthTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterRebirth[], EntityMCharacterRebirthTable>(data => new EntityMCharacterRebirthTable(data)));
+            EntityMCharacterRebirthMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterRebirthMaterialGroup[], EntityMCharacterRebirthMaterialGroupTable>(data => new EntityMCharacterRebirthMaterialGroupTable(data)));
+            EntityMCharacterRebirthStepGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterRebirthStepGroup[], EntityMCharacterRebirthStepGroupTable>(data => new EntityMCharacterRebirthStepGroupTable(data)));
             EntityMCharacterViewerActorIconTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterViewerActorIcon[], EntityMCharacterViewerActorIconTable>(data => new EntityMCharacterViewerActorIconTable(data)));
             EntityMCharacterViewerFieldTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterViewerField[], EntityMCharacterViewerFieldTable>(data => new EntityMCharacterViewerFieldTable(data)));
             EntityMCharacterViewerFieldSettingsTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterViewerFieldSettings[], EntityMCharacterViewerFieldSettingsTable>(data => new EntityMCharacterViewerFieldSettingsTable(data)));
@@ -2026,12 +1894,30 @@ namespace NierReincarnation.Core.Dark
             EntityMCollectionBonusQuestAssignmentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCollectionBonusQuestAssignment[], EntityMCollectionBonusQuestAssignmentTable>(data => new EntityMCollectionBonusQuestAssignmentTable(data)));
             EntityMCollectionBonusQuestAssignmentGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCollectionBonusQuestAssignmentGroup[], EntityMCollectionBonusQuestAssignmentGroupTable>(data => new EntityMCollectionBonusQuestAssignmentGroupTable(data)));
             EntityMComboCalculationSettingTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMComboCalculationSetting[], EntityMComboCalculationSettingTable>(data => new EntityMComboCalculationSettingTable(data)));
+            EntityMComebackCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMComebackCampaign[], EntityMComebackCampaignTable>(campaigns => new EntityMComebackCampaignTable(campaigns)));
+            EntityMCompanionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanion[], EntityMCompanionTable>(companions => new EntityMCompanionTable(companions)));
+            EntityMCompanionAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionAbilityGroup[], EntityMCompanionAbilityGroupTable>(groups => new EntityMCompanionAbilityGroupTable(groups)));
+            EntityMCompanionAbilityLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionAbilityLevel[], EntityMCompanionAbilityLevelTable>(levels => new EntityMCompanionAbilityLevelTable(levels)));
+            EntityMCompanionBaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionBaseStatus[], EntityMCompanionBaseStatusTable>(statuses => new EntityMCompanionBaseStatusTable(statuses)));
+            EntityMCompanionCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionCategory[], EntityMCompanionCategoryTable>(categories => new EntityMCompanionCategoryTable(categories)));
             EntityMCompanionDuplicationExchangePossessionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionDuplicationExchangePossessionGroup[], EntityMCompanionDuplicationExchangePossessionGroupTable>(data => new EntityMCompanionDuplicationExchangePossessionGroupTable(data)));
+            EntityMCompanionEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionEnhanced[], EntityMCompanionEnhancedTable>(enhanceds => new EntityMCompanionEnhancedTable(enhanceds)));
             EntityMCompanionEnhancementMaterialTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionEnhancementMaterial[], EntityMCompanionEnhancementMaterialTable>(data => new EntityMCompanionEnhancementMaterialTable(data)));
+            EntityMCompanionSkillLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionSkillLevel[], EntityMCompanionSkillLevelTable>(levels => new EntityMCompanionSkillLevelTable(levels)));
+            EntityMCompanionStatusCalculationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompanionStatusCalculation[], EntityMCompanionStatusCalculationTable>(calculations => new EntityMCompanionStatusCalculationTable(calculations)));
             EntityMCompleteMissionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCompleteMissionGroup[], EntityMCompleteMissionGroupTable>(data => new EntityMCompleteMissionGroupTable(data)));
+            EntityMConfigTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConfig[], EntityMConfigTable>(configs => new EntityMConfigTable(configs)));
+            EntityMConsumableItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItem[], EntityMConsumableItemTable>(items => new EntityMConsumableItemTable(items)));
+            EntityMConsumableItemEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItemEffect[], EntityMConsumableItemEffectTable>(effects => new EntityMConsumableItemEffectTable(effects)));
+            EntityMConsumableItemTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMConsumableItemTerm[], EntityMConsumableItemTermTable>(terms => new EntityMConsumableItemTermTable(terms)));
             EntityMContentsStoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMContentsStory[], EntityMContentsStoryTable>(data => new EntityMContentsStoryTable(data)));
+            EntityMCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostume[], EntityMCostumeTable>(costumes => new EntityMCostumeTable(costumes)));
+            EntityMCostumeAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAbilityGroup[], EntityMCostumeAbilityGroupTable>(groups => new EntityMCostumeAbilityGroupTable(groups)));
+            EntityMCostumeAbilityLevelGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAbilityLevelGroup[], EntityMCostumeAbilityLevelGroupTable>(groups => new EntityMCostumeAbilityLevelGroupTable(groups)));
             EntityMCostumeActiveSkillEnhancementMaterialTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeActiveSkillEnhancementMaterial[], EntityMCostumeActiveSkillEnhancementMaterialTable>(data => new EntityMCostumeActiveSkillEnhancementMaterialTable(data)));
+            EntityMCostumeActiveSkillGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeActiveSkillGroup[], EntityMCostumeActiveSkillGroupTable>(groups => new EntityMCostumeActiveSkillGroupTable(groups)));
             EntityMCostumeAnimationStepTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAnimationStep[], EntityMCostumeAnimationStepTable>(data => new EntityMCostumeAnimationStepTable(data)));
+            EntityMCostumeAwakenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwaken[], EntityMCostumeAwakenTable>(awakens => new EntityMCostumeAwakenTable(awakens)));
             EntityMCostumeAwakenAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwakenAbility[], EntityMCostumeAwakenAbilityTable>(data => new EntityMCostumeAwakenAbilityTable(data)));
             EntityMCostumeAwakenEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwakenEffectGroup[], EntityMCostumeAwakenEffectGroupTable>(data => new EntityMCostumeAwakenEffectGroupTable(data)));
             EntityMCostumeAwakenItemAcquireTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwakenItemAcquire[], EntityMCostumeAwakenItemAcquireTable>(data => new EntityMCostumeAwakenItemAcquireTable(data)));
@@ -2039,17 +1925,24 @@ namespace NierReincarnation.Core.Dark
             EntityMCostumeAwakenPriceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwakenPriceGroup[], EntityMCostumeAwakenPriceGroupTable>(data => new EntityMCostumeAwakenPriceGroupTable(data)));
             EntityMCostumeAwakenStatusUpGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwakenStatusUpGroup[], EntityMCostumeAwakenStatusUpGroupTable>(data => new EntityMCostumeAwakenStatusUpGroupTable(data)));
             EntityMCostumeAwakenStepMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeAwakenStepMaterialGroup[], EntityMCostumeAwakenStepMaterialGroupTable>(data => new EntityMCostumeAwakenStepMaterialGroupTable(data)));
+            EntityMCostumeBaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeBaseStatus[], EntityMCostumeBaseStatusTable>(statuses => new EntityMCostumeBaseStatusTable(statuses)));
             EntityMCostumeCollectionBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeCollectionBonus[], EntityMCostumeCollectionBonusTable>(data => new EntityMCostumeCollectionBonusTable(data)));
             EntityMCostumeCollectionBonusGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeCollectionBonusGroup[], EntityMCostumeCollectionBonusGroupTable>(data => new EntityMCostumeCollectionBonusGroupTable(data)));
             EntityMCostumeDefaultSkillGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDefaultSkillGroup[], EntityMCostumeDefaultSkillGroupTable>(data => new EntityMCostumeDefaultSkillGroupTable(data)));
             EntityMCostumeDefaultSkillLotteryGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDefaultSkillLotteryGroup[], EntityMCostumeDefaultSkillLotteryGroupTable>(data => new EntityMCostumeDefaultSkillLotteryGroupTable(data)));
             EntityMCostumeDisplayCoordinateAdjustmentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDisplayCoordinateAdjustment[], EntityMCostumeDisplayCoordinateAdjustmentTable>(data => new EntityMCostumeDisplayCoordinateAdjustmentTable(data)));
             EntityMCostumeDuplicationExchangePossessionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDuplicationExchangePossessionGroup[], EntityMCostumeDuplicationExchangePossessionGroupTable>(data => new EntityMCostumeDuplicationExchangePossessionGroupTable(data)));
+            EntityMCostumeEmblemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeEmblem[], EntityMCostumeEmblemTable>(emblems => new EntityMCostumeEmblemTable(emblems)));
+            EntityMCostumeEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeEnhanced[], EntityMCostumeEnhancedTable>(enhanceds => new EntityMCostumeEnhancedTable(enhanceds)));
             EntityMCostumeLevelBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLevelBonus[], EntityMCostumeLevelBonusTable>(data => new EntityMCostumeLevelBonusTable(data)));
             EntityMCostumeLimitBreakMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLimitBreakMaterialGroup[], EntityMCostumeLimitBreakMaterialGroupTable>(data => new EntityMCostumeLimitBreakMaterialGroupTable(data)));
             EntityMCostumeLimitBreakMaterialRarityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLimitBreakMaterialRarityGroup[], EntityMCostumeLimitBreakMaterialRarityGroupTable>(data => new EntityMCostumeLimitBreakMaterialRarityGroupTable(data)));
             EntityMCostumeOverflowExchangePossessionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeOverflowExchangePossessionGroup[], EntityMCostumeOverflowExchangePossessionGroupTable>(data => new EntityMCostumeOverflowExchangePossessionGroupTable(data)));
+            EntityMCostumeProperAttributeHpBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeProperAttributeHpBonus[], EntityMCostumeProperAttributeHpBonusTable>(data => new EntityMCostumeProperAttributeHpBonusTable(data)));
+            EntityMCostumeRarityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeRarity[], EntityMCostumeRarityTable>(rarities => new EntityMCostumeRarityTable(rarities)));
             EntityMCostumeSpecialActActiveSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeSpecialActActiveSkill[], EntityMCostumeSpecialActActiveSkillTable>(data => new EntityMCostumeSpecialActActiveSkillTable(data)));
+            EntityMCostumeSpecialActActiveSkillConditionAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeSpecialActActiveSkillConditionAttribute[], EntityMCostumeSpecialActActiveSkillConditionAttributeTable>(data => new EntityMCostumeSpecialActActiveSkillConditionAttributeTable(data)));
+            EntityMCostumeStatusCalculationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeStatusCalculation[], EntityMCostumeStatusCalculationTable>(calculations => new EntityMCostumeStatusCalculationTable(calculations)));
             EntityMDeckEntrustCoefficientAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMDeckEntrustCoefficientAttribute[], EntityMDeckEntrustCoefficientAttributeTable>(data => new EntityMDeckEntrustCoefficientAttributeTable(data)));
             EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMDeckEntrustCoefficientPartsSeriesBonusCount[], EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable>(data => new EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable(data)));
             EntityMDeckEntrustCoefficientStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMDeckEntrustCoefficientStatus[], EntityMDeckEntrustCoefficientStatusTable>(data => new EntityMDeckEntrustCoefficientStatusTable(data)));
@@ -2060,11 +1953,31 @@ namespace NierReincarnation.Core.Dark
             EntityMEnhanceCampaignTargetGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEnhanceCampaignTargetGroup[], EntityMEnhanceCampaignTargetGroupTable>(data => new EntityMEnhanceCampaignTargetGroupTable(data)));
             EntityMEvaluateConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEvaluateCondition[], EntityMEvaluateConditionTable>(data => new EntityMEvaluateConditionTable(data)));
             EntityMEvaluateConditionValueGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEvaluateConditionValueGroup[], EntityMEvaluateConditionValueGroupTable>(data => new EntityMEvaluateConditionValueGroupTable(data)));
+            EntityMEventQuestChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestChapter[], EntityMEventQuestChapterTable>(elements => new EntityMEventQuestChapterTable(elements)));
+            EntityMEventQuestChapterCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestChapterCharacter[], EntityMEventQuestChapterCharacterTable>(characters => new EntityMEventQuestChapterCharacterTable(characters)));
             EntityMEventQuestChapterDifficultyLimitContentUnlockTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestChapterDifficultyLimitContentUnlock[], EntityMEventQuestChapterDifficultyLimitContentUnlockTable>(data => new EntityMEventQuestChapterDifficultyLimitContentUnlockTable(data)));
             EntityMEventQuestChapterLimitContentRelationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestChapterLimitContentRelation[], EntityMEventQuestChapterLimitContentRelationTable>(data => new EntityMEventQuestChapterLimitContentRelationTable(data)));
+            EntityMEventQuestDailyGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroup[], EntityMEventQuestDailyGroupTable>(data => new EntityMEventQuestDailyGroupTable(data)));
+            EntityMEventQuestDailyGroupCompleteRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupCompleteReward[], EntityMEventQuestDailyGroupCompleteRewardTable>(data => new EntityMEventQuestDailyGroupCompleteRewardTable(data)));
+            EntityMEventQuestDailyGroupMessageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupMessage[], EntityMEventQuestDailyGroupMessageTable>(data => new EntityMEventQuestDailyGroupMessageTable(data)));
+            EntityMEventQuestDailyGroupTargetChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupTargetChapter[], EntityMEventQuestDailyGroupTargetChapterTable>(data => new EntityMEventQuestDailyGroupTargetChapterTable(data)));
             EntityMEventQuestDisplayItemGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDisplayItemGroup[], EntityMEventQuestDisplayItemGroupTable>(data => new EntityMEventQuestDisplayItemGroupTable(data)));
+            EntityMEventQuestGuerrillaFreeOpenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestGuerrillaFreeOpen[], EntityMEventQuestGuerrillaFreeOpenTable>(opens => new EntityMEventQuestGuerrillaFreeOpenTable(opens)));
             EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondence[], EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondenceTable>(data => new EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondenceTable(data)));
+            EntityMEventQuestLabyrinthMobTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthMob[], EntityMEventQuestLabyrinthMobTable>(data => new EntityMEventQuestLabyrinthMobTable(data)));
+            EntityMEventQuestLabyrinthQuestDisplayTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestDisplay[], EntityMEventQuestLabyrinthQuestDisplayTable>(data => new EntityMEventQuestLabyrinthQuestDisplayTable(data)));
+            EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestEffectDescriptionAbility[], EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable>(data => new EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable(data)));
+            EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestEffectDescriptionFree[], EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable>(data => new EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable(data)));
+            EntityMEventQuestLabyrinthQuestEffectDisplayTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestEffectDisplay[], EntityMEventQuestLabyrinthQuestEffectDisplayTable>(data => new EntityMEventQuestLabyrinthQuestEffectDisplayTable(data)));
+            EntityMEventQuestLabyrinthRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthRewardGroup[], EntityMEventQuestLabyrinthRewardGroupTable>(data => new EntityMEventQuestLabyrinthRewardGroupTable(data)));
+            EntityMEventQuestLabyrinthSeasonTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthSeason[], EntityMEventQuestLabyrinthSeasonTable>(data => new EntityMEventQuestLabyrinthSeasonTable(data)));
+            EntityMEventQuestLabyrinthSeasonRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthSeasonRewardGroup[], EntityMEventQuestLabyrinthSeasonRewardGroupTable>(data => new EntityMEventQuestLabyrinthSeasonRewardGroupTable(data)));
+            EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthStageAccumulationRewardGroup[], EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable>(data => new EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable(data)));
+            EntityMEventQuestLabyrinthStageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthStage[], EntityMEventQuestLabyrinthStageTable>(data => new EntityMEventQuestLabyrinthStageTable(data)));
             EntityMEventQuestLimitContentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLimitContent[], EntityMEventQuestLimitContentTable>(data => new EntityMEventQuestLimitContentTable(data)));
+            EntityMEventQuestLinkTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLink[], EntityMEventQuestLinkTable>(links => new EntityMEventQuestLinkTable(links)));
+            EntityMEventQuestSequenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestSequence[], EntityMEventQuestSequenceTable>(sequences => new EntityMEventQuestSequenceTable(sequences)));
+            EntityMEventQuestSequenceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestSequenceGroup[], EntityMEventQuestSequenceGroupTable>(groups => new EntityMEventQuestSequenceGroupTable(groups)));
             EntityMEventQuestTowerAccumulationRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestTowerAccumulationReward[], EntityMEventQuestTowerAccumulationRewardTable>(data => new EntityMEventQuestTowerAccumulationRewardTable(data)));
             EntityMEventQuestTowerAccumulationRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestTowerAccumulationRewardGroup[], EntityMEventQuestTowerAccumulationRewardGroupTable>(data => new EntityMEventQuestTowerAccumulationRewardGroupTable(data)));
             EntityMEventQuestTowerAssetTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestTowerAsset[], EntityMEventQuestTowerAssetTable>(data => new EntityMEventQuestTowerAssetTable(data)));
@@ -2098,6 +2011,7 @@ namespace NierReincarnation.Core.Dark
             EntityMHelpCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMHelpCategory[], EntityMHelpCategoryTable>(data => new EntityMHelpCategoryTable(data)));
             EntityMHelpItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMHelpItem[], EntityMHelpItemTable>(data => new EntityMHelpItemTable(data)));
             EntityMHelpPageGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMHelpPageGroup[], EntityMHelpPageGroupTable>(data => new EntityMHelpPageGroupTable(data)));
+            EntityMImportantItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMImportantItem[], EntityMImportantItemTable>(items => new EntityMImportantItemTable(items)));
             EntityMImportantItemEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMImportantItemEffect[], EntityMImportantItemEffectTable>(data => new EntityMImportantItemEffectTable(data)));
             EntityMImportantItemEffectDropCountTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMImportantItemEffectDropCount[], EntityMImportantItemEffectDropCountTable>(data => new EntityMImportantItemEffectDropCountTable(data)));
             EntityMImportantItemEffectDropRateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMImportantItemEffectDropRate[], EntityMImportantItemEffectDropRateTable>(data => new EntityMImportantItemEffectDropRateTable(data)));
@@ -2105,39 +2019,65 @@ namespace NierReincarnation.Core.Dark
             EntityMImportantItemEffectTargetQuestGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMImportantItemEffectTargetQuestGroup[], EntityMImportantItemEffectTargetQuestGroupTable>(data => new EntityMImportantItemEffectTargetQuestGroupTable(data)));
             EntityMImportantItemEffectUnlockFunctionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMImportantItemEffectUnlockFunction[], EntityMImportantItemEffectUnlockFunctionTable>(data => new EntityMImportantItemEffectUnlockFunctionTable(data)));
             EntityMLibraryEventQuestStoryGroupingTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryEventQuestStoryGrouping[], EntityMLibraryEventQuestStoryGroupingTable>(data => new EntityMLibraryEventQuestStoryGroupingTable(data)));
+            EntityMLibraryMainQuestGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMainQuestGroup[], EntityMLibraryMainQuestGroupTable>(data => new EntityMLibraryMainQuestGroupTable(data)));
+            EntityMLibraryMainQuestStoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMainQuestStory[], EntityMLibraryMainQuestStoryTable>(data => new EntityMLibraryMainQuestStoryTable(data)));
             EntityMLibraryMovieTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMovie[], EntityMLibraryMovieTable>(data => new EntityMLibraryMovieTable(data)));
             EntityMLibraryMovieCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMovieCategory[], EntityMLibraryMovieCategoryTable>(data => new EntityMLibraryMovieCategoryTable(data)));
             EntityMLibraryMovieUnlockConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMovieUnlockCondition[], EntityMLibraryMovieUnlockConditionTable>(data => new EntityMLibraryMovieUnlockConditionTable(data)));
             EntityMLibraryRecordGroupingTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryRecordGrouping[], EntityMLibraryRecordGroupingTable>(data => new EntityMLibraryRecordGroupingTable(data)));
             EntityMLimitedOpenTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLimitedOpenText[], EntityMLimitedOpenTextTable>(data => new EntityMLimitedOpenTextTable(data)));
             EntityMLimitedOpenTextGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLimitedOpenTextGroup[], EntityMLimitedOpenTextGroupTable>(data => new EntityMLimitedOpenTextGroupTable(data)));
+            EntityMListSettingAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMListSettingAbilityGroup[], EntityMListSettingAbilityGroupTable>(data => new EntityMListSettingAbilityGroupTable(data)));
+            EntityMListSettingAbilityGroupTargetTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMListSettingAbilityGroupTarget[], EntityMListSettingAbilityGroupTargetTable>(data => new EntityMListSettingAbilityGroupTargetTable(data)));
             EntityMLoginBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLoginBonus[], EntityMLoginBonusTable>(data => new EntityMLoginBonusTable(data)));
             EntityMLoginBonusStampTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLoginBonusStamp[], EntityMLoginBonusStampTable>(data => new EntityMLoginBonusStampTable(data)));
+            EntityMMainQuestChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestChapter[], EntityMMainQuestChapterTable>(chapters => new EntityMMainQuestChapterTable(chapters)));
             EntityMMainQuestPortalCageCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestPortalCageCharacter[], EntityMMainQuestPortalCageCharacterTable>(data => new EntityMMainQuestPortalCageCharacterTable(data)));
+            EntityMMainQuestRouteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestRoute[], EntityMMainQuestRouteTable>(routes => new EntityMMainQuestRouteTable(routes)));
+            EntityMMainQuestSeasonTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSeason[], EntityMMainQuestSeasonTable>(seasons => new EntityMMainQuestSeasonTable(seasons)));
+            EntityMMainQuestSequenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSequence[], EntityMMainQuestSequenceTable>(sequences => new EntityMMainQuestSequenceTable(sequences)));
+            EntityMMainQuestSequenceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSequenceGroup[], EntityMMainQuestSequenceGroupTable>(groups => new EntityMMainQuestSequenceGroupTable(groups)));
             EntityMMaintenanceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMaintenance[], EntityMMaintenanceTable>(data => new EntityMMaintenanceTable(data)));
             EntityMMaintenanceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMaintenanceGroup[], EntityMMaintenanceGroupTable>(data => new EntityMMaintenanceGroupTable(data)));
+            EntityMMaterialTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMaterial[], EntityMMaterialTable>(materials => new EntityMMaterialTable(materials)));
             EntityMMaterialSaleObtainPossessionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMaterialSaleObtainPossession[], EntityMMaterialSaleObtainPossessionTable>(data => new EntityMMaterialSaleObtainPossessionTable(data)));
             EntityMMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMission[], EntityMMissionTable>(data => new EntityMMissionTable(data)));
+            EntityMMissionClearConditionValueViewTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionClearConditionValueView[], EntityMMissionClearConditionValueViewTable>(data => new EntityMMissionClearConditionValueViewTable(data)));
             EntityMMissionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionGroup[], EntityMMissionGroupTable>(data => new EntityMMissionGroupTable(data)));
             EntityMMissionLinkTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionLink[], EntityMMissionLinkTable>(data => new EntityMMissionLinkTable(data)));
+            EntityMMissionPassTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionPass[], EntityMMissionPassTable>(data => new EntityMMissionPassTable(data)));
+            EntityMMissionPassLevelGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionPassLevelGroup[], EntityMMissionPassLevelGroupTable>(data => new EntityMMissionPassLevelGroupTable(data)));
+            EntityMMissionPassMissionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionPassMissionGroup[], EntityMMissionPassMissionGroupTable>(data => new EntityMMissionPassMissionGroupTable(data)));
+            EntityMMissionPassRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionPassRewardGroup[], EntityMMissionPassRewardGroupTable>(data => new EntityMMissionPassRewardGroupTable(data)));
             EntityMMissionRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionReward[], EntityMMissionRewardTable>(data => new EntityMMissionRewardTable(data)));
+            EntityMMissionSubCategoryTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionSubCategoryText[], EntityMMissionSubCategoryTextTable>(data => new EntityMMissionSubCategoryTextTable(data)));
             EntityMMissionTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionTerm[], EntityMMissionTermTable>(data => new EntityMMissionTermTable(data)));
             EntityMMissionUnlockConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionUnlockCondition[], EntityMMissionUnlockConditionTable>(data => new EntityMMissionUnlockConditionTable(data)));
             EntityMMomBannerTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMomBanner[], EntityMMomBannerTable>(data => new EntityMMomBannerTable(data)));
+            EntityMMomPointBannerTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMomPointBanner[], EntityMMomPointBannerTable>(data => new EntityMMomPointBannerTable(data)));
             EntityMMovieTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMovie[], EntityMMovieTable>(data => new EntityMMovieTable(data)));
             EntityMNaviCutInTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNaviCutIn[], EntityMNaviCutInTable>(data => new EntityMNaviCutInTable(data)));
             EntityMNaviCutInContentGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNaviCutInContentGroup[], EntityMNaviCutInContentGroupTable>(data => new EntityMNaviCutInContentGroupTable(data)));
             EntityMNaviCutInTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNaviCutInText[], EntityMNaviCutInTextTable>(data => new EntityMNaviCutInTextTable(data)));
+            EntityMNumericalFunctionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNumericalFunction[], EntityMNumericalFunctionTable>(functions => new EntityMNumericalFunctionTable(functions)));
+            EntityMNumericalFunctionParameterGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNumericalFunctionParameterGroup[], EntityMNumericalFunctionParameterGroupTable>(groups => new EntityMNumericalFunctionParameterGroupTable(groups)));
             EntityMNumericalParameterMapTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMNumericalParameterMap[], EntityMNumericalParameterMapTable>(data => new EntityMNumericalParameterMapTable(data)));
             EntityMOmikujiTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMOmikuji[], EntityMOmikujiTable>(data => new EntityMOmikujiTable(data)));
             EntityMOverrideHitEffectConditionCriticalTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMOverrideHitEffectConditionCritical[], EntityMOverrideHitEffectConditionCriticalTable>(data => new EntityMOverrideHitEffectConditionCriticalTable(data)));
             EntityMOverrideHitEffectConditionDamageAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMOverrideHitEffectConditionDamageAttribute[], EntityMOverrideHitEffectConditionDamageAttributeTable>(data => new EntityMOverrideHitEffectConditionDamageAttributeTable(data)));
             EntityMOverrideHitEffectConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMOverrideHitEffectConditionGroup[], EntityMOverrideHitEffectConditionGroupTable>(data => new EntityMOverrideHitEffectConditionGroupTable(data)));
             EntityMOverrideHitEffectConditionSkillExecutorTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMOverrideHitEffectConditionSkillExecutor[], EntityMOverrideHitEffectConditionSkillExecutorTable>(data => new EntityMOverrideHitEffectConditionSkillExecutorTable(data)));
+            EntityMPartsTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMParts[], EntityMPartsTable>(partses => new EntityMPartsTable(partses)));
+            EntityMPartsEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsEnhanced[], EntityMPartsEnhancedTable>(enhanceds => new EntityMPartsEnhancedTable(enhanceds)));
             EntityMPartsEnhancedSubStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsEnhancedSubStatus[], EntityMPartsEnhancedSubStatusTable>(data => new EntityMPartsEnhancedSubStatusTable(data)));
+            EntityMPartsGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsGroup[], EntityMPartsGroupTable>(groups => new EntityMPartsGroupTable(groups)));
             EntityMPartsLevelUpPriceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsLevelUpPriceGroup[], EntityMPartsLevelUpPriceGroupTable>(data => new EntityMPartsLevelUpPriceGroupTable(data)));
             EntityMPartsLevelUpRateGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsLevelUpRateGroup[], EntityMPartsLevelUpRateGroupTable>(data => new EntityMPartsLevelUpRateGroupTable(data)));
             EntityMPartsRarityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsRarity[], EntityMPartsRarityTable>(data => new EntityMPartsRarityTable(data)));
+            EntityMPartsSeriesTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsSeries[], EntityMPartsSeriesTable>(series => new EntityMPartsSeriesTable(series)));
+            EntityMPartsSeriesBonusAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsSeriesBonusAbilityGroup[], EntityMPartsSeriesBonusAbilityGroupTable>(groups => new EntityMPartsSeriesBonusAbilityGroupTable(groups)));
+            EntityMPartsStatusMainTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPartsStatusMain[], EntityMPartsStatusMainTable>(mains => new EntityMPartsStatusMainTable(mains)));
+            EntityMPlatformPaymentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPlatformPayment[], EntityMPlatformPaymentTable>(payments => new EntityMPlatformPaymentTable(payments)));
             EntityMPlatformPaymentPriceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPlatformPaymentPrice[], EntityMPlatformPaymentPriceTable>(data => new EntityMPlatformPaymentPriceTable(data)));
             EntityMPortalCageAccessPointFunctionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPortalCageAccessPointFunctionGroup[], EntityMPortalCageAccessPointFunctionGroupTable>(data => new EntityMPortalCageAccessPointFunctionGroupTable(data)));
             EntityMPortalCageAccessPointFunctionGroupScheduleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPortalCageAccessPointFunctionGroupSchedule[], EntityMPortalCageAccessPointFunctionGroupScheduleTable>(data => new EntityMPortalCageAccessPointFunctionGroupScheduleTable(data)));
@@ -2145,11 +2085,14 @@ namespace NierReincarnation.Core.Dark
             EntityMPortalCageGateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPortalCageGate[], EntityMPortalCageGateTable>(data => new EntityMPortalCageGateTable(data)));
             EntityMPortalCageSceneTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPortalCageScene[], EntityMPortalCageSceneTable>(data => new EntityMPortalCageSceneTable(data)));
             EntityMPossessionAcquisitionRouteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPossessionAcquisitionRoute[], EntityMPossessionAcquisitionRouteTable>(data => new EntityMPossessionAcquisitionRouteTable(data)));
+            EntityMPowerCalculationConstantValueTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPowerCalculationConstantValue[], EntityMPowerCalculationConstantValueTable>(values => new EntityMPowerCalculationConstantValueTable(values)));
+            EntityMPowerReferenceStatusGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPowerReferenceStatusGroup[], EntityMPowerReferenceStatusGroupTable>(groups => new EntityMPowerReferenceStatusGroupTable(groups)));
+            EntityMPremiumItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPremiumItem[], EntityMPremiumItemTable>(data => new EntityMPremiumItemTable(data)));
             EntityMPvpBackgroundTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpBackground[], EntityMPvpBackgroundTable>(data => new EntityMPvpBackgroundTable(data)));
-            EntityMPvpGradeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpGrade[], EntityMPvpGradeTable>(data => new EntityMPvpGradeTable(data)));
             EntityMPvpGradeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpGradeGroup[], EntityMPvpGradeGroupTable>(data => new EntityMPvpGradeGroupTable(data)));
             EntityMPvpGradeOneMatchRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpGradeOneMatchReward[], EntityMPvpGradeOneMatchRewardTable>(data => new EntityMPvpGradeOneMatchRewardTable(data)));
             EntityMPvpGradeOneMatchRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpGradeOneMatchRewardGroup[], EntityMPvpGradeOneMatchRewardGroupTable>(data => new EntityMPvpGradeOneMatchRewardGroupTable(data)));
+            EntityMPvpGradeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpGrade[], EntityMPvpGradeTable>(data => new EntityMPvpGradeTable(data)));
             EntityMPvpGradeWeeklyRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpGradeWeeklyRewardGroup[], EntityMPvpGradeWeeklyRewardGroupTable>(data => new EntityMPvpGradeWeeklyRewardGroupTable(data)));
             EntityMPvpRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpReward[], EntityMPvpRewardTable>(data => new EntityMPvpRewardTable(data)));
             EntityMPvpSeasonTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpSeason[], EntityMPvpSeasonTable>(data => new EntityMPvpSeasonTable(data)));
@@ -2162,39 +2105,79 @@ namespace NierReincarnation.Core.Dark
             EntityMPvpWeeklyRankRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpWeeklyRankRewardGroup[], EntityMPvpWeeklyRankRewardGroupTable>(data => new EntityMPvpWeeklyRankRewardGroupTable(data)));
             EntityMPvpWeeklyRankRewardRankGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpWeeklyRankRewardRankGroup[], EntityMPvpWeeklyRankRewardRankGroupTable>(data => new EntityMPvpWeeklyRankRewardRankGroupTable(data)));
             EntityMPvpWinStreakCountEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMPvpWinStreakCountEffect[], EntityMPvpWinStreakCountEffectTable>(data => new EntityMPvpWinStreakCountEffectTable(data)));
+            EntityMQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuest[], EntityMQuestTable>(quests => new EntityMQuestTable(quests)));
+            EntityMQuestBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonus[], EntityMQuestBonusTable>(bonuses => new EntityMQuestBonusTable(bonuses)));
             EntityMQuestBonusAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusAbility[], EntityMQuestBonusAbilityTable>(data => new EntityMQuestBonusAbilityTable(data)));
+            EntityMQuestBonusAllyCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusAllyCharacter[], EntityMQuestBonusAllyCharacterTable>(data => new EntityMQuestBonusAllyCharacterTable(data)));
+            EntityMQuestBonusCharacterGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusCharacterGroup[], EntityMQuestBonusCharacterGroupTable>(groups => new EntityMQuestBonusCharacterGroupTable(groups)));
             EntityMQuestBonusCostumeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusCostumeGroup[], EntityMQuestBonusCostumeGroupTable>(data => new EntityMQuestBonusCostumeGroupTable(data)));
+            EntityMQuestBonusCostumeSettingGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusCostumeSettingGroup[], EntityMQuestBonusCostumeSettingGroupTable>(groups => new EntityMQuestBonusCostumeSettingGroupTable(groups)));
             EntityMQuestBonusDropRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusDropReward[], EntityMQuestBonusDropRewardTable>(data => new EntityMQuestBonusDropRewardTable(data)));
             EntityMQuestBonusEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusEffectGroup[], EntityMQuestBonusEffectGroupTable>(data => new EntityMQuestBonusEffectGroupTable(data)));
             EntityMQuestBonusExpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusExp[], EntityMQuestBonusExpTable>(data => new EntityMQuestBonusExpTable(data)));
+            EntityMQuestBonusTermGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusTermGroup[], EntityMQuestBonusTermGroupTable>(groups => new EntityMQuestBonusTermGroupTable(groups)));
+            EntityMQuestBonusWeaponGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusWeaponGroup[], EntityMQuestBonusWeaponGroupTable>(groups => new EntityMQuestBonusWeaponGroupTable(groups)));
+            EntityMQuestCampaignTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaign[], EntityMQuestCampaignTable>(campaigns => new EntityMQuestCampaignTable(campaigns)));
+            EntityMQuestCampaignEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignEffectGroup[], EntityMQuestCampaignEffectGroupTable>(groups => new EntityMQuestCampaignEffectGroupTable(groups)));
+            EntityMQuestCampaignTargetGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignTargetGroup[], EntityMQuestCampaignTargetGroupTable>(groups => new EntityMQuestCampaignTargetGroupTable(groups)));
             EntityMQuestCampaignTargetItemGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignTargetItemGroup[], EntityMQuestCampaignTargetItemGroupTable>(data => new EntityMQuestCampaignTargetItemGroupTable(data)));
+            EntityMQuestDeckRestrictionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDeckRestrictionGroup[], EntityMQuestDeckRestrictionGroupTable>(groups => new EntityMQuestDeckRestrictionGroupTable(groups)));
             EntityMQuestDeckRestrictionGroupUnlockTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDeckRestrictionGroupUnlock[], EntityMQuestDeckRestrictionGroupUnlockTable>(data => new EntityMQuestDeckRestrictionGroupUnlockTable(data)));
+            EntityMQuestDisplayAttributeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDisplayAttributeGroup[], EntityMQuestDisplayAttributeGroupTable>(groups => new EntityMQuestDisplayAttributeGroupTable(groups)));
+            EntityMQuestFirstClearRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestFirstClearRewardGroup[], EntityMQuestFirstClearRewardGroupTable>(groups => new EntityMQuestFirstClearRewardGroupTable(groups)));
+            EntityMQuestMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMission[], EntityMQuestMissionTable>(missions => new EntityMQuestMissionTable(missions)));
+            EntityMQuestMissionConditionValueGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMissionConditionValueGroup[], EntityMQuestMissionConditionValueGroupTable>(groups => new EntityMQuestMissionConditionValueGroupTable(groups)));
+            EntityMQuestMissionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMissionGroup[], EntityMQuestMissionGroupTable>(groups => new EntityMQuestMissionGroupTable(groups)));
             EntityMQuestMissionRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMissionReward[], EntityMQuestMissionRewardTable>(data => new EntityMQuestMissionRewardTable(data)));
             EntityMQuestPickupRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestPickupRewardGroup[], EntityMQuestPickupRewardGroupTable>(data => new EntityMQuestPickupRewardGroupTable(data)));
             EntityMQuestRelationMainFlowTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestRelationMainFlow[], EntityMQuestRelationMainFlowTable>(data => new EntityMQuestRelationMainFlowTable(data)));
+            EntityMQuestReleaseConditionBigHuntScoreTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionBigHuntScore[], EntityMQuestReleaseConditionBigHuntScoreTable>(scores => new EntityMQuestReleaseConditionBigHuntScoreTable(scores)));
+            EntityMQuestReleaseConditionCharacterLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionCharacterLevel[], EntityMQuestReleaseConditionCharacterLevelTable>(levels => new EntityMQuestReleaseConditionCharacterLevelTable(levels)));
+            EntityMQuestReleaseConditionDeckPowerTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionDeckPower[], EntityMQuestReleaseConditionDeckPowerTable>(powers => new EntityMQuestReleaseConditionDeckPowerTable(powers)));
+            EntityMQuestReleaseConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionGroup[], EntityMQuestReleaseConditionGroupTable>(groups => new EntityMQuestReleaseConditionGroupTable(groups)));
+            EntityMQuestReleaseConditionListTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionList[], EntityMQuestReleaseConditionListTable>(lists => new EntityMQuestReleaseConditionListTable(lists)));
             EntityMQuestReleaseConditionQuestChallengeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionQuestChallenge[], EntityMQuestReleaseConditionQuestChallengeTable>(data => new EntityMQuestReleaseConditionQuestChallengeTable(data)));
+            EntityMQuestReleaseConditionQuestClearTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionQuestClear[], EntityMQuestReleaseConditionQuestClearTable>(clears => new EntityMQuestReleaseConditionQuestClearTable(clears)));
+            EntityMQuestReleaseConditionUserLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionUserLevel[], EntityMQuestReleaseConditionUserLevelTable>(levels => new EntityMQuestReleaseConditionUserLevelTable(levels)));
+            EntityMQuestReleaseConditionWeaponAcquisitionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReleaseConditionWeaponAcquisition[], EntityMQuestReleaseConditionWeaponAcquisitionTable>(acquisitions => new EntityMQuestReleaseConditionWeaponAcquisitionTable(acquisitions)));
             EntityMQuestReplayFlowRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestReplayFlowRewardGroup[], EntityMQuestReplayFlowRewardGroupTable>(data => new EntityMQuestReplayFlowRewardGroupTable(data)));
+            EntityMQuestSceneTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestScene[], EntityMQuestSceneTable>(scenes => new EntityMQuestSceneTable(scenes)));
+            EntityMQuestSceneBattleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneBattle[], EntityMQuestSceneBattleTable>(battles => new EntityMQuestSceneBattleTable(battles)));
+            EntityMQuestSceneChoiceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoice[], EntityMQuestSceneChoiceTable>(data => new EntityMQuestSceneChoiceTable(data)));
+            EntityMQuestSceneChoiceCostumeEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoiceCostumeEffectGroup[], EntityMQuestSceneChoiceCostumeEffectGroupTable>(data => new EntityMQuestSceneChoiceCostumeEffectGroupTable(data)));
+            EntityMQuestSceneChoiceEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoiceEffect[], EntityMQuestSceneChoiceEffectTable>(data => new EntityMQuestSceneChoiceEffectTable(data)));
+            EntityMQuestSceneChoiceWeaponEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoiceWeaponEffectGroup[], EntityMQuestSceneChoiceWeaponEffectGroupTable>(data => new EntityMQuestSceneChoiceWeaponEffectGroupTable(data)));
             EntityMQuestSceneNotConfirmTitleDialogTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneNotConfirmTitleDialog[], EntityMQuestSceneNotConfirmTitleDialogTable>(data => new EntityMQuestSceneNotConfirmTitleDialogTable(data)));
             EntityMQuestSceneOutgameBlendshapeMotionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneOutgameBlendshapeMotion[], EntityMQuestSceneOutgameBlendshapeMotionTable>(data => new EntityMQuestSceneOutgameBlendshapeMotionTable(data)));
+            EntityMQuestScheduleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSchedule[], EntityMQuestScheduleTable>(schedules => new EntityMQuestScheduleTable(schedules)));
+            EntityMQuestScheduleCorrespondenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestScheduleCorrespondence[], EntityMQuestScheduleCorrespondenceTable>(correspondences => new EntityMQuestScheduleCorrespondenceTable(correspondences)));
             EntityMReportTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMReport[], EntityMReportTable>(data => new EntityMReportTable(data)));
+            EntityMShopTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShop[], EntityMShopTable>(shops => new EntityMShopTable(shops)));
             EntityMShopDisplayPriceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopDisplayPrice[], EntityMShopDisplayPriceTable>(data => new EntityMShopDisplayPriceTable(data)));
+            EntityMShopItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItem[], EntityMShopItemTable>(items => new EntityMShopItemTable(items)));
             EntityMShopItemAdditionalContentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemAdditionalContent[], EntityMShopItemAdditionalContentTable>(data => new EntityMShopItemAdditionalContentTable(data)));
+            EntityMShopItemCellGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCellGroup[], EntityMShopItemCellGroupTable>(groups => new EntityMShopItemCellGroupTable(groups)));
             EntityMShopItemCellLimitedOpenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCellLimitedOpen[], EntityMShopItemCellLimitedOpenTable>(data => new EntityMShopItemCellLimitedOpenTable(data)));
+            EntityMShopItemCellTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCell[], EntityMShopItemCellTable>(cells => new EntityMShopItemCellTable(cells)));
+            EntityMShopItemCellTermTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemCellTerm[], EntityMShopItemCellTermTable>(terms => new EntityMShopItemCellTermTable(terms)));
             EntityMShopItemContentEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemContentEffect[], EntityMShopItemContentEffectTable>(data => new EntityMShopItemContentEffectTable(data)));
             EntityMShopItemContentMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemContentMission[], EntityMShopItemContentMissionTable>(data => new EntityMShopItemContentMissionTable(data)));
+            EntityMShopItemContentPossessionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemContentPossession[], EntityMShopItemContentPossessionTable>(possessions => new EntityMShopItemContentPossessionTable(possessions)));
+            EntityMShopItemLimitedStockTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemLimitedStock[], EntityMShopItemLimitedStockTable>(stocks => new EntityMShopItemLimitedStockTable(stocks)));
             EntityMShopItemUserLevelConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopItemUserLevelCondition[], EntityMShopItemUserLevelConditionTable>(data => new EntityMShopItemUserLevelConditionTable(data)));
             EntityMShopReplaceableGemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMShopReplaceableGem[], EntityMShopReplaceableGemTable>(data => new EntityMShopReplaceableGemTable(data)));
             EntityMSideStoryQuestTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSideStoryQuest[], EntityMSideStoryQuestTable>(data => new EntityMSideStoryQuestTable(data)));
             EntityMSideStoryQuestLimitContentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSideStoryQuestLimitContent[], EntityMSideStoryQuestLimitContentTable>(data => new EntityMSideStoryQuestLimitContentTable(data)));
             EntityMSideStoryQuestSceneTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSideStoryQuestScene[], EntityMSideStoryQuestSceneTable>(data => new EntityMSideStoryQuestSceneTable(data)));
+            EntityMSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkill[], EntityMSkillTable>(skills => new EntityMSkillTable(skills)));
             EntityMSkillAbnormalTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormal[], EntityMSkillAbnormalTable>(data => new EntityMSkillAbnormalTable(data)));
             EntityMSkillAbnormalBehaviourTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviour[], EntityMSkillAbnormalBehaviourTable>(data => new EntityMSkillAbnormalBehaviourTable(data)));
             EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionAbnormalResistance[], EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable>(data => new EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable(data)));
             EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionAttributeDamageCorrection[], EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable>(data => new EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable(data)));
             EntityMSkillAbnormalBehaviourActionBuffResistanceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionBuffResistance[], EntityMSkillAbnormalBehaviourActionBuffResistanceTable>(data => new EntityMSkillAbnormalBehaviourActionBuffResistanceTable(data)));
-            EntityMSkillAbnormalBehaviourActionDamageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionDamage[], EntityMSkillAbnormalBehaviourActionDamageTable>(data => new EntityMSkillAbnormalBehaviourActionDamageTable(data)));
-            EntityMSkillAbnormalBehaviourActionDamageMultiplyTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionDamageMultiply[], EntityMSkillAbnormalBehaviourActionDamageMultiplyTable>(data => new EntityMSkillAbnormalBehaviourActionDamageMultiplyTable(data)));
             EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlways[], EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable>(data => new EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable(data)));
+            EntityMSkillAbnormalBehaviourActionDamageMultiplyTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionDamageMultiply[], EntityMSkillAbnormalBehaviourActionDamageMultiplyTable>(data => new EntityMSkillAbnormalBehaviourActionDamageMultiplyTable(data)));
+            EntityMSkillAbnormalBehaviourActionDamageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionDamage[], EntityMSkillAbnormalBehaviourActionDamageTable>(data => new EntityMSkillAbnormalBehaviourActionDamageTable(data)));
             EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionDefaultSkillLottery[], EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable>(data => new EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable(data)));
             EntityMSkillAbnormalBehaviourActionHitRatioDownTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionHitRatioDown[], EntityMSkillAbnormalBehaviourActionHitRatioDownTable>(data => new EntityMSkillAbnormalBehaviourActionHitRatioDownTable(data)));
             EntityMSkillAbnormalBehaviourActionModifyHateValueTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionModifyHateValue[], EntityMSkillAbnormalBehaviourActionModifyHateValueTable>(data => new EntityMSkillAbnormalBehaviourActionModifyHateValueTable(data)));
@@ -2213,15 +2196,19 @@ namespace NierReincarnation.Core.Dark
             EntityMSkillAbnormalLifetimeBehaviourGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalLifetimeBehaviourGroup[], EntityMSkillAbnormalLifetimeBehaviourGroupTable>(data => new EntityMSkillAbnormalLifetimeBehaviourGroupTable(data)));
             EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCount[], EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable>(data => new EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable(data)));
             EntityMSkillAbnormalLifetimeBehaviourTurnCountTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalLifetimeBehaviourTurnCount[], EntityMSkillAbnormalLifetimeBehaviourTurnCountTable>(data => new EntityMSkillAbnormalLifetimeBehaviourTurnCountTable(data)));
+            EntityMSkillBehaviourTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviour[], EntityMSkillBehaviourTable>(behaviours => new EntityMSkillBehaviourTable(behaviours)));
             EntityMSkillBehaviourActionAbnormalTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAbnormal[], EntityMSkillBehaviourActionAbnormalTable>(data => new EntityMSkillBehaviourActionAbnormalTable(data)));
             EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionActiveSkillDamageCorrection[], EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable>(data => new EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable(data)));
-            EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAdvanceActiveSkillCooltime[], EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable>(data => new EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable(data)));
             EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediate[], EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable>(data => new EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable(data)));
+            EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAdvanceActiveSkillCooltime[], EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable>(data => new EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable(data)));
             EntityMSkillBehaviourActionAttackTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttack[], EntityMSkillBehaviourActionAttackTable>(data => new EntityMSkillBehaviourActionAttackTable(data)));
+            EntityMSkillBehaviourActionAttackClampHpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackClampHp[], EntityMSkillBehaviourActionAttackClampHpTable>(data => new EntityMSkillBehaviourActionAttackClampHpTable(data)));
             EntityMSkillBehaviourActionAttackComboTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackCombo[], EntityMSkillBehaviourActionAttackComboTable>(data => new EntityMSkillBehaviourActionAttackComboTable(data)));
             EntityMSkillBehaviourActionAttackFixedDamageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackFixedDamage[], EntityMSkillBehaviourActionAttackFixedDamageTable>(data => new EntityMSkillBehaviourActionAttackFixedDamageTable(data)));
             EntityMSkillBehaviourActionAttackHpRatioTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackHpRatio[], EntityMSkillBehaviourActionAttackHpRatioTable>(data => new EntityMSkillBehaviourActionAttackHpRatioTable(data)));
             EntityMSkillBehaviourActionAttackIgnoreVitalityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackIgnoreVitality[], EntityMSkillBehaviourActionAttackIgnoreVitalityTable>(data => new EntityMSkillBehaviourActionAttackIgnoreVitalityTable(data)));
+            EntityMSkillBehaviourActionAttackMainWeaponAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackMainWeaponAttribute[], EntityMSkillBehaviourActionAttackMainWeaponAttributeTable>(data => new EntityMSkillBehaviourActionAttackMainWeaponAttributeTable(data)));
+            EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackSkillfulMainWeaponType[], EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable>(data => new EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable(data)));
             EntityMSkillBehaviourActionAttackVitalityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackVitality[], EntityMSkillBehaviourActionAttackVitalityTable>(data => new EntityMSkillBehaviourActionAttackVitalityTable(data)));
             EntityMSkillBehaviourActionAttributeDamageCorrectionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttributeDamageCorrection[], EntityMSkillBehaviourActionAttributeDamageCorrectionTable>(data => new EntityMSkillBehaviourActionAttributeDamageCorrectionTable(data)));
             EntityMSkillBehaviourActionBuffTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionBuff[], EntityMSkillBehaviourActionBuffTable>(data => new EntityMSkillBehaviourActionBuffTable(data)));
@@ -2241,6 +2228,8 @@ namespace NierReincarnation.Core.Dark
             EntityMSkillBehaviourActivationConditionHpRatioTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActivationConditionHpRatio[], EntityMSkillBehaviourActivationConditionHpRatioTable>(data => new EntityMSkillBehaviourActivationConditionHpRatioTable(data)));
             EntityMSkillBehaviourActivationConditionInSkillFlowTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActivationConditionInSkillFlow[], EntityMSkillBehaviourActivationConditionInSkillFlowTable>(data => new EntityMSkillBehaviourActivationConditionInSkillFlowTable(data)));
             EntityMSkillBehaviourActivationConditionWaveNumberTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActivationConditionWaveNumber[], EntityMSkillBehaviourActivationConditionWaveNumberTable>(data => new EntityMSkillBehaviourActivationConditionWaveNumberTable(data)));
+            EntityMSkillBehaviourActivationMethodTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActivationMethod[], EntityMSkillBehaviourActivationMethodTable>(methods => new EntityMSkillBehaviourActivationMethodTable(methods)));
+            EntityMSkillBehaviourGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourGroup[], EntityMSkillBehaviourGroupTable>(groups => new EntityMSkillBehaviourGroupTable(groups)));
             EntityMSkillBuffTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBuff[], EntityMSkillBuffTable>(data => new EntityMSkillBuffTable(data)));
             EntityMSkillCasttimeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillCasttime[], EntityMSkillCasttimeTable>(data => new EntityMSkillCasttimeTable(data)));
             EntityMSkillCasttimeBehaviourTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillCasttimeBehaviour[], EntityMSkillCasttimeBehaviourTable>(data => new EntityMSkillCasttimeBehaviourTable(data)));
@@ -2263,12 +2252,18 @@ namespace NierReincarnation.Core.Dark
             EntityMSkillDamageMultiplyDetailHitIndexTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyDetailHitIndex[], EntityMSkillDamageMultiplyDetailHitIndexTable>(data => new EntityMSkillDamageMultiplyDetailHitIndexTable(data)));
             EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyDetailSkillfulWeaponType[], EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable>(data => new EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable(data)));
             EntityMSkillDamageMultiplyHitIndexValueGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyHitIndexValueGroup[], EntityMSkillDamageMultiplyHitIndexValueGroupTable>(data => new EntityMSkillDamageMultiplyHitIndexValueGroupTable(data)));
+            EntityMSkillDetailTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDetail[], EntityMSkillDetailTable>(details => new EntityMSkillDetailTable(details)));
+            EntityMSkillLevelGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillLevelGroup[], EntityMSkillLevelGroupTable>(groups => new EntityMSkillLevelGroupTable(groups)));
             EntityMSkillRemoveAbnormalTargetAbnormalGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillRemoveAbnormalTargetAbnormalGroup[], EntityMSkillRemoveAbnormalTargetAbnormalGroupTable>(data => new EntityMSkillRemoveAbnormalTargetAbnormalGroupTable(data)));
             EntityMSkillRemoveBuffFilterStatusKindTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillRemoveBuffFilterStatusKind[], EntityMSkillRemoveBuffFilterStatusKindTable>(data => new EntityMSkillRemoveBuffFilterStatusKindTable(data)));
             EntityMSkillReserveUiTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillReserveUiType[], EntityMSkillReserveUiTypeTable>(data => new EntityMSkillReserveUiTypeTable(data)));
             EntityMSmartphoneChatGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSmartphoneChatGroup[], EntityMSmartphoneChatGroupTable>(data => new EntityMSmartphoneChatGroupTable(data)));
             EntityMSmartphoneChatGroupMessageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSmartphoneChatGroupMessage[], EntityMSmartphoneChatGroupMessageTable>(data => new EntityMSmartphoneChatGroupMessageTable(data)));
             EntityMSpeakerTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSpeaker[], EntityMSpeakerTable>(data => new EntityMSpeakerTable(data)));
+            EntityMStainedGlassTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMStainedGlass[], EntityMStainedGlassTable>(data => new EntityMStainedGlassTable(data)));
+            EntityMStainedGlassStatusUpGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMStainedGlassStatusUpGroup[], EntityMStainedGlassStatusUpGroupTable>(data => new EntityMStainedGlassStatusUpGroupTable(data)));
+            EntityMStainedGlassStatusUpTargetGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMStainedGlassStatusUpTargetGroup[], EntityMStainedGlassStatusUpTargetGroupTable>(data => new EntityMStainedGlassStatusUpTargetGroupTable(data)));
+            EntityMThoughtTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMThought[], EntityMThoughtTable>(thoughts => new EntityMThoughtTable(thoughts)));
             EntityMTipTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTip[], EntityMTipTable>(data => new EntityMTipTable(data)));
             EntityMTipBackgroundAssetTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTipBackgroundAsset[], EntityMTipBackgroundAssetTable>(data => new EntityMTipBackgroundAssetTable(data)));
             EntityMTipDisplayConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTipDisplayConditionGroup[], EntityMTipDisplayConditionGroupTable>(data => new EntityMTipDisplayConditionGroupTable(data)));
@@ -2285,77 +2280,37 @@ namespace NierReincarnation.Core.Dark
             EntityMTutorialUnlockConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTutorialUnlockCondition[], EntityMTutorialUnlockConditionTable>(data => new EntityMTutorialUnlockConditionTable(data)));
             EntityMUserLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMUserLevel[], EntityMUserLevelTable>(data => new EntityMUserLevelTable(data)));
             EntityMUserQuestSceneGrantPossessionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMUserQuestSceneGrantPossession[], EntityMUserQuestSceneGrantPossessionTable>(data => new EntityMUserQuestSceneGrantPossessionTable(data)));
+            EntityMWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeapon[], EntityMWeaponTable>(weapons => new EntityMWeaponTable(weapons)));
             EntityMWeaponAbilityEnhancementMaterialTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAbilityEnhancementMaterial[], EntityMWeaponAbilityEnhancementMaterialTable>(data => new EntityMWeaponAbilityEnhancementMaterialTable(data)));
-            EntityMWeaponConsumeExchangeConsumableItemGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponConsumeExchangeConsumableItemGroup[], EntityMWeaponConsumeExchangeConsumableItemGroupTable>(data => new EntityMWeaponConsumeExchangeConsumableItemGroupTable(data)));
-            EntityMWeaponEnhancedAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEnhancedAbility[], EntityMWeaponEnhancedAbilityTable>(data => new EntityMWeaponEnhancedAbilityTable(data)));
-            EntityMWeaponEnhancedSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEnhancedSkill[], EntityMWeaponEnhancedSkillTable>(data => new EntityMWeaponEnhancedSkillTable(data)));
-            EntityMWeaponEvolutionMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEvolutionMaterialGroup[], EntityMWeaponEvolutionMaterialGroupTable>(data => new EntityMWeaponEvolutionMaterialGroupTable(data)));
-            EntityMWeaponRarityLimitBreakMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponRarityLimitBreakMaterialGroup[], EntityMWeaponRarityLimitBreakMaterialGroupTable>(data => new EntityMWeaponRarityLimitBreakMaterialGroupTable(data)));
-            EntityMWeaponSkillEnhancementMaterialTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSkillEnhancementMaterial[], EntityMWeaponSkillEnhancementMaterialTable>(data => new EntityMWeaponSkillEnhancementMaterialTable(data)));
-            EntityMWeaponSpecificLimitBreakMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSpecificLimitBreakMaterialGroup[], EntityMWeaponSpecificLimitBreakMaterialGroupTable>(data => new EntityMWeaponSpecificLimitBreakMaterialGroupTable(data)));
-            EntityMWeaponStoryReleaseConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStoryReleaseConditionGroup[], EntityMWeaponStoryReleaseConditionGroupTable>(data => new EntityMWeaponStoryReleaseConditionGroupTable(data)));
-            EntityMWeaponStoryReleaseConditionOperationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStoryReleaseConditionOperation[], EntityMWeaponStoryReleaseConditionOperationTable>(data => new EntityMWeaponStoryReleaseConditionOperationTable(data)));
-            EntityMWeaponStoryReleaseConditionOperationGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStoryReleaseConditionOperationGroup[], EntityMWeaponStoryReleaseConditionOperationGroupTable>(data => new EntityMWeaponStoryReleaseConditionOperationGroupTable(data)));
-            EntityMWebviewMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewMission[], EntityMWebviewMissionTable>(data => new EntityMWebviewMissionTable(data)));
-            EntityMWebviewMissionTitleTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewMissionTitleText[], EntityMWebviewMissionTitleTextTable>(data => new EntityMWebviewMissionTitleTextTable(data)));
-            EntityMWebviewPanelMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMission[], EntityMWebviewPanelMissionTable>(data => new EntityMWebviewPanelMissionTable(data)));
-            EntityMWebviewPanelMissionCompleteFlavorTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMissionCompleteFlavorText[], EntityMWebviewPanelMissionCompleteFlavorTextTable>(data => new EntityMWebviewPanelMissionCompleteFlavorTextTable(data)));
-            EntityMWebviewPanelMissionPageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMissionPage[], EntityMWebviewPanelMissionPageTable>(data => new EntityMWebviewPanelMissionPageTable(data)));
-            EntityMBattleCostumeSkillFireActTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleCostumeSkillFireAct[], EntityMBattleCostumeSkillFireActTable>(data => new EntityMBattleCostumeSkillFireActTable(data)));
-            EntityMBattleNpcWeaponAbilityReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponAbilityReevaluate[], EntityMBattleNpcWeaponAbilityReevaluateTable>(data => new EntityMBattleNpcWeaponAbilityReevaluateTable(data)));
-            EntityMBattleNpcWeaponNoteReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponNoteReevaluate[], EntityMBattleNpcWeaponNoteReevaluateTable>(data => new EntityMBattleNpcWeaponNoteReevaluateTable(data)));
-            EntityMBattleSkillFireActTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireAct[], EntityMBattleSkillFireActTable>(data => new EntityMBattleSkillFireActTable(data)));
-            EntityMBattleSkillFireActConditionAttributeTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionAttributeType[], EntityMBattleSkillFireActConditionAttributeTypeTable>(data => new EntityMBattleSkillFireActConditionAttributeTypeTable(data)));
-            EntityMBattleSkillFireActConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionGroup[], EntityMBattleSkillFireActConditionGroupTable>(data => new EntityMBattleSkillFireActConditionGroupTable(data)));
-            EntityMBattleSkillFireActConditionSkillCategoryTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionSkillCategoryType[], EntityMBattleSkillFireActConditionSkillCategoryTypeTable>(data => new EntityMBattleSkillFireActConditionSkillCategoryTypeTable(data)));
-            EntityMBattleSkillFireActConditionWeaponTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleSkillFireActConditionWeaponType[], EntityMBattleSkillFireActConditionWeaponTypeTable>(data => new EntityMBattleSkillFireActConditionWeaponTypeTable(data)));
-            EntityMCostumeSpecialActActiveSkillConditionAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeSpecialActActiveSkillConditionAttribute[], EntityMCostumeSpecialActActiveSkillConditionAttributeTable>(data => new EntityMCostumeSpecialActActiveSkillConditionAttributeTable(data)));
-            EntityMEventQuestDailyGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroup[], EntityMEventQuestDailyGroupTable>(data => new EntityMEventQuestDailyGroupTable(data)));
-            EntityMEventQuestDailyGroupCompleteRewardTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupCompleteReward[], EntityMEventQuestDailyGroupCompleteRewardTable>(data => new EntityMEventQuestDailyGroupCompleteRewardTable(data)));
-            EntityMEventQuestDailyGroupMessageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupMessage[], EntityMEventQuestDailyGroupMessageTable>(data => new EntityMEventQuestDailyGroupMessageTable(data)));
-            EntityMEventQuestDailyGroupTargetChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestDailyGroupTargetChapter[], EntityMEventQuestDailyGroupTargetChapterTable>(data => new EntityMEventQuestDailyGroupTargetChapterTable(data)));
-            EntityMListSettingAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMListSettingAbilityGroup[], EntityMListSettingAbilityGroupTable>(data => new EntityMListSettingAbilityGroupTable(data)));
-            EntityMListSettingAbilityGroupTargetTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMListSettingAbilityGroupTarget[], EntityMListSettingAbilityGroupTargetTable>(data => new EntityMListSettingAbilityGroupTargetTable(data)));
-            EntityMMissionClearConditionValueViewTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionClearConditionValueView[], EntityMMissionClearConditionValueViewTable>(data => new EntityMMissionClearConditionValueViewTable(data)));
-            EntityMMissionSubCategoryTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMissionSubCategoryText[], EntityMMissionSubCategoryTextTable>(data => new EntityMMissionSubCategoryTextTable(data)));
-            EntityMMomPointBannerTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMomPointBanner[], EntityMMomPointBannerTable>(data => new EntityMMomPointBannerTable(data)));
-            EntityMSkillBehaviourActionAttackMainWeaponAttributeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackMainWeaponAttribute[], EntityMSkillBehaviourActionAttackMainWeaponAttributeTable>(data => new EntityMSkillBehaviourActionAttackMainWeaponAttributeTable(data)));
-            EntityMStainedGlassTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMStainedGlass[], EntityMStainedGlassTable>(data => new EntityMStainedGlassTable(data)));
-            EntityMStainedGlassStatusUpGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMStainedGlassStatusUpGroup[], EntityMStainedGlassStatusUpGroupTable>(data => new EntityMStainedGlassStatusUpGroupTable(data)));
-            EntityMStainedGlassStatusUpTargetGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMStainedGlassStatusUpTargetGroup[], EntityMStainedGlassStatusUpTargetGroupTable>(data => new EntityMStainedGlassStatusUpTargetGroupTable(data)));
-            EntityMAppealDialogTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAppealDialog[], EntityMAppealDialogTable>(data => new EntityMAppealDialogTable(data)));
-            EntityMLibraryMainQuestGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMainQuestGroup[], EntityMLibraryMainQuestGroupTable>(data => new EntityMLibraryMainQuestGroupTable(data)));
-            EntityMLibraryMainQuestStoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMainQuestStory[], EntityMLibraryMainQuestStoryTable>(data => new EntityMLibraryMainQuestStoryTable(data)));
-            EntityMQuestSceneChoiceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoice[], EntityMQuestSceneChoiceTable>(data => new EntityMQuestSceneChoiceTable(data)));
-            EntityMQuestSceneChoiceCostumeEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoiceCostumeEffectGroup[], EntityMQuestSceneChoiceCostumeEffectGroupTable>(data => new EntityMQuestSceneChoiceCostumeEffectGroupTable(data)));
-            EntityMQuestSceneChoiceEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoiceEffect[], EntityMQuestSceneChoiceEffectTable>(data => new EntityMQuestSceneChoiceEffectTable(data)));
-            EntityMQuestSceneChoiceWeaponEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoiceWeaponEffectGroup[], EntityMQuestSceneChoiceWeaponEffectGroupTable>(data => new EntityMQuestSceneChoiceWeaponEffectGroupTable(data)));
-            EntityMSkillBehaviourActionAttackClampHpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackClampHp[], EntityMSkillBehaviourActionAttackClampHpTable>(data => new EntityMSkillBehaviourActionAttackClampHpTable(data)));
-            EntityMBattleNpcCharacterRebirthTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCharacterRebirth[], EntityMBattleNpcCharacterRebirthTable>(data => new EntityMBattleNpcCharacterRebirthTable(data)));
-            EntityMBattleNpcWeaponAwakenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcWeaponAwaken[], EntityMBattleNpcWeaponAwakenTable>(data => new EntityMBattleNpcWeaponAwakenTable(data)));
-            EntityMCharacterRebirthTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterRebirth[], EntityMCharacterRebirthTable>(data => new EntityMCharacterRebirthTable(data)));
-            EntityMCharacterRebirthMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterRebirthMaterialGroup[], EntityMCharacterRebirthMaterialGroupTable>(data => new EntityMCharacterRebirthMaterialGroupTable(data)));
-            EntityMCharacterRebirthStepGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCharacterRebirthStepGroup[], EntityMCharacterRebirthStepGroupTable>(data => new EntityMCharacterRebirthStepGroupTable(data)));
-            EntityMEventQuestLabyrinthMobTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthMob[], EntityMEventQuestLabyrinthMobTable>(data => new EntityMEventQuestLabyrinthMobTable(data)));
-            EntityMEventQuestLabyrinthQuestDisplayTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestDisplay[], EntityMEventQuestLabyrinthQuestDisplayTable>(data => new EntityMEventQuestLabyrinthQuestDisplayTable(data)));
-            EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestEffectDescriptionAbility[], EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable>(data => new EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable(data)));
-            EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestEffectDescriptionFree[], EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable>(data => new EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable(data)));
-            EntityMEventQuestLabyrinthQuestEffectDisplayTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthQuestEffectDisplay[], EntityMEventQuestLabyrinthQuestEffectDisplayTable>(data => new EntityMEventQuestLabyrinthQuestEffectDisplayTable(data)));
-            EntityMEventQuestLabyrinthRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthRewardGroup[], EntityMEventQuestLabyrinthRewardGroupTable>(data => new EntityMEventQuestLabyrinthRewardGroupTable(data)));
-            EntityMEventQuestLabyrinthSeasonTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthSeason[], EntityMEventQuestLabyrinthSeasonTable>(data => new EntityMEventQuestLabyrinthSeasonTable(data)));
-            EntityMEventQuestLabyrinthSeasonRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthSeasonRewardGroup[], EntityMEventQuestLabyrinthSeasonRewardGroupTable>(data => new EntityMEventQuestLabyrinthSeasonRewardGroupTable(data)));
-            EntityMEventQuestLabyrinthStageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthStage[], EntityMEventQuestLabyrinthStageTable>(data => new EntityMEventQuestLabyrinthStageTable(data)));
-            EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMEventQuestLabyrinthStageAccumulationRewardGroup[], EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable>(data => new EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable(data)));
-            EntityMQuestBonusAllyCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestBonusAllyCharacter[], EntityMQuestBonusAllyCharacterTable>(data => new EntityMQuestBonusAllyCharacterTable(data)));
-            EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionAttackSkillfulMainWeaponType[], EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable>(data => new EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable(data)));
+            EntityMWeaponAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAbilityGroup[], EntityMWeaponAbilityGroupTable>(groups => new EntityMWeaponAbilityGroupTable(groups)));
             EntityMWeaponAwakenTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAwaken[], EntityMWeaponAwakenTable>(data => new EntityMWeaponAwakenTable(data)));
             EntityMWeaponAwakenAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAwakenAbility[], EntityMWeaponAwakenAbilityTable>(data => new EntityMWeaponAwakenAbilityTable(data)));
             EntityMWeaponAwakenEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAwakenEffectGroup[], EntityMWeaponAwakenEffectGroupTable>(data => new EntityMWeaponAwakenEffectGroupTable(data)));
             EntityMWeaponAwakenMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAwakenMaterialGroup[], EntityMWeaponAwakenMaterialGroupTable>(data => new EntityMWeaponAwakenMaterialGroupTable(data)));
             EntityMWeaponAwakenStatusUpGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponAwakenStatusUpGroup[], EntityMWeaponAwakenStatusUpGroupTable>(data => new EntityMWeaponAwakenStatusUpGroupTable(data)));
+            EntityMWeaponBaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponBaseStatus[], EntityMWeaponBaseStatusTable>(statuses => new EntityMWeaponBaseStatusTable(statuses)));
+            EntityMWeaponConsumeExchangeConsumableItemGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponConsumeExchangeConsumableItemGroup[], EntityMWeaponConsumeExchangeConsumableItemGroupTable>(data => new EntityMWeaponConsumeExchangeConsumableItemGroupTable(data)));
+            EntityMWeaponEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEnhanced[], EntityMWeaponEnhancedTable>(enhanceds => new EntityMWeaponEnhancedTable(enhanceds)));
+            EntityMWeaponEnhancedAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEnhancedAbility[], EntityMWeaponEnhancedAbilityTable>(data => new EntityMWeaponEnhancedAbilityTable(data)));
+            EntityMWeaponEnhancedSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEnhancedSkill[], EntityMWeaponEnhancedSkillTable>(data => new EntityMWeaponEnhancedSkillTable(data)));
+            EntityMWeaponEvolutionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEvolutionGroup[], EntityMWeaponEvolutionGroupTable>(groups => new EntityMWeaponEvolutionGroupTable(groups)));
+            EntityMWeaponEvolutionMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponEvolutionMaterialGroup[], EntityMWeaponEvolutionMaterialGroupTable>(data => new EntityMWeaponEvolutionMaterialGroupTable(data)));
             EntityMWeaponFieldEffectDecreasePointTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponFieldEffectDecreasePoint[], EntityMWeaponFieldEffectDecreasePointTable>(data => new EntityMWeaponFieldEffectDecreasePointTable(data)));
-            EntityMAbilityBehaviourActionStatusDownTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourActionStatusDown[], EntityMAbilityBehaviourActionStatusDownTable>(data => new EntityMAbilityBehaviourActionStatusDownTable(data)));
-            EntityMCostumeProperAttributeHpBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeProperAttributeHpBonus[], EntityMCostumeProperAttributeHpBonusTable>(data => new EntityMCostumeProperAttributeHpBonusTable(data)));
+            EntityMWeaponRarityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponRarity[], EntityMWeaponRarityTable>(rarities => new EntityMWeaponRarityTable(rarities)));
+            EntityMWeaponRarityLimitBreakMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponRarityLimitBreakMaterialGroup[], EntityMWeaponRarityLimitBreakMaterialGroupTable>(data => new EntityMWeaponRarityLimitBreakMaterialGroupTable(data)));
+            EntityMWeaponSkillEnhancementMaterialTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSkillEnhancementMaterial[], EntityMWeaponSkillEnhancementMaterialTable>(data => new EntityMWeaponSkillEnhancementMaterialTable(data)));
+            EntityMWeaponSkillGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSkillGroup[], EntityMWeaponSkillGroupTable>(groups => new EntityMWeaponSkillGroupTable(groups)));
+            EntityMWeaponSpecificEnhanceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSpecificEnhance[], EntityMWeaponSpecificEnhanceTable>(enhances => new EntityMWeaponSpecificEnhanceTable(enhances)));
+            EntityMWeaponSpecificLimitBreakMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponSpecificLimitBreakMaterialGroup[], EntityMWeaponSpecificLimitBreakMaterialGroupTable>(data => new EntityMWeaponSpecificLimitBreakMaterialGroupTable(data)));
+            EntityMWeaponStatusCalculationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStatusCalculation[], EntityMWeaponStatusCalculationTable>(calculations => new EntityMWeaponStatusCalculationTable(calculations)));
+            EntityMWeaponStoryReleaseConditionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStoryReleaseConditionGroup[], EntityMWeaponStoryReleaseConditionGroupTable>(data => new EntityMWeaponStoryReleaseConditionGroupTable(data)));
+            EntityMWeaponStoryReleaseConditionOperationGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStoryReleaseConditionOperationGroup[], EntityMWeaponStoryReleaseConditionOperationGroupTable>(data => new EntityMWeaponStoryReleaseConditionOperationGroupTable(data)));
+            EntityMWeaponStoryReleaseConditionOperationTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWeaponStoryReleaseConditionOperation[], EntityMWeaponStoryReleaseConditionOperationTable>(data => new EntityMWeaponStoryReleaseConditionOperationTable(data)));
+            EntityMWebviewMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewMission[], EntityMWebviewMissionTable>(data => new EntityMWebviewMissionTable(data)));
+            EntityMWebviewMissionTitleTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewMissionTitleText[], EntityMWebviewMissionTitleTextTable>(data => new EntityMWebviewMissionTitleTextTable(data)));
+            EntityMWebviewPanelMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMission[], EntityMWebviewPanelMissionTable>(data => new EntityMWebviewPanelMissionTable(data)));
+            EntityMWebviewPanelMissionCompleteFlavorTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMissionCompleteFlavorText[], EntityMWebviewPanelMissionCompleteFlavorTextTable>(data => new EntityMWebviewPanelMissionCompleteFlavorTextTable(data)));
+            EntityMWebviewPanelMissionPageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMWebviewPanelMissionPage[], EntityMWebviewPanelMissionPageTable>(data => new EntityMWebviewPanelMissionPageTable(data)));
         }
     }
 }

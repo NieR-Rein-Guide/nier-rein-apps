@@ -1,0 +1,22 @@
+using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
+
+namespace NierReincarnation.Core.Dark.Tables
+{
+    public class EntityIUserMissionPassPointTable : TableBase<EntityIUserMissionPassPoint>
+    {
+        private readonly Func<EntityIUserMissionPassPoint, (long, int)> primaryIndexSelector;
+
+        public EntityIUserMissionPassPointTable(EntityIUserMissionPassPoint[] sortedData) : base(sortedData)
+        {
+            primaryIndexSelector = element => (element.UserId, element.MissionPassId);
+        }
+
+        public EntityIUserMissionPassPoint FindByUserIdAndMissionPassId(ValueTuple<long, int> key)
+        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+
+        public bool TryFindByUserIdAndMissionPassId(ValueTuple<long, int> key, out EntityIUserMissionPassPoint result)
+        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+    }
+}

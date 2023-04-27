@@ -90,10 +90,12 @@
             public static readonly string kSoldOutLabelDailyLimitedReset = "ui.Outgame.Shop.SoldOut.Label.DailyLimitedReset"; // 0x298
             public static readonly string kItemDailyRemainigCount = "ui.Outgame.Shop.Item.DailyRemainingCount"; // 0x2A0
             public static readonly string kSoldOutLabel = "ui.Outgame.Shop.SoldOut.Label"; // 0x2A8
-            public static readonly string kExchangeChangeDescriptionPossessionCharaOld = "ui.Outgame.Shop.Exchange.ChangeDescription.PossessionChara"; // 0x2B0
-            public static readonly string kExchangeChangeDescriptionFirstTimeGetMultiOld = "ui.Outgame.Shop.Exchange.ChangeDescription.FirstTimeGetMulti"; // 0x2B8
-            public static readonly string kExchangeChangeCautionCostumePossessionOld = "ui.Outgame.Shop.Exchange.ChangeDescription.CautionCostumePossession"; // 0x2C0
-            public static readonly string kShopName = "shop." + CommonKeyParts.kName; // 0x2C8
+            public static readonly string kConfirmMaxCount = "ui.Outgame.Shop.Confirm.MaxCount"; // 0x2B0
+            public static readonly string kPurchaseWarningMissionPass = "ui.Outgame.Shop.Purchase.Warning.MissionPass"; // 0x2B8
+            public static readonly string kExchangeChangeDescriptionPossessionCharaOld = "ui.Outgame.Shop.Exchange.ChangeDescription.PossessionChara"; // 0x2C0
+            public static readonly string kExchangeChangeDescriptionFirstTimeGetMultiOld = "ui.Outgame.Shop.Exchange.ChangeDescription.FirstTimeGetMulti"; // 0x2C8
+            public static readonly string kExchangeChangeCautionCostumePossessionOld = "ui.Outgame.Shop.Exchange.ChangeDescription.CautionCostumePossession"; // 0x2D0
+            public static readonly string kShopName = "shop." + CommonKeyParts.kName; // 0x2D8
         }
     }
 }

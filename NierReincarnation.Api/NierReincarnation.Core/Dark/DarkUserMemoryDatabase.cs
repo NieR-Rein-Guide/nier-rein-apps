@@ -195,117 +195,123 @@ namespace NierReincarnation.Core.Dark
         public EntityIUserMissionCompletionProgressTable EntityIUserMissionCompletionProgressTable { get; private set; }
 
         // 0x200
-        public EntityIUserMovieTable EntityIUserMovieTable { get; private set; }
+        public EntityIUserMissionPassPointTable EntityIUserMissionPassPointTable { get; private set; }
 
         // 0x208
-        public EntityIUserNaviCutInTable EntityIUserNaviCutInTable { get; private set; }
+        public EntityIUserMovieTable EntityIUserMovieTable { get; private set; }
 
         // 0x210
-        public EntityIUserOmikujiTable EntityIUserOmikujiTable { get; private set; }
+        public EntityIUserNaviCutInTable EntityIUserNaviCutInTable { get; private set; }
 
         // 0x218
-        public EntityIUserPartsTable EntityIUserPartsTable { get; private set; }
+        public EntityIUserOmikujiTable EntityIUserOmikujiTable { get; private set; }
 
         // 0x220
-        public EntityIUserPartsGroupNoteTable EntityIUserPartsGroupNoteTable { get; private set; }
+        public EntityIUserPartsTable EntityIUserPartsTable { get; private set; }
 
         // 0x228
-        public EntityIUserPartsPresetTable EntityIUserPartsPresetTable { get; private set; }
+        public EntityIUserPartsGroupNoteTable EntityIUserPartsGroupNoteTable { get; private set; }
 
         // 0x230
-        public EntityIUserPartsPresetTagTable EntityIUserPartsPresetTagTable { get; private set; }
+        public EntityIUserPartsPresetTable EntityIUserPartsPresetTable { get; private set; }
 
         // 0x238
-        public EntityIUserPartsStatusSubTable EntityIUserPartsStatusSubTable { get; private set; }
+        public EntityIUserPartsPresetTagTable EntityIUserPartsPresetTagTable { get; private set; }
 
         // 0x240
-        public EntityIUserPortalCageStatusTable EntityIUserPortalCageStatusTable { get; private set; }
+        public EntityIUserPartsStatusSubTable EntityIUserPartsStatusSubTable { get; private set; }
 
         // 0x248
-        public EntityIUserPossessionAutoConvertTable EntityIUserPossessionAutoConvertTable { get; private set; }
+        public EntityIUserPortalCageStatusTable EntityIUserPortalCageStatusTable { get; private set; }
 
         // 0x250
-        public EntityIUserProfileTable EntityIUserProfileTable { get; private set; }
+        public EntityIUserPossessionAutoConvertTable EntityIUserPossessionAutoConvertTable { get; private set; }
 
         // 0x258
-        public EntityIUserPvpDefenseDeckTable EntityIUserPvpDefenseDeckTable { get; private set; }
+        public EntityIUserPremiumItemTable EntityIUserPremiumItemTable { get; private set; }
 
         // 0x260
-        public EntityIUserPvpStatusTable EntityIUserPvpStatusTable { get; private set; }
+        public EntityIUserProfileTable EntityIUserProfileTable { get; private set; }
 
         // 0x268
-        public EntityIUserPvpWeeklyResultTable EntityIUserPvpWeeklyResultTable { get; private set; }
+        public EntityIUserPvpDefenseDeckTable EntityIUserPvpDefenseDeckTable { get; private set; }
 
         // 0x270
-        public EntityIUserQuestTable EntityIUserQuestTable { get; private set; }
+        public EntityIUserPvpStatusTable EntityIUserPvpStatusTable { get; private set; }
 
         // 0x278
-        public EntityIUserQuestAutoOrbitTable EntityIUserQuestAutoOrbitTable { get; private set; }
+        public EntityIUserPvpWeeklyResultTable EntityIUserPvpWeeklyResultTable { get; private set; }
 
         // 0x280
-        public EntityIUserQuestLimitContentStatusTable EntityIUserQuestLimitContentStatusTable { get; private set; }
+        public EntityIUserQuestTable EntityIUserQuestTable { get; private set; }
 
         // 0x288
-        public EntityIUserQuestMissionTable EntityIUserQuestMissionTable { get; private set; }
+        public EntityIUserQuestAutoOrbitTable EntityIUserQuestAutoOrbitTable { get; private set; }
 
         // 0x290
-        public EntityIUserQuestReplayFlowRewardGroupTable EntityIUserQuestReplayFlowRewardGroupTable { get; private set; }
+        public EntityIUserQuestLimitContentStatusTable EntityIUserQuestLimitContentStatusTable { get; private set; }
 
         // 0x298
-        public EntityIUserQuestSceneChoiceTable EntityIUserQuestSceneChoiceTable { get; private set; }
+        public EntityIUserQuestMissionTable EntityIUserQuestMissionTable { get; private set; }
 
         // 0x2A0
-        public EntityIUserQuestSceneChoiceHistoryTable EntityIUserQuestSceneChoiceHistoryTable { get; private set; }
+        public EntityIUserQuestReplayFlowRewardGroupTable EntityIUserQuestReplayFlowRewardGroupTable { get; private set; }
 
         // 0x2A8
-        public EntityIUserSettingTable EntityIUserSettingTable { get; private set; }
+        public EntityIUserQuestSceneChoiceTable EntityIUserQuestSceneChoiceTable { get; private set; }
 
         // 0x2B0
-        public EntityIUserShopItemTable EntityIUserShopItemTable { get; private set; }
+        public EntityIUserQuestSceneChoiceHistoryTable EntityIUserQuestSceneChoiceHistoryTable { get; private set; }
 
         // 0x2B8
-        public EntityIUserShopReplaceableTable EntityIUserShopReplaceableTable { get; private set; }
+        public EntityIUserSettingTable EntityIUserSettingTable { get; private set; }
 
         // 0x2C0
-        public EntityIUserShopReplaceableLineupTable EntityIUserShopReplaceableLineupTable { get; private set; }
+        public EntityIUserShopItemTable EntityIUserShopItemTable { get; private set; }
 
         // 0x2C8
-        public EntityIUserSideStoryQuestTable EntityIUserSideStoryQuestTable { get; private set; }
+        public EntityIUserShopReplaceableTable EntityIUserShopReplaceableTable { get; private set; }
 
         // 0x2D0
-        public EntityIUserSideStoryQuestSceneProgressStatusTable EntityIUserSideStoryQuestSceneProgressStatusTable { get; private set; }
+        public EntityIUserShopReplaceableLineupTable EntityIUserShopReplaceableLineupTable { get; private set; }
 
         // 0x2D8
-        public EntityIUserStatusTable EntityIUserStatusTable { get; private set; }
+        public EntityIUserSideStoryQuestTable EntityIUserSideStoryQuestTable { get; private set; }
 
         // 0x2E0
-        public EntityIUserThoughtTable EntityIUserThoughtTable { get; private set; }
+        public EntityIUserSideStoryQuestSceneProgressStatusTable EntityIUserSideStoryQuestSceneProgressStatusTable { get; private set; }
 
         // 0x2E8
-        public EntityIUserTripleDeckTable EntityIUserTripleDeckTable { get; private set; }
+        public EntityIUserStatusTable EntityIUserStatusTable { get; private set; }
 
         // 0x2F0
-        public EntityIUserTutorialProgressTable EntityIUserTutorialProgressTable { get; private set; }
+        public EntityIUserThoughtTable EntityIUserThoughtTable { get; private set; }
 
         // 0x2F8
-        public EntityIUserWeaponTable EntityIUserWeaponTable { get; private set; }
+        public EntityIUserTripleDeckTable EntityIUserTripleDeckTable { get; private set; }
 
         // 0x300
-        public EntityIUserWeaponAbilityTable EntityIUserWeaponAbilityTable { get; private set; }
+        public EntityIUserTutorialProgressTable EntityIUserTutorialProgressTable { get; private set; }
 
         // 0x308
-        public EntityIUserWeaponAwakenTable EntityIUserWeaponAwakenTable { get; private set; }
+        public EntityIUserWeaponTable EntityIUserWeaponTable { get; private set; }
 
         // 0x310
-        public EntityIUserWeaponNoteTable EntityIUserWeaponNoteTable { get; private set; }
+        public EntityIUserWeaponAbilityTable EntityIUserWeaponAbilityTable { get; private set; }
 
         // 0x318
-        public EntityIUserWeaponSkillTable EntityIUserWeaponSkillTable { get; private set; }
+        public EntityIUserWeaponAwakenTable EntityIUserWeaponAwakenTable { get; private set; }
 
         // 0x320
-        public EntityIUserWeaponStoryTable EntityIUserWeaponStoryTable { get; private set; }
+        public EntityIUserWeaponNoteTable EntityIUserWeaponNoteTable { get; private set; }
 
         // 0x328
+        public EntityIUserWeaponSkillTable EntityIUserWeaponSkillTable { get; private set; }
+
+        // 0x330
+        public EntityIUserWeaponStoryTable EntityIUserWeaponStoryTable { get; private set; }
+
+        // 0x338
         public EntityIUserWebviewPanelMissionTable EntityIUserWebviewPanelMissionTable { get; private set; }
 
         public DarkUserMemoryDatabase(byte[] databaseBinary, bool internString = true, IFormatterResolver formatterResolver = null) :
@@ -415,6 +421,8 @@ namespace NierReincarnation.Core.Dark
             EntityIUserWeaponStoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeaponStory[], EntityIUserWeaponStoryTable>(data => new EntityIUserWeaponStoryTable(data)));
             EntityIUserWeaponTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWeapon[], EntityIUserWeaponTable>(weapons => new EntityIUserWeaponTable(weapons)));
             EntityIUserWebviewPanelMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserWebviewPanelMission[], EntityIUserWebviewPanelMissionTable>(data => new EntityIUserWebviewPanelMissionTable(data)));
+            EntityIUserMissionPassPointTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserMissionPassPoint[], EntityIUserMissionPassPointTable>(data => new EntityIUserMissionPassPointTable(data)));
+            EntityIUserPremiumItemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserPremiumItem[], EntityIUserPremiumItemTable>(data => new EntityIUserPremiumItemTable(data)));
         }
     }
 }
