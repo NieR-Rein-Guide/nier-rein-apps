@@ -38,7 +38,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             return new DataOutgameThought(masterThought.ThoughtId, masterThought.RarityType, masterThought.AbilityId,
                 masterThought.AbilityLevel, masterThought.ThoughtAssetId, userThoughtUuid, thought.AcquisitionDatetime,
                 GetName(masterThought.ThoughtAssetId), GetDescription(masterThought.ThoughtAssetId),
-                CreateThoughtDataAbility(masterThought.AbilityId, masterThought.AbilityLevel, true), false);
+                CreateThoughtDataAbility(masterThought.AbilityId, masterThought.AbilityLevel, true));
         }
 
         public static DataOutgameThoughtInfo CreateDataOutgameThoughtInfo(long userId, string thoughtUuid)

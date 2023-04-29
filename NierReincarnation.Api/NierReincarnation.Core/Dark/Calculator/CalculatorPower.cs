@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
+﻿using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Subsystem.Serval;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NierReincarnation.Core.Dark.Calculator
 {
@@ -12,12 +13,12 @@ namespace NierReincarnation.Core.Dark.Calculator
         public static int CalculateDeckPower(long userId, DataDeck dataDeck)
         {
             CalculatorStatusOutgame.ApplyDeckAbilityStatusList(userId, dataDeck);
-            if (dataDeck.UserDeckActors.Length < 1)
-                return 0;
-
             var result = 0;
+
             foreach (var actor in dataDeck.UserDeckActors)
+            {
                 result += CalculateDeckActorPower(userId, actor, dataDeck);
+            }
 
             return result;
         }
@@ -28,9 +29,10 @@ namespace NierReincarnation.Core.Dark.Calculator
 
             resultPower += CalculateIndividualSkillPower(costume.CostumeActiveSkill, AttributeType.UNKNOWN, hpPower, atkPower, vitPower);
 
-            var abilities = costume.CostumeAbilities;
-            foreach (var ability in abilities)
+            foreach (var ability in costume.CostumeAbilities)
+            {
                 resultPower += CalculateIndividualAbilityPower(ability, AttributeType.UNKNOWN, hpPower, atkPower, vitPower);
+            }
 
             return resultPower;
         }
@@ -40,10 +42,14 @@ namespace NierReincarnation.Core.Dark.Calculator
             var result = CalculateWeaponStatusPower(weaponStatus.Hp, weaponStatus.Attack, weaponStatus.Vitality, false, false, out var hpPower, out var atkPower, out var vitPower);
 
             foreach (var skill in weapon.Skills)
+            {
                 result += CalculateIndividualSkillPower(skill, weapon.WeaponStatus.AttributeType, hpPower, atkPower, vitPower);
+            }
 
             foreach (var ability in weapon.Abilities)
+            {
                 result += CalculateIndividualAbilityPower(ability, AttributeType.UNKNOWN, hpPower, atkPower, vitPower);
+            }
 
             return result;
         }
@@ -164,23 +170,70 @@ namespace NierReincarnation.Core.Dark.Calculator
             return statusPower;
         }
 
+        private static int CalculateIndividualAbilityPower(DataAbility ability, AttributeType attributeType, int hpPower, int attackPower, int vitalityPower)
+        {
+            if (ability.IsLocked)
+            {
+                return 0;
+            }
+
+            var result = 0;
+            foreach (var passiveSkill in ability.PassiveSkillList)
+            {
+                result += CalculateIndividualSkillPower(passiveSkill, attributeType, hpPower, attackPower, vitalityPower);
+            }
+
+            return result;
+        }
+
+        private static int CalculateIndividualSkillPower(DataSkill dataSkill, AttributeType attributeType, int hpPower, int attackPower, int vitalityPower)
+        {
+            if (dataSkill?.IsLocked != false || dataSkill.DataSkillPower == null || dataSkill.DataSkillPower.ReferenceStatusType == PowerCalculationReferenceStatusType.NONE)
+            {
+                return 0;
+            }
+
+            var statusReference = 0;
+            foreach (var setting in dataSkill.DataSkillPower.ReferenceStatusSettings)
+            {
+                var isMatch = IsMatchAttributeCondition(attributeType, setting.AttributeConditionType);
+                if (!isMatch) continue;
+
+                var settingKind = setting.ReferenceStatusKindType;
+                var power = settingKind switch
+                {
+                    StatusKindType.HP => hpPower,
+                    StatusKindType.VITALITY => vitalityPower,
+                    _ => attackPower,
+                };
+                statusReference += PowerServal.calcStatusReferenceValue(power, setting.CoefficientValuePermil);
+            }
+
+            return PowerServal.calcSkillPower(dataSkill.DataSkillPower.SkillPowerBaseValue, statusReference);
+        }
+
+        private static void ResetDeckActorPower(DataDeckActor deckActor)
+        {
+            if (deckActor == null) return;
+
+            deckActor.AttackPower = 0;
+            deckActor.HpPower = 0;
+            deckActor.VitalityPower = 0;
+            deckActor.Power = 0;
+        }
+
         public static int CalculateDeckActorPower(long userId, DataDeckActor deckActor, DataDeck dataDeck)
         {
             if (deckActor == null)
                 return 0;
 
-            deckActor.HpPower = 0;
-            deckActor.AttackPower = 0;
-            deckActor.VitalityPower = 0;
-            deckActor.Power = 0;
+            ResetDeckActorPower(deckActor);
 
             foreach (var actor in dataDeck.UserDeckActors)
             {
-                if (actor == null)
-                    continue;
+                if (actor == null) continue;
 
-                if (actor.HpPower >= 1 && actor.AttackPower >= 1 && actor.VitalityPower >= 1)
-                    continue;
+                if (actor.HpPower >= 1 && actor.AttackPower >= 1 && actor.VitalityPower >= 1) continue;
 
                 CalculateDeckActorBasePower(userId, actor, out var hp, out var atk, out var vit);
 
@@ -193,159 +246,6 @@ namespace NierReincarnation.Core.Dark.Calculator
             deckActor.Power = skillPower + deckActor.HpPower + deckActor.AttackPower + deckActor.VitalityPower;
 
             return deckActor.Power;
-        }
-
-        private static int CalculateIndividualSkillPower(DataSkill dataSkill, AttributeType attributeType, int hpPower, int attackPower, int vitalityPower)
-        {
-            if (dataSkill == null || dataSkill.IsLocked ||
-                dataSkill.DataSkillPower == null || dataSkill.DataSkillPower.ReferenceStatusType == PowerCalculationReferenceStatusType.NONE)
-                return 0;
-
-            var statusReference = 0;
-            foreach (var setting in dataSkill.DataSkillPower.ReferenceStatusSettings)
-            {
-                var isMatch = IsMatchAttributeCondition(attributeType, setting.AttributeConditionType);
-                if (!isMatch)
-                    continue;
-
-                var settingKind = setting.ReferenceStatusKindType;
-                var power = settingKind == StatusKindType.HP ? hpPower : settingKind == StatusKindType.VITALITY ? vitalityPower : attackPower;
-
-                statusReference += PowerServal.calcStatusReferenceValue(power, setting.CoefficientValuePermil);
-            }
-
-            return PowerServal.calcSkillPower(dataSkill.DataSkillPower.SkillPowerBaseValue, statusReference);
-        }
-
-        private static int CalculateIndividualAbilityPower(DataAbility ability, AttributeType attributeType, int hpPower, int attackPower, int vitalityPower)
-        {
-            if (ability.IsLocked)
-                return 0;
-
-            var result = 0;
-            foreach (var passiveSkill in ability.PassiveSkillList)
-                result += CalculateIndividualSkillPower(passiveSkill, attributeType, hpPower, attackPower, vitalityPower);
-
-            return result;
-        }
-
-        private static int CalculateSkillPower(long userId, DataDeckActor dataDeckActor, DataDeck dataDeck)
-        {
-            if (dataDeckActor == null)
-                return 0;
-
-            var totalPower = 0;
-
-            var activeSkill = dataDeckActor.Costume?.CostumeActiveSkill;
-            totalPower += activeSkill == null ? 0 : CalculateSkillPower(dataDeckActor, dataDeck, activeSkill);
-
-            var mainSkills = dataDeckActor.MainWeapon?.Skills;
-            totalPower += mainSkills?.Sum(ms => CalculateSkillPower(dataDeckActor, dataDeck, ms)) ?? 0;
-
-            var companionSkill = dataDeckActor.Companion?.CompanionSkill;
-            totalPower += companionSkill == null ? 0 : CalculateSkillPower(dataDeckActor, dataDeck, companionSkill);
-
-            var costumeAbilities = dataDeckActor.Costume?.CostumeAbilities;
-            totalPower += costumeAbilities?.Sum(ca => CalculateAbilityPower(dataDeckActor, dataDeck, ca)) ?? 0;
-
-            var mainAbilities = dataDeckActor.MainWeapon?.Abilities;
-            totalPower += mainAbilities?.Sum(ma => CalculateAbilityPower(dataDeckActor, dataDeck, ma)) ?? 0;
-
-            var sub1Abilities = dataDeckActor.SubWeapon01?.Abilities;
-            totalPower += sub1Abilities?.Sum(sa => CalculateAbilityPower(dataDeckActor, dataDeck, sa)) ?? 0;
-
-            var sub2Abilities = dataDeckActor.SubWeapon01?.Abilities;
-            totalPower += sub2Abilities?.Sum(sa => CalculateAbilityPower(dataDeckActor, dataDeck, sa)) ?? 0;
-
-            var companionAbility = dataDeckActor.Companion?.CompanionAbility;
-            totalPower += companionAbility == null ? 0 : CalculateAbilityPower(dataDeckActor, dataDeck, companionAbility);
-
-            var seriesBonus = dataDeckActor.MemorySeriesBonus;
-            totalPower += seriesBonus?.Sum(sb => CalculateAbilityPower(dataDeckActor, dataDeck, sb)) ?? 0;
-
-            if (dataDeckActor.Costume == null)
-                return totalPower;
-
-            if (OutgameAbilityCache.IsCacheEnabled)
-            {
-                if (OutgameAbilityCache.TryGetCharacterAbilityPassiveSkillList(dataDeckActor.Costume.CharacterId, out var charAbilityPassiveSkills))
-                    return totalPower + CalculateSkillsPower(dataDeckActor, dataDeck, charAbilityPassiveSkills);
-            }
-
-            var rankAbilities = CalculatorCharacterRank.CreateCharacterRankAbilityList(userId, dataDeckActor.Costume.CharacterId);
-            totalPower += rankAbilities?.Sum(ra => CalculateAbilityPower(dataDeckActor, dataDeck, ra)) ?? 0;
-
-            var boardAbilities = CalculatorCharacterBoard.CreateCharacterBoardAbilityList(userId, dataDeckActor.Costume.CharacterId);
-            totalPower += boardAbilities?.Sum(ba => CalculateAbilityPower(dataDeckActor, dataDeck, ba)) ?? 0;
-
-            return totalPower;
-        }
-
-        private static int CalculateSkillPower(DataDeckActor ownerDeckActor, DataDeck dataDeck, DataSkill dataSkill)
-        {
-            var settings = dataSkill.DataSkillPower.ReferenceStatusSettings;
-            var baseValue = dataSkill.DataSkillPower.SkillPowerBaseValue;
-
-            var statusReference = 0;
-            foreach (var setting in settings)
-                statusReference += CalculateStatusReferenceValue(ownerDeckActor, dataSkill.DataSkillPower.ReferenceStatusType, dataDeck, setting);
-
-            return PowerServal.calcSkillPower(baseValue, statusReference);
-        }
-
-        private static int CalculateAbilityPower(DataDeckActor ownerDeckActor, DataDeck dataDeck, DataAbility dataAbility)
-        {
-            if (dataAbility.IsLocked || (dataAbility.PassiveSkillList?.Count ?? 0) <= 0)
-                return 0;
-
-            var result = 0;
-            foreach (var passiveSkill in dataAbility.PassiveSkillList)
-                result += CalculateSkillPower(ownerDeckActor, dataDeck, passiveSkill);
-
-            return result;
-        }
-
-        private static int CalculateSkillsPower(DataDeckActor ownerDeckActor, DataDeck dataDeck, List<DataSkill> skills)
-        {
-            if (skills.Count < 1)
-                return 0;
-
-            return skills.Sum(s => CalculateSkillPower(ownerDeckActor, dataDeck, s));
-        }
-
-        private static int CalculateStatusReferenceValue(DataDeckActor ownerDeckActor, PowerCalculationReferenceStatusType referenceType, DataDeck dataDeck, DataPowerReferenceStatus referenceStatus)
-        {
-            if (referenceType == PowerCalculationReferenceStatusType.UNKNOWN || referenceType == PowerCalculationReferenceStatusType.NONE)
-                return 0;
-
-            var actors = dataDeck.UserDeckActors;
-            if (actors.Length < 1)
-                return 0;
-
-            var result = 0;
-            foreach (var actor in dataDeck.UserDeckActors)
-            {
-                if (referenceType == PowerCalculationReferenceStatusType.SELF && ownerDeckActor.UserDeckActorUuid != actor.UserDeckActorUuid)
-                    continue;
-
-                var mainAttribute = actor.MainWeapon?.WeaponStatus.AttributeType ?? AttributeType.UNKNOWN;
-
-                var isCondMatched = IsMatchAttributeCondition(mainAttribute, referenceStatus.AttributeConditionType);
-                if (!isCondMatched)
-                    continue;
-
-                var power = 0;
-                if ((int)referenceStatus.ReferenceStatusKindType - 1 < 5)
-                    power = actor.AttackPower;
-                else if (referenceStatus.ReferenceStatusKindType == StatusKindType.VITALITY)
-                    power = actor.VitalityPower;
-                else if (referenceStatus.ReferenceStatusKindType == StatusKindType.HP)
-                    power = actor.HpPower;
-
-                result += PowerServal.calcStatusReferenceValue(power, referenceStatus.CoefficientValuePermil);
-            }
-
-            return result;
         }
 
         private static void CalculateDeckActorBasePower(long userId, DataDeckActor deckActor, out int hpPower, out int attackPower, out int vitalityPower)
@@ -372,7 +272,7 @@ namespace NierReincarnation.Core.Dark.Calculator
 
             if (deckActor.SubWeapon01 != null)
             {
-                CalculateDeckWeaponStatusPower(userId, deckActor.SubWeapon01, deckActor, true, out hp, out atk, out vit);
+                CalculateDeckWeaponStatusPower(userId, deckActor.SubWeapon01, deckActor, false, out hp, out atk, out vit);
                 hpPower += hp;
                 attackPower += atk;
                 vitalityPower += vit;
@@ -380,7 +280,7 @@ namespace NierReincarnation.Core.Dark.Calculator
 
             if (deckActor.SubWeapon02 != null)
             {
-                CalculateDeckWeaponStatusPower(userId, deckActor.SubWeapon02, deckActor, true, out hp, out atk, out vit);
+                CalculateDeckWeaponStatusPower(userId, deckActor.SubWeapon02, deckActor, false, out hp, out atk, out vit);
                 hpPower += hp;
                 attackPower += atk;
                 vitalityPower += vit;
@@ -424,15 +324,19 @@ namespace NierReincarnation.Core.Dark.Calculator
             return CalculateCompanionStatusPower(companionStatus.Hp, companionStatus.Attack, companionStatus.Vitality, out hpPower, out attackPower, out vitalityPower);
         }
 
-        // Revisit method
+        private static int CalculatePartsPower(DataOutgameMemory parts)
+        {
+            // Implemented as part of CalculateDeckPartsStatusPower
+            throw new NotImplementedException();
+        }
+
         private static void CalculateDeckPartsStatusPower(DataOutgameMemory[] partsList, out int hpPower, out int attackPower, out int vitalityPower)
         {
             hpPower = 0;
             attackPower = 0;
             vitalityPower = 0;
 
-            if (partsList.Length < 1)
-                return;
+            if (partsList.Length == 0) return;
 
             var multHp = 0;
             var addHp = 0;
@@ -443,8 +347,7 @@ namespace NierReincarnation.Core.Dark.Calculator
 
             foreach (var part in partsList)
             {
-                if (part == null)
-                    continue;
+                if (part == null) continue;
 
                 var mainStatus = part.MainMemoryStatus;
                 var mainStatusSetting = mainStatus.NumericalFunctionSetting;
@@ -609,6 +512,147 @@ namespace NierReincarnation.Core.Dark.Calculator
             vitalityPower = addVit + multVit;
         }
 
+        private static int CalculateSkillPower(long userId, DataDeckActor dataDeckActor, DataDeck dataDeck)
+        {
+            if (dataDeckActor == null)
+                return 0;
+
+            var totalPower = 0;
+
+            if (dataDeckActor.Costume?.CostumeActiveSkill != null)
+            {
+                totalPower += CalculateSkillPower(dataDeckActor, dataDeck, dataDeckActor.Costume.CostumeActiveSkill);
+            }
+
+            if (dataDeckActor.MainWeapon?.Skills != null)
+            {
+                totalPower += dataDeckActor.MainWeapon.Skills.Sum(ms => CalculateSkillPower(dataDeckActor, dataDeck, ms));
+            }
+
+            if (dataDeckActor.Companion?.CompanionSkill != null)
+            {
+                totalPower += CalculateSkillPower(dataDeckActor, dataDeck, dataDeckActor.Companion.CompanionSkill);
+            }
+
+            if (dataDeckActor.Costume?.CostumeAbilities != null)
+            {
+                totalPower += dataDeckActor.Costume.CostumeAbilities.Sum(ca => CalculateAbilityPower(dataDeckActor, dataDeck, ca));
+            }
+
+            if (dataDeckActor.MainWeapon?.Abilities != null)
+            {
+                totalPower += dataDeckActor.MainWeapon.Abilities.Sum(ma => CalculateAbilityPower(dataDeckActor, dataDeck, ma));
+            }
+
+            if (dataDeckActor.SubWeapon01?.Abilities != null)
+            {
+                totalPower += dataDeckActor.SubWeapon01.Abilities.Sum(ma => CalculateAbilityPower(dataDeckActor, dataDeck, ma));
+            }
+
+            if (dataDeckActor.SubWeapon02?.Abilities != null)
+            {
+                totalPower += dataDeckActor.SubWeapon02.Abilities.Sum(ma => CalculateAbilityPower(dataDeckActor, dataDeck, ma));
+            }
+
+            if (dataDeckActor.Companion?.CompanionAbility != null)
+            {
+                totalPower += CalculateAbilityPower(dataDeckActor, dataDeck, dataDeckActor.Companion.CompanionAbility);
+            }
+
+            if (dataDeckActor.MemorySeriesBonus != null)
+            {
+                totalPower += dataDeckActor.MemorySeriesBonus.Sum(sb => CalculateAbilityPower(dataDeckActor, dataDeck, sb));
+            }
+
+            if (dataDeckActor.Thought.Ability != null)
+            {
+                totalPower += CalculateAbilityPower(dataDeckActor, dataDeck, dataDeckActor.Thought.Ability);
+            }
+
+            if (dataDeckActor.Costume == null)
+                return totalPower;
+
+            if (OutgameAbilityCache.IsCacheEnabled && OutgameAbilityCache.TryGetCharacterAbilityPassiveSkillList(dataDeckActor.Costume.CharacterId, out var charAbilityPassiveSkills))
+            {
+                return totalPower + CalculateSkillsPower(dataDeckActor, dataDeck, charAbilityPassiveSkills);
+            }
+
+            var rankAbilities = CalculatorCharacterRank.CreateCharacterRankAbilityList(userId, dataDeckActor.Costume.CharacterId);
+            totalPower += rankAbilities?.Sum(ra => CalculateAbilityPower(dataDeckActor, dataDeck, ra)) ?? 0;
+
+            var boardAbilities = CalculatorCharacterBoard.CreateCharacterBoardAbilityList(userId, dataDeckActor.Costume.CharacterId);
+            totalPower += boardAbilities?.Sum(ba => CalculateAbilityPower(dataDeckActor, dataDeck, ba)) ?? 0;
+
+            return totalPower;
+        }
+
+        private static int CalculateAbilityPower(DataDeckActor ownerDeckActor, DataDeck dataDeck, DataAbility dataAbility)
+        {
+            if (dataAbility.IsLocked || (dataAbility.PassiveSkillList?.Count ?? 0) == 0)
+                return 0;
+
+            var result = 0;
+            foreach (var passiveSkill in dataAbility.PassiveSkillList)
+            {
+                result += CalculateSkillPower(ownerDeckActor, dataDeck, passiveSkill);
+            }
+
+            return result;
+        }
+
+        private static int CalculateSkillsPower(DataDeckActor ownerDeckActor, DataDeck dataDeck, List<DataSkill> skills)
+        {
+            return skills.Count != 0 ? skills.Sum(s => CalculateSkillPower(ownerDeckActor, dataDeck, s)) : 0;
+        }
+
+        private static int CalculateSkillPower(DataDeckActor ownerDeckActor, DataDeck dataDeck, DataSkill dataSkill)
+        {
+            var settings = dataSkill.DataSkillPower.ReferenceStatusSettings;
+            var baseValue = dataSkill.DataSkillPower.SkillPowerBaseValue;
+
+            var statusReference = 0;
+            foreach (var setting in settings)
+            {
+                statusReference += CalculateStatusReferenceValue(ownerDeckActor, dataSkill.DataSkillPower.ReferenceStatusType, dataDeck, setting);
+            }
+
+            return PowerServal.calcSkillPower(baseValue, statusReference);
+        }
+
+        private static int CalculateStatusReferenceValue(DataDeckActor ownerDeckActor, PowerCalculationReferenceStatusType referenceType, DataDeck dataDeck, DataPowerReferenceStatus referenceStatus)
+        {
+            if (referenceType == PowerCalculationReferenceStatusType.UNKNOWN || referenceType == PowerCalculationReferenceStatusType.NONE)
+                return 0;
+
+            if (dataDeck.UserDeckActors.Length == 0)
+                return 0;
+
+            var result = 0;
+            foreach (var actor in dataDeck.UserDeckActors)
+            {
+                if (referenceType == PowerCalculationReferenceStatusType.SELF && ownerDeckActor.UserDeckActorUuid != actor.UserDeckActorUuid)
+                    continue;
+
+                var mainAttribute = actor.MainWeapon?.WeaponStatus.AttributeType ?? AttributeType.UNKNOWN;
+
+                var isCondMatched = IsMatchAttributeCondition(mainAttribute, referenceStatus.AttributeConditionType);
+                if (!isCondMatched)
+                    continue;
+
+                var power = 0;
+                if (referenceStatus.ReferenceStatusKindType < StatusKindType.VITALITY)
+                    power = actor.AttackPower;
+                else if (referenceStatus.ReferenceStatusKindType == StatusKindType.VITALITY)
+                    power = actor.VitalityPower;
+                else if (referenceStatus.ReferenceStatusKindType == StatusKindType.HP)
+                    power = actor.HpPower;
+
+                result += PowerServal.calcStatusReferenceValue(power, referenceStatus.CoefficientValuePermil);
+            }
+
+            return result;
+        }
+
         private static int CalculateCostumeStatusPower(int hp, int attack, int vitality, out int hpPower, out int attackPower, out int vitalityPower)
         {
             var instance = DeckPowerCalculationConstantValues.Instance;
@@ -677,31 +721,17 @@ namespace NierReincarnation.Core.Dark.Calculator
 
         private static bool IsMatchAttributeCondition(AttributeType attributeType, AttributeConditionType conditionType)
         {
-            switch (conditionType)
+            return conditionType switch
             {
-                case AttributeConditionType.DARK:
-                    return attributeType == AttributeType.DARK;
-
-                case AttributeConditionType.FIRE:
-                    return attributeType == AttributeType.FIRE;
-
-                case AttributeConditionType.LIGHT:
-                    return attributeType == AttributeType.LIGHT;
-
-                case AttributeConditionType.WATER:
-                    return attributeType == AttributeType.WATER;
-
-                case AttributeConditionType.WIND:
-                    return attributeType == AttributeType.WIND;
-
-                case AttributeConditionType.NOTHING:
-                    return attributeType == AttributeType.NOTHING;
-
-                case AttributeConditionType.ALL:
-                    return true;
-            }
-
-            return false;
+                AttributeConditionType.DARK => attributeType == AttributeType.DARK,
+                AttributeConditionType.FIRE => attributeType == AttributeType.FIRE,
+                AttributeConditionType.LIGHT => attributeType == AttributeType.LIGHT,
+                AttributeConditionType.WATER => attributeType == AttributeType.WATER,
+                AttributeConditionType.WIND => attributeType == AttributeType.WIND,
+                AttributeConditionType.NOTHING => attributeType == AttributeType.NOTHING,
+                AttributeConditionType.ALL => true,
+                _ => false,
+            };
         }
     }
 }
