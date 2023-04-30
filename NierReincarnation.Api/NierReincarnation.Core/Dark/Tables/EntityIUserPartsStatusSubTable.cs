@@ -1,5 +1,6 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,5 +12,8 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => (element.UserId, element.UserPartsUuid, element.StatusIndex);
         }
+
+        public EntityIUserPartsStatusSub FindByUserIdAndUserPartsUuidAndStatusIndex((long, string, int) key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string, int)>.Default, key);
     }
 }
