@@ -191,7 +191,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 if (isWithinWeekBefore)
                 {
                     var weeklyMaxScoreTable = DatabaseDefine.User.EntityIUserBigHuntWeeklyMaxScoreTable;
-                    if (weeklyMaxScoreTable.TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType((userId, weekBeforeLastVersion, (int)data.AttributeType), out var weeklyMaxScore))
+                    if (weeklyMaxScoreTable.TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType((userId, weekBeforeLastVersion, data.AttributeType), out var weeklyMaxScore))
                     {
                         result[i].BeforeScore = weeklyMaxScore.MaxScore;
 
@@ -204,7 +204,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 if (isWithinLastWeek)
                 {
                     var weeklyMaxScoreTable = DatabaseDefine.User.EntityIUserBigHuntWeeklyMaxScoreTable;
-                    if (weeklyMaxScoreTable.TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType((userId, lastWeeklyVersion, (int)data.AttributeType), out var weeklyMaxScore))
+                    if (weeklyMaxScoreTable.TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType((userId, lastWeeklyVersion, data.AttributeType), out var weeklyMaxScore))
                     {
                         result[i].AfterScore = weeklyMaxScore.MaxScore;
 
@@ -248,8 +248,14 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         {
             var bossId = GetCurrentBossIdByBossQuestId(bigHuntBossQuestId);
 
-            var maxScoreTable = DatabaseDefine.User.EntityIUserBigHuntMaxScoreTable;
-            return maxScoreTable.TryFindByUserIdAndBigHuntBossId((userId, bossId), out _);
+            return DatabaseDefine.User.EntityIUserBigHuntMaxScoreTable.All.Any(x => x.UserId == userId && x.BigHuntBossId == bossId);
+        }
+
+        public static bool IsClearBigHuntBoss(long userId, int bigHuntBossQuestId, int bigHuntScheduleId)
+        {
+            var bossId = GetCurrentBossIdByBossQuestId(bigHuntBossQuestId);
+
+            return DatabaseDefine.User.EntityIUserBigHuntScheduleMaxScoreTable.TryFindByUserIdAndBigHuntScheduleIdAndBigHuntBossId((userId, bigHuntScheduleId, bossId), out var _);
         }
 
         public static int GetCurrentBossIdByBossQuestId(int bossQuestId)

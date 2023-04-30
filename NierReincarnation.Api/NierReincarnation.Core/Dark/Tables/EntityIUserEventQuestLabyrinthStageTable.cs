@@ -13,10 +13,10 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.EventQuestChapterId, element.StageOrder);
         }
 
-        public EntityIUserEventQuestLabyrinthStage FindByUserIdAndEventQuestChapterIdAndStageOrder(ValueTuple<long, int, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key); }
+        public EntityIUserEventQuestLabyrinthStage FindByUserIdAndEventQuestChapterIdAndStageOrder(ValueTuple<long, int, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key);
 
-        public bool TryFindByUserIdAndEventQuestChapterIdAndStageOrder(ValueTuple<long, int, int> key, out EntityIUserEventQuestLabyrinthStage result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndEventQuestChapterIdAndStageOrder(ValueTuple<long, int, int> key, out EntityIUserEventQuestLabyrinthStage result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key, out result);
     }
 }

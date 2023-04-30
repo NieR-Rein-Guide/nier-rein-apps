@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMQuestCampaignEffectGroupTable : TableBase<EntityMQuestCampaignEffectGroup> // TypeDefIndex: 12129
+    public class EntityMQuestCampaignEffectGroupTable : TableBase<EntityMQuestCampaignEffectGroup>
     {
-        // Fields
-        private readonly Func<EntityMQuestCampaignEffectGroup, ValueTuple<int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestCampaignEffectGroup, (int, QuestCampaignEffectType)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C570CC Offset: 0x2C570CC VA: 0x2C570CC
-        public EntityMQuestCampaignEffectGroupTable(EntityMQuestCampaignEffectGroup[] sortedData):base(sortedData)
+        public EntityMQuestCampaignEffectGroupTable(EntityMQuestCampaignEffectGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.QuestCampaignEffectGroupId, (int)group.QuestCampaignEffectType);
+            primaryIndexSelector = element => (element.QuestCampaignEffectGroupId, element.QuestCampaignEffectType);
         }
 
-        // RVA: 0x2C571CC Offset: 0x2C571CC VA: 0x2C571CC
-        public RangeView<EntityMQuestCampaignEffectGroup> FindRangeByQuestCampaignEffectGroupIdAndQuestCampaignEffectType(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMQuestCampaignEffectGroup> FindRangeByQuestCampaignEffectGroupIdAndQuestCampaignEffectType(ValueTuple<int, QuestCampaignEffectType> min, ValueTuple<int, QuestCampaignEffectType> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, QuestCampaignEffectType)>.Default, min, max, ascendant);
     }
 }

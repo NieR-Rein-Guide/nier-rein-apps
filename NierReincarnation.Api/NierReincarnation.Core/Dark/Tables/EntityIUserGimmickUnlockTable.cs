@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.GimmickSequenceScheduleId, element.GimmickSequenceId, element.GimmickId);
         }
 
-        public bool TryFindByUserIdAndGimmickSequenceScheduleIdAndGimmickSequenceIdAndGimmickId(ValueTuple<long, int, int, int> key, out EntityIUserGimmickUnlock result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndGimmickSequenceScheduleIdAndGimmickSequenceIdAndGimmickId(ValueTuple<long, int, int, int> key, out EntityIUserGimmickUnlock result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int, int)>.Default, key, out result);
     }
 }

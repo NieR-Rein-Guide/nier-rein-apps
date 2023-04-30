@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,8 +12,8 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.DamageMultiplyAbnormalDetailId;
         }
-        
-        public bool TryFindByDamageMultiplyAbnormalDetailId(int key, out EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeapon result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
 
+        public bool TryFindByDamageMultiplyAbnormalDetailId(int key, out EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeapon result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

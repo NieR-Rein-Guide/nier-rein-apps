@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,8 +12,8 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.SmartphoneChatGroupId;
         }
-        
-        public RangeView<EntityMSmartphoneChatGroup> FindRangeBySmartphoneChatGroupId(int min, int max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant); }
 
+        public RangeView<EntityMSmartphoneChatGroup> FindRangeBySmartphoneChatGroupId(int min, int max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant);
     }
 }

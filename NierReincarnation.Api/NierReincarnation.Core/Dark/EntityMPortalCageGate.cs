@@ -9,8 +9,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int PortalCageGateId { get; set; } // 0x10
+
         [Key(1)]
         public int GatePositionIndex { get; set; } // 0x14
+
         [Key(2)]
         public int PortalCageAccessPointFunctionGroupScheduleId { get; set; } // 0x18
     }

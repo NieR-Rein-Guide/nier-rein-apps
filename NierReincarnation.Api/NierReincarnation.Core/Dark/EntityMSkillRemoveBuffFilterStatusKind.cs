@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillRemoveBuffFilteringId { get; set; } // 0x10
+
         [Key(1)]
         public int FilterIndex { get; set; } // 0x14
+
         [Key(2)]
         public StatusKindType StatusKindType { get; set; } // 0x18
     }

@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,8 +12,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.TipBackgroundAssetId;
         }
-        
-        public EntityMTipBackgroundAsset FindByTipBackgroundAssetId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
+        public EntityMTipBackgroundAsset FindByTipBackgroundAssetId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

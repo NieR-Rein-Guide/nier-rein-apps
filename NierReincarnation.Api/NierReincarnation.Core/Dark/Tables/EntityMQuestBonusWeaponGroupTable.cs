@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMQuestBonusWeaponGroupTable : TableBase<EntityMQuestBonusWeaponGroup> // TypeDefIndex: 12361
+    public class EntityMQuestBonusWeaponGroupTable : TableBase<EntityMQuestBonusWeaponGroup>
     {
-        // Fields
-        private readonly Func<EntityMQuestBonusWeaponGroup, ValueTuple<int, int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestBonusWeaponGroup, (int, int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2E20634 Offset: 0x2E20634 VA: 0x2E20634
-        public EntityMQuestBonusWeaponGroupTable(EntityMQuestBonusWeaponGroup[] sortedData):base(sortedData)
+        public EntityMQuestBonusWeaponGroupTable(EntityMQuestBonusWeaponGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.QuestBonusWeaponGroupId, group.WeaponId, group.LimitBreakCountLowerLimit);
+            primaryIndexSelector = element => (element.QuestBonusWeaponGroupId, element.WeaponId, element.LimitBreakCountLowerLimit);
         }
 
-        // RVA: 0x2E20734 Offset: 0x2E20734 VA: 0x2E20734
-        public RangeView<EntityMQuestBonusWeaponGroup> FindRangeByQuestBonusWeaponGroupIdAndWeaponIdAndLimitBreakCountLowerLimit(ValueTuple<int, int, int> min,
-                ValueTuple<int, int, int> max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int, int)>.Default, min, max,
-                ascendant);
-        }
+        public RangeView<EntityMQuestBonusWeaponGroup> FindRangeByQuestBonusWeaponGroupIdAndWeaponIdAndLimitBreakCountLowerLimit(ValueTuple<int, int, int> min, ValueTuple<int, int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int, int)>.Default, min, max, ascendant);
     }
 }

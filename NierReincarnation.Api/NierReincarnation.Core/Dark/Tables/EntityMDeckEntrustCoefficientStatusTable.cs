@@ -1,17 +1,15 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMDeckEntrustCoefficientStatusTable : TableBase<EntityMDeckEntrustCoefficientStatus>
     {
-        private readonly Func<EntityMDeckEntrustCoefficientStatus, (int,int)> primaryIndexSelector;
+        private readonly Func<EntityMDeckEntrustCoefficientStatus, (int, int)> primaryIndexSelector;
 
         public EntityMDeckEntrustCoefficientStatusTable(EntityMDeckEntrustCoefficientStatus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.EntrustDeckStatusType,element.DeckStatusType);
+            primaryIndexSelector = element => (element.EntrustDeckStatusType, element.DeckStatusType);
         }
-        
     }
 }

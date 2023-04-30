@@ -1,43 +1,22 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserQuestMissionTable : TableBase<EntityIUserQuestMission> // TypeDefIndex: 12585
+    public class EntityIUserQuestMissionTable : TableBase<EntityIUserQuestMission>
     {
-        // Fields
-        private readonly Func<EntityIUserQuestMission, ValueTuple<long, int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserQuestMission, (long, int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35B7F44 Offset: 0x35B7F44 VA: 0x35B7F44
         public EntityIUserQuestMissionTable(EntityIUserQuestMission[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = mission => (mission.UserId, mission.QuestId, mission.QuestMissionId);
+            primaryIndexSelector = element => (element.UserId, element.QuestId, element.QuestMissionId);
         }
 
-        public EntityIUserQuestMission FindByUserIdAndQuestIdAndQuestMissionId(ValueTuple<long, int, int> key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityIUserQuestMission FindByUserIdAndQuestIdAndQuestMissionId(ValueTuple<long, int, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key);
 
-            return null;
-        }
-
-        // RVA: 0x35B8044 Offset: 0x35B8044 VA: 0x35B8044
-        public bool TryFindByUserIdAndQuestIdAndQuestMissionId(ValueTuple<long, int, int> key, out EntityIUserQuestMission result)
-        {
-            result = null;
-
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByUserIdAndQuestIdAndQuestMissionId(ValueTuple<long, int, int> key, out EntityIUserQuestMission result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key, out result);
     }
 }

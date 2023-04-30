@@ -14,7 +14,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.UserCostumeUuid, element.StatusCalculationType);
         }
 
-        public bool TryFindByUserIdAndUserCostumeUuidAndStatusCalculationType(ValueTuple<long, string, StatusCalculationType> key, out EntityIUserCostumeAwakenStatusUp result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string, StatusCalculationType)>.Default, key, out result); }
+        public bool TryFindByUserIdAndUserCostumeUuidAndStatusCalculationType(ValueTuple<long, string, StatusCalculationType> key, out EntityIUserCostumeAwakenStatusUp result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string, StatusCalculationType)>.Default, key, out result);
     }
 }

@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.MovieId);
         }
 
-        public bool TryFindByUserIdAndMovieId(ValueTuple<long, int> key, out EntityIUserMovie result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndMovieId(ValueTuple<long, int> key, out EntityIUserMovie result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

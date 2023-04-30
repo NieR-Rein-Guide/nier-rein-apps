@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -16,8 +16,8 @@ namespace NierReincarnation.Core.Dark.Tables
             secondaryIndexSelector = element => element.CharacterAssignmentType;
         }
 
-        public EntityMCharacterRebirth FindByCharacterId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
+        public EntityMCharacterRebirth FindByCharacterId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
-        public RangeView<EntityMCharacterRebirth> FindByCharacterAssignmentType(CharacterAssignmentType key) { return FindManyCore(data, secondaryIndexSelector, Comparer<CharacterAssignmentType>.Default, key); }
+        public RangeView<EntityMCharacterRebirth> FindByCharacterAssignmentType(CharacterAssignmentType key) => FindManyCore(data, secondaryIndexSelector, Comparer<CharacterAssignmentType>.Default, key);
     }
 }

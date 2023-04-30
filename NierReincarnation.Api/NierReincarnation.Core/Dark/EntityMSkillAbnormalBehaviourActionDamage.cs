@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillAbnormalBehaviourActionId { get; set; } // 0x10
+
         [Key(1)]
         public AbnormalBehaviourDamageType AbnormalBehaviourDamageType { get; set; } // 0x14
+
         [Key(2)]
         public int Power { get; set; } // 0x18
     }

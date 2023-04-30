@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMCatalogTermTable : TableBase<EntityMCatalogTerm> // TypeDefIndex: 11739
+    public class EntityMCatalogTermTable : TableBase<EntityMCatalogTerm>
     {
-        // Fields
-        private readonly Func<EntityMCatalogTerm, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCatalogTerm, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C494A4 Offset: 0x2C494A4 VA: 0x2C494A4
-        public EntityMCatalogTermTable(EntityMCatalogTerm[] sortedData):base(sortedData)
+        public EntityMCatalogTermTable(EntityMCatalogTerm[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = term => term.CatalogTermId;
+            primaryIndexSelector = element => element.CatalogTermId;
         }
 
-        // RVA: 0x2C495A4 Offset: 0x2C495A4 VA: 0x2C495A4
-        public EntityMCatalogTerm FindByCatalogTermId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMCatalogTerm FindByCatalogTermId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

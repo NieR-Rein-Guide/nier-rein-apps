@@ -1,21 +1,18 @@
-﻿using NierReincarnation.Core.MasterMemory;
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public sealed class EntityIUserCharacterRebirthTable : TableBase<EntityIUserCharacterRebirth> // TypeDefIndex: 14494
+    public class EntityIUserCharacterRebirthTable : TableBase<EntityIUserCharacterRebirth>
     {
-        private readonly Func<EntityIUserCharacterRebirth, (long, int)> primaryIndexSelector; // 0x18
-        
-        public EntityIUserCharacterRebirthTable(EntityIUserCharacterRebirth[] sortedData):base(sortedData)
+        private readonly Func<EntityIUserCharacterRebirth, (long, int)> primaryIndexSelector;
+
+        public EntityIUserCharacterRebirthTable(EntityIUserCharacterRebirth[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = rebirth => (rebirth.UserId, rebirth.CharacterId);
+            primaryIndexSelector = element => (element.UserId, element.CharacterId);
         }
-        
-        public EntityIUserCharacterRebirth FindByUserIdAndCharacterId(ValueTuple<long, int> key)
-        {
-            return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
-        }
+
+        public EntityIUserCharacterRebirth FindByUserIdAndCharacterId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
     }
 }

@@ -995,7 +995,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 return kInvalidChapterIdAndQuestId;
 
             var seqGroup = DatabaseDefine.Master.EntityMEventQuestSequenceGroupTable
-                .FindByEventQuestSequenceGroupIdAndDifficultyType((entityChapter.EventQuestSequenceGroupId, (int)kDailyQuestDifficultyType));
+                .FindByEventQuestSequenceGroupIdAndDifficultyType((entityChapter.EventQuestSequenceGroupId, kDailyQuestDifficultyType));
 
             var sequences = DatabaseDefine.Master.EntityMEventQuestSequenceTable.All.Where(x => x.EventQuestSequenceId == seqGroup.EventQuestSequenceId);
 

@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,8 +10,7 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMCharacterBoardPanelReleaseRewardGroupTable(EntityMCharacterBoardPanelReleaseRewardGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.CharacterBoardPanelReleaseRewardGroupId,element.PossessionType,element.PossessionId);
+            primaryIndexSelector = element => (element.CharacterBoardPanelReleaseRewardGroupId, element.PossessionType, element.PossessionId);
         }
-        
     }
 }

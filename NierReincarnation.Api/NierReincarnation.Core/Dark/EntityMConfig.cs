@@ -10,6 +10,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public string ConfigKey { get; set; } // 0x10
+
         [Key(1)]
         public string Value { get; set; } // 0x18
     }

@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMAbilityLevelGroupTable : TableBase<EntityMAbilityLevelGroup> // TypeDefIndex: 11545
+    public class EntityMAbilityLevelGroupTable : TableBase<EntityMAbilityLevelGroup>
     {
-        // Fields
-        private readonly Func<EntityMAbilityLevelGroup, (int, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMAbilityLevelGroup, (int, int)> primaryIndexSelector;
+        private readonly Func<EntityMAbilityLevelGroup, int> secondaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C402D0 Offset: 0x2C402D0 VA: 0x2C402D0
         public EntityMAbilityLevelGroupTable(EntityMAbilityLevelGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.AbilityLevelGroupId, group.LevelLowerLimit);
+            primaryIndexSelector = element => (element.AbilityLevelGroupId, element.LevelLowerLimit);
+            secondaryIndexSelector = element => element.AbilityLevelGroupId;
         }
 
-        // RVA: 0x2C403D0 Offset: 0x2C403D0 VA: 0x2C403D0
-        public EntityMAbilityLevelGroup FindClosestByAbilityLevelGroupIdAndLevelLowerLimit((int, int) key, bool selectLower = true)
-        {
-            return FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
-        }
+        public EntityMAbilityLevelGroup FindClosestByAbilityLevelGroupIdAndLevelLowerLimit(ValueTuple<int, int> key, bool selectLower = true) =>
+            FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
+
+        public RangeView<EntityMAbilityLevelGroup> FindByAbilityLevelGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

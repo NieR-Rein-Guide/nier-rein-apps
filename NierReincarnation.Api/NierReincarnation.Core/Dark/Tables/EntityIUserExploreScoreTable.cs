@@ -13,7 +13,6 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.ExploreId);
         }
 
-        public EntityIUserExploreScore FindByUserIdAndExploreId(ValueTuple<long, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+        public EntityIUserExploreScore FindByUserIdAndExploreId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
     }
 }

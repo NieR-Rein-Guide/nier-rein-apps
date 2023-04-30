@@ -10,12 +10,16 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillCasttimeBehaviourActionId { get; set; } // 0x10
+
         [Key(1)]
         public int SkillCasttimeUpdateValue { get; set; } // 0x14
+
         [Key(2)]
         public SkillCasttimeAdvanceType SkillCasttimeAdvanceType { get; set; } // 0x18
+
         [Key(3)]
         public int DamageCompareType { get; set; } // 0x1C
+
         [Key(4)]
         public int DamageConditionValue { get; set; } // 0x20
     }

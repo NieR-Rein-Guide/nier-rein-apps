@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillDamageMultiplyDetailId { get; set; } // 0x10
+
         [Key(1)]
         public int SkillDamageMultiplyHitIndexValueGroupId { get; set; } // 0x14
     }

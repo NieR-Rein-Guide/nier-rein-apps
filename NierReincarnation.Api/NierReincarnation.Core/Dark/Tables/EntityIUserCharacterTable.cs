@@ -1,43 +1,21 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserCharacterTable : TableBase<EntityIUserCharacter> // TypeDefIndex: 12483
+    public class EntityIUserCharacterTable : TableBase<EntityIUserCharacter>
     {
-        // Fields
-        private readonly Func<EntityIUserCharacter, (long,int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserCharacter, (long, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC6A6C Offset: 0x2DC6A6C VA: 0x2DC6A6C
-        public EntityIUserCharacterTable(EntityIUserCharacter[] sortedData):base(sortedData)
+        public EntityIUserCharacterTable(EntityIUserCharacter[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.CharacterId);
+            primaryIndexSelector = element => (element.UserId, element.CharacterId);
         }
 
-        // RVA: 0x2DC6B6C Offset: 0x2DC6B6C VA: 0x2DC6B6C
-        public EntityIUserCharacter FindByUserIdAndCharacterId(ValueTuple<long, int> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityIUserCharacter FindByUserIdAndCharacterId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
 
-            return null;
-        }
-
-        public bool TryFindByUserIdAndCharacterId(ValueTuple<long, int> key, out EntityIUserCharacter result)
-        {
-            result = null;
-
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByUserIdAndCharacterId(ValueTuple<long, int> key, out EntityIUserCharacter result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

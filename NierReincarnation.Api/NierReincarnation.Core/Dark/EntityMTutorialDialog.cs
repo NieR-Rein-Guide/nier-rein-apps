@@ -10,6 +10,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public TutorialType TutorialType { get; set; } // 0x10
+
         [Key(1)]
         public HelpType HelpType { get; set; } // 0x14
     }

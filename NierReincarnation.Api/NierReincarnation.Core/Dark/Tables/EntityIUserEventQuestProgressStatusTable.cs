@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserEventQuestProgressStatusTable : TableBase<EntityIUserEventQuestProgressStatus> // TypeDefIndex: 12511
+    public class EntityIUserEventQuestProgressStatusTable : TableBase<EntityIUserEventQuestProgressStatus>
     {
-        // Fields
-        private readonly Func<EntityIUserEventQuestProgressStatus, long> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserEventQuestProgressStatus, long> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35AB5A4 Offset: 0x35AB5A4 VA: 0x35AB5A4
         public EntityIUserEventQuestProgressStatusTable(EntityIUserEventQuestProgressStatus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = status => status.UserId;
+            primaryIndexSelector = element => element.UserId;
         }
 
-        // RVA: 0x35AB6A4 Offset: 0x35AB6A4 VA: 0x35AB6A4
-        public EntityIUserEventQuestProgressStatus FindByUserId(long key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityIUserEventQuestProgressStatus FindByUserId(long key) => FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key);
     }
 }

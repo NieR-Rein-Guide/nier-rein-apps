@@ -1,39 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMCharacterTable : TableBase<EntityMCharacter>
     {
-        // Fields
-        private readonly Func<EntityMCharacter, int> primaryIndexSelector; // 0x18
-        private readonly Func<EntityMCharacter, int> secondaryIndex0Selector; // 0x28
+        private readonly Func<EntityMCharacter, int> primaryIndexSelector;
+        private readonly Func<EntityMCharacter, int> secondaryIndexSelector;
 
         public EntityMCharacterTable(EntityMCharacter[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = character => character.CharacterId;
-            secondaryIndex0Selector = character => character.EndWeaponId;
+            primaryIndexSelector = element => element.CharacterId;
+            secondaryIndexSelector = element => element.EndWeaponId;
         }
 
-        public EntityMCharacter FindByCharacterId(int key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityMCharacter FindByCharacterId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
-            return null;
-        }
-
-        public RangeView<EntityMCharacter> FindByEndWeaponId(int key)
-        {
-            var result = new List<EntityMCharacter>();
-
-            foreach (var element in data)
-                if (secondaryIndex0Selector(element) == key)
-                    result.Add(element);
-
-            return new RangeView<EntityMCharacter>(result.ToArray(), 0, result.Count - 1, true);
-        }
+        public RangeView<EntityMCharacter> FindByEndWeaponId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

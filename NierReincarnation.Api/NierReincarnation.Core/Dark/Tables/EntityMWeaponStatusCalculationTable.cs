@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMWeaponStatusCalculationTable : TableBase<EntityMWeaponStatusCalculation> // TypeDefIndex: 12441
+    public class EntityMWeaponStatusCalculationTable : TableBase<EntityMWeaponStatusCalculation>
     {
-        // Fields
-        private readonly Func<EntityMWeaponStatusCalculation, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMWeaponStatusCalculation, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2BAD34C Offset: 0x2BAD34C VA: 0x2BAD34C
-        public EntityMWeaponStatusCalculationTable(EntityMWeaponStatusCalculation[] sortedData):base(sortedData)
+        public EntityMWeaponStatusCalculationTable(EntityMWeaponStatusCalculation[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = calculation => calculation.WeaponStatusCalculationId;
+            primaryIndexSelector = element => element.WeaponStatusCalculationId;
         }
 
-        // RVA: 0x2BAD44C Offset: 0x2BAD44C VA: 0x2BAD44C
-        public EntityMWeaponStatusCalculation FindByWeaponStatusCalculationId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public EntityMWeaponStatusCalculation FindByWeaponStatusCalculationId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

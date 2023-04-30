@@ -1,19 +1,19 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMPortalCageGateTable : TableBase<EntityMPortalCageGate>
     {
-        private readonly Func<EntityMPortalCageGate, (int,int)> primaryIndexSelector;
+        private readonly Func<EntityMPortalCageGate, (int, int)> primaryIndexSelector;
 
         public EntityMPortalCageGateTable(EntityMPortalCageGate[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.PortalCageGateId,element.GatePositionIndex);
+            primaryIndexSelector = element => (element.PortalCageGateId, element.GatePositionIndex);
         }
-        
-        public EntityMPortalCageGate FindByPortalCageGateIdAndGatePositionIndex(ValueTuple<int, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key); }
 
+        public EntityMPortalCageGate FindByPortalCageGateIdAndGatePositionIndex(ValueTuple<int, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
     }
 }

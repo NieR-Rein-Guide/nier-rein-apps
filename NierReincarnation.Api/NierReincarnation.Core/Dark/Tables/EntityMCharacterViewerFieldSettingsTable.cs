@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,11 +12,9 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.AssetBackgroundId;
         }
-        
-        public EntityMCharacterViewerFieldSettings FindByAssetBackgroundId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
-	
-        public bool TryFindByAssetBackgroundId(int key, out EntityMCharacterViewerFieldSettings result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
+        public EntityMCharacterViewerFieldSettings FindByAssetBackgroundId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
+        public bool TryFindByAssetBackgroundId(int key, out EntityMCharacterViewerFieldSettings result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

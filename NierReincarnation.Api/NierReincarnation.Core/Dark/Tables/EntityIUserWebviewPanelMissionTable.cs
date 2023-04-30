@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.WebviewPanelMissionPageId);
         }
 
-        public EntityIUserWebviewPanelMission FindByUserIdAndWebviewPanelMissionPageId(ValueTuple<long, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+        public EntityIUserWebviewPanelMission FindByUserIdAndWebviewPanelMissionPageId(ValueTuple<long, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
     }
 }

@@ -9,10 +9,13 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int MaintenanceId { get; set; } // 0x10
+
         [Key(1)]
         public long StartDatetime { get; set; } // 0x18
+
         [Key(2)]
         public long EndDatetime { get; set; } // 0x20
+
         [Key(3)]
         public int MaintenanceGroupId { get; set; } // 0x28
     }

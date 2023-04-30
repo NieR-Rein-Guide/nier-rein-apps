@@ -14,7 +14,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.TutorialType);
         }
 
-        public bool TryFindByUserIdAndTutorialType(ValueTuple<long, TutorialType> key, out EntityIUserTutorialProgress result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, TutorialType)>.Default, key, out result); }
+        public bool TryFindByUserIdAndTutorialType(ValueTuple<long, TutorialType> key, out EntityIUserTutorialProgress result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, TutorialType)>.Default, key, out result);
     }
 }

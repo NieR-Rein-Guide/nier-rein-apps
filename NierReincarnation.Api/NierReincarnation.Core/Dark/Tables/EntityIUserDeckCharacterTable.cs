@@ -1,29 +1,22 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserDeckCharacterTable : TableBase<EntityIUserDeckCharacter> // TypeDefIndex: 12499
+    public class EntityIUserDeckCharacterTable : TableBase<EntityIUserDeckCharacter>
     {
-        // Fields
-        private readonly Func<EntityIUserDeckCharacter, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserDeckCharacter, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35A50F8 Offset: 0x35A50F8 VA: 0x35A50F8
         public EntityIUserDeckCharacterTable(EntityIUserDeckCharacter[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.UserDeckCharacterUuid);
+            primaryIndexSelector = element => (element.UserId, element.UserDeckCharacterUuid);
         }
 
-        // RVA: 0x35A51F8 Offset: 0x35A51F8 VA: 0x35A51F8
-        public EntityIUserDeckCharacter FindByUserIdAndUserDeckCharacterUuid(ValueTuple<long, string> key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityIUserDeckCharacter FindByUserIdAndUserDeckCharacterUuid(ValueTuple<long, string> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
 
-            return null;
-        }
+        public bool TryFindByUserIdAndUserDeckCharacterUuid(ValueTuple<long, string> key, out EntityIUserDeckCharacter result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key, out result);
     }
 }

@@ -9,9 +9,11 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)] // RVA: 0x1DD9E54 Offset: 0x1DD9E54 VA: 0x1DD9E54
         public int EventQuestSequenceId { get; set; } // 0x10
+
         [Key(1)] // RVA: 0x1DD9E94 Offset: 0x1DD9E94 VA: 0x1DD9E94
         public int SortOrder { get; set; } // 0x14
+
         [Key(2)] // RVA: 0x1DD9ED4 Offset: 0x1DD9ED4 VA: 0x1DD9ED4
         public int QuestId { get; set; } // 0x18
-	}
+    }
 }

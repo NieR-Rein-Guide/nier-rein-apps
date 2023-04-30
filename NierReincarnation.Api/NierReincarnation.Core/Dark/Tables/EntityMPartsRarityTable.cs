@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -13,8 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.RarityType;
         }
-        
-        public EntityMPartsRarity FindByRarityType(RarityType key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<RarityType>.Default, key); }
 
+        public EntityMPartsRarity FindByRarityType(RarityType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<RarityType>.Default, key);
     }
 }

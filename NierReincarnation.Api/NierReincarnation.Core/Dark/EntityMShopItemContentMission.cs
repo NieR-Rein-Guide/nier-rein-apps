@@ -9,8 +9,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int ShopItemId { get; set; } // 0x10
+
         [Key(1)]
         public int MissionGroupId { get; set; } // 0x14
+
         [Key(2)]
         public bool IsReevaluateOnGrant { get; set; } // 0x18
     }

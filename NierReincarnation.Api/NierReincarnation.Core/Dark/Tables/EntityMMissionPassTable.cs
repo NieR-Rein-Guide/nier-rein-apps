@@ -13,7 +13,6 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.MissionPassId;
         }
 
-        public EntityMMissionPass FindByMissionPassId(int key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
+        public EntityMMissionPass FindByMissionPassId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

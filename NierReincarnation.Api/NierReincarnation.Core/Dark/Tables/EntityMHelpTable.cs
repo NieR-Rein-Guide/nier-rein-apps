@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -15,8 +15,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.HelpType;
             secondaryIndexSelector = element => element.HelpPageGroupId;
         }
-        
-        public bool TryFindByHelpType(HelpType key, out EntityMHelp result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<HelpType>.Default, key, out result); }
 
+        public bool TryFindByHelpType(HelpType key, out EntityMHelp result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<HelpType>.Default, key, out result);
     }
 }

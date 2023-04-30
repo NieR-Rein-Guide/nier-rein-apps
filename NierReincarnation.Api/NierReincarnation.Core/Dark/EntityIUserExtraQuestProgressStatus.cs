@@ -1,4 +1,4 @@
-﻿using MessagePack;
+using MessagePack;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -7,15 +7,19 @@ namespace NierReincarnation.Core.Dark
     [MemoryTable("i_user_extra_quest_progress_status")]
     public class EntityIUserExtraQuestProgressStatus
     {
-        [Key(0)] // RVA: 0x1DE5B9C Offset: 0x1DE5B9C VA: 0x1DE5B9C
-        public long UserId { get; set; }
-        [Key(1)] // RVA: 0x1DE5BDC Offset: 0x1DE5BDC VA: 0x1DE5BDC
-        public int CurrentQuestId { get; set; }
-        [Key(2)] // RVA: 0x1DE5BF0 Offset: 0x1DE5BF0 VA: 0x1DE5BF0
-        public int CurrentQuestSceneId { get; set; }
-        [Key(3)] // RVA: 0x1DE5C04 Offset: 0x1DE5C04 VA: 0x1DE5C04
-        public int HeadQuestSceneId { get; set; }
-        [Key(4)] // RVA: 0x1DE5C18 Offset: 0x1DE5C18 VA: 0x1DE5C18
-        public long LatestVersion { get; set; }
-	}
+        [Key(0)]
+        public long UserId { get; set; } // 0x10
+
+        [Key(1)]
+        public int CurrentQuestId { get; set; } // 0x18
+
+        [Key(2)]
+        public int CurrentQuestSceneId { get; set; } // 0x1C
+
+        [Key(3)]
+        public int HeadQuestSceneId { get; set; } // 0x20
+
+        [Key(4)]
+        public long LatestVersion { get; set; } // 0x28
+    }
 }

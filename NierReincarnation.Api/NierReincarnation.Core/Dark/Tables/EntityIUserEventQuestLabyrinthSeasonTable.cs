@@ -13,13 +13,13 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.EventQuestChapterId);
         }
 
-        public EntityIUserEventQuestLabyrinthSeason FindByUserIdAndEventQuestChapterId(ValueTuple<long, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+        public EntityIUserEventQuestLabyrinthSeason FindByUserIdAndEventQuestChapterId(ValueTuple<long, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
 
-        public bool TryFindByUserIdAndEventQuestChapterId(ValueTuple<long, int> key, out EntityIUserEventQuestLabyrinthSeason result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndEventQuestChapterId(ValueTuple<long, int> key, out EntityIUserEventQuestLabyrinthSeason result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
 
-        public RangeView<EntityIUserEventQuestLabyrinthSeason> FindRangeByUserIdAndEventQuestChapterId(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true)
-        { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant); }
+        public RangeView<EntityIUserEventQuestLabyrinthSeason> FindRangeByUserIdAndEventQuestChapterId(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant);
     }
 }

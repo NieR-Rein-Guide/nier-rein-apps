@@ -1,31 +1,20 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMQuestTable : TableBase<EntityMQuest>
     {
-        // Fields
-        private readonly Func<EntityMQuest, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuest, int> primaryIndexSelector;
 
         public EntityMQuestTable(EntityMQuest[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = quest => quest.QuestId;
+            primaryIndexSelector = element => element.QuestId;
         }
 
-        public EntityMQuest FindByQuestId(int key)
-        {
-            foreach (var quest in data)
-                if (primaryIndexSelector(quest) == key)
-                    return quest;
+        public EntityMQuest FindByQuestId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
-            return null;
-        }
-
-        public bool TryFindByQuestId(int key, out EntityMQuest result)
-        {
-            result = FindByQuestId(key);
-            return result != null;
-        }
+        public bool TryFindByQuestId(int key, out EntityMQuest result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,10 +12,10 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMWeaponAwakenStatusUpGroupTable(EntityMWeaponAwakenStatusUpGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.WeaponAwakenStatusUpGroupId,element.StatusKindType,element.StatusCalculationType);
+            primaryIndexSelector = element => (element.WeaponAwakenStatusUpGroupId, element.StatusKindType, element.StatusCalculationType);
             secondaryIndexSelector = element => element.WeaponAwakenStatusUpGroupId;
         }
 
-        public RangeView<EntityMWeaponAwakenStatusUpGroup> FindByWeaponAwakenStatusUpGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
+        public RangeView<EntityMWeaponAwakenStatusUpGroup> FindByWeaponAwakenStatusUpGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

@@ -1,6 +1,6 @@
-using System;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -10,8 +10,7 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMWeaponRarityLimitBreakMaterialGroupTable(EntityMWeaponRarityLimitBreakMaterialGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.RarityType,element.MaterialId);
+            primaryIndexSelector = element => (element.RarityType, element.MaterialId);
         }
-        
     }
 }

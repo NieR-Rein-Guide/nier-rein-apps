@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -13,8 +13,8 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.MissionClearConditionType;
         }
-        
-        public bool TryFindByMissionClearConditionType(MissionClearConditionType key, out EntityMMissionClearConditionValueView result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<MissionClearConditionType>.Default, key, out result); }
 
+        public bool TryFindByMissionClearConditionType(MissionClearConditionType key, out EntityMMissionClearConditionValueView result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<MissionClearConditionType>.Default, key, out result);
     }
 }

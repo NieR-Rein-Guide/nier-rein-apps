@@ -1,25 +1,22 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMEventQuestSequenceTable : TableBase<EntityMEventQuestSequence> // TypeDefIndex: 11896
+    public class EntityMEventQuestSequenceTable : TableBase<EntityMEventQuestSequence>
     {
-        // Fields
-        private readonly Func<EntityMEventQuestSequence, (int,int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMEventQuestSequence, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B57EB4 Offset: 0x2B57EB4 VA: 0x2B57EB4
-        public EntityMEventQuestSequenceTable(EntityMEventQuestSequence[] sortedData):base(sortedData)
+        public EntityMEventQuestSequenceTable(EntityMEventQuestSequence[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = sequence => (sequence.EventQuestSequenceId, sequence.SortOrder);
+            primaryIndexSelector = element => (element.EventQuestSequenceId, element.SortOrder);
         }
 
-        // RVA: 0x2B57FB4 Offset: 0x2B57FB4 VA: 0x2B57FB4
-        public RangeView<EntityMEventQuestSequence> FindRangeByEventQuestSequenceIdAndSortOrder((int, int) min, (int, int) max, bool ascendant = true)
-        {
-            throw new NotImplementedException();
-        }
+        public EntityMEventQuestSequence FindByEventQuestSequenceIdAndSortOrder(ValueTuple<int, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
+
+        public RangeView<EntityMEventQuestSequence> FindRangeByEventQuestSequenceIdAndSortOrder(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

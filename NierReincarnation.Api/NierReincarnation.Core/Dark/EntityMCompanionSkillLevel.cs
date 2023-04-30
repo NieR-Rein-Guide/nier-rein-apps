@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)] // RVA: 0x1DDB894 Offset: 0x1DDB894 VA: 0x1DDB894
         public int CompanionLevelLowerLimit { get; set; } // 0x10
+
         [Key(1)] // RVA: 0x1DDB8D4 Offset: 0x1DDB8D4 VA: 0x1DDB8D4
         public int SkillLevel { get; set; } // 0x14
     }

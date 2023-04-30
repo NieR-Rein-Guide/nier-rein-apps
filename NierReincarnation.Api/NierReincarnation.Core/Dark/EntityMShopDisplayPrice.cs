@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public PriceType PriceType { get; set; } // 0x10
+
         [Key(1)]
         public int PriceId { get; set; } // 0x14
+
         [Key(2)]
         public int SortOrder { get; set; } // 0x18
     }

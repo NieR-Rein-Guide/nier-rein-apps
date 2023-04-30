@@ -1,34 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMThoughtTable : TableBase<EntityMThought> // TypeDefIndex: 12627
+    public class EntityMThoughtTable : TableBase<EntityMThought>
     {
-        // Fields
-        private readonly Func<EntityMThought, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMThought, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2686AC8 Offset: 0x2686AC8 VA: 0x2686AC8
         public EntityMThoughtTable(EntityMThought[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = thought => thought.ThoughtId;
+            primaryIndexSelector = element => element.ThoughtId;
         }
 
-        // RVA: 0x2686BC8 Offset: 0x2686BC8 VA: 0x2686BC8
-        public bool TryFindByThoughtId(int key, out EntityMThought result)
-        {
-            result = null;
-
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByThoughtId(int key, out EntityMThought result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

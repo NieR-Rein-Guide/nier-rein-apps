@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMQuestDeckRestrictionGroupTable : TableBase<EntityMQuestDeckRestrictionGroup> // TypeDefIndex: 12137
+    public class EntityMQuestDeckRestrictionGroupTable : TableBase<EntityMQuestDeckRestrictionGroup>
     {
-        // Fields
-        private readonly Func<EntityMQuestDeckRestrictionGroup, (int, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestDeckRestrictionGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C54108 Offset: 0x2C54108 VA: 0x2C54108
-        public EntityMQuestDeckRestrictionGroupTable(EntityMQuestDeckRestrictionGroup[] sortedData):base(sortedData)
+        public EntityMQuestDeckRestrictionGroupTable(EntityMQuestDeckRestrictionGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.QuestDeckRestrictionGroupId, group.SlotNumber);
+            primaryIndexSelector = element => (element.QuestDeckRestrictionGroupId, element.SlotNumber);
         }
 
-        // RVA: 0x2C54208 Offset: 0x2C54208 VA: 0x2C54208
-        public RangeView<EntityMQuestDeckRestrictionGroup> FindRangeByQuestDeckRestrictionGroupIdAndSlotNumber((int, int) min, (int, int) max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMQuestDeckRestrictionGroup> FindRangeByQuestDeckRestrictionGroupIdAndSlotNumber(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

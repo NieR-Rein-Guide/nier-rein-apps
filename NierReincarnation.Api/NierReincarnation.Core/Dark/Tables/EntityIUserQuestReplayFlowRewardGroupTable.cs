@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.QuestReplayFlowRewardGroupId);
         }
 
-        public bool TryFindByUserIdAndQuestReplayFlowRewardGroupId(ValueTuple<long, int> key, out EntityIUserQuestReplayFlowRewardGroup result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndQuestReplayFlowRewardGroupId(ValueTuple<long, int> key, out EntityIUserQuestReplayFlowRewardGroup result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

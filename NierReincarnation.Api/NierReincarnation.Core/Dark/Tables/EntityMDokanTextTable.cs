@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,10 +11,9 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMDokanTextTable(EntityMDokanText[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.DokanTextId,element.LanguageType);
+            primaryIndexSelector = element => (element.DokanTextId, element.LanguageType);
         }
-        
-        public EntityMDokanText FindByDokanTextIdAndLanguageType(ValueTuple<int, LanguageType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key); }
 
+        public EntityMDokanText FindByDokanTextIdAndLanguageType(ValueTuple<int, LanguageType> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key);
     }
 }

@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.DokanId);
         }
 
-        public bool TryFindByUserIdAndDokanId(ValueTuple<long, int> key, out EntityIUserDokan result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndDokanId(ValueTuple<long, int> key, out EntityIUserDokan result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

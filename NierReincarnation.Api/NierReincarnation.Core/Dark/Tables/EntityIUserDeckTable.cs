@@ -1,46 +1,23 @@
-﻿using System;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserDeckTable : TableBase<EntityIUserDeck> // TypeDefIndex: 12505
+    public class EntityIUserDeckTable : TableBase<EntityIUserDeck>
     {
-        // Fields
-        private readonly Func<EntityIUserDeck, ValueTuple<long, DeckType, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserDeck, (long, DeckType, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35A6610 Offset: 0x35A6610 VA: 0x35A6610
-        public EntityIUserDeckTable(EntityIUserDeck[] sortedData):base(sortedData)
+        public EntityIUserDeckTable(EntityIUserDeck[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.DeckType, user.UserDeckNumber);
+            primaryIndexSelector = element => (element.UserId, element.DeckType, element.UserDeckNumber);
         }
 
-        // RVA: 0x35A6710 Offset: 0x35A6710 VA: 0x35A6710
-        public EntityIUserDeck FindByUserIdAndDeckTypeAndUserDeckNumber(ValueTuple<long, DeckType, int> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityIUserDeck FindByUserIdAndDeckTypeAndUserDeckNumber(ValueTuple<long, DeckType, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, DeckType, int)>.Default, key);
 
-            return null;
-        }
-
-        // RVA: 0x35A6798 Offset: 0x35A6798 VA: 0x35A6798
-        public bool TryFindByUserIdAndDeckTypeAndUserDeckNumber(ValueTuple<long, DeckType, int> key,
-            out EntityIUserDeck result)
-        {
-            result = null;
-
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByUserIdAndDeckTypeAndUserDeckNumber(ValueTuple<long, DeckType, int> key, out EntityIUserDeck result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, DeckType, int)>.Default, key, out result);
     }
 }

@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMPartsTable : TableBase<EntityMParts> // TypeDefIndex: 12063
+    public class EntityMPartsTable : TableBase<EntityMParts>
     {
-        // Fields
-        private readonly Func<EntityMParts, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMParts, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C52BE4 Offset: 0x2C52BE4 VA: 0x2C52BE4
-        public EntityMPartsTable(EntityMParts[] sortedData):base(sortedData)
+        public EntityMPartsTable(EntityMParts[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = parts => parts.PartsId;
+            primaryIndexSelector = element => element.PartsId;
         }
 
-        // RVA: 0x2C52CE4 Offset: 0x2C52CE4 VA: 0x2C52CE4
-        public EntityMParts FindByPartsId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMParts FindByPartsId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

@@ -9,8 +9,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillBehaviourActionId { get; set; } // 0x10
+
         [Key(1)]
         public int DamageValue { get; set; } // 0x14
+
         [Key(2)]
         public bool ForceDamage { get; set; } // 0x18
     }

@@ -13,7 +13,6 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.AbilityBehaviourActionId;
         }
 
-        public EntityMAbilityBehaviourActionStatusDown FindByAbilityBehaviourActionId(int key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
+        public EntityMAbilityBehaviourActionStatusDown FindByAbilityBehaviourActionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

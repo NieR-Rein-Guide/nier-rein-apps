@@ -15,7 +15,6 @@ namespace NierReincarnation.Core.Dark.Tables
             secondaryIndexSelector = element => element.MissionPassId;
         }
 
-        public RangeView<EntityMMissionPassMissionGroup> FindByMissionPassId(int key)
-        { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
+        public RangeView<EntityMMissionPassMissionGroup> FindByMissionPassId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

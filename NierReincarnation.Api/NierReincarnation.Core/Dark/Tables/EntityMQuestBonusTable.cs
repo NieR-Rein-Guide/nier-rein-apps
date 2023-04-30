@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMQuestBonusTable : TableBase<EntityMQuestBonus> // TypeDefIndex: 12357
+    public class EntityMQuestBonusTable : TableBase<EntityMQuestBonus>
     {
-        // Fields
-        private readonly Func<EntityMQuestBonus, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestBonus, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2D1020C Offset: 0x2D1020C VA: 0x2D1020C
-        public EntityMQuestBonusTable(EntityMQuestBonus[] sortedData):base(sortedData)
+        public EntityMQuestBonusTable(EntityMQuestBonus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = bonus => bonus.QuestBonusId;
+            primaryIndexSelector = element => element.QuestBonusId;
         }
 
-        // RVA: 0x2D1030C Offset: 0x2D1030C VA: 0x2D1030C
-        public EntityMQuestBonus FindByQuestBonusId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMQuestBonus FindByQuestBonusId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

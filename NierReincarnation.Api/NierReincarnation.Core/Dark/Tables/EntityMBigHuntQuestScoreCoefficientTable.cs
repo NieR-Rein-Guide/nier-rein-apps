@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBigHuntQuestScoreCoefficientTable : TableBase<EntityMBigHuntQuestScoreCoefficient> // TypeDefIndex: 11711
+    public class EntityMBigHuntQuestScoreCoefficientTable : TableBase<EntityMBigHuntQuestScoreCoefficient>
     {
-        // Fields
-        private readonly Func<EntityMBigHuntQuestScoreCoefficient, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBigHuntQuestScoreCoefficient, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C47860 Offset: 0x2C47860 VA: 0x2C47860
-        public EntityMBigHuntQuestScoreCoefficientTable(EntityMBigHuntQuestScoreCoefficient[] sortedData):base(sortedData)
+        public EntityMBigHuntQuestScoreCoefficientTable(EntityMBigHuntQuestScoreCoefficient[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = coefficient => coefficient.BigHuntQuestScoreCoefficientId;
+            primaryIndexSelector = element => element.BigHuntQuestScoreCoefficientId;
         }
 
-        // RVA: 0x2C47960 Offset: 0x2C47960 VA: 0x2C47960
-        public EntityMBigHuntQuestScoreCoefficient FindByBigHuntQuestScoreCoefficientId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMBigHuntQuestScoreCoefficient FindByBigHuntQuestScoreCoefficientId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

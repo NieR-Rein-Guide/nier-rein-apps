@@ -10,10 +10,13 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public SkillCategoryType SkillCategoryType { get; set; } // 0x10
+
         [Key(1)]
         public int HitCount { get; set; } // 0x14
+
         [Key(2)]
         public int HitIndexLowerLimit { get; set; } // 0x18
+
         [Key(3)]
         public int DamageCoefficientValuePermil { get; set; } // 0x1C
     }

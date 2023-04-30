@@ -1,24 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMWeaponTable : TableBase<EntityMWeapon> // TypeDefIndex: 12449
+    public class EntityMWeaponTable : TableBase<EntityMWeapon>
     {
-        private readonly Func<EntityMWeapon, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMWeapon, int> primaryIndexSelector;
 
-        public EntityMWeaponTable(EntityMWeapon[] sortedData):base(sortedData)
+        public EntityMWeaponTable(EntityMWeapon[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = weapon => weapon.WeaponId;
+            primaryIndexSelector = element => element.WeaponId;
         }
 
-        public EntityMWeapon FindByWeaponId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public EntityMWeapon FindByWeaponId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

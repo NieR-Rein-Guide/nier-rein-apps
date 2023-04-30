@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,12 +11,13 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMCollectionBonusEffectTable(EntityMCollectionBonusEffect[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.CollectionBonusEffectId,element.CollectionBonusEffectType);
+            primaryIndexSelector = element => (element.CollectionBonusEffectId, element.CollectionBonusEffectType);
         }
 
-        public EntityMCollectionBonusEffect FindByCollectionBonusEffectIdAndCollectionBonusEffectType(ValueTuple<int, CollectionBonusEffectType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, CollectionBonusEffectType)>.Default, key); }
+        public EntityMCollectionBonusEffect FindByCollectionBonusEffectIdAndCollectionBonusEffectType(ValueTuple<int, CollectionBonusEffectType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, CollectionBonusEffectType)>.Default, key);
 
-        public RangeView<EntityMCollectionBonusEffect> FindRangeByCollectionBonusEffectIdAndCollectionBonusEffectType(ValueTuple<int, CollectionBonusEffectType> min, ValueTuple<int, CollectionBonusEffectType> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, CollectionBonusEffectType)>.Default, min, max, ascendant); }
-
+        public RangeView<EntityMCollectionBonusEffect> FindRangeByCollectionBonusEffectIdAndCollectionBonusEffectType(ValueTuple<int, CollectionBonusEffectType> min, ValueTuple<int, CollectionBonusEffectType> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, CollectionBonusEffectType)>.Default, min, max, ascendant);
     }
 }

@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMQuestReleaseConditionQuestClearTable : TableBase<EntityMQuestReleaseConditionQuestClear> // TypeDefIndex: 12165
+    public class EntityMQuestReleaseConditionQuestClearTable : TableBase<EntityMQuestReleaseConditionQuestClear>
     {
-        // Fields
-        private readonly Func<EntityMQuestReleaseConditionQuestClear, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestReleaseConditionQuestClear, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C59874 Offset: 0x2C59874 VA: 0x2C59874
-        public EntityMQuestReleaseConditionQuestClearTable(EntityMQuestReleaseConditionQuestClear[] sortedData):base(sortedData)
+        public EntityMQuestReleaseConditionQuestClearTable(EntityMQuestReleaseConditionQuestClear[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = clear => clear.QuestReleaseConditionId;
+            primaryIndexSelector = element => element.QuestReleaseConditionId;
         }
 
-        // RVA: 0x2C59974 Offset: 0x2C59974 VA: 0x2C59974
-        public EntityMQuestReleaseConditionQuestClear FindByQuestReleaseConditionId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMQuestReleaseConditionQuestClear FindByQuestReleaseConditionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

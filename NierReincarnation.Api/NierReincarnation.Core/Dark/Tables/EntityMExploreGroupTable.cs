@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,14 +12,12 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMExploreGroupTable(EntityMExploreGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.ExploreGroupId,element.DifficultyType);
+            primaryIndexSelector = element => (element.ExploreGroupId, element.DifficultyType);
             secondaryIndexSelector = element => element.ExploreId;
         }
-        
-        public EntityMExploreGroup FindByExploreGroupIdAndDifficultyType(ValueTuple<int, DifficultyType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key); }
 
-	
-        public RangeView<EntityMExploreGroup> FindByExploreId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
+        public EntityMExploreGroup FindByExploreGroupIdAndDifficultyType(ValueTuple<int, DifficultyType> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key);
 
+        public RangeView<EntityMExploreGroup> FindByExploreId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

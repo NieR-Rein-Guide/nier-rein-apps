@@ -1,48 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserWeaponAbilityTable : TableBase<EntityIUserWeaponAbility> // TypeDefIndex: 12607
+    public class EntityIUserWeaponAbilityTable : TableBase<EntityIUserWeaponAbility>
     {
-        // Fields
-        private readonly Func<EntityIUserWeaponAbility, ValueTuple<long, string, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserWeaponAbility, (long, string, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C3CBAC Offset: 0x2C3CBAC VA: 0x2C3CBAC
-        public EntityIUserWeaponAbilityTable(EntityIUserWeaponAbility[] sortedData):base(sortedData)
+        public EntityIUserWeaponAbilityTable(EntityIUserWeaponAbility[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.UserWeaponUuid, user.SlotNumber);
+            primaryIndexSelector = element => (element.UserId, element.UserWeaponUuid, element.SlotNumber);
         }
 
-        public EntityIUserWeaponAbility FindByUserIdAndUserWeaponUuidAndSlotNumber(ValueTuple<long, string, int> key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
-
-        // RVA: 0x2C3CCAC Offset: 0x2C3CCAC VA: 0x2C3CCAC
-        public bool TryFindByUserIdAndUserWeaponUuidAndSlotNumber(ValueTuple<long, string, int> key, out EntityIUserWeaponAbility result)
-        {
-            result = null;
-
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByUserIdAndUserWeaponUuidAndSlotNumber(ValueTuple<long, string, int> key, out EntityIUserWeaponAbility result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string, int)>.Default, key, out result);
     }
 }

@@ -1,22 +1,22 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMWeaponStoryReleaseConditionGroupTable : TableBase<EntityMWeaponStoryReleaseConditionGroup>
     {
-        private readonly Func<EntityMWeaponStoryReleaseConditionGroup, (int,int)> primaryIndexSelector;
+        private readonly Func<EntityMWeaponStoryReleaseConditionGroup, (int, int)> primaryIndexSelector;
 
         public EntityMWeaponStoryReleaseConditionGroupTable(EntityMWeaponStoryReleaseConditionGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.WeaponStoryReleaseConditionGroupId,element.StoryIndex);
+            primaryIndexSelector = element => (element.WeaponStoryReleaseConditionGroupId, element.StoryIndex);
         }
-        
-        public EntityMWeaponStoryReleaseConditionGroup FindByWeaponStoryReleaseConditionGroupIdAndStoryIndex(ValueTuple<int, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, key); }
 
-	
-        public RangeView<EntityMWeaponStoryReleaseConditionGroup> FindRangeByWeaponStoryReleaseConditionGroupIdAndStoryIndex(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, min, max, ascendant); }
+        public EntityMWeaponStoryReleaseConditionGroup FindByWeaponStoryReleaseConditionGroupIdAndStoryIndex(ValueTuple<int, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
 
+        public RangeView<EntityMWeaponStoryReleaseConditionGroup> FindRangeByWeaponStoryReleaseConditionGroupIdAndStoryIndex(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

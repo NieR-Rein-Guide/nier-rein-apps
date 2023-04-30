@@ -1,31 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMEventQuestSequenceGroupTable : TableBase<EntityMEventQuestSequenceGroup> // TypeDefIndex: 11894
+    public class EntityMEventQuestSequenceGroupTable : TableBase<EntityMEventQuestSequenceGroup>
     {
-        // Fields
-        private readonly Func<EntityMEventQuestSequenceGroup, (int, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMEventQuestSequenceGroup, (int, DifficultyType)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B57C58 Offset: 0x2B57C58 VA: 0x2B57C58
         public EntityMEventQuestSequenceGroupTable(EntityMEventQuestSequenceGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.EventQuestSequenceGroupId, (int)group.DifficultyType);
+            primaryIndexSelector = element => (element.EventQuestSequenceGroupId, element.DifficultyType);
         }
 
-        // RVA: 0x2B57D58 Offset: 0x2B57D58 VA: 0x2B57D58
-        public EntityMEventQuestSequenceGroup FindByEventQuestSequenceGroupIdAndDifficultyType((int, int) key)
-        {
-            return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
-        }
+        public EntityMEventQuestSequenceGroup FindByEventQuestSequenceGroupIdAndDifficultyType(ValueTuple<int, DifficultyType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key);
 
-        public RangeView<EntityMEventQuestSequenceGroup> FindRangeByEventQuestSequenceGroupIdAndDifficultyType((int, int) min, (int, int) max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMEventQuestSequenceGroup> FindRangeByEventQuestSequenceGroupIdAndDifficultyType(ValueTuple<int, DifficultyType> min, ValueTuple<int, DifficultyType> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, min, max, ascendant);
     }
 }

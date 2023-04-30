@@ -1,19 +1,15 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMShopItemCellTable : TableBase<EntityMShopItemCell> // TypeDefIndex: 12195
+    public class EntityMShopItemCellTable : TableBase<EntityMShopItemCell>
     {
-        // Fields
-        private readonly Func<EntityMShopItemCell, (int, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMShopItemCell, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C581E0 Offset: 0x2C581E0 VA: 0x2C581E0
-        public EntityMShopItemCellTable(EntityMShopItemCell[] sortedData):base(sortedData)
+        public EntityMShopItemCellTable(EntityMShopItemCell[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = cell => (cell.ShopItemCellId, cell.StepNumber);
+            primaryIndexSelector = element => (element.ShopItemCellId, element.StepNumber);
         }
     }
 }

@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,10 +11,10 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMCostumeDefaultSkillGroupTable(EntityMCostumeDefaultSkillGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.CostumeDefaultSkillGroupId,element.CostumeDefaultSkillLotteryType);
+            primaryIndexSelector = element => (element.CostumeDefaultSkillGroupId, element.CostumeDefaultSkillLotteryType);
         }
 
-        public EntityMCostumeDefaultSkillGroup FindByCostumeDefaultSkillGroupIdAndCostumeDefaultSkillLotteryType(ValueTuple<int, CostumeDefaultSkillLotteryType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, CostumeDefaultSkillLotteryType)>.Default, key); }
-
+        public EntityMCostumeDefaultSkillGroup FindByCostumeDefaultSkillGroupIdAndCostumeDefaultSkillLotteryType(ValueTuple<int, CostumeDefaultSkillLotteryType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, CostumeDefaultSkillLotteryType)>.Default, key);
     }
 }

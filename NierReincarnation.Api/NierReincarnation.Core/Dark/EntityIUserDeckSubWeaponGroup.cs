@@ -1,4 +1,4 @@
-﻿using MessagePack;
+using MessagePack;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark
@@ -7,15 +7,19 @@ namespace NierReincarnation.Core.Dark
     [MemoryTable("i_user_deck_sub_weapon_group")]
     public class EntityIUserDeckSubWeaponGroup
     {
-        [Key(0)] // RVA: 0x1DE8B88 Offset: 0x1DE8B88 VA: 0x1DE8B88
-        public long UserId { get; set; }
-        [Key(1)] // RVA: 0x1DE8BC8 Offset: 0x1DE8BC8 VA: 0x1DE8BC8
-        public string UserDeckCharacterUuid { get; set; }
-        [Key(2)] // RVA: 0x1DE8C08 Offset: 0x1DE8C08 VA: 0x1DE8C08
-        public string UserWeaponUuid { get; set; }
-        [Key(3)] // RVA: 0x1DE8C48 Offset: 0x1DE8C48 VA: 0x1DE8C48
-        public int SortOrder { get; set; }
-        [Key(4)] // RVA: 0x1DE8C5C Offset: 0x1DE8C5C VA: 0x1DE8C5C
-        public long LatestVersion { get; set; }
-	}
+        [Key(0)]
+        public long UserId { get; set; } // 0x10
+
+        [Key(1)]
+        public string UserDeckCharacterUuid { get; set; } // 0x18
+
+        [Key(2)]
+        public string UserWeaponUuid { get; set; } // 0x20
+
+        [Key(3)]
+        public int SortOrder { get; set; } // 0x28
+
+        [Key(4)]
+        public long LatestVersion { get; set; } // 0x30
+    }
 }

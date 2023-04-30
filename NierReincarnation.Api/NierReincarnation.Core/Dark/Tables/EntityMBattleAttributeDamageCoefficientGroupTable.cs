@@ -1,17 +1,15 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMBattleAttributeDamageCoefficientGroupTable : TableBase<EntityMBattleAttributeDamageCoefficientGroup>
     {
-        private readonly Func<EntityMBattleAttributeDamageCoefficientGroup, (int,int,int)> primaryIndexSelector;
+        private readonly Func<EntityMBattleAttributeDamageCoefficientGroup, (int, int, int)> primaryIndexSelector;
 
         public EntityMBattleAttributeDamageCoefficientGroupTable(EntityMBattleAttributeDamageCoefficientGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.AttributeDamageCoefficientGroupId,element.SkillExecutorAttributeType,element.SkillTargetAttributeType);
+            primaryIndexSelector = element => (element.AttributeDamageCoefficientGroupId, element.SkillExecutorAttributeType, element.SkillTargetAttributeType);
         }
-        
     }
 }

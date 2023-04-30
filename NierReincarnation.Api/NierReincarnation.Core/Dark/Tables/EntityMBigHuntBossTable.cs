@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBigHuntBossTable : TableBase<EntityMBigHuntBoss> // TypeDefIndex: 11705
+    public class EntityMBigHuntBossTable : TableBase<EntityMBigHuntBoss>
     {
-        // Fields
-        private readonly Func<EntityMBigHuntBoss, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBigHuntBoss, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C472E8 Offset: 0x2C472E8 VA: 0x2C472E8
-        public EntityMBigHuntBossTable(EntityMBigHuntBoss[] sortedData):base(sortedData)
+        public EntityMBigHuntBossTable(EntityMBigHuntBoss[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = boss => boss.BigHuntBossId;
+            primaryIndexSelector = element => element.BigHuntBossId;
         }
 
-        // RVA: 0x2C473E8 Offset: 0x2C473E8 VA: 0x2C473E8
-        public EntityMBigHuntBoss FindByBigHuntBossId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMBigHuntBoss FindByBigHuntBossId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

@@ -1,36 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserCharacterBoardStatusUpTable : TableBase<EntityIUserCharacterBoardStatusUp> // TypeDefIndex: 12477
+    public class EntityIUserCharacterBoardStatusUpTable : TableBase<EntityIUserCharacterBoardStatusUp>
     {
-        // Fields
-        private readonly Func<EntityIUserCharacterBoardStatusUp, (long, int, StatusCalculationType)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserCharacterBoardStatusUp, (long, int, StatusCalculationType)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC4C7C Offset: 0x2DC4C7C VA: 0x2DC4C7C
         public EntityIUserCharacterBoardStatusUpTable(EntityIUserCharacterBoardStatusUp[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.CharacterId, user.StatusCalculationType);
+            primaryIndexSelector = element => (element.UserId, element.CharacterId, element.StatusCalculationType);
         }
 
-        // RVA: 0x2DC4D7C Offset: 0x2DC4D7C VA: 0x2DC4D7C
-        public EntityIUserCharacterBoardStatusUp FindByUserIdAndCharacterIdAndStatusCalculationType((long, int, StatusCalculationType) key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityIUserCharacterBoardStatusUp FindByUserIdAndCharacterIdAndStatusCalculationType(ValueTuple<long, int, StatusCalculationType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, StatusCalculationType)>.Default, key);
 
-            return null;
-        }
-
-        public RangeView<EntityIUserCharacterBoardStatusUp> FindRangeByUserIdAndCharacterIdAndStatusCalculationType(ValueTuple<long, int, StatusCalculationType> min, ValueTuple<long, int, StatusCalculationType> max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int, StatusCalculationType)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityIUserCharacterBoardStatusUp> FindRangeByUserIdAndCharacterIdAndStatusCalculationType(ValueTuple<long, int, StatusCalculationType> min, ValueTuple<long, int, StatusCalculationType> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int, StatusCalculationType)>.Default, min, max, ascendant);
     }
 }

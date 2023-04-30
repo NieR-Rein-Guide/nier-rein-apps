@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public long BattleNpcId { get; set; } // 0x10
+
         [Key(1)]
         public string BattleNpcDeckCharacterUuid { get; set; } // 0x18
+
         [Key(2)]
         public BattleEnemyType BattleEnemyType { get; set; } // 0x20
     }

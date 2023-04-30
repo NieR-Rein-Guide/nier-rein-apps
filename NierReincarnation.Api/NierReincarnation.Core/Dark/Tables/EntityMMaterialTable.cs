@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMMaterialTable : TableBase<EntityMMaterial> // TypeDefIndex: 12061
+    public class EntityMMaterialTable : TableBase<EntityMMaterial>
     {
-        // Fields
-        private readonly Func<EntityMMaterial, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMMaterial, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C227F0 Offset: 0x2C227F0 VA: 0x2C227F0
-        public EntityMMaterialTable(EntityMMaterial[] sortedData):base(sortedData)
+        public EntityMMaterialTable(EntityMMaterial[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = material => material.MaterialId;
+            primaryIndexSelector = element => element.MaterialId;
         }
 
-        // RVA: 0x2C228F0 Offset: 0x2C228F0 VA: 0x2C228F0
-        public EntityMMaterial FindByMaterialId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMMaterial FindByMaterialId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMPartsSeriesBonusAbilityGroupTable : TableBase<EntityMPartsSeriesBonusAbilityGroup> // TypeDefIndex: 12057
+    public class EntityMPartsSeriesBonusAbilityGroupTable : TableBase<EntityMPartsSeriesBonusAbilityGroup>
     {
-        // Fields
-        private readonly Func<EntityMPartsSeriesBonusAbilityGroup, ValueTuple<int, int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMPartsSeriesBonusAbilityGroup, (int, int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C52460 Offset: 0x2C52460 VA: 0x2C52460
-        public EntityMPartsSeriesBonusAbilityGroupTable(EntityMPartsSeriesBonusAbilityGroup[] sortedData):base(sortedData)
+        public EntityMPartsSeriesBonusAbilityGroupTable(EntityMPartsSeriesBonusAbilityGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.PartsSeriesBonusAbilityGroupId, group.SetCount, group.AbilityId);
+            primaryIndexSelector = element => (element.PartsSeriesBonusAbilityGroupId, element.SetCount, element.AbilityId);
         }
 
-        public RangeView<EntityMPartsSeriesBonusAbilityGroup> FindRangeByPartsSeriesBonusAbilityGroupIdAndSetCountAndAbilityId(ValueTuple<int, int, int> min, ValueTuple<int, int, int> max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int, int)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMPartsSeriesBonusAbilityGroup> FindRangeByPartsSeriesBonusAbilityGroupIdAndSetCountAndAbilityId(ValueTuple<int, int, int> min, ValueTuple<int, int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int, int)>.Default, min, max, ascendant);
     }
 }

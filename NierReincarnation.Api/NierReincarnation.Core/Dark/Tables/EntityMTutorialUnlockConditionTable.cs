@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -13,8 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.TutorialType;
         }
-        
-        public EntityMTutorialUnlockCondition FindByTutorialType(TutorialType key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<TutorialType>.Default, key); }
 
+        public EntityMTutorialUnlockCondition FindByTutorialType(TutorialType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<TutorialType>.Default, key);
     }
 }

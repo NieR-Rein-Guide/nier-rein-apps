@@ -13,7 +13,6 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.UserId;
         }
 
-        public EntityIUserPortalCageStatus FindByUserId(long key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key); }
+        public EntityIUserPortalCageStatus FindByUserId(long key) => FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key);
     }
 }

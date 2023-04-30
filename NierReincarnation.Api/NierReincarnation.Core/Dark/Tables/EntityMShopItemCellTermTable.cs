@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMShopItemCellTermTable : TableBase<EntityMShopItemCellTerm> // TypeDefIndex: 12197
+    public class EntityMShopItemCellTermTable : TableBase<EntityMShopItemCellTerm>
     {
-        // Fields
-        private readonly Func<EntityMShopItemCellTerm, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMShopItemCellTerm, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C583BC Offset: 0x2C583BC VA: 0x2C583BC
-        public EntityMShopItemCellTermTable(EntityMShopItemCellTerm[] sortedData):base(sortedData)
+        public EntityMShopItemCellTermTable(EntityMShopItemCellTerm[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = term => term.ShopItemCellTermId;
+            primaryIndexSelector = element => element.ShopItemCellTermId;
         }
 
-        // RVA: 0x2C584BC Offset: 0x2C584BC VA: 0x2C584BC
-        public EntityMShopItemCellTerm FindByShopItemCellTermId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMShopItemCellTerm FindByShopItemCellTermId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

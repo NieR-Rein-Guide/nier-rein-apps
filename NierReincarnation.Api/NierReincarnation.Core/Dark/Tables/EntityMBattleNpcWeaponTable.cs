@@ -1,29 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBattleNpcWeaponTable : TableBase<EntityMBattleNpcWeapon> // TypeDefIndex: 11683
+    public class EntityMBattleNpcWeaponTable : TableBase<EntityMBattleNpcWeapon>
     {
-        // Fields
-        private readonly Func<EntityMBattleNpcWeapon, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBattleNpcWeapon, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C49384 Offset: 0x2C49384 VA: 0x2C49384
-        public EntityMBattleNpcWeaponTable(EntityMBattleNpcWeapon[] sortedData):base(sortedData)
+        public EntityMBattleNpcWeaponTable(EntityMBattleNpcWeapon[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = weapon => (weapon.BattleNpcId, weapon.BattleNpcWeaponUuid);
+            primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcWeaponUuid);
         }
 
-        // RVA: 0x2C49484 Offset: 0x2C49484 VA: 0x2C49484
-        public EntityMBattleNpcWeapon FindByBattleNpcIdAndBattleNpcWeaponUuid(ValueTuple<long, string> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMBattleNpcWeapon FindByBattleNpcIdAndBattleNpcWeaponUuid(ValueTuple<long, string> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
     }
 }

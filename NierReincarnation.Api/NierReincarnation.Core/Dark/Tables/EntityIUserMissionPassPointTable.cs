@@ -13,10 +13,9 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.MissionPassId);
         }
 
-        public EntityIUserMissionPassPoint FindByUserIdAndMissionPassId(ValueTuple<long, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+        public EntityIUserMissionPassPoint FindByUserIdAndMissionPassId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
 
-        public bool TryFindByUserIdAndMissionPassId(ValueTuple<long, int> key, out EntityIUserMissionPassPoint result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndMissionPassId(ValueTuple<long, int> key, out EntityIUserMissionPassPoint result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

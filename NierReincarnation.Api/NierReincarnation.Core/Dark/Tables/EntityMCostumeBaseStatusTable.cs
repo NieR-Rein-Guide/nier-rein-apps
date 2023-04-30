@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMCostumeBaseStatusTable : TableBase<EntityMCostumeBaseStatus> // TypeDefIndex: 11839
+    public class EntityMCostumeBaseStatusTable : TableBase<EntityMCostumeBaseStatus>
     {
-        // Fields
-        private readonly Func<EntityMCostumeBaseStatus, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCostumeBaseStatus, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B433A8 Offset: 0x2B433A8 VA: 0x2B433A8
-        public EntityMCostumeBaseStatusTable(EntityMCostumeBaseStatus[] sortedData):base(sortedData)
+        public EntityMCostumeBaseStatusTable(EntityMCostumeBaseStatus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = status => status.CostumeBaseStatusId;
+            primaryIndexSelector = element => element.CostumeBaseStatusId;
         }
 
-        // RVA: 0x2B434A8 Offset: 0x2B434A8 VA: 0x2B434A8
-        public EntityMCostumeBaseStatus FindByCostumeBaseStatusId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public EntityMCostumeBaseStatus FindByCostumeBaseStatusId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

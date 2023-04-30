@@ -1,36 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMWeaponSkillGroupTable : TableBase<EntityMWeaponSkillGroup> // TypeDefIndex: 12435
+    public class EntityMWeaponSkillGroupTable : TableBase<EntityMWeaponSkillGroup>
     {
-        // Fields
-        private readonly Func<EntityMWeaponSkillGroup, ValueTuple<int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMWeaponSkillGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2BACC50 Offset: 0x2BACC50 VA: 0x2BACC50
-        public EntityMWeaponSkillGroupTable(EntityMWeaponSkillGroup[] sortedData):base(sortedData)
+        public EntityMWeaponSkillGroupTable(EntityMWeaponSkillGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.WeaponSkillGroupId, group.SlotNumber);
+            primaryIndexSelector = element => (element.WeaponSkillGroupId, element.SlotNumber);
         }
 
-        // RVA: 0x2BACD50 Offset: 0x2BACD50 VA: 0x2BACD50
-        public EntityMWeaponSkillGroup FindByWeaponSkillGroupIdAndSlotNumber(ValueTuple<int, int> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityMWeaponSkillGroup FindByWeaponSkillGroupIdAndSlotNumber(ValueTuple<int, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
 
-            return null;
-        }
-
-        // RVA: 0x2BACDD0 Offset: 0x2BACDD0 VA: 0x2BACDD0
-        public RangeView<EntityMWeaponSkillGroup> FindRangeByWeaponSkillGroupIdAndSlotNumber(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMWeaponSkillGroup> FindRangeByWeaponSkillGroupIdAndSlotNumber(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

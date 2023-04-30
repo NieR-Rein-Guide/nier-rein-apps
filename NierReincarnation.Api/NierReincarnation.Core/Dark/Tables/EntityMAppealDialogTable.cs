@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -16,7 +16,6 @@ namespace NierReincarnation.Core.Dark.Tables
             secondaryIndexSelector = element => element.AppealTargetType;
         }
 
-        public RangeView<EntityMAppealDialog> FindByAppealTargetType(AppealTargetType key) { return FindManyCore(data, secondaryIndexSelector, Comparer<AppealTargetType>.Default, key); }
-
+        public RangeView<EntityMAppealDialog> FindByAppealTargetType(AppealTargetType key) => FindManyCore(data, secondaryIndexSelector, Comparer<AppealTargetType>.Default, key);
     }
 }

@@ -49,7 +49,7 @@ namespace NierReincarnation.Context
             if (entry == null)
                 return false;
 
-            return entry.CurrentQuestSceneId != 0 && entry.CurrentQuestFlowType == 1;
+            return entry.CurrentQuestSceneId != 0 && entry.CurrentQuestFlowType == QuestFlowType.MAIN_FLOW;
         }
 
         public async Task<BattleResult> ExecuteMainQuest(QuestCellData quest, DataDeck deck)

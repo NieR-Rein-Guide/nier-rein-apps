@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.QuestSceneChoiceEffectId);
         }
 
-        public bool TryFindByUserIdAndQuestSceneChoiceEffectId(ValueTuple<long, int> key, out EntityIUserQuestSceneChoiceHistory result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndQuestSceneChoiceEffectId(ValueTuple<long, int> key, out EntityIUserQuestSceneChoiceHistory result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

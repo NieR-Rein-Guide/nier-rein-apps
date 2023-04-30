@@ -9,8 +9,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int BattleEventReceiverBehaviourId { get; set; } // 0x10
+
         [Key(1)]
         public int SpeakerId { get; set; } // 0x14
+
         [Key(2)]
         public string ScenarioKey { get; set; } // 0x18
     }

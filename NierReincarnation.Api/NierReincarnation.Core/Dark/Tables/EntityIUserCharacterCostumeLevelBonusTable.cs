@@ -1,60 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserCharacterCostumeLevelBonusTable : TableBase<EntityIUserCharacterCostumeLevelBonus> // TypeDefIndex: 12481
+    public class EntityIUserCharacterCostumeLevelBonusTable : TableBase<EntityIUserCharacterCostumeLevelBonus>
     {
-        // Fields
-        private readonly Func<EntityIUserCharacterCostumeLevelBonus, (long, int, StatusCalculationType)> primaryIndexSelector; // 0x18
-        private readonly Func<EntityIUserCharacterCostumeLevelBonus, int> secondaryIndex0Selector; // 0x28
+        private readonly Func<EntityIUserCharacterCostumeLevelBonus, (long, int, StatusCalculationType)> primaryIndexSelector;
+        private readonly Func<EntityIUserCharacterCostumeLevelBonus, int> secondaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC5EE8 Offset: 0x2DC5EE8 VA: 0x2DC5EE8
         public EntityIUserCharacterCostumeLevelBonusTable(EntityIUserCharacterCostumeLevelBonus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.CharacterId, user.StatusCalculationType);
-            secondaryIndex0Selector = user => user.CharacterId;
+            primaryIndexSelector = element => (element.UserId, element.CharacterId, element.StatusCalculationType);
+            secondaryIndexSelector = element => element.CharacterId;
         }
 
-        public EntityIUserCharacterCostumeLevelBonus FindByUserIdAndCharacterIdAndStatusCalculationType((long, int, StatusCalculationType) key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public bool TryFindByUserIdAndCharacterIdAndStatusCalculationType(ValueTuple<long, int, StatusCalculationType> key, out EntityIUserCharacterCostumeLevelBonus result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, StatusCalculationType)>.Default, key, out result);
 
-            return null;
-        }
-
-        // RVA: 0x2DC60A0 Offset: 0x2DC60A0 VA: 0x2DC60A0
-        public bool TryFindByUserIdAndCharacterIdAndStatusCalculationType((long, int, StatusCalculationType) key, out EntityIUserCharacterCostumeLevelBonus result)
-        {
-            result = null;
-
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
-
-        // RVA: 0x2DC6134 Offset: 0x2DC6134 VA: 0x2DC6134
-        public RangeView<EntityIUserCharacterCostumeLevelBonus> FindByCharacterId(int key)
-        {
-            var result = new List<EntityIUserCharacterCostumeLevelBonus>();
-
-            foreach (var element in data)
-                if (secondaryIndex0Selector(element) == key)
-                    result.Add(element);
-
-            return new RangeView<EntityIUserCharacterCostumeLevelBonus>(result.ToArray(), 0, result.Count - 1, true);
-            ;
-        }
+        public RangeView<EntityIUserCharacterCostumeLevelBonus> FindByCharacterId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

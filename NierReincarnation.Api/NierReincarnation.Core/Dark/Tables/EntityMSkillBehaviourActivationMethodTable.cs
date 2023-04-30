@@ -1,29 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMSkillBehaviourActivationMethodTable : TableBase<EntityMSkillBehaviourActivationMethod> // TypeDefIndex: 12315
+    public class EntityMSkillBehaviourActivationMethodTable : TableBase<EntityMSkillBehaviourActivationMethod>
     {
-        // Fields
-        private readonly Func<EntityMSkillBehaviourActivationMethod, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMSkillBehaviourActivationMethod, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2BA4628 Offset: 0x2BA4628 VA: 0x2BA4628
-        public EntityMSkillBehaviourActivationMethodTable(EntityMSkillBehaviourActivationMethod[] sortedData):base(sortedData)
+        public EntityMSkillBehaviourActivationMethodTable(EntityMSkillBehaviourActivationMethod[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = method => method.SkillBehaviourActivationMethodId;
+            primaryIndexSelector = element => element.SkillBehaviourActivationMethodId;
         }
 
-        // RVA: 0x2BA4728 Offset: 0x2BA4728 VA: 0x2BA4728
-        public EntityMSkillBehaviourActivationMethod FindBySkillBehaviourActivationMethodId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public EntityMSkillBehaviourActivationMethod FindBySkillBehaviourActivationMethodId(int key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

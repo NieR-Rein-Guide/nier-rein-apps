@@ -1,44 +1,21 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserCostumeTable : TableBase<EntityIUserCostume> // TypeDefIndex: 12497
+    public class EntityIUserCostumeTable : TableBase<EntityIUserCostume>
     {
-        // Fields
-        private readonly Func<EntityIUserCostume, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserCostume, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC9AE4 Offset: 0x2DC9AE4 VA: 0x2DC9AE4
-        public EntityIUserCostumeTable(EntityIUserCostume[] sortedData):base(sortedData)
+        public EntityIUserCostumeTable(EntityIUserCostume[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.UserCostumeUuid);
+            primaryIndexSelector = element => (element.UserId, element.UserCostumeUuid);
         }
 
-        // RVA: 0x2DC9BE4 Offset: 0x2DC9BE4 VA: 0x2DC9BE4
-        public EntityIUserCostume FindByUserIdAndUserCostumeUuid(ValueTuple<long, string> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityIUserCostume FindByUserIdAndUserCostumeUuid(ValueTuple<long, string> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
 
-            return null;
-        }
-
-        // RVA: 0x2DC9C6C Offset: 0x2DC9C6C VA: 0x2DC9C6C
-        public bool TryFindByUserIdAndUserCostumeUuid(ValueTuple<long, string> key, out EntityIUserCostume result)
-        {
-            result = null;
-
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result= element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByUserIdAndUserCostumeUuid(ValueTuple<long, string> key, out EntityIUserCostume result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key, out result);
     }
 }

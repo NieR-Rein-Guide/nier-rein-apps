@@ -1,4 +1,4 @@
-﻿using MessagePack;
+using MessagePack;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
@@ -8,24 +8,32 @@ namespace NierReincarnation.Core.Dark
     [MemoryTable("i_user_deck")]
     public class EntityIUserDeck
     {
-        [Key(0)] // RVA: 0x1DE8884 Offset: 0x1DE8884 VA: 0x1DE8884
-        public long UserId { get; set; }
-        [Key(1)] // RVA: 0x1DE88C4 Offset: 0x1DE88C4 VA: 0x1DE88C4
-        public DeckType DeckType { get; set; }
-        [Key(2)] // RVA: 0x1DE8904 Offset: 0x1DE8904 VA: 0x1DE8904
-        public int UserDeckNumber { get; set; }
-        [Key(3)] // RVA: 0x1DE8944 Offset: 0x1DE8944 VA: 0x1DE8944
-        public string UserDeckCharacterUuid01 { get; set; }
-        [Key(4)] // RVA: 0x1DE8958 Offset: 0x1DE8958 VA: 0x1DE8958
-        public string UserDeckCharacterUuid02 { get; set; }
-        [Key(5)] // RVA: 0x1DE896C Offset: 0x1DE896C VA: 0x1DE896C
-        public string UserDeckCharacterUuid03 { get; set; }
-        [Key(6)] // RVA: 0x1DE8980 Offset: 0x1DE8980 VA: 0x1DE8980
-        public string Name { get; set; }
-        [Key(7)] // RVA: 0x1DE8994 Offset: 0x1DE8994 VA: 0x1DE8994
-        public int Power { get; set; }
-        [Key(8)] // RVA: 0x1DE89A8 Offset: 0x1DE89A8 VA: 0x1DE89A8
-        public long LatestVersion { get; set; }
+        [Key(0)]
+        public long UserId { get; set; } // 0x10
+
+        [Key(1)]
+        public DeckType DeckType { get; set; } // 0x18
+
+        [Key(2)]
+        public int UserDeckNumber { get; set; } // 0x1C
+
+        [Key(3)]
+        public string UserDeckCharacterUuid01 { get; set; } // 0x20
+
+        [Key(4)]
+        public string UserDeckCharacterUuid02 { get; set; } // 0x28
+
+        [Key(5)]
+        public string UserDeckCharacterUuid03 { get; set; } // 0x30
+
+        [Key(6)]
+        public string Name { get; set; } // 0x38
+
+        [Key(7)]
+        public int Power { get; set; } // 0x40
+
+        [Key(8)]
+        public long LatestVersion { get; set; } // 0x48
 
         public EntityIUserDeck(long UserId, DeckType DeckType, int UserDeckNumber, string UserDeckCharacterUuid01,
             string UserDeckCharacterUuid02, string UserDeckCharacterUuid03, string Name, int Power, long LatestVersion)

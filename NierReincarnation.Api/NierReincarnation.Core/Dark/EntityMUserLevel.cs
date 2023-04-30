@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int UserLevel { get; set; } // 0x10
+
         [Key(1)]
         public int MaxStamina { get; set; } // 0x14
     }

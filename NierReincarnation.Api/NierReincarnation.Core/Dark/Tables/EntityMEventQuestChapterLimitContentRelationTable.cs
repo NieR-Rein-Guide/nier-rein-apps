@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -14,14 +14,12 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.EventQuestChapterId;
             secondaryIndexSelector = element => element.EventQuestLimitContentId;
         }
-        
-        public EntityMEventQuestChapterLimitContentRelation FindByEventQuestChapterId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
-	
-        public bool TryFindByEventQuestChapterId(int key, out EntityMEventQuestChapterLimitContentRelation result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
+        public EntityMEventQuestChapterLimitContentRelation FindByEventQuestChapterId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
-	
-        public RangeView<EntityMEventQuestChapterLimitContentRelation> FindByEventQuestLimitContentId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
+        public bool TryFindByEventQuestChapterId(int key, out EntityMEventQuestChapterLimitContentRelation result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
 
+        public RangeView<EntityMEventQuestChapterLimitContentRelation> FindByEventQuestLimitContentId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

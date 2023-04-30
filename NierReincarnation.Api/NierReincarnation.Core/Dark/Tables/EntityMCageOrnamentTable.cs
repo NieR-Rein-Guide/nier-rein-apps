@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,14 +12,12 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.CageOrnamentId;
         }
-        
-        public EntityMCageOrnament FindByCageOrnamentId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
-	
-        public bool TryFindByCageOrnamentId(int key, out EntityMCageOrnament result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
+        public EntityMCageOrnament FindByCageOrnamentId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
-	
-        public RangeView<EntityMCageOrnament> FindRangeByCageOrnamentId(int min, int max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant); }
+        public bool TryFindByCageOrnamentId(int key, out EntityMCageOrnament result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
 
+        public RangeView<EntityMCageOrnament> FindRangeByCageOrnamentId(int min, int max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant);
     }
 }

@@ -1,26 +1,20 @@
-﻿using NierReincarnation.Core.MasterMemory;
+using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public sealed class EntityIUserBigHuntWeeklyMaxScoreTable : TableBase<EntityIUserBigHuntWeeklyMaxScore> // TypeDefIndex: 14478
+    public class EntityIUserBigHuntWeeklyMaxScoreTable : TableBase<EntityIUserBigHuntWeeklyMaxScore>
     {
-        private readonly Func<EntityIUserBigHuntWeeklyMaxScore, (long, long, int)> primaryIndexSelector; // 0x18
-        
+        private readonly Func<EntityIUserBigHuntWeeklyMaxScore, (long, long, AttributeType)> primaryIndexSelector;
+
         public EntityIUserBigHuntWeeklyMaxScoreTable(EntityIUserBigHuntWeeklyMaxScore[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = score => (score.UserId, score.BigHuntWeeklyVersion, score.AttributeType);
+            primaryIndexSelector = element => (element.UserId, element.BigHuntWeeklyVersion, element.AttributeType);
         }
 
-        public EntityIUserBigHuntWeeklyMaxScore FindByUserIdAndBigHuntWeeklyVersionAndAttributeType(ValueTuple<long, long, int> key)
-        {
-            return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, long, int)>.Default, key);
-        }
-
-        public bool TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType(ValueTuple<long, long, int> key, out EntityIUserBigHuntWeeklyMaxScore result)
-        {
-            return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, long, int)>.Default, key, out result);
-        }
+        public bool TryFindByUserIdAndBigHuntWeeklyVersionAndAttributeType(ValueTuple<long, long, AttributeType> key, out EntityIUserBigHuntWeeklyMaxScore result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, long, AttributeType)>.Default, key, out result);
     }
 }

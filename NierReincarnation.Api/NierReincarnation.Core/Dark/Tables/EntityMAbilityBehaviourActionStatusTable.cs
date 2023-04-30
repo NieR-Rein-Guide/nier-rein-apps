@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMAbilityBehaviourActionStatusTable : TableBase<EntityMAbilityBehaviourActionStatus> // TypeDefIndex: 11537
+    public class EntityMAbilityBehaviourActionStatusTable : TableBase<EntityMAbilityBehaviourActionStatus>
     {
-        // Fields
-        private readonly Func<EntityMAbilityBehaviourActionStatus, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMAbilityBehaviourActionStatus, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C3FA0C Offset: 0x2C3FA0C VA: 0x2C3FA0C
-        public EntityMAbilityBehaviourActionStatusTable(EntityMAbilityBehaviourActionStatus[] sortedData):base(sortedData)
+        public EntityMAbilityBehaviourActionStatusTable(EntityMAbilityBehaviourActionStatus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = status => status.AbilityBehaviourActionId;
+            primaryIndexSelector = element => element.AbilityBehaviourActionId;
         }
 
-        // RVA: 0x2C3FB0C Offset: 0x2C3FB0C VA: 0x2C3FB0C
-        public EntityMAbilityBehaviourActionStatus FindByAbilityBehaviourActionId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public EntityMAbilityBehaviourActionStatus FindByAbilityBehaviourActionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

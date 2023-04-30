@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,10 +11,10 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMLimitedOpenTextTable(EntityMLimitedOpenText[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.LimitedOpenTargetType,element.TargetId);
+            primaryIndexSelector = element => (element.LimitedOpenTargetType, element.TargetId);
         }
-        
-        public EntityMLimitedOpenText FindByLimitedOpenTargetTypeAndTargetId(ValueTuple<LimitedOpenTargetType, int> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(LimitedOpenTargetType, int)>.Default, key); }
 
+        public EntityMLimitedOpenText FindByLimitedOpenTargetTypeAndTargetId(ValueTuple<LimitedOpenTargetType, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(LimitedOpenTargetType, int)>.Default, key);
     }
 }

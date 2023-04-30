@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBigHuntBossGradeGroupTable : TableBase<EntityMBigHuntBossGradeGroup> // TypeDefIndex: 11697
+    public class EntityMBigHuntBossGradeGroupTable : TableBase<EntityMBigHuntBossGradeGroup>
     {
-        // Fields
-        private readonly Func<EntityMBigHuntBossGradeGroup, (int, long)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBigHuntBossGradeGroup, (int, long)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C46A04 Offset: 0x2C46A04 VA: 0x2C46A04
-        public EntityMBigHuntBossGradeGroupTable(EntityMBigHuntBossGradeGroup[] sortedData):base(sortedData)
+        public EntityMBigHuntBossGradeGroupTable(EntityMBigHuntBossGradeGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.BigHuntBossGradeGroupId, group.NecessaryScore);
+            primaryIndexSelector = element => (element.BigHuntBossGradeGroupId, element.NecessaryScore);
         }
 
-        // RVA: 0x2C46B04 Offset: 0x2C46B04 VA: 0x2C46B04
-        public EntityMBigHuntBossGradeGroup FindClosestByBigHuntBossGradeGroupIdAndNecessaryScore((int, long) key, bool selectLower = true)
-        {
-            return FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, long)>.Default, key, selectLower);
-        }
+        public EntityMBigHuntBossGradeGroup FindClosestByBigHuntBossGradeGroupIdAndNecessaryScore(ValueTuple<int, long> key, bool selectLower = true) =>
+            FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, long)>.Default, key, selectLower);
     }
 }

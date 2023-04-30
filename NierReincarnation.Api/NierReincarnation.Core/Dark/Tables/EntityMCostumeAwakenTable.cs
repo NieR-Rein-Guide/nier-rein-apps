@@ -1,34 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMCostumeAwakenTable : TableBase<EntityMCostumeAwaken> // TypeDefIndex: 12045
+    public class EntityMCostumeAwakenTable : TableBase<EntityMCostumeAwaken>
     {
-        // Fields
-        private readonly Func<EntityMCostumeAwaken, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCostumeAwaken, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2D3D9C0 Offset: 0x2D3D9C0 VA: 0x2D3D9C0
-        public EntityMCostumeAwakenTable(EntityMCostumeAwaken[] sortedData):base(sortedData)
+        public EntityMCostumeAwakenTable(EntityMCostumeAwaken[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = awaken => awaken.CostumeId;
+            primaryIndexSelector = element => element.CostumeId;
         }
 
-        // RVA: 0x2D3DAC0 Offset: 0x2D3DAC0 VA: 0x2D3DAC0
-        public bool TryFindByCostumeId(int key, out EntityMCostumeAwaken result)
-        {
-            result = null;
-
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return false;
-                }
-
-            return true;
-        }
+        public bool TryFindByCostumeId(int key, out EntityMCostumeAwaken result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

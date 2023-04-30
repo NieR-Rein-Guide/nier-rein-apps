@@ -13,10 +13,10 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.UserPartsPresetNumber);
         }
 
-        public EntityIUserPartsPreset FindByUserIdAndUserPartsPresetNumber(ValueTuple<long, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+        public EntityIUserPartsPreset FindByUserIdAndUserPartsPresetNumber(ValueTuple<long, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
 
-        public bool TryFindByUserIdAndUserPartsPresetNumber(ValueTuple<long, int> key, out EntityIUserPartsPreset result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndUserPartsPresetNumber(ValueTuple<long, int> key, out EntityIUserPartsPreset result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int TipBackgroundAssetId { get; set; } // 0x10
+
         [Key(1)]
         public string BackgroundAssetName { get; set; } // 0x18
     }

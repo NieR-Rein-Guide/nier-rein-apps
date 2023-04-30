@@ -1,43 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserThoughtTable : TableBase<EntityIUserThought> // TypeDefIndex: 12863
+    public class EntityIUserThoughtTable : TableBase<EntityIUserThought>
     {
-        // Fields
-        private readonly Func<EntityIUserThought, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserThought, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2ECEFF8 Offset: 0x2ECEFF8 VA: 0x2ECEFF8
-        public EntityIUserThoughtTable(EntityIUserThought[] sortedData):base(sortedData)
+        public EntityIUserThoughtTable(EntityIUserThought[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = thought => (thought.UserId, thought.UserThoughtUuid);
+            primaryIndexSelector = element => (element.UserId, element.UserThoughtUuid);
         }
 
-        public EntityIUserThought FindByUserIdAndUserThoughtUuid(ValueTuple<long, string> key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
-
-        // RVA: 0x2ECF0F8 Offset: 0x2ECF0F8 VA: 0x2ECF0F8
-        public bool TryFindByUserIdAndUserThoughtUuid(ValueTuple<long, string> key, out EntityIUserThought result)
-        {
-            result = null;
-
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByUserIdAndUserThoughtUuid(ValueTuple<long, string> key, out EntityIUserThought result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key, out result);
     }
 }

@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,10 +11,9 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMGiftTextTable(EntityMGiftText[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.GiftTextId,element.LanguageType);
+            primaryIndexSelector = element => (element.GiftTextId, element.LanguageType);
         }
-        
-        public EntityMGiftText FindByGiftTextIdAndLanguageType(ValueTuple<int, LanguageType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key); }
 
+        public EntityMGiftText FindByGiftTextIdAndLanguageType(ValueTuple<int, LanguageType> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key);
     }
 }

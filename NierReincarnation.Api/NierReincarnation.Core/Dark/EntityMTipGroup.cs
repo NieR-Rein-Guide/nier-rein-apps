@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int TipGroupId { get; set; } // 0x10
+
         [Key(1)]
         public int NameTextId { get; set; } // 0x14
     }

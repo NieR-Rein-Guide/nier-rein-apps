@@ -1,21 +1,20 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMStainedGlassStatusUpGroupTable : TableBase<EntityMStainedGlassStatusUpGroup>
     {
-        private readonly Func<EntityMStainedGlassStatusUpGroup, (int,int)> primaryIndexSelector;
+        private readonly Func<EntityMStainedGlassStatusUpGroup, (int, int)> primaryIndexSelector;
         private readonly Func<EntityMStainedGlassStatusUpGroup, int> secondaryIndexSelector;
 
         public EntityMStainedGlassStatusUpGroupTable(EntityMStainedGlassStatusUpGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.StainedGlassStatusUpGroupId,element.GroupIndex);
+            primaryIndexSelector = element => (element.StainedGlassStatusUpGroupId, element.GroupIndex);
             secondaryIndexSelector = element => element.StainedGlassStatusUpGroupId;
         }
-        
-        public RangeView<EntityMStainedGlassStatusUpGroup> FindByStainedGlassStatusUpGroupId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
 
+        public RangeView<EntityMStainedGlassStatusUpGroup> FindByStainedGlassStatusUpGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

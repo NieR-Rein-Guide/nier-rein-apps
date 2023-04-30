@@ -1,32 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMCompanionAbilityLevelTable : TableBase<EntityMCompanionAbilityLevel> // TypeDefIndex: 11799
+    public class EntityMCompanionAbilityLevelTable : TableBase<EntityMCompanionAbilityLevel>
     {
-        // Fields
-        private readonly Func<EntityMCompanionAbilityLevel, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCompanionAbilityLevel, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B40658 Offset: 0x2B40658 VA: 0x2B40658
-        public EntityMCompanionAbilityLevelTable(EntityMCompanionAbilityLevel[] sortedData):base(sortedData)
+        public EntityMCompanionAbilityLevelTable(EntityMCompanionAbilityLevel[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = level => level.CompanionLevelLowerLimit;
+            primaryIndexSelector = element => element.CompanionLevelLowerLimit;
         }
 
-        // RVA: 0x2B40758 Offset: 0x2B40758 VA: 0x2B40758
-        public EntityMCompanionAbilityLevel FindClosestByCompanionLevelLowerLimit(int key, bool selectLower = true)
-        {
-            return FindUniqueClosestCore(data, primaryIndexSelector, Comparer<int>.Default, key, selectLower);
-        }
+        public EntityMCompanionAbilityLevel FindClosestByCompanionLevelLowerLimit(int key, bool selectLower = true) =>
+            FindUniqueClosestCore(data, primaryIndexSelector, Comparer<int>.Default, key, selectLower);
 
-        // RVA: 0x2B407DC Offset: 0x2B407DC VA: 0x2B407DC
-        public RangeView<EntityMCompanionAbilityLevel> FindRangeByCompanionLevelLowerLimit(int min, int max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMCompanionAbilityLevel> FindRangeByCompanionLevelLowerLimit(int min, int max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant);
     }
 }

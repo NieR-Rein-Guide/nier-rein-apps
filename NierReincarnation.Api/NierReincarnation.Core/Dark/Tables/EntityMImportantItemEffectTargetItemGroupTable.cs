@@ -1,17 +1,15 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMImportantItemEffectTargetItemGroupTable : TableBase<EntityMImportantItemEffectTargetItemGroup>
     {
-        private readonly Func<EntityMImportantItemEffectTargetItemGroup, (int,int)> primaryIndexSelector;
+        private readonly Func<EntityMImportantItemEffectTargetItemGroup, (int, int)> primaryIndexSelector;
 
         public EntityMImportantItemEffectTargetItemGroupTable(EntityMImportantItemEffectTargetItemGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.ImportantItemEffectTargetItemGroupId,element.TargetIndex);
+            primaryIndexSelector = element => (element.ImportantItemEffectTargetItemGroupId, element.TargetIndex);
         }
-        
     }
 }

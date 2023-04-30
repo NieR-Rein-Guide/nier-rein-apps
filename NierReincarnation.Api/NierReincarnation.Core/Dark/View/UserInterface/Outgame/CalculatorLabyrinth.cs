@@ -51,7 +51,7 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
                 return null;
 
             var sequenceGroupTable = DatabaseDefine.Master.EntityMEventQuestSequenceGroupTable;
-            var sequenceGroup = sequenceGroupTable.FindByEventQuestSequenceGroupIdAndDifficultyType((eventChapter.EventQuestSequenceGroupId, (int)kLabyrinthQuestDifficultyType));
+            var sequenceGroup = sequenceGroupTable.FindByEventQuestSequenceGroupIdAndDifficultyType((eventChapter.EventQuestSequenceGroupId, kLabyrinthQuestDifficultyType));
             if (sequenceGroup == null)
                 return null;
 

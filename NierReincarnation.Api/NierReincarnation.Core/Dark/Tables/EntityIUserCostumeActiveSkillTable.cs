@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserCostumeActiveSkillTable : TableBase<EntityIUserCostumeActiveSkill> // TypeDefIndex: 12493
+    public class EntityIUserCostumeActiveSkillTable : TableBase<EntityIUserCostumeActiveSkill>
     {
-        // Fields
-        private readonly Func<EntityIUserCostumeActiveSkill, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserCostumeActiveSkill, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC8D04 Offset: 0x2DC8D04 VA: 0x2DC8D04
-        public EntityIUserCostumeActiveSkillTable(EntityIUserCostumeActiveSkill[] sortedData):base(sortedData)
+        public EntityIUserCostumeActiveSkillTable(EntityIUserCostumeActiveSkill[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = skill => (skill.UserId, skill.UserCostumeUuid);
+            primaryIndexSelector = element => (element.UserId, element.UserCostumeUuid);
         }
 
-        // RVA: 0x2DC8E04 Offset: 0x2DC8E04 VA: 0x2DC8E04
-        public EntityIUserCostumeActiveSkill FindByUserIdAndUserCostumeUuid(ValueTuple<long, string> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityIUserCostumeActiveSkill FindByUserIdAndUserCostumeUuid(ValueTuple<long, string> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
     }
 }

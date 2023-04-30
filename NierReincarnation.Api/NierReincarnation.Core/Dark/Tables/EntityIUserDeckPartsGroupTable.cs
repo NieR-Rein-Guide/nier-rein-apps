@@ -1,28 +1,15 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserDeckPartsGroupTable : TableBase<EntityIUserDeckPartsGroup> // TypeDefIndex: 12501
+    public class EntityIUserDeckPartsGroupTable : TableBase<EntityIUserDeckPartsGroup>
     {
-        // Fields
-        private readonly Func<EntityIUserDeckPartsGroup, ValueTuple<long, string, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserDeckPartsGroup, (long, string, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35A58B8 Offset: 0x35A58B8 VA: 0x35A58B8
-        public EntityIUserDeckPartsGroupTable(EntityIUserDeckPartsGroup[] sortedData):base(sortedData)
+        public EntityIUserDeckPartsGroupTable(EntityIUserDeckPartsGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.UserDeckCharacterUuid, user.UserPartsUuid);
-        }
-
-        public EntityIUserDeckPartsGroup FindByUserIdAndUserDeckCharacterUuidAndUserPartsUuid((long,string,string) key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
+            primaryIndexSelector = element => (element.UserId, element.UserDeckCharacterUuid, element.UserPartsUuid);
         }
     }
 }

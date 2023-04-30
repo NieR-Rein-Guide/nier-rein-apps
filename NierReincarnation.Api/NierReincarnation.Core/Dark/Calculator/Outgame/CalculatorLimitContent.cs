@@ -138,7 +138,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
                 var groupId = chapter.EventQuestSequenceGroupId;
 
                 var table2 = DatabaseDefine.Master.EntityMEventQuestSequenceGroupTable;
-                var groups = table2.FindRangeByEventQuestSequenceGroupIdAndDifficultyType((groupId, int.MinValue), (groupId, int.MaxValue));
+                var groups = table2.FindRangeByEventQuestSequenceGroupIdAndDifficultyType((groupId, DifficultyType.UNKNOWN), (groupId, DifficultyType.EX_HARD));
                 if (groups.Count <= 0)
                     continue;
 

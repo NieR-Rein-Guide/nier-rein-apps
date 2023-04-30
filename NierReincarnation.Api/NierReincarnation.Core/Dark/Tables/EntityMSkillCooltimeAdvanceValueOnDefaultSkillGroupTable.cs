@@ -1,19 +1,20 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable : TableBase<EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup>
     {
-        private readonly Func<EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup, (int,int)> primaryIndexSelector;
+        private readonly Func<EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup, (int, int)> primaryIndexSelector;
 
         public EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable(EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.SkillCooltimeAdvanceValueOnDefaultSkillGroupId,element.SkillHitCountLowerLimit);
+            primaryIndexSelector = element => (element.SkillCooltimeAdvanceValueOnDefaultSkillGroupId, element.SkillHitCountLowerLimit);
         }
-        
-        public RangeView<EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup> FindRangeBySkillCooltimeAdvanceValueOnDefaultSkillGroupIdAndSkillHitCountLowerLimit(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, min, max, ascendant); }
 
+        public RangeView<EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup> FindRangeBySkillCooltimeAdvanceValueOnDefaultSkillGroupIdAndSkillHitCountLowerLimit(
+            ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

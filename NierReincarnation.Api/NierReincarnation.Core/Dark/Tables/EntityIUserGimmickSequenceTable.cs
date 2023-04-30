@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserGimmickSequenceTable : TableBase<EntityIUserGimmickSequence> // TypeDefIndex: 12964
+    public class EntityIUserGimmickSequenceTable : TableBase<EntityIUserGimmickSequence>
     {
-        // Fields
-        private readonly Func<EntityIUserGimmickSequence, ValueTuple<long, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserGimmickSequence, (long, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x36FAB54 Offset: 0x36FAB54 VA: 0x36FAB54
         public EntityIUserGimmickSequenceTable(EntityIUserGimmickSequence[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = sequence => (sequence.UserId, sequence.GimmickSequenceScheduleId);
+            primaryIndexSelector = element => (element.UserId, element.GimmickSequenceScheduleId);
         }
 
         public EntityIUserGimmickSequence FindByUserId((long, int) key)

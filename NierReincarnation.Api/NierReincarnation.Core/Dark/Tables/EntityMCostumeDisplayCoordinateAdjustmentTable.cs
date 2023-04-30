@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,10 +11,10 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMCostumeDisplayCoordinateAdjustmentTable(EntityMCostumeDisplayCoordinateAdjustment[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.CostumeId,element.DisplayCoordinateAdjustmentFunctionType);
+            primaryIndexSelector = element => (element.CostumeId, element.DisplayCoordinateAdjustmentFunctionType);
         }
-        
-        public EntityMCostumeDisplayCoordinateAdjustment FindByCostumeIdAndDisplayCoordinateAdjustmentFunctionType(ValueTuple<int, DisplayCoordinateAdjustmentFunctionType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, DisplayCoordinateAdjustmentFunctionType)>.Default, key); }
 
+        public EntityMCostumeDisplayCoordinateAdjustment FindByCostumeIdAndDisplayCoordinateAdjustmentFunctionType(ValueTuple<int, DisplayCoordinateAdjustmentFunctionType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, DisplayCoordinateAdjustmentFunctionType)>.Default, key);
     }
 }

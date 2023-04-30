@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -13,13 +13,12 @@ namespace NierReincarnation.Core.Dark.Tables
         public EntityMSideStoryQuestLimitContentTable(EntityMSideStoryQuestLimitContent[] sortedData) : base(sortedData)
         {
             primaryIndexSelector = element => element.SideStoryQuestLimitContentId;
-            secondaryIndexSelector = element => (element.EventQuestChapterId,element.DifficultyType);
+            secondaryIndexSelector = element => (element.EventQuestChapterId, element.DifficultyType);
         }
-        
-        public EntityMSideStoryQuestLimitContent FindBySideStoryQuestLimitContentId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
-	
-        public RangeView<EntityMSideStoryQuestLimitContent> FindByEventQuestChapterIdAndDifficultyType(ValueTuple<int, DifficultyType> key) { return FindManyCore(data, secondaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key); }
+        public EntityMSideStoryQuestLimitContent FindBySideStoryQuestLimitContentId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
+        public RangeView<EntityMSideStoryQuestLimitContent> FindByEventQuestChapterIdAndDifficultyType(ValueTuple<int, DifficultyType> key) =>
+            FindManyCore(data, secondaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key);
     }
 }

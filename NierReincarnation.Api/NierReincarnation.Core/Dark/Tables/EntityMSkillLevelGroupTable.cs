@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMSkillLevelGroupTable : TableBase<EntityMSkillLevelGroup> // TypeDefIndex: 12365
+    public class EntityMSkillLevelGroupTable : TableBase<EntityMSkillLevelGroup>
     {
-        // Fields
-        private readonly Func<EntityMSkillLevelGroup, ValueTuple<int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMSkillLevelGroup, (int, int)> primaryIndexSelector;
+        private readonly Func<EntityMSkillLevelGroup, int> secondaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2BA7D78 Offset: 0x2BA7D78 VA: 0x2BA7D78
         public EntityMSkillLevelGroupTable(EntityMSkillLevelGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.SkillLevelGroupId, group.LevelLowerLimit);
+            primaryIndexSelector = element => (element.SkillLevelGroupId, element.LevelLowerLimit);
+            secondaryIndexSelector = element => element.SkillLevelGroupId;
         }
 
-        // RVA: 0x2BA7E78 Offset: 0x2BA7E78 VA: 0x2BA7E78
-        public EntityMSkillLevelGroup FindClosestBySkillLevelGroupIdAndLevelLowerLimit(ValueTuple<int, int> key, bool selectLower = true)
-        {
-            return FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
-        }
+        public EntityMSkillLevelGroup FindClosestBySkillLevelGroupIdAndLevelLowerLimit(ValueTuple<int, int> key, bool selectLower = true) =>
+            FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
+
+        public RangeView<EntityMSkillLevelGroup> FindBySkillLevelGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

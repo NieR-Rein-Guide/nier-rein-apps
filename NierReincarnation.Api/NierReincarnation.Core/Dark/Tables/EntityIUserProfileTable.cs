@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserProfileTable : TableBase<EntityIUserProfile> // TypeDefIndex: 12577
+    public class EntityIUserProfileTable : TableBase<EntityIUserProfile>
     {
-        // Fields
-        private readonly Func<EntityIUserProfile, long> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserProfile, long> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35B9CB8 Offset: 0x35B9CB8 VA: 0x35B9CB8
-        public EntityIUserProfileTable(EntityIUserProfile[] sortedData):base(sortedData)
+        public EntityIUserProfileTable(EntityIUserProfile[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = profile => profile.UserId;
+            primaryIndexSelector = element => element.UserId;
         }
 
-        // RVA: 0x35B9DB8 Offset: 0x35B9DB8 VA: 0x35B9DB8
-        public EntityIUserProfile FindByUserId(long key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityIUserProfile FindByUserId(long key) => FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key);
     }
 }

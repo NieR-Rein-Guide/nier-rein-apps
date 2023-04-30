@@ -9,8 +9,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public long BattleNpcId { get; set; } // 0x10
+
         [Key(1)]
         public int BattleNpcPartsPresetTagNumber { get; set; } // 0x18
+
         [Key(2)]
         public string Name { get; set; } // 0x20
     }

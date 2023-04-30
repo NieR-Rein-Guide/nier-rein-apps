@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,11 +12,9 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.CostumeAwakenAbilityId;
         }
-        
-        public EntityMCostumeAwakenAbility FindByCostumeAwakenAbilityId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
-	
-        public bool TryFindByCostumeAwakenAbilityId(int key, out EntityMCostumeAwakenAbility result) { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result); }
+        public EntityMCostumeAwakenAbility FindByCostumeAwakenAbilityId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
+        public bool TryFindByCostumeAwakenAbilityId(int key, out EntityMCostumeAwakenAbility result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMConsumableItemEffectTable : TableBase<EntityMConsumableItemEffect> // TypeDefIndex: 11821
+    public class EntityMConsumableItemEffectTable : TableBase<EntityMConsumableItemEffect>
     {
-        // Fields
-        private readonly Func<EntityMConsumableItemEffect, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMConsumableItemEffect, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B3E794 Offset: 0x2B3E794 VA: 0x2B3E794
-        public EntityMConsumableItemEffectTable(EntityMConsumableItemEffect[] sortedData):base(sortedData)
+        public EntityMConsumableItemEffectTable(EntityMConsumableItemEffect[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = effect => effect.ConsumableItemId;
+            primaryIndexSelector = element => element.ConsumableItemId;
         }
 
-        // RVA: 0x2B3E894 Offset: 0x2B3E894 VA: 0x2B3E894
-        public EntityMConsumableItemEffect FindByConsumableItemId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMConsumableItemEffect FindByConsumableItemId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

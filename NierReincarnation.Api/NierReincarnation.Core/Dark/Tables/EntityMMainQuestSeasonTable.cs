@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMMainQuestSeasonTable : TableBase<EntityMMainQuestSeason> // TypeDefIndex: 11993
+    public class EntityMMainQuestSeasonTable : TableBase<EntityMMainQuestSeason>
     {
-        // Fields
-        private readonly Func<EntityMMainQuestSeason, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMMainQuestSeason, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B49EF4 Offset: 0x2B49EF4 VA: 0x2B49EF4
-        public EntityMMainQuestSeasonTable(EntityMMainQuestSeason[] sortedData):base(sortedData)
+        public EntityMMainQuestSeasonTable(EntityMMainQuestSeason[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = season => season.MainQuestSeasonId;
+            primaryIndexSelector = element => element.MainQuestSeasonId;
         }
 
-        // RVA: 0x2B49FF4 Offset: 0x2B49FF4 VA: 0x2B49FF4
-        public EntityMMainQuestSeason FindByMainQuestSeasonId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMMainQuestSeason FindByMainQuestSeasonId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

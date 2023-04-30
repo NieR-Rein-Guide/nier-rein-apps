@@ -1,20 +1,16 @@
-﻿using System;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMPowerCalculationConstantValueTable : TableBase<EntityMPowerCalculationConstantValue> // TypeDefIndex: 12083
+    public class EntityMPowerCalculationConstantValueTable : TableBase<EntityMPowerCalculationConstantValue>
     {
-        // Fields
-        private readonly Func<EntityMPowerCalculationConstantValue, PowerCalculationConstantValueType> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMPowerCalculationConstantValue, PowerCalculationConstantValueType> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C54220 Offset: 0x2C54220 VA: 0x2C54220
         public EntityMPowerCalculationConstantValueTable(EntityMPowerCalculationConstantValue[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = value => value.PowerCalculationConstantValueType;
+            primaryIndexSelector = element => element.PowerCalculationConstantValueType;
         }
     }
 }

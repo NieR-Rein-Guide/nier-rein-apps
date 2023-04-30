@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -14,7 +14,6 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.BattleSchemeType;
         }
 
-        public EntityMBattleAttributeDamageCoefficientDefine FindByBattleSchemeType(BattleSchemeType key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<BattleSchemeType>.Default, key); }
-
+        public EntityMBattleAttributeDamageCoefficientDefine FindByBattleSchemeType(BattleSchemeType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<BattleSchemeType>.Default, key);
     }
 }

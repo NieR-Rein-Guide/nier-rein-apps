@@ -1,30 +1,20 @@
-﻿using System;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMMainQuestSequenceGroupTable : TableBase<EntityMMainQuestSequenceGroup> // TypeDefIndex: 11995
+    public class EntityMMainQuestSequenceGroupTable : TableBase<EntityMMainQuestSequenceGroup>
     {
-        // Fields
-        private readonly Func<EntityMMainQuestSequenceGroup, (int, DifficultyType)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMMainQuestSequenceGroup, (int, DifficultyType)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B4A10C Offset: 0x2B4A10C VA: 0x2B4A10C
-        public EntityMMainQuestSequenceGroupTable(EntityMMainQuestSequenceGroup[] sortedData):base(sortedData)
+        public EntityMMainQuestSequenceGroupTable(EntityMMainQuestSequenceGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.MainQuestSequenceGroupId, group.DifficultyType);
+            primaryIndexSelector = element => (element.MainQuestSequenceGroupId, element.DifficultyType);
         }
 
-        // RVA: 0x2B4A20C Offset: 0x2B4A20C VA: 0x2B4A20C
-        public EntityMMainQuestSequenceGroup FindByMainQuestSequenceGroupIdAndDifficultyType((int, DifficultyType) key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMMainQuestSequenceGroup FindByMainQuestSequenceGroupIdAndDifficultyType(ValueTuple<int, DifficultyType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key);
     }
 }

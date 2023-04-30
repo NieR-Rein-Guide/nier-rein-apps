@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserGimmickTable : TableBase<EntityIUserGimmick> // TypeDefIndex: 12966
+    public class EntityIUserGimmickTable : TableBase<EntityIUserGimmick>
     {
-        // Fields
-        private readonly Func<EntityIUserGimmick, ValueTuple<long, int, int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserGimmick, (long, int, int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x36FB224 Offset: 0x36FB224 VA: 0x36FB224
         public EntityIUserGimmickTable(EntityIUserGimmick[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = gimmick => (gimmick.UserId, gimmick.GimmickSequenceScheduleId, gimmick.GimmickSequenceId, gimmick.GimmickId);
+            primaryIndexSelector = element => (element.UserId, element.GimmickSequenceScheduleId, element.GimmickSequenceId, element.GimmickId);
         }
 
-        public EntityIUserGimmick FindByUserId((long, int, int, int) key)
-        {
-            return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int, int)>.Default, key);
-        }
+        public EntityIUserGimmick FindByUserId((long, int, int, int) key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int, int)>.Default, key);
     }
 }

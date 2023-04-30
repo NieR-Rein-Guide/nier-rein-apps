@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMWeaponSpecificEnhanceTable : TableBase<EntityMWeaponSpecificEnhance> // TypeDefIndex: 12437
+    public class EntityMWeaponSpecificEnhanceTable : TableBase<EntityMWeaponSpecificEnhance>
     {
-        // Fields
-        private readonly Func<EntityMWeaponSpecificEnhance, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMWeaponSpecificEnhance, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2BACF4C Offset: 0x2BACF4C VA: 0x2BACF4C
-        public EntityMWeaponSpecificEnhanceTable(EntityMWeaponSpecificEnhance[] sortedData):base(sortedData)
+        public EntityMWeaponSpecificEnhanceTable(EntityMWeaponSpecificEnhance[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = enhance => enhance.WeaponSpecificEnhanceId;
+            primaryIndexSelector = element => element.WeaponSpecificEnhanceId;
         }
 
-        // RVA: 0x2BAD04C Offset: 0x2BAD04C VA: 0x2BAD04C
-        public EntityMWeaponSpecificEnhance FindByWeaponSpecificEnhanceId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMWeaponSpecificEnhance FindByWeaponSpecificEnhanceId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

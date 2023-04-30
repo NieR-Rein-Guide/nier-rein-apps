@@ -1,19 +1,19 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMWeaponSkillEnhancementMaterialTable : TableBase<EntityMWeaponSkillEnhancementMaterial>
     {
-        private readonly Func<EntityMWeaponSkillEnhancementMaterial, (int,int,int)> primaryIndexSelector;
+        private readonly Func<EntityMWeaponSkillEnhancementMaterial, (int, int, int)> primaryIndexSelector;
 
         public EntityMWeaponSkillEnhancementMaterialTable(EntityMWeaponSkillEnhancementMaterial[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.WeaponSkillEnhancementMaterialId,element.SkillLevel,element.MaterialId);
+            primaryIndexSelector = element => (element.WeaponSkillEnhancementMaterialId, element.SkillLevel, element.MaterialId);
         }
-        
-        public RangeView<EntityMWeaponSkillEnhancementMaterial> FindRangeByWeaponSkillEnhancementMaterialIdAndSkillLevelAndMaterialId(ValueTuple<int, int, int> min, ValueTuple<int, int, int> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int,int,int)>.Default, min, max, ascendant); }
 
+        public RangeView<EntityMWeaponSkillEnhancementMaterial> FindRangeByWeaponSkillEnhancementMaterialIdAndSkillLevelAndMaterialId(ValueTuple<int, int, int> min, ValueTuple<int, int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int, int)>.Default, min, max, ascendant);
     }
 }

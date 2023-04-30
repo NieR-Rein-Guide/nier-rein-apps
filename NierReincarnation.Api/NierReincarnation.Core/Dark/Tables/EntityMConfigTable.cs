@@ -1,12 +1,11 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    // Dark.Tables.EntityMConfigTable
-    public sealed class EntityMConfigTable : TableBase<EntityMConfig>
+    public class EntityMConfigTable : TableBase<EntityMConfig>
     {
-        // 0x18
         private readonly Func<EntityMConfig, string> primaryIndexSelector;
 
         public EntityMConfigTable(EntityMConfig[] sortedData) : base(sortedData)
@@ -14,9 +13,6 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.ConfigKey;
         }
 
-        public EntityMConfig FindByConfigKey(string key)
-        {
-            return FindUniqueCore(data, primaryIndexSelector, StringComparer.InvariantCulture, key, false);
-        }
+        public EntityMConfig FindByConfigKey(string key) => FindUniqueCore(data, primaryIndexSelector, Comparer<string>.Default, key);
     }
 }

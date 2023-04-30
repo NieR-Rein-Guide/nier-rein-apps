@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; } // 0x10
+
         [Key(1)]
         public int ActorSkeletonId { get; set; } // 0x14
+
         [Key(2)]
         public EnemySizeType EnemySizeType { get; set; } // 0x18
     }

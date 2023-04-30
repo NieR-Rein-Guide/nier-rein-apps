@@ -42,7 +42,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
                 foreach (var targetGroup in orderedTargetGroups)
                 {
-                    var effectGroupRange = campaignEffectGroupTable.FindRangeByQuestCampaignEffectGroupIdAndQuestCampaignEffectType((campaign.QuestCampaignEffectGroupId, int.MinValue), (campaign.QuestCampaignEffectGroupId, int.MaxValue));
+                    var effectGroupRange = campaignEffectGroupTable.FindRangeByQuestCampaignEffectGroupIdAndQuestCampaignEffectType((campaign.QuestCampaignEffectGroupId, QuestCampaignEffectType.UNKNOWN), (campaign.QuestCampaignEffectGroupId, QuestCampaignEffectType.DROP_ITEM_ADD));
 
                     foreach (var effectGroup in effectGroupRange)
                     {

@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMCostumeAbilityLevelGroupTable : TableBase<EntityMCostumeAbilityLevelGroup> // TypeDefIndex: 11831
+    public class EntityMCostumeAbilityLevelGroupTable : TableBase<EntityMCostumeAbilityLevelGroup>
     {
-        // Fields
-        private readonly Func<EntityMCostumeAbilityLevelGroup, ValueTuple<int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCostumeAbilityLevelGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B429D4 Offset: 0x2B429D4 VA: 0x2B429D4
         public EntityMCostumeAbilityLevelGroupTable(EntityMCostumeAbilityLevelGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.CostumeAbilityLevelGroupId, group.CostumeLimitBreakCountLowerLimit);
+            primaryIndexSelector = element => (element.CostumeAbilityLevelGroupId, element.CostumeLimitBreakCountLowerLimit);
         }
 
-        // RVA: 0x2B42AD4 Offset: 0x2B42AD4 VA: 0x2B42AD4
-        public EntityMCostumeAbilityLevelGroup FindClosestByCostumeAbilityLevelGroupIdAndCostumeLimitBreakCountLowerLimit(ValueTuple<int, int> key, bool selectLower = true)
-        {
-            return FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
-        }
+        public EntityMCostumeAbilityLevelGroup FindClosestByCostumeAbilityLevelGroupIdAndCostumeLimitBreakCountLowerLimit(ValueTuple<int, int> key, bool selectLower = true) =>
+            FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
     }
 }

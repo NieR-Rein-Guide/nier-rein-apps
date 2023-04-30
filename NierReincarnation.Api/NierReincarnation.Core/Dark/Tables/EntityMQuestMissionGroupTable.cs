@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMQuestMissionGroupTable : TableBase<EntityMQuestMissionGroup> // TypeDefIndex: 12145
+    public class EntityMQuestMissionGroupTable : TableBase<EntityMQuestMissionGroup>
     {
-        // Fields
-        private readonly Func<EntityMQuestMissionGroup, ValueTuple<int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestMissionGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C582A4 Offset: 0x2C582A4 VA: 0x2C582A4
-        public EntityMQuestMissionGroupTable(EntityMQuestMissionGroup[] sortedData):base(sortedData)
+        public EntityMQuestMissionGroupTable(EntityMQuestMissionGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.QuestMissionGroupId, group.SortOrder);
+            primaryIndexSelector = element => (element.QuestMissionGroupId, element.SortOrder);
         }
 
-        // RVA: 0x2C583A4 Offset: 0x2C583A4 VA: 0x2C583A4
-        public RangeView<EntityMQuestMissionGroup> FindRangeByQuestMissionGroupIdAndSortOrder(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMQuestMissionGroup> FindRangeByQuestMissionGroupIdAndSortOrder(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

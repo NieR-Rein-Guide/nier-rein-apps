@@ -1,44 +1,20 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBattleTable : TableBase<EntityMBattle> // TypeDefIndex: 11693
+    public class EntityMBattleTable : TableBase<EntityMBattle>
     {
-        // Fields
-        private readonly Func<EntityMBattle, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBattle, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C49DDC Offset: 0x2C49DDC VA: 0x2C49DDC
-        public EntityMBattleTable(EntityMBattle[] sortedData):base(sortedData)
+        public EntityMBattleTable(EntityMBattle[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = battle => battle.BattleId;
+            primaryIndexSelector = element => element.BattleId;
         }
 
-        // RVA: 0x2C49EDC Offset: 0x2C49EDC VA: 0x2C49EDC
-        public EntityMBattle FindByBattleId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityMBattle FindByBattleId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
-            return null;
-        }
-
-        // RVA: 0x2C49F70 Offset: 0x2C49F70 VA: 0x2C49F70
-        public bool TryFindByBattleId(int key, out EntityMBattle result)
-        {
-            result = null;
-
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByBattleId(int key, out EntityMBattle result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

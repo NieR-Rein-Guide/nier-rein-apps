@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMEventQuestLinkTable : TableBase<EntityMEventQuestLink> // TypeDefIndex: 11892
+    public class EntityMEventQuestLinkTable : TableBase<EntityMEventQuestLink>
     {
-        // Fields
-        private readonly Func<EntityMEventQuestLink, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMEventQuestLink, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B57A40 Offset: 0x2B57A40 VA: 0x2B57A40
-        public EntityMEventQuestLinkTable(EntityMEventQuestLink[] sortedData):base(sortedData)
+        public EntityMEventQuestLinkTable(EntityMEventQuestLink[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = link => link.EventQuestLinkId;
+            primaryIndexSelector = element => element.EventQuestLinkId;
         }
 
-        // RVA: 0x2B57B40 Offset: 0x2B57B40 VA: 0x2B57B40
-        public EntityMEventQuestLink FindByEventQuestLinkId(int key)
-        {
-            foreach(var link in data)
-                if (primaryIndexSelector(link) == key)
-                    return link;
-
-            return null;
-        }
+        public EntityMEventQuestLink FindByEventQuestLinkId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

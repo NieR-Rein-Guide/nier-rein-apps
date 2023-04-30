@@ -1,29 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBattleNpcDeckCharacterTable : TableBase<EntityMBattleNpcDeckCharacter> // TypeDefIndex: 11647
+    public class EntityMBattleNpcDeckCharacterTable : TableBase<EntityMBattleNpcDeckCharacter>
     {
-        // Fields
-        private readonly Func<EntityMBattleNpcDeckCharacter, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBattleNpcDeckCharacter, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C46FC0 Offset: 0x2C46FC0 VA: 0x2C46FC0
-        public EntityMBattleNpcDeckCharacterTable(EntityMBattleNpcDeckCharacter[] sortedData):base(sortedData)
+        public EntityMBattleNpcDeckCharacterTable(EntityMBattleNpcDeckCharacter[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = character => (character.BattleNpcId, character.BattleNpcDeckCharacterUuid);
+            primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcDeckCharacterUuid);
         }
 
-        // RVA: 0x2C470C0 Offset: 0x2C470C0 VA: 0x2C470C0
-        public EntityMBattleNpcDeckCharacter FindByBattleNpcIdAndBattleNpcDeckCharacterUuid(ValueTuple<long, string> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMBattleNpcDeckCharacter FindByBattleNpcIdAndBattleNpcDeckCharacterUuid(ValueTuple<long, string> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
     }
 }

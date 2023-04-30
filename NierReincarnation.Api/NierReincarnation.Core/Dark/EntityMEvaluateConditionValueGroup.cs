@@ -9,8 +9,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int EvaluateConditionValueGroupId { get; set; } // 0x10
+
         [Key(1)]
         public int GroupIndex { get; set; } // 0x14
+
         [Key(2)]
         public long Value { get; set; } // 0x18
     }

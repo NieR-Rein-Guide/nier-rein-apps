@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMBattleRentalDeckTable : TableBase<EntityMBattleRentalDeck> // TypeDefIndex: 11689
+    public class EntityMBattleRentalDeckTable : TableBase<EntityMBattleRentalDeck>
     {
-        // Fields
-        private readonly Func<EntityMBattleRentalDeck, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBattleRentalDeck, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C461C0 Offset: 0x2C461C0 VA: 0x2C461C0
         public EntityMBattleRentalDeckTable(EntityMBattleRentalDeck[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = deck => deck.BattleGroupId;
+            primaryIndexSelector = element => element.BattleGroupId;
         }
 
-        // RVA: 0x2C462C0 Offset: 0x2C462C0 VA: 0x2C462C0
-        public EntityMBattleRentalDeck FindByBattleGroupId(int key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMBattleRentalDeck FindByBattleGroupId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

@@ -10,10 +10,13 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillBehaviourActionId { get; set; } // 0x10
+
         [Key(1)]
         public DamageMultiplyDetailType DamageMultiplyDetailType { get; set; } // 0x14
+
         [Key(2)]
         public int SkillDamageMultiplyDetailId { get; set; } // 0x18
+
         [Key(3)]
         public DamageMultiplyTargetType DamageMultiplyTargetType { get; set; } // 0x1C
     }

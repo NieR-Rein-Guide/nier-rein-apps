@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBattleGroupTable : TableBase<EntityMBattleGroup> // TypeDefIndex: 11621
+    public class EntityMBattleGroupTable : TableBase<EntityMBattleGroup>
     {
-        // Fields
-        private readonly Func<EntityMBattleGroup, ValueTuple<int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBattleGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C45488 Offset: 0x2C45488 VA: 0x2C45488
-        public EntityMBattleGroupTable(EntityMBattleGroup[] sortedData):base(sortedData)
+        public EntityMBattleGroupTable(EntityMBattleGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.BattleGroupId, group.WaveNumber);
+            primaryIndexSelector = element => (element.BattleGroupId, element.WaveNumber);
         }
 
-        // RVA: 0x2C45588 Offset: 0x2C45588 VA: 0x2C45588
-        public RangeView<EntityMBattleGroup> FindRangeByBattleGroupIdAndWaveNumber(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true)
-        {
-            return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
-        }
+        public RangeView<EntityMBattleGroup> FindRangeByBattleGroupIdAndWaveNumber(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

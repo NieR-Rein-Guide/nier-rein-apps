@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,8 +12,9 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.PvpSeasonId;
         }
-        
-        public EntityMPvpSeason FindByPvpSeasonId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
+        public EntityMPvpSeason FindByPvpSeasonId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+
+        public bool TryFindByPvpSeasonId(int key, out EntityMPvpSeason result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
     }
 }

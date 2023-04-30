@@ -1,3 +1,4 @@
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ namespace NierReincarnation.Core.Dark.Tables
     public class EntityIUserDeckLimitContentRestrictedTable : TableBase<EntityIUserDeckLimitContentRestricted>
     {
         private readonly Func<EntityIUserDeckLimitContentRestricted, (long, int, int, string)> primaryIndexSelector;
-        private readonly Func<EntityIUserDeckLimitContentRestricted, (int, int)> secondaryIndexSelector;
+        private readonly Func<EntityIUserDeckLimitContentRestricted, (int, PossessionType)> secondaryIndexSelector;
 
         public EntityIUserDeckLimitContentRestrictedTable(EntityIUserDeckLimitContentRestricted[] sortedData) : base(sortedData)
         {
@@ -15,7 +16,7 @@ namespace NierReincarnation.Core.Dark.Tables
             secondaryIndexSelector = element => (element.EventQuestChapterId, element.PossessionType);
         }
 
-        public RangeView<EntityIUserDeckLimitContentRestricted> FindByEventQuestChapterIdAndPossessionType(ValueTuple<int, int> key)
-        { return FindManyCore(data, secondaryIndexSelector, Comparer<(int, int)>.Default, key); }
+        public RangeView<EntityIUserDeckLimitContentRestricted> FindByEventQuestChapterIdAndPossessionType(ValueTuple<int, PossessionType> key) =>
+            FindManyCore(data, secondaryIndexSelector, Comparer<(int, PossessionType)>.Default, key);
     }
 }

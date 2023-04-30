@@ -1,6 +1,6 @@
-using System;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,6 +12,5 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.LibraryRecordType;
         }
-        
     }
 }

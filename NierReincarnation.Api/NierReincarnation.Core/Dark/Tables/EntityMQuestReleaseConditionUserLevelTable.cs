@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMQuestReleaseConditionUserLevelTable : TableBase<EntityMQuestReleaseConditionUserLevel> // TypeDefIndex: 12167
+    public class EntityMQuestReleaseConditionUserLevelTable : TableBase<EntityMQuestReleaseConditionUserLevel>
     {
-        // Fields
-        private readonly Func<EntityMQuestReleaseConditionUserLevel, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestReleaseConditionUserLevel, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C59A8C Offset: 0x2C59A8C VA: 0x2C59A8C
-        public EntityMQuestReleaseConditionUserLevelTable(EntityMQuestReleaseConditionUserLevel[] sortedData):base(sortedData)
+        public EntityMQuestReleaseConditionUserLevelTable(EntityMQuestReleaseConditionUserLevel[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = level => level.QuestReleaseConditionId;
+            primaryIndexSelector = element => element.QuestReleaseConditionId;
         }
 
-        // RVA: 0x2C59B8C Offset: 0x2C59B8C VA: 0x2C59B8C
-        public EntityMQuestReleaseConditionUserLevel FindByQuestReleaseConditionId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMQuestReleaseConditionUserLevel FindByQuestReleaseConditionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

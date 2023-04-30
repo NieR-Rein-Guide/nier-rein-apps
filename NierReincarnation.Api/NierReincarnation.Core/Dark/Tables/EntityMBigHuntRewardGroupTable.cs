@@ -1,19 +1,19 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
     public class EntityMBigHuntRewardGroupTable : TableBase<EntityMBigHuntRewardGroup>
     {
-        private readonly Func<EntityMBigHuntRewardGroup, (int,int)> primaryIndexSelector;
+        private readonly Func<EntityMBigHuntRewardGroup, (int, int)> primaryIndexSelector;
 
         public EntityMBigHuntRewardGroupTable(EntityMBigHuntRewardGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.BigHuntRewardGroupId,element.SortOrder);
+            primaryIndexSelector = element => (element.BigHuntRewardGroupId, element.SortOrder);
         }
-        
-        public RangeView<EntityMBigHuntRewardGroup> FindRangeByBigHuntRewardGroupIdAndSortOrder(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int,int)>.Default, min, max, ascendant); }
 
+        public RangeView<EntityMBigHuntRewardGroup> FindRangeByBigHuntRewardGroupIdAndSortOrder(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

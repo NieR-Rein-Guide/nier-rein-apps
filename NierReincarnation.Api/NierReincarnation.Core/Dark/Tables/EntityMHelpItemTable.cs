@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -14,11 +14,9 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => element.HelpItemId;
             secondaryIndexSelector = element => element.HelpCategoryId;
         }
-        
-        public EntityMHelpItem FindByHelpItemId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
-	
-        public RangeView<EntityMHelpItem> FindByHelpCategoryId(int key) { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
+        public EntityMHelpItem FindByHelpItemId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
+        public RangeView<EntityMHelpItem> FindByHelpCategoryId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

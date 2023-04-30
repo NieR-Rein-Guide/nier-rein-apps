@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMCharacterDisplaySwitchTable : TableBase<EntityMCharacterDisplaySwitch> // TypeDefIndex: 11779
+    public class EntityMCharacterDisplaySwitchTable : TableBase<EntityMCharacterDisplaySwitch>
     {
-        // Fields
-        private readonly Func<EntityMCharacterDisplaySwitch, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCharacterDisplaySwitch, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B3EE70 Offset: 0x2B3EE70 VA: 0x2B3EE70
-        public EntityMCharacterDisplaySwitchTable(EntityMCharacterDisplaySwitch[] sortedData):base(sortedData)
+        public EntityMCharacterDisplaySwitchTable(EntityMCharacterDisplaySwitch[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = sw => sw.CharacterId;
+            primaryIndexSelector = element => element.CharacterId;
         }
 
-        // RVA: 0x2B3EF70 Offset: 0x2B3EF70 VA: 0x2B3EF70
-        public EntityMCharacterDisplaySwitch FindByCharacterId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMCharacterDisplaySwitch FindByCharacterId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

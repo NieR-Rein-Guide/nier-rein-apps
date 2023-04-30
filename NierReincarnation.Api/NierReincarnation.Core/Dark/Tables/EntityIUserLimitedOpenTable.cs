@@ -1,30 +1,20 @@
-﻿using System;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserLimitedOpenTable : TableBase<EntityIUserLimitedOpen> // TypeDefIndex: 12535
+    public class EntityIUserLimitedOpenTable : TableBase<EntityIUserLimitedOpen>
     {
-        // Fields
-        private readonly Func<EntityIUserLimitedOpen, (long,LimitedOpenTargetType,int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserLimitedOpen, (long, LimitedOpenTargetType, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35B08C8 Offset: 0x35B08C8 VA: 0x35B08C8
-        public EntityIUserLimitedOpenTable(EntityIUserLimitedOpen[] sortedData):base(sortedData)
+        public EntityIUserLimitedOpenTable(EntityIUserLimitedOpen[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = open => (open.UserId,open.LimitedOpenTargetType,open.TargetId);
+            primaryIndexSelector = element => (element.UserId, element.LimitedOpenTargetType, element.TargetId);
         }
 
-        // RVA: 0x35B09C8 Offset: 0x35B09C8 VA: 0x35B09C8
-        public EntityIUserLimitedOpen FindByUserIdAndLimitedOpenTargetTypeAndTargetId((long, LimitedOpenTargetType, int) key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityIUserLimitedOpen FindByUserIdAndLimitedOpenTargetTypeAndTargetId(ValueTuple<long, LimitedOpenTargetType, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, LimitedOpenTargetType, int)>.Default, key);
     }
 }

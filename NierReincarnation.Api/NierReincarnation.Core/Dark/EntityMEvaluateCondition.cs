@@ -10,12 +10,16 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int EvaluateConditionId { get; set; } // 0x10
+
         [Key(1)]
         public EvaluateConditionFunctionType EvaluateConditionFunctionType { get; set; } // 0x14
+
         [Key(2)]
         public EvaluateConditionEvaluateType EvaluateConditionEvaluateType { get; set; } // 0x18
+
         [Key(3)]
         public int EvaluateConditionValueGroupId { get; set; } // 0x1C
+
         [Key(4)]
         public int NameEvaluateConditionTextId { get; set; } // 0x20
     }

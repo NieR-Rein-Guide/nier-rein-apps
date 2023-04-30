@@ -1,28 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserConsumableItemTable : TableBase<EntityIUserConsumableItem> // TypeDefIndex: 12489
+    public class EntityIUserConsumableItemTable : TableBase<EntityIUserConsumableItem>
     {
-        // Fields
-        private readonly Func<EntityIUserConsumableItem, (long, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserConsumableItem, (long, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC9770 Offset: 0x2DC9770 VA: 0x2DC9770
         public EntityIUserConsumableItemTable(EntityIUserConsumableItem[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = item => (item.UserId, item.ConsumableItemId);
+            primaryIndexSelector = element => (element.UserId, element.ConsumableItemId);
         }
 
-        public EntityIUserConsumableItem FindByUserIdAndConsumableItemId((long,int) key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public bool TryFindByUserIdAndConsumableItemId(ValueTuple<long, int> key, out EntityIUserConsumableItem result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
     }
 }

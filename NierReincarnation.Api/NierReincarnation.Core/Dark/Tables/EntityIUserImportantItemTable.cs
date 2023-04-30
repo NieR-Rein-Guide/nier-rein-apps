@@ -13,13 +13,12 @@ namespace NierReincarnation.Core.Dark.Tables
             primaryIndexSelector = element => (element.UserId, element.ImportantItemId);
         }
 
-        public EntityIUserImportantItem FindByUserIdAndImportantItemId(ValueTuple<long, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key); }
+        public EntityIUserImportantItem FindByUserIdAndImportantItemId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
 
-        public bool TryFindByUserIdAndImportantItemId(ValueTuple<long, int> key, out EntityIUserImportantItem result)
-        { return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result); }
+        public bool TryFindByUserIdAndImportantItemId(ValueTuple<long, int> key, out EntityIUserImportantItem result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
 
-        public RangeView<EntityIUserImportantItem> FindRangeByUserIdAndImportantItemId(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true)
-        { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant); }
+        public RangeView<EntityIUserImportantItem> FindRangeByUserIdAndImportantItemId(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant);
     }
 }

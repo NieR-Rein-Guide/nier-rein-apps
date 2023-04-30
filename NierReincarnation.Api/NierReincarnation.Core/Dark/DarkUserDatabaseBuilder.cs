@@ -55,7 +55,7 @@ namespace NierReincarnation.Core.Dark
 
         public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserBigHuntWeeklyMaxScore> dataSource)
         {
-            AppendCore(dataSource, user => (user.UserId, user.BigHuntWeeklyVersion, user.AttributeType), Comparer<(long, long, int)>.Default);
+            AppendCore(dataSource, user => (user.UserId, user.BigHuntWeeklyVersion, user.AttributeType), Comparer<(long, long, AttributeType)>.Default);
             return this;
         }
 

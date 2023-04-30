@@ -84,20 +84,16 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 
         private static bool TryGetGuerrillaFreeOpen(out EntityMEventQuestGuerrillaFreeOpen resultGuerrillaFreeOpenEntity)
         {
-            var table = DatabaseDefine.Master.EntityMEventQuestGuerrillaFreeOpenTable;
-            resultGuerrillaFreeOpenEntity = table.All.FirstOrDefault(x => CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime));
+            resultGuerrillaFreeOpenEntity = DatabaseDefine.Master.EntityMEventQuestGuerrillaFreeOpenTable.All.FirstOrDefault(x => CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime));
 
             return resultGuerrillaFreeOpenEntity != null;
         }
 
         private static bool TryGetUserGuerrillaFreeOpen(long userId, out EntityIUserEventQuestGuerrillaFreeOpen guerrillaFreeOpen)
         {
-            var table = DatabaseDefine.User.EntityIUserEventQuestGuerrillaFreeOpenTable;
-            guerrillaFreeOpen = table.FindByUserId(userId);
-            if (guerrillaFreeOpen == null)
-                return false;
-
-            return CalculatorDateTime.IsAfterTodaySpanningTime(guerrillaFreeOpen.StartDatetime);
+            return DatabaseDefine.User.EntityIUserEventQuestGuerrillaFreeOpenTable.TryFindByUserId(userId, out guerrillaFreeOpen)
+                ? CalculatorDateTime.IsAfterTodaySpanningTime(guerrillaFreeOpen.StartDatetime)
+                : false;
         }
     }
 }

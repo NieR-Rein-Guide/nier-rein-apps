@@ -23,8 +23,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
         public static bool IsLimitDailyGroupRewardReceived()
         {
             var userId = CalculatorStateUser.GetUserId();
-            var element = DatabaseDefine.User.EntityIUserEventQuestDailyGroupCompleteRewardTable.FindByUserId(userId);
-            if (element == null)
+            if (!DatabaseDefine.User.EntityIUserEventQuestDailyGroupCompleteRewardTable.TryFindByUserId(userId, out var element))
                 return false;
 
             return CalculatorDateTime.IsSameDay(element.LastRewardReceiveDatetime);

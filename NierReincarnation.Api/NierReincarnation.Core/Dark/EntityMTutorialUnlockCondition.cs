@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public TutorialType TutorialType { get; set; } // 0x10
+
         [Key(1)]
         public TutorialUnlockConditionType TutorialUnlockConditionType { get; set; } // 0x14
+
         [Key(2)]
         public int ConditionValue { get; set; } // 0x18
     }

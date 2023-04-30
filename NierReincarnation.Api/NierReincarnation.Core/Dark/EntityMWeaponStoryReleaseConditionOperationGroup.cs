@@ -10,6 +10,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int WeaponStoryReleaseConditionOperationGroupId { get; set; } // 0x10
+
         [Key(1)]
         public ConditionOperationType ConditionOperationType { get; set; } // 0x14
     }

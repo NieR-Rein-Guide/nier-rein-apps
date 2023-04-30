@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int MissionLinkId { get; set; } // 0x10
+
         [Key(1)]
         public DomainType DestinationDomainType { get; set; } // 0x14
+
         [Key(2)]
         public int DestinationDomainId { get; set; } // 0x18
     }

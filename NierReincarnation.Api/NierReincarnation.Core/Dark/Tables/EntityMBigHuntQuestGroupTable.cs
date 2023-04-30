@@ -1,19 +1,15 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMBigHuntQuestGroupTable : TableBase<EntityMBigHuntQuestGroup> // TypeDefIndex: 11709
+    public class EntityMBigHuntQuestGroupTable : TableBase<EntityMBigHuntQuestGroup>
     {
-        // Fields
-        private readonly Func<EntityMBigHuntQuestGroup, (int, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBigHuntQuestGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C47684 Offset: 0x2C47684 VA: 0x2C47684
         public EntityMBigHuntQuestGroupTable(EntityMBigHuntQuestGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.BigHuntQuestGroupId, group.SortOrder);
+            primaryIndexSelector = element => (element.BigHuntQuestGroupId, element.SortOrder);
         }
     }
 }

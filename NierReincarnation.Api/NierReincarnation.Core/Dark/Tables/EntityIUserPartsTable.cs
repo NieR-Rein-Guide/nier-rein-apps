@@ -1,44 +1,21 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityIUserPartsTable : TableBase<EntityIUserParts> // TypeDefIndex: 12571
+    public class EntityIUserPartsTable : TableBase<EntityIUserParts>
     {
-        // Fields
-        private readonly Func<EntityIUserParts, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserParts, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x35B4BB8 Offset: 0x35B4BB8 VA: 0x35B4BB8
         public EntityIUserPartsTable(EntityIUserParts[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.UserPartsUuid);
+            primaryIndexSelector = element => (element.UserId, element.UserPartsUuid);
         }
 
-        // RVA: 0x35B4CB8 Offset: 0x35B4CB8 VA: 0x35B4CB8
-        public EntityIUserParts FindByUserIdAndUserPartsUuid(ValueTuple<long, string> key)
-        {
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
+        public EntityIUserParts FindByUserIdAndUserPartsUuid(ValueTuple<long, string> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
 
-            return null;
-        }
-
-        // RVA: 0x35B4D40 Offset: 0x35B4D40 VA: 0x35B4D40
-        public bool TryFindByUserIdAndUserPartsUuid(ValueTuple<long, string> key, out EntityIUserParts result)
-        {
-            result = null;
-
-            foreach (var element in data)
-                if (primaryIndexSelector(element) == key)
-                {
-                    result = element;
-                    return true;
-                }
-
-            return false;
-        }
+        public bool TryFindByUserIdAndUserPartsUuid(ValueTuple<long, string> key, out EntityIUserParts result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key, out result);
     }
 }

@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int ActorAnimationCategoryId { get; set; } // 0x10
+
         [Key(1)]
         public string Name { get; set; } // 0x18
     }

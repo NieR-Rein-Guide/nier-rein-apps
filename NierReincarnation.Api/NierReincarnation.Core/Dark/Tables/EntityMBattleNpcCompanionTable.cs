@@ -1,29 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBattleNpcCompanionTable : TableBase<EntityMBattleNpcCompanion> // TypeDefIndex: 11635
+    public class EntityMBattleNpcCompanionTable : TableBase<EntityMBattleNpcCompanion>
     {
-        // Fields
-        private readonly Func<EntityMBattleNpcCompanion, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBattleNpcCompanion, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C462CC Offset: 0x2C462CC VA: 0x2C462CC
-        public EntityMBattleNpcCompanionTable(EntityMBattleNpcCompanion[] sortedData):base(sortedData)
+        public EntityMBattleNpcCompanionTable(EntityMBattleNpcCompanion[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = companion => (companion.BattleNpcId, companion.BattleNpcCompanionUuid);
+            primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcCompanionUuid);
         }
 
-        // RVA: 0x2C463CC Offset: 0x2C463CC VA: 0x2C463CC
-        public EntityMBattleNpcCompanion FindByBattleNpcIdAndBattleNpcCompanionUuid(ValueTuple<long, string> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMBattleNpcCompanion FindByBattleNpcIdAndBattleNpcCompanionUuid(ValueTuple<long, string> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
     }
 }

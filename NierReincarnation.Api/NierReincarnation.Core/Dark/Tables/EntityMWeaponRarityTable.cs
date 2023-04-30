@@ -1,30 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMWeaponRarityTable : TableBase<EntityMWeaponRarity> // TypeDefIndex: 12431
+    public class EntityMWeaponRarityTable : TableBase<EntityMWeaponRarity>
     {
-        // Fields
-        private readonly Func<EntityMWeaponRarity, RarityType> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMWeaponRarity, RarityType> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2BAC78C Offset: 0x2BAC78C VA: 0x2BAC78C
-        public EntityMWeaponRarityTable(EntityMWeaponRarity[] sortedData):base(sortedData)
+        public EntityMWeaponRarityTable(EntityMWeaponRarity[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = rarity => rarity.RarityType;
+            primaryIndexSelector = element => element.RarityType;
         }
 
-        // RVA: 0x2BAC88C Offset: 0x2BAC88C VA: 0x2BAC88C
-        public EntityMWeaponRarity FindByRarityType(RarityType key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMWeaponRarity FindByRarityType(RarityType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<RarityType>.Default, key);
     }
 }

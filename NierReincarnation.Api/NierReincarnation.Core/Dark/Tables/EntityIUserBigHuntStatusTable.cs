@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserBigHuntStatusTable : TableBase<EntityIUserBigHuntStatus> // TypeDefIndex: 12469
+    public class EntityIUserBigHuntStatusTable : TableBase<EntityIUserBigHuntStatus>
     {
-        // Fields
-        private readonly Func<EntityIUserBigHuntStatus, (long, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserBigHuntStatus, (long, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC4994 Offset: 0x2DC4994 VA: 0x2DC4994
-        public EntityIUserBigHuntStatusTable(EntityIUserBigHuntStatus[] sortedData):base(sortedData)
+        public EntityIUserBigHuntStatusTable(EntityIUserBigHuntStatus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = status => (status.UserId, status.BigHuntBossQuestId);
+            primaryIndexSelector = element => (element.UserId, element.BigHuntBossQuestId);
         }
 
-        // RVA: 0x2DC4A94 Offset: 0x2DC4A94 VA: 0x2DC4A94
-        public EntityIUserBigHuntStatus FindByUserIdAndBigHuntBossQuestId((long, int) key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityIUserBigHuntStatus FindByUserIdAndBigHuntBossQuestId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
     }
 }

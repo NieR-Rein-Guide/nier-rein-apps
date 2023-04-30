@@ -1,29 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMSkillBehaviourGroupTable : TableBase<EntityMSkillBehaviourGroup> // TypeDefIndex: 12317
+    public class EntityMSkillBehaviourGroupTable : TableBase<EntityMSkillBehaviourGroup>
     {
-        // Fields
-        private readonly Func<EntityMSkillBehaviourGroup, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMSkillBehaviourGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2BA4840 Offset: 0x2BA4840 VA: 0x2BA4840
-        public EntityMSkillBehaviourGroupTable(EntityMSkillBehaviourGroup[] sortedData):base(sortedData)
+        public EntityMSkillBehaviourGroupTable(EntityMSkillBehaviourGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => group.SkillBehaviourGroupId;
+            primaryIndexSelector = element => (element.SkillBehaviourGroupId, element.SkillBehaviourId);
         }
 
-        // RVA: 0x2BA4940 Offset: 0x2BA4940 VA: 0x2BA4940
-        public EntityMSkillBehaviourGroup FindBySkillBehaviourGroupId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public RangeView<EntityMSkillBehaviourGroup> FindRangeBySkillBehaviourGroupIdAndSkillBehaviourId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }

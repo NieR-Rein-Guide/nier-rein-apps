@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillBehaviourActivationConditionId { get; set; } // 0x10
+
         [Key(1)]
         public int RunningSkillBehaviourType { get; set; } // 0x14
     }

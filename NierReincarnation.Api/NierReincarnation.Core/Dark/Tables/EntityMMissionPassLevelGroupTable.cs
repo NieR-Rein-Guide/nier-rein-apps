@@ -1,6 +1,7 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -15,10 +16,16 @@ namespace NierReincarnation.Core.Dark.Tables
             secondaryIndexSelector = element => element.MissionPassLevelGroupId;
         }
 
-        public EntityMMissionPassLevelGroup FindByMissionPassLevelGroupIdAndLevel(ValueTuple<int, int> key)
-        { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key); }
+        public EntityMMissionPassLevelGroup FindByMissionPassLevelGroupIdAndLevel(ValueTuple<int, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
 
         public RangeView<EntityMMissionPassLevelGroup> FindByMissionPassLevelGroupId(int key)
-        { return FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key); }
+        {
+            var result = data
+                .Where(x => x.MissionPassLevelGroupId == key)
+                .ToArray();
+
+            return new RangeView<EntityMMissionPassLevelGroup>(result, 0, result.Length, true);
+        }
     }
 }

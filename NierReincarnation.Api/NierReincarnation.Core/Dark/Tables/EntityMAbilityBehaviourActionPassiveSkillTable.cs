@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMAbilityBehaviourActionPassiveSkillTable : TableBase<EntityMAbilityBehaviourActionPassiveSkill> // TypeDefIndex: 11535
+    public class EntityMAbilityBehaviourActionPassiveSkillTable : TableBase<EntityMAbilityBehaviourActionPassiveSkill>
     {
-        // Fields
-        private readonly Func<EntityMAbilityBehaviourActionPassiveSkill, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMAbilityBehaviourActionPassiveSkill, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C3F7F4 Offset: 0x2C3F7F4 VA: 0x2C3F7F4
-        public EntityMAbilityBehaviourActionPassiveSkillTable(EntityMAbilityBehaviourActionPassiveSkill[] sortedData):base(sortedData)
+        public EntityMAbilityBehaviourActionPassiveSkillTable(EntityMAbilityBehaviourActionPassiveSkill[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = skill => skill.AbilityBehaviourActionId;
+            primaryIndexSelector = element => element.AbilityBehaviourActionId;
         }
 
-        // RVA: 0x2C3F8F4 Offset: 0x2C3F8F4 VA: 0x2C3F8F4
-        public EntityMAbilityBehaviourActionPassiveSkill FindByAbilityBehaviourActionId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public EntityMAbilityBehaviourActionPassiveSkill FindByAbilityBehaviourActionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

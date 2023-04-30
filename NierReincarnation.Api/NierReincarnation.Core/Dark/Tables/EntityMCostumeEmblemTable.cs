@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMCostumeEmblemTable : TableBase<EntityMCostumeEmblem> // TypeDefIndex: 11853
+    public class EntityMCostumeEmblemTable : TableBase<EntityMCostumeEmblem>
     {
-        // Fields
-        private readonly Func<EntityMCostumeEmblem, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCostumeEmblem, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B40C24 Offset: 0x2B40C24 VA: 0x2B40C24
-        public EntityMCostumeEmblemTable(EntityMCostumeEmblem[] sortedData):base(sortedData)
+        public EntityMCostumeEmblemTable(EntityMCostumeEmblem[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = emblem => emblem.CostumeEmblemAssetId;
+            primaryIndexSelector = element => element.CostumeEmblemAssetId;
         }
 
-        // RVA: 0x2B40D24 Offset: 0x2B40D24 VA: 0x2B40D24
-        public EntityMCostumeEmblem FindByCostumeEmblemAssetId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMCostumeEmblem FindByCostumeEmblemAssetId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

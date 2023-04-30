@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMAbilityStatusTable : TableBase<EntityMAbilityStatus> // TypeDefIndex: 11547
+    public class EntityMAbilityStatusTable : TableBase<EntityMAbilityStatus>
     {
-        // Fields
-        private readonly Func<EntityMAbilityStatus, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMAbilityStatus, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C40530 Offset: 0x2C40530 VA: 0x2C40530
-        public EntityMAbilityStatusTable(EntityMAbilityStatus[] sortedData):base(sortedData)
+        public EntityMAbilityStatusTable(EntityMAbilityStatus[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = status => status.AbilityStatusId;
+            primaryIndexSelector = element => element.AbilityStatusId;
         }
 
-        // RVA: 0x2C40630 Offset: 0x2C40630 VA: 0x2C40630
-        public EntityMAbilityStatus FindByAbilityStatusId(int key)
-        {
-            foreach(var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
-
-            return null;
-        }
+        public EntityMAbilityStatus FindByAbilityStatusId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

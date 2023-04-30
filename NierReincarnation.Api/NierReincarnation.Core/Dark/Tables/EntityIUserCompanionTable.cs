@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityIUserCompanionTable : TableBase<EntityIUserCompanion> // TypeDefIndex: 12487
+    public class EntityIUserCompanionTable : TableBase<EntityIUserCompanion>
     {
-        // Fields
-        private readonly Func<EntityIUserCompanion, (long, string)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserCompanion, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2DC77CC Offset: 0x2DC77CC VA: 0x2DC77CC
-        public EntityIUserCompanionTable(EntityIUserCompanion[] sortedData):base(sortedData)
+        public EntityIUserCompanionTable(EntityIUserCompanion[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = user => (user.UserId, user.UserCompanionUuid);
+            primaryIndexSelector = element => (element.UserId, element.UserCompanionUuid);
         }
 
-        // RVA: 0x2DC78CC Offset: 0x2DC78CC VA: 0x2DC78CC
-        public EntityIUserCompanion FindByUserIdAndUserCompanionUuid(ValueTuple<long, string> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityIUserCompanion FindByUserIdAndUserCompanionUuid(ValueTuple<long, string> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
     }
 }

@@ -10,12 +10,16 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int GimmickId { get; set; } // 0x10
+
         [Key(1)]
         public GimmickType GimmickType { get; set; } // 0x14
+
         [Key(2)]
         public int GimmickOrnamentGroupId { get; set; } // 0x18
+
         [Key(3)]
         public int ClearEvaluateConditionId { get; set; } // 0x1C
+
         [Key(4)]
         public int ReleaseEvaluateConditionId { get; set; } // 0x20
     }

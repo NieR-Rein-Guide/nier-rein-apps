@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,10 +11,10 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMPlatformPaymentPriceTable(EntityMPlatformPaymentPrice[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.PlatformPaymentId,element.PlatformType);
+            primaryIndexSelector = element => (element.PlatformPaymentId, element.PlatformType);
         }
-        
-        public EntityMPlatformPaymentPrice FindByPlatformPaymentIdAndPlatformType(ValueTuple<int, PlatformType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, PlatformType)>.Default, key); }
 
+        public EntityMPlatformPaymentPrice FindByPlatformPaymentIdAndPlatformType(ValueTuple<int, PlatformType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, PlatformType)>.Default, key);
     }
 }

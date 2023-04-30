@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMCompanionAbilityGroupTable : TableBase<EntityMCompanionAbilityGroup> // TypeDefIndex: 11797
+    public class EntityMCompanionAbilityGroupTable : TableBase<EntityMCompanionAbilityGroup>
     {
-        // Fields
-        private readonly Func<EntityMCompanionAbilityGroup, ValueTuple<int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCompanionAbilityGroup, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B403FC Offset: 0x2B403FC VA: 0x2B403FC
-        public EntityMCompanionAbilityGroupTable(EntityMCompanionAbilityGroup[] sortedData):base(sortedData)
+        public EntityMCompanionAbilityGroupTable(EntityMCompanionAbilityGroup[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = group => (group.CompanionAbilityGroupId, group.SlotNumber);
+            primaryIndexSelector = element => (element.CompanionAbilityGroupId, element.SlotNumber);
         }
 
-        // RVA: 0x2B404FC Offset: 0x2B404FC VA: 0x2B404FC
-        public EntityMCompanionAbilityGroup FindByCompanionAbilityGroupIdAndSlotNumber(ValueTuple<int, int> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMCompanionAbilityGroup FindByCompanionAbilityGroupIdAndSlotNumber(ValueTuple<int, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
     }
 }

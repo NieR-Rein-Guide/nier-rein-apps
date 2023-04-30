@@ -1,29 +1,18 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMCompanionTable : TableBase<EntityMCompanion> // TypeDefIndex: 11815
+    public class EntityMCompanionTable : TableBase<EntityMCompanion>
     {
-        // Fields
-        private readonly Func<EntityMCompanion, int> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMCompanion, int> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B417E0 Offset: 0x2B417E0 VA: 0x2B417E0
-        public EntityMCompanionTable(EntityMCompanion[] sortedData):base(sortedData)
+        public EntityMCompanionTable(EntityMCompanion[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = companion => companion.CompanionId;
+            primaryIndexSelector = element => element.CompanionId;
         }
 
-        // RVA: 0x2B418E0 Offset: 0x2B418E0 VA: 0x2B418E0
-        public EntityMCompanion FindByCompanionId(int key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMCompanion FindByCompanionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
     }
 }

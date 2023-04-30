@@ -1,44 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public class EntityMCostumeTable : TableBase<EntityMCostume> // TypeDefIndex: 11871
+    public class EntityMCostumeTable : TableBase<EntityMCostume>
     {
-        // Fields
-        private readonly Func<EntityMCostume, int> primaryIndexSelector; // 0x18
-        private readonly Func<EntityMCostume, int> secondaryIndex0Selector; // 0x28
+        private readonly Func<EntityMCostume, int> primaryIndexSelector;
+        private readonly Func<EntityMCostume, int> secondaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2B456A4 Offset: 0x2B456A4 VA: 0x2B456A4
         public EntityMCostumeTable(EntityMCostume[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = costume => costume.CostumeId;
-            secondaryIndex0Selector = costume => costume.CharacterId;
+            primaryIndexSelector = element => element.CostumeId;
+            secondaryIndexSelector = element => element.CharacterId;
         }
 
-        // RVA: 0x2B4585C Offset: 0x2B4585C VA: 0x2B4585C
-        public EntityMCostume FindByCostumeId(int key)
-        {
-            foreach (var entry in data)
-                if (primaryIndexSelector(entry) == key)
-                    return entry;
+        public EntityMCostume FindByCostumeId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
-            return null;
-        }
+        public bool TryFindByCostumeId(int key, out EntityMCostume result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
 
-        // RVA: 0x2B458F0 Offset: 0x2B458F0 VA: 0x2B458F0
-        public RangeView<EntityMCostume> FindByCharacterId(int key)
-        {
-            var result = new List<EntityMCostume>();
-
-            foreach (var entry in data)
-                if (secondaryIndex0Selector(entry) == key)
-                    result.Add(entry);
-
-            return new RangeView<EntityMCostume>(result.ToArray(), 0, result.Count - 1, true);
-        }
+        public RangeView<EntityMCostume> FindByCharacterId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
     }
 }

@@ -1,6 +1,6 @@
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
-using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -12,11 +12,10 @@ namespace NierReincarnation.Core.Dark.Tables
         {
             primaryIndexSelector = element => element.ExploreId;
         }
-        
-        public EntityMExplore FindByExploreId(int key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key); }
 
-	
-        public RangeView<EntityMExplore> FindRangeByExploreId(int min, int max, bool ascendant = true) { return FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant); }
+        public EntityMExplore FindByExploreId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 
+        public RangeView<EntityMExplore> FindRangeByExploreId(int min, int max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant);
     }
 }

@@ -9,6 +9,7 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public long BattleNpcId { get; set; } // 0x10
+
         [Key(1)]
         public int CharacterBoardCompleteRewardId { get; set; } // 0x18
     }

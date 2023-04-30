@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
@@ -11,10 +11,10 @@ namespace NierReincarnation.Core.Dark.Tables
 
         public EntityMNaviCutInTextTable(EntityMNaviCutInText[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = element => (element.NaviCutInTextId,element.LanguageType);
+            primaryIndexSelector = element => (element.NaviCutInTextId, element.LanguageType);
         }
-        
-        public EntityMNaviCutInText FindByNaviCutInTextIdAndLanguageType(ValueTuple<int, LanguageType> key) { return FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key); }
 
+        public EntityMNaviCutInText FindByNaviCutInTextIdAndLanguageType(ValueTuple<int, LanguageType> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key);
     }
 }

@@ -10,8 +10,10 @@ namespace NierReincarnation.Core.Dark
     {
         [Key(0)]
         public int SkillBehaviourActionId { get; set; } // 0x10
+
         [Key(1)]
         public ActiveSkillType ActiveSkillType { get; set; } // 0x14
+
         [Key(2)]
         public int ShortenValuePermil { get; set; } // 0x18
     }

@@ -1,26 +1,22 @@
-﻿using NierReincarnation.Core.MasterMemory;
+using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-    public sealed class EntityIUserBigHuntScheduleMaxScoreTable : TableBase<EntityIUserBigHuntScheduleMaxScore>
+    public class EntityIUserBigHuntScheduleMaxScoreTable : TableBase<EntityIUserBigHuntScheduleMaxScore>
     {
-        private readonly Func<EntityIUserBigHuntScheduleMaxScore, ValueTuple<long, int, int>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityIUserBigHuntScheduleMaxScore, (long, int, int)> primaryIndexSelector;
 
         public EntityIUserBigHuntScheduleMaxScoreTable(EntityIUserBigHuntScheduleMaxScore[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = score => (score.UserId, score.BigHuntScheduleId, score.BigHuntBossId);
+            primaryIndexSelector = element => (element.UserId, element.BigHuntScheduleId, element.BigHuntBossId);
         }
 
-        public EntityIUserBigHuntScheduleMaxScore FindByUserIdAndBigHuntScheduleIdAndBigHuntBossId(ValueTuple<long, int, int> key)
-        {
-            return FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key);
-        }
+        public EntityIUserBigHuntScheduleMaxScore FindByUserIdAndBigHuntScheduleIdAndBigHuntBossId(ValueTuple<long, int, int> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key);
 
-        public bool TryFindByUserIdAndBigHuntScheduleIdAndBigHuntBossId(ValueTuple<long, int, int> key, out EntityIUserBigHuntScheduleMaxScore result)
-        {
-            return TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key, out result);
-        }
+        public bool TryFindByUserIdAndBigHuntScheduleIdAndBigHuntBossId(ValueTuple<long, int, int> key, out EntityIUserBigHuntScheduleMaxScore result) =>
+            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key, out result);
     }
 }

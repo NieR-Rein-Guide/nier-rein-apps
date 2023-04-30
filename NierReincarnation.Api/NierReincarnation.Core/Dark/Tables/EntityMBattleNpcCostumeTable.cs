@@ -1,29 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMBattleNpcCostumeTable : TableBase<EntityMBattleNpcCostume> // TypeDefIndex: 11643
+    public class EntityMBattleNpcCostumeTable : TableBase<EntityMBattleNpcCostume>
     {
-        // Fields
-        private readonly Func<EntityMBattleNpcCostume, ValueTuple<long, string>> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMBattleNpcCostume, (long, string)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C46AF8 Offset: 0x2C46AF8 VA: 0x2C46AF8
-        public EntityMBattleNpcCostumeTable(EntityMBattleNpcCostume[] sortedData):base(sortedData)
+        public EntityMBattleNpcCostumeTable(EntityMBattleNpcCostume[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = costume => (costume.BattleNpcId, costume.BattleNpcCostumeUuid);
+            primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcCostumeUuid);
         }
 
-        // RVA: 0x2C46BF8 Offset: 0x2C46BF8 VA: 0x2C46BF8
-        public EntityMBattleNpcCostume FindByBattleNpcIdAndBattleNpcCostumeUuid(ValueTuple<long, string> key)
-        {
-            foreach(var element in data)
-                if (primaryIndexSelector(element) == key)
-                    return element;
-
-            return null;
-        }
+        public EntityMBattleNpcCostume FindByBattleNpcIdAndBattleNpcCostumeUuid(ValueTuple<long, string> key) =>
+            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
     }
 }

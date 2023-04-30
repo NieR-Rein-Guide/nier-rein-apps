@@ -1,19 +1,19 @@
-﻿using System;
 using NierReincarnation.Core.MasterMemory;
+using System;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Tables
 {
-	public class EntityMQuestScheduleCorrespondenceTable : TableBase<EntityMQuestScheduleCorrespondence> // TypeDefIndex: 12181
+    public class EntityMQuestScheduleCorrespondenceTable : TableBase<EntityMQuestScheduleCorrespondence>
     {
-        // Fields
-        private readonly Func<EntityMQuestScheduleCorrespondence, (int, int)> primaryIndexSelector; // 0x18
+        private readonly Func<EntityMQuestScheduleCorrespondence, (int, int)> primaryIndexSelector;
 
-        // Methods
-
-        // RVA: 0x2C57224 Offset: 0x2C57224 VA: 0x2C57224
-        public EntityMQuestScheduleCorrespondenceTable(EntityMQuestScheduleCorrespondence[] sortedData):base(sortedData)
+        public EntityMQuestScheduleCorrespondenceTable(EntityMQuestScheduleCorrespondence[] sortedData) : base(sortedData)
         {
-            primaryIndexSelector = schedule => (schedule.QuestId, schedule.QuestScheduleId);
+            primaryIndexSelector = element => (element.QuestId, element.QuestScheduleId);
         }
+
+        public RangeView<EntityMQuestScheduleCorrespondence> FindRangeByQuestIdAndQuestScheduleId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
     }
 }
