@@ -74,8 +74,32 @@ internal class ExportStoriesMenuCommand : AbstractMenuCommand
             new TextMenuItem
             {
                 Id = "8",
-                Text = "Lost Archives",
+                Text = "Lost Archive Stories",
                 Command = new ExportLostArchivesStoriesMenuCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "9",
+                Text = "Costume Stories",
+                Command = new ExportCharacterCostumeStoriesMenuCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "10",
+                Text = "Weapon Stories",
+                Command = new ExportWeaponTypeStoriesMenuCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "11",
+                Text = "Companion Stories",
+                Command = new ExportCompanionStoriesMenuCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "12",
+                Text = "Memoir Stories",
+                Command = new ExportMemoirSeriesStoriesMenuCommand()
             }
         });
 
