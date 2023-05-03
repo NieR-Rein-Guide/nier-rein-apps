@@ -111,6 +111,12 @@ public class ExportDatabaseEntityMenuCommand : AbstractMenuCommand
             },
             new TextMenuItem
             {
+                Id = "14",
+                Text = "Mission Pass",
+                Command = new ExportMissionPassMenuCommand()
+            },
+            new TextMenuItem
+            {
                 Id = "101",
                 Text = "Costume Info",
                 Command = new ExportCostumeInfoMenuCommand()

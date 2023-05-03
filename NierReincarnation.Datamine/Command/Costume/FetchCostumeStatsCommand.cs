@@ -45,7 +45,7 @@ public class FetchCostumeStatsCommand : AbstractDbQueryCommand<FetchCostumeStats
         foreach (int i in arg.Awakenings)
         {
             List<DataAbilityStatus> abilityStatus = (i > 2 ? awakenAbilities : abilities).Where(x => !x.IsLocked).SelectMany(x => x.AbilityStatusList).ToList();
-            StatusValue stats = CalculatorStatus.GetCostumeStatus(status, null, null, abilityStatus, null, null);
+            StatusValue stats = CalculatorStatus.GetCostumeStatus(status, null, null, abilityStatus, null, null, null, null, 0);
 
             decimal awakeningMultiplier = darkCostumeAwakenEffectGroups
                     .Where(x => x.AwakenStep <= i)

@@ -27,6 +27,10 @@ public static class NierReinExtensions
 
     public static string ToFormattedDateStr(this EntityMEventQuestLabyrinthSeason entityMEventQuestLabyrinthSeason) => DateTimeExtensions.ToFormattedDateStr(entityMEventQuestLabyrinthSeason.StartDatetime, entityMEventQuestLabyrinthSeason.EndDatetime);
 
+    public static string ToFormattedDateStr(this EntityMMissionPass entityMMissionPass) => DateTimeExtensions.ToFormattedDateStr(entityMMissionPass.StartDatetime, entityMMissionPass.EndDatetime);
+
+    public static string ToFormattedDateStr(this EntityMPremiumItem entityMPremiumItem) => DateTimeExtensions.ToFormattedDateStr(entityMPremiumItem.StartDatetime, entityMPremiumItem.EndDatetime);
+
     #endregion Date Extensions
 
     #region String Extensions
@@ -164,6 +168,7 @@ public static class NierReinExtensions
             ShopType.PREMIUM_PACK_SHOP => "Premium Pack Shop",
             ShopType.STAMINA_RECOVERY_SHOP => "Stamina Recovery Shop",
             ShopType.MOM_SHOP => "Mama Shop",
+            ShopType.PREMIUM_MISSION_PASS_SHOP => "Monthly Mission Pass",
             _ => "Unknown",
         };
     }

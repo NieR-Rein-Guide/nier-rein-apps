@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="ConsoleTools" Version="1.1.1" />
-		<PackageReference Include="NierReincarnation" Version="1.7.0" />
+		<PackageReference Include="NierReincarnation" Version="1.7.3" />
 	</ItemGroup>
 
 	<!-- Debug -->

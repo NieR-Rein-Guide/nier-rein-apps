@@ -1,7 +1,6 @@
 ﻿using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
-using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Datamine.Extension;
 
@@ -13,7 +12,6 @@ public class ExportShopsMenuCommand : AbstractMenuCommand
 
     public override Task ExecuteAsync()
     {
-        Console.WriteLine(nameof(EntityMShopTable));
         foreach (var darkShop in MasterDb.EntityMShopTable.All
             .Where(x => DateTimeExtensions.IsCurrentOrFuture(x.StartDatetime, x.EndDatetime))
             .OrderBy(x => x.StartDatetime))
@@ -27,9 +25,10 @@ public class ExportShopsMenuCommand : AbstractMenuCommand
             Console.WriteLine($"**{shopStr} ({darkShop.ShopType.ToFormattedStr()}) {darkShop.ToFormattedDateStr()}**");
 
             List<int> terms = new();
-            foreach (var darkShopItemCellGroup in darkShopItemCellGroups.OrderBy(x => x.ShopItemCellTermId).ThenBy(x => x.SortOrder))
+            bool skipItemDate = darkShopItemCellGroups.All(x => x.ShopItemCellTermId > 0);
+            foreach (var darkShopItemCellGroup in darkShopItemCellGroups.OrderBy(x => skipItemDate ? x.SortOrder : x.ShopItemCellTermId).ThenBy(x => x.SortOrder))
             {
-                if (darkShopItemCellGroup.ShopItemCellTermId > 0 && !terms.Contains(darkShopItemCellGroup.ShopItemCellTermId))
+                if (!skipItemDate && darkShopItemCellGroup.ShopItemCellTermId > 0 && !terms.Contains(darkShopItemCellGroup.ShopItemCellTermId))
                 {
                     terms.Add(darkShopItemCellGroup.ShopItemCellTermId);
                     var darkShopItemCellTerm = MasterDb.EntityMShopItemCellTermTable.FindByShopItemCellTermId(darkShopItemCellGroup.ShopItemCellTermId);
