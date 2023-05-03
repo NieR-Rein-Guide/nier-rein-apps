@@ -2,14 +2,15 @@
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
+using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
 {
     public static class CalculatorEvaluateCondition
     {
         public static readonly int kInvalidEvaluateConditionId = 0; // 0x0
-        private static readonly int kDefaultEvaluateConditionValue = 0; // 0x4
-        private static readonly int kDefaultEvaluateConditionValueGroupIndex = 1; // 0x8
+        private const int kDefaultEvaluateConditionValue = 0; // 0x4
+        private const int kDefaultEvaluateConditionValueGroupIndex = 1; // 0x8
 
         public static bool EvaluateCondition(long userId, int evaluateConditionId)
         {
@@ -20,41 +21,59 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
             if (masterCond == null)
                 return false;
 
-            if (masterCond.EvaluateConditionFunctionType == EvaluateConditionFunctionType.QUEST_CLEAR)
-                return EvaluateConditionFunctionTypeQuestClear(userId, masterCond.EvaluateConditionEvaluateType, masterCond.EvaluateConditionValueGroupId);
-
-            if (masterCond.EvaluateConditionFunctionType == EvaluateConditionFunctionType.RECURSION)
-                return EvaluateConditionFunctionTypeRecursion(userId, masterCond.EvaluateConditionEvaluateType, masterCond.EvaluateConditionValueGroupId);
-
-            return false;
+            return masterCond.EvaluateConditionFunctionType switch
+            {
+                EvaluateConditionFunctionType.QUEST_SCENE_CHOICE => EvaluateConditionFunctionTypeQuestSceneChoice(userId, masterCond.EvaluateConditionEvaluateType, masterCond.EvaluateConditionValueGroupId),
+                EvaluateConditionFunctionType.QUEST_CLEAR => EvaluateConditionFunctionTypeQuestClear(userId, masterCond.EvaluateConditionEvaluateType, masterCond.EvaluateConditionValueGroupId),
+                EvaluateConditionFunctionType.RECURSION => EvaluateConditionFunctionTypeRecursion(userId, masterCond.EvaluateConditionEvaluateType, masterCond.EvaluateConditionValueGroupId),
+                _ => false
+            };
         }
 
-        private static bool EvaluateConditionFunctionTypeQuestClear(long userId, EvaluateConditionEvaluateType evaluateConditionEvaluateType, int evaluateConditionValueGroupId)
+        public static long GetEvaluateConditionValue(int evaluateConditionId)
         {
-            if (evaluateConditionEvaluateType != EvaluateConditionEvaluateType.ID_CONTAIN)
-                return false;
+            if (evaluateConditionId == kInvalidEvaluateConditionId)
+            {
+                return kDefaultEvaluateConditionValue;
+            }
 
-            var condGroup = GetEntityMEvaluateConditionValueGroup(evaluateConditionValueGroupId);
-            if (condGroup == null)
-                return false;
+            var evaluateCondition = GetEntityMEvaluateCondition(evaluateConditionId);
+            if (evaluateCondition != null)
+            {
+                var evaluateConditionGroup = GetEntityMEvaluateConditionValueGroup(evaluateCondition.EvaluateConditionValueGroupId);
 
-            return CalculatorQuest.IsClearQuest((int)condGroup.Value, userId);
+                if (evaluateConditionGroup != null)
+                {
+                    return evaluateConditionGroup.Value;
+                }
+            }
+
+            return kDefaultEvaluateConditionValue;
         }
 
-        private static EntityMEvaluateConditionValueGroup GetEntityMEvaluateConditionValueGroup(int evaluateConditionValueGroupId)
+        public static void AddQuestIdsEvaluationCondition(int evaluateConditionId, List<int> questIds)
         {
-            var table = DatabaseDefine.Master.EntityMEvaluateConditionValueGroupTable;
-            return table.FindByEvaluateConditionValueGroupIdAndGroupIndex((evaluateConditionValueGroupId, kDefaultEvaluateConditionValueGroupIndex));
+            if (evaluateConditionId == kInvalidEvaluateConditionId) return;
+
+            var evaluateCondition = GetEntityMEvaluateCondition(evaluateConditionId);
+            if (evaluateCondition == null) return;
+
+            foreach (var evaluateConditionGroup in GetEntityMEvaluateConditionValueGroups(evaluateCondition.EvaluateConditionValueGroupId))
+            {
+                if (evaluateCondition.EvaluateConditionFunctionType == EvaluateConditionFunctionType.QUEST_CLEAR &&
+                    evaluateCondition.EvaluateConditionEvaluateType == EvaluateConditionEvaluateType.ID_CONTAIN)
+                {
+                    questIds.Add((int)evaluateConditionGroup.Value);
+                }
+            }
         }
 
         private static bool EvaluateConditionFunctionTypeRecursion(long userId, EvaluateConditionEvaluateType evaluateConditionEvaluateType, int evaluateConditionValueGroupId)
         {
             if (evaluateConditionEvaluateType != EvaluateConditionEvaluateType.OR)
             {
-                if (evaluateConditionEvaluateType == EvaluateConditionEvaluateType.AND)
-                    return EvaluateConditionFunctionTypeRecursionAnd(userId, evaluateConditionValueGroupId);
-
-                return false;
+                return evaluateConditionEvaluateType == EvaluateConditionEvaluateType.AND
+                    && EvaluateConditionFunctionTypeRecursionAnd(userId, evaluateConditionValueGroupId);
             }
 
             return EvaluateConditionFunctionTypeRecursionOr(userId, evaluateConditionValueGroupId);
@@ -62,12 +81,13 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
 
         private static bool EvaluateConditionFunctionTypeRecursionAnd(long userId, int evaluateConditionValueGroupId)
         {
-            var condGroups = GetEntityMEvaluateConditionValueGroups(evaluateConditionValueGroupId);
-            foreach (var condGroup in condGroups)
+            foreach (var condGroup in GetEntityMEvaluateConditionValueGroups(evaluateConditionValueGroupId))
             {
                 var evalResult = EvaluateCondition(userId, (int)condGroup.Value);
                 if (!evalResult)
+                {
                     return false;
+                }
             }
 
             return true;
@@ -75,27 +95,56 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
 
         private static bool EvaluateConditionFunctionTypeRecursionOr(long userId, int evaluateConditionValueGroupId)
         {
-            var condGroups = GetEntityMEvaluateConditionValueGroups(evaluateConditionValueGroupId);
-            foreach (var condGroup in condGroups)
+            foreach (var condGroup in GetEntityMEvaluateConditionValueGroups(evaluateConditionValueGroupId))
             {
                 var evalResult = EvaluateCondition(userId, (int)condGroup.Value);
                 if (evalResult)
+                {
                     return true;
+                }
             }
 
             return false;
         }
 
+        private static bool EvaluateConditionFunctionTypeQuestClear(long userId, EvaluateConditionEvaluateType evaluateConditionEvaluateType, int evaluateConditionValueGroupId)
+        {
+            if (evaluateConditionEvaluateType != EvaluateConditionEvaluateType.ID_CONTAIN)
+            {
+                return false;
+            }
+
+            var evaluateConditionValueGroup = GetEntityMEvaluateConditionValueGroup(evaluateConditionValueGroupId);
+            return evaluateConditionValueGroup != null && CalculatorQuest.IsClearQuest((int)evaluateConditionValueGroup.Value, userId);
+        }
+
+        private static bool EvaluateConditionFunctionTypeQuestSceneChoice(long userId, EvaluateConditionEvaluateType evaluateConditionEvaluateType, int evaluateConditionValueGroupId)
+        {
+            if (evaluateConditionEvaluateType != EvaluateConditionEvaluateType.ID_CONTAIN)
+            {
+                return false;
+            }
+
+            var evaluateConditionValueGroup = GetEntityMEvaluateConditionValueGroup(evaluateConditionValueGroupId);
+            return evaluateConditionValueGroup != null &&
+                DatabaseDefine.User.EntityIUserQuestSceneChoiceHistoryTable.TryFindByUserIdAndQuestSceneChoiceEffectId((userId, (int)evaluateConditionValueGroup.Value), out var _);
+        }
+
+        private static EntityMEvaluateConditionValueGroup GetEntityMEvaluateConditionValueGroup(int evaluateConditionValueGroupId)
+        {
+            return DatabaseDefine.Master.EntityMEvaluateConditionValueGroupTable
+                .FindByEvaluateConditionValueGroupIdAndGroupIndex((evaluateConditionValueGroupId, kDefaultEvaluateConditionValueGroupIndex));
+        }
+
         private static RangeView<EntityMEvaluateConditionValueGroup> GetEntityMEvaluateConditionValueGroups(int evaluateConditionValueGroupId)
         {
-            var table = DatabaseDefine.Master.EntityMEvaluateConditionValueGroupTable;
-            return table.FindRangeByEvaluateConditionValueGroupIdAndGroupIndex((evaluateConditionValueGroupId, int.MinValue), (evaluateConditionValueGroupId, int.MaxValue));
+            return DatabaseDefine.Master.EntityMEvaluateConditionValueGroupTable
+                .FindRangeByEvaluateConditionValueGroupIdAndGroupIndex((evaluateConditionValueGroupId, int.MinValue), (evaluateConditionValueGroupId, int.MaxValue));
         }
 
         private static EntityMEvaluateCondition GetEntityMEvaluateCondition(int evaluateConditionId)
         {
-            var table = DatabaseDefine.Master.EntityMEvaluateConditionTable;
-            return table.FindByEvaluateConditionId(evaluateConditionId);
+            return DatabaseDefine.Master.EntityMEvaluateConditionTable.FindByEvaluateConditionId(evaluateConditionId);
         }
     }
 }

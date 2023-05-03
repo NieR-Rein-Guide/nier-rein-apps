@@ -1,4 +1,7 @@
-﻿namespace NierReincarnation.Core.Dark.Calculator.Outgame
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
+
+namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorLibrary
     {
@@ -29,6 +32,31 @@
 
         private static string GetMainStoryTextKey(int seasonId, int chapterId, int questId, int textAssetId) =>
             $"story.Main.Quest.{seasonId:D4}.{chapterId:D4}.{questId:D4}.{textAssetId}";
+
+        public static bool IsUnlockFirstStill() => true;
+
+        //public static bool IsUnlockSecondStill(int mainQuestChapterId)
+        //{
+        //    return CalculatorMainQuest.IsClearMainQuestChapter(mainQuestChapterId, DifficultyType.NORMAL, CalculatorStateUser.GetUserId());
+        //}
+
+        public static bool IsUnlockEndContentsLibrary() => CalculatorUnlockCondition.IsUnlockEndContents();
+
+        //public static bool IsUnlockLimitContentLibrary()
+        //{
+        //    return CalculatorLimitContent.IsClearFirstNormalLevelByLimitContents(CalculatorStateUser.GetUserId());
+        //}
+
+        private static bool IsUnlockEvent(int eventQuestChapterId) => CalculatorQuest.HasClearedQuestInEventChapter(eventQuestChapterId);
+
+        //private static bool IsUnlockEndCharacter(int endWeaponId)
+        //{
+        //    return CalculatorWeapon.HadWeapon(CalculatorStateUser.GetUserId(), endWeaponId);
+        //}
+
+        private static bool IsUnlockEventStory(int questId) => CalculatorQuest.IsClearQuest(questId);
+
+        private static bool IsUnlockEndStory(int contentsStoryId) => CalculatorEndContents.IsAlreadyViewStory(contentsStoryId);
 
         private static string GetEventStoryBackgroundPath(int eventQuestType, int chapterSortOrder, int questSortOrder) =>
             $"ui)library)event_quest_type_{eventQuestType:D2})bg{chapterSortOrder:D4}{questSortOrder:D4}";
