@@ -122,6 +122,12 @@ public static class Program
         {
             new TextMenuItem
             {
+                Id = "0",
+                Text = "Configuration",
+                Command = new ConfigurationMenuCommand()
+            },
+            new TextMenuItem
+            {
                 Id = "1",
                 Text = "Export Assets & Resources",
                 Command = new ExportAssetsResourcesMenuCommand()
@@ -186,9 +192,9 @@ public static class Program
             },
             new TextMenuItem
             {
-                Id = "0",
-                Text = "Configuration",
-                Command = new ConfigurationMenuCommand()
+                Id = "10",
+                Text = "Export Stories",
+                Command = new ExportStoriesMenuCommand()
             },
             new TextMenuItem
             {

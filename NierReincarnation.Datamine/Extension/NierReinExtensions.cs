@@ -265,5 +265,13 @@ public static class NierReinExtensions
         };
     }
 
+    public static string HtmlToDiscordText(this string text)
+    {
+        return text.Replace("<i>", "*")
+            .Replace("</i>", "*")
+            .Replace("<size=40>", "**")
+            .Replace("</size>", "**");
+    }
+
     #endregion String Extensions
 }
