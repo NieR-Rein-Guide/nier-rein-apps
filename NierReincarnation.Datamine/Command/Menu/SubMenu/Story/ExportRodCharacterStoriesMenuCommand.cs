@@ -33,7 +33,7 @@ public class ExportRodCharacterStoriesMenuCommand : AbstractMenuCommand
         int i = 1;
         foreach (var darkEventQuestChapterGroup in MasterDb.EntityMEventQuestChapterTable.All
             .Where(x => x.EventQuestType == EventQuestType.LIMIT_CONTENT)
-            .OrderBy(x => x.StartDatetime)
+            .OrderBy(x => x.SortOrder)
             .GroupBy(x => CalculatorQuest.GetChapterCharacterId(x.EventQuestChapterId)))
         {
             var darkEventQuestChapter = darkEventQuestChapterGroup.First();

@@ -1,6 +1,8 @@
 ﻿using NierReincarnation.Core.Dark;
+using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Component.WorldMap;
 using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using NierReincarnation.Core.Dark.View.UserInterface;
 using NierReincarnation.Core.UnityEngine;
@@ -269,9 +271,38 @@ public static class NierReinExtensions
     {
         return text.Replace("<i>", "*")
             .Replace("</i>", "*")
+            .Replace("<b>", "**")
+            .Replace("</b>", "**")
             .Replace("<size=40>", "**")
-            .Replace("</size>", "**");
+            .Replace("</size>", "**")
+            .Replace("<align=\"center\">", string.Empty)
+            .Replace("<align=\"right\">", string.Empty)
+            .Replace("</align>", string.Empty)
+            .Replace("<br>", "\\n");
     }
 
     #endregion String Extensions
+
+    #region Data Extensions
+
+    public static string GetCharacterSymbolName(int characterId)
+    {
+        EntityMCharacterDisplaySwitch entityMCharacterDisplaySwitch = CalculatorMasterData.GetEntityMCharacterDisplaySwitch(characterId);
+        if (entityMCharacterDisplaySwitch != null)
+        {
+            return GetSymbolName(entityMCharacterDisplaySwitch.NameCharacterTextId);
+        }
+
+        EntityMCharacter entityMCharacter = CalculatorMasterData.GetEntityMCharacter(characterId);
+        if (entityMCharacter == null)
+        {
+            return null;
+        }
+
+        return GetSymbolName(entityMCharacter.NameCharacterTextId);
+    }
+
+    private static string GetSymbolName(int nameTextId) => $"character.symbol.{nameTextId}".Localize();
+
+    #endregion
 }

@@ -1,11 +1,12 @@
 ﻿using DustInTheWind.ConsoleTools.Controls.Menus;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Localization;
+using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Datamine.Extension;
 
 namespace NierReincarnation.Datamine.Command;
 
-public class ExportCharacterStoriesMenuCommand : AbstractMenuCommand
+public class ExportEventStoriesMenuCommand : AbstractMenuCommand
 {
     public override bool IsActive => Program.AppSettings.IsSetup;
 
@@ -31,13 +32,15 @@ public class ExportCharacterStoriesMenuCommand : AbstractMenuCommand
         };
 
         int i = 1;
-        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All.Where(x => x.EventQuestType == EventQuestType.CHARACTER).OrderBy(x => x.SortOrder))
+        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All
+            .Where(x => x.EventQuestType == EventQuestType.MARATHON && DateTimeExtensions.IsNotTestData(x.StartDatetime))
+            .OrderBy(x => x.SortOrder))
         {
             menuItems.Add(new TextMenuItem
             {
                 Id = $"{i++}",
-                Text = CalculatorCharacter.GetCharacterName(CalculatorQuest.GetChapterCharacterId(darkEventQuestChapter.EventQuestChapterId)),
-                Command = new ExportCharacterStoryMenuCommand(new ExportCharacterStoryMenuCommandArg { EventQuestChapterId = darkEventQuestChapter.EventQuestChapterId })
+                Text = string.Format(UserInterfaceTextKey.Quest.kEventChapterTitle, darkEventQuestChapter.NameEventQuestTextId).Localize(),
+                Command = new ExportEventStoryMenuCommand(new ExportEventStoryMenuCommandArg { EventQuestChapterId = darkEventQuestChapter.EventQuestChapterId })
             });
         }
 

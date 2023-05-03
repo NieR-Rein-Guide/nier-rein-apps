@@ -37,6 +37,7 @@ public class ExportExCharacterStoryMenuCommand : AbstractMenuCommand<ExportExCha
                 Console.WriteLine(line);
             }
             Console.WriteLine();
+            Console.WriteLine();
         }
 
         return Task.CompletedTask;

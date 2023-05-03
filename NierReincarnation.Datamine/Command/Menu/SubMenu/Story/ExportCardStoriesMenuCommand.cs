@@ -1,11 +1,10 @@
 ﻿using DustInTheWind.ConsoleTools.Controls.Menus;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Datamine.Extension;
 
 namespace NierReincarnation.Datamine.Command;
 
-public class ExportCharacterStoriesMenuCommand : AbstractMenuCommand
+public class ExportCardStoriesMenuCommand : AbstractMenuCommand
 {
     public override bool IsActive => Program.AppSettings.IsSetup;
 
@@ -31,13 +30,15 @@ public class ExportCharacterStoriesMenuCommand : AbstractMenuCommand
         };
 
         int i = 1;
-        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All.Where(x => x.EventQuestType == EventQuestType.CHARACTER).OrderBy(x => x.SortOrder))
+        foreach (var darkWebviewMission in MasterDb.EntityMWebviewMissionTable.All.OrderBy(x => x.WebviewMissionId))
         {
+            var darkWebviewMissionTitleText = MasterDb.EntityMWebviewMissionTitleTextTable.FindByWebviewMissionTitleTextIdAndLanguageType((darkWebviewMission.TitleTextId, LanguageType.EN));
+
             menuItems.Add(new TextMenuItem
             {
                 Id = $"{i++}",
-                Text = CalculatorCharacter.GetCharacterName(CalculatorQuest.GetChapterCharacterId(darkEventQuestChapter.EventQuestChapterId)),
-                Command = new ExportCharacterStoryMenuCommand(new ExportCharacterStoryMenuCommandArg { EventQuestChapterId = darkEventQuestChapter.EventQuestChapterId })
+                Text = darkWebviewMissionTitleText.Text,
+                Command = new ExportCardStoryMenuCommand(new ExportCardStoryMenuCommandArg { WebviewMissionId = darkWebviewMission.WebviewMissionId })
             });
         }
 

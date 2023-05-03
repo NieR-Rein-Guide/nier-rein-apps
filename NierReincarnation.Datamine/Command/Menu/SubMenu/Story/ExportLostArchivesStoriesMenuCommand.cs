@@ -1,11 +1,10 @@
 ﻿using DustInTheWind.ConsoleTools.Controls.Menus;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Datamine.Extension;
 
 namespace NierReincarnation.Datamine.Command;
 
-public class ExportCharacterStoriesMenuCommand : AbstractMenuCommand
+public class ExportLostArchivesStoriesMenuCommand : AbstractMenuCommand
 {
     public override bool IsActive => Program.AppSettings.IsSetup;
 
@@ -31,13 +30,16 @@ public class ExportCharacterStoriesMenuCommand : AbstractMenuCommand
         };
 
         int i = 1;
-        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All.Where(x => x.EventQuestType == EventQuestType.CHARACTER).OrderBy(x => x.SortOrder))
+        foreach (var darkCageMemory in MasterDb.EntityMCageMemoryTable.All.OrderBy(x => x.SortOrder))
         {
+            var number = $"cage.memory.library.title.{darkCageMemory.CageMemoryAssetId:D6}".Localize();
+            var title = $"cage.memory.title.{darkCageMemory.CageMemoryAssetId:D6}".Localize();
+
             menuItems.Add(new TextMenuItem
             {
                 Id = $"{i++}",
-                Text = CalculatorCharacter.GetCharacterName(CalculatorQuest.GetChapterCharacterId(darkEventQuestChapter.EventQuestChapterId)),
-                Command = new ExportCharacterStoryMenuCommand(new ExportCharacterStoryMenuCommandArg { EventQuestChapterId = darkEventQuestChapter.EventQuestChapterId })
+                Text = $"{number} ~ {title}",
+                Command = new ExportLostArchiveStoryMenuCommand(new ExportLostArchiveStoryMenuCommandArg { CageMemoryId = darkCageMemory.CageMemoryId })
             });
         }
 

@@ -1,21 +1,22 @@
 ﻿using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Localization;
+using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Datamine.Extension;
 
 namespace NierReincarnation.Datamine.Command;
 
-public class ExportCharacterStoryMenuCommand : AbstractMenuCommand<ExportCharacterStoryMenuCommandArg>
+public class ExportEventStoryMenuCommand : AbstractMenuCommand<ExportEventStoryMenuCommandArg>
 {
     public override bool IsActive => Program.AppSettings.IsSetup;
 
-    public ExportCharacterStoryMenuCommand(ExportCharacterStoryMenuCommandArg arg) : base(arg) { }
+    public ExportEventStoryMenuCommand(ExportEventStoryMenuCommandArg arg) : base(arg) { }
 
-    public override Task ExecuteAsync(ExportCharacterStoryMenuCommandArg arg)
+    public override Task ExecuteAsync(ExportEventStoryMenuCommandArg arg)
     {
         var darkEventQuestChapter = MasterDb.EntityMEventQuestChapterTable.FindByEventQuestChapterId(arg.EventQuestChapterId);
-        var characterName = CalculatorCharacter.GetCharacterName(CalculatorQuest.GetChapterCharacterId(darkEventQuestChapter.EventQuestChapterId));
+        var eventName = string.Format(UserInterfaceTextKey.Quest.kEventChapterTitle, darkEventQuestChapter.NameEventQuestTextId).Localize();
 
-        Console.WriteLine($"__**{characterName}**__");
+        Console.WriteLine($"__**{eventName}**__");
         Console.WriteLine();
         foreach (var darkEventQuestSequenceGroup in MasterDb.EntityMEventQuestSequenceGroupTable.All.Where(x => x.EventQuestSequenceGroupId == darkEventQuestChapter.EventQuestSequenceGroupId))
         {
@@ -47,7 +48,7 @@ public class ExportCharacterStoryMenuCommand : AbstractMenuCommand<ExportCharact
     }
 }
 
-public class ExportCharacterStoryMenuCommandArg
+public class ExportEventStoryMenuCommandArg
 {
     public int EventQuestChapterId { get; init; }
 }

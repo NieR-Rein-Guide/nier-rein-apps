@@ -30,7 +30,7 @@ public class ExportMainStoriesMenuCommand : AbstractMenuCommand
         };
 
         int i = 1;
-        foreach (var darkMainQuestChapter in MasterDb.EntityMMainQuestChapterTable.All.OrderBy(x => x.StartDatetime))
+        foreach (var darkMainQuestChapter in MasterDb.EntityMMainQuestChapterTable.All.OrderBy(x => x.MainQuestRouteId).ThenBy(x => x.SortOrder))
         {
             (string chatperNumber, string chapterTitle) = CalculatorQuest.GetMainQuestChapterText(darkMainQuestChapter.MainQuestRouteId, darkMainQuestChapter.SortOrder);
 

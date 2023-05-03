@@ -57,6 +57,7 @@ public class ExportMainStoryMenuCommand : AbstractMenuCommand<ExportMainStoryMen
                     Console.WriteLine(line);
                 }
                 Console.WriteLine();
+                Console.WriteLine();
             }
         }
     }

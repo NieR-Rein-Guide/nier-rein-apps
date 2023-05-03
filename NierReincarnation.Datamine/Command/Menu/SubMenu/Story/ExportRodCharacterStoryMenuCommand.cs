@@ -14,7 +14,7 @@ public class ExportRodCharacterStoryMenuCommand : AbstractMenuCommand<ExportRodC
     public override Task ExecuteAsync(ExportRodCharacterStoryMenuCommandArg arg)
     {
         List<string> texts = new();
-        string characterName = string.Empty;
+        var characterName = string.Empty;
         var counter = 0;
 
         foreach (var eventQuestChapterId in arg.EventQuestChapterIds)
@@ -41,6 +41,7 @@ public class ExportRodCharacterStoryMenuCommand : AbstractMenuCommand<ExportRodC
             {
                 Console.WriteLine(line);
             }
+            Console.WriteLine();
             Console.WriteLine();
         }
 

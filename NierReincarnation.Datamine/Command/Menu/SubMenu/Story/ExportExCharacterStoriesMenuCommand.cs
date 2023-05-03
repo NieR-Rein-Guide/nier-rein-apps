@@ -31,7 +31,7 @@ public class ExportExCharacterStoriesMenuCommand : AbstractMenuCommand
         };
 
         int i = 1;
-        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All.Where(x => x.EventQuestType == EventQuestType.END_CONTENTS).OrderBy(x => x.StartDatetime))
+        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All.Where(x => x.EventQuestType == EventQuestType.END_CONTENTS).OrderBy(x => x.SortOrder))
         {
             menuItems.Add(new TextMenuItem
             {

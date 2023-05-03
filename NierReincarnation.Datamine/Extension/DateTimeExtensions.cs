@@ -65,4 +65,6 @@ public static class DateTimeExtensions
             return string.Empty;
         }
     }
+
+    public static bool IsNotTestData(long startDateTime) => startDateTime < NextYear.ToUnixTimeMilliseconds();
 }
