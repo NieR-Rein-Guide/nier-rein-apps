@@ -1,10 +1,9 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
-[Table("companion_ability")]
-internal class CompanionAbility
+[Table("weapon_ability")]
+internal class WeaponAbility
 {
     public int AbilityId { get; set; }
 
@@ -18,5 +17,5 @@ internal class CompanionAbility
 
     public string[] BehaviourTypes { get; set; }
 
-    public virtual ICollection<CompanionAbilityLink> Companions { get; set; }
+    public virtual ICollection<WeaponAbilityLink> Weapons { get; set; }
 }

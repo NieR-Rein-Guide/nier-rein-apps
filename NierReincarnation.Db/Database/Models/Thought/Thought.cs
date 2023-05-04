@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
