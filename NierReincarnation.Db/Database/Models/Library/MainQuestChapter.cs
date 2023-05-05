@@ -14,7 +14,9 @@ public class MainQuestChapter
 
     public decimal Order { get; init; }
 
-    public string[] Stories { get; init; }
+
+    [Column(TypeName = "jsonb")]
+    public StoryItem[] Stories { get; init; }
 
     public int ChapterTextAssetId { get; init; }
 

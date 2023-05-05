@@ -265,12 +265,111 @@ public static class Program
                 CharacterId = darkCharacter.CharacterId,
                 CharacterSlug = Slugify(characterName),
                 Name = characterName,
-                ImagePath = $"ui/actor/{defaultCostumeId}/{defaultCostumeId}_01_actor_icon.png"
+                ImagePath = $"ui/actor/{defaultCostumeId}/{defaultCostumeId}_01_actor_icon.png",
+                CharacterStories = GetCharacterStories(darkCharacter.CharacterId).ToArray(),
+                ExStories = GetExStories(darkCharacter.CharacterId).ToArray(),
+                RodStories = GetRodStories(darkCharacter.CharacterId).ToArray(),
             };
             _postgreDbContext.Characters.Add(dbCharacter);
         }
 
         await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static List<StoryItem> GetCharacterStories(int characterId)
+    {
+        List<StoryItem> stories = new();
+
+        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterCharacterTable.All
+            .Where(x => x.CharacterId == characterId)
+            .SelectMany(x => MasterDb.EntityMEventQuestChapterTable.All.Where(y => y.EventQuestChapterId == x.EventQuestChapterId && y.EventQuestType == EventQuestType.CHARACTER))
+            .Where(x => x != null)
+            .OrderBy(x => x.SortOrder))
+        {
+            foreach (var darkEventQuestSequenceGroup in MasterDb.EntityMEventQuestSequenceGroupTable.All.Where(x => x.EventQuestSequenceGroupId == darkEventQuestChapter.EventQuestSequenceGroupId))
+            {
+                var darkEventQuestSequences = MasterDb.EntityMEventQuestSequenceTable.All
+                    .Where(x => x.EventQuestSequenceId == darkEventQuestSequenceGroup.EventQuestSequenceId)
+                    .OrderBy(x => x.SortOrder)
+                    .ToList();
+
+                foreach (var darkEventQuestSequence in darkEventQuestSequences)
+                {
+                    StoryItem item = new()
+                    {
+                        Story = $"quest.event.chapter.story.{(int)darkEventQuestChapter.EventQuestType:D2}.{darkEventQuestChapter.SortOrder:D4}.{darkEventQuestSequence.SortOrder:D4}".Localize().ToProperHtml(),
+                        ImagePath = $"ui/library/event_quest_type_{(int)darkEventQuestChapter.EventQuestType:D2}/bg{darkEventQuestChapter.SortOrder:D4}{darkEventQuestSequence.SortOrder:D4}.png"
+                    };
+
+                    if (!string.IsNullOrEmpty(item.Story))
+                    {
+                        stories.Add(item);
+                    }
+                }
+            }
+        }
+
+        return stories;
+    }
+
+    private static List<StoryItem> GetExStories(int characterId)
+    {
+        List<StoryItem> stories = new();
+
+        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterCharacterTable.All
+            .Where(x => x.CharacterId == characterId)
+            .SelectMany(x => MasterDb.EntityMEventQuestChapterTable.All.Where(y => y.EventQuestChapterId == x.EventQuestChapterId && y.EventQuestType == EventQuestType.END_CONTENTS))
+            .Where(x => x != null)
+            .OrderBy(x => x.SortOrder))
+        {
+            var endWeaponId = CalculatorCharacter.GetEndWeaponId(characterId);
+            var eventMapNumberUpper = MasterDb.EntityMContentsStoryTable.All.Where(x => x.ConditionValue == endWeaponId).Select(x => x.EventMapNumberUpper).FirstOrDefault();
+            var darkContentsStories = MasterDb.EntityMContentsStoryTable.All.Where(x => x.EventMapNumberUpper == eventMapNumberUpper).OrderBy(x => x.EventMapNumberLower);
+
+            foreach (var darkContentsStory in darkContentsStories)
+            {
+                StoryItem item = new()
+                {
+                    Story = $"content.story.{darkContentsStory.EventMapNumberUpper:D7}.{darkContentsStory.EventMapNumberLower:D6}".Localize().ToProperHtml(),
+                    ImagePath = $"ui/library/content/bg{darkContentsStory.EventMapNumberUpper:D7}{darkContentsStory.EventMapNumberLower:D6}.png"
+                };
+
+                if (!string.IsNullOrEmpty(item.Story))
+                {
+                    stories.Add(item);
+                }
+            }
+        }
+
+        return stories;
+    }
+
+    private static List<StoryItem> GetRodStories(int characterId)
+    {
+        List<StoryItem> stories = new();
+
+        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterCharacterTable.All
+            .Where(x => x.CharacterId == characterId)
+            .SelectMany(x => MasterDb.EntityMEventQuestChapterTable.All.Where(y => y.EventQuestChapterId == x.EventQuestChapterId && y.EventQuestType == EventQuestType.LIMIT_CONTENT))
+            .Where(x => x != null)
+            .OrderBy(x => x.SortOrder))
+        {
+            var darkEventQuestSequenceGroup = MasterDb.EntityMEventQuestSequenceGroupTable.FindByEventQuestSequenceGroupIdAndDifficultyType((darkEventQuestChapter.EventQuestSequenceGroupId, DifficultyType.NORMAL));
+            var lastQuestId = MasterDb.EntityMEventQuestSequenceTable.All.Where(x => x.EventQuestSequenceId == darkEventQuestSequenceGroup.EventQuestSequenceId).OrderBy(x => x.SortOrder).LastOrDefault().QuestId;
+
+            StoryItem item = new()
+            {
+                Story = $"limit.content.story.{lastQuestId:D7}".Localize().ToProperHtml(),
+                ImagePath = $"ui/library/limit_content/bg{lastQuestId:D7}.png"
+            };
+
+            if (!string.IsNullOrEmpty(item.Story))
+            {
+                stories.Add(item);
+            }
+        }
+
+        return stories;
     }
 
     private static async Task AddCharacterRankBonusesAsync()
@@ -1129,17 +1228,23 @@ public static class Program
                 {
                     if (!_mainQuestChapterCache.Contains(new Tuple<int, int>(darkMainQuestChapter.MainQuestChapterId, 0)))
                     {
-                        List<string> stories = new();
+                        List<StoryItem> items = new();
                         (string chatperNumber, string chapterTitle) = CalculatorQuest.GetMainQuestChapterText(darkMainQuestChapter.MainQuestRouteId, darkMainQuestChapter.SortOrder);
                         var darkMainQuestSequenceGroup = MasterDb.EntityMMainQuestSequenceGroupTable.FindByMainQuestSequenceGroupIdAndDifficultyType((darkMainQuestChapter.MainQuestSequenceGroupId, DifficultyType.NORMAL));
                         var darkMainQuestSequences = MasterDb.EntityMMainQuestSequenceTable.All.Where(x => x.MainQuestSequenceId == darkMainQuestSequenceGroup.MainQuestSequenceId).OrderBy(x => x.SortOrder);
+                        var sequenceCount = darkMainQuestSequences.Count();
 
-                        foreach (var darkMainQuestSequence in darkMainQuestSequences)
+                        foreach ((var darkMainQuestSequence, var i) in darkMainQuestSequences.Select((x, i) => (x, i)))
                         {
+                            var isLastInSeries = sequenceCount > 1 && i == sequenceCount - 1;
                             var darkQuest = MasterDb.EntityMQuestTable.FindByQuestId(darkMainQuestSequence.QuestId);
                             if (!CalculatorQuest.HasScenario(darkQuest)) continue;
 
-                            stories.Add($"story.Main.Quest.{darkMainQuestSeason.MainQuestSeasonId:D4}.{darkMainQuestChapter.MainQuestChapterId:D4}.{darkQuest.QuestId:D4}".Localize().ToProperHtml());
+                            items.Add(new StoryItem
+                            {
+                                Story = $"story.Main.Quest.{darkMainQuestSeason.MainQuestSeasonId:D4}.{darkMainQuestChapter.MainQuestChapterId:D4}.{darkQuest.QuestId:D4}".Localize().ToProperHtml(),
+                                ImagePath = $"ui/still/season{darkMainQuestSeason.MainQuestSeasonId}/still_main_{darkMainQuestSeason.MainQuestSeasonId}{darkMainQuestRoute.MainQuestRouteId}{darkMainQuestChapter.MainQuestChapterId:D3}{(isLastInSeries ? 2 : 1):D2}.png"
+                            });
                         }
 
                         _postgreDbContext.MainQuestChapters.Add(new MainQuestChapter
@@ -1149,7 +1254,7 @@ public static class Program
                             ChapterNumber = chatperNumber,
                             ChapterTitle = chapterTitle,
                             Order = darkMainQuestChapter.SortOrder,
-                            Stories = stories.ToArray()
+                            Stories = items.ToArray()
                         });
                     }
 
@@ -1157,12 +1262,16 @@ public static class Program
                     {
                         if (_mainQuestChapterCache.Contains(new Tuple<int, int>(darkMainQuestChapter.MainQuestChapterId, darkLibraryMainQuestGroup.ChapterTextAssetId))) continue;
 
-                        List<string> stories = new();
+                        List<StoryItem> items = new();
                         var chapterTitle = CalculatorQuest.GetMainQuestChapterTextWithTextAssetId(darkMainQuestChapter.MainQuestRouteId, darkMainQuestChapter.SortOrder, darkLibraryMainQuestGroup.ChapterTextAssetId);
                         foreach (var darkLibraryMainQuestStory in MasterDb.EntityMLibraryMainQuestStoryTable.FindByLibraryMainQuestGroupId(darkLibraryMainQuestGroup.LibraryMainQuestGroupId))
                         {
                             var questScene = MasterDb.EntityMQuestSceneTable.FindByQuestSceneId(darkLibraryMainQuestStory.RecollectionSceneId);
-                            stories.Add($"story.Main.Quest.{darkMainQuestSeason.MainQuestSeasonId:D4}.{darkMainQuestChapter.MainQuestChapterId:D4}.{questScene.QuestId:D4}.{darkLibraryMainQuestStory.TextAssetId}".Localize().ToProperHtml());
+                            items.Add(new StoryItem
+                            {
+                                Story = $"story.Main.Quest.{darkMainQuestSeason.MainQuestSeasonId:D4}.{darkMainQuestChapter.MainQuestChapterId:D4}.{questScene.QuestId:D4}.{darkLibraryMainQuestStory.TextAssetId}".Localize().ToProperHtml(),
+                                ImagePath = $"ui/still/season{darkMainQuestSeason.MainQuestSeasonId}/still_main_{darkMainQuestSeason.MainQuestSeasonId}{darkMainQuestRoute.MainQuestRouteId}{darkMainQuestChapter.MainQuestChapterId:D3}{(true ? darkLibraryMainQuestGroup.SecondStillAssetOrder : darkLibraryMainQuestGroup.FirstStillAssetOrder):D2}.png"
+                            });
                         }
 
                         _postgreDbContext.MainQuestChapters.Add(new MainQuestChapter
@@ -1171,7 +1280,7 @@ public static class Program
                             RouteId = darkMainQuestChapter.MainQuestRouteId,
                             ChapterTitle = chapterTitle,
                             Order = darkMainQuestChapter.SortOrder + (darkLibraryMainQuestGroup.ChapterTextAssetId * 0.1M),
-                            Stories = stories.ToArray(),
+                            Stories = items.ToArray(),
                             ChapterTextAssetId = darkLibraryMainQuestGroup.ChapterTextAssetId
                         });
                     }
