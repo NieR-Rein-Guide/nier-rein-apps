@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
+[Table("event")]
 public class Event
 {
     [Key]

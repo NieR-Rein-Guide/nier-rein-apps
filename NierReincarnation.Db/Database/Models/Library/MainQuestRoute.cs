@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
+[Table("main_quest_route")]
 public class MainQuestRoute
 {
     [Key]

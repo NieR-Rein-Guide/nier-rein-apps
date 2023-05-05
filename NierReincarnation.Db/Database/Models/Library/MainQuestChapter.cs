@@ -2,6 +2,7 @@
 
 namespace NierReincarnation.Db.Database.Models;
 
+[Table("main_quest_chapter")]
 public class MainQuestChapter
 {
     public int ChapterId { get; init; }

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
+[Table("lost_archive")]
 public class LostArchive : StoryItem
 {
     [Key]
