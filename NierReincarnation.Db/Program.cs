@@ -392,7 +392,7 @@ public static class Program
                 Number = $"report.library.title.{darkReport.ReportAssetId:D6}".Localize(),
                 Name = $"report.title.{darkReport.ReportAssetId:D6}".Localize(),
                 Story = $"report.description.{darkReport.ReportAssetId:D6}".Localize(),
-                ImagePath = $"ui)library)report){darkReport.ReportAssetId:D6})report{darkReport.ReportAssetId:D6}_full.png"
+                ImagePath = $"ui/library/report/{darkReport.ReportAssetId:D6}/report{darkReport.ReportAssetId:D6}_full.png"
             };
 
             if (!string.IsNullOrEmpty(item.Story))
@@ -1227,7 +1227,7 @@ public static class Program
                     items.Add(new StoryItem
                     {
                         Story = $"quest.event.chapter.story.{(int)darkEventQuestChapter.EventQuestType:D2}.{darkEventQuestChapter.SortOrder:D4}.{darkEventQuestSequence.SortOrder:D4}".Localize().ToProperHtml(),
-                        ImagePath = $"ui)library)event_quest_type_{(int)darkEventQuestChapter.EventQuestType:D2})bg{darkEventQuestChapter.SortOrder:D4}{darkEventQuestSequence.SortOrder:D4}.png"
+                        ImagePath = $"ui/library/event_quest_type_{(int)darkEventQuestChapter.EventQuestType:D2}/bg{darkEventQuestChapter.SortOrder:D4}{darkEventQuestSequence.SortOrder:D4}.png"
                     });
                 }
             }
