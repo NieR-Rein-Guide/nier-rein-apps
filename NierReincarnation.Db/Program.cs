@@ -42,6 +42,9 @@ public static class Program
     private static List<int> _mainQuestSeasonCache;
     private static List<int> _mainQuestRouteCache;
     private static List<Tuple<int, int>> _mainQuestChapterCache;
+    private static List<int> _eventCache;
+    private static List<int> _cardStoryCache;
+    private static List<int> _lostArchiveStoryCache;
 
     private static Dictionary<(int, int), CostumeSkill> _costumeSkillCache;
     private static Dictionary<(int, int), CostumeAbility> _costumeAbilityCache;
@@ -56,17 +59,18 @@ public static class Program
     {
         await SetupApplicationAsync();
 
-        await AddNotifications();
-        await AddCharactersAsync();
-        await AddCharacterRankBonusesAsync();
-        await AddDebrisAsync();
-        await AddCharacterDebrisAsync();
-        await AddCostumeEmblemsAsync();
-        await AddCostumesAsync();
-        await AddWeaponsAsync();
-        await AddCompanionsAsync();
-        await AddMemoirsAsync();
-        await AddLibraryStoriesAsync();
+        //await AddNotifications();
+        //await AddCharactersAsync();
+        //await AddCharacterRankBonusesAsync();
+        //await AddDebrisAsync();
+        //await AddCharacterDebrisAsync();
+        //await AddCostumeEmblemsAsync();
+        //await AddCostumesAsync();
+        //await AddWeaponsAsync();
+        //await AddCompanionsAsync();
+        //await AddMemoirsAsync();
+        await AddEventsAsync();
+        //await AddLibraryStoriesAsync();
 
         await _postgreDbContext.SaveChangesAsync();
     }
@@ -130,6 +134,9 @@ public static class Program
         _mainQuestSeasonCache = await _postgreDbContext.MainQuestSeasons.Select(x => x.SeasonId).ToListAsync();
         _mainQuestRouteCache = await _postgreDbContext.MainQuestRoutes.Select(x => x.RouteId).ToListAsync();
         _mainQuestChapterCache = await _postgreDbContext.MainQuestChapters.Select(x => new Tuple<int, int>(x.ChapterId, x.ChapterTextAssetId)).ToListAsync();
+        _cardStoryCache = await _postgreDbContext.CardStories.Select(x => x.Id).ToListAsync();
+        _lostArchiveStoryCache = await _postgreDbContext.LostArchives.Select(x => x.Id).ToListAsync();
+        _eventCache = await _postgreDbContext.Events.Select(x => x.Id).ToListAsync();
 
         _costumeSkillCache = await _postgreDbContext.CostumeSkills.ToDictionaryAsync(x => (x.SkillId, x.SkillLevel), x => x);
         _costumeAbilityCache = await _postgreDbContext.CostumeAbilities.ToDictionaryAsync(x => (x.AbilityId, x.AbilityLevel), x => x);
@@ -269,6 +276,7 @@ public static class Program
                 CharacterStories = GetCharacterStories(darkCharacter.CharacterId).ToArray(),
                 ExStories = GetExStories(darkCharacter.CharacterId).ToArray(),
                 RodStories = GetRodStories(darkCharacter.CharacterId).ToArray(),
+                HiddenStories = GetHiddenStories(darkCharacter.CharacterId).ToArray()
             };
             _postgreDbContext.Characters.Add(dbCharacter);
         }
@@ -361,6 +369,30 @@ public static class Program
             {
                 Story = $"limit.content.story.{lastQuestId:D7}".Localize().ToProperHtml(),
                 ImagePath = $"ui/library/limit_content/bg{lastQuestId:D7}.png"
+            };
+
+            if (!string.IsNullOrEmpty(item.Story))
+            {
+                stories.Add(item);
+            }
+        }
+
+        return stories;
+    }
+
+    private static List<HiddenStoryItem> GetHiddenStories(int characterId)
+    {
+        List<HiddenStoryItem> stories = new();
+
+        foreach (var darkReport in MasterDb.EntityMReportTable.All
+                .Where(x => x.CharacterId == characterId))
+        {
+            HiddenStoryItem item = new()
+            {
+                Number = $"report.library.title.{darkReport.ReportAssetId:D6}".Localize(),
+                Name = $"report.title.{darkReport.ReportAssetId:D6}".Localize(),
+                Story = $"report.description.{darkReport.ReportAssetId:D6}".Localize(),
+                ImagePath = $"ui)library)report){darkReport.ReportAssetId:D6})report{darkReport.ReportAssetId:D6}_full.png"
             };
 
             if (!string.IsNullOrEmpty(item.Story))
@@ -1172,6 +1204,50 @@ public static class Program
 
     #endregion Debris
 
+    #region Events
+
+    private static async Task AddEventsAsync()
+    {
+        foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All
+            .Where(x => x.EventQuestType == EventQuestType.MARATHON && x.StartDatetime < DateTimeOffset.UtcNow.AddYears(1).ToUnixTimeMilliseconds())
+            .OrderBy(x => x.SortOrder))
+        {
+            if (_eventCache.Contains(darkEventQuestChapter.EventQuestChapterId)) continue;
+
+            List<StoryItem> items = new();
+            foreach (var darkEventQuestSequenceGroup in MasterDb.EntityMEventQuestSequenceGroupTable.All.Where(x => x.EventQuestSequenceGroupId == darkEventQuestChapter.EventQuestSequenceGroupId))
+            {
+                var darkEventQuestSequences = MasterDb.EntityMEventQuestSequenceTable.All
+                    .Where(x => x.EventQuestSequenceId == darkEventQuestSequenceGroup.EventQuestSequenceId)
+                    .OrderBy(x => x.SortOrder)
+                    .ToList();
+
+                foreach (var darkEventQuestSequence in darkEventQuestSequences)
+                {
+                    items.Add(new StoryItem
+                    {
+                        Story = $"quest.event.chapter.story.{(int)darkEventQuestChapter.EventQuestType:D2}.{darkEventQuestChapter.SortOrder:D4}.{darkEventQuestSequence.SortOrder:D4}".Localize().ToProperHtml(),
+                        ImagePath = $"ui)library)event_quest_type_{(int)darkEventQuestChapter.EventQuestType:D2})bg{darkEventQuestChapter.SortOrder:D4}{darkEventQuestSequence.SortOrder:D4}.png"
+                    });
+                }
+            }
+
+            _postgreDbContext.Events.Add(new Event
+            {
+                Id = darkEventQuestChapter.EventQuestChapterId,
+                Name = string.Format(UserInterfaceTextKey.Quest.kEventChapterTitle, darkEventQuestChapter.NameEventQuestTextId).Localize(),
+                StartDate = CalculatorDateTime.FromUnixTime(darkEventQuestChapter.StartDatetime),
+                EndDate = CalculatorDateTime.FromUnixTime(darkEventQuestChapter.EndDatetime),
+                ImagePath = $"ui/quest/en/banner/event_banner_{darkEventQuestChapter.EventQuestChapterId}",
+                Stories = items.ToArray()
+            });
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    #endregion Events
+
     #region Library
 
     private static async Task AddLibraryStoriesAsync()
@@ -1181,6 +1257,8 @@ public static class Program
         await AddMainQuestSeasonsAsync();
         await AddMainQuestRoutesAsync();
         await AddMainQuestChaptersAsync();
+        await AddCardStoriesAsync();
+        await AddLostArchiveStoriesAsync();
     }
 
     private static async Task AddMainQuestSeasonsAsync()
@@ -1286,6 +1364,57 @@ public static class Program
                     }
                 }
             }
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static async Task AddCardStoriesAsync()
+    {
+        foreach (var darkWebviewMission in MasterDb.EntityMWebviewMissionTable.All.OrderBy(x => x.WebviewMissionId))
+        {
+            if (_cardStoryCache.Contains(darkWebviewMission.WebviewMissionId)) continue;
+
+            List<StoryItem> items = new();
+            var darkWebviewMissionTitleText = MasterDb.EntityMWebviewMissionTitleTextTable.FindByWebviewMissionTitleTextIdAndLanguageType((darkWebviewMission.TitleTextId, LanguageType.EN));
+            foreach (var darkWebviewPanelMission in MasterDb.EntityMWebviewPanelMissionTable.All.Where(x => x.WebviewPanelMissionId == darkWebviewMission.WebviewMissionTargetId).OrderBy(x => x.Page))
+            {
+                var darkWevbiewPanelMissionPage = MasterDb.EntityMWebviewPanelMissionPageTable.FindByWebviewPanelMissionPageId(darkWebviewPanelMission.WebviewPanelMissionPageId);
+                var darkWevbiewPanelMissionCompleteFlavorText = MasterDb.EntityMWebviewPanelMissionCompleteFlavorTextTable
+                    .FindByWebviewPanelMissionCompleteFlavorTextIdAndLanguageType((darkWevbiewPanelMissionPage.WebviewPanelMissionCompleteFlavorTextId, LanguageType.EN));
+
+                items.Add(new StoryItem
+                {
+                    Story = darkWevbiewPanelMissionCompleteFlavorText.CompleteFlavorText.ToProperHtml(),
+                    ImagePath = $"ui/panel_mission/{nameof(LanguageType.EN).ToLowerInvariant()}/panel_mission_{darkWevbiewPanelMissionPage.ImageAssetId}/panel_mission_{darkWevbiewPanelMissionPage.ImageAssetId}.png"
+                });
+            }
+
+            _postgreDbContext.CardStories.Add(new CardStory
+            {
+                Id = darkWebviewMission.WebviewMissionId,
+                Name = darkWebviewMissionTitleText.Text,
+                Stories = items.ToArray()
+            });
+        }
+
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static async Task AddLostArchiveStoriesAsync()
+    {
+        foreach (var darkCageMemory in MasterDb.EntityMCageMemoryTable.All.OrderBy(x => x.SortOrder))
+        {
+            if (_lostArchiveStoryCache.Contains(darkCageMemory.CageMemoryId)) continue;
+
+            _postgreDbContext.LostArchives.Add(new LostArchive
+            {
+                Id = darkCageMemory.CageMemoryId,
+                Name = $"cage.memory.title.{darkCageMemory.CageMemoryAssetId:D6}".Localize(),
+                Number = $"cage.memory.library.title.{darkCageMemory.CageMemoryAssetId:D6}".Localize(),
+                Story = $"cage.memory.description.{darkCageMemory.CageMemoryAssetId:D6}".Localize().ToProperHtml(),
+                ImagePath = $"ui/library/cage_memory/{darkCageMemory.CageMemoryAssetId:D6}/cage_memory{darkCageMemory.CageMemoryAssetId:D6}_full.png"
+            });
         }
 
         await _postgreDbContext.SaveChangesAsync();

@@ -22,6 +22,4 @@ public class MainQuestChapter
 
     [ForeignKey(nameof(RouteId))]
     public virtual MainQuestRoute Route { get; set; }
-
-    //public virtual ICollection<MainQuestStory> Stories { get; init; }
 }

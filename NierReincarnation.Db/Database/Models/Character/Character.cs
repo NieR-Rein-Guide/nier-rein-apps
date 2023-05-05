@@ -28,6 +28,9 @@ internal class Character
     [Column(TypeName = "jsonb")]
     public StoryItem[] RodStories { get; init; }
 
+    [Column(TypeName = "jsonb")]
+    public HiddenStoryItem[] HiddenStories { get; init; }
+
     [ForeignKey(nameof(ThoughtId))]
     public virtual Thought Thought { get; set; }
 

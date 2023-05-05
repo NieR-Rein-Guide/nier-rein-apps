@@ -68,6 +68,12 @@ internal class PostgreDbContext : DbContext
 
     public DbSet<MainQuestChapter> MainQuestChapters { get; set; }
 
+    public DbSet<Event> Events { get; set; }
+
+    public DbSet<CardStory> CardStories { get; set; }
+
+    public DbSet<LostArchive> LostArchives { get; set; }
+
     public PostgreDbContext(DbConfig dbConfig)
     {
         _connectionString = $"Server={dbConfig.Server};Port={dbConfig.Port};Database={dbConfig.Database};User Id={dbConfig.User};Password={dbConfig.Password};Include Error Detail=true";
