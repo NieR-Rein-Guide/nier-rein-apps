@@ -10,4 +10,6 @@ public class LostArchive : StoryItem
     public string Name { get; init; }
 
     public string Number { get; init; }
+
+    public int Order { get; init; }
 }
