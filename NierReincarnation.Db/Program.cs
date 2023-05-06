@@ -1347,9 +1347,13 @@ public static class Program
 
                     foreach (var darkEventQuestSequence in darkEventQuestSequences)
                     {
+                        var storyText = $"quest.event.chapter.story.{(int)darkEventQuestChapter.EventQuestType:D2}.{darkEventQuestChapter.SortOrder:D4}.{darkEventQuestSequence.SortOrder:D4}".Localize().ToProperHtml();
+
+                        if (string.IsNullOrEmpty(storyText)) continue;
+
                         items.Add(new StoryItem
                         {
-                            Story = $"quest.event.chapter.story.{(int)darkEventQuestChapter.EventQuestType:D2}.{darkEventQuestChapter.SortOrder:D4}.{darkEventQuestSequence.SortOrder:D4}".Localize().ToProperHtml(),
+                            Story = storyText,
                             ImagePath = $"ui/library/event_quest_type_{(int)darkEventQuestChapter.EventQuestType:D2}/bg{darkEventQuestChapter.SortOrder:D4}{darkEventQuestSequence.SortOrder:D4}.png"
                         });
                     }
