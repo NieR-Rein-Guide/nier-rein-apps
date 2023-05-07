@@ -43,7 +43,7 @@ public static class Program
     {
         await SetupApplicationAsync();
 
-        //await AddNotifications();
+        await AddNotifications();
         await AddCharactersAsync();
         await AddCharacterRankBonusesAsync();
         await AddDebrisAsync();
