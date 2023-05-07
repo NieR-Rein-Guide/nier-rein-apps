@@ -1448,7 +1448,7 @@ public static class Program
                         items.Add(new StoryItem
                         {
                             Story = $"story.Main.Quest.{darkMainQuestSeason.MainQuestSeasonId:D4}.{darkMainQuestChapter.MainQuestChapterId:D4}.{darkQuest.QuestId:D4}".Localize().ToProperHtml(),
-                            ImagePath = $"ui/still/season{darkMainQuestSeason.MainQuestSeasonId}/still_main_{darkMainQuestSeason.MainQuestSeasonId}{darkMainQuestRoute.MainQuestRouteId}{darkMainQuestChapter.MainQuestChapterId:D3}{(isLastInSeries ? 2 : 1):D2}.png"
+                            ImagePath = $"ui/still/season{darkMainQuestSeason.MainQuestSeasonId}/still_main_{darkMainQuestSeason.MainQuestSeasonId}{darkMainQuestRoute.SortOrder}{darkMainQuestChapter.MainQuestChapterId:D3}{(isLastInSeries ? 2 : 1):D2}.png"
                         });
                     }
 
