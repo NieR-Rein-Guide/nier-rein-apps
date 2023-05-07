@@ -19,6 +19,18 @@ internal class Character
     [Column("debris_id")]
     public int? ThoughtId { get; set; }
 
+    [Column(TypeName = "jsonb")]
+    public StoryItem[] CharacterStories { get; init; }
+
+    [Column(TypeName = "jsonb")]
+    public StoryItem[] ExStories { get; init; }
+
+    [Column(TypeName = "jsonb")]
+    public StoryItem[] RodStories { get; init; }
+
+    [Column(TypeName = "jsonb")]
+    public HiddenStoryItem[] HiddenStories { get; init; }
+
     [ForeignKey(nameof(ThoughtId))]
     public virtual Thought Thought { get; set; }
 

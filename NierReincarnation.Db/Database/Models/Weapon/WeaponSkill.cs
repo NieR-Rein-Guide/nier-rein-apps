@@ -1,16 +1,13 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NierReincarnation.Db.Database.Models;
 
-[Table("costume_skill")]
-internal class CostumeSkill
+[Table("weapon_skill")]
+internal class WeaponSkill
 {
     public int SkillId { get; set; }
 
     public int SkillLevel { get; set; }
-
-    public string GaugeRiseSpeed { get; set; }
 
     public int CooldownTime { get; set; }
 
@@ -26,5 +23,5 @@ internal class CostumeSkill
 
     public string[] BehaviourTypes { get; set; }
 
-    public virtual ICollection<CostumeSkillLink> Costume { get; set; }
+    public virtual ICollection<WeaponSkillLink> Weapons { get; set; }
 }

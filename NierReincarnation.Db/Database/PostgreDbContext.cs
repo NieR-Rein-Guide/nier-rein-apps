@@ -62,6 +62,18 @@ internal class PostgreDbContext : DbContext
 
     public DbSet<Thought> Thoughts { get; set; }
 
+    public DbSet<MainQuestSeason> MainQuestSeasons { get; set; }
+
+    public DbSet<MainQuestRoute> MainQuestRoutes { get; set; }
+
+    public DbSet<MainQuestChapter> MainQuestChapters { get; set; }
+
+    public DbSet<Event> Events { get; set; }
+
+    public DbSet<CardStory> CardStories { get; set; }
+
+    public DbSet<LostArchive> LostArchives { get; set; }
+
     public PostgreDbContext(DbConfig dbConfig)
     {
         _connectionString = $"Server={dbConfig.Server};Port={dbConfig.Port};Database={dbConfig.Database};User Id={dbConfig.User};Password={dbConfig.Password};Include Error Detail=true";
@@ -81,8 +93,7 @@ internal class PostgreDbContext : DbContext
         modelBuilder.Entity<CompanionAbility>().HasKey(a => new { a.AbilityId, a.AbilityLevel });
         modelBuilder.Entity<CompanionStat>().HasKey(a => new { a.CompanionId, a.Level });
         modelBuilder.Entity<Memoir>().HasKey(a => new { a.MemoirId, a.InitialLotteryId });
-        modelBuilder.Entity<MemoirSeries>().HasMany(c => c.Memoirs).WithOne(c => c.MemoirSeries);
-        modelBuilder.Entity<Thought>().HasKey(c => c.ThoughtId);
+        modelBuilder.Entity<MainQuestChapter>().HasKey(a => new { a.ChapterId, a.ChapterTextAssetId });
 
         modelBuilder.Entity<CostumeAbilityLink>().HasKey(a => new { a.CostumeId, a.AbilitySlot, a.AbilityId, a.AbilityLevel });
         modelBuilder.Entity<CostumeSkillLink>().HasKey(a => new { a.CostumeId, a.SkillId, a.SkillLevel });
@@ -106,8 +117,12 @@ internal class PostgreDbContext : DbContext
         modelBuilder.Entity<CompanionSkill>().HasMany(c => c.Companions).WithOne(c => c.Skill);
         modelBuilder.Entity<Companion>().HasMany(c => c.Ability).WithOne(c => c.Companion);
         modelBuilder.Entity<CompanionAbility>().HasMany(c => c.Companions).WithOne(c => c.Ability);
+        modelBuilder.Entity<MemoirSeries>().HasMany(c => c.Memoirs).WithOne(c => c.MemoirSeries);
         modelBuilder.Entity<Thought>().HasMany(c => c.Characters).WithOne(c => c.Thought);
         modelBuilder.Entity<Thought>().HasMany(c => c.Costumes).WithOne(c => c.Thought);
+
+        modelBuilder.Entity<MainQuestSeason>().HasMany(c => c.Routes).WithOne(c => c.Season);
+        modelBuilder.Entity<MainQuestRoute>().HasMany(c => c.Chapters).WithOne(c => c.Route);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
