@@ -10,6 +10,8 @@
             public static readonly string kPictureSaveCantAccess = kPictureSave + "CantAccess"; // 0x18
             public static readonly string kPictureSaveSaveSuccess = kPictureSave + "SaveSuccess"; // 0x20
             public static readonly string kPictureSaveSaveFailed = kPictureSave + "SaveFailed"; // 0x28
+            public static readonly string kPictureSavePermissionShouldAskMessage = kPictureSave + "PermissionShouldAsk.Message"; // 0x30
+            public static readonly string kPictureSavePermissionDeniedMessage = kPictureSave + "PermissionDenied.Message"; // 0x38
         }
     }
 }
