@@ -468,7 +468,7 @@ public static class Program
             if (darkCostume.CostumeId >= 100000) return;
 
             MasterDb.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostume.CostumeId, out var darkCostumeCatalog);
-            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCostumeCatalog.CatalogTermId);
+            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCostumeCatalog?.CatalogTermId ?? 0);
             var assetId = CalculatorCostume.ActorAssetId(darkCostume.CostumeId);
             var costumeName = CalculatorCostume.CostumeName(darkCostume.CostumeId).Replace("\\n", string.Empty);
 
@@ -491,7 +491,7 @@ public static class Program
                 IsRdCostume = darkCostume.CostumeId >= 50000 && darkCostume.CostumeId < 60000,
                 Name = costumeName,
                 Rarity = darkCostume.RarityType.ToString(),
-                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
                 ThoughtId = darkCostumeAwakenEffect?.CostumeAwakenEffectId,
                 WeaponType = darkCostume.SkillfulWeaponType.ToString(),
                 Attribute = darkCostumeProperAttribute?.CostumeProperAttributeType.ToString()
@@ -775,7 +775,7 @@ public static class Program
             if (baseDarkWeaponId == null) return;
 
             var darkBaseCatalogWeapon = MasterDb.EntityMCatalogWeaponTable.FindByWeaponId(baseDarkWeaponId.Value);
-            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkBaseCatalogWeapon.CatalogTermId);
+            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkBaseCatalogWeapon?.CatalogTermId ?? 0);
 
             var assetId = CalculatorWeapon.ActorAssetId(darkWeapon);
             var weaponName = CalculatorWeapon.WeaponName(darkWeapon.WeaponId);
@@ -792,7 +792,7 @@ public static class Program
                 IsRdWeapon = darkWeapon.WeaponId >= 510000 && darkWeapon.WeaponId < 600000,
                 Name = weaponName,
                 Rarity = darkWeapon.RarityType.ToString(),
-                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
                 WeaponId = darkWeapon.WeaponId,
                 WeaponSlug = Slugify(weaponName),
                 WeaponType = darkWeapon.WeaponType.ToString()
@@ -1075,7 +1075,7 @@ public static class Program
             if (darkCompanion.CompanionId >= 8000000) return;
 
             var darkCatalogCompanion = MasterDb.EntityMCatalogCompanionTable.FindByCompanionId(darkCompanion.CompanionId);
-            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogCompanion.CatalogTermId);
+            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogCompanion?.CatalogTermId ?? 0);
             var actorAssetId = CalculatorCompanion.ActorAssetId(darkCompanion);
 
             dbEntities.Add(new Companion
@@ -1084,7 +1084,7 @@ public static class Program
                 CompanionId = darkCompanion.CompanionId,
                 ImagePathBase = $"ui/companion/{actorAssetId}/{actorAssetId}_",
                 Name = CalculatorCompanion.CompanionName(darkCompanion.CompanionId),
-                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
                 Story = CalculatorCompanion.CompanionDescription(darkCompanion.CompanionId),
                 Type = darkCompanion.CompanionCategoryType
             });
@@ -1273,7 +1273,7 @@ public static class Program
         {
             var darkMemoirGroup = MasterDb.EntityMPartsGroupTable.FindByPartsGroupId(darkMemoir.PartsGroupId);
             var darkCatalogPartsGroup = MasterDb.EntityMCatalogPartsGroupTable.FindByPartsGroupId(darkMemoirGroup.PartsGroupId);
-            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogPartsGroup.CatalogTermId);
+            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogPartsGroup?.CatalogTermId ?? 0);
 
             dbPartsEntities.Add(new Memoir
             {
@@ -1282,7 +1282,7 @@ public static class Program
                 MemoirId = darkMemoir.PartsId,
                 Name = CalculatorMemory.MemoryName(darkMemoir.PartsId),
                 Rarity = darkMemoir.RarityType.ToString(),
-                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
                 SeriesId = darkMemoirGroup.PartsSeriesId,
                 Story = CalculatorMemory.MemoryDescription(darkMemoir.PartsId),
                 IsVariationMemoir = darkMemoir.PartsId >= 8000,
@@ -1305,7 +1305,7 @@ public static class Program
         Parallel.ForEach(MasterDb.EntityMThoughtTable.All, darkThought =>
         {
             var darkCatalogThought = MasterDb.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == darkThought.ThoughtId);
-            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogThought.CatalogTermId);
+            var darkCatalogTerm = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCatalogThought?.CatalogTermId ?? 0);
             var thoughtAssetId = darkThought.ThoughtAssetId.ToString().PadLeft(6, '0');
             var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkThought.AbilityId, darkThought.AbilityLevel);
 
@@ -1313,7 +1313,7 @@ public static class Program
             {
                 ThoughtId = darkThought.ThoughtId,
                 Rarity = darkThought.RarityType.ToString(),
-                ReleaseTime = CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime),
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
                 Name = CalculatorThought.GetName(darkThought.ThoughtAssetId),
                 ImagePathBase = $"ui/thought/thought{thoughtAssetId}/thought{thoughtAssetId}_standard.png",
                 DescriptionShort = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
