@@ -28,6 +28,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
                 string matchCostumeId = match.Groups[0].Value;
 
                 if (matchCostumeId.Equals("ch000000")) continue;
+                if (matchCostumeId.EndsWith("050")) continue;
                 if (currentCostumes.ContainsKey(matchCostumeId)) continue;
                 string matchCharacter = currentCharacters.TryGetValue(matchCostumeId[..^3], out string matchExistingCharacter) ? matchExistingCharacter : "Unknown";
 

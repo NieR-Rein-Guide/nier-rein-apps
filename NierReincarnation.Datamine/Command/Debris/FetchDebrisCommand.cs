@@ -34,11 +34,13 @@ public class FetchDebrisCommand : AbstractDbQueryCommand<IFetchDebrisCommandArg,
         if (darkDebris == null) return null;
 
         var darkDebrisCatalog = MasterDb.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == darkDebris.ThoughtId);
-        if (darkDebrisCatalog == null) return null;
-        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkDebrisCatalog.CatalogTermId);
+        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkDebrisCatalog?.CatalogTermId ?? 0);
 
-        if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
-        if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        if (termCatalog != null)
+        {
+            if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+            if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        }
 
         var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkDebris.AbilityId, darkDebris.AbilityLevel);
 

@@ -26,15 +26,18 @@ public class FetchMemoirsCommand : AbstractDbQueryCommand<FetchMemoirsCommandArg
             if (darkMemoirGroup.PartsSeriesId != darkMemoirSeries.PartsSeriesId) continue;
 
             var darkMemoirCatalog = MasterDb.EntityMCatalogPartsGroupTable.FindByPartsGroupId(darkMemoirGroup.PartsGroupId);
-            var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkMemoirCatalog.CatalogTermId);
+            var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkMemoirCatalog?.CatalogTermId ?? 0);
 
-            if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) continue;
-            if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) continue;
+            if (termCatalog != null)
+            {
+                if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) continue;
+                if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) continue;
+            }
 
             memoirs.Add(new Memoir
             {
                 Name = CalculatorMemory.MemoryName(darkMemoir.PartsId),
-                ReleaseDateTimeOffset = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
+                ReleaseDateTimeOffset = termCatalog != null ? CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime) : DateTimeOffset.MaxValue,
                 Order = memoirs.Count + 1
             });
         }

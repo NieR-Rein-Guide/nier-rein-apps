@@ -15,11 +15,14 @@ public class FetchCostumeCommand : AbstractDbQueryCommand<FetchCostumeCommandArg
         var darkCostume = arg.Entity ?? MasterDb.EntityMCostumeTable.FindByCostumeId(arg.EntityId);
         if (darkCostume == null) return null;
 
-        if (!MasterDb.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostume.CostumeId, out var costumeCatalog)) return null;
-        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(costumeCatalog.CatalogTermId);
+        MasterDb.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostume.CostumeId, out var costumeCatalog);
+        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(costumeCatalog?.CatalogTermId ?? 0);
 
-        if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
-        if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        if (termCatalog != null)
+        {
+            if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+            if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        }
 
         return new Costume
         {
@@ -28,7 +31,7 @@ public class FetchCostumeCommand : AbstractDbQueryCommand<FetchCostumeCommandArg
             Level = CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount(), Config.GetCharacterRebirthAvailableCount()),
             RarityType = darkCostume.RarityType,
             WeaponType = darkCostume.SkillfulWeaponType,
-            ReleaseDateTimeOffset = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
+            ReleaseDateTimeOffset = termCatalog != null ? CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime) : DateTimeOffset.MaxValue,
             Stats = await GetCostumeStatsAsync(arg, darkCostume),
             Skill = await GetCostumeSkillAsync(arg, darkCostume),
             Abilities = await GetCostumeAbilitiesAsync(arg, darkCostume),

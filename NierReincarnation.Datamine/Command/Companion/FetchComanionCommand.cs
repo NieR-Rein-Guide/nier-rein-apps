@@ -14,16 +14,19 @@ public class FetchComanionCommand : AbstractDbQueryCommand<FetchComanionCommandA
         if (darkCompanion == null) return null;
 
         var companionCatalog = MasterDb.EntityMCatalogCompanionTable.FindByCompanionId(darkCompanion.CompanionId);
-        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(companionCatalog.CatalogTermId);
+        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(companionCatalog?.CatalogTermId ?? 0);
 
-        if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
-        if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        if (termCatalog != null)
+        {
+            if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+            if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        }
 
         return new Companion
         {
             Name = CalculatorCompanion.CompanionName(darkCompanion.CompanionId),
             AttributeType = darkCompanion.AttributeType,
-            ReleaseDateTimeOffset = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
+            ReleaseDateTimeOffset = termCatalog != null ? CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime) : DateTimeOffset.MaxValue,
             Stats = await GetCompanionStatsAsync(arg, darkCompanion),
             Skill = await GetCompanionSkillAsync(arg, darkCompanion),
             Ability = await GetCompanionAbilityAsync(arg, darkCompanion)

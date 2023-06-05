@@ -25,10 +25,13 @@ public class FetchWeaponCommand : AbstractDbQueryCommand<FetchWeaponCommandArg, 
         if (baseWeapon == null) return null;
 
         var baseWeaponCatalog = MasterDb.EntityMCatalogWeaponTable.FindByWeaponId(baseWeapon.WeaponId);
-        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(baseWeaponCatalog.CatalogTermId);
+        var termCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(baseWeaponCatalog?.CatalogTermId ?? 0);
 
-        if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
-        if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        if (termCatalog != null)
+        {
+            if (arg.FromDate > CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+            if (arg.ToDate < CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime)) return null;
+        }
 
         var darkWeaponAwaken = MasterDb.EntityMWeaponAwakenTable.FindByWeaponId(darkWeapon.WeaponId);
 
@@ -40,7 +43,7 @@ public class FetchWeaponCommand : AbstractDbQueryCommand<FetchWeaponCommandArg, 
             AttributeType = darkWeapon.AttributeType,
             RarityType = darkWeapon.RarityType,
             WeaponType = darkWeapon.WeaponType,
-            ReleaseDateTimeOffset = CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime),
+            ReleaseDateTimeOffset = termCatalog != null ? CalculatorDateTime.FromUnixTime(termCatalog.StartDatetime) : DateTimeOffset.MaxValue,
             Stats = await GetWeaponStatsAsync(arg, darkWeapon),
             Skills = await GetWeaponSkillsAsync(arg, darkWeapon),
             Abilities = await GetWeaponAbilitiesAsync(arg, darkWeapon)
