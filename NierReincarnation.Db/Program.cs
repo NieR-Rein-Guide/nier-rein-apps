@@ -25,6 +25,7 @@ public static class Program
     private const string _dbConfigJsonPath = "config/dbConfig.json";
     private const string _nierReinConfigJsonPath = "config/userConfig.json";
     private static PostgreDbContext _postgreDbContext;
+    private static readonly DateTimeOffset MaxDate = DateTimeOffset.UtcNow.AddYears(1);
 
     private static DarkMasterMemoryDatabase MasterDb => DatabaseDefine.Master;
 
@@ -491,7 +492,7 @@ public static class Program
                 IsRdCostume = darkCostume.CostumeId >= 50000 && darkCostume.CostumeId < 60000,
                 Name = costumeName,
                 Rarity = darkCostume.RarityType.ToString(),
-                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : MaxDate,
                 ThoughtId = darkCostumeAwakenEffect?.CostumeAwakenEffectId,
                 WeaponType = darkCostume.SkillfulWeaponType.ToString(),
                 Attribute = darkCostumeProperAttribute?.CostumeProperAttributeType.ToString()
@@ -792,7 +793,7 @@ public static class Program
                 IsRdWeapon = darkWeapon.WeaponId >= 510000 && darkWeapon.WeaponId < 600000,
                 Name = weaponName,
                 Rarity = darkWeapon.RarityType.ToString(),
-                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : MaxDate,
                 WeaponId = darkWeapon.WeaponId,
                 WeaponSlug = Slugify(weaponName),
                 WeaponType = darkWeapon.WeaponType.ToString()
@@ -1084,7 +1085,7 @@ public static class Program
                 CompanionId = darkCompanion.CompanionId,
                 ImagePathBase = $"ui/companion/{actorAssetId}/{actorAssetId}_",
                 Name = CalculatorCompanion.CompanionName(darkCompanion.CompanionId),
-                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : MaxDate,
                 Story = CalculatorCompanion.CompanionDescription(darkCompanion.CompanionId),
                 Type = darkCompanion.CompanionCategoryType
             });
@@ -1282,7 +1283,7 @@ public static class Program
                 MemoirId = darkMemoir.PartsId,
                 Name = CalculatorMemory.MemoryName(darkMemoir.PartsId),
                 Rarity = darkMemoir.RarityType.ToString(),
-                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : MaxDate,
                 SeriesId = darkMemoirGroup.PartsSeriesId,
                 Story = CalculatorMemory.MemoryDescription(darkMemoir.PartsId),
                 IsVariationMemoir = darkMemoir.PartsId >= 8000,
@@ -1313,7 +1314,7 @@ public static class Program
             {
                 ThoughtId = darkThought.ThoughtId,
                 Rarity = darkThought.RarityType.ToString(),
-                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : DateTimeOffset.MaxValue,
+                ReleaseTime = darkCatalogTerm != null ? CalculatorDateTime.FromUnixTime(darkCatalogTerm.StartDatetime) : MaxDate,
                 Name = CalculatorThought.GetName(darkThought.ThoughtAssetId),
                 ImagePathBase = $"ui/thought/thought{thoughtAssetId}/thought{thoughtAssetId}_standard.png",
                 DescriptionShort = CalculatorAbility.GetName(abilityDetail.NameAbilityTextId),
@@ -1387,6 +1388,7 @@ public static class Program
         await AddMainQuestChaptersAsync();
         await AddCardStoriesAsync();
         await AddLostArchiveStoriesAsync();
+        await AddRemnantStoriesAsync();
     }
 
     private static async Task AddMainQuestSeasonsAsync()
@@ -1543,6 +1545,32 @@ public static class Program
         });
 
         _postgreDbContext.LostArchives.AddRange(dbEntities);
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static async Task AddRemnantStoriesAsync()
+    {
+        ConcurrentBag<Remnant> dbEntities = new();
+        Parallel.ForEach(MasterDb.EntityMStainedGlassTable.All.OrderBy(x => x.SortOrder), darkRemnant =>
+        {
+            var remnantName = $"stained.glass.title.{darkRemnant.TitleTextId}".Localize();
+
+            if (!string.IsNullOrWhiteSpace(remnantName))
+            {
+                dbEntities.Add(new Remnant
+                {
+                    Id = darkRemnant.StainedGlassId,
+                    Name = remnantName,
+                    Story = $"stained.glass.description.{darkRemnant.FlavorTextId}".Localize().ToProperHtml(),
+                    Effect = $"stained.glass.effect.{darkRemnant.EffectDescriptionTextId}".Localize().ToProperHtml(),
+                    ImagePath = $"ui/library/stained_glass/{darkRemnant.ImageAssetId:D6}/stained_glass{darkRemnant.ImageAssetId:D6}_effect/stained_glass{darkRemnant.ImageAssetId:D6}_color.png",
+                    CategoryType = darkRemnant.StainedGlassCategoryType.ToString(),
+                    Order = darkRemnant.SortOrder
+                });
+            }
+        });
+
+        _postgreDbContext.Remnants.AddRange(dbEntities);
         await _postgreDbContext.SaveChangesAsync();
     }
 
