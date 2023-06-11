@@ -27,5 +27,8 @@ namespace NierReincarnation.Core.Dark
 
         [Key(6)]
         public long EndDatetime { get; set; } // 0x30
+
+        [Key(7)]
+        public int EventQuestLimitContentDeckRestrictionId { get; set; } // 0x38
     }
 }

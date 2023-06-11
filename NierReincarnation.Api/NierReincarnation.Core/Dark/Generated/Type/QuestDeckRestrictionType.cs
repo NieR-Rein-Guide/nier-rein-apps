@@ -5,6 +5,7 @@
         UNKNOWN = 0,
         CHARACTER_ID = 1,
         COSTUME_ID = 2,
+        PROPER_ATTRIBUTE_TYPE = 3,
         FORBIDDEN = 99
     }
 }
