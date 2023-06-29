@@ -44,84 +44,10 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     private static async Task WriteCostumesAsync()
     {
         var costumes = await GetCostumesAsync();
+
         foreach (var costume in costumes.OrderBy(x => x.ReleaseDateTimeOffset))
         {
-            // Costume
-            WriteCostumeInfo(costume);
-
-            // Stats
-            WriteCostumeStats(costume);
-
-            // Skill
-            WriteCostumeSkill(costume);
-
-            // Abilities
-            WriteCostumeAbilities(costume);
-
-            // Debris
-            WriteCostumeDebris(costume);
-
-            Console.WriteLine();
-            Console.WriteLine();
-        }
-    }
-
-    private static void WriteCostumeInfo(Costume costume)
-    {
-        var awakenings = string.Join("/", costume.AwakenStrings);
-        Console.WriteLine($"__**Costume: {costume.Name} ({costume.WeaponType.ToFormattedStr()}) ({costume.RarityType.ToFormattedStr(false)}) (lvl{costume.Level}) ({awakenings}) ({costume.ReleaseDateTimeOffset.ToFormattedDate()})**__");
-    }
-
-    private static void WriteCostumeStats(Costume costume)
-    {
-        if (costume.Stats == null) return;
-
-        var baseStats = costume.Stats.Find(x => x.Awakenings == null);
-        Console.WriteLine($"**ATK:** {string.Join("/", costume.AttackStrings)}");
-        Console.WriteLine($"**HP:** {string.Join("/", costume.HpStrings)}");
-        Console.WriteLine($"**DEF:** {string.Join("/", costume.DefenseStrings)}");
-
-        if (baseStats.Agility != 1000)
-        {
-            Console.WriteLine($"**AGI:** {string.Join("/", costume.AgilityStrings)}");
-        }
-
-        if (baseStats.CritRate != 10)
-        {
-            Console.WriteLine($"**CR:** {string.Join("/", costume.CritRateStrings)}");
-        }
-
-        if (baseStats.CritDamage != 150)
-        {
-            Console.WriteLine($"**CD:** {string.Join("/", costume.CritDamageStrings)}");
-        }
-
-        if (baseStats.EvasionRate != 10)
-        {
-            Console.WriteLine($"**EV:** {string.Join("/", costume.EvasionRateStrings)}");
-        }
-    }
-
-    private static void WriteCostumeSkill(Costume costume)
-    {
-        if (costume.Skill == null) return;
-        Console.WriteLine($"**Skill:** {costume.Skill.Name} - {costume.Skill.Description} - {costume.Skill.Gauge} Gauge ({costume.Skill.Cooldown}/{costume.Skill.CooldownMax})");
-    }
-
-    private static void WriteCostumeAbilities(Costume costume)
-    {
-        if (costume.Abilities == null) return;
-        foreach (var ability in costume.Abilities)
-        {
-            Console.WriteLine($"**Ability {ability.SlotNumber}:** {ability.Name} - {ability.Description}");
-        }
-    }
-
-    private static void WriteCostumeDebris(Costume costume)
-    {
-        if (costume.Debris != null)
-        {
-            Console.WriteLine($"**Debris:** {costume.Debris.Name} - {costume.Debris.Description}");
+            Console.WriteLine(costume);
         }
     }
 
@@ -140,56 +66,10 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     private static async Task WriteWeaponsAsync()
     {
         var weapons = await GetWeaponsAsync();
+
         foreach (var weapon in weapons.OrderBy(x => x.ReleaseDateTimeOffset))
         {
-            // Weapon
-            WriteWeaponInfo(weapon);
-
-            // Stats
-            WriteWeaponStats(weapon);
-
-            // Skills
-            WriteWeaponSkill(weapon);
-
-            // Abilities
-            WriteWeaponAbilities(weapon);
-
-            Console.WriteLine();
-            Console.WriteLine();
-        }
-    }
-
-    private static void WriteWeaponInfo(Weapon weapon)
-    {
-        Console.WriteLine($"__**Weapon: {weapon.Name} ({weapon.AttributeType.ToFormattedStr()} {weapon.WeaponType.ToFormattedStr()}) ({weapon.RarityType.ToFormattedStr(true)}) (lvl{weapon.Level}) ({weapon.ReleaseDateTimeOffset.ToFormattedDate()})**__");
-    }
-
-    private static void WriteWeaponStats(Weapon weapon)
-    {
-        if (weapon.Stats == null) return;
-
-        Console.WriteLine($"**ATK:** {string.Join("/", weapon.Stats.Attack)}");
-        Console.WriteLine($"**HP:** {string.Join("/", weapon.Stats.Hp)}");
-        Console.WriteLine($"**DEF:** {string.Join("/", weapon.Stats.Defense)}");
-    }
-
-    private static void WriteWeaponSkill(Weapon weapon)
-    {
-        if (weapon.Skills == null) return;
-
-        foreach (var skill in weapon.Skills.OrderBy(x => x.SlotNumber))
-        {
-            Console.WriteLine($"**Skill {skill.SlotNumber}:** {skill.Name} - {skill.Description} ({skill.Cooldown}sec)");
-        }
-    }
-
-    private static void WriteWeaponAbilities(Weapon weapon)
-    {
-        if (weapon.Abilities == null) return;
-
-        foreach (var ability in weapon.Abilities.OrderBy(x => x.SlotNumber))
-        {
-            Console.WriteLine($"**Ability {ability.SlotNumber}:** {ability.Name} - {ability.Description}");
+            Console.WriteLine(weapon);
         }
     }
 
@@ -215,8 +95,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
             foreach (var debri in debris)
             {
-                Console.WriteLine($"**Debris:** {debri.Name} - {debri.Description} -> {(debri.SourceType == DebrisSourceType.MISSION ? debri.UnlockCondition : "Unknown source")}");
-                Console.WriteLine();
+                Console.Write(debri);
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -240,49 +119,8 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         var companions = await GetCompanionsAsync();
         foreach (var companion in companions.OrderBy(x => x.ReleaseDateTimeOffset))
         {
-            // Companion
-            WriteCompanionInfo(companion);
-
-            // Stats
-            WriteCompanionStats(companion);
-
-            // Skill
-            WriteCompanionSkill(companion);
-
-            // Ability
-            WriteCompanionAbility(companion);
-
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine(companion);
         }
-    }
-
-    private static void WriteCompanionInfo(Companion companion)
-    {
-        Console.WriteLine($"__**Companion: {companion.Name} ({companion.AttributeType.ToFormattedStr()}) ({companion.ReleaseDateTimeOffset.ToFormattedDate()})**__");
-    }
-
-    private static void WriteCompanionStats(Companion companion)
-    {
-        if (companion.Stats == null) return;
-
-        Console.WriteLine($"**ATK:** {companion.Stats.Attack}");
-        Console.WriteLine($"**HP:** {companion.Stats.Hp}");
-        Console.WriteLine($"**DEF:** {companion.Stats.Defense}");
-    }
-
-    private static void WriteCompanionSkill(Companion companion)
-    {
-        if (companion.Skill == null) return;
-
-        Console.WriteLine($"**Skill:** {companion.Skill.Name} - {companion.Skill.Description} ({companion.Skill.Cooldown}sec)");
-    }
-
-    private static void WriteCompanionAbility(Companion companion)
-    {
-        if (companion.Ability == null) return;
-
-        Console.WriteLine($"**Ability:** {companion.Ability.Name} - {companion.Ability.Description}");
     }
 
     #endregion Companions
@@ -304,29 +142,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         var memoirSerieses = await GetMemoirSeriesAsync();
         foreach (var memoirSeries in memoirSerieses)
         {
-            // Memoir Series
-            WriteMemoirSeriesInfo(memoirSeries);
-
-            // Memoirs Pieces
-            WriteMemoirSeriesPieces(memoirSeries);
-
-            Console.WriteLine();
-            Console.WriteLine();
-        }
-    }
-
-    private static void WriteMemoirSeriesInfo(MemoirSeries memoirSeries)
-    {
-        Console.WriteLine($"__**Memoir Series: {memoirSeries.Name} ({memoirSeries.Memoirs.FirstOrDefault().ReleaseDateTimeOffset.ToFormattedDate()})**__");
-        Console.WriteLine($"**Small Set:** {memoirSeries.SmallSet}");
-        Console.WriteLine($"**Large Set:** {memoirSeries.LargeSet}");
-    }
-
-    private static void WriteMemoirSeriesPieces(MemoirSeries memoirSeries)
-    {
-        foreach (var memoir in memoirSeries.Memoirs.OrderBy(x => x.Order))
-        {
-            Console.WriteLine($"**Piece {memoir.Order}:** {memoir.Name}");
+            Console.WriteLine(memoirSeries);
         }
     }
 

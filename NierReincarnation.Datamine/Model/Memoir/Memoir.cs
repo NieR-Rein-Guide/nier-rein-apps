@@ -7,4 +7,9 @@ public class Memoir
     public int Order { get; init; }
 
     public DateTimeOffset ReleaseDateTimeOffset { get; init; }
+
+    public override string ToString()
+    {
+        return $"**Piece {Order}:** {Name}";
+    }
 }

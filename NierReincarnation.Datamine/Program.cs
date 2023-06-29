@@ -198,6 +198,12 @@ public static class Program
             },
             new TextMenuItem
             {
+                Id = "11",
+                Text = "Export Stats",
+                Command = new ExportStatsMenuCommand()
+            },
+            new TextMenuItem
+            {
                 Id = "00",
                 Text = "Testing",
                 IsVisible = System.Diagnostics.Debugger.IsAttached,

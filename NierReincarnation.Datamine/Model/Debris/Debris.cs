@@ -1,4 +1,6 @@
-﻿namespace NierReincarnation.Datamine.Model;
+﻿using System.Text;
+
+namespace NierReincarnation.Datamine.Model;
 
 public class Debris
 {
@@ -9,4 +11,14 @@ public class Debris
     public DebrisSourceType SourceType { get; set; }
 
     public string UnlockCondition { get; set; }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new();
+
+        stringBuilder.AppendLine($"**Debris:** {Name} - {Description} -> {(SourceType == DebrisSourceType.MISSION ? UnlockCondition : "Unknown source")}");
+        stringBuilder.AppendLine();
+
+        return stringBuilder.ToString();
+    }
 }
