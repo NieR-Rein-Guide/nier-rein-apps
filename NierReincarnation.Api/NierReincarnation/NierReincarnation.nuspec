@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>NierReincarnation</id>
-		<version>1.7.4</version>
+		<version>1.7.5</version>
 		<authors>onepiecefreak</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<license type="expression">GPL-3.0-only</license>
@@ -12,17 +12,15 @@
 		<tags>API Nier Reincarnation</tags>
 
 		<dependencies>
-			<dependency id="Google.Protobuf" version="3.23.2" />
+			<dependency id="Google.Protobuf" version="3.23.3" />
 			<dependency id="protobuf-net" version="3.2.26" />
 			<dependency id="protobuf-net.Core" version="3.2.26" />
-			<dependency id="Grpc.Core.Api" version="2.53.0" />
+			<dependency id="Grpc.Core.Api" version="2.54.0" />
 			<dependency id="Grpc.Core" version="2.46.6" />
-			<dependency id="MessagePack" version="2.5.108" />
+			<dependency id="MessagePack" version="2.5.124" />
 			<dependency id="Newtonsoft.Json" version="13.0.3" />
 			<dependency id="Selenium.WebDriver" version="4.10.0" />
-			<dependency id="Serilog" version="2.12.0" />
-			<dependency id="Serilog.Sinks.File" version="5.0.0" />
-			<dependency id="WebDriverManager" version="2.16.2" />
+			<dependency id="WebDriverManager" version="2.16.3" />
 			<dependency id="ncrontab" version="3.3.1" />
 			<dependency id="morelinq" version="3.4.2" />
 			<dependency id="SixLabors.ImageSharp.Drawing" version="1.0.0-beta13" />

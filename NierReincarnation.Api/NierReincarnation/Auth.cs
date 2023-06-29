@@ -5,7 +5,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +75,6 @@ namespace NierReincarnation
                 }
                 catch (Exception e)
                 {
-                    Log.Fatal(e, "Login exception");
                     Console.WriteLine(e.Message);
                 }
                 finally
