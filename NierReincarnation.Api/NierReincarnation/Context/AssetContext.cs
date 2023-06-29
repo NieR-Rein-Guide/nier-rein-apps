@@ -189,7 +189,7 @@ namespace NierReincarnation.Context
             return language switch
             {
                 Language.English => "text)en",
-                Language.Japanese => "text)jp",
+                Language.Japanese => "text)ja",
                 _ => throw new InvalidEnumArgumentException(nameof(language)),
             };
         }
