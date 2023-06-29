@@ -16,12 +16,12 @@ namespace NierReincarnation.Localizations
             "pb_text_garbled.asset"
         };
 
-        public static IDictionary<string, string> Create()
+        public static IDictionary<string, string> Create(Language lang = Language.English)
         {
             var result = new Dictionary<string, string>();
 
             var rootPath = Path.Combine(FileUtil.GetCachePath(), "v1", $"{DarkOctoSetupper.CreateSetting().AppId}");
-            var locPath = Path.Combine(rootPath, "assets", "text", "en");
+            var locPath = Path.Combine(rootPath, "assets", "text", GetLanguagePath(lang));
 
             if (!Directory.Exists(locPath)) return result;
 
@@ -51,5 +51,12 @@ namespace NierReincarnation.Localizations
 
             return result;
         }
+
+        private static string GetLanguagePath(Language lang) => lang switch
+        {
+            Language.English => "en",
+            Language.Japanese => "ja",
+            _ => "ko"
+        };
     }
 }

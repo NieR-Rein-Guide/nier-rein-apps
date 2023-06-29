@@ -181,7 +181,7 @@ namespace NierReincarnation
                     break;
             }
 
-            LocalizationExtensions.Localizations = Localizer.Create();
+            LocalizationExtensions.Localizations = Localizer.Create(lang);
         }
 
         private static async Task InitializeCore(bool isLogin = true)
