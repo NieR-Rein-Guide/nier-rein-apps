@@ -25,12 +25,13 @@
             public static readonly string kEditNameErrorOverLength = "ui.Outgame.Deck.EditName.Error.OverLength"; // 0x90
             public static readonly string kEditNameTitle = "ui.Outgame.Deck.EditName.Title"; // 0x98
             public static readonly string kList = "ui.Outgame.Deck.List"; // 0xA0
-            public static readonly string kDeleteError = "ui.Outgame.Deck.DeleteError"; // 0xA8
-            public static readonly string kDeleteErrorDefence = "ui.Outgame.Deck.DeleteError.Defence"; // 0xB0
-            public static readonly string kRentalDeck = "ui.Outgame.Deck.RentalDeck"; // 0xB8
-            public static readonly string kRestrictionDeck = "ui.Outgame.Deck.RestrictionDeck"; // 0xC0
-            public static readonly string kItemAdd = "ui.Outgame.Quest.Deck.Item.Add"; // 0xC8
-            public static readonly string kWave = "ui.Outgame.Deck.Wave"; // 0xD0
+            public static readonly string kListErrorUnSelect = "ui.Outgame.Deck.List.Error.UnSelect"; // 0xA8
+            public static readonly string kDeleteError = "ui.Outgame.Deck.DeleteError"; // 0xB0
+            public static readonly string kDeleteErrorDefence = "ui.Outgame.Deck.DeleteError.Defence"; // 0xB8
+            public static readonly string kRentalDeck = "ui.Outgame.Deck.RentalDeck"; // 0xC0
+            public static readonly string kRestrictionDeck = "ui.Outgame.Deck.RestrictionDeck"; // 0xC8
+            public static readonly string kItemAdd = "ui.Outgame.Quest.Deck.Item.Add"; // 0xD0
+            public static readonly string kWave = "ui.Outgame.Deck.Wave"; // 0xD8
 
             // Custom
             public static readonly string kOrganization = "ui.Outgame.Deck.Organization";

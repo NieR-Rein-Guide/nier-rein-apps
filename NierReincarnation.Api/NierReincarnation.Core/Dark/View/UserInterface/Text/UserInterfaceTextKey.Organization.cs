@@ -90,17 +90,18 @@
             public static readonly string kMemoryPresetTagDefaultName = "ui.Outgame.Organization.MemoryPreset.Tag.DefaultName.{0}"; // 0x298
             public static readonly string kBlessMaxLevel = "ui.Outgame.Organization.Bless.MaxLevel"; // 0x2A0
             public static readonly string kAutoOrganizationApplyError = "ui.Outgame.Organization.Auto.ApplyError"; // 0x2A8
-            public static readonly string kOrganizationDetailStatusHeaderMainWeapon = "ui.Outgame.Organization.Type.Weapon.Main"; // 0x2B0
-            public static readonly string kOrganizationDetailStatusHeaderSubWeapon = "ui.Outgame.Organization.Type.Weapon.Sub"; // 0x2B8
-            public static readonly string kOrganizationDetailStatusHeaderWeaponBless = "ui.Outgame.Organization.Type.Bless"; // 0x2C0
-            public static readonly string kOrganizationDetailStatusHeaderMultiple = "ui.Outgame.Organization.Detail.StatusHeaderMultiple"; // 0x2C8
-            public static readonly string kOrganizationWeaponMain = "ui.Outgame.Organization.Weapon.Main"; // 0x2D0
-            public static readonly string kOrganizationWeaponSub1 = "ui.Outgame.Organization.Weapon.Sub.1"; // 0x2D8
-            public static readonly string kOrganizationWeaponSub2 = "ui.Outgame.Organization.Weapon.Sub.2"; // 0x2E0
-            public static readonly string kOrganizationWeaponCostume = "ui.Outgame.Organization.Weapon.Costume"; // 0x2E8
-            public static readonly string kOrganizationWeaponConfirmationTitle = "ui.Outgame.Organization.Weapon.Confirm.Title"; // 0x2F0
-            public static readonly string kOrganizationWeaponInfoBlessEmptyWeapon = "ui.Outgame.Organization.Weapon.Info.Bless.EmptyWeapon"; // 0x2F8
-            public static readonly string kOrganizationWeaponInfoBlessNoEffect = "ui.Outgame.Organization.Weapon.Info.Bless.NoEffect"; // 0x300
+            public static readonly string kAutoOrganizationRarityError = "ui.Outgame.Organization.Auto.RarityError"; // 0x2B0
+            public static readonly string kOrganizationDetailStatusHeaderMainWeapon = "ui.Outgame.Organization.Type.Weapon.Main"; // 0x2B8
+            public static readonly string kOrganizationDetailStatusHeaderSubWeapon = "ui.Outgame.Organization.Type.Weapon.Sub"; // 0x2C0
+            public static readonly string kOrganizationDetailStatusHeaderWeaponBless = "ui.Outgame.Organization.Type.Bless"; // 0x2C8
+            public static readonly string kOrganizationDetailStatusHeaderMultiple = "ui.Outgame.Organization.Detail.StatusHeaderMultiple"; // 0x2D0
+            public static readonly string kOrganizationWeaponMain = "ui.Outgame.Organization.Weapon.Main"; // 0x2D8
+            public static readonly string kOrganizationWeaponSub1 = "ui.Outgame.Organization.Weapon.Sub.1"; // 0x2E0
+            public static readonly string kOrganizationWeaponSub2 = "ui.Outgame.Organization.Weapon.Sub.2"; // 0x2E8
+            public static readonly string kOrganizationWeaponCostume = "ui.Outgame.Organization.Weapon.Costume"; // 0x2F0
+            public static readonly string kOrganizationWeaponConfirmationTitle = "ui.Outgame.Organization.Weapon.Confirm.Title"; // 0x2F8
+            public static readonly string kOrganizationWeaponInfoBlessEmptyWeapon = "ui.Outgame.Organization.Weapon.Info.Bless.EmptyWeapon"; // 0x300
+            public static readonly string kOrganizationWeaponInfoBlessNoEffect = "ui.Outgame.Organization.Weapon.Info.Bless.NoEffect"; // 0x308
         }
     }
 }

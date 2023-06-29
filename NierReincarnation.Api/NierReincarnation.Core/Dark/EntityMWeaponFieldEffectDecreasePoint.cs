@@ -27,5 +27,8 @@ namespace NierReincarnation.Core.Dark
 
         [Key(6)]
         public bool IsWeaponAwaken { get; set; } // 0x28
+
+        [Key(7)]
+        public int AutoOrganizationCoefficientPermil { get; set; } // 0x2C
     }
 }

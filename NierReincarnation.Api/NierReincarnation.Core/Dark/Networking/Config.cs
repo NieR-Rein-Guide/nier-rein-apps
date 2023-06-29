@@ -100,6 +100,8 @@
         private const string CostumeGrowthCurveCoefficient = "COSTUME_STATUS_FUNCTION_THRESHOLD_OVER_COEFFICIENT"; // 0x2F0
         private const string WeaponGrowthCurveCoefficientThreshold = "WEAPON_STATUS_FUNCTION_THRESHOLD_LEVEL"; // 0x2F8
         private const string WeaponGrowthCurveCoefficient = "WEAPON_STATUS_FUNCTION_THRESHOLD_OVER_COEFFICIENT"; // 0x300
+        private const string AutoOrganizationBlessAdditionalCoefficientApplyThreshold = "AUTO_ORGANIZATION_BRESS_ADDITIONAL_COEFFICIENT_APPLY_THRESHOLD"; // 0x300
+        private const string AutoOrganizationBlessAdditionalCoefficient = "AUTO_ORGANIZATION_BRESS_ADDITIONAL_COEFFICIENT_PERMIL"; // 0x300
 
         // RVA: 0x298DDAC Offset: 0x298DDAC VA: 0x298DDAC
         public static int GetConsumableIdForGold()
@@ -639,6 +641,18 @@
         public static int GetWeaponGrowthCoefficient()
         {
             return GetConfigIntValue(WeaponGrowthCurveCoefficient);
+        }
+
+        // RVA: 0x27F2BB8 Offset: 0x27F2BB8 VA: 0x27F2BB8
+        public static int GetAutoOrganizationBlessAdditionalCoefficientApplyThreshold()
+        {
+            return GetConfigIntValue(AutoOrganizationBlessAdditionalCoefficientApplyThreshold);
+        }
+
+        // RVA: 0x27F2C20 Offset: 0x27F2C20 VA: 0x27F2C20
+        public static int GetAutoOrganizationBlessAdditionalCoefficient()
+        {
+            return GetConfigIntValue(AutoOrganizationBlessAdditionalCoefficient);
         }
 
         // RVA: 0x298DE14 Offset: 0x298DE14 VA: 0x298DE14
