@@ -45,5 +45,11 @@ namespace NierReincarnation.Core.Dark
 
         [Key(12)]
         public int IconDifficultyValue { get; set; } // 0x40
+
+        [Key(13)]
+        public float RotationX { get; set; } // 0x44
+
+        [Key(14)]
+        public float RotationZ { get; set; } // 0x48
     }
 }
