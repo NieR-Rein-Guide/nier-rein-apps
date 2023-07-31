@@ -67,5 +67,8 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
             Console.WriteLine("Reloading localizations");
             await NierReincarnation.LoadLocalizations(Language.English);
         }
+
+        // Workaround: Reset state
+        NierReincarnation.Reset();
     }
 }

@@ -278,6 +278,8 @@ public static class NierReinExtensions
             .Replace("<align=\"center\">", string.Empty)
             .Replace("<align=\"right\">", string.Empty)
             .Replace("</align>", string.Empty)
+            .Replace("<cspace=-0.16em>", string.Empty)
+            .Replace("</cspace>", string.Empty)
             .Replace("<br>", "\\n");
     }
 
