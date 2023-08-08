@@ -12,21 +12,19 @@
 		<tags>API Nier Reincarnation</tags>
 
 		<dependencies>
-			<dependency id="Google.Protobuf" version="3.23.3" />
+			<dependency id="Google.Protobuf" version="3.24.0" />
 			<dependency id="protobuf-net" version="3.2.26" />
 			<dependency id="protobuf-net.Core" version="3.2.26" />
-			<dependency id="Grpc.Core.Api" version="2.54.0" />
 			<dependency id="Grpc.Core" version="2.46.6" />
+			<dependency id="Grpc.Net.Client" version="2.55.0" />
+			<dependency id="Grpc.Tools" version="2.57.0" />
 			<dependency id="MessagePack" version="2.5.124" />
 			<dependency id="Newtonsoft.Json" version="13.0.3" />
 			<dependency id="Selenium.WebDriver" version="4.10.0" />
 			<dependency id="WebDriverManager" version="2.16.3" />
 			<dependency id="ncrontab" version="3.3.1" />
-			<dependency id="morelinq" version="3.4.2" />
 			<dependency id="SixLabors.ImageSharp.Drawing" version="1.0.0-beta13" />
 			<dependency id="K4os.Compression.LZ4" version="1.2.16" />
-			<dependency id="TimeZoneConverter" version="6.1.0" />
-			<dependency id="NodaTime" version="3.1.9" />
 		</dependencies>
 	</metadata>
 	<files>

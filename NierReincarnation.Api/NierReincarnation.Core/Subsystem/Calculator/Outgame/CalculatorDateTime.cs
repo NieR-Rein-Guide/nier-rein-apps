@@ -2,16 +2,14 @@
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using System;
-using TimeZoneConverter;
 
 namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
 {
     public static class CalculatorDateTime
     {
         // CUSTOM: PST Timezone
-        internal static readonly TimeZoneInfo KstTimezone = TZConvert.GetTimeZoneInfo("Korea Standard Time");
-
-        internal static readonly TimeZoneInfo PstTimezone = TZConvert.GetTimeZoneInfo("Pacific Standard Time");
+        internal static readonly TimeZoneInfo KstTimezone = TimeZoneInfo.FindSystemTimeZoneById("Korea Standard Time");
+        internal static readonly TimeZoneInfo PstTimezone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
         internal static readonly TimeZoneInfo LocalTimezone = TimeZoneInfo.Local;
         private const int KstDailyResetHour_ = 17;
 

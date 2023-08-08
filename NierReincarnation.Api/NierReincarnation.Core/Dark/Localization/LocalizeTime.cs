@@ -1,6 +1,5 @@
 ﻿using System;
 using NierReincarnation.Core.UnityEngine;
-using NodaTime;
 
 namespace NierReincarnation.Core.Dark.Localization
 {
@@ -13,9 +12,9 @@ namespace NierReincarnation.Core.Dark.Localization
         private static LocalizeTimeSettings _settings; // 0x30
 
         private static readonly string kWorldwidePath = "ww"; // 0x40
-        private static DateTimeZone _baseTimeZone; // 0x48
+        private static TimeZoneInfo _baseTimeZone; // 0x48
 
-        public static DateTimeZone BaseTimeZone => _baseTimeZone ??= DateTimeZoneProviders.Tzdb.GetZoneOrNull(GetTimeZoneId(_settings.TargetTimeZone));
+        public static TimeZoneInfo BaseTimeZone => _baseTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById(GetTimeZoneId(_settings.TargetTimeZone));
 
         public static void Initialize()
         {
@@ -37,11 +36,7 @@ namespace NierReincarnation.Core.Dark.Localization
 
         public static DateTimeOffset ConvertBaseTimeZone(this DateTimeOffset dto)
         {
-            var secs = dto.ToUnixTimeSeconds();
-            var unix = Instant.FromUnixTimeSeconds(secs);
-
-            var zoned = new ZonedDateTime(unix, BaseTimeZone);
-            return zoned.ToDateTimeOffset();
+            return TimeZoneInfo.ConvertTime(dto, BaseTimeZone);
         }
 
         public static string GetTimeZoneId(TimeZoneType targetTimeZone)

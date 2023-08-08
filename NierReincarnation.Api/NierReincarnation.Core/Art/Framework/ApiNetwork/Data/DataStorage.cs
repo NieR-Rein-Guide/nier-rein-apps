@@ -1,6 +1,6 @@
-﻿using NierReincarnation.Core.UnityEngine;
+﻿using Newtonsoft.Json;
+using NierReincarnation.Core.UnityEngine;
 using System.IO;
-using System.Text.Json;
 
 namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
 {
@@ -24,7 +24,7 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
         {
             try
             {
-                return JsonSerializer.Deserialize<T>(File.ReadAllText(filePath));
+                return JsonConvert.DeserializeObject<T>(File.ReadAllText(filePath));
             }
             catch
             {
@@ -34,7 +34,7 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
 
         public bool Save<T>(string filePath, T value)
         {
-            File.WriteAllText(filePath, JsonSerializer.Serialize(value));
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(value));
 
             return true;
         }
