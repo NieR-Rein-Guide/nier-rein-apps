@@ -1,5 +1,4 @@
-﻿namespace NierReincarnation.Core.Octo
-{
-    public interface DownloadError : DatabaseError
-    { }
-}
+﻿namespace NierReincarnation.Core.Octo;
+
+public interface DownloadError : DatabaseError
+{ }

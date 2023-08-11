@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Octo
+﻿namespace NierReincarnation.Core.Octo;
+
+internal static class ErrorExtensions
 {
-    static class ErrorExtensions
+    public static NamedError ToNamedError(this Error error, string name = "")
     {
-        public static NamedError ToNamedError(this Error error, string name = "")
-        {
-            return new NamedError(name, error?.Code, error?.Message);
-        }
+        return new NamedError(name, error?.Code, error?.Message);
     }
 }

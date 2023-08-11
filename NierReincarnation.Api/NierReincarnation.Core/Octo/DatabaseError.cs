@@ -1,7 +1,6 @@
-﻿namespace NierReincarnation.Core.Octo
+﻿namespace NierReincarnation.Core.Octo;
+
+public interface DatabaseError
 {
-	public interface DatabaseError
-    {
-        string Code { get; }
-    }
+    string Code { get; }
 }

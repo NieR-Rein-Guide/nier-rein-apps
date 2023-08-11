@@ -1,18 +1,18 @@
-﻿namespace NierReincarnation.Core.Octo
+﻿namespace NierReincarnation.Core.Octo;
+
+public interface ICaching
 {
-    interface ICaching
-    {
-        bool IsReady { get; }
-        int ExpirationDelay { set; }
-        long MaximumAvailableDiskSpace { set; }
+    bool IsReady { get; }
 
-        // Slot: 3
-        public abstract bool IsLatestAssetBundleCached(string name);
+    int ExpirationDelay { set; }
 
-        public abstract bool IsLatestResourceCached(string name);
+    long MaximumAvailableDiskSpace { set; }
 
-        public abstract bool CleanCache();
+    public abstract bool IsLatestAssetBundleCached(string name);
 
-        public abstract string GetResourceStoragePath(string name);
-	}
+    public abstract bool IsLatestResourceCached(string name);
+
+    public abstract bool CleanCache();
+
+    public abstract string GetResourceStoragePath(string name);
 }

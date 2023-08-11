@@ -1,5 +1,4 @@
-﻿namespace NierReincarnation.Core.Octo
-{
-    public interface AssetLoaderError : LoadError
-    { }
-}
+﻿namespace NierReincarnation.Core.Octo;
+
+public interface AssetLoaderError : LoadError
+{ }

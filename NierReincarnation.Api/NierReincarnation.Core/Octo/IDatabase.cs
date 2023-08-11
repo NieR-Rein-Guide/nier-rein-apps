@@ -1,11 +1,8 @@
-﻿namespace NierReincarnation.Core.Octo
-{
-    interface IDatabase
-    {
-        // RVA: -1 Offset: -1 Slot: 0
-        string[] GetAllAssetBundleNames();
+﻿namespace NierReincarnation.Core.Octo;
 
-        // RVA: -1 Offset: -1 Slot: 1
-        string[] GetAllResourceNames();
-    }
+public interface IDatabase
+{
+    string[] GetAllAssetBundleNames();
+
+    string[] GetAllResourceNames();
 }

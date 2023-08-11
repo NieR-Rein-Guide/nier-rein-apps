@@ -1,16 +1,13 @@
-﻿using System;
+﻿namespace NierReincarnation.Core.Octo;
 
-namespace NierReincarnation.Core.Octo
+internal static class ActionExtensions
 {
-    static class ActionExtensions
+    public static void TrySafeInvoke<T1>(this Action<T1> action, T1 param1)
     {
-        public static void TrySafeInvoke<T1>(this Action<T1> action, T1 param1)
+        try
         {
-            try
-            {
-                action?.Invoke(param1);
-            }
-            catch { }
+            action?.Invoke(param1);
         }
+        catch { }
     }
 }

@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
+﻿namespace NierReincarnation.Core.Octo;
 
-namespace NierReincarnation.Core.Octo
+internal static class OctoExtensions
 {
-    static class OctoExtensions
+    public static bool IsNullOrEmpty<T>(this IList<T> list)
     {
-        public static bool IsNullOrEmpty<T>(this IList<T> list)
-        {
-            return list == null || list.Count <= 0;
-        }
+        return list == null || list.Count == 0;
     }
 }

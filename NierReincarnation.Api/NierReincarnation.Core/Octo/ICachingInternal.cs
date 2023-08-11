@@ -1,13 +1,12 @@
 ﻿using NierReincarnation.Core.Octo.Data;
 
-namespace NierReincarnation.Core.Octo
+namespace NierReincarnation.Core.Octo;
+
+internal interface ICachingInternal : ICaching
 {
-    interface ICachingInternal : ICaching
-    {
-        bool IsLatestAssetBundleCached(Item data);
+    bool IsLatestAssetBundleCached(Item data);
 
-        bool IsLatestResourceCached(Item data);
+    bool IsLatestResourceCached(Item data);
 
-        bool UnlockAssetBundle(Item data);
-    }
+    bool UnlockAssetBundle(Item data);
 }
