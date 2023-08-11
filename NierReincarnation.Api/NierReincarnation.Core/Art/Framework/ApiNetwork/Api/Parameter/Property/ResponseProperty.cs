@@ -1,26 +1,25 @@
 ﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Property
-{
-    // Art.Framework.ApiNetwork.Api.Parameter.Property.ResponseProperty
-    public class ResponseProperty
-    {
-        private bool _isHandledBaseResponse; // 0x10
-        private bool _isHandledSuccessResponse; // 0x11
-        private ErrorControlType _errorControlType; // 0x14
+namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Property;
 
-        // Properties
-        public bool IsHandledBaseResponse
-        {
-            set => _isHandledBaseResponse = value;
-        }
-        public bool IsHandledSuccessResponse
-        {
-            set => _isHandledSuccessResponse = value;
-        }
-        public ErrorControlType ErrorControlType
-        {
-            set => _errorControlType = value;
-        }
+public class ResponseProperty
+{
+    private bool _isHandledBaseResponse;
+    private bool _isHandledSuccessResponse;
+    private ErrorControlType _errorControlType;
+
+    public bool IsHandledBaseResponse
+    {
+        set => _isHandledBaseResponse = value;
+    }
+
+    public bool IsHandledSuccessResponse
+    {
+        set => _isHandledSuccessResponse = value;
+    }
+
+    public ErrorControlType ErrorControlType
+    {
+        set => _errorControlType = value;
     }
 }

@@ -1,15 +1,12 @@
-﻿using Newtonsoft.Json;
-using NierReincarnation.Core.UnityEngine;
-using System.IO;
+﻿using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
 {
-    // Art.Framework.ApiNetwork.Data.DataStorage
     // Note: BinaryFormatter is obsolete and was replaced with JsonSerializer
-    internal class DataStorage : IDataStorage
+    public class DataStorage : IDataStorage
     {
-        private string _path; // 0x10
-        private string _fileName; // 0x18
+        private readonly string _path;
+        private readonly string _fileName;
 
         public DataStorage(string fileName = "")
         {

@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response
+public class DeletedUserDataList
 {
-    // Art.Framework.ApiNetwork.Api.Parameter.Response.DeletedUserDataList
-    public class DeletedUserDataList
-    {
-        public List<Dictionary<string, object>> keys; // 0x10
-    }
+    public List<Dictionary<string, object>> Keys = new();
 }

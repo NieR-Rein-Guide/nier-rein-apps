@@ -1,14 +1,12 @@
-﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
+﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data;
+
+public interface IDataStore
 {
-    // Art.Framework.ApiNetwork.Data.IDataStore
-    public interface IDataStore
-    {
-        string Get(Key key);
+    string Get(Key key);
 
-        long GetLong(Key key);
+    long GetLong(Key key);
 
-        void Set(Key key, string value);
+    void Set(Key key, string value);
 
-        void Set(Key key, long value);
-	}
+    void Set(Key key, long value);
 }

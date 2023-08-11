@@ -1,10 +1,8 @@
-﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Enum
+﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
+
+public enum ErrorControlType
 {
-    // Art.Framework.ApiNetwork.Enum.ErrorControlType
-    public enum ErrorControlType
-    {
-        None = 0,
-        HandlingExclusion,
-        Retry
-    }
+    None = 0,
+    HandlingExclusion = 1,
+    Retry = 2
 }

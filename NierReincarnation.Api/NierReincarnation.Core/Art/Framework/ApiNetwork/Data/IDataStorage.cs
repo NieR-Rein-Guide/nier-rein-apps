@@ -1,12 +1,10 @@
-﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
+﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data;
+
+public interface IDataStorage
 {
-    // Art.Framework.ApiNetwork.Data.IDataStorage
-    interface IDataStorage
-    {
-        string GetFilePath();
+    string GetFilePath();
 
-        T Load<T>(string filePath) where T : new();
+    T Load<T>(string filePath) where T : new();
 
-        bool Save<T>(string filePath, T value);
-	}
+    bool Save<T>(string filePath, T value);
 }

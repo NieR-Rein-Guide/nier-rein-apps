@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response
+public class UpdatedUserDataList
 {
-    // Art.Framework.ApiNetwork.Api.Parameter.Response.UpdatedUserDataList
-    public class UpdatedUserDataList
-    {
-        public List<Dictionary<string, object>> records; // 0x10
-    }
+    public List<Dictionary<string, object>> Records = new();
 }
