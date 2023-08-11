@@ -1,7 +1,7 @@
 ﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Mediator.Model
 {
     // Art.Framework.ApiNetwork.Mediator.Model.UserRegisterData
-    class UserRegisterData
+    public class UserRegisterData
     {
         // 0x10
         public long UserId;

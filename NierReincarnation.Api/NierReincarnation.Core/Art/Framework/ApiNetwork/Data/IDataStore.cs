@@ -1,7 +1,7 @@
 ﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Data
 {
     // Art.Framework.ApiNetwork.Data.IDataStore
-    interface IDataStore
+    public interface IDataStore
     {
         string Get(Key key);
 

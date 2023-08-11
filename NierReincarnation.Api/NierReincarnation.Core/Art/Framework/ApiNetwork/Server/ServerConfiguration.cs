@@ -1,7 +1,7 @@
 ﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Server
 {
     // Art.Framework.ApiNetwork.Server.ServerConfiguration
-    class ServerConfiguration
+    public class ServerConfiguration
     {
         // 0x10
         public string Server;

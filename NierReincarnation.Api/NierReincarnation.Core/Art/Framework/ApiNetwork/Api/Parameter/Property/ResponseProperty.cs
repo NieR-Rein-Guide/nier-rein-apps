@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Property
 {
     // Art.Framework.ApiNetwork.Api.Parameter.Property.ResponseProperty
-    class ResponseProperty
+    public class ResponseProperty
     {
         private bool _isHandledBaseResponse; // 0x10
         private bool _isHandledSuccessResponse; // 0x11

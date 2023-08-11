@@ -4,7 +4,7 @@ using NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Property;
 namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api
 {
     // Art.Framework.ApiNetwork.Api.Api
-    abstract class Api
+    public abstract class Api
     {
         // 0x10
         protected ApiProperty _property;

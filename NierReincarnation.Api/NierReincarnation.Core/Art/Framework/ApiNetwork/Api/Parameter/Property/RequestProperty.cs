@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Property
 {
-    class RequestProperty
+    public class RequestProperty
     {
         // 0x10
         internal uint RequestId { get; }

@@ -1,7 +1,7 @@
 ﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Server
 {
     // Art.Framework.ApiNetwork.Server.ServerResolver
-    class ServerResolver
+    public class ServerResolver
     {
         // 0x10
         public string ServerDomain;
