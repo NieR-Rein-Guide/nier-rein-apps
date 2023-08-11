@@ -1,23 +1,23 @@
-﻿using System.Threading.Tasks;
-using NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
+﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
 using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Handler
+namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Handler;
+
+public class TokenRefreshHandler : IResponseHandler
 {
-    class TokenRefreshHandler : IResponseHandler
+    public int GetPriority()
     {
-        public int GetPriority()
+        return 1000;
+    }
+
+    public Task<RetryHandleType> HandleAsync(Api.Api api)
+    {
+        var token = api.GetResponseParameter<ResponseParameterBase>().GetCommon().Token;
+        if (!string.IsNullOrEmpty(token))
         {
-            return 1000;
+            ApiSystem.Instance.Parameter.Token.UpdateToken(token);
         }
 
-        public Task<RetryHandleType> HandleAsync(Api.Api api)
-        {
-            var token = api.GetResponseParameter<ResponseParameterBase>().GetCommon().Token;
-            if (!string.IsNullOrEmpty(token))
-                ApiSystem.Instance.Parameter.Token.UpdateToken(token);
-
-            return Task.FromResult(RetryHandleType.None);
-        }
+        return Task.FromResult(RetryHandleType.None);
     }
 }

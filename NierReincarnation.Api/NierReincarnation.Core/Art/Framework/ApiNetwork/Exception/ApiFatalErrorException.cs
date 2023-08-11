@@ -1,12 +1,10 @@
 ﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Exception
+namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Exception;
+
+public class ApiFatalErrorException : ApiErrorException
 {
-    // Art.Framework.ApiNetwork.Exception.ApiFatalErrorException
-    class ApiFatalErrorException : ApiErrorException
+    public ApiFatalErrorException(ResponseParameterBase response) : base(response)
     {
-        public ApiFatalErrorException(ResponseParameterBase response) : base(response)
-        {
-        }
     }
 }

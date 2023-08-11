@@ -1,13 +1,10 @@
-﻿using System.Threading.Tasks;
-using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
+﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Handler
+namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Handler;
+
+public interface IResponseHandler
 {
-    // Art.Framework.ApiNetwork.Executor.Response.Handler.IResponseHandler
-    public interface IResponseHandler
-    {
-        public int GetPriority();
+    public int GetPriority();
 
-        public Task<RetryHandleType> HandleAsync(Api.Api api);
-    }
+    public Task<RetryHandleType> HandleAsync(Api.Api api);
 }

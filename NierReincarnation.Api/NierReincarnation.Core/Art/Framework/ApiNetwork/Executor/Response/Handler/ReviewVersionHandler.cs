@@ -1,27 +1,21 @@
-﻿using System.Threading.Tasks;
-using NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
+﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
 using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Handler
+namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Handler;
+
+public class ReviewVersionHandler : IResponseHandler
 {
-    // Art.Framework.ApiNetwork.Executor.Response.Handler.ReviewVersionHandler
-    class ReviewVersionHandler : IResponseHandler
+    public int GetPriority() => 100;
+
+    public Task<RetryHandleType> HandleAsync(Api.Api api)
     {
-        public int GetPriority()
+        var statusType = api.GetResponseParameter<ResponseParameterBase>().GetCommon().AppVersionStatusType;
+        if (statusType == 1)
         {
-            return 100;
+            ApiSystem.Instance.ServerResolver.SetReviewFlag();
+            return Task.FromResult(RetryHandleType.RetryInterrupt);
         }
 
-        public Task<RetryHandleType> HandleAsync(Api.Api api)
-        {
-            var statusType=api.GetResponseParameter<ResponseParameterBase>().GetCommon().AppVersionStatusType;
-            if (statusType == 1)
-            {
-                ApiSystem.Instance.ServerResolver.SetReviewFlag();
-                return Task.FromResult(RetryHandleType.RetryInterrupt);
-            }
-
-            return Task.FromResult(RetryHandleType.None);
-        }
+        return Task.FromResult(RetryHandleType.None);
     }
 }
