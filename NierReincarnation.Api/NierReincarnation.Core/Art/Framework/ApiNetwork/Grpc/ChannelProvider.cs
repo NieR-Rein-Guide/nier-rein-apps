@@ -1,71 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using Grpc.Core;
+﻿using Grpc.Core;
 using NierReincarnation.Core.Art.Framework.ApiNetwork.Server;
 using NierReincarnation.Core.UnityEngine;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc
+namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc;
+
+public static class ChannelProvider
 {
-    // Art.Framework.ApiNetwork.Grpc.ChannelProvider
-    static class ChannelProvider
+    private const int GRPC_KEEPALIVE_TIME_MS = 2000;
+
+    private const int GRPC_KEEPALIVE_TIMEOUT_MS = 3000;
+
+    private const int GRPC_HTTP2_MIN_TIME_BETWEEEN_PINGS_MS = 5000;
+
+    private static ServerResolver _resolver;
+
+    private static Channel _channel;
+
+    public static Channel Channel => _channel ?? Initialize();
+
+    private static Channel Initialize()
     {
-        // 0x00
-        private static readonly int GRPC_KEEPALIVE_TIME_MS = 2000;
-        // 0x04
-        private static readonly int GRPC_KEEPALIVE_TIMEOUT_MS = 3000;
-        // 0x08
-        private static readonly int GRPC_HTTP2_MIN_TIME_BETWEEEN_PINGS_MS = 5000;
-        // 0x10
-        private static ServerResolver resolver;
-        // 0x18
-        private static Channel _channel;
-
-        public static Channel Channel
+        if (_resolver == null)
         {
-            get
-            {
-                if (_channel != null)
-                    return _channel;
-
-                return Initialize();
-            }
+            throw new InvalidOperationException("Resolver in ChannelProvider is not setup yet.");
         }
 
-        public static void SetResolver(ServerResolver resolver)
+        Setup(_resolver.ServerDomain);
+        return _channel;
+    }
+
+    public static void Setup(string server)
+    {
+        List<ChannelOption> channelOptions = new()
         {
-            ChannelProvider.resolver = resolver;
-        }
+            new ChannelOption("grpc.keepalive_time_ms", GRPC_KEEPALIVE_TIME_MS),
+            new ChannelOption("grpc.keepalive_timeout_ms", GRPC_KEEPALIVE_TIMEOUT_MS),
+            new ChannelOption("grpc.http2.min_time_between_pings_ms", GRPC_HTTP2_MIN_TIME_BETWEEEN_PINGS_MS),
+            new ChannelOption("grpc.max_receive_message_length", 100 * 1024 * 1024)
+        };
 
-        private static Channel Initialize()
-        {
-            if (resolver == null)
-                throw new InvalidOperationException("Resolver in ChannelProvider is not setup yet.");
+        ChannelCredentials credentials = GetRootCertificateCredentials();
 
-            Setup(resolver.ServerDomain);
-            return _channel;
-        }
+        _channel = new Channel(server, credentials, channelOptions);
+    }
 
-        public static void Setup(string server)
-        {
-            var channelOptions = new List<ChannelOption>
-            {
-                new ChannelOption("grpc.keepalive_time_ms", GRPC_KEEPALIVE_TIME_MS),
-                new ChannelOption("grpc.keepalive_timeout_ms", GRPC_KEEPALIVE_TIMEOUT_MS),
-                new ChannelOption("grpc.http2.min_time_between_pings_ms", GRPC_HTTP2_MIN_TIME_BETWEEEN_PINGS_MS),
+    public static void SetResolver(ServerResolver resolver)
+    {
+        _resolver = resolver;
+    }
 
-                new ChannelOption("grpc.max_receive_message_length",100*1024*1024)
-            };
+    private static SslCredentials GetRootCertificateCredentials()
+    {
+        var roots = Resources.LoadText("roots.pem");
 
-            var credentials = GetRootCertificateCredentials();
-
-            _channel = new Channel(server, credentials, channelOptions);
-        }
-
-        private static ChannelCredentials GetRootCertificateCredentials()
-        {
-            var roots = Resources.LoadText("roots.pem");
-
-            return roots.Text == string.Empty ? new SslCredentials() : new SslCredentials(roots.Text);
-        }
+        return roots.Text != string.Empty ? new SslCredentials(roots.Text) : new SslCredentials();
     }
 }

@@ -10,68 +10,35 @@ using Art.Framework.ApiNetwork.Grpc.Api.User;
 using Google.Protobuf.Collections;
 using NierReincarnation.Core.Adam.Framework.Network;
 
-namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api
+namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api;
+
+public static class UserDiffInfo
 {
-    // Art.Framework.ApiNetwork.Grpc.Api.UserDiffInfo
-    static class UserDiffInfo
+    public static MapField<string, DiffData> GetUserDiff(ResponseContext responseContext)
     {
-        public static MapField<string, DiffData> GetUserDiff(ResponseContext responseContext)
+        return responseContext.ResponseType.FullName switch
         {
-            // Do switch-case type check and get userDiffInfo from GRPC message based on response type
-
-            switch (responseContext.ResponseType.FullName)
-            {
-                case "Art.Framework.ApiNetwork.Grpc.Api.User.GetAndroidArgsResponse":
-                    return responseContext.GetResponseAs<GetAndroidArgsResponse>().Result?.DiffUserData;
-
-                case "Art.Framework.ApiNetwork.Grpc.Api.Deck.UpdateNameResponse":
-                    return responseContext.GetResponseAs<UpdateNameResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Deck.ReplaceDeckResponse":
-                    return responseContext.GetResponseAs<ReplaceDeckResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Deck.RemoveDeckResponse":
-                    return responseContext.GetResponseAs<RemoveDeckResponse>().Result?.DiffUserData;
-
-                case "Art.Framework.ApiNetwork.Grpc.Api.BigHunt.StartBigHuntQuestResponse":
-                    return responseContext.GetResponseAs<StartBigHuntQuestResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.BigHunt.FinishBigHuntQuestResponse":
-                    return responseContext.GetResponseAs<FinishBigHuntQuestResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.BigHunt.SaveBigHuntBattleInfoResponse":
-                    return responseContext.GetResponseAs<SaveBigHuntBattleInfoResponse>().Result?.DiffUserData;
-
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.UpdateMainFlowSceneProgressResponse":
-                    return responseContext.GetResponseAs<UpdateMainFlowSceneProgressResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.StartMainQuestResponse":
-                    return responseContext.GetResponseAs<StartMainQuestResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.FinishMainQuestResponse":
-                    return responseContext.GetResponseAs<FinishMainQuestResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.UpdateMainQuestSceneProgressResponse":
-                    return responseContext.GetResponseAs<UpdateMainQuestSceneProgressResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.StartEventQuestResponse":
-                    return responseContext.GetResponseAs<StartEventQuestResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.FinishEventQuestResponse":
-                    return responseContext.GetResponseAs<FinishEventQuestResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.UpdateEventQuestSceneProgressResponse":
-                    return responseContext.GetResponseAs<UpdateEventQuestSceneProgressResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Quest.ReceiveDailyQuestGroupCompleteRewardResponse":
-                    return responseContext.GetResponseAs<ReceiveDailyQuestGroupCompleteRewardResponse>().Result?.DiffUserData;
-
-                case "Art.Framework.ApiNetwork.Grpc.Api.Battle.StartWaveResponse":
-                    return responseContext.GetResponseAs<StartWaveResponse>().Result?.DiffUserData;
-                case "Art.Framework.ApiNetwork.Grpc.Api.Battle.FinishWaveResponse":
-                    return responseContext.GetResponseAs<FinishWaveResponse>().Result?.DiffUserData;
-
-                case "Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem.UseEffectItemResponse":
-                    return responseContext.GetResponseAs<UseEffectItemResponse>().Result?.DiffUserData;
-
-                case "Art.Framework.ApiNetwork.Grpc.Api.Gimmick.UpdateGimmickProgressResponse":
-                    return responseContext.GetResponseAs<UpdateGimmickProgressResponse>().Result?.DiffUserData;
-
-                case "Art.Framework.ApiNetwork.Grpc.Api.CageOrnament.ReceiveRewardResponse":
-                    return responseContext.GetResponseAs<ReceiveRewardResponse>().Result?.DiffUserData;
-
-                default:
-                    return null;
-            }
-        }
+            "Art.Framework.ApiNetwork.Grpc.Api.User.GetAndroidArgsResponse" => responseContext.GetResponseAs<GetAndroidArgsResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Deck.UpdateNameResponse" => responseContext.GetResponseAs<UpdateNameResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Deck.ReplaceDeckResponse" => responseContext.GetResponseAs<ReplaceDeckResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Deck.RemoveDeckResponse" => responseContext.GetResponseAs<RemoveDeckResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.BigHunt.StartBigHuntQuestResponse" => responseContext.GetResponseAs<StartBigHuntQuestResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.BigHunt.FinishBigHuntQuestResponse" => responseContext.GetResponseAs<FinishBigHuntQuestResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.BigHunt.SaveBigHuntBattleInfoResponse" => responseContext.GetResponseAs<SaveBigHuntBattleInfoResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.UpdateMainFlowSceneProgressResponse" => responseContext.GetResponseAs<UpdateMainFlowSceneProgressResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.StartMainQuestResponse" => responseContext.GetResponseAs<StartMainQuestResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.FinishMainQuestResponse" => responseContext.GetResponseAs<FinishMainQuestResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.UpdateMainQuestSceneProgressResponse" => responseContext.GetResponseAs<UpdateMainQuestSceneProgressResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.StartEventQuestResponse" => responseContext.GetResponseAs<StartEventQuestResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.FinishEventQuestResponse" => responseContext.GetResponseAs<FinishEventQuestResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.UpdateEventQuestSceneProgressResponse" => responseContext.GetResponseAs<UpdateEventQuestSceneProgressResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Quest.ReceiveDailyQuestGroupCompleteRewardResponse" => responseContext.GetResponseAs<ReceiveDailyQuestGroupCompleteRewardResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Battle.StartWaveResponse" => responseContext.GetResponseAs<StartWaveResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Battle.FinishWaveResponse" => responseContext.GetResponseAs<FinishWaveResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem.UseEffectItemResponse" => responseContext.GetResponseAs<UseEffectItemResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.Gimmick.UpdateGimmickProgressResponse" => responseContext.GetResponseAs<UpdateGimmickProgressResponse>().Result?.DiffUserData,
+            "Art.Framework.ApiNetwork.Grpc.Api.CageOrnament.ReceiveRewardResponse" => responseContext.GetResponseAs<ReceiveRewardResponse>().Result?.DiffUserData,
+            _ => null,
+        };
     }
 }
