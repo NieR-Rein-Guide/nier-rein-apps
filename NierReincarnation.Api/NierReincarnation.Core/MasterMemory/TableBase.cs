@@ -1,82 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace NierReincarnation.Core.MasterMemory;
 
-namespace NierReincarnation.Core.MasterMemory
+public abstract class TableBase<TElement>
 {
-    // MasterMemory.TableBase<TElement>
-    public abstract class TableBase<TElement>
+    protected TElement[] data;
+
+    public int Count => data.Length;
+
+    public RangeView<TElement> All => new(data, 0, data.Length - 1, true);
+
+    public TElement[] GetRawDataUnsafe() => data;
+
+    public void SetRawDataUnsafe(TElement[] data) => this.data = data;
+
+    protected TableBase(TElement[] sortedData)
     {
-        // 0x10
-        protected TElement[] data;
+        data = sortedData;
+    }
 
-        public int Count => data.Length;
+    protected static TElement ThrowKeyNotFound<TKey>(TKey key)
+    {
+        throw new KeyNotFoundException($"DataType: {key.GetType().Name}, Key: {key}");
+    }
 
-        public RangeView<TElement> All => new RangeView<TElement>(data, 0, data.Length - 1, true);
+    protected static TElement FindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool throwIfNotFound = false)
+    {
+        var foundElement = Array.Find(indexArray, x => comparer.Compare(keySelector(x), key) == 0);
 
-        public TElement[] GetRawDataUnsafe()
+        if (foundElement == null && throwIfNotFound)
         {
-            return data;
+            ThrowKeyNotFound(key);
         }
 
-        public void SetRawDataUnsafe(TElement[] data)
-        {
-            this.data = data;
-        }
+        return foundElement!;
+    }
 
-        public TableBase(TElement[] sortedData)
-        {
-            data = sortedData;
-        }
+    protected static bool TryFindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, out TElement result)
+    {
+        result = Array.Find(indexArray, x => comparer.Compare(keySelector(x), key) == 0);
 
-        protected static TElement ThrowKeyNotFound<TKey>(TKey key)
-        {
-            throw new KeyNotFoundException($"DataType: {key.GetType().Name}, Key: {key}");
-        }
+        return result != null;
+    }
 
-        protected static TElement FindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool throwIfNotFound = false)
-        {
-            var foundElement = indexArray.FirstOrDefault(x => comparer.Compare(keySelector(x), key) == 0);
+    protected static TElement FindUniqueClosestCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool selectLower)
+    {
+        var ordered = indexArray.Select(x => (comparer.Compare(keySelector(x), key), x)).OrderBy(x => x.Item1);
 
-            if (foundElement == null && throwIfNotFound)
-                ThrowKeyNotFound(key);
+        return selectLower
+            ? ordered.LastOrDefault(x => x.Item1 <= 0).x
+            : ordered.FirstOrDefault(x => x.Item1 >= 0).x;
+    }
 
-            return foundElement;
-        }
+    protected static RangeView<TElement> FindUniqueRangeCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey min, TKey max, bool ascendant)
+    {
+        var keys = indexArray.Select(keySelector).ToArray();
+        var left = Array.FindIndex(keys, key => comparer.Compare(key, min) >= 0);
+        var right = Array.FindLastIndex(keys, key => comparer.Compare(key, max) <= 0);
 
-        protected static bool TryFindUniqueCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, out TElement result)
-        {
-            result = indexArray.FirstOrDefault(x => comparer.Compare(keySelector(x), key) == 0);
+        return new RangeView<TElement>(indexArray, left, right, ascendant);
+    }
 
-            return result != null;
-        }
+    protected static RangeView<TElement> FindManyCore<TKey>(TElement[] indexKeys, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key)
+    {
+        var foundElements = indexKeys.Where(x => comparer.Compare(keySelector(x), key) == 0).ToArray();
 
-        // TODO: Revisit method
-        protected static TElement FindUniqueClosestCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key, bool selectLower)
-        {
-            var ordered = indexArray.Select(x => (comparer.Compare(keySelector(x), key), x)).OrderBy(x => x.Item1);
-
-            return selectLower ?
-                ordered.LastOrDefault(x => x.Item1 <= 0).x :
-                ordered.FirstOrDefault(x => x.Item1 >= 0).x;
-        }
-
-        protected static RangeView<TElement> FindUniqueRangeCore<TKey>(TElement[] indexArray, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey min, TKey max, bool ascendant)
-        {
-            var keys = indexArray.Select(keySelector).ToArray();
-            var left = Array.FindIndex(keys, key => comparer.Compare(key, min) >= 0);
-            var right = Array.FindLastIndex(keys, key => comparer.Compare(key, max) <= 0);
-
-            return new RangeView<TElement>(indexArray, left, right, ascendant);
-        }
-
-        protected static RangeView<TElement> FindManyCore<TKey>(TElement[] indexKeys, Func<TElement, TKey> keySelector, IComparer<TKey> comparer, TKey key)
-        {
-            var foundElements = indexKeys.Where(x => comparer.Compare(keySelector(x), key) == 0).ToArray();
-
-            return new RangeView<TElement>(foundElements, 0, foundElements.Length - 1, true);
-        }
-
-        // TODO: Implement missing methods when needed
+        return new RangeView<TElement>(foundElements, 0, foundElements.Length - 1, true);
     }
 }

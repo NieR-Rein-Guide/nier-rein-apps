@@ -1,15 +1,12 @@
-﻿using System;
+﻿namespace NierReincarnation.Core.MasterMemory;
 
-namespace NierReincarnation.Core.MasterMemory
+[AttributeUsage(AttributeTargets.Class)]
+public class MemoryTableAttribute : Attribute
 {
-    // MasterMemory.MemoryTableAttribute
-    class MemoryTableAttribute : Attribute
-    {
-        public string TableName { get; }
+    public string TableName { get; }
 
-        public MemoryTableAttribute(string tableName)
-        {
-            TableName = tableName;
-        }
+    public MemoryTableAttribute(string tableName)
+    {
+        TableName = tableName;
     }
 }
