@@ -13,14 +13,14 @@ namespace NierReincarnation
 
         private static readonly Regex ListHeader = new(@"<h5 title=""NieR Re\[in\]carnation (\d+\.\d+\.\d+)");
 
-        public static bool CanDetermine(Language language)
+        public static bool CanDetermine(SystemLanguage language)
         {
-            return language == Language.English;
+            return language == SystemLanguage.English;
         }
 
-        public static string GetCurrentVersion(Language language)
+        public static string GetCurrentVersion(SystemLanguage language)
         {
-            if (language != Language.English)
+            if (language != SystemLanguage.English)
                 throw new InvalidOperationException("Current version can only be determined for the global release.");
 
             // Get content

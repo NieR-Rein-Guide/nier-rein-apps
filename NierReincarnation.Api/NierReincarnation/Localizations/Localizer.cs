@@ -16,7 +16,7 @@ namespace NierReincarnation.Localizations
             "pb_text_garbled.asset"
         };
 
-        public static IDictionary<string, string> Create(Language lang = Language.English)
+        public static IDictionary<string, string> Create(SystemLanguage lang = SystemLanguage.English)
         {
             var result = new Dictionary<string, string>();
 
@@ -52,10 +52,10 @@ namespace NierReincarnation.Localizations
             return result;
         }
 
-        private static string GetLanguagePath(Language lang) => lang switch
+        private static string GetLanguagePath(SystemLanguage lang) => lang switch
         {
-            Language.English => "en",
-            Language.Japanese => "ja",
+            SystemLanguage.English => "en",
+            SystemLanguage.Japanese => "ja",
             _ => "ko"
         };
     }

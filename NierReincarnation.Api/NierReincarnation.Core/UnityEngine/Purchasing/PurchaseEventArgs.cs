@@ -1,7 +1,6 @@
-﻿namespace NierReincarnation.Core.UnityEngine.Purchasing
+﻿namespace NierReincarnation.Core.UnityEngine.Purchasing;
+
+public class PurchaseEventArgs
 {
-    public class PurchaseEventArgs
-    {
-        public Product purchasedProduct { get; }
-    }
+    public Product purchasedProduct { get; }
 }

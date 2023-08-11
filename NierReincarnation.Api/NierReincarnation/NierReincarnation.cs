@@ -44,8 +44,6 @@ namespace NierReincarnation
 
         static NierReincarnation()
         {
-            SetResourceRootPath(DefaultResourceRoot_);
-
             Generator.OnEntrypoint();
 
             DarkOctoSetupper.StartSetup(!OctoManager.IsSetupped, true);
@@ -57,18 +55,6 @@ namespace NierReincarnation
                 throw new InvalidOperationException("Initialize the application first before accessing its functions.");
 
             return new NierReinContexts();
-        }
-
-        public static void SetResourceRootPath(string rootPath)
-        {
-            if (IsSetup)
-                throw new InvalidOperationException("Resource root path cannot be changed after setting up the application.");
-
-            // Ensure that the resource path exists
-            Directory.CreateDirectory(rootPath);
-
-            // Setup root path for resources
-            Application.SetRoot(rootPath);
         }
 
         /// <summary>
@@ -163,7 +149,7 @@ namespace NierReincarnation
             await InitializeCore(isLogin);
         }
 
-        public static async Task LoadLocalizations(Language lang)
+        public static async Task LoadLocalizations(SystemLanguage lang)
         {
             if (!IsInitialized)
                 throw new InvalidOperationException("Initialize the application first before accessing its functions.");
@@ -174,7 +160,7 @@ namespace NierReincarnation
 
             switch (lang)
             {
-                case Language.English:
+                case SystemLanguage.English:
                     // TODO: A text file with japanese text in english assets that is always preferred. Remove it manually for now
                     // TODO: Naming consistency between ) and / in asset methods
                     assetContext.RemoveAsset("text/en/ui/ui_0150350.asset");

@@ -62,7 +62,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
             // - kUserIdHeader
 
             headers.Add(kAppVersionHeader, appVersion ??= Application.Version);
-            headers.Add(kLanguageHeader, language ??= Application.SystemLanguage);
+            headers.Add(kLanguageHeader, language ??= Application.SystemLanguage.ToString());
             headers.Add(kOsVersionHeader, osVersion ??= SystemInfo.OperatingSystem);
             headers.Add(kDeviceNameHeader, deviceName ??= SystemInfo.DeviceName);
 

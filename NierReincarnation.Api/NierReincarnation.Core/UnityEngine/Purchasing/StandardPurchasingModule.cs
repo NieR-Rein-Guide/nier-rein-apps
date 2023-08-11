@@ -1,16 +1,14 @@
-﻿using System;
-using NierReincarnation.Core.UnityEngine.Purchasing.Extension;
+﻿using NierReincarnation.Core.UnityEngine.Purchasing.Extension;
 
-namespace NierReincarnation.Core.UnityEngine.Purchasing
+namespace NierReincarnation.Core.UnityEngine.Purchasing;
+
+public class StandardPurchasingModule : IPurchasingModule
 {
-    class StandardPurchasingModule : IPurchasingModule
-    {
-        private static readonly Lazy<StandardPurchasingModule> Lazy = new Lazy<StandardPurchasingModule>(() => new StandardPurchasingModule());
-        public static StandardPurchasingModule Instance => Lazy.Value;
+    private static readonly Lazy<StandardPurchasingModule> Lazy = new(() => new StandardPurchasingModule());
 
-        public void Configure(IPurchasingBinder binder)
-        {
-            
-        }
+    public static StandardPurchasingModule Instance => Lazy.Value;
+
+    public void Configure(IPurchasingBinder binder)
+    {
     }
 }

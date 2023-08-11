@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.UnityEngine.Purchasing
+﻿namespace NierReincarnation.Core.UnityEngine.Purchasing;
+
+public enum PurchaseProcessingResult
 {
-    public enum PurchaseProcessingResult
-    {
-        Complete = 0,
-        Pending = 1
-    }
+    Complete = 0,
+    Pending = 1
 }

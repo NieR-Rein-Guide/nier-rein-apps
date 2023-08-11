@@ -1,7 +1,6 @@
-﻿namespace NierReincarnation.Core.UnityEngine.Purchasing.Extension
+﻿namespace NierReincarnation.Core.UnityEngine.Purchasing.Extension;
+
+public interface IPurchasingBinder
 {
-    public interface IPurchasingBinder
-    {
-        // STUB
-    }
+    // STUB
 }

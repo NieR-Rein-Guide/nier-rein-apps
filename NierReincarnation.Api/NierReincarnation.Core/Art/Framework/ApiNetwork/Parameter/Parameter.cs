@@ -34,7 +34,7 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Parameter
             _commonRequest = new CommonRequest
             {
                 AppVersion = Application.Version,
-                Language = Application.SystemLanguage,
+                Language = Application.SystemLanguage.ToString(),
                 OsVersion = SystemInfo.OperatingSystem,
                 DeviceName = SystemInfo.DeviceName
             };

@@ -1,51 +1,43 @@
-﻿using System;
-using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+﻿using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.UnityEngine;
 
-namespace NierReincarnation.Core.Custom
+namespace NierReincarnation.Core.Custom;
+
+// CUSTOM: Handles all date time related issues based on region data differences
+public static class DateTimeConversions
 {
-    // CUSTOM: Handles all date time related issues based on region data differences
-    static class DateTimeConversions
+    public static Term GetGuerillaTerm(DateTime termStart, DateTime termEnd)
     {
-        public static Term GetGuerillaTerm(DateTime termStart, DateTime termEnd)
+        var convertedStart = AsRegionDateTime(termStart);
+        var convertedEnd = AsRegionDateTime(termEnd);
+
+        return new Term(convertedStart, convertedEnd);
+    }
+
+    public static DateTimeOffset GetTodayChangeDateTime()
+    {
+        var now = RegionNow();
+        return now.Subtract(now.TimeOfDay);
+    }
+
+    private static DateTimeOffset AsRegionDateTime(DateTime dateTime)
+    {
+        return Application.SystemLanguage switch
         {
-            var convertedStart = AsRegionDateTime(termStart);
-            var convertedEnd = AsRegionDateTime(termEnd);
+            // HINT: For GL, CRON expressions are based on the PST timezone
+            SystemLanguage.English => CalculatorDateTime.AsPst(dateTime),
+            _ => throw new InvalidOperationException("Unsupported region for guerilla term."),
+        };
+    }
 
-            return new Term(convertedStart, convertedEnd);
-        }
-
-        public static DateTimeOffset GetTodayChangeDateTime()
+    private static DateTimeOffset RegionNow()
+    {
+        return Application.SystemLanguage switch
         {
-            var now = RegionNow();
-            return now.Subtract(now.TimeOfDay);
-        }
-
-        private static DateTimeOffset AsRegionDateTime(DateTime dateTime)
-        {
-            switch (Application.Language)
-            {
-                // HINT: For GL, CRON expressions are based on the PST timezone
-                case Language.English:
-                    return CalculatorDateTime.AsPst(dateTime);
-
-                default:
-                    throw new InvalidOperationException("Unsupported region for guerilla term.");
-            }
-        }
-
-        private static DateTimeOffset RegionNow()
-        {
-            switch (Application.Language)
-            {
-                // HINT: For GL, CRON expressions are based on the PST timezone
-                case Language.English:
-                    return CalculatorDateTime.PstNow();
-
-                default:
-                    throw new InvalidOperationException("Unsupported region for guerilla term.");
-            }
-        }
+            // HINT: For GL, CRON expressions are based on the PST timezone
+            SystemLanguage.English => CalculatorDateTime.PstNow(),
+            _ => throw new InvalidOperationException("Unsupported region for guerilla term."),
+        };
     }
 }

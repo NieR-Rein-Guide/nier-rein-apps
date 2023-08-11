@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.UnityEngine.Purchasing
+﻿namespace NierReincarnation.Core.UnityEngine.Purchasing;
+
+public interface IStoreListener
 {
-    public interface IStoreListener
-    {
-        // STUB
-        PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent);
-    }
+    // STUB
+    PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent);
 }

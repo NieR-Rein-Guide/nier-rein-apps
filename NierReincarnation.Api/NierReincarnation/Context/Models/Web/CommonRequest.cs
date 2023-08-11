@@ -9,7 +9,7 @@ namespace NierReincarnation.Context.Models.Web
 
         public string deviceName { get; set; } = SystemInfo.DeviceName;
 
-        public string language { get; set; } = Application.SystemLanguage;
+        public string language { get; set; } = Application.SystemLanguage.ToString();
 
         public string osType { get; set; } = $"{(int)Application.Platform}";
 

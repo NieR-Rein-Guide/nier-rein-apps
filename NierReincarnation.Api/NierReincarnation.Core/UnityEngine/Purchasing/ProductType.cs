@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.UnityEngine.Purchasing
+﻿namespace NierReincarnation.Core.UnityEngine.Purchasing;
+
+public enum ProductType
 {
-    public enum ProductType
-    {
-        Consumable = 0,
-        NonConsumable = 1,
-        Subscription = 2
-    }
+    Consumable = 0,
+    NonConsumable = 1,
+    Subscription = 2
 }

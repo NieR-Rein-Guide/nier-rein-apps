@@ -44,19 +44,19 @@ namespace NierReincarnation.Core.Dark.EntryPoint
             // CUSTOM: Get hostname based on language identifier
             public static string GetHostname()
             {
-                return Application.Language == Language.English ? HostnameEn : HostnameJp;
+                return Application.SystemLanguage == SystemLanguage.English ? HostnameEn : HostnameJp;
             }
 
             // CUSTOM: Get notification list url
             public static string GetNotificationGetUrl()
             {
-                return Application.Language == Language.English ? NotificationGetUrlEn : NotificationGetUrlJp;
+                return Application.SystemLanguage == SystemLanguage.English ? NotificationGetUrlEn : NotificationGetUrlJp;
             }
 
             // CUSTOM: Get notification detail url
             public static string GetNotificationDetailUrl()
             {
-                return Application.Language == Language.English ? NotificationDetailUrlEn : NotificationDetailUrlJp;
+                return Application.SystemLanguage == SystemLanguage.English ? NotificationDetailUrlEn : NotificationDetailUrlJp;
             }
 
             /// <summary>
@@ -68,7 +68,7 @@ namespace NierReincarnation.Core.Dark.EntryPoint
             {
                 var urlFormat = ApplicationApi.IsReviewEnvironment()
                     ? ApplicationApi.GetReviewUrlFormat()
-                    : Application.Language == Language.English ? MasterDataUrlFormatEn : MasterDataUrlFormatJp;
+                    : Application.SystemLanguage == SystemLanguage.English ? MasterDataUrlFormatEn : MasterDataUrlFormatJp;
 
                 return string.Format(urlFormat, masterVersion) + EncryptionMasterDataUrlSuffix;
             }
@@ -102,7 +102,7 @@ namespace NierReincarnation.Core.Dark.EntryPoint
                 var langPath = GetLanguagePath();
                 var webViewBase = ApplicationApi.IsReviewEnvironment()
                     ? ApplicationApi.GetReviewWebViewBaseUrl()
-                    : Application.Language == Language.English ? WebViewBaseUrlEn : WebViewBaseUrlJp;
+                    : Application.SystemLanguage == SystemLanguage.English ? WebViewBaseUrlEn : WebViewBaseUrlJp;
 
                 return $"{webViewBase}{basePath}{langPath}{path}";
             }

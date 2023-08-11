@@ -25,7 +25,7 @@ namespace NierReincarnation.Context
             manager.GetAllResourceNames().Select(n => manager.GetResourceItemByName(n));
 
         private static readonly Func<Item, bool> SelectAll = _ => true;
-        private static readonly Func<Item, Language, bool> Texts = (i, l) => i.name.StartsWith(GetLanguagePath(l));
+        private static readonly Func<Item, SystemLanguage, bool> Texts = (i, l) => i.name.StartsWith(GetLanguagePath(l));
 
         public async Task DownloadAllAssets()
         {
@@ -37,17 +37,17 @@ namespace NierReincarnation.Context
             await DownloadResources(null);
         }
 
-        public int GetTextAssetSize(Language language)
+        public int GetTextAssetSize(SystemLanguage language)
         {
             return GetAssetSize(i => Texts(i, language));
         }
 
-        public int GetTextAssetCount(Language language)
+        public int GetTextAssetCount(SystemLanguage language)
         {
             return GetAssetCount(i => Texts(i, language));
         }
 
-        public async Task DownloadTextAssets(Language language)
+        public async Task DownloadTextAssets(SystemLanguage language)
         {
             await DownloadAssets(i => Texts(i, language));
         }
@@ -184,12 +184,12 @@ namespace NierReincarnation.Context
                 Directory.CreateDirectory(dir);
         }
 
-        private static string GetLanguagePath(Language language)
+        private static string GetLanguagePath(SystemLanguage language)
         {
             return language switch
             {
-                Language.English => "text)en",
-                Language.Japanese => "text)ja",
+                SystemLanguage.English => "text)en",
+                SystemLanguage.Japanese => "text)ja",
                 _ => throw new InvalidEnumArgumentException(nameof(language)),
             };
         }
