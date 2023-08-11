@@ -9,27 +9,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserTripleDeck
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public DeckType DeckType { get; set; } // 0x18
+        public DeckType DeckType { get; set; }
 
         [Key(2)]
-        public int UserDeckNumber { get; set; } // 0x1C
+        public int UserDeckNumber { get; set; }
 
         [Key(3)]
-        public string Name { get; set; } // 0x20
+        public string Name { get; set; }
 
         [Key(4)]
-        public int DeckNumber01 { get; set; } // 0x28
+        public int DeckNumber01 { get; set; }
 
         [Key(5)]
-        public int DeckNumber02 { get; set; } // 0x2C
+        public int DeckNumber02 { get; set; }
 
         [Key(6)]
-        public int DeckNumber03 { get; set; } // 0x30
+        public int DeckNumber03 { get; set; }
 
         [Key(7)]
-        public long LatestVersion { get; set; } // 0x38
+        public long LatestVersion { get; set; }
     }
 }

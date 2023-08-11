@@ -7,16 +7,16 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter
     // Art.Framework.ApiNetwork.Parameter.UserParameter
     class UserParameter : ParameterBase
     {
-        private readonly SynchronizationContext _context; // 0x10
-        private string _signature; // 0x18
-        private string _uuid; // 0x20
+        private readonly SynchronizationContext _context;
+        private string _signature;
+        private string _uuid;
 
         private string Signature
         {
             set => _signature = value;
         }
 
-        // 0x28
+       
         public long UserId { get; set; }
 
         // Methods

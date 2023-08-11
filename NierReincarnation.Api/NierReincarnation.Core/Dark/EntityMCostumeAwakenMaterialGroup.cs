@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeAwakenMaterialGroup
     {
         [Key(0)]
-        public int CostumeAwakenMaterialGroupId { get; set; } // 0x10
+        public int CostumeAwakenMaterialGroupId { get; set; }
 
         [Key(1)]
-        public int MaterialId { get; set; } // 0x14
+        public int MaterialId { get; set; }
 
         [Key(2)]
-        public int Count { get; set; } // 0x18
+        public int Count { get; set; }
 
         [Key(3)]
-        public int SortOrder { get; set; } // 0x1C
+        public int SortOrder { get; set; }
     }
 }

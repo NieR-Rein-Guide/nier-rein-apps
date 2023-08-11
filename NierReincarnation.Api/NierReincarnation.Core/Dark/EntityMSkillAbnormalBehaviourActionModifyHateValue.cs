@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalBehaviourActionModifyHateValue
     {
         [Key(0)]
-        public int SkillAbnormalBehaviourActionId { get; set; } // 0x10
+        public int SkillAbnormalBehaviourActionId { get; set; }
 
         [Key(1)]
-        public HateValueCalculationType HateValueCalculationType { get; set; } // 0x14
+        public HateValueCalculationType HateValueCalculationType { get; set; }
 
         [Key(2)]
-        public int ModifyValue { get; set; } // 0x18
+        public int ModifyValue { get; set; }
     }
 }

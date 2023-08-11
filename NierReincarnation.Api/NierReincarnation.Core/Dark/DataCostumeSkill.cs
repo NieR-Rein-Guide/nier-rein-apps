@@ -2,7 +2,7 @@
 {
     public class DataCostumeSkill: DataSkill
     {
-        // 0x50
+       
         public string GaugeRiseSpeed { get; set; }
     }
 }

@@ -8,24 +8,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserLogin
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int TotalLoginCount { get; set; } // 0x18
+        public int TotalLoginCount { get; set; }
 
         [Key(2)]
-        public int ContinualLoginCount { get; set; } // 0x1C
+        public int ContinualLoginCount { get; set; }
 
         [Key(3)]
-        public int MaxContinualLoginCount { get; set; } // 0x20
+        public int MaxContinualLoginCount { get; set; }
 
         [Key(4)]
-        public long LastLoginDatetime { get; set; } // 0x28
+        public long LastLoginDatetime { get; set; }
 
         [Key(5)]
-        public long LastComebackLoginDatetime { get; set; } // 0x30
+        public long LastComebackLoginDatetime { get; set; }
 
         [Key(6)]
-        public long LatestVersion { get; set; } // 0x38
+        public long LatestVersion { get; set; }
     }
 }

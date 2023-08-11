@@ -6,8 +6,8 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter
     // Art.Framework.ApiNetwork.Parameter.AuthParameter
     class AuthParameter : ParameterBase
     {
-        private string _sessionKey; // 0x10
-        private long _sessionExpire; // 0x18
+        private string _sessionKey;
+        private long _sessionExpire;
 
         public AuthParameter()
         {

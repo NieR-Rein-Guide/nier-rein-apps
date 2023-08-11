@@ -9,9 +9,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTutorialDialog
     {
         [Key(0)]
-        public TutorialType TutorialType { get; set; } // 0x10
+        public TutorialType TutorialType { get; set; }
 
         [Key(1)]
-        public HelpType HelpType { get; set; } // 0x14
+        public HelpType HelpType { get; set; }
     }
 }

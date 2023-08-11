@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSpeaker
     {
         [Key(0)]
-        public int ActorObjectId { get; set; } // 0x10
+        public int ActorObjectId { get; set; }
 
         [Key(1)]
-        public int NameSpeakerTextId { get; set; } // 0x14
+        public int NameSpeakerTextId { get; set; }
 
         [Key(2)]
-        public SpeakerIconType SpeakerIconType { get; set; } // 0x18
+        public SpeakerIconType SpeakerIconType { get; set; }
 
         [Key(3)]
-        public int SpeakerIconIndex { get; set; } // 0x1C
+        public int SpeakerIconIndex { get; set; }
     }
 }

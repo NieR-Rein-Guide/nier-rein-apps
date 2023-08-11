@@ -4,13 +4,13 @@
     {
         public static class Limited
         {
-            private const string kUiPrefix = "ui.Outgame.Limited."; // 0x0
-            public static readonly string kRemainTime = kUiPrefix + "RemainTime"; // 0x8
-            private const string kPrefix = "limited.open."; // 0x10
-            private const string kLocalPushPrefix = kPrefix + "local.push."; // 0x18
-            public static readonly string kLocalPush = kLocalPushPrefix + Common.kOneValueFormat; // 0x20
-            public static readonly string kLocalPushTitle = kLocalPushPrefix + "title." + Common.kOneValueFormat; // 0x28
-            public static readonly string kAchievement = kPrefix + "achievement." + Common.kOneValueFormat; // 0x30
+            private const string kUiPrefix = "ui.Outgame.Limited.";
+            public static readonly string kRemainTime = kUiPrefix + "RemainTime";
+            private const string kPrefix = "limited.open.";
+            private const string kLocalPushPrefix = kPrefix + "local.push.";
+            public static readonly string kLocalPush = kLocalPushPrefix + Common.kOneValueFormat;
+            public static readonly string kLocalPushTitle = kLocalPushPrefix + "title." + Common.kOneValueFormat;
+            public static readonly string kAchievement = kPrefix + "achievement." + Common.kOneValueFormat;
         }
     }
 }

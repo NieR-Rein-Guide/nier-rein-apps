@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMaintenance
     {
         [Key(0)]
-        public int MaintenanceId { get; set; } // 0x10
+        public int MaintenanceId { get; set; }
 
         [Key(1)]
-        public long StartDatetime { get; set; } // 0x18
+        public long StartDatetime { get; set; }
 
         [Key(2)]
-        public long EndDatetime { get; set; } // 0x20
+        public long EndDatetime { get; set; }
 
         [Key(3)]
-        public int MaintenanceGroupId { get; set; } // 0x28
+        public int MaintenanceGroupId { get; set; }
     }
 }

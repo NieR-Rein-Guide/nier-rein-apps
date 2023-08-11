@@ -4,7 +4,7 @@
     {
         public static class Possession
         {
-            public static readonly string kAutoConvert = "ui.Outgame.Possession.AutoConvert"; // 0x0
+            public static readonly string kAutoConvert = "ui.Outgame.Possession.AutoConvert";
         }
     }
 }

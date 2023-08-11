@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMOverrideHitEffectConditionSkillExecutor
     {
         [Key(0)]
-        public int OverrideHitEffectConditionId { get; set; } // 0x10
+        public int OverrideHitEffectConditionId { get; set; }
 
         [Key(1)]
-        public int SkillOwnerCategoryType { get; set; } // 0x14
+        public int SkillOwnerCategoryType { get; set; }
     }
 }

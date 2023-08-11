@@ -4,8 +4,8 @@
     {
         public static class CageMemory
         {
-            private const string kCageMemory = "ui.Outgame.CageMemory."; // 0x0
-            public static readonly string kCageMemoryTitle = kCageMemory + "Title"; // 0x8
+            private const string kCageMemory = "ui.Outgame.CageMemory.";
+            public static readonly string kCageMemoryTitle = kCageMemory + "Title";
         }
     }
 }

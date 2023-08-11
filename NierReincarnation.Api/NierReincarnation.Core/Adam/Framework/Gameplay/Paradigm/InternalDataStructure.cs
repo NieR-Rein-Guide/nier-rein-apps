@@ -6,7 +6,7 @@ namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm
     // Adam.Framework.Gameplay.Paradigm.InternalDataStructure
     class InternalDataStructure : DataStructureBase
     {
-        //private List<Data> _datas; // 0x18
+        //private List<Data> _datas;
 
         // TODO: Implement data structure variable methods
         public bool GetVariable<TVariable>(string name, out TVariable value) where TVariable : new()

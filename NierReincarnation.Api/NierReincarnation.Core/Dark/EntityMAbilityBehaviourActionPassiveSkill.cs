@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMAbilityBehaviourActionPassiveSkill
     {
         [Key(0)] // RVA: 0x1DD6374 Offset: 0x1DD6374 VA: 0x1DD6374
-        public int AbilityBehaviourActionId { get; set; } // 0x10
+        public int AbilityBehaviourActionId { get; set; }
 
         [Key(1)] // RVA: 0x1DD63B4 Offset: 0x1DD63B4 VA: 0x1DD63B4
-        public int SkillDetailId { get; set; } // 0x14
+        public int SkillDetailId { get; set; }
     }
 }

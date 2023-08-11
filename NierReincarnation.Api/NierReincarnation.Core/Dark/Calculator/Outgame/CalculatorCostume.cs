@@ -13,16 +13,16 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorCostume
     {
-        public static readonly int ReleaseSecondPassiveSkillLimitBreakCount = 1; // 0x0
-        public static readonly int PassiveSkillSecondIndex = 1; // 0x4
-        public static readonly int kMaxCostumeAbilityCount = 2; // 0x8
-        public static readonly int kMaxSkillCount = 2; // 0xC
-        public static readonly int kInvalidCostumeId = 0; // 0x10
-        private static readonly string kInvalidCostumeUuid = string.Empty; // 0x18
-        public static readonly int kInvalidCostumeLevel = 0; // 0x20
-        public static readonly int kDefaultDressupCostumeId = 0; // 0x24
-        private static readonly float kCostumePerMille = 1000f; // 0x28
-        private static readonly int kNpcRebirthCount = 0; // 0x2C
+        public static readonly int ReleaseSecondPassiveSkillLimitBreakCount = 1;
+        public static readonly int PassiveSkillSecondIndex = 1;
+        public static readonly int kMaxCostumeAbilityCount = 2;
+        public static readonly int kMaxSkillCount = 2;
+        public static readonly int kInvalidCostumeId = 0;
+        private static readonly string kInvalidCostumeUuid = string.Empty;
+        public static readonly int kInvalidCostumeLevel = 0;
+        public static readonly int kDefaultDressupCostumeId = 0;
+        private static readonly float kCostumePerMille = 1000f;
+        private static readonly int kNpcRebirthCount = 0;
 
         // CUSTOM: Enumerate all user-owned costumes
         public static IEnumerable<DataOutgameCostumeInfo> EnumerateCostumeInfo(long userId)

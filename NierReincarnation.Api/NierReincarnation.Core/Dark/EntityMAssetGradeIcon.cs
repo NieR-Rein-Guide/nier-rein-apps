@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMAssetGradeIcon
     {
         [Key(0)]
-        public int AssetGradeIconId { get; set; } // 0x10
+        public int AssetGradeIconId { get; set; }
 
         [Key(1)]
-        public int AssetId { get; set; } // 0x14
+        public int AssetId { get; set; }
 
         [Key(2)]
-        public int Level { get; set; } // 0x18
+        public int Level { get; set; }
 
         [Key(3)]
-        public int SeAssetId { get; set; } // 0x1C
+        public int SeAssetId { get; set; }
     }
 }

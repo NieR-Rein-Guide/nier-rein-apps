@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestBonusAllyCharacter
     {
         [Key(0)]
-        public int QuestBonusAllyCharacterId { get; set; } // 0x10
+        public int QuestBonusAllyCharacterId { get; set; }
 
         [Key(1)]
-        public int QuestBonusEffectGroupId { get; set; } // 0x14
+        public int QuestBonusEffectGroupId { get; set; }
 
         [Key(2)]
-        public int QuestBonusTermGroupId { get; set; } // 0x18
+        public int QuestBonusTermGroupId { get; set; }
     }
 }

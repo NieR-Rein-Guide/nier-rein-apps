@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponAwakenStatusUpGroup
     {
         [Key(0)]
-        public int WeaponAwakenStatusUpGroupId { get; set; } // 0x10
+        public int WeaponAwakenStatusUpGroupId { get; set; }
 
         [Key(1)]
-        public StatusKindType StatusKindType { get; set; } // 0x14
+        public StatusKindType StatusKindType { get; set; }
 
         [Key(2)]
-        public StatusCalculationType StatusCalculationType { get; set; } // 0x18
+        public StatusCalculationType StatusCalculationType { get; set; }
 
         [Key(3)]
-        public int EffectValue { get; set; } // 0x1C
+        public int EffectValue { get; set; }
     }
 }

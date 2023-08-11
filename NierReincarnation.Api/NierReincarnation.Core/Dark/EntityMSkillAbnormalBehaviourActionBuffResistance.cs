@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalBehaviourActionBuffResistance
     {
         [Key(0)]
-        public int SkillAbnormalBehaviourActionId { get; set; } // 0x10
+        public int SkillAbnormalBehaviourActionId { get; set; }
 
         [Key(1)]
-        public BuffResistanceType BuffResistanceType { get; set; } // 0x14
+        public BuffResistanceType BuffResistanceType { get; set; }
 
         [Key(2)]
-        public BuffResistanceStatusKindType BuffResistanceStatusKindType { get; set; } // 0x18
+        public BuffResistanceStatusKindType BuffResistanceStatusKindType { get; set; }
 
         [Key(3)]
-        public int BlockProbabilityPermil { get; set; } // 0x1C
+        public int BlockProbabilityPermil { get; set; }
     }
 }

@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCollectionBonusQuestAssignment
     {
         [Key(0)]
-        public int CollectionBonusQuestAssignmentId { get; set; } // 0x10
+        public int CollectionBonusQuestAssignmentId { get; set; }
 
         [Key(1)]
-        public QuestAssignmentType QuestAssignmentType { get; set; } // 0x14
+        public QuestAssignmentType QuestAssignmentType { get; set; }
 
         [Key(2)]
-        public int MainQuestChapterId { get; set; } // 0x18
+        public int MainQuestChapterId { get; set; }
 
         [Key(3)]
-        public int EventQuestChapterId { get; set; } // 0x1C
+        public int EventQuestChapterId { get; set; }
 
         [Key(4)]
-        public int QuestId { get; set; } // 0x20
+        public int QuestId { get; set; }
 
         [Key(5)]
-        public int SortOrder { get; set; } // 0x24
+        public int SortOrder { get; set; }
     }
 }

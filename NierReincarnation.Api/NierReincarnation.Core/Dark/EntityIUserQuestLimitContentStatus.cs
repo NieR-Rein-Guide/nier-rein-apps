@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserQuestLimitContentStatus
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int QuestId { get; set; } // 0x18
+        public int QuestId { get; set; }
 
         [Key(2)]
-        public int LimitContentQuestStatusType { get; set; } // 0x1C
+        public int LimitContentQuestStatusType { get; set; }
 
         [Key(3)]
-        public int EventQuestChapterId { get; set; } // 0x20
+        public int EventQuestChapterId { get; set; }
 
         [Key(4)]
-        public long LatestVersion { get; set; } // 0x28
+        public long LatestVersion { get; set; }
     }
 }

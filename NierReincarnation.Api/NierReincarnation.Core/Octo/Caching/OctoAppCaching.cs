@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Octo.Caching
     class OctoAppCaching // TypeDefIndex: 6574
     {
         // Fields
-        private static readonly string Tag = "OctoAppCaching"; // 0x0
-        private static readonly string OctoDir = "Octo"; // 0x8
-        private static readonly string ListFileName = "l"; // 0x10
+        private static readonly string Tag = "OctoAppCaching";
+        private static readonly string OctoDir = "Octo";
+        private static readonly string ListFileName = "l";
 
-        private readonly Dictionary<string, EmbeddedInfo> _embeddedDictionary; // 0x10
-        private readonly string _rootDir; // 0x18
+        private readonly Dictionary<string, EmbeddedInfo> _embeddedDictionary;
+        private readonly string _rootDir;
 
         public OctoAppCaching()
         {
@@ -61,8 +61,8 @@ namespace NierReincarnation.Core.Octo.Caching
         struct EmbeddedInfo // TypeDefIndex: 6575
         {
             // Fields
-            public ulong generation; // 0x0
-            public MD5Value md5; // 0x8
+            public ulong generation;
+            public MD5Value md5;
         }
     }
 }

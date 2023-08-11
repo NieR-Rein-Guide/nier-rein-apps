@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleEventTriggerBehaviourWaveStart
     {
         [Key(0)]
-        public int BattleEventTriggerBehaviourId { get; set; } // 0x10
+        public int BattleEventTriggerBehaviourId { get; set; }
 
         [Key(1)]
-        public int WaveNumber { get; set; } // 0x14
+        public int WaveNumber { get; set; }
     }
 }

@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponSkillGroup
     {
         [Key(0)] // RVA: 0x1DE7078 Offset: 0x1DE7078 VA: 0x1DE7078
-        public int WeaponSkillGroupId { get; set; } // 0x10
+        public int WeaponSkillGroupId { get; set; }
 
         [Key(1)] // RVA: 0x1DE70B8 Offset: 0x1DE70B8 VA: 0x1DE70B8
-        public int SlotNumber { get; set; } // 0x14
+        public int SlotNumber { get; set; }
 
         [Key(2)] // RVA: 0x1DE70F8 Offset: 0x1DE70F8 VA: 0x1DE70F8
-        public int SkillId { get; set; } // 0x18
+        public int SkillId { get; set; }
 
         [Key(3)] // RVA: 0x1DE710C Offset: 0x1DE710C VA: 0x1DE710C
-        public int WeaponSkillEnhancementMaterialId { get; set; } // 0x1C
+        public int WeaponSkillEnhancementMaterialId { get; set; }
     }
 }

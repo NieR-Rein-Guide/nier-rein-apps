@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponEnhancedSkill
     {
         [Key(0)]
-        public int WeaponEnhancedId { get; set; } // 0x10
+        public int WeaponEnhancedId { get; set; }
 
         [Key(1)]
-        public int SkillId { get; set; } // 0x14
+        public int SkillId { get; set; }
 
         [Key(2)]
-        public int Level { get; set; } // 0x18
+        public int Level { get; set; }
     }
 }

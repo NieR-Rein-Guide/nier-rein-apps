@@ -9,27 +9,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityMDokan
     {
         [Key(0)]
-        public int DokanId { get; set; } // 0x10
+        public int DokanId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public DokanType DokanType { get; set; } // 0x18
+        public DokanType DokanType { get; set; }
 
         [Key(3)]
-        public long StartDatetime { get; set; } // 0x20
+        public long StartDatetime { get; set; }
 
         [Key(4)]
-        public long EndDatetime { get; set; } // 0x28
+        public long EndDatetime { get; set; }
 
         [Key(5)]
-        public int DokanContentGroupId { get; set; } // 0x30
+        public int DokanContentGroupId { get; set; }
 
         [Key(6)]
-        public TargetUserStatusType TargetUserStatusType { get; set; } // 0x34
+        public TargetUserStatusType TargetUserStatusType { get; set; }
 
         [Key(7)]
-        public MainFunctionType UnlockMainFunctionType { get; set; } // 0x38
+        public MainFunctionType UnlockMainFunctionType { get; set; }
     }
 }

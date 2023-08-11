@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcCostumeLevelBonusReleaseStatus
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public int CostumeId { get; set; } // 0x18
+        public int CostumeId { get; set; }
 
         [Key(2)]
-        public int LastReleasedBonusLevel { get; set; } // 0x1C
+        public int LastReleasedBonusLevel { get; set; }
 
         [Key(3)]
-        public int ConfirmedBonusLevel { get; set; } // 0x20
+        public int ConfirmedBonusLevel { get; set; }
     }
 }

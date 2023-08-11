@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMImportantItemEffectDropCount
     {
         [Key(0)]
-        public int ImportantItemEffectDropCountId { get; set; } // 0x10
+        public int ImportantItemEffectDropCountId { get; set; }
 
         [Key(1)]
-        public int CountPermil { get; set; } // 0x14
+        public int CountPermil { get; set; }
 
         [Key(2)]
-        public int ImportantItemEffectTargetQuestGroupId { get; set; } // 0x18
+        public int ImportantItemEffectTargetQuestGroupId { get; set; }
 
         [Key(3)]
-        public int ImportantItemEffectTargetItemGroupId { get; set; } // 0x1C
+        public int ImportantItemEffectTargetItemGroupId { get; set; }
     }
 }

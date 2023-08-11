@@ -8,17 +8,17 @@ namespace NierReincarnation.Core.Adam.Framework.Core
     // Adam.Framework.Core.PreferenceKeyStoreValue
     class PreferenceKeyStoreValue
     {
-        private static readonly string kPrivateKeyPrefix = "dead"; // 0x0
-        private static readonly string kPrivateKeyRandom = "nan"; // 0x8
-        private static readonly string kPrivateKeySuffix = "x"; // 0x10
-        private static readonly string kRandomKey = "deadnanx"; // 0x18
+        private static readonly string kPrivateKeyPrefix = "dead";
+        private static readonly string kPrivateKeyRandom = "nan";
+        private static readonly string kPrivateKeySuffix = "x";
+        private static readonly string kRandomKey = "deadnanx";
 
-        private string _privateKey; // 0x18
-        private DES _des; // 0x20
+        private string _privateKey;
+        private DES _des;
 
-        // 0x10
+       
         public bool IsInitialized { get; set; }
-        // 0x11
+       
         public bool EnabledLoggingErrors { get; set; }
 
         // Done

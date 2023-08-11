@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillDamageMultiplyAbnormalAttachedValueGroup
     {
         [Key(0)]
-        public int SkillDamageMultiplyAbnormalAttachedValueGroupId { get; set; } // 0x10
+        public int SkillDamageMultiplyAbnormalAttachedValueGroupId { get; set; }
 
         [Key(1)]
-        public int SkillDamageMultiplyAbnormalAttachedValueGroupIndex { get; set; } // 0x14
+        public int SkillDamageMultiplyAbnormalAttachedValueGroupIndex { get; set; }
 
         [Key(2)]
-        public int PolarityConditionType { get; set; } // 0x18
+        public int PolarityConditionType { get; set; }
 
         [Key(3)]
-        public int SkillAbnormalTypeIdCondition { get; set; } // 0x1C
+        public int SkillAbnormalTypeIdCondition { get; set; }
 
         [Key(4)]
-        public int TargetType { get; set; } // 0x20
+        public int TargetType { get; set; }
 
         [Key(5)]
-        public int DamageMultiplyCoefficientValuePermil { get; set; } // 0x24
+        public int DamageMultiplyCoefficientValuePermil { get; set; }
     }
 }

@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormal
     {
         [Key(0)]
-        public int SkillAbnormalId { get; set; } // 0x10
+        public int SkillAbnormalId { get; set; }
 
         [Key(1)]
-        public int SkillAbnormalTypeId { get; set; } // 0x14
+        public int SkillAbnormalTypeId { get; set; }
 
         [Key(2)]
-        public AbnormalPolarityType AbnormalPolarityType { get; set; } // 0x18
+        public AbnormalPolarityType AbnormalPolarityType { get; set; }
 
         [Key(3)]
-        public int SkillAbnormalLifetimeId { get; set; } // 0x1C
+        public int SkillAbnormalLifetimeId { get; set; }
 
         [Key(4)]
-        public int SkillAbnormalBehaviourGroupId { get; set; } // 0x20
+        public int SkillAbnormalBehaviourGroupId { get; set; }
     }
 }

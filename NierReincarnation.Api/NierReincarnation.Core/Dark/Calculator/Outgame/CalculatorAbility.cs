@@ -10,11 +10,11 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorAbility
     {
-        public static int MIN_LEVEL = 1; // 0x0
-        public static int MAX_LEVEL = 15; // 0x4
-        private static readonly int kInvalidAbilityId = 0; // 0x8
-        //private static readonly int kStringCapacity; // 0xC
-        //private static readonly ArtStringBuilder ArtStringBuilder; // 0x10
+        public static int MIN_LEVEL = 1;
+        public static int MAX_LEVEL = 15;
+        private static readonly int kInvalidAbilityId = 0;
+        //private static readonly int kStringCapacity;
+        //private static readonly ArtStringBuilder ArtStringBuilder;
 
         public static DataAbility CreateDataAbility(int abilityId, int slotNumber, int level, int levelMax)
         {

@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPvpWinStreakCountEffect
     {
         [Key(0)]
-        public int WinStreakCount { get; set; } // 0x10
+        public int WinStreakCount { get; set; }
 
         [Key(1)]
-        public int AbilityId { get; set; } // 0x14
+        public int AbilityId { get; set; }
 
         [Key(2)]
-        public int AbilityLevel { get; set; } // 0x18
+        public int AbilityLevel { get; set; }
     }
 }

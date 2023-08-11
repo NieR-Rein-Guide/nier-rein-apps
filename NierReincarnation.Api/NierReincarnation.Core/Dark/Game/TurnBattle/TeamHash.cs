@@ -2,9 +2,9 @@
 {
     public class TeamHash
     {
-        public static readonly TeamHash InvalidHash = new TeamHash(0); // 0x0
-        public static readonly TeamHash OwnTeamHash = new TeamHash(1); // 0x8
-        public static readonly TeamHash IntercessionTeamHash = new TeamHash(2); // 0x10
+        public static readonly TeamHash InvalidHash = new TeamHash(0);
+        public static readonly TeamHash OwnTeamHash = new TeamHash(1);
+        public static readonly TeamHash IntercessionTeamHash = new TeamHash(2);
 
         public int Hash { get; }
 

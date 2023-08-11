@@ -15,8 +15,8 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
         public static readonly string UserDiffRequest = "DataService/GetDiffUserDataAsync";
         public static readonly string AndroidArgsRequest = "UserService/GetAndroidArgsAsync";
         public static readonly string UserRegisterRequest = "UserService/AuthAsync";
-        public static readonly string AuthRequest = "UserService/RegisterUserAsync";    // 0x38
-        public static readonly string ServerConfigRequest = "ConfigService/GetReviewServerConfigAsync"; // 0x40
+        public static readonly string AuthRequest = "UserService/RegisterUserAsync";   
+        public static readonly string ServerConfigRequest = "ConfigService/GetReviewServerConfigAsync";
         public static readonly string FinishWaveRequest = "BattleService/FinishWaveAsync";
         public static readonly string FinishMainQuestRequest = "QuestService/FinishMainQuestAsync";
         public static readonly string FinishEventQuestRequest = "QuestService/FinishEventQuestAsync";

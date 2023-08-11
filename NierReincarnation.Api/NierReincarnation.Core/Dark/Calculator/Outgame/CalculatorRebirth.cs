@@ -2,11 +2,11 @@
 {
     public static class CalculatorRebirth
     {
-        public static readonly int kFirstRebirthStep = 0; // 0x0
-        public static readonly int kRebirthStepDelta = 1; // 0x4
-        public static readonly int kMaxMaterialCount = 5; // 0x8
-        public static readonly int kInvalidCharacterRebirthStepGroupId = 0; // 0xC
-        public static readonly int kDefaultLevelLimitUpValue = 0; // 0x10
+        public static readonly int kFirstRebirthStep = 0;
+        public static readonly int kRebirthStepDelta = 1;
+        public static readonly int kMaxMaterialCount = 5;
+        public static readonly int kInvalidCharacterRebirthStepGroupId = 0;
+        public static readonly int kDefaultLevelLimitUpValue = 0;
 
         public static int GetRebirthCount(long userId, int characterId)
         {

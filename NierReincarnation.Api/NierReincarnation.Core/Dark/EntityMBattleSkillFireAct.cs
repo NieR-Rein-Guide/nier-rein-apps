@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleSkillFireAct
     {
         [Key(0)]
-        public int BattleSkillFireActId { get; set; } // 0x10
+        public int BattleSkillFireActId { get; set; }
 
         [Key(1)]
-        public int BattleSkillFireActConditionGroupId { get; set; } // 0x14
+        public int BattleSkillFireActConditionGroupId { get; set; }
 
         [Key(2)]
-        public BattleSkillFireActConditionGroupType BattleSkillFireActConditionGroupType { get; set; } // 0x18
+        public BattleSkillFireActConditionGroupType BattleSkillFireActConditionGroupType { get; set; }
 
         [Key(3)]
-        public int BattleSkillFireActAssetId { get; set; } // 0x1C
+        public int BattleSkillFireActAssetId { get; set; }
     }
 }

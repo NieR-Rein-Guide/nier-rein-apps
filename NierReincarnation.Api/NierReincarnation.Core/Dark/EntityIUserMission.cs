@@ -9,24 +9,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserMission
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int MissionId { get; set; } // 0x18
+        public int MissionId { get; set; }
 
         [Key(2)]
-        public long StartDatetime { get; set; } // 0x20
+        public long StartDatetime { get; set; }
 
         [Key(3)]
-        public int ProgressValue { get; set; } // 0x28
+        public int ProgressValue { get; set; }
 
         [Key(4)]
-        public MissionProgressStatusType MissionProgressStatusType { get; set; } // 0x2C
+        public MissionProgressStatusType MissionProgressStatusType { get; set; }
 
         [Key(5)]
-        public long ClearDatetime { get; set; } // 0x30
+        public long ClearDatetime { get; set; }
 
         [Key(6)]
-        public long LatestVersion { get; set; } // 0x38
+        public long LatestVersion { get; set; }
     }
 }

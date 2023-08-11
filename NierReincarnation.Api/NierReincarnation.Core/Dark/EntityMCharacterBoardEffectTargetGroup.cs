@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardEffectTargetGroup
     {
         [Key(0)]
-        public int CharacterBoardEffectTargetGroupId { get; set; } // 0x10
+        public int CharacterBoardEffectTargetGroupId { get; set; }
 
         [Key(1)]
-        public int GroupIndex { get; set; } // 0x14
+        public int GroupIndex { get; set; }
 
         [Key(2)]
-        public int CharacterBoardEffectTargetType { get; set; } // 0x18
+        public int CharacterBoardEffectTargetType { get; set; }
 
         [Key(3)]
-        public int TargetValue { get; set; } // 0x1C
+        public int TargetValue { get; set; }
     }
 }

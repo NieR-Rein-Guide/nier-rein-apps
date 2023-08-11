@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSideStoryQuestScene
     {
         [Key(0)]
-        public int SideStoryQuestId { get; set; } // 0x10
+        public int SideStoryQuestId { get; set; }
 
         [Key(1)]
-        public int SideStoryQuestSceneId { get; set; } // 0x14
+        public int SideStoryQuestSceneId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)]
-        public int AssetBackgroundId { get; set; } // 0x1C
+        public int AssetBackgroundId { get; set; }
 
         [Key(4)]
-        public int EventMapNumberUpper { get; set; } // 0x20
+        public int EventMapNumberUpper { get; set; }
 
         [Key(5)]
-        public int EventMapNumberLower { get; set; } // 0x24
+        public int EventMapNumberLower { get; set; }
     }
 }

@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMNaviCutInContentGroup
     {
         [Key(0)]
-        public int NaviCutInContentGroupId { get; set; } // 0x10
+        public int NaviCutInContentGroupId { get; set; }
 
         [Key(1)]
-        public int ContentIndex { get; set; } // 0x14
+        public int ContentIndex { get; set; }
 
         [Key(2)]
-        public int NaviCutInTextId { get; set; } // 0x18
+        public int NaviCutInTextId { get; set; }
     }
 }

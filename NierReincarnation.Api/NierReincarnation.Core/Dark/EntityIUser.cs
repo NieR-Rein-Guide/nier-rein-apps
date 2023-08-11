@@ -9,27 +9,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUser
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public long PlayerId { get; set; } // 0x18
+        public long PlayerId { get; set; }
 
         [Key(2)]
-        public int OsType { get; set; } // 0x20
+        public int OsType { get; set; }
 
         [Key(3)]
-        public PlatformType PlatformType { get; set; } // 0x24
+        public PlatformType PlatformType { get; set; }
 
         [Key(4)]
-        public int UserRestrictionType { get; set; } // 0x28
+        public int UserRestrictionType { get; set; }
 
         [Key(5)]
-        public long RegisterDatetime { get; set; } // 0x30
+        public long RegisterDatetime { get; set; }
 
         [Key(6)]
-        public long GameStartDatetime { get; set; } // 0x38
+        public long GameStartDatetime { get; set; }
 
         [Key(7)]
-        public long LatestVersion { get; set; } // 0x40
+        public long LatestVersion { get; set; }
     }
 }

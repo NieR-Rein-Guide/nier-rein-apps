@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTipBackgroundAsset
     {
         [Key(0)]
-        public int TipBackgroundAssetId { get; set; } // 0x10
+        public int TipBackgroundAssetId { get; set; }
 
         [Key(1)]
-        public string BackgroundAssetName { get; set; } // 0x18
+        public string BackgroundAssetName { get; set; }
     }
 }

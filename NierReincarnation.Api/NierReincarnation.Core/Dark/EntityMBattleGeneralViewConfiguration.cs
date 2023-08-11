@@ -8,24 +8,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleGeneralViewConfiguration
     {
         [Key(0)]
-        public int QuestSceneId { get; set; } // 0x10
+        public int QuestSceneId { get; set; }
 
         [Key(1)]
-        public int WaveNumber { get; set; } // 0x14
+        public int WaveNumber { get; set; }
 
         [Key(2)]
-        public bool IsDisableBattleStartVoice { get; set; } // 0x18
+        public bool IsDisableBattleStartVoice { get; set; }
 
         [Key(3)]
-        public bool IsEnableWhiteFadeout { get; set; } // 0x19
+        public bool IsEnableWhiteFadeout { get; set; }
 
         [Key(4)]
-        public int EnvSeId { get; set; } // 0x1C
+        public int EnvSeId { get; set; }
 
         [Key(5)]
-        public int WaveWinSeId { get; set; } // 0x20
+        public int WaveWinSeId { get; set; }
 
         [Key(6)]
-        public bool IsDisablePlayWinTimeline { get; set; } // 0x24
+        public bool IsDisablePlayWinTimeline { get; set; }
     }
 }

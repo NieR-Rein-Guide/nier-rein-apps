@@ -2,8 +2,8 @@
 {
     class Data
     {
-        public string name; // 0x20
-        private object _objectReferenceValue; // 0xB8
+        public string name;
+        private object _objectReferenceValue;
 
         public bool GetVariable<T>(out T value)
         {

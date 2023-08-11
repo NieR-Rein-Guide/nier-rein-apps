@@ -5,12 +5,12 @@ namespace NierReincarnation.Core.Octo.Caching
 {
     class OctoHybridCaching : IOctoCaching
     {
-        private static readonly string Tag; // 0x0
+        private static readonly string Tag;
 
-        private IOctoCaching _caching; // 0x10
-        private OctoAppCaching _appCaching; // 0x18
+        private IOctoCaching _caching;
+        private OctoAppCaching _appCaching;
 
-        // 0x20
+       
         public OctoCaching StorageCaching { get; set; }
 
         public bool IsReady { get; }

@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionRemoveBuff
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int RemoveCount { get; set; } // 0x14
+        public int RemoveCount { get; set; }
 
         [Key(2)]
-        public BuffType BuffType { get; set; } // 0x18
+        public BuffType BuffType { get; set; }
 
         [Key(3)]
-        public SkillRemoveBuffFilteringType SkillRemoveBuffFilteringType { get; set; } // 0x1C
+        public SkillRemoveBuffFilteringType SkillRemoveBuffFilteringType { get; set; }
 
         [Key(4)]
-        public int SkillRemoveBuffFilteringId { get; set; } // 0x20
+        public int SkillRemoveBuffFilteringId { get; set; }
 
         [Key(5)]
-        public SkillRemoveBuffChoosingType SkillRemoveBuffChoosingType { get; set; } // 0x24
+        public SkillRemoveBuffChoosingType SkillRemoveBuffChoosingType { get; set; }
     }
 }

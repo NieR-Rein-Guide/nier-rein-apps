@@ -12,22 +12,22 @@ namespace NierReincarnation.Core.Dark.Component.WorldMap
 
         #endregion
 
-        private static readonly long validStartTimeRange = 86400000; // 0x0
-        private static readonly int kInvalidId = -1; // 0x8
-        private static readonly float kInitSequenceRequestIntervalTimeSeconds = 10f; // 0xC
+        private static readonly long validStartTimeRange = 86400000;
+        private static readonly int kInvalidId = -1;
+        private static readonly float kInitSequenceRequestIntervalTimeSeconds = 10f;
 
-        private readonly WorldMapGimmickModel _worldMapGimmickModel; // 0x10
-        //private readonly IGimmickService _gimmickService; // 0x18
-        //private readonly Empty _emptyRequest; // 0x20
-        //private readonly WorldMapInitSequenceScheduleResponse _worldMapInitSequenceScheduleResponse; // 0x28
-        //private readonly UpdateGimmickProgressRequest _updateGimmickProgressRequest; // 0x30
-        //private readonly WorldMapUpdateGimmickProgressResponse _worldMapUpdateGimmickProgressResponse; // 0x38
-        //private readonly UpdateSequenceRequest _updateSequenceRequest; // 0x40
-        //private readonly WorldMapUpdateSequenceResponse _worldMapUpdateSequenceResponse; // 0x48
-        private FlowType _currentFlowType; // 0x50
-        private int _currentChapterId; // 0x54
-        private int _currentBackgroundAssetId; // 0x58
-        private float _initSequenceRequestLastSuccessTime; // 0x5C
+        private readonly WorldMapGimmickModel _worldMapGimmickModel;
+        //private readonly IGimmickService _gimmickService;
+        //private readonly Empty _emptyRequest;
+        //private readonly WorldMapInitSequenceScheduleResponse _worldMapInitSequenceScheduleResponse;
+        //private readonly UpdateGimmickProgressRequest _updateGimmickProgressRequest;
+        //private readonly WorldMapUpdateGimmickProgressResponse _worldMapUpdateGimmickProgressResponse;
+        //private readonly UpdateSequenceRequest _updateSequenceRequest;
+        //private readonly WorldMapUpdateSequenceResponse _worldMapUpdateSequenceResponse;
+        private FlowType _currentFlowType;
+        private int _currentChapterId;
+        private int _currentBackgroundAssetId;
+        private float _initSequenceRequestLastSuccessTime;
 
         public GimmickManager()
         {

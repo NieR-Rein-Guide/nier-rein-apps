@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSmartphoneChatGroup
     {
         [Key(0)]
-        public int SmartphoneChatGroupId { get; set; } // 0x10
+        public int SmartphoneChatGroupId { get; set; }
 
         [Key(1)]
-        public int SmartphoneGroupUnlockSceneId { get; set; } // 0x14
+        public int SmartphoneGroupUnlockSceneId { get; set; }
 
         [Key(2)]
-        public int SmartphoneGroupUnlockValue { get; set; } // 0x18
+        public int SmartphoneGroupUnlockValue { get; set; }
 
         [Key(3)]
-        public int SortOrder { get; set; } // 0x1C
+        public int SortOrder { get; set; }
 
         [Key(4)]
-        public int SmartphoneGroupEndSceneId { get; set; } // 0x20
+        public int SmartphoneGroupEndSceneId { get; set; }
     }
 }

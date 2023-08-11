@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionShortenActiveSkillCooltime
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public ActiveSkillType ActiveSkillType { get; set; } // 0x14
+        public ActiveSkillType ActiveSkillType { get; set; }
 
         [Key(2)]
-        public int ShortenValuePermil { get; set; } // 0x18
+        public int ShortenValuePermil { get; set; }
     }
 }

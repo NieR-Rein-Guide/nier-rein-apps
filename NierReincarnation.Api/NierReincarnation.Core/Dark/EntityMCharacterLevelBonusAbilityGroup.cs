@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterLevelBonusAbilityGroup
     {
         [Key(0)] // RVA: 0x1DDAF78 Offset: 0x1DDAF78 VA: 0x1DDAF78
-        public int CharacterLevelBonusAbilityGroupId { get; set; } // 0x10
+        public int CharacterLevelBonusAbilityGroupId { get; set; }
 
         [Key(1)] // RVA: 0x1DDAFB8 Offset: 0x1DDAFB8 VA: 0x1DDAFB8
-        public int ActivationCharacterLevel { get; set; } // 0x14
+        public int ActivationCharacterLevel { get; set; }
 
         [Key(2)] // RVA: 0x1DDAFF8 Offset: 0x1DDAFF8 VA: 0x1DDAFF8
-        public int AbilityId { get; set; } // 0x18
+        public int AbilityId { get; set; }
 
         [Key(3)] // RVA: 0x1DDB00C Offset: 0x1DDB00C VA: 0x1DDB00C
-        public int AbilityLevel { get; set; } // 0x1C
+        public int AbilityLevel { get; set; }
     }
 }

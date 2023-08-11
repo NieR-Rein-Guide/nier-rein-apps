@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTitleStillGroup
     {
         [Key(0)]
-        public int TitleStillGroupId { get; set; } // 0x10
+        public int TitleStillGroupId { get; set; }
 
         [Key(1)]
-        public int DisplayStillCount { get; set; } // 0x14
+        public int DisplayStillCount { get; set; }
 
         [Key(2)]
-        public int Weight { get; set; } // 0x18
+        public int Weight { get; set; }
 
         [Key(3)]
-        public int Priority { get; set; } // 0x1C
+        public int Priority { get; set; }
     }
 }

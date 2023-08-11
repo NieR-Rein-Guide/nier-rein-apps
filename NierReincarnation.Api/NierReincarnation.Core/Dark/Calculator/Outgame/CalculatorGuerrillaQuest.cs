@@ -11,9 +11,9 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorGuerrillaQuest
     {
-        public static readonly int kDefaultFreeOpenRemainCount = 0; // 0x0
-        private static readonly int kDefaultFreeOpenMaxCount = 1; // 0x4
-        private static readonly int kDefaultGuerrillaFreeOpenOpeningTimeMinutes = 60; // 0x8
+        public static readonly int kDefaultFreeOpenRemainCount = 0;
+        private static readonly int kDefaultFreeOpenMaxCount = 1;
+        private static readonly int kDefaultGuerrillaFreeOpenOpeningTimeMinutes = 60;
 
         // TODO: Implement
         public static bool IsValidGuerrillaQuestTerm(int eventQuestId, long userId)

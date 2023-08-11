@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestDailyGroup
     {
         [Key(0)]
-        public int EventQuestDailyGroupId { get; set; } // 0x10
+        public int EventQuestDailyGroupId { get; set; }
 
         [Key(1)]
-        public long StartDatetime { get; set; } // 0x18
+        public long StartDatetime { get; set; }
 
         [Key(2)]
-        public long EndDatetime { get; set; } // 0x20
+        public long EndDatetime { get; set; }
 
         [Key(3)]
-        public int EventQuestDailyGroupTargetChapterId { get; set; } // 0x28
+        public int EventQuestDailyGroupTargetChapterId { get; set; }
 
         [Key(4)]
-        public int EventQuestDailyGroupCompleteRewardId { get; set; } // 0x2C
+        public int EventQuestDailyGroupCompleteRewardId { get; set; }
 
         [Key(5)]
-        public int EventQuestDailyGroupMessageId { get; set; } // 0x30
+        public int EventQuestDailyGroupMessageId { get; set; }
     }
 }

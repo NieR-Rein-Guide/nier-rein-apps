@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeDisplayCoordinateAdjustment
     {
         [Key(0)]
-        public int CostumeId { get; set; } // 0x10
+        public int CostumeId { get; set; }
 
         [Key(1)]
-        public DisplayCoordinateAdjustmentFunctionType DisplayCoordinateAdjustmentFunctionType { get; set; } // 0x14
+        public DisplayCoordinateAdjustmentFunctionType DisplayCoordinateAdjustmentFunctionType { get; set; }
 
         [Key(2)]
-        public int HorizontalCoordinateCountPermil { get; set; } // 0x18
+        public int HorizontalCoordinateCountPermil { get; set; }
 
         [Key(3)]
-        public int VerticalCoordinateCountPermil { get; set; } // 0x1C
+        public int VerticalCoordinateCountPermil { get; set; }
     }
 }

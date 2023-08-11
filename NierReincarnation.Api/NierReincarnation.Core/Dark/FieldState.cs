@@ -6,20 +6,20 @@ namespace NierReincarnation.Core.Dark
     // Dark.FieldState
     static class FieldState
     {
-        public static readonly string kBackground = "background"; // 0x0
-        public static readonly string kCamer = "camera"; // 0x8
-        public static readonly string kStory = "story"; // 0x10
-        public static readonly string kChapter = "chapter"; // 0x18
-        public static readonly string kEventMap = "eventmap"; // 0x20
-        public static readonly string kGameTurnBattle = "gameturnbattle"; // 0x28
-        public static readonly string kMap = "map"; // 0x30
-        public static readonly string kQuest = "quest"; // 0x38
-        public static readonly string kScene = "scene"; // 0x40
-        public static readonly string kNetwork = "network"; // 0x48
-        public static readonly string kUser = "user"; // 0x50
-        public static readonly string kUserInterface = "user_interface"; // 0x58
-        public static readonly string kResultState = "result_state"; // 0x60
-        public static readonly string kMissionState = "mission_state"; // 0x68
+        public static readonly string kBackground = "background";
+        public static readonly string kCamer = "camera";
+        public static readonly string kStory = "story";
+        public static readonly string kChapter = "chapter";
+        public static readonly string kEventMap = "eventmap";
+        public static readonly string kGameTurnBattle = "gameturnbattle";
+        public static readonly string kMap = "map";
+        public static readonly string kQuest = "quest";
+        public static readonly string kScene = "scene";
+        public static readonly string kNetwork = "network";
+        public static readonly string kUser = "user";
+        public static readonly string kUserInterface = "user_interface";
+        public static readonly string kResultState = "result_state";
+        public static readonly string kMissionState = "mission_state";
 
         //public static StateBackground FieldStateBackground(this DataStructure data) { }
 

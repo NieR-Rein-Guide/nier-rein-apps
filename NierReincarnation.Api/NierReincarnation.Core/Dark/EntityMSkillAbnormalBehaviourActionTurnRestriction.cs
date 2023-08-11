@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalBehaviourActionTurnRestriction
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int TurnRestrictionProbabilityPermil { get; set; } // 0x14
+        public int TurnRestrictionProbabilityPermil { get; set; }
 
         [Key(2)]
-        public AbnormalBehaviourTurnRestrictionSkillType AbnormalBehaviourTurnRestrictionSkillType { get; set; } // 0x18
+        public AbnormalBehaviourTurnRestrictionSkillType AbnormalBehaviourTurnRestrictionSkillType { get; set; }
     }
 }

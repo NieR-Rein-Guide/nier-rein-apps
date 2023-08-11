@@ -7,10 +7,10 @@ namespace NierReincarnation.Core.Dark.Purchase
 {
     class Purchaser: IStoreListener
     {
-        private ConfigurationBuilder _builder; // 0x30
-        private bool _purchaseOnInitialize; // 0x39
-        private bool _purchased; // 0x40
-        private Action<Product> _processPurchaseCallback; // 0x48
+        private ConfigurationBuilder _builder;
+        private bool _purchaseOnInitialize;
+        private bool _purchased;
+        private Action<Product> _processPurchaseCallback;
 
         public async Task InitializeAndroid(List<string> productIds, Action<Product> processPurchaseCallback, bool enableTimeout = false)
         {

@@ -9,63 +9,63 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostume
     {
         [Key(0)] // RVA: 0x1DDBD1C Offset: 0x1DDBD1C VA: 0x1DDBD1C
-        public int CostumeId { get; set; }  // 0x10
+        public int CostumeId { get; set; } 
 
         [Key(1)] // RVA: 0x1DDBD5C Offset: 0x1DDBD5C VA: 0x1DDBD5C
-        public int CharacterId { get; set; } // 0x14
+        public int CharacterId { get; set; }
 
         [Key(2)] // RVA: 0x1DDBDB0 Offset: 0x1DDBDB0 VA: 0x1DDBDB0
-        public int ActorId { get; set; } // 0x18
+        public int ActorId { get; set; }
 
         [Key(3)] // RVA: 0x1DDBDC4 Offset: 0x1DDBDC4 VA: 0x1DDBDC4
-        public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; } // 0x1C
+        public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; }
 
         [Key(4)] // RVA: 0x1DDBDD8 Offset: 0x1DDBDD8 VA: 0x1DDBDD8
-        public int ActorSkeletonId { get; set; }    // 0x20
+        public int ActorSkeletonId { get; set; }   
 
         [Key(5)] // RVA: 0x1DDBDEC Offset: 0x1DDBDEC VA: 0x1DDBDEC
-        public int AssetVariationId { get; set; } // 0x24
+        public int AssetVariationId { get; set; }
 
         [Key(6)] // RVA: 0x1DDBE00 Offset: 0x1DDBE00 VA: 0x1DDBE00
-        public WeaponType SkillfulWeaponType { get; set; } // 0x28
+        public WeaponType SkillfulWeaponType { get; set; }
 
         [Key(7)] // RVA: 0x1DDBE14 Offset: 0x1DDBE14 VA: 0x1DDBE14
-        public RarityType RarityType { get; set; }  // 0x2C
+        public RarityType RarityType { get; set; } 
 
         [Key(8)] // RVA: 0x1DDBE28 Offset: 0x1DDBE28 VA: 0x1DDBE28
-        public int CostumeBaseStatusId { get; set; }    // 0x30
+        public int CostumeBaseStatusId { get; set; }   
 
         [Key(9)] // RVA: 0x1DDBE3C Offset: 0x1DDBE3C VA: 0x1DDBE3C
-        public int CostumeStatusCalculationId { get; set; } // 0x34
+        public int CostumeStatusCalculationId { get; set; }
 
         [Key(10)] // RVA: 0x1DDBE50 Offset: 0x1DDBE50 VA: 0x1DDBE50
-        public int CostumeLimitBreakMaterialGroupId { get; set; } // 0x38
+        public int CostumeLimitBreakMaterialGroupId { get; set; }
 
         [Key(11)] // RVA: 0x1DDBE64 Offset: 0x1DDBE64 VA: 0x1DDBE64
-        public int CostumeAbilityGroupId { get; set; }  // 0x3C
+        public int CostumeAbilityGroupId { get; set; } 
 
         [Key(12)] // RVA: 0x1DDBE78 Offset: 0x1DDBE78 VA: 0x1DDBE78
-        public int CostumeActiveSkillGroupId { get; set; } // 0x40
+        public int CostumeActiveSkillGroupId { get; set; }
 
         [Key(13)] // RVA: 0x1DDBE8C Offset: 0x1DDBE8C VA: 0x1DDBE8C
-        public int CounterSkillDetailId { get; set; } // 0x44
+        public int CounterSkillDetailId { get; set; }
 
         [Key(14)] // RVA: 0x1DDBEA0 Offset: 0x1DDBEA0 VA: 0x1DDBEA0
-        public int CharacterMoverBattleActorAiId { get; set; } // 0x48
+        public int CharacterMoverBattleActorAiId { get; set; }
 
         [Key(15)] // RVA: 0x1DDBEB4 Offset: 0x1DDBEB4 VA: 0x1DDBEB4
-        public int CostumeDefaultSkillGroupId { get; set; } // 0x4C
+        public int CostumeDefaultSkillGroupId { get; set; }
 
         [Key(16)] // RVA: 0x1DDBEC8 Offset: 0x1DDBEC8 VA: 0x1DDBEC8
-        public int CostumeLevelBonusId { get; set; } // 0x50
+        public int CostumeLevelBonusId { get; set; }
 
         [Key(17)] // RVA: 0x1DDBEDC Offset: 0x1DDBEDC VA: 0x1DDBEDC
-        public int DefaultActorSkillAiId { get; set; } // 0x54
+        public int DefaultActorSkillAiId { get; set; }
 
         [Key(18)] // RVA: 0x1DDBEF0 Offset: 0x1DDBEF0 VA: 0x1DDBEF0
-        public int CostumeEmblemAssetId { get; set; } // 0x58
+        public int CostumeEmblemAssetId { get; set; }
 
         [Key(19)] // RVA: 0x1DDBF04 Offset: 0x1DDBF04 VA: 0x1DDBF04
-        public int BattleActorSkillAiGroupId { get; set; } // 0x5C
+        public int BattleActorSkillAiGroupId { get; set; }
     }
 }

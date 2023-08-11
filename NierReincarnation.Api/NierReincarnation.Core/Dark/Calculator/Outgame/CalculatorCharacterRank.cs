@@ -9,9 +9,9 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorCharacterRank
     {
-        private const int InvalidAbilityDetailId = 0; // 0x0
-        private const int kFirstCharacterRankExp = 0; // 0x4
-        private const int kFirstCharacterRank = 1; // 0x8
+        private const int InvalidAbilityDetailId = 0;
+        private const int kFirstCharacterRankExp = 0;
+        private const int kFirstCharacterRank = 1;
 
         public static int GetCurrentRankExp(int characterId)
         {

@@ -8,13 +8,13 @@ namespace NierReincarnation.Core.Dark.Calculator
 {
     public static class CalculatorStatusOutgame
     {
-        private static List<DataWeaponStatus> _subWeaponStatusListPool; // 0x0
-        private static List<DataAbilityStatus> _abilityStatusListPool; // 0x8
-        private static List<DataPartsMainStatus> _partsMainStatusListPool; // 0x10
-        private static List<DataPartsSubStatus> _partsSubStatusListPool; // 0x18
-        private static List<DataCostumeLevelBonusStatus> _costumeLevelBonusStatusListPool; // 0x20
-        private static List<DataCostumeAwakenStatus> _costumeAwakenStatusListPool; // 0x28
-        private static List<DataStainedGlassStatus> _stainedGlassStatusListPool; // 0x30
+        private static List<DataWeaponStatus> _subWeaponStatusListPool;
+        private static List<DataAbilityStatus> _abilityStatusListPool;
+        private static List<DataPartsMainStatus> _partsMainStatusListPool;
+        private static List<DataPartsSubStatus> _partsSubStatusListPool;
+        private static List<DataCostumeLevelBonusStatus> _costumeLevelBonusStatusListPool;
+        private static List<DataCostumeAwakenStatus> _costumeAwakenStatusListPool;
+        private static List<DataStainedGlassStatus> _stainedGlassStatusListPool;
 
         private static List<DataWeaponStatus> SubWeaponStatusListPool => _subWeaponStatusListPool ??= new List<DataWeaponStatus>();
 

@@ -4,11 +4,11 @@
     {
         public static class LoginBonus
         {
-            public static readonly string kLoginBonus = "ui.LoginBonus"; // 0x0
-            public static readonly string kResultAcquisition = "ui.LoginBonus.Result.Acquisition"; // 0x8
-            public static readonly string kDate = "ui.LoginBonus.Date"; // 0x10
-            public static readonly string kCardTitleDefault = "ui.LoginBonus.Card.Title.Default"; // 0x18
-            public static readonly string kCardNumber = "ui.LoginBonus.Card.Number"; // 0x20
+            public static readonly string kLoginBonus = "ui.LoginBonus";
+            public static readonly string kResultAcquisition = "ui.LoginBonus.Result.Acquisition";
+            public static readonly string kDate = "ui.LoginBonus.Date";
+            public static readonly string kCardTitleDefault = "ui.LoginBonus.Card.Title.Default";
+            public static readonly string kCardNumber = "ui.LoginBonus.Card.Number";
         }
     }
 }

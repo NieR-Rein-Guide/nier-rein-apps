@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCageOrnamentStillReleaseCondition
     {
         [Key(0)]
-        public int CageOrnamentStillReleaseConditionId { get; set; } // 0x10
+        public int CageOrnamentStillReleaseConditionId { get; set; }
 
         [Key(1)]
-        public int CageOrnamentId { get; set; } // 0x14
+        public int CageOrnamentId { get; set; }
     }
 }

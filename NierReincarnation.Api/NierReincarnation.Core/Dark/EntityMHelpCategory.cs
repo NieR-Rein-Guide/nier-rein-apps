@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMHelpCategory
     {
         [Key(0)]
-        public int HelpCategoryId { get; set; } // 0x10
+        public int HelpCategoryId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public int TitleTextAssetId { get; set; } // 0x18
+        public int TitleTextAssetId { get; set; }
 
         [Key(3)]
-        public bool IsHiddenOnList { get; set; } // 0x1C
+        public bool IsHiddenOnList { get; set; }
     }
 }

@@ -8,24 +8,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWebviewPanelMissionPage
     {
         [Key(0)]
-        public int WebviewPanelMissionPageId { get; set; } // 0x10
+        public int WebviewPanelMissionPageId { get; set; }
 
         [Key(1)]
-        public int WebviewPanelMissionPanelGroupId { get; set; } // 0x14
+        public int WebviewPanelMissionPanelGroupId { get; set; }
 
         [Key(2)]
-        public int WebviewPanelMissionBgPartsGroupId { get; set; } // 0x18
+        public int WebviewPanelMissionBgPartsGroupId { get; set; }
 
         [Key(3)]
-        public int WebviewPanelMissionCompleteFlavorTextId { get; set; } // 0x1C
+        public int WebviewPanelMissionCompleteFlavorTextId { get; set; }
 
         [Key(4)]
-        public string ImageFileName { get; set; } // 0x20
+        public string ImageFileName { get; set; }
 
         [Key(5)]
-        public int ImageAssetId { get; set; } // 0x28
+        public int ImageAssetId { get; set; }
 
         [Key(6)]
-        public int WebviewPanelMissionPageRewardGroupId { get; set; } // 0x2C
+        public int WebviewPanelMissionPageRewardGroupId { get; set; }
     }
 }

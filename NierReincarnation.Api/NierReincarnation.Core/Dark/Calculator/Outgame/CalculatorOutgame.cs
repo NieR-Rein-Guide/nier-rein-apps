@@ -7,9 +7,9 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorOutgame
     {
-        public static RarityType PreciousRarityThreshold = RarityType.SS_RARE; // 0x0
-        public static readonly int kMinDifficulty = (int)DifficultyType.NORMAL; // 0x4
-        public static readonly int kMaxDifficulty = (int)DifficultyType.EX_HARD; // 0x8
+        public static RarityType PreciousRarityThreshold = RarityType.SS_RARE;
+        public static readonly int kMinDifficulty = (int)DifficultyType.NORMAL;
+        public static readonly int kMaxDifficulty = (int)DifficultyType.EX_HARD;
 
         public static readonly List<DifficultyType> kSortedDifficulties = new()
         {
@@ -17,14 +17,14 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
             DifficultyType.HARD,
             DifficultyType.VERY_HARD,
             DifficultyType.EX_HARD
-        }; // 0x10
+        };
 
-        public static readonly string kGradeIconPrefabKeyPrefix = "ui.rank_icon.prefab."; // 0x18
-        private const string kGradeIconSpriteAssetPathFormat = "ui)search)rank)search_rank_{0}"; // 0x20
-        private const string kGradeIconPrefabAssetPathFormat = "ui)rank)rank_icon_{0})rank_icon_{0}"; // 0x28
-        private const string kGradeIconLargePrefabAssetPathFormat = "ui)rank)rank_icon_{0}_large)rank_icon_{0}_large"; // 0x30
-        private static readonly string kGradeIconPrefabKeyFormat = kGradeIconPrefabKeyPrefix + "{0}"; // 0x38
-        private static readonly string kGradeIconLargePrefabKeyFormat = kGradeIconPrefabKeyPrefix + ".large.{0}"; // 0x40
+        public static readonly string kGradeIconPrefabKeyPrefix = "ui.rank_icon.prefab.";
+        private const string kGradeIconSpriteAssetPathFormat = "ui)search)rank)search_rank_{0}";
+        private const string kGradeIconPrefabAssetPathFormat = "ui)rank)rank_icon_{0})rank_icon_{0}";
+        private const string kGradeIconLargePrefabAssetPathFormat = "ui)rank)rank_icon_{0}_large)rank_icon_{0}_large";
+        private static readonly string kGradeIconPrefabKeyFormat = kGradeIconPrefabKeyPrefix + "{0}";
+        private static readonly string kGradeIconLargePrefabKeyFormat = kGradeIconPrefabKeyPrefix + ".large.{0}";
 
         public static string GetFormatLevelText(int currentLevel, int maxLevel)
         {

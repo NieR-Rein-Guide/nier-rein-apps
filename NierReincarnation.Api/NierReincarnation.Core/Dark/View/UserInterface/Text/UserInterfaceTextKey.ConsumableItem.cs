@@ -4,8 +4,8 @@
     {
         public static class ConsumableItem
         {
-            public static readonly string kName = "consumable_item.name.{0:D3}{1:D3}"; // 0x0
-            public static readonly string kDescription = "consumable_item.description.{0:D3}{1:D3}"; // 0x8
+            public static readonly string kName = "consumable_item.name.{0:D3}{1:D3}";
+            public static readonly string kDescription = "consumable_item.description.{0:D3}{1:D3}";
         }
     }
 }

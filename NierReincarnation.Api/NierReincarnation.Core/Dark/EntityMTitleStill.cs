@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTitleStill
     {
         [Key(0)]
-        public int TitleStillId { get; set; } // 0x10
+        public int TitleStillId { get; set; }
 
         [Key(1)]
-        public int TitleStillGroupId { get; set; } // 0x14
+        public int TitleStillGroupId { get; set; }
 
         [Key(2)]
-        public int ReleaseEvaluateConditionId { get; set; } // 0x18
+        public int ReleaseEvaluateConditionId { get; set; }
 
         [Key(3)]
-        public TitleStillLogoType TitleStillLogoType { get; set; } // 0x1C
+        public TitleStillLogoType TitleStillLogoType { get; set; }
 
         [Key(4)]
-        public string AssetName { get; set; } // 0x20
+        public string AssetName { get; set; }
     }
 }

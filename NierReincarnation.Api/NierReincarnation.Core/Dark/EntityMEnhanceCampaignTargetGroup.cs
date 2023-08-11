@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEnhanceCampaignTargetGroup
     {
         [Key(0)]
-        public int EnhanceCampaignTargetGroupId { get; set; } // 0x10
+        public int EnhanceCampaignTargetGroupId { get; set; }
 
         [Key(1)]
-        public int EnhanceCampaignTargetIndex { get; set; } // 0x14
+        public int EnhanceCampaignTargetIndex { get; set; }
 
         [Key(2)]
-        public EnhanceCampaignTargetType EnhanceCampaignTargetType { get; set; } // 0x18
+        public EnhanceCampaignTargetType EnhanceCampaignTargetType { get; set; }
 
         [Key(3)]
-        public int EnhanceCampaignTargetValue { get; set; } // 0x1C
+        public int EnhanceCampaignTargetValue { get; set; }
     }
 }

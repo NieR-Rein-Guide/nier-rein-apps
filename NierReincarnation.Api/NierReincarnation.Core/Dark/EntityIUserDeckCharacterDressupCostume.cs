@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserDeckCharacterDressupCostume
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public string UserDeckCharacterUuid { get; set; } // 0x18
+        public string UserDeckCharacterUuid { get; set; }
 
         [Key(2)]
-        public int DressupCostumeId { get; set; } // 0x20
+        public int DressupCostumeId { get; set; }
 
         [Key(3)]
-        public long LatestVersion { get; set; } // 0x28
+        public long LatestVersion { get; set; }
     }
 }

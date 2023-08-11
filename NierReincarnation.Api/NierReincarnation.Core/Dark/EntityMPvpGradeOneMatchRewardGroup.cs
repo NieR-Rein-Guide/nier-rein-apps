@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPvpGradeOneMatchRewardGroup
     {
         [Key(0)]
-        public int PvpGradeOneMatchRewardGroupId { get; set; } // 0x10
+        public int PvpGradeOneMatchRewardGroupId { get; set; }
 
         [Key(1)]
-        public int PvpGradeOneMatchRewardId { get; set; } // 0x14
+        public int PvpGradeOneMatchRewardId { get; set; }
 
         [Key(2)]
-        public int Weight { get; set; } // 0x18
+        public int Weight { get; set; }
     }
 }

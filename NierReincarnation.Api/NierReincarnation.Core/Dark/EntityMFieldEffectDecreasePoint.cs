@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMFieldEffectDecreasePoint
     {
         [Key(0)]
-        public int WeaponId { get; set; } // 0x10
+        public int WeaponId { get; set; }
 
         [Key(1)]
-        public int FieldEffectAbilityId { get; set; } // 0x14
+        public int FieldEffectAbilityId { get; set; }
 
         [Key(2)]
-        public int DecreasePoint { get; set; } // 0x18
+        public int DecreasePoint { get; set; }
     }
 }

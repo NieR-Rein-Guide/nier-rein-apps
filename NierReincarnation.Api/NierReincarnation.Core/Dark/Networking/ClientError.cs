@@ -5,6 +5,6 @@ namespace NierReincarnation.Core.Dark.Networking
     // Dark.Networking.ClientError
     class ClientError
     {
-        public ScreenTransitionType ScreenTransitionType; // 0x10
+        public ScreenTransitionType ScreenTransitionType;
     }
 }

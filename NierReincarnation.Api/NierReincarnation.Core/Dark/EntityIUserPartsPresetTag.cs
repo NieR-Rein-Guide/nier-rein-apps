@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserPartsPresetTag
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int UserPartsPresetTagNumber { get; set; } // 0x18
+        public int UserPartsPresetTagNumber { get; set; }
 
         [Key(2)]
-        public string Name { get; set; } // 0x20
+        public string Name { get; set; }
 
         [Key(3)]
-        public long LatestVersion { get; set; } // 0x28
+        public long LatestVersion { get; set; }
     }
 }

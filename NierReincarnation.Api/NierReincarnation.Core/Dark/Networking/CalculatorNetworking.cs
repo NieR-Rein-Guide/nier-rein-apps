@@ -14,11 +14,11 @@ namespace NierReincarnation.Core.Dark.Networking
         {
             public class Tr
             {
-                public string ti; // 0x10
-                public object bo; // 0x18
+                public string ti;
+                public object bo;
             }
 
-            public List<Tr> trList; // 0x10
+            public List<Tr> trList;
 
             public TrList()
             {

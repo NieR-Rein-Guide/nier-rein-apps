@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSideStoryQuest
     {
         [Key(0)]
-        public int SideStoryQuestId { get; set; } // 0x10
+        public int SideStoryQuestId { get; set; }
 
         [Key(1)]
-        public int SideStoryQuestType { get; set; } // 0x14
+        public int SideStoryQuestType { get; set; }
 
         [Key(2)]
-        public int TargetId { get; set; } // 0x18
+        public int TargetId { get; set; }
     }
 }

@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalDamageMultiplyDetailBuffAttached
     {
         [Key(0)]
-        public int DamageMultiplyAbnormalDetailId { get; set; } // 0x10
+        public int DamageMultiplyAbnormalDetailId { get; set; }
 
         [Key(1)]
-        public int BuffAttachedTargetType { get; set; } // 0x14
+        public int BuffAttachedTargetType { get; set; }
 
         [Key(2)]
-        public int TargetBuffType { get; set; } // 0x18
+        public int TargetBuffType { get; set; }
 
         [Key(3)]
-        public int TargetStatusKindType { get; set; } // 0x1C
+        public int TargetStatusKindType { get; set; }
 
         [Key(4)]
-        public int DamageMultiplyCoefficientValuePermil { get; set; } // 0x20
+        public int DamageMultiplyCoefficientValuePermil { get; set; }
     }
 }

@@ -5,14 +5,14 @@ namespace NierReincarnation.Core.Octo.Data
     public struct ObjectName
     {
         // Fields
-        private static readonly Encoding ascii = Encoding.ASCII; // 0x8
+        private static readonly Encoding ascii = Encoding.ASCII;
 
-        private byte b0; // 0x0
-        private byte b1; // 0x1
-        private byte b2; // 0x2
-        private byte b3; // 0x3
-        private byte b4; // 0x4
-        private byte b5; // 0x5
+        private byte b0;
+        private byte b1;
+        private byte b2;
+        private byte b3;
+        private byte b4;
+        private byte b5;
 
         // Methods
 

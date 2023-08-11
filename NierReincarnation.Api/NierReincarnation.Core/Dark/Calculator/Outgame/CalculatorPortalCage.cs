@@ -6,8 +6,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorPortalCage
     {
-        public static readonly int kDailyQuestAccessPointIndex = 4; // 0x8
-        public static readonly int kInvalidId = -1; // 0x10
+        public static readonly int kDailyQuestAccessPointIndex = 4;
+        public static readonly int kInvalidId = -1;
 
         public static (int, int) GetDailyQuestChapterIdAndQuestId(int portalCageSceneId, int gatePositionIndex)
         {

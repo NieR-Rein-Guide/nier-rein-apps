@@ -9,11 +9,11 @@ namespace NierReincarnation.Core.Adam.Framework.Resource
     static class DarkOctoSetupper
     {
         // Fields
-        private static readonly Dictionary<string, Stream> Streams = new Dictionary<string, Stream>(); // 0x0
-        private static bool _isSetup; // 0x8
-        private static bool _isReviewEnvironment; // 0x9
-        private static OctoSettings _overwriteSetting; // 0x10
-        public static readonly string OverwriteSettingPath = "settings/octo/octo_overwrite_config"; // 0x18
+        private static readonly Dictionary<string, Stream> Streams = new Dictionary<string, Stream>();
+        private static bool _isSetup;
+        private static bool _isReviewEnvironment;
+        private static OctoSettings _overwriteSetting;
+        public static readonly string OverwriteSettingPath = "settings/octo/octo_overwrite_config";
 
         public static void StartSetup(bool reset = false, bool enableAssetDatabase = false)
         {

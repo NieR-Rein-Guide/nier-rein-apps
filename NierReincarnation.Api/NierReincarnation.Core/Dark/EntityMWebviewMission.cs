@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWebviewMission
     {
         [Key(0)]
-        public int WebviewMissionId { get; set; } // 0x10
+        public int WebviewMissionId { get; set; }
 
         [Key(1)]
-        public int TitleTextId { get; set; } // 0x14
+        public int TitleTextId { get; set; }
 
         [Key(2)]
-        public int WebviewMissionType { get; set; } // 0x18
+        public int WebviewMissionType { get; set; }
 
         [Key(3)]
-        public int WebviewMissionTargetId { get; set; } // 0x1C
+        public int WebviewMissionTargetId { get; set; }
 
         [Key(4)]
-        public long StartDatetime { get; set; } // 0x20
+        public long StartDatetime { get; set; }
 
         [Key(5)]
-        public long EndDatetime { get; set; } // 0x28
+        public long EndDatetime { get; set; }
     }
 }

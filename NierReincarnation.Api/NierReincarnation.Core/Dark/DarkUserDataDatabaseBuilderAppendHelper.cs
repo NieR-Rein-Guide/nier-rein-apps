@@ -10,9 +10,9 @@ namespace NierReincarnation.Core.Dark
     // CUSTOM: Mostly custom code on basis of the original to better utilize logic
     internal static class DarkUserDataDatabaseBuilderAppendHelper
     {
-        private static readonly Dictionary<string, Func<IEnumerable<object>, IEnumerable<object>>> parsers; // 0x0
-        private static readonly Dictionary<string, Action<DarkUserDatabaseBuilder, IEnumerable<object>>> appenders; // 0x0
-        private static readonly Dictionary<string, Action<DarkUserMemoryDatabase, object, bool>> differs; // 0x0
+        private static readonly Dictionary<string, Func<IEnumerable<object>, IEnumerable<object>>> parsers;
+        private static readonly Dictionary<string, Action<DarkUserDatabaseBuilder, IEnumerable<object>>> appenders;
+        private static readonly Dictionary<string, Action<DarkUserMemoryDatabase, object, bool>> differs;
 
         static DarkUserDataDatabaseBuilderAppendHelper()
         {

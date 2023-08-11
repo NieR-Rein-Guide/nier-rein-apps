@@ -4,8 +4,8 @@
     {
         public static class Recollection
         {
-            public static readonly string kRecollectionDialogTitle = "ui.Outgame.Recolletion.Menu.Title"; // 0x0
-            public static readonly string kRecollectionDialogDescription = "ui.Outgame.Recolletion.Menu.Description"; // 0x8
+            public static readonly string kRecollectionDialogTitle = "ui.Outgame.Recolletion.Menu.Title";
+            public static readonly string kRecollectionDialogDescription = "ui.Outgame.Recolletion.Menu.Description";
         }
     }
 }

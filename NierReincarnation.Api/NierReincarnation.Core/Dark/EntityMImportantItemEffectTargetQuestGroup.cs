@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMImportantItemEffectTargetQuestGroup
     {
         [Key(0)]
-        public int ImportantItemEffectTargetQuestGroupId { get; set; } // 0x10
+        public int ImportantItemEffectTargetQuestGroupId { get; set; }
 
         [Key(1)]
-        public int TargetIndex { get; set; } // 0x14
+        public int TargetIndex { get; set; }
 
         [Key(2)]
-        public ImportantItemEffectTargetQuestGroupType ImportantItemEffectTargetQuestGroupType { get; set; } // 0x18
+        public ImportantItemEffectTargetQuestGroupType ImportantItemEffectTargetQuestGroupType { get; set; }
 
         [Key(3)]
-        public int TargetValue { get; set; } // 0x1C
+        public int TargetValue { get; set; }
     }
 }

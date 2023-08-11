@@ -10,7 +10,7 @@ namespace NierReincarnation.Core.Dark.Preference
     [JsonConverter(typeof(MapJsonConverter))]
     class PlayerRegistrationMap
     {
-        private Dictionary<string, PlayerRegistration> _playerRegistrations; // 0x10
+        private Dictionary<string, PlayerRegistration> _playerRegistrations;
 
         public PlayerRegistration this[string index]
         {

@@ -3,7 +3,7 @@
     // Art.Framework.ApiNetwork.Parameter.TokenParameter
     class TokenParameter : ParameterBase
     {
-        private string _token; // 0x10
+        private string _token;
 
         public void UpdateToken(string token)
         {

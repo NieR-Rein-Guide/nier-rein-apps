@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLabyrinthSeasonRewardGroup
     {
         [Key(0)]
-        public int EventQuestLabyrinthSeasonRewardGroupId { get; set; } // 0x10
+        public int EventQuestLabyrinthSeasonRewardGroupId { get; set; }
 
         [Key(1)]
-        public int HeadQuestId { get; set; } // 0x14
+        public int HeadQuestId { get; set; }
 
         [Key(2)]
-        public int EventQuestLabyrinthRewardGroupId { get; set; } // 0x18
+        public int EventQuestLabyrinthRewardGroupId { get; set; }
     }
 }

@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMImportantItemEffectUnlockFunction
     {
         [Key(0)]
-        public int ImportantItemEffectUnlockFunctionId { get; set; } // 0x10
+        public int ImportantItemEffectUnlockFunctionId { get; set; }
 
         [Key(1)]
-        public int ImportantItemEffectUnlockFunctionType { get; set; } // 0x14
+        public int ImportantItemEffectUnlockFunctionType { get; set; }
 
         [Key(2)]
-        public int UnlockFunctionEffectValue { get; set; } // 0x18
+        public int UnlockFunctionEffectValue { get; set; }
     }
 }

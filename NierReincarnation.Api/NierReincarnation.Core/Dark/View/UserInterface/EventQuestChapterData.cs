@@ -7,13 +7,13 @@ namespace NierReincarnation.Core.Dark.View.UserInterface
 {
     public class EventQuestChapterData
     {
-        // 0x10
+       
         public int EventQuestChapterId { get; set; }
-        // 0x14
+       
         public EventQuestType EventQuestType { get; set; }
-        // 0x18
+       
         public string EventQuestName { get; set; }
-        // 0x20
+       
         public List<DifficultyType> EventQuestChapterDifficultyTypes { get; set; }
 
         // CUSTOM: Helpful properties and methods for public information

@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeAwakenPriceGroup
     {
         [Key(0)]
-        public int CostumeAwakenPriceGroupId { get; set; } // 0x10
+        public int CostumeAwakenPriceGroupId { get; set; }
 
         [Key(1)]
-        public int AwakenStepLowerLimit { get; set; } // 0x14
+        public int AwakenStepLowerLimit { get; set; }
 
         [Key(2)]
-        public int Gold { get; set; } // 0x18
+        public int Gold { get; set; }
     }
 }

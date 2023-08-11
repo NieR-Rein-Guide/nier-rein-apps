@@ -5,14 +5,14 @@ namespace NierReincarnation.Core.Dark
     public class SkeletonId : IEquatable<SkeletonId>
     {
         // Fields
-        public static readonly SkeletonId InvalidSkeletonId = new SkeletonId(); // 0x0
-        private static readonly int InvalidId = 0; // 0x8
+        public static readonly SkeletonId InvalidSkeletonId = new SkeletonId();
+        private static readonly int InvalidId = 0;
 
-        // 0x10
+       
         public SkeletonCategory Category { get; }
-        // 0x14
+       
         public int Id { get; }
-        // 0x18
+       
         public string StringId { get; }
 
         public SkeletonId()

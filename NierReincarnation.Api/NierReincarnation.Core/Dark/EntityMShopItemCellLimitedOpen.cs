@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopItemCellLimitedOpen
     {
         [Key(0)]
-        public int ShopItemCellId { get; set; } // 0x10
+        public int ShopItemCellId { get; set; }
 
         [Key(1)]
-        public int LimitedOpenId { get; set; } // 0x14
+        public int LimitedOpenId { get; set; }
     }
 }

@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCompanionEnhancementMaterial
     {
         [Key(0)]
-        public int CompanionCategoryType { get; set; } // 0x10
+        public int CompanionCategoryType { get; set; }
 
         [Key(1)]
-        public int Level { get; set; } // 0x14
+        public int Level { get; set; }
 
         [Key(2)]
-        public int MaterialId { get; set; } // 0x18
+        public int MaterialId { get; set; }
 
         [Key(3)]
-        public int Count { get; set; } // 0x1C
+        public int Count { get; set; }
 
         [Key(4)]
-        public int SortOrder { get; set; } // 0x20
+        public int SortOrder { get; set; }
     }
 }

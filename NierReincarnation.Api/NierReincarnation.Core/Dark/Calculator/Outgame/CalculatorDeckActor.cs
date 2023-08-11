@@ -8,8 +8,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
     public static class CalculatorDeckActor // TypeDefIndex: 18807
     {
         // Fields
-        public static readonly int ControlCharacterIndex = 0; // 0x0
-        public static readonly int kSubWeaponMaxCount = 2; // 0x4
+        public static readonly int ControlCharacterIndex = 0;
+        public static readonly int kSubWeaponMaxCount = 2;
 
         // CUSTOM: Create actors base info
         public static DataDeckActorInfo[] CreateDataDeckActorInfo(EntityIUserDeck entityIUserDeck)

@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionTerm
     {
         [Key(0)]
-        public int MissionTermId { get; set; } // 0x10
+        public int MissionTermId { get; set; }
 
         [Key(1)]
-        public long StartDatetime { get; set; } // 0x18
+        public long StartDatetime { get; set; }
 
         [Key(2)]
-        public long EndDatetime { get; set; } // 0x20
+        public long EndDatetime { get; set; }
     }
 }

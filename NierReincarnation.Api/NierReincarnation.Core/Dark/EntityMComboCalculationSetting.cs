@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMComboCalculationSetting
     {
         [Key(0)]
-        public int ComboCountLowerLimit { get; set; } // 0x10
+        public int ComboCountLowerLimit { get; set; }
 
         [Key(1)]
-        public int DamageCoefficientPermil { get; set; } // 0x14
+        public int DamageCoefficientPermil { get; set; }
 
         [Key(2)]
-        public int UiEffectIndex { get; set; } // 0x18
+        public int UiEffectIndex { get; set; }
     }
 }

@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMOverrideHitEffectConditionGroup
     {
         [Key(0)]
-        public int OverrideHitEffectConditionGroupId { get; set; } // 0x10
+        public int OverrideHitEffectConditionGroupId { get; set; }
 
         [Key(1)]
-        public int ConditionIndex { get; set; } // 0x14
+        public int ConditionIndex { get; set; }
 
         [Key(2)]
-        public int ConditionType { get; set; } // 0x18
+        public int ConditionType { get; set; }
 
         [Key(3)]
-        public int OverrideHitEffectConditionId { get; set; } // 0x1C
+        public int OverrideHitEffectConditionId { get; set; }
     }
 }

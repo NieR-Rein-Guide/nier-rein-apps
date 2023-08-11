@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActivationConditionActivationUpperCount
     {
         [Key(0)]
-        public int SkillBehaviourActivationConditionId { get; set; } // 0x10
+        public int SkillBehaviourActivationConditionId { get; set; }
 
         [Key(1)]
-        public int ActivationUpperCount { get; set; } // 0x14
+        public int ActivationUpperCount { get; set; }
     }
 }

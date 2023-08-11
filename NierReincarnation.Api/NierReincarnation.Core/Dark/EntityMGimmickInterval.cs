@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMGimmickInterval
     {
         [Key(0)]
-        public int GimmickId { get; set; } // 0x10
+        public int GimmickId { get; set; }
 
         [Key(1)]
-        public int InitialValue { get; set; } // 0x14
+        public int InitialValue { get; set; }
 
         [Key(2)]
-        public int MaxValue { get; set; } // 0x18
+        public int MaxValue { get; set; }
 
         [Key(3)]
-        public int IntervalValue { get; set; } // 0x1C
+        public int IntervalValue { get; set; }
     }
 }

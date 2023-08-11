@@ -12,7 +12,7 @@ namespace NierReincarnation.Core.Adam.Framework.Core
         }
 
         // Fields
-        private State _state; // 0x30
+        private State _state;
 
         // Properties
         public T Value
@@ -47,9 +47,9 @@ namespace NierReincarnation.Core.Adam.Framework.Core
             }
         }
 
-        // 0x10
+       
         protected string Key { get; set; }
-        // 0x18
+       
         protected T InternalValue { get; set; }
         // 0x?? depends on T
         protected T DefaultFallback { get; set; }
@@ -72,19 +72,19 @@ namespace NierReincarnation.Core.Adam.Framework.Core
             KeyStoreValue.DeleteKey(Key);
         }
 
-        // 0x178
+       
         protected abstract T GetValue();
 
-        // 0x188
+       
         protected abstract void Save();
 
-        // 0x198
+       
         protected abstract bool CheckDirty(T value);
 
-        // 0x1A8
+       
         protected abstract void CheckDirtyForGet();
 
-        // 0x1B8
+       
         protected void SetDirty()
         {
             _state = State.Dirty;

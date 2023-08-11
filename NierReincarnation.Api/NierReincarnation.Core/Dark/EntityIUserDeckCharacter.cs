@@ -8,27 +8,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserDeckCharacter
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public string UserDeckCharacterUuid { get; set; } // 0x18
+        public string UserDeckCharacterUuid { get; set; }
 
         [Key(2)]
-        public string UserCostumeUuid { get; set; } // 0x20
+        public string UserCostumeUuid { get; set; }
 
         [Key(3)]
-        public string MainUserWeaponUuid { get; set; } // 0x28
+        public string MainUserWeaponUuid { get; set; }
 
         [Key(4)]
-        public string UserCompanionUuid { get; set; } // 0x30
+        public string UserCompanionUuid { get; set; }
 
         [Key(5)]
-        public int Power { get; set; } // 0x38
+        public int Power { get; set; }
 
         [Key(6)]
-        public string UserThoughtUuid { get; set; } // 0x40
+        public string UserThoughtUuid { get; set; }
 
         [Key(7)]
-        public long LatestVersion { get; set; } // 0x48
+        public long LatestVersion { get; set; }
     }
 }

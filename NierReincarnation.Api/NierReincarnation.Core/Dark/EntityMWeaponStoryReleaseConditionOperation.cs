@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponStoryReleaseConditionOperation
     {
         [Key(0)]
-        public int WeaponStoryReleaseConditionOperationGroupId { get; set; } // 0x10
+        public int WeaponStoryReleaseConditionOperationGroupId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public WeaponStoryReleaseConditionType WeaponStoryReleaseConditionType { get; set; } // 0x18
+        public WeaponStoryReleaseConditionType WeaponStoryReleaseConditionType { get; set; }
 
         [Key(3)]
-        public int ConditionValue { get; set; } // 0x1C
+        public int ConditionValue { get; set; }
     }
 }

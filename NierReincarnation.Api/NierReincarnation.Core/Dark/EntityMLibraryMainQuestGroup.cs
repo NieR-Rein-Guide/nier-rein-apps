@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMLibraryMainQuestGroup
     {
         [Key(0)]
-        public int LibraryMainQuestGroupId { get; set; } // 0x10
+        public int LibraryMainQuestGroupId { get; set; }
 
         [Key(1)]
-        public int MainQuestChapterId { get; set; } // 0x14
+        public int MainQuestChapterId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)]
-        public int ChapterTextAssetId { get; set; } // 0x1C
+        public int ChapterTextAssetId { get; set; }
 
         [Key(4)]
-        public int FirstStillAssetOrder { get; set; } // 0x20
+        public int FirstStillAssetOrder { get; set; }
 
         [Key(5)]
-        public int SecondStillAssetOrder { get; set; } // 0x24
+        public int SecondStillAssetOrder { get; set; }
     }
 }

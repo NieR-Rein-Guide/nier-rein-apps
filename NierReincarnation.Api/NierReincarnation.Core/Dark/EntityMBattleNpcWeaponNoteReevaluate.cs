@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcWeaponNoteReevaluate
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public long LastReevaluateDatetime { get; set; } // 0x18
+        public long LastReevaluateDatetime { get; set; }
     }
 }

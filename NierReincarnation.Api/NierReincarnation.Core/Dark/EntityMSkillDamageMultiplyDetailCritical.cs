@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillDamageMultiplyDetailCritical
     {
         [Key(0)]
-        public int SkillDamageMultiplyDetailId { get; set; } // 0x10
+        public int SkillDamageMultiplyDetailId { get; set; }
 
         [Key(1)]
-        public bool IsCritical { get; set; } // 0x14
+        public bool IsCritical { get; set; }
 
         [Key(2)]
-        public int DamageMultiplyCoefficientValuePermil { get; set; } // 0x18
+        public int DamageMultiplyCoefficientValuePermil { get; set; }
     }
 }

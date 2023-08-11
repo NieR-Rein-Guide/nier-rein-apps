@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeAwakenStatusUpGroup
     {
         [Key(0)]
-        public int CostumeAwakenStatusUpGroupId { get; set; } // 0x10
+        public int CostumeAwakenStatusUpGroupId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public StatusKindType StatusKindType { get; set; } // 0x18
+        public StatusKindType StatusKindType { get; set; }
 
         [Key(3)]
-        public StatusCalculationType StatusCalculationType { get; set; } // 0x1C
+        public StatusCalculationType StatusCalculationType { get; set; }
 
         [Key(4)]
-        public int EffectValue { get; set; } // 0x20
+        public int EffectValue { get; set; }
     }
 }

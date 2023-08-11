@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleProgressUiType
     {
         [Key(0)]
-        public int QuestSceneId { get; set; } // 0x10
+        public int QuestSceneId { get; set; }
 
         [Key(1)]
-        public int BattleProgressUiTypeId { get; set; } // 0x14
+        public int BattleProgressUiTypeId { get; set; }
     }
 }

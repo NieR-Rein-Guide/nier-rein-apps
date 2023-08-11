@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMFieldEffectGroup
     {
         [Key(0)]
-        public int FieldEffectGroupId { get; set; } // 0x10
+        public int FieldEffectGroupId { get; set; }
 
         [Key(1)]
-        public int FieldEffectGroupIndex { get; set; } // 0x14
+        public int FieldEffectGroupIndex { get; set; }
 
         [Key(2)]
-        public int AbilityId { get; set; } // 0x18
+        public int AbilityId { get; set; }
 
         [Key(3)]
-        public int DefaultAbilityLevel { get; set; } // 0x1C
+        public int DefaultAbilityLevel { get; set; }
 
         [Key(4)]
-        public FieldEffectApplyScopeType FieldEffectApplyScopeType { get; set; } // 0x20
+        public FieldEffectApplyScopeType FieldEffectApplyScopeType { get; set; }
 
         [Key(5)]
-        public int FieldEffectAssetId { get; set; } // 0x24
+        public int FieldEffectAssetId { get; set; }
     }
 }

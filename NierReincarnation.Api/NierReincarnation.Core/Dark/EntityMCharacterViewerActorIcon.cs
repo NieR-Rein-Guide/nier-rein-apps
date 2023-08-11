@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterViewerActorIcon
     {
         [Key(0)]
-        public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; } // 0x10
+        public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; }
 
         [Key(1)]
-        public int SkeletonId { get; set; } // 0x14
+        public int SkeletonId { get; set; }
 
         [Key(2)]
-        public int AssetVariationId { get; set; } // 0x18
+        public int AssetVariationId { get; set; }
 
         [Key(3)]
-        public int OverrideCostumeAssetCategoryType { get; set; } // 0x1C
+        public int OverrideCostumeAssetCategoryType { get; set; }
 
         [Key(4)]
-        public int OverrideIconSkeletonId { get; set; } // 0x20
+        public int OverrideIconSkeletonId { get; set; }
 
         [Key(5)]
-        public int OverrideIconAssetVariationId { get; set; } // 0x24
+        public int OverrideIconAssetVariationId { get; set; }
     }
 }

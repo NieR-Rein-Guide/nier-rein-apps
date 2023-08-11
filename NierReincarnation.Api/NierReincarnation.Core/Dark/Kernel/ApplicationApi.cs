@@ -6,9 +6,9 @@ namespace NierReincarnation.Core.Dark.Kernel
     // Dark.Kernel.ApplicationApi
     static class ApplicationApi
     {
-        // 0x00
+       
         private static readonly string UnregistUserName = "Un-regist User Name";
-        // 0x08
+       
         public static readonly string kEntrypointSceneName = "dark_gameplay";
 
         public static void Run()

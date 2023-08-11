@@ -10,27 +10,27 @@ namespace NierReincarnation.Core.Octo.Caching
     {
         // Stubbed for compilation
 
-        private static readonly string Tag; // 0x0
+        private static readonly string Tag;
 
-        private Action OnWarmupCompleted; // 0x10
-        private TimeSpan _expirationDelay; // 0x18
-        private long _maximumAvailableDiskSpace; // 0x20
-        private long _spaceOccupied; // 0x28
-        //protected Dictionary<string, Storage> _storageDictionary; // 0x30
-        //private StorageList _sortStorageList; // 0x38
-        private string _saveDirectory; // 0x40
-        private string _downloadDirectory; // 0x48
-        private bool _isAutoDelete; // 0x50
-        private bool _isConstructing; // 0x51
-        private bool _needToRetrieve; // 0x52
-        private List<DirectoryInfo> _initialDirectories; // 0x58
-        private ManualResetEvent _initialDirectoriesGetCompletedEvent; // 0x60
-        //private CacheDeleteExecutor _deleteExecutor; // 0x68
-        private ManualResetEvent _warmupThreadWaitEvent; // 0x70
-        private bool _isNeededToPauseWarmup; // 0x78
-        //protected WarmupState _warmupState; // 0x79
-        private object _storageModifyMutex; // 0x80
-        private object _initialDirectoriesMutex; // 0x88
+        private Action OnWarmupCompleted;
+        private TimeSpan _expirationDelay;
+        private long _maximumAvailableDiskSpace;
+        private long _spaceOccupied;
+        //protected Dictionary<string, Storage> _storageDictionary;
+        //private StorageList _sortStorageList;
+        private string _saveDirectory;
+        private string _downloadDirectory;
+        private bool _isAutoDelete;
+        private bool _isConstructing;
+        private bool _needToRetrieve;
+        private List<DirectoryInfo> _initialDirectories;
+        private ManualResetEvent _initialDirectoriesGetCompletedEvent;
+        //private CacheDeleteExecutor _deleteExecutor;
+        private ManualResetEvent _warmupThreadWaitEvent;
+        private bool _isNeededToPauseWarmup;
+        //protected WarmupState _warmupState;
+        private object _storageModifyMutex;
+        private object _initialDirectoriesMutex;
 
         public OctoBaseCaching(IOctoSettings settings, bool isAutoDelete) :
             this(isAutoDelete, FileUtil.UnsafePathCombine("v1", settings.AppId.ToString()), "d", "t")

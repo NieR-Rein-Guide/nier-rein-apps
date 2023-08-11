@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMGimmickExtraQuest
     {
         [Key(0)]
-        public int GimmickId { get; set; } // 0x10
+        public int GimmickId { get; set; }
 
         [Key(1)]
-        public int GimmickOrnamentIndex { get; set; } // 0x14
+        public int GimmickOrnamentIndex { get; set; }
 
         [Key(2)]
-        public int ExtraQuestId { get; set; } // 0x18
+        public int ExtraQuestId { get; set; }
     }
 }

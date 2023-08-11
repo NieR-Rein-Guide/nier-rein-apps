@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillCasttime
     {
         [Key(0)]
-        public int SkillCasttimeId { get; set; } // 0x10
+        public int SkillCasttimeId { get; set; }
 
         [Key(1)]
-        public int SkillCasttimeValue { get; set; } // 0x14
+        public int SkillCasttimeValue { get; set; }
 
         [Key(2)]
-        public int SkillCasttimeBehaviourGroupId { get; set; } // 0x18
+        public int SkillCasttimeBehaviourGroupId { get; set; }
     }
 }

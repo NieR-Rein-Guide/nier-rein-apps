@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeSpecialActActiveSkillConditionAttribute
     {
         [Key(0)]
-        public int CostumeSpecialActActiveSkillConditionId { get; set; } // 0x10
+        public int CostumeSpecialActActiveSkillConditionId { get; set; }
 
         [Key(1)]
-        public int CostumeSpecialActActiveSkillConditionAttributeType { get; set; } // 0x14
+        public int CostumeSpecialActActiveSkillConditionAttributeType { get; set; }
     }
 }

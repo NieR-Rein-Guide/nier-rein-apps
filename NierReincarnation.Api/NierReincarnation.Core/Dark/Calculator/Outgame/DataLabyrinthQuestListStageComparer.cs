@@ -10,9 +10,9 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
     public sealed class DataLabyrinthQuestListStageComparer : IComparer<DataLabyrinthQuestListStage>
     {
         // Fields
-        public static readonly DataLabyrinthQuestListStageComparer InstanceAscending=new DataLabyrinthQuestListStageComparer(true); // 0x0
-        public static readonly DataLabyrinthQuestListStageComparer InstanceDescending=new DataLabyrinthQuestListStageComparer(false); // 0x8
-        private readonly bool _ascending; // 0x10
+        public static readonly DataLabyrinthQuestListStageComparer InstanceAscending=new DataLabyrinthQuestListStageComparer(true);
+        public static readonly DataLabyrinthQuestListStageComparer InstanceDescending=new DataLabyrinthQuestListStageComparer(false);
+        private readonly bool _ascending;
 
         // Methods
 

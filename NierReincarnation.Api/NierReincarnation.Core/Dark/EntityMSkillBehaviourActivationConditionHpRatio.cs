@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActivationConditionHpRatio
     {
         [Key(0)]
-        public int SkillBehaviourActivationConditionId { get; set; } // 0x10
+        public int SkillBehaviourActivationConditionId { get; set; }
 
         [Key(1)]
-        public SkillBehaviourActivationConditionHpRatioThresholdType SkillBehaviourActivationConditionHpRatioThresholdType { get; set; } // 0x14
+        public SkillBehaviourActivationConditionHpRatioThresholdType SkillBehaviourActivationConditionHpRatioThresholdType { get; set; }
 
         [Key(2)]
-        public int ThresholdRatioPermil { get; set; } // 0x18
+        public int ThresholdRatioPermil { get; set; }
     }
 }

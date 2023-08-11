@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleBigHuntDamageThresholdGroup
     {
         [Key(0)]
-        public int KnockDownDamageThresholdGroupId { get; set; } // 0x10
+        public int KnockDownDamageThresholdGroupId { get; set; }
 
         [Key(1)]
-        public int KnockDownDamageThresholdGroupOrder { get; set; } // 0x14
+        public int KnockDownDamageThresholdGroupOrder { get; set; }
 
         [Key(2)]
-        public int KnockDownCumulativeDamageThreshold { get; set; } // 0x18
+        public int KnockDownCumulativeDamageThreshold { get; set; }
 
         [Key(3)]
-        public bool IsKnockDown { get; set; } // 0x1C
+        public bool IsKnockDown { get; set; }
 
         [Key(4)]
-        public int KnockDownDurationFrameCount { get; set; } // 0x20
+        public int KnockDownDurationFrameCount { get; set; }
 
         [Key(5)]
-        public int DamageRatio { get; set; } // 0x24
+        public int DamageRatio { get; set; }
     }
 }

@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestTowerAccumulationReward
     {
         [Key(0)]
-        public int EventQuestChapterId { get; set; } // 0x10
+        public int EventQuestChapterId { get; set; }
 
         [Key(1)]
-        public int EventQuestTowerAccumulationRewardGroupId { get; set; } // 0x14
+        public int EventQuestTowerAccumulationRewardGroupId { get; set; }
     }
 }

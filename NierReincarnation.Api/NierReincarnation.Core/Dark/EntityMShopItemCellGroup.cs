@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopItemCellGroup
     {
         [Key(0)] // RVA: 0x1DDFCAC Offset: 0x1DDFCAC VA: 0x1DDFCAC
-        public int ShopItemCellGroupId { get; set; } // 0x10
+        public int ShopItemCellGroupId { get; set; }
 
         [Key(1)] // RVA: 0x1DDFCEC Offset: 0x1DDFCEC VA: 0x1DDFCEC
-        public int ShopItemCellId { get; set; } // 0x14
+        public int ShopItemCellId { get; set; }
 
         [Key(2)] // RVA: 0x1DDFD2C Offset: 0x1DDFD2C VA: 0x1DDFD2C
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)] // RVA: 0x1DDFD40 Offset: 0x1DDFD40 VA: 0x1DDFD40
-        public int ShopItemCellTermId { get; set; } // 0x1C
+        public int ShopItemCellTermId { get; set; }
     }
 }

@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestSceneChoiceWeaponEffectGroup
     {
         [Key(0)]
-        public int QuestSceneChoiceWeaponEffectGroupId { get; set; } // 0x10
+        public int QuestSceneChoiceWeaponEffectGroupId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public int WeaponId { get; set; } // 0x18
+        public int WeaponId { get; set; }
     }
 }

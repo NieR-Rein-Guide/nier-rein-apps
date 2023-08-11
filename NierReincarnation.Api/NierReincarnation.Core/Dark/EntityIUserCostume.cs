@@ -8,33 +8,33 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserCostume
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public string UserCostumeUuid { get; set; } // 0x18
+        public string UserCostumeUuid { get; set; }
 
         [Key(2)]
-        public int CostumeId { get; set; } // 0x20
+        public int CostumeId { get; set; }
 
         [Key(3)]
-        public int LimitBreakCount { get; set; } // 0x24
+        public int LimitBreakCount { get; set; }
 
         [Key(4)]
-        public int Level { get; set; } // 0x28
+        public int Level { get; set; }
 
         [Key(5)]
-        public int Exp { get; set; } // 0x2C
+        public int Exp { get; set; }
 
         [Key(6)]
-        public int HeadupDisplayViewId { get; set; } // 0x30
+        public int HeadupDisplayViewId { get; set; }
 
         [Key(7)]
-        public long AcquisitionDatetime { get; set; } // 0x38
+        public long AcquisitionDatetime { get; set; }
 
         [Key(8)]
-        public int AwakenCount { get; set; } // 0x40
+        public int AwakenCount { get; set; }
 
         [Key(9)]
-        public long LatestVersion { get; set; } // 0x48
+        public long LatestVersion { get; set; }
     }
 }

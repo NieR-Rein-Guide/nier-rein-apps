@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponAwakenEffectGroup
     {
         [Key(0)]
-        public int WeaponAwakenEffectGroupId { get; set; } // 0x10
+        public int WeaponAwakenEffectGroupId { get; set; }
 
         [Key(1)]
-        public int WeaponAwakenEffectType { get; set; } // 0x14
+        public int WeaponAwakenEffectType { get; set; }
 
         [Key(2)]
-        public int WeaponAwakenEffectId { get; set; } // 0x18
+        public int WeaponAwakenEffectId { get; set; }
     }
 }

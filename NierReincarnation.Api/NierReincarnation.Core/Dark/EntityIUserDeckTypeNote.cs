@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserDeckTypeNote
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public DeckType DeckType { get; set; } // 0x18
+        public DeckType DeckType { get; set; }
 
         [Key(2)]
-        public int MaxDeckPower { get; set; } // 0x1C
+        public int MaxDeckPower { get; set; }
 
         [Key(3)]
-        public long LatestVersion { get; set; } // 0x20
+        public long LatestVersion { get; set; }
     }
 }

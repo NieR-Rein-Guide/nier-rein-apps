@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserThought
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public string UserThoughtUuid { get; set; } // 0x18
+        public string UserThoughtUuid { get; set; }
 
         [Key(2)]
-        public int ThoughtId { get; set; } // 0x20
+        public int ThoughtId { get; set; }
 
         [Key(3)]
-        public long AcquisitionDatetime { get; set; } // 0x28
+        public long AcquisitionDatetime { get; set; }
 
         [Key(4)]
-        public long LatestVersion { get; set; } // 0x30
+        public long LatestVersion { get; set; }
     }
 }

@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestRelationMainFlow
     {
         [Key(0)]
-        public int MainFlowQuestId { get; set; } // 0x10
+        public int MainFlowQuestId { get; set; }
 
         [Key(1)]
-        public DifficultyType DifficultyType { get; set; } // 0x14
+        public DifficultyType DifficultyType { get; set; }
 
         [Key(2)]
-        public int ReplayFlowQuestId { get; set; } // 0x18
+        public int ReplayFlowQuestId { get; set; }
 
         [Key(3)]
-        public int SubFlowQuestId { get; set; } // 0x1C
+        public int SubFlowQuestId { get; set; }
     }
 }

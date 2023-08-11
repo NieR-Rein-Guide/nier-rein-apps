@@ -9,69 +9,69 @@ namespace NierReincarnation.Core.Dark.Component.WorldMap
 {
     public sealed class WorldMapGimmickModel
     {
-        private static readonly int kInvalidId = -1; // 0x0
-        private static readonly int kTerminalSequenceGroupId = 0; // 0x4
-        public static readonly int kTerminalSequenceId = 0; // 0x8
-        private static readonly int kPortalCageChapterId = 0; // 0xC
-        private static readonly int MaxGimmickOrnament = 0x400; // 0x10
-        private static readonly int MaxGimmickSequenceGroup = 0x400; // 0x14
-        private static readonly int MaxGimmickSequence = 0x400; // 0x18
-        private static readonly int MaxGimmickSequenceSchedule = 0x400; // 0x1C
-        private static readonly int MaxGimmick = 0x400; // 0x20
-        private static readonly int MaxGimmickGroup = 0x400; // 0x24
-        private static readonly int MaxGimmickSequenceRewardGroup = 0x400; // 0x28
-        private static readonly int MaxGimmickInterval = 0x400; // 0x2C
-        private static readonly int MaxEvaluateCondition = 0x400; // 0x30
-        private static readonly int MaxEvaluateConditionValueGroup = 0x400; // 0x34
-        private static readonly int MaxUserGimmick = 0x400; // 0x38
-        private static readonly int MaxUserGimmickSequence = 0x400; // 0x3C
-        private static readonly int MaxUserGimmickOrnamentProgress = 0x400; // 0x40
-        private static readonly int MaxGimmickOrnamentCage = 0x80; // 0x44
-        private static readonly int MaxWorldMapGimmickOutGame = 0x400; // 0x48
-        //private static readonly int MaxProcessAwait = 0x32; // 0x4C
+        private static readonly int kInvalidId = -1;
+        private static readonly int kTerminalSequenceGroupId = 0;
+        public static readonly int kTerminalSequenceId = 0;
+        private static readonly int kPortalCageChapterId = 0;
+        private static readonly int MaxGimmickOrnament = 0x400;
+        private static readonly int MaxGimmickSequenceGroup = 0x400;
+        private static readonly int MaxGimmickSequence = 0x400;
+        private static readonly int MaxGimmickSequenceSchedule = 0x400;
+        private static readonly int MaxGimmick = 0x400;
+        private static readonly int MaxGimmickGroup = 0x400;
+        private static readonly int MaxGimmickSequenceRewardGroup = 0x400;
+        private static readonly int MaxGimmickInterval = 0x400;
+        private static readonly int MaxEvaluateCondition = 0x400;
+        private static readonly int MaxEvaluateConditionValueGroup = 0x400;
+        private static readonly int MaxUserGimmick = 0x400;
+        private static readonly int MaxUserGimmickSequence = 0x400;
+        private static readonly int MaxUserGimmickOrnamentProgress = 0x400;
+        private static readonly int MaxGimmickOrnamentCage = 0x80;
+        private static readonly int MaxWorldMapGimmickOutGame = 0x400;
+        //private static readonly int MaxProcessAwait = 0x32;
 
-        private GimmickOrnament[] _gimmickOrnamentsMaster; // 0x10
-        private GimmickSequenceGroup[] _gimmickSequenceGroupsMaster; // 0x18
-        private GimmickSequence[] _gimmickSequencesMaster; // 0x20
-        private GimmickSequenceRewardGroup[] _gimmickSequenceRewardGroupsMaster; // 0x28
-        private GimmickSequenceSchedule[] _gimmickSequenceScheduleMaster; // 0x30
-        private Gimmick[] _gimmickMaster; // 0x38
-        private GimmickGroup[] _gimmickGroupMaster; // 0x40
-        private GimmickInterval[] _gimmickIntervalMaster; // 0x48
-        private EvaluateCondition[] _evaluateConditionMaster; // 0x50
-        private EvaluateConditionValueGroup[] _evaluateConditionValueGroupMaster; // 0x58
-        private UserGimmick[] _userGimmickMaster; // 0x60
-        private UserGimmickSequence[] _userGimmickSequenceMaster; // 0x68
-        private UserGimmickOrnamentProgress[] _userGimmickOrnamentProgressMaster; // 0x70
-        private GimmickOrnament[] _gimmickOrnamentsCache; // 0x78
-        private GimmickSequenceGroup[] _gimmickSequenceGroupsCache; // 0x80
-        private GimmickSequence[] _gimmickSequencesCache; // 0x88
-        private GimmickSequenceRewardGroup[] _gimmickSequenceRewardGroupsCache; // 0x90
-        private GimmickSequenceSchedule[] _gimmickSequenceScheduleCache; // 0x98
-        private Gimmick[] _gimmickCache; // 0xA0
-        private GimmickGroup[] _gimmickGroupCache; // 0xA8
-        private GimmickInterval[] _gimmickIntervalCache; // 0xB0
-        private EvaluateCondition[] _evaluateConditionCache; // 0xB8
-        private EvaluateConditionValueGroup[] _evaluateConditionValueGroupCache; // 0xC0
-        private UserGimmick[] _userGimmickCache; // 0xC8
-        private UserGimmickSequence[] _userGimmickSequenceCache; // 0xD0
-        private UserGimmickOrnamentProgress[] _userGimmickOrnamentProgressCache; // 0xD8
-        private GimmickOrnamentCage[] _gimmickOrnamentCagesMaster; // 0xE0
-        private GimmickOrnamentCage[] _gimmickOrnamentCagesCache; // 0xE8
-        private WorldMapGimmickOutGame[] _worldMapGimmickOutGamesMaster; // 0xF0
-        private WorldMapGimmickOutGame[] _worldMapGimmickOutGamesCache; // 0xF8
-        private int _gimmickOrnamentsCacheCount; // 0x100
-        private int _gimmickSequenceGroupsCacheCount; // 0x104
-        private int _gimmickSequencesCacheCount; // 0x108
-        private int _gimmickSequenceScheduleCacheCount; // 0x10C
-        private int _gimmickCacheCount; // 0x110
-        private int _gimmickGroupCacheCount; // 0x114
-        private int _gimmickIntervalCacheCount; // 0x118
-        private int _gimmickOrnamentCagesCacheCount; // 0x11C
-        private int _worldMapGimmickOutGameCacheCount; // 0x120
-        private int _userGimmickCacheCount; // 0x124
-        private int _userGimmickSequenceCacheCount; // 0x128
-        private int _userGimmickOrnamentProgressCacheCount; // 0x12C
+        private GimmickOrnament[] _gimmickOrnamentsMaster;
+        private GimmickSequenceGroup[] _gimmickSequenceGroupsMaster;
+        private GimmickSequence[] _gimmickSequencesMaster;
+        private GimmickSequenceRewardGroup[] _gimmickSequenceRewardGroupsMaster;
+        private GimmickSequenceSchedule[] _gimmickSequenceScheduleMaster;
+        private Gimmick[] _gimmickMaster;
+        private GimmickGroup[] _gimmickGroupMaster;
+        private GimmickInterval[] _gimmickIntervalMaster;
+        private EvaluateCondition[] _evaluateConditionMaster;
+        private EvaluateConditionValueGroup[] _evaluateConditionValueGroupMaster;
+        private UserGimmick[] _userGimmickMaster;
+        private UserGimmickSequence[] _userGimmickSequenceMaster;
+        private UserGimmickOrnamentProgress[] _userGimmickOrnamentProgressMaster;
+        private GimmickOrnament[] _gimmickOrnamentsCache;
+        private GimmickSequenceGroup[] _gimmickSequenceGroupsCache;
+        private GimmickSequence[] _gimmickSequencesCache;
+        private GimmickSequenceRewardGroup[] _gimmickSequenceRewardGroupsCache;
+        private GimmickSequenceSchedule[] _gimmickSequenceScheduleCache;
+        private Gimmick[] _gimmickCache;
+        private GimmickGroup[] _gimmickGroupCache;
+        private GimmickInterval[] _gimmickIntervalCache;
+        private EvaluateCondition[] _evaluateConditionCache;
+        private EvaluateConditionValueGroup[] _evaluateConditionValueGroupCache;
+        private UserGimmick[] _userGimmickCache;
+        private UserGimmickSequence[] _userGimmickSequenceCache;
+        private UserGimmickOrnamentProgress[] _userGimmickOrnamentProgressCache;
+        private GimmickOrnamentCage[] _gimmickOrnamentCagesMaster;
+        private GimmickOrnamentCage[] _gimmickOrnamentCagesCache;
+        private WorldMapGimmickOutGame[] _worldMapGimmickOutGamesMaster;
+        private WorldMapGimmickOutGame[] _worldMapGimmickOutGamesCache;
+        private int _gimmickOrnamentsCacheCount;
+        private int _gimmickSequenceGroupsCacheCount;
+        private int _gimmickSequencesCacheCount;
+        private int _gimmickSequenceScheduleCacheCount;
+        private int _gimmickCacheCount;
+        private int _gimmickGroupCacheCount;
+        private int _gimmickIntervalCacheCount;
+        private int _gimmickOrnamentCagesCacheCount;
+        private int _worldMapGimmickOutGameCacheCount;
+        private int _userGimmickCacheCount;
+        private int _userGimmickSequenceCacheCount;
+        private int _userGimmickOrnamentProgressCacheCount;
 
         public void OnInitialize()
         {

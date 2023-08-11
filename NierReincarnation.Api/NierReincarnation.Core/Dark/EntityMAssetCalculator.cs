@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMAssetCalculator
     {
         [Key(0)]
-        public int AssetCalculatorId { get; set; } // 0x10
+        public int AssetCalculatorId { get; set; }
 
         [Key(1)]
-        public int UseCalculatorType { get; set; } // 0x14
+        public int UseCalculatorType { get; set; }
 
         [Key(2)]
-        public string AssetPath { get; set; } // 0x18
+        public string AssetPath { get; set; }
     }
 }

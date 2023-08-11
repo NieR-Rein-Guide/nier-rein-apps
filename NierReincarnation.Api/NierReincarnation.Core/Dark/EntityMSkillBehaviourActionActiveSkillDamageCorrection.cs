@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionActiveSkillDamageCorrection
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int CorrectionValuePermil { get; set; } // 0x14
+        public int CorrectionValuePermil { get; set; }
     }
 }

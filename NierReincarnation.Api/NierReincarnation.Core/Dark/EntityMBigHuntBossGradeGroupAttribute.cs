@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBigHuntBossGradeGroupAttribute
     {
         [Key(0)]
-        public int AttributeType { get; set; } // 0x10
+        public int AttributeType { get; set; }
 
         [Key(1)]
-        public int BigHuntBossGradeGroupId { get; set; } // 0x14
+        public int BigHuntBossGradeGroupId { get; set; }
     }
 }

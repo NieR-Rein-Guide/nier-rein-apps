@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopDisplayPrice
     {
         [Key(0)]
-        public PriceType PriceType { get; set; } // 0x10
+        public PriceType PriceType { get; set; }
 
         [Key(1)]
-        public int PriceId { get; set; } // 0x14
+        public int PriceId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
     }
 }

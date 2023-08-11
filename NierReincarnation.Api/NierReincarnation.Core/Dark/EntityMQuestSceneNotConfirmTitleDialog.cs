@@ -8,6 +8,6 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestSceneNotConfirmTitleDialog
     {
         [Key(0)]
-        public int QuestSceneId { get; set; } // 0x10
+        public int QuestSceneId { get; set; }
     }
 }

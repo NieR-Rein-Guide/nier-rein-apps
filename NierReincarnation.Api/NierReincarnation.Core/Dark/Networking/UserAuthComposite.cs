@@ -15,7 +15,7 @@ namespace NierReincarnation.Core.Dark.Networking
     class UserAuthComposite
     {
         // Fields
-        private static UserAuthComposite _userAuthComposite; // 0x0
+        private static UserAuthComposite _userAuthComposite;
 
         // Methods
 

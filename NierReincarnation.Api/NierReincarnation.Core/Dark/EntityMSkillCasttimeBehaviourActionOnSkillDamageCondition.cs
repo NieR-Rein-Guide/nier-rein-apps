@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillCasttimeBehaviourActionOnSkillDamageCondition
     {
         [Key(0)]
-        public int SkillCasttimeBehaviourActionId { get; set; } // 0x10
+        public int SkillCasttimeBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int SkillCasttimeUpdateValue { get; set; } // 0x14
+        public int SkillCasttimeUpdateValue { get; set; }
 
         [Key(2)]
-        public SkillCasttimeAdvanceType SkillCasttimeAdvanceType { get; set; } // 0x18
+        public SkillCasttimeAdvanceType SkillCasttimeAdvanceType { get; set; }
 
         [Key(3)]
-        public int DamageCompareType { get; set; } // 0x1C
+        public int DamageCompareType { get; set; }
 
         [Key(4)]
-        public int DamageConditionValue { get; set; } // 0x20
+        public int DamageConditionValue { get; set; }
     }
 }

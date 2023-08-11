@@ -21,30 +21,30 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorQuest
     {
-        public static readonly int kInvalidChapterId = 0; // 0x0
-        public static readonly int kInvalidQuestId = 0; // 0x4
-        private const int kInvalidSeasonId = 0; // 0x8
-        private const int kInvalidQuestMissionConditionGroupId = 0; // 0xC
-        private const int kNotFindEventId = 0; // 0x10
-        private const long kMinuteToMilliSeconds = 60000; // 0x18
-        private const int kQuestStringCapacity = 256; // 0x20
-        private const int kQuestScheduleWarningCount = 1000; // 0x24
-        private const int kDefaultSeasonSortOrder = 1; // 0x28
-        private const int kCronLastMinuteDiff = 1; // 0x2C
-        private static readonly Regex kTimeTableRegex = new("\\*"); // 0x30
-        private const int kRegexReplaceCount = 1; // 0x38
-        private const int kDailyOnlyOnce = 1; // 0x3C
-        private const int kCharacterExQuestChapterCapacity = 2; // 0x40
-        private const DifficultyType kDailyQuestDifficultyType = DifficultyType.NORMAL; // 0x44
-        private static readonly ValueTuple<int, int> kInvalidChapterIdAndQuestId = new(0, 0); // 0x48
-        private const int kDisplayChapterListMinCount = 2; // 0x50
-        private const int kLimitDailyQuestClearableCount = 1; // 0x54
-        private const int kLimitDailyChapterQuestCount = 1; // 0x58
-        private const int kLimitDailyQuestIndex = 0; // 0x5C
-        private static readonly List<EntityMMainQuestSequence> GenericMainQuestSeqList = new(); // 0x78
-        private static readonly List<EntityMEventQuestSequence> GenericEventQuestSeqList = new(); // 0x80
-        public static readonly float kAutoTransitionCount = 3f; // 0x88
-        public static readonly int kMaxAutoAvailableCount = 10; // 0x8C
+        public static readonly int kInvalidChapterId = 0;
+        public static readonly int kInvalidQuestId = 0;
+        private const int kInvalidSeasonId = 0;
+        private const int kInvalidQuestMissionConditionGroupId = 0;
+        private const int kNotFindEventId = 0;
+        private const long kMinuteToMilliSeconds = 60000;
+        private const int kQuestStringCapacity = 256;
+        private const int kQuestScheduleWarningCount = 1000;
+        private const int kDefaultSeasonSortOrder = 1;
+        private const int kCronLastMinuteDiff = 1;
+        private static readonly Regex kTimeTableRegex = new("\\*");
+        private const int kRegexReplaceCount = 1;
+        private const int kDailyOnlyOnce = 1;
+        private const int kCharacterExQuestChapterCapacity = 2;
+        private const DifficultyType kDailyQuestDifficultyType = DifficultyType.NORMAL;
+        private static readonly ValueTuple<int, int> kInvalidChapterIdAndQuestId = new(0, 0);
+        private const int kDisplayChapterListMinCount = 2;
+        private const int kLimitDailyQuestClearableCount = 1;
+        private const int kLimitDailyChapterQuestCount = 1;
+        private const int kLimitDailyQuestIndex = 0;
+        private static readonly List<EntityMMainQuestSequence> GenericMainQuestSeqList = new();
+        private static readonly List<EntityMEventQuestSequence> GenericEventQuestSeqList = new();
+        public static readonly float kAutoTransitionCount = 3f;
+        public static readonly int kMaxAutoAvailableCount = 10;
 
         public static bool HasScenario(EntityMQuest quest) => quest != null ? quest.StoryQuestTextId != 0 : throw new NullReferenceException();
 

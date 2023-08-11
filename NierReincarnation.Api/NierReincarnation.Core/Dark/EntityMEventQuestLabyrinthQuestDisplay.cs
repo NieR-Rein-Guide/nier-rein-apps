@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLabyrinthQuestDisplay
     {
         [Key(0)]
-        public int QuestId { get; set; } // 0x10
+        public int QuestId { get; set; }
 
         [Key(1)]
-        public int BgAssetId { get; set; } // 0x14
+        public int BgAssetId { get; set; }
 
         [Key(2)]
-        public int MobId { get; set; } // 0x18
+        public int MobId { get; set; }
     }
 }

@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMGimmick
     {
         [Key(0)]
-        public int GimmickId { get; set; } // 0x10
+        public int GimmickId { get; set; }
 
         [Key(1)]
-        public GimmickType GimmickType { get; set; } // 0x14
+        public GimmickType GimmickType { get; set; }
 
         [Key(2)]
-        public int GimmickOrnamentGroupId { get; set; } // 0x18
+        public int GimmickOrnamentGroupId { get; set; }
 
         [Key(3)]
-        public int ClearEvaluateConditionId { get; set; } // 0x1C
+        public int ClearEvaluateConditionId { get; set; }
 
         [Key(4)]
-        public int ReleaseEvaluateConditionId { get; set; } // 0x20
+        public int ReleaseEvaluateConditionId { get; set; }
     }
 }

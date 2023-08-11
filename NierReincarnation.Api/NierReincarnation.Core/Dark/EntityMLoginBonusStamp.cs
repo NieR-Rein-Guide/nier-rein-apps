@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMLoginBonusStamp
     {
         [Key(0)]
-        public int LoginBonusId { get; set; } // 0x10
+        public int LoginBonusId { get; set; }
 
         [Key(1)]
-        public int LowerPageNumber { get; set; } // 0x14
+        public int LowerPageNumber { get; set; }
 
         [Key(2)]
-        public int StampNumber { get; set; } // 0x18
+        public int StampNumber { get; set; }
 
         [Key(3)]
-        public int RewardPossessionType { get; set; } // 0x1C
+        public int RewardPossessionType { get; set; }
 
         [Key(4)]
-        public int RewardPossessionId { get; set; } // 0x20
+        public int RewardPossessionId { get; set; }
 
         [Key(5)]
-        public int RewardCount { get; set; } // 0x24
+        public int RewardCount { get; set; }
     }
 }

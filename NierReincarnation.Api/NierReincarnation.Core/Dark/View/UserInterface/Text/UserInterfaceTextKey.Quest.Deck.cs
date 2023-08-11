@@ -6,8 +6,8 @@
         {
             public static class Deck
             {
-                public static readonly string kOrganizationErrorEmptyTextKey = "ui.Outgame.Quest.Deck.Organization.Error.Empty"; // 0x0
-                public static readonly string kOrganizationErrorRestrictionCostumeTextKey = "ui.Outgame.Quest.Deck.Organization.Error.RestrictionCostume"; // 0x8
+                public static readonly string kOrganizationErrorEmptyTextKey = "ui.Outgame.Quest.Deck.Organization.Error.Empty";
+                public static readonly string kOrganizationErrorRestrictionCostumeTextKey = "ui.Outgame.Quest.Deck.Organization.Error.RestrictionCostume";
             }
         }
     }

@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestReleaseConditionQuestChallenge
     {
         [Key(0)]
-        public int QuestReleaseConditionId { get; set; } // 0x10
+        public int QuestReleaseConditionId { get; set; }
 
         [Key(1)]
-        public int QuestId { get; set; } // 0x14
+        public int QuestId { get; set; }
     }
 }

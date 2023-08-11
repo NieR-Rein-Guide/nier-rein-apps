@@ -4,9 +4,9 @@
     {
         public static class Loading
         {
-            public static readonly string kConfirmMessageNoneLoadData = "ui.Loading.Confirm.Message.NoneLoadData"; // 0x0
-            public static readonly string kConfirmTitle = "ui.Loading.Confirm.Title"; // 0x8
-            public static readonly string kConfirmWithSize = "ui.Loading.Confirm.WithSize"; // 0x10
+            public static readonly string kConfirmMessageNoneLoadData = "ui.Loading.Confirm.Message.NoneLoadData";
+            public static readonly string kConfirmTitle = "ui.Loading.Confirm.Title";
+            public static readonly string kConfirmWithSize = "ui.Loading.Confirm.WithSize";
         }
     }
 }

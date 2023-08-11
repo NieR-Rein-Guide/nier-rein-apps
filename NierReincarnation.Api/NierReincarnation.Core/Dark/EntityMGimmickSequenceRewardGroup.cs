@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMGimmickSequenceRewardGroup
     {
         [Key(0)]
-        public int GimmickSequenceRewardGroupId { get; set; } // 0x10
+        public int GimmickSequenceRewardGroupId { get; set; }
 
         [Key(1)]
-        public int GroupIndex { get; set; } // 0x14
+        public int GroupIndex { get; set; }
 
         [Key(2)]
-        public PossessionType PossessionType { get; set; } // 0x18
+        public PossessionType PossessionType { get; set; }
 
         [Key(3)]
-        public int PossessionId { get; set; } // 0x1C
+        public int PossessionId { get; set; }
 
         [Key(4)]
-        public int Count { get; set; } // 0x20
+        public int Count { get; set; }
     }
 }

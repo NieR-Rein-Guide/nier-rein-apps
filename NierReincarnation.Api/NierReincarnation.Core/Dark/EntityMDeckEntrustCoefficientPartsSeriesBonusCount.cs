@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMDeckEntrustCoefficientPartsSeriesBonusCount
     {
         [Key(0)]
-        public int PartsSeriesBonusCount { get; set; } // 0x10
+        public int PartsSeriesBonusCount { get; set; }
 
         [Key(1)]
-        public int CoefficientPermil { get; set; } // 0x14
+        public int CoefficientPermil { get; set; }
     }
 }

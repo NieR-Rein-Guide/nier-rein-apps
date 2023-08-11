@@ -9,27 +9,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityMAppealDialog
     {
         [Key(0)]
-        public int AppealDialogId { get; set; } // 0x10
+        public int AppealDialogId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public AppealTargetType AppealTargetType { get; set; } // 0x18
+        public AppealTargetType AppealTargetType { get; set; }
 
         [Key(3)]
-        public int AppealTargetId { get; set; } // 0x1C
+        public int AppealTargetId { get; set; }
 
         [Key(4)]
-        public long StartDatetime { get; set; } // 0x20
+        public long StartDatetime { get; set; }
 
         [Key(5)]
-        public long EndDatetime { get; set; } // 0x28
+        public long EndDatetime { get; set; }
 
         [Key(6)]
-        public int TitleTextId { get; set; } // 0x30
+        public int TitleTextId { get; set; }
 
         [Key(7)]
-        public int AssetId { get; set; } // 0x34
+        public int AssetId { get; set; }
     }
 }

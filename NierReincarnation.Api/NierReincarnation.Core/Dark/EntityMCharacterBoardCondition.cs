@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardCondition
     {
         [Key(0)]
-        public int CharacterBoardConditionGroupId { get; set; } // 0x10
+        public int CharacterBoardConditionGroupId { get; set; }
 
         [Key(1)]
-        public int GroupIndex { get; set; } // 0x14
+        public int GroupIndex { get; set; }
 
         [Key(2)]
-        public CharacterBoardConditionType CharacterBoardConditionType { get; set; } // 0x18
+        public CharacterBoardConditionType CharacterBoardConditionType { get; set; }
 
         [Key(3)]
-        public int CharacterBoardConditionDetailId { get; set; } // 0x1C
+        public int CharacterBoardConditionDetailId { get; set; }
 
         [Key(4)]
-        public int CharacterBoardConditionIgnoreId { get; set; } // 0x20
+        public int CharacterBoardConditionIgnoreId { get; set; }
 
         [Key(5)]
-        public int ConditionValue { get; set; } // 0x24
+        public int ConditionValue { get; set; }
     }
 }

@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterRebirthStepGroup
     {
         [Key(0)]
-        public int CharacterRebirthStepGroupId { get; set; } // 0x10
+        public int CharacterRebirthStepGroupId { get; set; }
 
         [Key(1)]
-        public int BeforeRebirthCount { get; set; } // 0x14
+        public int BeforeRebirthCount { get; set; }
 
         [Key(2)]
-        public int CostumeLevelLimitUp { get; set; } // 0x18
+        public int CostumeLevelLimitUp { get; set; }
 
         [Key(3)]
-        public int CharacterRebirthMaterialGroupId { get; set; } // 0x1C
+        public int CharacterRebirthMaterialGroupId { get; set; }
     }
 }

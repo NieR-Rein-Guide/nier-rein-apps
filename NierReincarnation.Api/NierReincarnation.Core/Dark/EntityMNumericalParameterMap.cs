@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMNumericalParameterMap
     {
         [Key(0)]
-        public int NumericalParameterMapId { get; set; } // 0x10
+        public int NumericalParameterMapId { get; set; }
 
         [Key(1)]
-        public int ParameterKey { get; set; } // 0x14
+        public int ParameterKey { get; set; }
 
         [Key(2)]
-        public int ParameterValue { get; set; } // 0x18
+        public int ParameterValue { get; set; }
     }
 }

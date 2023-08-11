@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestSceneOutgameBlendshapeMotion
     {
         [Key(0)]
-        public int QuestSceneId { get; set; } // 0x10
+        public int QuestSceneId { get; set; }
 
         [Key(1)]
-        public int ActorAnimationId { get; set; } // 0x14
+        public int ActorAnimationId { get; set; }
     }
 }

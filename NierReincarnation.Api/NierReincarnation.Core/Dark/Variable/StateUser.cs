@@ -3,8 +3,8 @@
     // Dark.Variable.StateUser
     class StateUser
     {
-        public long Id; // 0x10
-        public string Uuid; // 0x18
-        public string Signature; // 0x20
+        public long Id;
+        public string Uuid;
+        public string Signature;
     }
 }

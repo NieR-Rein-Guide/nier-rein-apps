@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionDefaultSkillLottery
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int TargetCountLower { get; set; } // 0x14
+        public int TargetCountLower { get; set; }
 
         [Key(2)]
-        public int TargetCountUpper { get; set; } // 0x18
+        public int TargetCountUpper { get; set; }
 
         [Key(3)]
-        public int ValuePermil { get; set; } // 0x1C
+        public int ValuePermil { get; set; }
 
         [Key(4)]
-        public int CalculationType { get; set; } // 0x20
+        public int CalculationType { get; set; }
     }
 }

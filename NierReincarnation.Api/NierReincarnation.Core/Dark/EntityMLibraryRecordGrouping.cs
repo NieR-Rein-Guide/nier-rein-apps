@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMLibraryRecordGrouping
     {
         [Key(0)]
-        public LibraryRecordType LibraryRecordType { get; set; } // 0x10
+        public LibraryRecordType LibraryRecordType { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public int LibraryRecordAssetId { get; set; } // 0x18
+        public int LibraryRecordAssetId { get; set; }
     }
 }

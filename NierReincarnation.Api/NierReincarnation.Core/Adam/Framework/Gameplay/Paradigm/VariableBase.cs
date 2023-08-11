@@ -4,7 +4,7 @@ namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm
 {
     abstract class VariableBase
     {
-        private static InternalDataStructure _gCreatingDataStructure; // 0x0
+        private static InternalDataStructure _gCreatingDataStructure;
 
         public abstract Type ValueType { get; }
         public abstract object ValueObject { get; set; }

@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLabyrinthMob
     {
         [Key(0)]
-        public int EventQuestLabyrinthMobId { get; set; } // 0x10
+        public int EventQuestLabyrinthMobId { get; set; }
 
         [Key(1)]
-        public int MobAssetId { get; set; } // 0x14
+        public int MobAssetId { get; set; }
 
         [Key(2)]
-        public int BeforeStageClearTextAssetId { get; set; } // 0x18
+        public int BeforeStageClearTextAssetId { get; set; }
 
         [Key(3)]
-        public int AfterStageClearTextAssetId { get; set; } // 0x1C
+        public int AfterStageClearTextAssetId { get; set; }
     }
 }

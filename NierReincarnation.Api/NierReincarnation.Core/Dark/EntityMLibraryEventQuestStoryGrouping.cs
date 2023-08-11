@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMLibraryEventQuestStoryGrouping
     {
         [Key(0)]
-        public int LibraryStoryGroupingId { get; set; } // 0x10
+        public int LibraryStoryGroupingId { get; set; }
 
         [Key(1)]
-        public int EventQuestChapterId { get; set; } // 0x14
+        public int EventQuestChapterId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
     }
 }

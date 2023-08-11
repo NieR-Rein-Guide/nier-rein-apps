@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCompleteMissionGroup
     {
         [Key(0)]
-        public int MissionId { get; set; } // 0x10
+        public int MissionId { get; set; }
 
         [Key(1)]
-        public PossessionType PossessionType { get; set; } // 0x14
+        public PossessionType PossessionType { get; set; }
 
         [Key(2)]
-        public int PossessionId { get; set; } // 0x18
+        public int PossessionId { get; set; }
 
         [Key(3)]
-        public int SortOrder { get; set; } // 0x1C
+        public int SortOrder { get; set; }
     }
 }

@@ -6,10 +6,10 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorThought
     {
-        public static readonly long kInvalidThoughtAcquisitionDatetime = 0; // 0x0
-        public static readonly int kThoughtAbilityMaxLevel = 1; // 0x8
-        private static readonly string kThoughtNameTextId = "thought.name.{0:D6}"; // 0x10
-        private static readonly string kThoughtDescriptionTextId = "thought.description.{0:D6}"; // 0x18
+        public static readonly long kInvalidThoughtAcquisitionDatetime = 0;
+        public static readonly int kThoughtAbilityMaxLevel = 1;
+        private static readonly string kThoughtNameTextId = "thought.name.{0:D6}";
+        private static readonly string kThoughtDescriptionTextId = "thought.description.{0:D6}";
 
         public static IEnumerable<DataOutgameThought> EnumerateThoughts(long userId)
         {

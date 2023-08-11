@@ -5,14 +5,14 @@ namespace NierReincarnation.Core.Dark.Localization
 {
     public static class LocalizeTime
     {
-        private static readonly string kTokyoTimeZoneId = "Asia/Tokyo"; // 0x0
-        private static readonly string kPasificStandardTimeZoneId = "Etc/GMT+8"; // 0x8
+        private static readonly string kTokyoTimeZoneId = "Asia/Tokyo";
+        private static readonly string kPasificStandardTimeZoneId = "Etc/GMT+8";
 
-        private static readonly string kLocalizeSettingPath = "settings/localize_time/{0}/localize_time_settings"; // 0x28
-        private static LocalizeTimeSettings _settings; // 0x30
+        private static readonly string kLocalizeSettingPath = "settings/localize_time/{0}/localize_time_settings";
+        private static LocalizeTimeSettings _settings;
 
-        private static readonly string kWorldwidePath = "ww"; // 0x40
-        private static TimeZoneInfo _baseTimeZone; // 0x48
+        private static readonly string kWorldwidePath = "ww";
+        private static TimeZoneInfo _baseTimeZone;
 
         public static TimeZoneInfo BaseTimeZone => _baseTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById(GetTimeZoneId(_settings.TargetTimeZone));
 

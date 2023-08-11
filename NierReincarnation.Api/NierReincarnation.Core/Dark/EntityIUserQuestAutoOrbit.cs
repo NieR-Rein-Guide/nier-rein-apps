@@ -9,27 +9,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserQuestAutoOrbit
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public QuestType QuestType { get; set; } // 0x18
+        public QuestType QuestType { get; set; }
 
         [Key(2)]
-        public int ChapterId { get; set; } // 0x1C
+        public int ChapterId { get; set; }
 
         [Key(3)]
-        public int QuestId { get; set; } // 0x20
+        public int QuestId { get; set; }
 
         [Key(4)]
-        public int MaxAutoOrbitCount { get; set; } // 0x24
+        public int MaxAutoOrbitCount { get; set; }
 
         [Key(5)]
-        public int ClearedAutoOrbitCount { get; set; } // 0x28
+        public int ClearedAutoOrbitCount { get; set; }
 
         [Key(6)]
-        public long LastClearDatetime { get; set; } // 0x30
+        public long LastClearDatetime { get; set; }
 
         [Key(7)]
-        public long LatestVersion { get; set; } // 0x38
+        public long LatestVersion { get; set; }
     }
 }

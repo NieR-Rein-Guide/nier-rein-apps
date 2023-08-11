@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionUnlockCondition
     {
         [Key(0)]
-        public int MissionUnlockConditionId { get; set; } // 0x10
+        public int MissionUnlockConditionId { get; set; }
 
         [Key(1)]
-        public MissionUnlockConditionType MissionUnlockConditionType { get; set; } // 0x14
+        public MissionUnlockConditionType MissionUnlockConditionType { get; set; }
 
         [Key(2)]
-        public int ConditionValue { get; set; } // 0x18
+        public int ConditionValue { get; set; }
     }
 }

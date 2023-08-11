@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleEventTriggerBehaviourGroup
     {
         [Key(0)]
-        public int BattleEventTriggerBehaviourGroupId { get; set; } // 0x10
+        public int BattleEventTriggerBehaviourGroupId { get; set; }
 
         [Key(1)]
-        public int BattleEventTriggerBehaviourType { get; set; } // 0x14
+        public int BattleEventTriggerBehaviourType { get; set; }
 
         [Key(2)]
-        public int BattleEventTriggerBehaviourId { get; set; } // 0x18
+        public int BattleEventTriggerBehaviourId { get; set; }
     }
 }

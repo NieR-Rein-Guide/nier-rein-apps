@@ -4,7 +4,7 @@
     {
         public static class MomPoint
         {
-            public static readonly string kTitle = "ui.Outgame.MomPoint.Title"; // 0x0
+            public static readonly string kTitle = "ui.Outgame.MomPoint.Title";
         }
     }
 }

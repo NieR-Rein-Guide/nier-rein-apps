@@ -16,8 +16,8 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator
 {
     public static class CalculatorWeapon
     {
-        public static readonly int kInvalidWeaponId = 0; // 0x20
-        private static readonly int kDefaultWeaponEvolutionOrder = 1; // 0x24
+        public static readonly int kInvalidWeaponId = 0;
+        private static readonly int kDefaultWeaponEvolutionOrder = 1;
 
         // CUSTOM: Enumerate weapon base info
         public static IEnumerable<DataWeaponInfo> EnumerateWeaponInfo(long userId)

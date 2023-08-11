@@ -8,30 +8,30 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalBehaviourActionOverrideHitEffect
     {
         [Key(0)]
-        public int SkillAbnormalBehaviourActionId { get; set; } // 0x10
+        public int SkillAbnormalBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int OverrideEffectId { get; set; } // 0x14
+        public int OverrideEffectId { get; set; }
 
         [Key(2)]
-        public int OverrideSeId { get; set; } // 0x18
+        public int OverrideSeId { get; set; }
 
         [Key(3)]
-        public int Priority { get; set; } // 0x1C
+        public int Priority { get; set; }
 
         [Key(4)]
-        public bool DisablePlayHitVoice { get; set; } // 0x20
+        public bool DisablePlayHitVoice { get; set; }
 
         [Key(5)]
-        public bool PlayOnMiss { get; set; } // 0x21
+        public bool PlayOnMiss { get; set; }
 
         [Key(6)]
-        public bool ForceRotateOnHit { get; set; } // 0x22
+        public bool ForceRotateOnHit { get; set; }
 
         [Key(7)]
-        public int OverrideHitEffectConditionGroupId { get; set; } // 0x24
+        public int OverrideHitEffectConditionGroupId { get; set; }
 
         [Key(8)]
-        public int OverrideHitEffectConditionOperationType { get; set; } // 0x28
+        public int OverrideHitEffectConditionOperationType { get; set; }
     }
 }

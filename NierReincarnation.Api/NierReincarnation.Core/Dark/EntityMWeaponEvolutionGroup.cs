@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponEvolutionGroup
     {
         [Key(0)] // RVA: 0x1DE6C00 Offset: 0x1DE6C00 VA: 0x1DE6C00
-        public int WeaponEvolutionGroupId { get; set; } // 0x10
+        public int WeaponEvolutionGroupId { get; set; }
 
         [Key(1)] // RVA: 0x1DE6C68 Offset: 0x1DE6C68 VA: 0x1DE6C68
-        public int EvolutionOrder { get; set; } // 0x14
+        public int EvolutionOrder { get; set; }
 
         [Key(2)] // RVA: 0x1DE6CA8 Offset: 0x1DE6CA8 VA: 0x1DE6CA8
-        public int WeaponId { get; set; } // 0x18
+        public int WeaponId { get; set; }
     }
 }

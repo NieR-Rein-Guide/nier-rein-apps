@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCageMemory
     {
         [Key(0)]
-        public int CageMemoryId { get; set; } // 0x10
+        public int CageMemoryId { get; set; }
 
         [Key(1)]
-        public int MainQuestSeasonId { get; set; } // 0x14
+        public int MainQuestSeasonId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)]
-        public int CageMemoryAssetId { get; set; } // 0x1C
+        public int CageMemoryAssetId { get; set; }
     }
 }

@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleActorAi
     {
         [Key(0)]
-        public int BattleActorAiId { get; set; } // 0x10
+        public int BattleActorAiId { get; set; }
 
         [Key(1)]
-        public string AssetPath { get; set; } // 0x18
+        public string AssetPath { get; set; }
 
         [Key(2)]
-        public string Description { get; set; } // 0x20
+        public string Description { get; set; }
     }
 }

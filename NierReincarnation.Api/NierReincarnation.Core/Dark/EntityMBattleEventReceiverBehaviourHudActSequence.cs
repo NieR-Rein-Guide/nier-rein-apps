@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleEventReceiverBehaviourHudActSequence
     {
         [Key(0)]
-        public int BattleEventReceiverBehaviourId { get; set; } // 0x10
+        public int BattleEventReceiverBehaviourId { get; set; }
 
         [Key(1)]
-        public int HudActSequenceId { get; set; } // 0x14
+        public int HudActSequenceId { get; set; }
     }
 }

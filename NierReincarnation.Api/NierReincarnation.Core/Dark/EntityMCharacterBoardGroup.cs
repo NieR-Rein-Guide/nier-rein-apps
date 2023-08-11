@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardGroup
     {
         [Key(0)]
-        public int CharacterBoardGroupId { get; set; } // 0x10
+        public int CharacterBoardGroupId { get; set; }
 
         [Key(1)]
-        public int CharacterBoardCategoryId { get; set; } // 0x14
+        public int CharacterBoardCategoryId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)]
-        public CharacterBoardGroupType CharacterBoardGroupType { get; set; } // 0x1C
+        public CharacterBoardGroupType CharacterBoardGroupType { get; set; }
 
         [Key(4)]
-        public int TextAssetId { get; set; } // 0x20
+        public int TextAssetId { get; set; }
     }
 }

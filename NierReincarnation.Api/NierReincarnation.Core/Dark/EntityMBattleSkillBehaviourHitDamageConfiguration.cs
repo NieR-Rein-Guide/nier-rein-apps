@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleSkillBehaviourHitDamageConfiguration
     {
         [Key(0)]
-        public SkillCategoryType SkillCategoryType { get; set; } // 0x10
+        public SkillCategoryType SkillCategoryType { get; set; }
 
         [Key(1)]
-        public int HitCount { get; set; } // 0x14
+        public int HitCount { get; set; }
 
         [Key(2)]
-        public int HitIndexLowerLimit { get; set; } // 0x18
+        public int HitIndexLowerLimit { get; set; }
 
         [Key(3)]
-        public int DamageCoefficientValuePermil { get; set; } // 0x1C
+        public int DamageCoefficientValuePermil { get; set; }
     }
 }

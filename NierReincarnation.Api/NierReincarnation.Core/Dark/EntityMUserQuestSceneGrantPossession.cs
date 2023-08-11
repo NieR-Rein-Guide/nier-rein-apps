@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMUserQuestSceneGrantPossession
     {
         [Key(0)]
-        public int QuestSceneId { get; set; } // 0x10
+        public int QuestSceneId { get; set; }
 
         [Key(1)]
-        public PossessionType PossessionType { get; set; } // 0x14
+        public PossessionType PossessionType { get; set; }
 
         [Key(2)]
-        public int PossessionId { get; set; } // 0x18
+        public int PossessionId { get; set; }
 
         [Key(3)]
-        public int Count { get; set; } // 0x1C
+        public int Count { get; set; }
 
         [Key(4)]
-        public bool IsGift { get; set; } // 0x20
+        public bool IsGift { get; set; }
 
         [Key(5)]
-        public bool IsDebug { get; set; } // 0x21
+        public bool IsDebug { get; set; }
     }
 }

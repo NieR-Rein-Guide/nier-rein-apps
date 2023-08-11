@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalDamageMultiplyDetailAbnormal
     {
         [Key(0)]
-        public int DamageMultiplyAbnormalDetailId { get; set; } // 0x10
+        public int DamageMultiplyAbnormalDetailId { get; set; }
 
         [Key(1)]
-        public int SkillDamageMultiplyAbnormalAttachedValueGroupId { get; set; } // 0x14
+        public int SkillDamageMultiplyAbnormalAttachedValueGroupId { get; set; }
     }
 }

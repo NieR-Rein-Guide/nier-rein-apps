@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMGachaMedal
     {
         [Key(0)]
-        public int GachaMedalId { get; set; } // 0x10
+        public int GachaMedalId { get; set; }
 
         [Key(1)]
-        public int CeilingCount { get; set; } // 0x14
+        public int CeilingCount { get; set; }
 
         [Key(2)]
-        public int ConsumableItemId { get; set; } // 0x18
+        public int ConsumableItemId { get; set; }
 
         [Key(3)]
-        public int ShopTransitionGachaId { get; set; } // 0x1C
+        public int ShopTransitionGachaId { get; set; }
 
         [Key(4)]
-        public long AutoConvertDatetime { get; set; } // 0x20
+        public long AutoConvertDatetime { get; set; }
 
         [Key(5)]
-        public int ConversionRate { get; set; } // 0x28
+        public int ConversionRate { get; set; }
     }
 }

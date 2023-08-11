@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcWeaponAwaken
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public string BattleNpcWeaponUuid { get; set; } // 0x18
+        public string BattleNpcWeaponUuid { get; set; }
     }
 }

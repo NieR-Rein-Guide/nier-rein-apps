@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPvpGradeGroup
     {
         [Key(0)]
-        public int PvpGradeGroupId { get; set; } // 0x10
+        public int PvpGradeGroupId { get; set; }
 
         [Key(1)]
-        public int PvpGradeId { get; set; } // 0x14
+        public int PvpGradeId { get; set; }
 
         [Key(2)]
-        public int NecessaryPvpPoint { get; set; } // 0x18
+        public int NecessaryPvpPoint { get; set; }
 
         [Key(3)]
-        public int IconAssetId { get; set; } // 0x1C
+        public int IconAssetId { get; set; }
 
         [Key(4)]
-        public int PvpGradeWeeklyRewardGroupId { get; set; } // 0x20
+        public int PvpGradeWeeklyRewardGroupId { get; set; }
 
         [Key(5)]
-        public int PvpGradeOneMatchRewardGroupId { get; set; } // 0x24
+        public int PvpGradeOneMatchRewardGroupId { get; set; }
     }
 }

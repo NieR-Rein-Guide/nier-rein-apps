@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMDeckEntrustCoefficientAttribute
     {
         [Key(0)]
-        public int EntrustAttributeType { get; set; } // 0x10
+        public int EntrustAttributeType { get; set; }
 
         [Key(1)]
-        public int AttributeType { get; set; } // 0x14
+        public int AttributeType { get; set; }
 
         [Key(2)]
-        public int CoefficientPermil { get; set; } // 0x18
+        public int CoefficientPermil { get; set; }
     }
 }

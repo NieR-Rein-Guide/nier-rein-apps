@@ -6,11 +6,11 @@ namespace NierReincarnation.Core.Dark
     // Dark.KernelState
     static class KernelState
     {
-        // 0x08
+       
         public static NetworkConfig NetworkConfig { get; set; }
-        // 0x10
+       
         private static readonly string kUserStatePath = "userstate";
-        // 0x48
+       
         private static DataStructure _userState;
 
         public static bool GetUserState(out DataStructure data)

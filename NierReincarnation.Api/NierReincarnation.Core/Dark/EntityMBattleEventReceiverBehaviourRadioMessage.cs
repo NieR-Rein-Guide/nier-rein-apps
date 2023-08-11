@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleEventReceiverBehaviourRadioMessage
     {
         [Key(0)]
-        public int BattleEventReceiverBehaviourId { get; set; } // 0x10
+        public int BattleEventReceiverBehaviourId { get; set; }
 
         [Key(1)]
-        public int SpeakerId { get; set; } // 0x14
+        public int SpeakerId { get; set; }
 
         [Key(2)]
-        public string ScenarioKey { get; set; } // 0x18
+        public string ScenarioKey { get; set; }
     }
 }

@@ -9,30 +9,30 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMomBanner
     {
         [Key(0)]
-        public int MomBannerId { get; set; } // 0x10
+        public int MomBannerId { get; set; }
 
         [Key(1)]
-        public int SortOrderDesc { get; set; } // 0x14
+        public int SortOrderDesc { get; set; }
 
         [Key(2)]
-        public DomainType DestinationDomainType { get; set; } // 0x18
+        public DomainType DestinationDomainType { get; set; }
 
         [Key(3)]
-        public int DestinationDomainId { get; set; } // 0x1C
+        public int DestinationDomainId { get; set; }
 
         [Key(4)]
-        public string BannerAssetName { get; set; } // 0x20
+        public string BannerAssetName { get; set; }
 
         [Key(5)]
-        public bool IsEmphasis { get; set; } // 0x28
+        public bool IsEmphasis { get; set; }
 
         [Key(6)]
-        public long StartDatetime { get; set; } // 0x30
+        public long StartDatetime { get; set; }
 
         [Key(7)]
-        public long EndDatetime { get; set; } // 0x38
+        public long EndDatetime { get; set; }
 
         [Key(8)]
-        public TargetUserStatusType TargetUserStatusType { get; set; } // 0x40
+        public TargetUserStatusType TargetUserStatusType { get; set; }
     }
 }

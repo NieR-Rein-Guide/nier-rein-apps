@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalLifetimeBehaviourGroup
     {
         [Key(0)]
-        public int SkillAbnormalLifetimeBehaviourGroupId { get; set; } // 0x10
+        public int SkillAbnormalLifetimeBehaviourGroupId { get; set; }
 
         [Key(1)]
-        public int AbnormalLifetimeBehaviourIndex { get; set; } // 0x14
+        public int AbnormalLifetimeBehaviourIndex { get; set; }
 
         [Key(2)]
-        public AbnormalLifetimeMethodType AbnormalLifetimeMethodType { get; set; } // 0x18
+        public AbnormalLifetimeMethodType AbnormalLifetimeMethodType { get; set; }
 
         [Key(3)]
-        public int SkillAbnormalLifetimeBehaviourId { get; set; } // 0x1C
+        public int SkillAbnormalLifetimeBehaviourId { get; set; }
     }
 }

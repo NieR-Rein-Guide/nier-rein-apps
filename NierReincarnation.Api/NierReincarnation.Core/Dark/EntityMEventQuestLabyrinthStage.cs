@@ -8,30 +8,30 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLabyrinthStage
     {
         [Key(0)]
-        public int EventQuestChapterId { get; set; } // 0x10
+        public int EventQuestChapterId { get; set; }
 
         [Key(1)]
-        public int StageOrder { get; set; } // 0x14
+        public int StageOrder { get; set; }
 
         [Key(2)]
-        public int StartSequenceSortOrder { get; set; } // 0x18
+        public int StartSequenceSortOrder { get; set; }
 
         [Key(3)]
-        public int EndSequenceSortOrder { get; set; } // 0x1C
+        public int EndSequenceSortOrder { get; set; }
 
         [Key(4)]
-        public int StageClearRewardGroupId { get; set; } // 0x20
+        public int StageClearRewardGroupId { get; set; }
 
         [Key(5)]
-        public int StageAccumulationRewardGroupId { get; set; } // 0x24
+        public int StageAccumulationRewardGroupId { get; set; }
 
         [Key(6)]
-        public int Mob1Id { get; set; } // 0x28
+        public int Mob1Id { get; set; }
 
         [Key(7)]
-        public int Mob2Id { get; set; } // 0x2C
+        public int Mob2Id { get; set; }
 
         [Key(8)]
-        public int TreasureAssetId { get; set; } // 0x30
+        public int TreasureAssetId { get; set; }
     }
 }

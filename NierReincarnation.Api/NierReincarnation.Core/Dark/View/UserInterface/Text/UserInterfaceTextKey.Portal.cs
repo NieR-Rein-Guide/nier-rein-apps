@@ -4,7 +4,7 @@
     {
         public static class Portal
         {
-            public static readonly string kDailyGacha = "ui.Outgame.Portal.DailyGacha"; // 0x0
+            public static readonly string kDailyGacha = "ui.Outgame.Portal.DailyGacha";
         }
     }
 }

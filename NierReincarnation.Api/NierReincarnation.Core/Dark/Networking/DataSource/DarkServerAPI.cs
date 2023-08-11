@@ -10,8 +10,8 @@ namespace NierReincarnation.Core.Dark.Networking.DataSource
         public delegate void HandleSuccess(TResponse response);
         public delegate void HandleError(ClientError error);
 
-        public event HandleSuccess OnSuccess; // 0x10
-        public event HandleError OnFailed; // 0x18
+        public event HandleSuccess OnSuccess;
+        public event HandleError OnFailed;
 
         public async Task RequestAsync(object request, bool isInterception)
         {

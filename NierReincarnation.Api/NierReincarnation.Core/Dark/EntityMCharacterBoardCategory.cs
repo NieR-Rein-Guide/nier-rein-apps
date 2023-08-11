@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardCategory
     {
         [Key(0)]
-        public int CharacterBoardCategoryId { get; set; } // 0x10
+        public int CharacterBoardCategoryId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
     }
 }

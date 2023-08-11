@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPortalCageScene
     {
         [Key(0)]
-        public int PortalCageSceneId { get; set; } // 0x10
+        public int PortalCageSceneId { get; set; }
 
         [Key(1)]
-        public int PortalCageCharacterGroupId { get; set; } // 0x14
+        public int PortalCageCharacterGroupId { get; set; }
 
         [Key(2)]
-        public int PortalCageDropId { get; set; } // 0x18
+        public int PortalCageDropId { get; set; }
 
         [Key(3)]
-        public int PortalCageGateId { get; set; } // 0x1C
+        public int PortalCageGateId { get; set; }
     }
 }

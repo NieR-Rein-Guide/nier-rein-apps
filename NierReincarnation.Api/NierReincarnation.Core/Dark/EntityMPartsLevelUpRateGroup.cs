@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPartsLevelUpRateGroup
     {
         [Key(0)]
-        public int PartsLevelUpRateGroupId { get; set; } // 0x10
+        public int PartsLevelUpRateGroupId { get; set; }
 
         [Key(1)]
-        public int LevelLowerLimit { get; set; } // 0x14
+        public int LevelLowerLimit { get; set; }
 
         [Key(2)]
-        public int SuccessRatePermil { get; set; } // 0x18
+        public int SuccessRatePermil { get; set; }
     }
 }

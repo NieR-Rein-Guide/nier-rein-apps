@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardConditionDetail
     {
         [Key(0)]
-        public int CharacterBoardConditionDetailId { get; set; } // 0x10
+        public int CharacterBoardConditionDetailId { get; set; }
 
         [Key(1)]
-        public int DetailIndex { get; set; } // 0x14
+        public int DetailIndex { get; set; }
 
         [Key(2)]
-        public int ConditionValue { get; set; } // 0x18
+        public int ConditionValue { get; set; }
     }
 }

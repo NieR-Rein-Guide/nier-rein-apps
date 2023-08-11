@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondence
     {
         [Key(0)]
-        public int QuestId { get; set; } // 0x10
+        public int QuestId { get; set; }
 
         [Key(1)]
-        public int QuestScheduleId { get; set; } // 0x14
+        public int QuestScheduleId { get; set; }
     }
 }

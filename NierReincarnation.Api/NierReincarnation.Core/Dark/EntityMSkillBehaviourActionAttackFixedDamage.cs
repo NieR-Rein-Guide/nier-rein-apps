@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionAttackFixedDamage
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int DamageValue { get; set; } // 0x14
+        public int DamageValue { get; set; }
 
         [Key(2)]
-        public bool ForceDamage { get; set; } // 0x18
+        public bool ForceDamage { get; set; }
     }
 }

@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleAttributeDamageCoefficientGroup
     {
         [Key(0)]
-        public int AttributeDamageCoefficientGroupId { get; set; } // 0x10
+        public int AttributeDamageCoefficientGroupId { get; set; }
 
         [Key(1)]
-        public int SkillExecutorAttributeType { get; set; } // 0x14
+        public int SkillExecutorAttributeType { get; set; }
 
         [Key(2)]
-        public int SkillTargetAttributeType { get; set; } // 0x18
+        public int SkillTargetAttributeType { get; set; }
 
         [Key(3)]
-        public AttributeCompatibilityType AttributeCompatibilityType { get; set; } // 0x1C
+        public AttributeCompatibilityType AttributeCompatibilityType { get; set; }
 
         [Key(4)]
-        public int DamageCoefficientPermil { get; set; } // 0x20
+        public int DamageCoefficientPermil { get; set; }
     }
 }

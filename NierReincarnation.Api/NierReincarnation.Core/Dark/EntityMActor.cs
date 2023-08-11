@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMActor
     {
         [Key(0)]
-        public int ActorId { get; set; } // 0x10
+        public int ActorId { get; set; }
 
         [Key(1)]
-        public int NameActorTextId { get; set; } // 0x14
+        public int NameActorTextId { get; set; }
 
         [Key(2)]
-        public string ActorAssetId { get; set; } // 0x18
+        public string ActorAssetId { get; set; }
 
         [Key(3)]
-        public string ActorSpeakerIconAssetPath { get; set; } // 0x20
+        public string ActorSpeakerIconAssetPath { get; set; }
 
         [Key(4)]
-        public string AnimatorAssetPath { get; set; } // 0x28
+        public string AnimatorAssetPath { get; set; }
     }
 }

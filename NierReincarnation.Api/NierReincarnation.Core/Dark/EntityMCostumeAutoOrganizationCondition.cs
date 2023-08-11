@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeAutoOrganizationCondition
     {
         [Key(0)]
-        public int CostumeId { get; set; } // 0x10
+        public int CostumeId { get; set; }
 
         [Key(1)]
-        public CostumeAutoOrganizationConditionType CostumeAutoOrganizationConditionType { get; set; } // 0x14
+        public CostumeAutoOrganizationConditionType CostumeAutoOrganizationConditionType { get; set; }
 
         [Key(2)]
-        public int TargetValue { get; set; } // 0x18
+        public int TargetValue { get; set; }
     }
 }

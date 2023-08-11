@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCageOrnamentMainQuestChapterStill
     {
         [Key(0)]
-        public int MainQuestChapterId { get; set; } // 0x10
+        public int MainQuestChapterId { get; set; }
 
         [Key(1)]
-        public int CageOrnamentStillReleaseConditionId { get; set; } // 0x14
+        public int CageOrnamentStillReleaseConditionId { get; set; }
     }
 }

@@ -8,24 +8,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserQuestMission
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int QuestId { get; set; } // 0x18
+        public int QuestId { get; set; }
 
         [Key(2)]
-        public int QuestMissionId { get; set; } // 0x1C
+        public int QuestMissionId { get; set; }
 
         [Key(3)]
-        public int ProgressValue { get; set; } // 0x20
+        public int ProgressValue { get; set; }
 
         [Key(4)]
-        public bool IsClear { get; set; } // 0x24
+        public bool IsClear { get; set; }
 
         [Key(5)]
-        public long LatestClearDatetime { get; set; } // 0x28
+        public long LatestClearDatetime { get; set; }
 
         [Key(6)]
-        public long LatestVersion { get; set; } // 0x30
+        public long LatestVersion { get; set; }
     }
 }

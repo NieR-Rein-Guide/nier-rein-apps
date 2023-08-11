@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleBgmSetGroup
     {
         [Key(0)]
-        public int BgmSetGroupId { get; set; } // 0x10
+        public int BgmSetGroupId { get; set; }
 
         [Key(1)]
-        public int BgmSetGroupIndex { get; set; } // 0x14
+        public int BgmSetGroupIndex { get; set; }
 
         [Key(2)]
-        public int BgmSetId { get; set; } // 0x18
+        public int BgmSetId { get; set; }
 
         [Key(3)]
-        public int RandomWeight { get; set; } // 0x1C
+        public int RandomWeight { get; set; }
     }
 }

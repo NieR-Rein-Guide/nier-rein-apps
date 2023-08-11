@@ -9,9 +9,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionClearConditionValueView
     {
         [Key(0)]
-        public MissionClearConditionType MissionClearConditionType { get; set; } // 0x10
+        public MissionClearConditionType MissionClearConditionType { get; set; }
 
         [Key(1)]
-        public int ViewClearConditionValue { get; set; } // 0x14
+        public int ViewClearConditionValue { get; set; }
     }
 }

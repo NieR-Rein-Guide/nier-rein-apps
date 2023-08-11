@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWeaponAwakenAbility
     {
         [Key(0)]
-        public int WeaponAwakenAbilityId { get; set; } // 0x10
+        public int WeaponAwakenAbilityId { get; set; }
 
         [Key(1)]
-        public int AbilityId { get; set; } // 0x14
+        public int AbilityId { get; set; }
 
         [Key(2)]
-        public int AbilityLevel { get; set; } // 0x18
+        public int AbilityLevel { get; set; }
     }
 }

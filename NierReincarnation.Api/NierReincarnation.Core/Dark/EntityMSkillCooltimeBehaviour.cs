@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillCooltimeBehaviour
     {
         [Key(0)]
-        public int SkillCooltimeBehaviourId { get; set; } // 0x10
+        public int SkillCooltimeBehaviourId { get; set; }
 
         [Key(1)]
-        public SkillCooltimeBehaviourType SkillCooltimeBehaviourType { get; set; } // 0x14
+        public SkillCooltimeBehaviourType SkillCooltimeBehaviourType { get; set; }
 
         [Key(2)]
-        public int SkillCooltimeBehaviourActionId { get; set; } // 0x18
+        public int SkillCooltimeBehaviourActionId { get; set; }
     }
 }

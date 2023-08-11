@@ -8,27 +8,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserProfile
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public string Name { get; set; } // 0x18
+        public string Name { get; set; }
 
         [Key(2)]
-        public long NameUpdateDatetime { get; set; } // 0x20
+        public long NameUpdateDatetime { get; set; }
 
         [Key(3)]
-        public string Message { get; set; } // 0x28
+        public string Message { get; set; }
 
         [Key(4)]
-        public long MessageUpdateDatetime { get; set; } // 0x30
+        public long MessageUpdateDatetime { get; set; }
 
         [Key(5)]
-        public int FavoriteCostumeId { get; set; } // 0x38
+        public int FavoriteCostumeId { get; set; }
 
         [Key(6)]
-        public long FavoriteCostumeIdUpdateDatetime { get; set; } // 0x40
+        public long FavoriteCostumeIdUpdateDatetime { get; set; }
 
         [Key(7)]
-        public long LatestVersion { get; set; } // 0x48
+        public long LatestVersion { get; set; }
     }
 }

@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleBigHuntPhaseGroup
     {
         [Key(0)]
-        public int BattleBigHuntPhaseGroupId { get; set; } // 0x10
+        public int BattleBigHuntPhaseGroupId { get; set; }
 
         [Key(1)]
-        public int BattleBigHuntPhaseGroupOrder { get; set; } // 0x14
+        public int BattleBigHuntPhaseGroupOrder { get; set; }
 
         [Key(2)]
-        public int KnockDownDamageThresholdGroupId { get; set; } // 0x18
+        public int KnockDownDamageThresholdGroupId { get; set; }
 
         [Key(3)]
-        public int NormalPhaseFrameCount { get; set; } // 0x1C
+        public int NormalPhaseFrameCount { get; set; }
     }
 }

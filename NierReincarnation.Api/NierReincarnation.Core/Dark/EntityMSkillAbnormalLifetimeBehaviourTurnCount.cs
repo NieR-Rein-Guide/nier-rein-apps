@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalLifetimeBehaviourTurnCount
     {
         [Key(0)]
-        public int SkillAbnormalLifetimeBehaviourId { get; set; } // 0x10
+        public int SkillAbnormalLifetimeBehaviourId { get; set; }
 
         [Key(1)]
-        public int TurnCount { get; set; } // 0x14
+        public int TurnCount { get; set; }
     }
 }

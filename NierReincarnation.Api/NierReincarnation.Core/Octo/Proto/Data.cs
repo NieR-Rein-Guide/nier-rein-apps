@@ -7,31 +7,31 @@ namespace NierReincarnation.Core.Octo.Proto
     public class Data
     {
         [ProtoMember(1)]
-        public int Id { get; set; } // 0x10
+        public int Id { get; set; }
         [ProtoMember(2)]
-        public string Filepath { get; set; }    // 0x18
+        public string Filepath { get; set; }   
         [ProtoMember(3)]
-        public string Name { get; set; }    // 0x20
+        public string Name { get; set; }   
         [ProtoMember(4)]
-        public int Size { get; set; }   // 0x28
+        public int Size { get; set; }  
         [ProtoMember(5)]
-        public uint Crc { get; set; }   // 0x2C
+        public uint Crc { get; set; }  
         [ProtoMember(6)]
-        public int Priority { get; set; }   // 0x38
+        public int Priority { get; set; }  
         [ProtoMember(7)]
-        public IList<int> Tags { get; set; }    // 0x40
+        public IList<int> Tags { get; set; }   
         [ProtoMember(8)]
-        public IList<int> Deps { get; set; }    // 0x48
+        public IList<int> Deps { get; set; }   
         [ProtoMember(9)]
-        public DataState State { get; set; }    // 0x64
+        public DataState State { get; set; }   
         [ProtoMember(10)]
-        public string Md5 { get; set; } // 0x30
+        public string Md5 { get; set; }
         [ProtoMember(11)]
-        public string ObjectName { get; set; }  // 0x50
+        public string ObjectName { get; set; } 
         [ProtoMember(12)]
-        public ulong Generation { get; set; }   // 0x58
+        public ulong Generation { get; set; }  
         [ProtoMember(13)]
-        public int UploadVersionId { get; set; }    // 0x60
+        public int UploadVersionId { get; set; }   
 
         public Data()
         {

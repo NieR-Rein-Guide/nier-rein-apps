@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestUnlockCondition
     {
         [Key(0)]
-        public EventQuestType EventQuestType { get; set; } // 0x10
+        public EventQuestType EventQuestType { get; set; }
 
         [Key(1)]
-        public int CharacterId { get; set; } // 0x14
+        public int CharacterId { get; set; }
 
         [Key(2)]
-        public int QuestId { get; set; } // 0x18
+        public int QuestId { get; set; }
 
         [Key(3)]
-        public UnlockConditionType UnlockConditionType { get; set; } // 0x1C
+        public UnlockConditionType UnlockConditionType { get; set; }
 
         [Key(4)]
-        public int ConditionValue { get; set; } // 0x20
+        public int ConditionValue { get; set; }
 
         [Key(5)]
-        public int UnlockEvaluateConditionId { get; set; } // 0x24
+        public int UnlockEvaluateConditionId { get; set; }
     }
 }

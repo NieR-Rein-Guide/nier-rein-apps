@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMAbilityBehaviourActionStatusDown
     {
         [Key(0)]
-        public int AbilityBehaviourActionId { get; set; } // 0x10
+        public int AbilityBehaviourActionId { get; set; }
 
         [Key(1)]
-        public AbilityBehaviourStatusChangeType AbilityBehaviourStatusChangeType { get; set; } // 0x14
+        public AbilityBehaviourStatusChangeType AbilityBehaviourStatusChangeType { get; set; }
 
         [Key(2)]
-        public AttributeConditionType AttributeConditionType { get; set; } // 0x18
+        public AttributeConditionType AttributeConditionType { get; set; }
 
         [Key(3)]
-        public AbilityBehaviourStatusOrganizationConditionType AbilityOrganizationConditionType { get; set; } // 0x1C
+        public AbilityBehaviourStatusOrganizationConditionType AbilityOrganizationConditionType { get; set; }
 
         [Key(4)]
-        public int AbilityStatusId { get; set; } // 0x20
+        public int AbilityStatusId { get; set; }
 
         [Key(5)]
-        public AbilityBehaviourStatusApplyScopeType ApplyScopeType { get; set; } // 0x24
+        public AbilityBehaviourStatusApplyScopeType ApplyScopeType { get; set; }
     }
 }

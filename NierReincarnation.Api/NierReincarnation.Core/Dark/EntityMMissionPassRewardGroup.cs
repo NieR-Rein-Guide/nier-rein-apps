@@ -9,24 +9,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionPassRewardGroup
     {
         [Key(0)]
-        public int MissionPassRewardGroupId { get; set; } // 0x10
+        public int MissionPassRewardGroupId { get; set; }
 
         [Key(1)]
-        public int Level { get; set; } // 0x14
+        public int Level { get; set; }
 
         [Key(2)]
-        public bool IsPremium { get; set; } // 0x18
+        public bool IsPremium { get; set; }
 
         [Key(3)]
-        public int SortOrder { get; set; } // 0x1C
+        public int SortOrder { get; set; }
 
         [Key(4)]
-        public PossessionType PossessionType { get; set; } // 0x20
+        public PossessionType PossessionType { get; set; }
 
         [Key(5)]
-        public int PossessionId { get; set; } // 0x24
+        public int PossessionId { get; set; }
 
         [Key(6)]
-        public int Count { get; set; } // 0x28
+        public int Count { get; set; }
     }
 }

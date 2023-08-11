@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCompanionAbilityLevel
     {
         [Key(0)] // RVA: 0x1DDB578 Offset: 0x1DDB578 VA: 0x1DDB578
-        public int CompanionLevelLowerLimit { get; set; } // 0x10
+        public int CompanionLevelLowerLimit { get; set; }
 
         [Key(1)] // RVA: 0x1DDB5B8 Offset: 0x1DDB5B8 VA: 0x1DDB5B8
-        public int AbilityLevel { get; set; } // 0x14
+        public int AbilityLevel { get; set; }
     }
 }

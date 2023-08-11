@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMExploreGroup
     {
         [Key(0)]
-        public int ExploreGroupId { get; set; } // 0x10
+        public int ExploreGroupId { get; set; }
 
         [Key(1)]
-        public DifficultyType DifficultyType { get; set; } // 0x14
+        public DifficultyType DifficultyType { get; set; }
 
         [Key(2)]
-        public int ExploreId { get; set; } // 0x18
+        public int ExploreId { get; set; }
     }
 }

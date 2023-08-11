@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcDeckCharacterDressupCostume
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public string BattleNpcDeckCharacterUuid { get; set; } // 0x18
+        public string BattleNpcDeckCharacterUuid { get; set; }
 
         [Key(2)]
-        public int DressupCostumeId { get; set; } // 0x20
+        public int DressupCostumeId { get; set; }
     }
 }

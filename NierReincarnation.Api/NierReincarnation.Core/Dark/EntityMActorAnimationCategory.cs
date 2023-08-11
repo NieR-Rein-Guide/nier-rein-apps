@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMActorAnimationCategory
     {
         [Key(0)]
-        public int ActorAnimationCategoryId { get; set; } // 0x10
+        public int ActorAnimationCategoryId { get; set; }
 
         [Key(1)]
-        public string Name { get; set; } // 0x18
+        public string Name { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     {
         public static class Thought
         {
-            public static readonly string kThoughtDetailTitle = "ui.Outgame.Detail.Thought.Title"; // 0x0
+            public static readonly string kThoughtDetailTitle = "ui.Outgame.Detail.Thought.Title";
         }
     }
 }

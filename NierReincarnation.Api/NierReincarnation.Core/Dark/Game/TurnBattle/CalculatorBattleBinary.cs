@@ -10,14 +10,14 @@ namespace NierReincarnation.Core.Dark.Game.TurnBattle
     public static class CalculatorBattleBinary
     {
         // Fields
-        private static byte[] _battleBinaryPool; // 0x0
-        private static byte[] _snapshotBinaryPool; // 0x8
-        private static byte[] _checksumBinaryPool; // 0x10
-        private static readonly int BinaryPoolSize = 0x2000; // 0x18
-        private static MemoryStream _streamBattleBinaryPool; // 0x20
-        private static readonly int VersionBinaryLength = 4; // 0x28
-        private static readonly int ChecksumBinaryLength = 4; // 0x2C
-        private static readonly int SuccessFlagBinaryLength = 1; // 0x30
+        private static byte[] _battleBinaryPool;
+        private static byte[] _snapshotBinaryPool;
+        private static byte[] _checksumBinaryPool;
+        private static readonly int BinaryPoolSize = 0x2000;
+        private static MemoryStream _streamBattleBinaryPool;
+        private static readonly int VersionBinaryLength = 4;
+        private static readonly int ChecksumBinaryLength = 4;
+        private static readonly int SuccessFlagBinaryLength = 1;
 
         // Properties
         private static MemoryStream StreamBattleBinaryPool => _streamBattleBinaryPool ??= new MemoryStream(BinaryPoolSize);

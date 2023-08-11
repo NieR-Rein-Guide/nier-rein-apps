@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMExtraQuestGroupInMainQuestChapter
     {
         [Key(0)]
-        public int MainQuestChapterId { get; set; } // 0x10
+        public int MainQuestChapterId { get; set; }
 
         [Key(1)]
-        public int ExtraQuestIndex { get; set; } // 0x14
+        public int ExtraQuestIndex { get; set; }
 
         [Key(2)]
-        public int ExtraQuestId { get; set; } // 0x18
+        public int ExtraQuestId { get; set; }
     }
 }

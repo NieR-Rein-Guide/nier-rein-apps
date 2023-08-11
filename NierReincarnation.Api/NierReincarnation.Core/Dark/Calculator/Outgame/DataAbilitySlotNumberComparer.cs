@@ -4,11 +4,11 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     class DataAbilitySlotNumberComparer : IComparer<DataAbility>
     {
-        public static readonly DataAbilitySlotNumberComparer InstanceAscending = new DataAbilitySlotNumberComparer(true); // 0x0
-        public static readonly DataAbilitySlotNumberComparer InstanceDescending = new DataAbilitySlotNumberComparer(false); // 0x8
+        public static readonly DataAbilitySlotNumberComparer InstanceAscending = new DataAbilitySlotNumberComparer(true);
+        public static readonly DataAbilitySlotNumberComparer InstanceDescending = new DataAbilitySlotNumberComparer(false);
 
         // Fields
-        private readonly bool _ascending; // 0x10
+        private readonly bool _ascending;
 
         // Methods
 

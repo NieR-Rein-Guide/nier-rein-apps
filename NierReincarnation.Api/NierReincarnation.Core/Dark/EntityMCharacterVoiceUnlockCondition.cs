@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterVoiceUnlockCondition
     {
         [Key(0)]
-        public int CharacterId { get; set; } // 0x10
+        public int CharacterId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public CharacterVoiceUnlockConditionType CharacterVoiceUnlockConditionType { get; set; } // 0x18
+        public CharacterVoiceUnlockConditionType CharacterVoiceUnlockConditionType { get; set; }
 
         [Key(3)]
-        public int ConditionValue { get; set; } // 0x1C
+        public int ConditionValue { get; set; }
 
         [Key(4)]
-        public int VoiceAssetId { get; set; } // 0x20
+        public int VoiceAssetId { get; set; }
     }
 }

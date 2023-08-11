@@ -12,7 +12,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorBigHuntQuest
     {
-        private static readonly AttributeType[] BigHuntAttributeTypes = { AttributeType.FIRE, AttributeType.WATER, AttributeType.WIND, AttributeType.LIGHT, AttributeType.DARK }; // 0x50
+        private static readonly AttributeType[] BigHuntAttributeTypes = { AttributeType.FIRE, AttributeType.WATER, AttributeType.WIND, AttributeType.LIGHT, AttributeType.DARK };
 
         public static long GetHighScoreByBigHuntBossId(long userId, int bigHuntBossId)
         {

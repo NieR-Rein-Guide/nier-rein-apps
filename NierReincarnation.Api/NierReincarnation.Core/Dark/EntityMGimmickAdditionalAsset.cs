@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMGimmickAdditionalAsset
     {
         [Key(0)]
-        public int GimmickId { get; set; } // 0x10
+        public int GimmickId { get; set; }
 
         [Key(1)]
-        public string GimmickTexturePath { get; set; } // 0x18
+        public string GimmickTexturePath { get; set; }
     }
 }

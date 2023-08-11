@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionDamageMultiply
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public DamageMultiplyDetailType DamageMultiplyDetailType { get; set; } // 0x14
+        public DamageMultiplyDetailType DamageMultiplyDetailType { get; set; }
 
         [Key(2)]
-        public int SkillDamageMultiplyDetailId { get; set; } // 0x18
+        public int SkillDamageMultiplyDetailId { get; set; }
 
         [Key(3)]
-        public DamageMultiplyTargetType DamageMultiplyTargetType { get; set; } // 0x1C
+        public DamageMultiplyTargetType DamageMultiplyTargetType { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     {
         private static class CommonKeyParts
         {
-            public static readonly string kName = "name.{0}"; // 0x0
+            public static readonly string kName = "name.{0}";
         }
     }
 }

@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediate
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public SkillCooltimeAdvanceType SkillCooltimeAdvanceType { get; set; } // 0x14
+        public SkillCooltimeAdvanceType SkillCooltimeAdvanceType { get; set; }
 
         [Key(2)]
-        public ActiveSkillType ActiveSkillType { get; set; } // 0x18
+        public ActiveSkillType ActiveSkillType { get; set; }
 
         [Key(3)]
-        public int AdvanceValue { get; set; } // 0x1C
+        public int AdvanceValue { get; set; }
     }
 }

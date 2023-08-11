@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeLevelBonus
     {
         [Key(0)]
-        public int CostumeLevelBonusId { get; set; } // 0x10
+        public int CostumeLevelBonusId { get; set; }
 
         [Key(1)]
-        public int Level { get; set; } // 0x14
+        public int Level { get; set; }
 
         [Key(2)]
-        public CostumeLevelBonusType CostumeLevelBonusType { get; set; } // 0x18
+        public CostumeLevelBonusType CostumeLevelBonusType { get; set; }
 
         [Key(3)]
-        public int EffectValue { get; set; } // 0x1C
+        public int EffectValue { get; set; }
     }
 }

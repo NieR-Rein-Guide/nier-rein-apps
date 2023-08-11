@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestDeckRestrictionGroupUnlock
     {
         [Key(0)]
-        public int QuestDeckRestrictionGroupId { get; set; } // 0x10
+        public int QuestDeckRestrictionGroupId { get; set; }
 
         [Key(1)]
-        public int UnlockEvaluateConditionId { get; set; } // 0x14
+        public int UnlockEvaluateConditionId { get; set; }
     }
 }

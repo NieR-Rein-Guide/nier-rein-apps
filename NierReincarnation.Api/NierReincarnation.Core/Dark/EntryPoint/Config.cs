@@ -10,28 +10,28 @@ namespace NierReincarnation.Core.Dark.EntryPoint
         // CUSTOM: Added En and JP in same config. Use UnityEngine.Application.Language to select correct values
         public static class Api
         {
-            // 0x08
+           
             public static readonly string HostnameEn = "api.app.nierreincarnation.com";
             public static readonly string HostnameJp = "api.app.nierreincarnation.jp";
-            // 0x10
+           
             public static readonly int Port = 443;
-            // 0x18
+           
             public static readonly string WebViewBaseUrlEn = "https://web.app.nierreincarnation.com";
             public static readonly string WebViewBaseUrlJp = "https://web.app.nierreincarnation.jp";
-            // 0x20
+           
             public static readonly string MasterDataUrlFormatEn = "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin";
             public static readonly string MasterDataUrlFormatJp = "https://web.app.nierreincarnation.jp/assets/release/{0}/database.bin";
-            // 0x38
+           
             public static readonly string EncryptionMasterDataUrlSuffix = ".e";
-            // 0x80
+           
             public static readonly string WebPagePath = "/web";
-            // 0x98
+           
             public static readonly string InformationPagePath = "/information/?";
-            // 0x100
+           
             public static readonly string JaPagePath = "/ja";
-            // 0x108
+           
             public static readonly string EnPagePath = "/en";
-            // 0x110
+           
             public static readonly string KoPagePath = "/ko";
 
             // CUSTOM
@@ -125,15 +125,15 @@ namespace NierReincarnation.Core.Dark.EntryPoint
 
         public static class Octo
         {
-            public static readonly int AppId = 301; // 0x0
-            public static readonly string ClientSecretKey = "l488k2zmalogay245osa257ifw2lczq4"; // 0x8
-            public static readonly string AesKey = "st4q3c7p1ibgwdhm"; // 0x10
-            public static readonly string Url = "https://resources-api.app.nierreincarnation.com/"; // 0x18
-            private static readonly int OctoPeriod = 0x1C85E; // 0x20
-            private static readonly int OCTO_STAGE = 300000000; // 0x24
-            private static readonly int OCTO_PLATFORM = 2; // 0x28
-            public static readonly int Version = OctoPeriod + OCTO_STAGE + OCTO_PLATFORM; // 0x2C
-            public static readonly string A = $"dark_{AppId}_{Version}"; // 0x30
+            public static readonly int AppId = 301;
+            public static readonly string ClientSecretKey = "l488k2zmalogay245osa257ifw2lczq4";
+            public static readonly string AesKey = "st4q3c7p1ibgwdhm";
+            public static readonly string Url = "https://resources-api.app.nierreincarnation.com/";
+            private static readonly int OctoPeriod = 0x1C85E;
+            private static readonly int OCTO_STAGE = 300000000;
+            private static readonly int OCTO_PLATFORM = 2;
+            public static readonly int Version = OctoPeriod + OCTO_STAGE + OCTO_PLATFORM;
+            public static readonly string A = $"dark_{AppId}_{Version}";
         }
     }
 }

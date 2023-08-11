@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopItemContentMission
     {
         [Key(0)]
-        public int ShopItemId { get; set; } // 0x10
+        public int ShopItemId { get; set; }
 
         [Key(1)]
-        public int MissionGroupId { get; set; } // 0x14
+        public int MissionGroupId { get; set; }
 
         [Key(2)]
-        public bool IsReevaluateOnGrant { get; set; } // 0x18
+        public bool IsReevaluateOnGrant { get; set; }
     }
 }

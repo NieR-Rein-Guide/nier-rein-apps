@@ -9,27 +9,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcPartsStatusSub
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public string BattleNpcPartsUuid { get; set; } // 0x18
+        public string BattleNpcPartsUuid { get; set; }
 
         [Key(2)]
-        public int StatusIndex { get; set; } // 0x20
+        public int StatusIndex { get; set; }
 
         [Key(3)]
-        public int PartsStatusSubLotteryId { get; set; } // 0x24
+        public int PartsStatusSubLotteryId { get; set; }
 
         [Key(4)]
-        public int Level { get; set; } // 0x28
+        public int Level { get; set; }
 
         [Key(5)]
-        public StatusKindType StatusKindType { get; set; } // 0x2C
+        public StatusKindType StatusKindType { get; set; }
 
         [Key(6)]
-        public StatusCalculationType StatusCalculationType { get; set; } // 0x30
+        public StatusCalculationType StatusCalculationType { get; set; }
 
         [Key(7)]
-        public int StatusChangeValue { get; set; } // 0x34
+        public int StatusChangeValue { get; set; }
     }
 }

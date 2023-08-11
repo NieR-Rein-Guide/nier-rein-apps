@@ -9,7 +9,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorCharacter
     {
-        private static readonly int kInvalidQuestId; // 0x0
+        private static readonly int kInvalidQuestId;
         public static readonly int kInvalidCharacterId;
 
         public static string GetCharacterName(int characterId)

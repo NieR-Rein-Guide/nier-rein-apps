@@ -9,24 +9,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionGroup
     {
         [Key(0)]
-        public int MissionGroupId { get; set; } // 0x10
+        public int MissionGroupId { get; set; }
 
         [Key(1)]
-        public MissionCategoryType MissionCategoryType { get; set; } // 0x14
+        public MissionCategoryType MissionCategoryType { get; set; }
 
         [Key(2)]
-        public int LabelMissionTextId { get; set; } // 0x18
+        public int LabelMissionTextId { get; set; }
 
         [Key(3)]
-        public int SortOrderInLabel { get; set; } // 0x1C
+        public int SortOrderInLabel { get; set; }
 
         [Key(4)]
-        public int AssetId { get; set; } // 0x20
+        public int AssetId { get; set; }
 
         [Key(5)]
-        public int MissionGroupUnlockConditionGroupId { get; set; } // 0x24
+        public int MissionGroupUnlockConditionGroupId { get; set; }
 
         [Key(6)]
-        public int MissionSubCategoryId { get; set; } // 0x28
+        public int MissionSubCategoryId { get; set; }
     }
 }

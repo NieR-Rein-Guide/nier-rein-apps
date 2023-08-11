@@ -9,24 +9,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleCompanionSkillAiGroup
     {
         [Key(0)]
-        public int BattleCompanionSkillAiGroupId { get; set; } // 0x10
+        public int BattleCompanionSkillAiGroupId { get; set; }
 
         [Key(1)]
-        public int Priority { get; set; } // 0x14
+        public int Priority { get; set; }
 
         [Key(2)]
-        public BattleSchemeType BattleSchemeType { get; set; } // 0x18
+        public BattleSchemeType BattleSchemeType { get; set; }
 
         [Key(3)]
-        public bool IsPlayerSide { get; set; } // 0x1C
+        public bool IsPlayerSide { get; set; }
 
         [Key(4)]
-        public SkillAiUnlockConditionValueType SkillAiUnlockConditionValueType { get; set; } // 0x20
+        public SkillAiUnlockConditionValueType SkillAiUnlockConditionValueType { get; set; }
 
         [Key(5)]
-        public int SkillAiUnlockConditionValue { get; set; } // 0x24
+        public int SkillAiUnlockConditionValue { get; set; }
 
         [Key(6)]
-        public int BattleCompanionSkillAiId { get; set; } // 0x28
+        public int BattleCompanionSkillAiId { get; set; }
     }
 }

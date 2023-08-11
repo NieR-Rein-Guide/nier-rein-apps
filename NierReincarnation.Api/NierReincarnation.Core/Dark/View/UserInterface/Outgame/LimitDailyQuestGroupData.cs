@@ -6,13 +6,13 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
     {
         private EntityMEventQuestDailyGroupMessage _message;
 
-        public int EventQuestDailyGroupId { get; set; } // 0x10
-        public long EndUnixTime { get; set; }   // 0x18
-        public List<LimitDailyQuestData> Quests { get; set; }   // 0x20
+        public int EventQuestDailyGroupId { get; set; }
+        public long EndUnixTime { get; set; }  
+        public List<LimitDailyQuestData> Quests { get; set; }  
         public EntityMEventQuestDailyGroupMessage EntityMEventQuestDailyGroupMessage { set => _message = value; }
-        public List<DataPossessionItem> CompleteRewards { get; set; } // 0x30
-        public bool IsQuestAllClear { get; set; }   // 0x38
-        public string DailyMessage { get; set; }    // 0x40
-        public long CreatedDataUnixTime { get; set; }   // 0x48
+        public List<DataPossessionItem> CompleteRewards { get; set; }
+        public bool IsQuestAllClear { get; set; }  
+        public string DailyMessage { get; set; }   
+        public long CreatedDataUnixTime { get; set; }  
     }
 }

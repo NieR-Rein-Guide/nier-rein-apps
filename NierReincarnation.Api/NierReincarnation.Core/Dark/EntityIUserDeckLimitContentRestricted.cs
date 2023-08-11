@@ -9,24 +9,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserDeckLimitContentRestricted
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int EventQuestChapterId { get; set; } // 0x18
+        public int EventQuestChapterId { get; set; }
 
         [Key(2)]
-        public int QuestId { get; set; } // 0x1C
+        public int QuestId { get; set; }
 
         [Key(3)]
-        public string DeckRestrictedUuid { get; set; } // 0x20
+        public string DeckRestrictedUuid { get; set; }
 
         [Key(4)]
-        public PossessionType PossessionType { get; set; } // 0x28
+        public PossessionType PossessionType { get; set; }
 
         [Key(5)]
-        public string TargetUuid { get; set; } // 0x30
+        public string TargetUuid { get; set; }
 
         [Key(6)]
-        public long LatestVersion { get; set; } // 0x38
+        public long LatestVersion { get; set; }
     }
 }

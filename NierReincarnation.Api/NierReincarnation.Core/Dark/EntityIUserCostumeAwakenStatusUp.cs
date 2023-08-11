@@ -9,33 +9,33 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserCostumeAwakenStatusUp
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public string UserCostumeUuid { get; set; } // 0x18
+        public string UserCostumeUuid { get; set; }
 
         [Key(2)]
-        public StatusCalculationType StatusCalculationType { get; set; } // 0x20
+        public StatusCalculationType StatusCalculationType { get; set; }
 
         [Key(3)]
-        public int Hp { get; set; } // 0x24
+        public int Hp { get; set; }
 
         [Key(4)]
-        public int Attack { get; set; } // 0x28
+        public int Attack { get; set; }
 
         [Key(5)]
-        public int Vitality { get; set; } // 0x2C
+        public int Vitality { get; set; }
 
         [Key(6)]
-        public int Agility { get; set; } // 0x30
+        public int Agility { get; set; }
 
         [Key(7)]
-        public int CriticalRatio { get; set; } // 0x34
+        public int CriticalRatio { get; set; }
 
         [Key(8)]
-        public int CriticalAttack { get; set; } // 0x38
+        public int CriticalAttack { get; set; }
 
         [Key(9)]
-        public long LatestVersion { get; set; } // 0x40
+        public long LatestVersion { get; set; }
     }
 }

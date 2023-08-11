@@ -6,20 +6,20 @@ namespace NierReincarnation.Core.Dark.Networking
     // Dark.Networking.NetworkConfig
     class NetworkConfig
     {
-        // 0x00
+       
         private static TimeZoneInfo _timeZone;
-        // 0x08
+       
         private static readonly int InvalidPort;
 
-        // 0x18
+       
         public int MasterVersion { get; set; }
 
-        // 0x20
+       
         private string _serverAddress;
-        // 0x28
+       
         private int _serverPort;
 
-        // 0x2C
+       
         public ServerTimeZone ServerTimeZone { get; set; }
 
         public static TimeZoneInfo TimeZone => CreateTimeZoneInfo(KernelState.NetworkConfig.ServerTimeZone);

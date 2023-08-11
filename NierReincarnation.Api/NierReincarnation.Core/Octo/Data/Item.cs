@@ -7,19 +7,19 @@ namespace NierReincarnation.Core.Octo.Data
 {
     public class Item
     {
-        private static readonly string Tag = "Octo/Data/Item"; // 0x0
-        private static string[] EmptyTags = new string[0]; // 0x8
-        private static Item[] EmptyDependencies = new Item[0]; // 0x10
+        private static readonly string Tag = "Octo/Data/Item";
+        private static string[] EmptyTags = new string[0];
+        private static Item[] EmptyDependencies = new Item[0];
 
-        public int id; // 0x10
-        public string name; // 0x18
-        public ObjectName objectName; // 0x20
-        public ulong generation; // 0x28
-        public int size; // 0x30
-        public uint crc; // 0x34
-        public MD5Value md5; // 0x38
-        public Proto.Data.DataState state; // 0x48
-        public int uploadVersionId; // 0x4C
+        public int id;
+        public string name;
+        public ObjectName objectName;
+        public ulong generation;
+        public int size;
+        public uint crc;
+        public MD5Value md5;
+        public Proto.Data.DataState state;
+        public int uploadVersionId;
 
         // Properties
         public virtual ItemType Type => ItemType.Minimum;

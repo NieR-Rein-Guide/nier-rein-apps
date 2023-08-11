@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPvpSeasonRankRewardRankGroup
     {
         [Key(0)]
-        public int PvpSeasonRankRewardRankGroupId { get; set; } // 0x10
+        public int PvpSeasonRankRewardRankGroupId { get; set; }
 
         [Key(1)]
-        public int RankLowerLimit { get; set; } // 0x14
+        public int RankLowerLimit { get; set; }
 
         [Key(2)]
-        public int PvpSeasonRankRewardGroupId { get; set; } // 0x18
+        public int PvpSeasonRankRewardGroupId { get; set; }
     }
 }

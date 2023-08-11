@@ -8,24 +8,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserPvpWeeklyResult
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public long PvpWeeklyVersion { get; set; } // 0x18
+        public long PvpWeeklyVersion { get; set; }
 
         [Key(2)]
-        public int PvpSeasonId { get; set; } // 0x20
+        public int PvpSeasonId { get; set; }
 
         [Key(3)]
-        public int GroupId { get; set; } // 0x24
+        public int GroupId { get; set; }
 
         [Key(4)]
-        public int FinalPoint { get; set; } // 0x28
+        public int FinalPoint { get; set; }
 
         [Key(5)]
-        public int FinalRank { get; set; } // 0x2C
+        public int FinalRank { get; set; }
 
         [Key(6)]
-        public long LatestVersion { get; set; } // 0x30
+        public long LatestVersion { get; set; }
     }
 }

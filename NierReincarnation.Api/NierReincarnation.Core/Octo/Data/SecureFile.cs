@@ -5,11 +5,11 @@ namespace NierReincarnation.Core.Octo.Data
 {
     class SecureFile
     {
-        private static readonly string Tag = "Octo/SecureFile"; // 0x0
+        private static readonly string Tag = "Octo/SecureFile";
 
-        protected AESCrypt _crypt; // 0x18
+        protected AESCrypt _crypt;
 
-        // 0x10
+       
         public string Path { get; set; }
 
         public SecureFile(string path, AESCrypt crypt)

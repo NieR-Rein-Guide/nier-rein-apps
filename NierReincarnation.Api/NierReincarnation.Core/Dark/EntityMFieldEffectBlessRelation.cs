@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMFieldEffectBlessRelation
     {
         [Key(0)]
-        public int FieldEffectGroupId { get; set; } // 0x10
+        public int FieldEffectGroupId { get; set; }
 
         [Key(1)]
-        public int FieldEffectBlessRelationIndex { get; set; } // 0x14
+        public int FieldEffectBlessRelationIndex { get; set; }
 
         [Key(2)]
-        public int WeaponId { get; set; } // 0x18
+        public int WeaponId { get; set; }
     }
 }

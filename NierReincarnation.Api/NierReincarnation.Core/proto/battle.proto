@@ -21,16 +21,16 @@ message StartWaveResponse {
 }
 
 message FinishWaveRequest {
-	bytes battleBinary = 1; // 0x10
-	BattleDetail battleDetail = 2; // 0x18
-	repeated UserPartyResultInfo userPartyResultInfoList = 3; // 0x20
-	repeated NpcPartyResultInfo npcPartyResultInfoList = 4; // 0x28
-	int64 elapsedFrameCount = 5; // 0x30
-	string vt = 200; // 0x38
+	bytes battleBinary = 1;
+	BattleDetail battleDetail = 2;
+	repeated UserPartyResultInfo userPartyResultInfoList = 3;
+	repeated NpcPartyResultInfo npcPartyResultInfoList = 4;
+	int64 elapsedFrameCount = 5;
+	string vt = 200;
 }
 
 message FinishWaveResponse {
-	map<string, apb.api.data.DiffData> diffUserData = 99; // 0x10
+	map<string, apb.api.data.DiffData> diffUserData = 99;
 }
 
 message UserPartyInitialInfo {
@@ -78,61 +78,61 @@ message BattleReportRandomDisplay {
 }
 
 message UserPartyResultInfo {
-	int64 userId = 1; // 0x10
-	int32 deckType = 2; // 0x18
-	int32 userDeckNumber = 3; // 0x1C
-	repeated AddUserDamageInfo addDamageInfoList = 4; // 0x20
-	repeated UserRecoverInfo userRecoverInfo = 5; // 0x28
-	repeated SkillUseInfo skillUseInfo = 6; // 0x30
-	int32 characterDeathCount = 7; // 0x38
-	int32 characterReviveCount = 8; // 0x3C
-	int32 characterHpDepletedCount = 9; // 0x40
+	int64 userId = 1;
+	int32 deckType = 2;
+	int32 userDeckNumber = 3;
+	repeated AddUserDamageInfo addDamageInfoList = 4;
+	repeated UserRecoverInfo userRecoverInfo = 5;
+	repeated SkillUseInfo skillUseInfo = 6;
+	int32 characterDeathCount = 7;
+	int32 characterReviveCount = 8;
+	int32 characterHpDepletedCount = 9;
 }
 
 message AddUserDamageInfo {
-	int64 userId = 1; // 0x10
-	int32 deckType = 2; // 0x18
-	int32 deckNumber = 3; // 0x1C
-	int64 totalDamage = 4; // 0x20
-	int64 totalUnclampedDamage = 5; // 0x28
+	int64 userId = 1;
+	int32 deckType = 2;
+	int32 deckNumber = 3;
+	int64 totalDamage = 4;
+	int64 totalUnclampedDamage = 5;
 }
 
 message UserRecoverInfo {
-	int64 userId = 1; // 0x10
-	int32 deckType = 2; // 0x18
-	int32 deckNumber = 3; // 0x1C
-	int64 totalRecoverPoint = 4; // 0x20
+	int64 userId = 1;
+	int32 deckType = 2;
+	int32 deckNumber = 3;
+	int64 totalRecoverPoint = 4;
 }
 
 message SkillUseInfo {
-	string deckCharacterUuid = 1; // 0x10
-	int32 skillDetailId = 2; // 0x18
-	int32 useCount = 3; // 0x1C
+	string deckCharacterUuid = 1;
+	int32 skillDetailId = 2;
+	int32 useCount = 3;
 }
 
 message NpcPartyResultInfo {
-	int64 npcId = 1; // 0x10
-	int32 deckType = 2; // 0x18
-	int32 battleNpcDeckNumber = 3; // 0x1C
-	repeated AddNpcDamageInfo addDamageInfoList = 4; // 0x20
-	repeated NpcRecoverInfo npcRecoverInfo = 5; // 0x28
-	repeated SkillUseInfo skillUseInfo = 6; // 0x30
-	int32 characterDeathCount = 7; // 0x38
-	int32 characterReviveCount = 8; // 0x3C
-	int32 characterHpDepletedCount = 9; // 0x40
+	int64 npcId = 1;
+	int32 deckType = 2;
+	int32 battleNpcDeckNumber = 3;
+	repeated AddNpcDamageInfo addDamageInfoList = 4;
+	repeated NpcRecoverInfo npcRecoverInfo = 5;
+	repeated SkillUseInfo skillUseInfo = 6;
+	int32 characterDeathCount = 7;
+	int32 characterReviveCount = 8;
+	int32 characterHpDepletedCount = 9;
 }
 
 message AddNpcDamageInfo {
-	int64 npcId = 1; // 0x10
-	int32 deckType = 2; // 0x18
-	int32 deckNumber = 3; // 0x1C
-	int64 totalDamage = 4; // 0x20
-	int64 totalUnclampedDamage = 5; // 0x28
+	int64 npcId = 1;
+	int32 deckType = 2;
+	int32 deckNumber = 3;
+	int64 totalDamage = 4;
+	int64 totalUnclampedDamage = 5;
 }
 
 message NpcRecoverInfo {
-	int64 npcId = 1; // 0x10
-	int32 deckType = 2; // 0x18
-	int32 deckNumber = 3; // 0x1C
-	int64 totalRecoverPoint = 4; // 0x20
+	int64 npcId = 1;
+	int32 deckType = 2;
+	int32 deckNumber = 3;
+	int64 totalRecoverPoint = 4;
 }

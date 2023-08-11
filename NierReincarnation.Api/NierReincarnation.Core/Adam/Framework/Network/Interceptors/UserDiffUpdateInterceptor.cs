@@ -12,7 +12,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
     // TODO: Implement fully
     class UserDiffUpdateInterceptor : INetworkInterceptor
     {
-        public static Action<long> SetGameTimeNow; // 0x0
+        public static Action<long> SetGameTimeNow;
 
         public async Task<ResponseContext> SendAsync(RequestContext context, Func<RequestContext, Task<ResponseContext>> next)
         {

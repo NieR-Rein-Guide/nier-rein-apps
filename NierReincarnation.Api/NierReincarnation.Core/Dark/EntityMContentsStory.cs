@@ -9,30 +9,30 @@ namespace NierReincarnation.Core.Dark
     public class EntityMContentsStory
     {
         [Key(0)]
-        public int ContentsStoryId { get; set; } // 0x10
+        public int ContentsStoryId { get; set; }
 
         [Key(1)]
-        public QuestSceneType QuestSceneType { get; set; } // 0x14
+        public QuestSceneType QuestSceneType { get; set; }
 
         [Key(2)]
-        public int AssetBackgroundId { get; set; } // 0x18
+        public int AssetBackgroundId { get; set; }
 
         [Key(3)]
-        public int EventMapNumberUpper { get; set; } // 0x1C
+        public int EventMapNumberUpper { get; set; }
 
         [Key(4)]
-        public int EventMapNumberLower { get; set; } // 0x20
+        public int EventMapNumberLower { get; set; }
 
         [Key(5)]
-        public bool IsForcedPlay { get; set; } // 0x24
+        public bool IsForcedPlay { get; set; }
 
         [Key(6)]
-        public UnlockConditionType ContentsStoryUnlockConditionType { get; set; } // 0x28
+        public UnlockConditionType ContentsStoryUnlockConditionType { get; set; }
 
         [Key(7)]
-        public int ConditionValue { get; set; } // 0x2C
+        public int ConditionValue { get; set; }
 
         [Key(8)]
-        public int UnlockEvaluateConditionId { get; set; } // 0x30
+        public int UnlockEvaluateConditionId { get; set; }
     }
 }

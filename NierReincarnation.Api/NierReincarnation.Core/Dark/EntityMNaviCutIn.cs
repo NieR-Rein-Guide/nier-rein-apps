@@ -9,24 +9,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityMNaviCutIn
     {
         [Key(0)]
-        public int NaviCutInId { get; set; } // 0x10
+        public int NaviCutInId { get; set; }
 
         [Key(1)]
-        public CutInFunctionType RelatedCutInFunctionType { get; set; } // 0x14
+        public CutInFunctionType RelatedCutInFunctionType { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)]
-        public long StartDatetime { get; set; } // 0x20
+        public long StartDatetime { get; set; }
 
         [Key(4)]
-        public long EndDatetime { get; set; } // 0x28
+        public long EndDatetime { get; set; }
 
         [Key(5)]
-        public int NaviCutInContentGroupId { get; set; } // 0x30
+        public int NaviCutInContentGroupId { get; set; }
 
         [Key(6)]
-        public int RelatedCutInFunctionValue { get; set; } // 0x34
+        public int RelatedCutInFunctionValue { get; set; }
     }
 }

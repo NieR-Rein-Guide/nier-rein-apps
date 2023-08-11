@@ -10,7 +10,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network
     {
         public sealed class TokenInfo
         {
-            // 0x10
+           
             private string token;
 
             public string Value => token;
@@ -23,11 +23,11 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 
         public sealed class AuthInfo
         {
-            // 0x10
+           
             private readonly ContextPreference _context;
-            // 0x18
+           
             private string _sessionKey;
-            // 0x20
+           
             private long _sessionExpire;
 
             public string SessionKey => _sessionKey;
@@ -48,14 +48,14 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 
         public sealed class UserInfo
         {
-            // 0x10
+           
             private readonly PlayerRegistration _registration;
-            // 0x20
+           
             private string _uuid;
-            // 0x40
+           
             private long _userId;
 
-            // 0x18
+           
             public string Signature { get; private set; }
 
             public string Uuid
@@ -64,11 +64,11 @@ namespace NierReincarnation.Core.Adam.Framework.Network
                 set => _uuid = value;
             }
 
-            // 0x28
+           
             public string TerminalId { get; private set; }
-            // 0x30
+           
             public string AdvertisingId { get; private set; }
-            // 0x38
+           
             public bool IsTrackingEnabled { get; private set; }
             public long UserId
             {
@@ -108,13 +108,13 @@ namespace NierReincarnation.Core.Adam.Framework.Network
 
         public sealed class MasterDataVersionInfo
         {
-            // 0x10
+           
             private readonly ContextPreference _context;
 
-            // 0x18
+           
             public int MasterDataVersion { get; private set; }
 
-            // 0x20
+           
             public string MasterDataHash { get; private set; }
 
             public MasterDataVersionInfo(ContextPreference context)
@@ -136,25 +136,25 @@ namespace NierReincarnation.Core.Adam.Framework.Network
             }
         }
 
-        // 0x00
+       
         public static readonly ApplicationScopeClientContext Instance = new ApplicationScopeClientContext();
 
-        // 0x10
+       
         public ServerResolver ServerResolver { get; private set; }
 
-        // 0x18
+       
         public TokenInfo Token { get; private set; }
 
-        // 0x20
+       
         public AuthInfo Auth { get; set; }
 
-        // 0x28
+       
         public UserInfo User { get; set; }
 
-        // 0x30
+       
         public AppTrackingStatus AppTrackingTransparencyStatus { get; set; }
 
-        // 0x38
+       
         public MasterDataVersionInfo MasterData { get; set; }
 
         private ApplicationScopeClientContext()

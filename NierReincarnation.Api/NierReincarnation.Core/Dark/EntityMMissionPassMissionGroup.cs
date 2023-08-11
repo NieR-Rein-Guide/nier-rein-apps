@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionPassMissionGroup
     {
         [Key(0)]
-        public int MissionPassId { get; set; } // 0x10
+        public int MissionPassId { get; set; }
 
         [Key(1)]
-        public int MissionGroupId { get; set; } // 0x14
+        public int MissionGroupId { get; set; }
     }
 }

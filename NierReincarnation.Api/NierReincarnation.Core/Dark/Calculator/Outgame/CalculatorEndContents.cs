@@ -12,7 +12,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
     {
         public static readonly int kFirstAbilityReinforcedWeaponEvolutionOrder = 5;
         public static readonly int kSecondAbilityReinforcedWeaponEvolutionOrder = 8;
-        public static readonly int kSkillReinforcedWeaponEvolutionOrder = 11; // 0x8
+        public static readonly int kSkillReinforcedWeaponEvolutionOrder = 11;
         private const int kFirstAcquisitionEndWeaponEvolutionOrder = 1;
         public static readonly int kFirstReleaseEndQuestEvolutionOrder = 4;
         public static readonly int kSecondReleaseEndQuestEvolutionOrder = 7;

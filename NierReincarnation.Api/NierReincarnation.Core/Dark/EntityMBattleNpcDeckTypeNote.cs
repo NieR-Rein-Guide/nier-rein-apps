@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcDeckTypeNote
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public DeckType DeckType { get; set; } // 0x18
+        public DeckType DeckType { get; set; }
 
         [Key(2)]
-        public int MaxDeckPower { get; set; } // 0x1C
+        public int MaxDeckPower { get; set; }
     }
 }

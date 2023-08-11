@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardPanelReleaseEffectGroup
     {
         [Key(0)]
-        public int CharacterBoardPanelReleaseEffectGroupId { get; set; } // 0x10
+        public int CharacterBoardPanelReleaseEffectGroupId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public CharacterBoardEffectType CharacterBoardEffectType { get; set; } // 0x18
+        public CharacterBoardEffectType CharacterBoardEffectType { get; set; }
 
         [Key(3)]
-        public int CharacterBoardEffectId { get; set; } // 0x1C
+        public int CharacterBoardEffectId { get; set; }
 
         [Key(4)]
-        public int EffectValue { get; set; } // 0x20
+        public int EffectValue { get; set; }
     }
 }

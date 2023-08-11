@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMExploreGradeScore
     {
         [Key(0)]
-        public int ExploreId { get; set; } // 0x10
+        public int ExploreId { get; set; }
 
         [Key(1)]
-        public int NecessaryScore { get; set; } // 0x14
+        public int NecessaryScore { get; set; }
 
         [Key(2)]
-        public int ExploreGradeId { get; set; } // 0x18
+        public int ExploreGradeId { get; set; }
     }
 }

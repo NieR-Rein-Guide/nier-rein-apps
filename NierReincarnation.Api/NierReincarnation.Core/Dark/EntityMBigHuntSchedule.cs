@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBigHuntSchedule
     {
         [Key(0)]
-        public int BigHuntScheduleId { get; set; } // 0x10
+        public int BigHuntScheduleId { get; set; }
 
         [Key(1)]
-        public long NoticeStartDatetime { get; set; } // 0x18
+        public long NoticeStartDatetime { get; set; }
 
         [Key(2)]
-        public long ChallengeStartDatetime { get; set; } // 0x20
+        public long ChallengeStartDatetime { get; set; }
 
         [Key(3)]
-        public long ChallengeEndDatetime { get; set; } // 0x28
+        public long ChallengeEndDatetime { get; set; }
 
         [Key(4)]
-        public int SeasonAssetId { get; set; } // 0x30
+        public int SeasonAssetId { get; set; }
     }
 }

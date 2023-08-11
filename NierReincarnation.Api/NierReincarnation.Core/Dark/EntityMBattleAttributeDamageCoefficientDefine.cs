@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleAttributeDamageCoefficientDefine
     {
         [Key(0)]
-        public BattleSchemeType BattleSchemeType { get; set; } // 0x10
+        public BattleSchemeType BattleSchemeType { get; set; }
 
         [Key(1)]
-        public int PlayerAttributeDamageCoefficientGroupId { get; set; } // 0x14
+        public int PlayerAttributeDamageCoefficientGroupId { get; set; }
 
         [Key(2)]
-        public int NpcAttributeDamageCoefficientGroupId { get; set; } // 0x18
+        public int NpcAttributeDamageCoefficientGroupId { get; set; }
     }
 }

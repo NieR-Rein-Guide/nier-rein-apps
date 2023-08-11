@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMDeckEntrustCoefficientStatus
     {
         [Key(0)]
-        public int EntrustDeckStatusType { get; set; } // 0x10
+        public int EntrustDeckStatusType { get; set; }
 
         [Key(1)]
-        public int DeckStatusType { get; set; } // 0x14
+        public int DeckStatusType { get; set; }
 
         [Key(2)]
-        public int CoefficientPermil { get; set; } // 0x18
+        public int CoefficientPermil { get; set; }
     }
 }

@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionPass
     {
         [Key(0)]
-        public int MissionPassId { get; set; } // 0x10
+        public int MissionPassId { get; set; }
 
         [Key(1)]
-        public long StartDatetime { get; set; } // 0x18
+        public long StartDatetime { get; set; }
 
         [Key(2)]
-        public long EndDatetime { get; set; } // 0x20
+        public long EndDatetime { get; set; }
 
         [Key(3)]
-        public int PremiumItemId { get; set; } // 0x28
+        public int PremiumItemId { get; set; }
 
         [Key(4)]
-        public int MissionPassLevelGroupId { get; set; } // 0x2C
+        public int MissionPassLevelGroupId { get; set; }
 
         [Key(5)]
-        public int MissionPassRewardGroupId { get; set; } // 0x30
+        public int MissionPassRewardGroupId { get; set; }
     }
 }

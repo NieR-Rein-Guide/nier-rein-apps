@@ -4,7 +4,7 @@ namespace NierReincarnation.Core.Dark.Calculator
 {
     class DeckPowerCalculationConstantValues
     {
-        private static DeckPowerCalculationConstantValues _instance; // 0x0
+        private static DeckPowerCalculationConstantValues _instance;
 
         public static DeckPowerCalculationConstantValues Instance
         {
@@ -20,29 +20,29 @@ namespace NierReincarnation.Core.Dark.Calculator
             }
         }
 
-        public int CostumePowerAttackCoefficientPermil { get; set; }    // 0x10
+        public int CostumePowerAttackCoefficientPermil { get; set; }   
         public int CostumePowerVitalityCoefficientPermil { get; set; }
         public int CostumePowerHpCoefficientPermil { get; set; }
         public int WeaponPowerAttackCoefficientPermil { get; set; }
-        public int WeaponPowerVitalityCoefficientPermil { get; set; }   // 0x20
+        public int WeaponPowerVitalityCoefficientPermil { get; set; }  
         public int WeaponPowerHpCoefficientPermil { get; set; }
         public int CompanionPowerAttackCoefficientPermil { get; set; }
         public int CompanionPowerVitalityCoefficientPermil { get; set; }
-        public int CompanionPowerHpCoefficientPermil { get; set; }  // 0x30
+        public int CompanionPowerHpCoefficientPermil { get; set; } 
         public int PartsAddPowerAgilityCoefficientPermil { get; set; }
         public int PartsAddPowerAttackCoefficientPermil { get; set; }
         public int PartsAddPowerCriticalAttackCoefficientPermil { get; set; }
-        public int PartsAddPowerCriticalRatioCoefficientPermil { get; set; }    // 0x40
+        public int PartsAddPowerCriticalRatioCoefficientPermil { get; set; }   
         public int PartsAddPowerEvasionRatioCoefficientPermil { get; set; }
         public int PartsAddPowerHpCoefficientPermil { get; set; }
         public int PartsAddPowerVitalityCoefficientPermil { get; set; }
-        public int PartsMulPowerAgilityBaseValue { get; set; }  // 0x50
+        public int PartsMulPowerAgilityBaseValue { get; set; } 
         public int PartsMulPowerAttackBaseValue { get; set; }
         public int PartsMulPowerCriticalAttackBaseValue { get; set; }
         public int PartsMulPowerCriticalRatioBaseValue { get; set; }
-        public int PartsMulPowerEvasionRatioBaseValue { get; set; } // 0x60
+        public int PartsMulPowerEvasionRatioBaseValue { get; set; }
         public int PartsMulPowerHpBaseValue { get; set; }
-        public int PartsMulPowerVitalityBaseValue { get; set; } // 0x68
+        public int PartsMulPowerVitalityBaseValue { get; set; }
 
         public void Setup()
         {

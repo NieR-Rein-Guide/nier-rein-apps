@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTipDisplayConditionGroup
     {
         [Key(0)]
-        public int TipDisplayConditionGroupId { get; set; } // 0x10
+        public int TipDisplayConditionGroupId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public TipDisplayConditionType TipDisplayConditionType { get; set; } // 0x18
+        public TipDisplayConditionType TipDisplayConditionType { get; set; }
 
         [Key(3)]
-        public int ConditionValue { get; set; } // 0x1C
+        public int ConditionValue { get; set; }
 
         [Key(4)]
-        public ConditionOperationType ConditionOperationType { get; set; } // 0x20
+        public ConditionOperationType ConditionOperationType { get; set; }
     }
 }

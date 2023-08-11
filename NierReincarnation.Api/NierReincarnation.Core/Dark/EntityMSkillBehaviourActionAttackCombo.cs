@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionAttackCombo
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int SkillPowerCalculationId { get; set; } // 0x14
+        public int SkillPowerCalculationId { get; set; }
     }
 }

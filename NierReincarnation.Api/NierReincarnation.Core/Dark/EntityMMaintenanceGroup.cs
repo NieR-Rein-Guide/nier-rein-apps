@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMaintenanceGroup
     {
         [Key(0)]
-        public int MaintenanceGroupId { get; set; } // 0x10
+        public int MaintenanceGroupId { get; set; }
 
         [Key(1)]
-        public string ApiPath { get; set; } // 0x18
+        public string ApiPath { get; set; }
 
         [Key(2)]
-        public int Priority { get; set; } // 0x20
+        public int Priority { get; set; }
 
         [Key(3)]
-        public int ScreenTransitionType { get; set; } // 0x24
+        public int ScreenTransitionType { get; set; }
 
         [Key(4)]
-        public MaintenanceBlockFunctionType BlockFunctionType { get; set; } // 0x28
+        public MaintenanceBlockFunctionType BlockFunctionType { get; set; }
 
         [Key(5)]
-        public string BlockFunctionValue { get; set; } // 0x30
+        public string BlockFunctionValue { get; set; }
     }
 }

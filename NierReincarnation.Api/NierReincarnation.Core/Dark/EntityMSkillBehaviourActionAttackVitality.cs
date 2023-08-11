@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionAttackVitality
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int SkillPower { get; set; } // 0x14
+        public int SkillPower { get; set; }
 
         [Key(2)]
-        public int AttackWeight { get; set; } // 0x18
+        public int AttackWeight { get; set; }
 
         [Key(3)]
-        public int VitalityWeight { get; set; } // 0x1C
+        public int VitalityWeight { get; set; }
     }
 }

@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcCostumeActiveSkill
     {
         [Key(0)] // RVA: 0x1DD8328 Offset: 0x1DD8328 VA: 0x1DD8328
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)] // RVA: 0x1DD8368 Offset: 0x1DD8368 VA: 0x1DD8368
-        public string BattleNpcCostumeUuid { get; set; } // 0x18
+        public string BattleNpcCostumeUuid { get; set; }
 
         [Key(2)] // RVA: 0x1DD83A8 Offset: 0x1DD83A8 VA: 0x1DD83A8
-        public int Level { get; set; } // 0x20
+        public int Level { get; set; }
 
         [Key(3)] // RVA: 0x1DD83BC Offset: 0x1DD83BC VA: 0x1DD83BC
-        public long AcquisitionDatetime { get; set; } // 0x28
+        public long AcquisitionDatetime { get; set; }
     }
 }

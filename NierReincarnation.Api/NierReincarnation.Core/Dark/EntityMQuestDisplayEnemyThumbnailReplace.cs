@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestDisplayEnemyThumbnailReplace
     {
         [Key(0)]
-        public int QuestId { get; set; } // 0x10
+        public int QuestId { get; set; }
 
         [Key(1)]
-        public int Priority { get; set; } // 0x14
+        public int Priority { get; set; }
 
         [Key(2)]
-        public EnemyThumbnailReplaceConditionType ReplaceConditionType { get; set; } // 0x18
+        public EnemyThumbnailReplaceConditionType ReplaceConditionType { get; set; }
 
         [Key(3)]
-        public EnemyThumbnailReplaceMethodType ReplaceMethodType { get; set; } // 0x1C
+        public EnemyThumbnailReplaceMethodType ReplaceMethodType { get; set; }
 
         [Key(4)]
-        public int ReplaceValue { get; set; } // 0x20
+        public int ReplaceValue { get; set; }
     }
 }

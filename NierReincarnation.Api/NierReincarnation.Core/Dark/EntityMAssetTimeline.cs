@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMAssetTimeline
     {
         [Key(0)]
-        public int AssetTimelineId { get; set; } // 0x10
+        public int AssetTimelineId { get; set; }
 
         [Key(1)]
-        public string AssetPath { get; set; } // 0x18
+        public string AssetPath { get; set; }
     }
 }

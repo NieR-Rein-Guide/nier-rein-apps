@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleBigHunt
     {
         [Key(0)]
-        public int BattleGroupId { get; set; } // 0x10
+        public int BattleGroupId { get; set; }
 
         [Key(1)]
-        public int BattleBigHuntPhaseGroupId { get; set; } // 0x14
+        public int BattleBigHuntPhaseGroupId { get; set; }
 
         [Key(2)]
-        public int KnockDownGaugeValueConfigGroupId { get; set; } // 0x18
+        public int KnockDownGaugeValueConfigGroupId { get; set; }
     }
 }

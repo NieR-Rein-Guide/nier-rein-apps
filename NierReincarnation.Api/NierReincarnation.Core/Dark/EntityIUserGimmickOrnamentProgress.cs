@@ -8,27 +8,27 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserGimmickOrnamentProgress
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int GimmickSequenceScheduleId { get; set; } // 0x18
+        public int GimmickSequenceScheduleId { get; set; }
 
         [Key(2)]
-        public int GimmickSequenceId { get; set; } // 0x1C
+        public int GimmickSequenceId { get; set; }
 
         [Key(3)]
-        public int GimmickId { get; set; } // 0x20
+        public int GimmickId { get; set; }
 
         [Key(4)]
-        public int GimmickOrnamentIndex { get; set; } // 0x24
+        public int GimmickOrnamentIndex { get; set; }
 
         [Key(5)]
-        public int ProgressValueBit { get; set; } // 0x28
+        public int ProgressValueBit { get; set; }
 
         [Key(6)]
-        public long BaseDatetime { get; set; } // 0x30
+        public long BaseDatetime { get; set; }
 
         [Key(7)]
-        public long LatestVersion { get; set; } // 0x38
+        public long LatestVersion { get; set; }
     }
 }

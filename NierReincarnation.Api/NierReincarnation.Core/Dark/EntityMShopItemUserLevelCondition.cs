@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopItemUserLevelCondition
     {
         [Key(0)]
-        public int ShopItemId { get; set; } // 0x10
+        public int ShopItemId { get; set; }
 
         [Key(1)]
-        public int UserLevelUpperLimit { get; set; } // 0x14
+        public int UserLevelUpperLimit { get; set; }
 
         [Key(2)]
-        public int UserLevelLowerLimit { get; set; } // 0x18
+        public int UserLevelLowerLimit { get; set; }
 
         [Key(3)]
-        public int ShopItemAdditionalContentId { get; set; } // 0x1C
+        public int ShopItemAdditionalContentId { get; set; }
     }
 }

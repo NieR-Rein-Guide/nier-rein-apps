@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalBehaviourActionHitRatioDown
     {
         [Key(0)]
-        public int SkillAbnormalBehaviourActionId { get; set; } // 0x10
+        public int SkillAbnormalBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int Value { get; set; } // 0x14
+        public int Value { get; set; }
     }
 }

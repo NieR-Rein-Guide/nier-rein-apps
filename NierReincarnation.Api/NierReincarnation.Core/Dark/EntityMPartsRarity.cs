@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPartsRarity
     {
         [Key(0)]
-        public RarityType RarityType { get; set; } // 0x10
+        public RarityType RarityType { get; set; }
 
         [Key(1)]
-        public int PartsLevelUpRateGroupId { get; set; } // 0x14
+        public int PartsLevelUpRateGroupId { get; set; }
 
         [Key(2)]
-        public int PartsLevelUpPriceGroupId { get; set; } // 0x18
+        public int PartsLevelUpPriceGroupId { get; set; }
 
         [Key(3)]
-        public int SellPriceNumericalFunctionId { get; set; } // 0x1C
+        public int SellPriceNumericalFunctionId { get; set; }
     }
 }

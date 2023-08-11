@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBuff
     {
         [Key(0)]
-        public int SkillBuffId { get; set; } // 0x10
+        public int SkillBuffId { get; set; }
 
         [Key(1)]
-        public string BuffKey { get; set; } // 0x18
+        public string BuffKey { get; set; }
 
         [Key(2)]
-        public BuffType BuffType { get; set; } // 0x20
+        public BuffType BuffType { get; set; }
 
         [Key(3)]
-        public int Power { get; set; } // 0x24
+        public int Power { get; set; }
 
         [Key(4)]
-        public int CooltimeFrameCount { get; set; } // 0x28
+        public int CooltimeFrameCount { get; set; }
 
         [Key(5)]
-        public int IconId { get; set; } // 0x2C
+        public int IconId { get; set; }
     }
 }

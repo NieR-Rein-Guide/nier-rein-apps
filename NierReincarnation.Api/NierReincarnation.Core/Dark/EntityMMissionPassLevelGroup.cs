@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMissionPassLevelGroup
     {
         [Key(0)]
-        public int MissionPassLevelGroupId { get; set; } // 0x10
+        public int MissionPassLevelGroupId { get; set; }
 
         [Key(1)]
-        public int Level { get; set; } // 0x14
+        public int Level { get; set; }
 
         [Key(2)]
-        public int NecessaryPoint { get; set; } // 0x18
+        public int NecessaryPoint { get; set; }
     }
 }

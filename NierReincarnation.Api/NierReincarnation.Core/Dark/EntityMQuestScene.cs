@@ -9,36 +9,36 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestScene
     {
         [Key(0)] // RVA: 0x1DE2914 Offset: 0x1DE2914 VA: 0x1DE2914
-        public int QuestSceneId { get; set; } // 0x10
+        public int QuestSceneId { get; set; }
 
         [Key(1)] // RVA: 0x1DE2954 Offset: 0x1DE2954 VA: 0x1DE2954
-        public int QuestId { get; set; } // 0x14
+        public int QuestId { get; set; }
 
         [Key(2)] // RVA: 0x1DE2968 Offset: 0x1DE2968 VA: 0x1DE2968
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)] // RVA: 0x1DE297C Offset: 0x1DE297C VA: 0x1DE297C
-        public QuestSceneType QuestSceneType { get; set; } // 0x1C
+        public QuestSceneType QuestSceneType { get; set; }
 
         [Key(4)] // RVA: 0x1DE2990 Offset: 0x1DE2990 VA: 0x1DE2990
-        public int AssetBackgroundId { get; set; } // 0x20
+        public int AssetBackgroundId { get; set; }
 
         [Key(5)] // RVA: 0x1DE29A4 Offset: 0x1DE29A4 VA: 0x1DE29A4
-        public int EventMapNumberUpper { get; set; } // 0x24
+        public int EventMapNumberUpper { get; set; }
 
         [Key(6)] // RVA: 0x1DE29B8 Offset: 0x1DE29B8 VA: 0x1DE29B8
-        public int EventMapNumberLower { get; set; } // 0x28
+        public int EventMapNumberLower { get; set; }
 
         [Key(7)] // RVA: 0x1DE29CC Offset: 0x1DE29CC VA: 0x1DE29CC
-        public bool IsMainFlowQuestTarget { get; set; } // 0x2C
+        public bool IsMainFlowQuestTarget { get; set; }
 
         [Key(8)] // RVA: 0x1DE29E0 Offset: 0x1DE29E0 VA: 0x1DE29E0
-        public bool IsBattleOnlyTarget { get; set; } // 0x2D
+        public bool IsBattleOnlyTarget { get; set; }
 
         [Key(9)] // RVA: 0x1DE29F4 Offset: 0x1DE29F4 VA: 0x1DE29F4
-        public QuestResultType QuestResultType { get; set; } // 0x30
+        public QuestResultType QuestResultType { get; set; }
 
         [Key(10)] // RVA: 0x1DE2A08 Offset: 0x1DE2A08 VA: 0x1DE2A08
-        public bool IsStorySkipTarget { get; set; } // 0x34
+        public bool IsStorySkipTarget { get; set; }
     }
 }

@@ -4,22 +4,22 @@ namespace NierReincarnation.Core.Octo.Util
 {
     public struct MD5Value
     {
-        private byte b0; // 0x0
-        private byte b1; // 0x1
-        private byte b2; // 0x2
-        private byte b3; // 0x3
-        private byte b4; // 0x4
-        private byte b5; // 0x5
-        private byte b6; // 0x6
-        private byte b7; // 0x7
-        private byte b8; // 0x8
-        private byte b9; // 0x9
-        private byte b10; // 0xA
-        private byte b11; // 0xB
-        private byte b12; // 0xC
-        private byte b13; // 0xD
-        private byte b14; // 0xE
-        private byte b15; // 0xF
+        private byte b0;
+        private byte b1;
+        private byte b2;
+        private byte b3;
+        private byte b4;
+        private byte b5;
+        private byte b6;
+        private byte b7;
+        private byte b8;
+        private byte b9;
+        private byte b10;
+        private byte b11;
+        private byte b12;
+        private byte b13;
+        private byte b14;
+        private byte b15;
 
         // Methods
 

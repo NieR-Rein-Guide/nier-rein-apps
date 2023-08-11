@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterRebirth
     {
         [Key(0)]
-        public int CharacterId { get; set; } // 0x10
+        public int CharacterId { get; set; }
 
         [Key(1)]
-        public int CharacterRebirthStepGroupId { get; set; } // 0x14
+        public int CharacterRebirthStepGroupId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
 
         [Key(3)]
-        public CharacterAssignmentType CharacterAssignmentType { get; set; } // 0x1C
+        public CharacterAssignmentType CharacterAssignmentType { get; set; }
     }
 }

@@ -9,36 +9,36 @@ namespace NierReincarnation.Core.Dark
     public class EntityMStainedGlass
     {
         [Key(0)]
-        public int StainedGlassId { get; set; } // 0x10
+        public int StainedGlassId { get; set; }
 
         [Key(1)]
-        public StainedGlassCategoryType StainedGlassCategoryType { get; set; } // 0x14
+        public StainedGlassCategoryType StainedGlassCategoryType { get; set; }
 
         [Key(2)]
-        public int ImageAssetId { get; set; } // 0x18
+        public int ImageAssetId { get; set; }
 
         [Key(3)]
-        public int TitleTextId { get; set; } // 0x1C
+        public int TitleTextId { get; set; }
 
         [Key(4)]
-        public int EffectDescriptionTextId { get; set; } // 0x20
+        public int EffectDescriptionTextId { get; set; }
 
         [Key(5)]
-        public int FlavorTextId { get; set; } // 0x24
+        public int FlavorTextId { get; set; }
 
         [Key(6)]
-        public int SortOrder { get; set; } // 0x28
+        public int SortOrder { get; set; }
 
         [Key(7)]
-        public long EmptyDisplayStartDatetime { get; set; } // 0x30
+        public long EmptyDisplayStartDatetime { get; set; }
 
         [Key(8)]
-        public long LockDisplayStartDatetime { get; set; } // 0x38
+        public long LockDisplayStartDatetime { get; set; }
 
         [Key(9)]
-        public int StainedGlassStatusUpTargetGroupId { get; set; } // 0x40
+        public int StainedGlassStatusUpTargetGroupId { get; set; }
 
         [Key(10)]
-        public int StainedGlassStatusUpGroupId { get; set; } // 0x44
+        public int StainedGlassStatusUpGroupId { get; set; }
     }
 }

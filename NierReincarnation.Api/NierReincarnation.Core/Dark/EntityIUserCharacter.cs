@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserCharacter
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int CharacterId { get; set; } // 0x18
+        public int CharacterId { get; set; }
 
         [Key(2)]
-        public int Level { get; set; } // 0x1C
+        public int Level { get; set; }
 
         [Key(3)]
-        public int Exp { get; set; } // 0x20
+        public int Exp { get; set; }
 
         [Key(4)]
-        public long LatestVersion { get; set; } // 0x28
+        public long LatestVersion { get; set; }
     }
 }

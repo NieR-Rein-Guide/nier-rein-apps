@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserPremiumItem
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int PremiumItemId { get; set; } // 0x18
+        public int PremiumItemId { get; set; }
 
         [Key(2)]
-        public long AcquisitionDatetime { get; set; } // 0x20
+        public long AcquisitionDatetime { get; set; }
 
         [Key(3)]
-        public long LatestVersion { get; set; } // 0x28
+        public long LatestVersion { get; set; }
     }
 }

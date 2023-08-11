@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeCollectionBonusGroup
     {
         [Key(0)]
-        public int CollectionBonusGroupId { get; set; } // 0x10
+        public int CollectionBonusGroupId { get; set; }
 
         [Key(1)]
-        public int CostumeId { get; set; } // 0x14
+        public int CostumeId { get; set; }
 
         [Key(2)]
-        public int SortOrder { get; set; } // 0x18
+        public int SortOrder { get; set; }
     }
 }

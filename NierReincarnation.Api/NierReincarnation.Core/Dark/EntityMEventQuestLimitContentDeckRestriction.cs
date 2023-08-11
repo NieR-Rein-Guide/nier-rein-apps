@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLimitContentDeckRestriction
     {
         [Key(0)]
-        public int EventQuestLimitContentDeckRestrictionId { get; set; } // 0x10
+        public int EventQuestLimitContentDeckRestrictionId { get; set; }
 
         [Key(1)]
-        public int GroupIndex { get; set; } // 0x14
+        public int GroupIndex { get; set; }
 
         [Key(2)]
-        public int EventQuestLimitContentDeckRestrictionTargetId { get; set; } // 0x18
+        public int EventQuestLimitContentDeckRestrictionTargetId { get; set; }
 
         [Key(3)]
-        public long StartDatetime { get; set; } // 0x20
+        public long StartDatetime { get; set; }
 
         [Key(4)]
-        public long EndDatetime { get; set; } // 0x28
+        public long EndDatetime { get; set; }
     }
 }

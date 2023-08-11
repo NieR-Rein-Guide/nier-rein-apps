@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserMainQuestProgressStatus
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int CurrentQuestSceneId { get; set; } // 0x18
+        public int CurrentQuestSceneId { get; set; }
 
         [Key(2)]
-        public int HeadQuestSceneId { get; set; } // 0x1C
+        public int HeadQuestSceneId { get; set; }
 
         [Key(3)]
-        public QuestFlowType CurrentQuestFlowType { get; set; } // 0x20
+        public QuestFlowType CurrentQuestFlowType { get; set; }
 
         [Key(4)]
-        public long LatestVersion { get; set; } // 0x28
+        public long LatestVersion { get; set; }
     }
 }

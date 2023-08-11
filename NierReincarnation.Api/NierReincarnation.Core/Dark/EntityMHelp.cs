@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMHelp
     {
         [Key(0)]
-        public HelpType HelpType { get; set; } // 0x10
+        public HelpType HelpType { get; set; }
 
         [Key(1)]
-        public int HelpItemId { get; set; } // 0x14
+        public int HelpItemId { get; set; }
 
         [Key(2)]
-        public int HelpPageGroupId { get; set; } // 0x18
+        public int HelpPageGroupId { get; set; }
     }
 }

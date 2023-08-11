@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardConditionIgnore
     {
         [Key(0)]
-        public int CharacterBoardConditionIgnoreId { get; set; } // 0x10
+        public int CharacterBoardConditionIgnoreId { get; set; }
 
         [Key(1)]
-        public int IgnoreIndex { get; set; } // 0x14
+        public int IgnoreIndex { get; set; }
 
         [Key(2)]
-        public int ConditionValue { get; set; } // 0x18
+        public int ConditionValue { get; set; }
     }
 }

@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserLoginBonus
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int LoginBonusId { get; set; } // 0x18
+        public int LoginBonusId { get; set; }
 
         [Key(2)]
-        public int CurrentPageNumber { get; set; } // 0x1C
+        public int CurrentPageNumber { get; set; }
 
         [Key(3)]
-        public int CurrentStampNumber { get; set; } // 0x20
+        public int CurrentStampNumber { get; set; }
 
         [Key(4)]
-        public long LatestRewardReceiveDatetime { get; set; } // 0x28
+        public long LatestRewardReceiveDatetime { get; set; }
 
         [Key(5)]
-        public long LatestVersion { get; set; } // 0x30
+        public long LatestVersion { get; set; }
     }
 }

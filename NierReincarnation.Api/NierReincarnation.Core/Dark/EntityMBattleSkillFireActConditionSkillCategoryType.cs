@@ -9,9 +9,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleSkillFireActConditionSkillCategoryType
     {
         [Key(0)]
-        public int BattleSkillFireActConditionId { get; set; } // 0x10
+        public int BattleSkillFireActConditionId { get; set; }
 
         [Key(1)]
-        public SkillCategoryType SkillCategoryType { get; set; } // 0x14
+        public SkillCategoryType SkillCategoryType { get; set; }
     }
 }

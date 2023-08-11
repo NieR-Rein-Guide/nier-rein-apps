@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleCostumeSkillFireAct
     {
         [Key(0)]
-        public int CostumeId { get; set; } // 0x10
+        public int CostumeId { get; set; }
 
         [Key(1)]
-        public int BattleSkillFireActId { get; set; } // 0x14
+        public int BattleSkillFireActId { get; set; }
     }
 }

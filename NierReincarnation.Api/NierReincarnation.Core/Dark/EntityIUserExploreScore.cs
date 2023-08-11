@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserExploreScore
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public int ExploreId { get; set; } // 0x18
+        public int ExploreId { get; set; }
 
         [Key(2)]
-        public int MaxScore { get; set; } // 0x1C
+        public int MaxScore { get; set; }
 
         [Key(3)]
-        public long MaxScoreUpdateDatetime { get; set; } // 0x20
+        public long MaxScoreUpdateDatetime { get; set; }
 
         [Key(4)]
-        public long LatestVersion { get; set; } // 0x28
+        public long LatestVersion { get; set; }
     }
 }

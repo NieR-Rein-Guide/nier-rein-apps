@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleEnemySizeTypeConfig
     {
         [Key(0)]
-        public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; } // 0x10
+        public CostumeAssetCategoryType CostumeAssetCategoryType { get; set; }
 
         [Key(1)]
-        public int ActorSkeletonId { get; set; } // 0x14
+        public int ActorSkeletonId { get; set; }
 
         [Key(2)]
-        public EnemySizeType EnemySizeType { get; set; } // 0x18
+        public EnemySizeType EnemySizeType { get; set; }
     }
 }

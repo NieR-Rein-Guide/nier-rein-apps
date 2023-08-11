@@ -2,25 +2,25 @@
 {
     public struct StatusValue
     {
-        // 0x0
+       
         public int Agility { get; set; }
 
-        // 0x4
+       
         public int Attack { get; set; }
 
-        // 0x8
+       
         public int CriticalAttack { get; set; }
 
-        // 0xC
+       
         public int CriticalRatio { get; set; }
 
-        // 0x10
+       
         public int EvasionRatio { get; set; }
 
-        // 0x14
+       
         public int Hp { get; set; }
 
-        // 0x18
+       
         public int Vitality { get; set; }
 
         public StatusValue(int agility, int attack, int criticalAttack, int criticalRatio, int evasionRatio, int hp, int vitality)

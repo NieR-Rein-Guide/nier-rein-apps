@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMGimmickSequenceGroup
     {
         [Key(0)]
-        public int GimmickSequenceGroupId { get; set; } // 0x10
+        public int GimmickSequenceGroupId { get; set; }
 
         [Key(1)]
-        public int GroupIndex { get; set; } // 0x14
+        public int GroupIndex { get; set; }
 
         [Key(2)]
-        public int GimmickSequenceId { get; set; } // 0x18
+        public int GimmickSequenceId { get; set; }
     }
 }

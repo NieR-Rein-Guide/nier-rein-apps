@@ -9,54 +9,54 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMission
     {
         [Key(0)]
-        public int MissionId { get; set; } // 0x10
+        public int MissionId { get; set; }
 
         [Key(1)]
-        public int MissionGroupId { get; set; } // 0x14
+        public int MissionGroupId { get; set; }
 
         [Key(2)]
-        public int SortOrderInMissionGroup { get; set; } // 0x18
+        public int SortOrderInMissionGroup { get; set; }
 
         [Key(3)]
-        public int MissionUnlockConditionId { get; set; } // 0x1C
+        public int MissionUnlockConditionId { get; set; }
 
         [Key(4)]
-        public bool IsNotShowBeforeClear { get; set; } // 0x20
+        public bool IsNotShowBeforeClear { get; set; }
 
         [Key(5)]
-        public int NameMissionTextId { get; set; } // 0x24
+        public int NameMissionTextId { get; set; }
 
         [Key(6)]
-        public int MissionLinkId { get; set; } // 0x28
+        public int MissionLinkId { get; set; }
 
         [Key(7)]
-        public MissionClearConditionType MissionClearConditionType { get; set; } // 0x2C
+        public MissionClearConditionType MissionClearConditionType { get; set; }
 
         [Key(8)]
-        public int MissionClearConditionGroupId { get; set; } // 0x30
+        public int MissionClearConditionGroupId { get; set; }
 
         [Key(9)]
-        public int ClearConditionValue { get; set; } // 0x34
+        public int ClearConditionValue { get; set; }
 
         [Key(10)]
-        public int MissionClearConditionOptionGroupId { get; set; } // 0x38
+        public int MissionClearConditionOptionGroupId { get; set; }
 
         [Key(11)]
-        public int MissionRewardId { get; set; } // 0x3C
+        public int MissionRewardId { get; set; }
 
         [Key(12)]
-        public int MissionTermId { get; set; } // 0x40
+        public int MissionTermId { get; set; }
 
         [Key(13)]
-        public int MinExpirationDays { get; set; } // 0x44
+        public int MinExpirationDays { get; set; }
 
         [Key(14)]
-        public MainFunctionType RelatedMainFunctionType { get; set; } // 0x48
+        public MainFunctionType RelatedMainFunctionType { get; set; }
 
         [Key(15)]
-        public int MissionClearConditionOptionDetailGroupId { get; set; } // 0x4C
+        public int MissionClearConditionOptionDetailGroupId { get; set; }
 
         [Key(16)]
-        public int MissionUnlockConditionDetailGroupId { get; set; } // 0x50
+        public int MissionUnlockConditionDetailGroupId { get; set; }
     }
 }

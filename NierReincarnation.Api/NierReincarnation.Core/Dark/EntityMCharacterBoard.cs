@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoard
     {
         [Key(0)]
-        public int CharacterBoardId { get; set; } // 0x10
+        public int CharacterBoardId { get; set; }
 
         [Key(1)]
-        public int CharacterBoardGroupId { get; set; } // 0x14
+        public int CharacterBoardGroupId { get; set; }
 
         [Key(2)]
-        public int CharacterBoardUnlockConditionGroupId { get; set; } // 0x18
+        public int CharacterBoardUnlockConditionGroupId { get; set; }
 
         [Key(3)]
-        public int ReleaseRank { get; set; } // 0x1C
+        public int ReleaseRank { get; set; }
     }
 }

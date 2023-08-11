@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLink
     {
         [Key(0)] // RVA: 0x1DD9DC4 Offset: 0x1DD9DC4 VA: 0x1DD9DC4
-        public int EventQuestLinkId { get; set; } // 0x10
+        public int EventQuestLinkId { get; set; }
 
         [Key(1)] // RVA: 0x1DD9E04 Offset: 0x1DD9E04 VA: 0x1DD9E04
-        public DomainType DestinationDomainType { get; set; } // 0x14
+        public DomainType DestinationDomainType { get; set; }
 
         [Key(2)] // RVA: 0x1DD9E18 Offset: 0x1DD9E18 VA: 0x1DD9E18
-        public int DestinationDomainId { get; set; } // 0x18
+        public int DestinationDomainId { get; set; }
 
         [Key(3)] // RVA: 0x1DD9E2C Offset: 0x1DD9E2C VA: 0x1DD9E2C
-        public PossessionType PossessionType { get; set; } // 0x1C
+        public PossessionType PossessionType { get; set; }
 
         [Key(4)] // RVA: 0x1DD9E40 Offset: 0x1DD9E40 VA: 0x1DD9E40
-        public int PossessionId { get; set; } // 0x20
+        public int PossessionId { get; set; }
     }
 }

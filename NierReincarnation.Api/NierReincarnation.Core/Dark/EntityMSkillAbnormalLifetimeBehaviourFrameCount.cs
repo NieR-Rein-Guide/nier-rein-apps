@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalLifetimeBehaviourFrameCount
     {
         [Key(0)]
-        public int SkillAbnormalLifetimeBehaviourId { get; set; } // 0x10
+        public int SkillAbnormalLifetimeBehaviourId { get; set; }
 
         [Key(1)]
-        public int FrameCount { get; set; } // 0x14
+        public int FrameCount { get; set; }
     }
 }

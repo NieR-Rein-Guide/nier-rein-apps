@@ -9,30 +9,30 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserPossessionAutoConvert
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public PossessionType PossessionType { get; set; } // 0x18
+        public PossessionType PossessionType { get; set; }
 
         [Key(2)]
-        public int PossessionId { get; set; } // 0x1C
+        public int PossessionId { get; set; }
 
         [Key(3)]
-        public int FromCount { get; set; } // 0x20
+        public int FromCount { get; set; }
 
         [Key(4)]
-        public PossessionType ToPossessionType { get; set; } // 0x24
+        public PossessionType ToPossessionType { get; set; }
 
         [Key(5)]
-        public int ToPossessionId { get; set; } // 0x28
+        public int ToPossessionId { get; set; }
 
         [Key(6)]
-        public int ToCount { get; set; } // 0x2C
+        public int ToCount { get; set; }
 
         [Key(7)]
-        public long ConvertDatetime { get; set; } // 0x30
+        public long ConvertDatetime { get; set; }
 
         [Key(8)]
-        public long LatestVersion { get; set; } // 0x38
+        public long LatestVersion { get; set; }
     }
 }

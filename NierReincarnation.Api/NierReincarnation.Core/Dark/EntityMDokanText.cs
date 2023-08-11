@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMDokanText
     {
         [Key(0)]
-        public int DokanTextId { get; set; } // 0x10
+        public int DokanTextId { get; set; }
 
         [Key(1)]
-        public LanguageType LanguageType { get; set; } // 0x14
+        public LanguageType LanguageType { get; set; }
 
         [Key(2)]
-        public string Text { get; set; } // 0x18
+        public string Text { get; set; }
     }
 }

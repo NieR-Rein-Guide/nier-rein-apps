@@ -13,9 +13,9 @@ namespace NierReincarnation.Core.Dark.StateMachine
     // Dark.StateMachine.HandleNet
     public class HandleNet
     {
-        // 0x50
+       
         private Aes _aes;
-        // 0x58
+       
         private Aes _masterAes;
 
         public HandleNet()

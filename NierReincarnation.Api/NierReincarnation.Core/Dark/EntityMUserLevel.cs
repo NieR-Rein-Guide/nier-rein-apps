@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMUserLevel
     {
         [Key(0)]
-        public int UserLevel { get; set; } // 0x10
+        public int UserLevel { get; set; }
 
         [Key(1)]
-        public int MaxStamina { get; set; } // 0x14
+        public int MaxStamina { get; set; }
     }
 }

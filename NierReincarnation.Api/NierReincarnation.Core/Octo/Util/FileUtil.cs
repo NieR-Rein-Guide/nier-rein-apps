@@ -5,10 +5,10 @@ namespace NierReincarnation.Core.Octo.Util
 {
     static class FileUtil
     {
-        private static readonly string Tag = "Octo/FileUtil"; // 0x0
-        private static readonly string OctoDirectory = "octo"; // 0x8
-        private static readonly string CacheDirectory = "Caches"; // 0x10
-        private static string _mobileRootPath = null; // 0x18
+        private static readonly string Tag = "Octo/FileUtil";
+        private static readonly string OctoDirectory = "octo";
+        private static readonly string CacheDirectory = "Caches";
+        private static string _mobileRootPath = null;
 
         public static string GetCachePath()
         {

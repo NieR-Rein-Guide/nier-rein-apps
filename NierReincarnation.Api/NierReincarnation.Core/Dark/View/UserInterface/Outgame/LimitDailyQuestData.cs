@@ -11,7 +11,7 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
         public IQuest Quest { get; set; }
         public EventQuestType EventQuestType { get; set; }
         public bool IsClearQuest { get; set; }
-        public bool IsDailyQuestCleared { get; set; }  // 0x25
+        public bool IsDailyQuestCleared { get; set; } 
         public QuestDisplayAttributeType AttributeType { get; set; }
         public int Stamina { set => _stamina = value; }
         public int RecommendPower { get; set; }

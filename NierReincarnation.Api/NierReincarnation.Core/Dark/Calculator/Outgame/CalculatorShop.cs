@@ -10,7 +10,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorShop
     {
-        private static readonly int kInvalidLimitedOpenId; // 0x18
+        private static readonly int kInvalidLimitedOpenId;
 
         public static int kShopIdItem => ShopId(ShopType.ITEM_SHOP);
         public static int kShopIdStamina => ShopId(ShopType.STAMINA_RECOVERY_SHOP);

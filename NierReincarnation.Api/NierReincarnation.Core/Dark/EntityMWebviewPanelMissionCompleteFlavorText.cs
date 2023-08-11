@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMWebviewPanelMissionCompleteFlavorText
     {
         [Key(0)]
-        public int WebviewPanelMissionCompleteFlavorTextId { get; set; } // 0x10
+        public int WebviewPanelMissionCompleteFlavorTextId { get; set; }
 
         [Key(1)]
-        public LanguageType LanguageType { get; set; } // 0x14
+        public LanguageType LanguageType { get; set; }
 
         [Key(2)]
-        public string CompleteFlavorText { get; set; } // 0x18
+        public string CompleteFlavorText { get; set; }
     }
 }

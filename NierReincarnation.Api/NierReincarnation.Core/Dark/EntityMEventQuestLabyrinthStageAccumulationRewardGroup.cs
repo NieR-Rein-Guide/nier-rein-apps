@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLabyrinthStageAccumulationRewardGroup
     {
         [Key(0)]
-        public int EventQuestLabyrinthStageAccumulationRewardGroupId { get; set; } // 0x10
+        public int EventQuestLabyrinthStageAccumulationRewardGroupId { get; set; }
 
         [Key(1)]
-        public int QuestMissionClearCount { get; set; } // 0x14
+        public int QuestMissionClearCount { get; set; }
 
         [Key(2)]
-        public int EventQuestLabyrinthRewardGroupId { get; set; } // 0x18
+        public int EventQuestLabyrinthRewardGroupId { get; set; }
     }
 }

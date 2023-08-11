@@ -8,10 +8,10 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorLimitContent
     {
-        private static readonly string kLimitQuestBackgroundPath = "ui)quest)limit_content)limit_content_quest_bg{0:D6}"; // 0x0
-        private static readonly string kLimitQuestComingSoonBackgroundPath = "ui)quest)limit_content)limit_content_quest_coming_soon_bg"; // 0x8
-        private static readonly int kInvalidLimitContentSideStoryQuestId = -1; // 0x10
-        public static readonly int kInvalidLimitContentDeckGroupNumber = -1; // 0x14
+        private static readonly string kLimitQuestBackgroundPath = "ui)quest)limit_content)limit_content_quest_bg{0:D6}";
+        private static readonly string kLimitQuestComingSoonBackgroundPath = "ui)quest)limit_content)limit_content_quest_coming_soon_bg";
+        private static readonly int kInvalidLimitContentSideStoryQuestId = -1;
+        public static readonly int kInvalidLimitContentDeckGroupNumber = -1;
 
         public static DataLimitContentCharacter CreateDataLimitContentCharacter(int questId)
         {

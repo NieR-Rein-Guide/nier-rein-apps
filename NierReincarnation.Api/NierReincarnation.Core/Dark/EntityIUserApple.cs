@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityIUserApple
     {
         [Key(0)]
-        public long UserId { get; set; } // 0x10
+        public long UserId { get; set; }
 
         [Key(1)]
-        public string AppleId { get; set; } // 0x18
+        public string AppleId { get; set; }
 
         [Key(2)]
-        public long LatestVersion { get; set; } // 0x20
+        public long LatestVersion { get; set; }
     }
 }

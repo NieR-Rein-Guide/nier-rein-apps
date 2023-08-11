@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillCasttimeBehaviourActionOnFrameUpdate
     {
         [Key(0)]
-        public int SkillCasttimeBehaviourActionId { get; set; } // 0x10
+        public int SkillCasttimeBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int SkillCasttimeAdvanceValuePerFrame { get; set; } // 0x14
+        public int SkillCasttimeAdvanceValuePerFrame { get; set; }
     }
 }

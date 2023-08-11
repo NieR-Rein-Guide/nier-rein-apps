@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMMovie
     {
         [Key(0)]
-        public int MovieId { get; set; } // 0x10
+        public int MovieId { get; set; }
 
         [Key(1)]
-        public int AssetId { get; set; } // 0x14
+        public int AssetId { get; set; }
     }
 }

@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestDeckRestrictionGroup
     {
         [Key(0)] // RVA: 0x1DDEA9C Offset: 0x1DDEA9C VA: 0x1DDEA9C
-        public int QuestDeckRestrictionGroupId { get; set; } // 0x10
+        public int QuestDeckRestrictionGroupId { get; set; }
 
         [Key(1)] // RVA: 0x1DDEADC Offset: 0x1DDEADC VA: 0x1DDEADC
-        public int SlotNumber { get; set; } // 0x14
+        public int SlotNumber { get; set; }
 
         [Key(2)] // RVA: 0x1DDEB1C Offset: 0x1DDEB1C VA: 0x1DDEB1C
-        public QuestDeckRestrictionType QuestDeckRestrictionType { get; set; } // 0x18
+        public QuestDeckRestrictionType QuestDeckRestrictionType { get; set; }
 
         [Key(3)] // RVA: 0x1DDEB30 Offset: 0x1DDEB30 VA: 0x1DDEB30
-        public int RestrictionValue { get; set; } // 0x1C
+        public int RestrictionValue { get; set; }
     }
 }

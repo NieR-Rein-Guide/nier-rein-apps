@@ -8,30 +8,30 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardPanel
     {
         [Key(0)]
-        public int CharacterBoardPanelId { get; set; } // 0x10
+        public int CharacterBoardPanelId { get; set; }
 
         [Key(1)]
-        public int CharacterBoardId { get; set; } // 0x14
+        public int CharacterBoardId { get; set; }
 
         [Key(2)]
-        public int CharacterBoardPanelUnlockConditionGroupId { get; set; } // 0x18
+        public int CharacterBoardPanelUnlockConditionGroupId { get; set; }
 
         [Key(3)]
-        public int CharacterBoardPanelReleasePossessionGroupId { get; set; } // 0x1C
+        public int CharacterBoardPanelReleasePossessionGroupId { get; set; }
 
         [Key(4)]
-        public int CharacterBoardPanelReleaseRewardGroupId { get; set; } // 0x20
+        public int CharacterBoardPanelReleaseRewardGroupId { get; set; }
 
         [Key(5)]
-        public int CharacterBoardPanelReleaseEffectGroupId { get; set; } // 0x24
+        public int CharacterBoardPanelReleaseEffectGroupId { get; set; }
 
         [Key(6)]
-        public int SortOrder { get; set; } // 0x28
+        public int SortOrder { get; set; }
 
         [Key(7)]
-        public int ParentCharacterBoardPanelId { get; set; } // 0x2C
+        public int ParentCharacterBoardPanelId { get; set; }
 
         [Key(8)]
-        public int PlaceIndex { get; set; } // 0x30
+        public int PlaceIndex { get; set; }
     }
 }

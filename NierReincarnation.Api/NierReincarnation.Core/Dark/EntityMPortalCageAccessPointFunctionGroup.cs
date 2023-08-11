@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPortalCageAccessPointFunctionGroup
     {
         [Key(0)]
-        public int AccessPointFunctionGroupId { get; set; } // 0x10
+        public int AccessPointFunctionGroupId { get; set; }
 
         [Key(1)]
-        public int AccessPointFunctionIndex { get; set; } // 0x14
+        public int AccessPointFunctionIndex { get; set; }
 
         [Key(2)]
-        public int AccessPointFunctionId { get; set; } // 0x18
+        public int AccessPointFunctionId { get; set; }
     }
 }

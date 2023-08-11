@@ -9,10 +9,10 @@ namespace NierReincarnation.Core.Octo.Data
     internal class AESCrypt
     {
         // Fields
-        private static readonly List<int> ValidKeyLengths = new() { 128, 196, 256 }; // 0x0
+        private static readonly List<int> ValidKeyLengths = new() { 128, 196, 256 };
 
-        private const string IV = "LvAUtf+tnz"; // 0x8
-        private readonly Aes _aesAlgo; // 0x10
+        private const string IV = "LvAUtf+tnz";
+        private readonly Aes _aesAlgo;
 
         // Methods
 

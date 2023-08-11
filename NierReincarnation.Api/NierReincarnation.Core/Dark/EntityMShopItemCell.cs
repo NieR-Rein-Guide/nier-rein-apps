@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopItemCell
     {
         [Key(0)] // RVA: 0x1DDFC18 Offset: 0x1DDFC18 VA: 0x1DDFC18
-        public int ShopItemCellId { get; set; } // 0x10
+        public int ShopItemCellId { get; set; }
 
         [Key(1)] // RVA: 0x1DDFC58 Offset: 0x1DDFC58 VA: 0x1DDFC58
-        public int StepNumber { get; set; } // 0x14
+        public int StepNumber { get; set; }
 
         [Key(2)] // RVA: 0x1DDFC98 Offset: 0x1DDFC98 VA: 0x1DDFC98
-        public int ShopItemId { get; set; } // 0x18
+        public int ShopItemId { get; set; }
     }
 }

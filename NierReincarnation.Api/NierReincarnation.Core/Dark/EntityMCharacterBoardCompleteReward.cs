@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterBoardCompleteReward
     {
         [Key(0)]
-        public int CharacterBoardCompleteRewardId { get; set; } // 0x10
+        public int CharacterBoardCompleteRewardId { get; set; }
 
         [Key(1)]
-        public int CharacterBoardCompleteRewardGroupId { get; set; } // 0x14
+        public int CharacterBoardCompleteRewardGroupId { get; set; }
 
         [Key(2)]
-        public int CharacterBoardCompleteRewardConditionGroupId { get; set; } // 0x18
+        public int CharacterBoardCompleteRewardConditionGroupId { get; set; }
     }
 }

@@ -15,14 +15,14 @@ namespace NierReincarnation.Core.Dark.Purchase
         private static readonly Lazy<DarkPurchase> Lazy = new Lazy<DarkPurchase>(() => new DarkPurchase());
         public static DarkPurchase Instance => Lazy.Value;
 
-        // 0x30
+       
         private Purchaser _purchaser;
-        // 0x38
+       
         private Dictionary<string, PurchaseProcessingData> _purchaseProcessingDatas;
-        // 0x40
+       
         private Dictionary<string, int> _shopIdByProductId;
 
-        // 0x20
+       
         public bool Initialized { get; private set; }
 
         public DarkPurchase()

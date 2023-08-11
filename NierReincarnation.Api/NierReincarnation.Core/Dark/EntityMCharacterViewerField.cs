@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterViewerField
     {
         [Key(0)]
-        public int CharacterViewerFieldId { get; set; } // 0x10
+        public int CharacterViewerFieldId { get; set; }
 
         [Key(1)]
-        public int ReleaseEvaluateConditionId { get; set; } // 0x14
+        public int ReleaseEvaluateConditionId { get; set; }
 
         [Key(2)]
-        public long PublishDatetime { get; set; } // 0x18
+        public long PublishDatetime { get; set; }
 
         [Key(3)]
-        public int CharacterViewerFieldAssetId { get; set; } // 0x20
+        public int CharacterViewerFieldAssetId { get; set; }
 
         [Key(4)]
-        public int AssetBackgroundId { get; set; } // 0x24
+        public int AssetBackgroundId { get; set; }
 
         [Key(5)]
-        public int SortOrder { get; set; } // 0x28
+        public int SortOrder { get; set; }
     }
 }

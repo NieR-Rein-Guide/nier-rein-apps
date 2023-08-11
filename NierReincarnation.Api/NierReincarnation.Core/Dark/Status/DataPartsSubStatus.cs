@@ -4,7 +4,7 @@ namespace NierReincarnation.Core.Dark.Status
 {
     public class DataPartsSubStatus
     {
-        private int _statusLevel; // 0x10
+        private int _statusLevel;
 
         public int StatusLevel { set => _statusLevel = value; }
         public StatusKindType StatusKindType { get; set; }

@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMShopReplaceableGem
     {
         [Key(0)]
-        public int LineupUpdateCountLowerLimit { get; set; } // 0x10
+        public int LineupUpdateCountLowerLimit { get; set; }
 
         [Key(1)]
-        public int NecessaryGem { get; set; } // 0x14
+        public int NecessaryGem { get; set; }
     }
 }

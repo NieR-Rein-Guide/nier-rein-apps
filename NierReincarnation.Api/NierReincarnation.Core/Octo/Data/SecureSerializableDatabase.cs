@@ -3,9 +3,9 @@
     abstract class SecureSerializableDatabase<T> : SecureFile // TypeDefIndex: 6572
     {
         // Fields
-        private static readonly string Tag = "Octo/Data/DataUtils/SecureSerializableDatabase"; // 0x0
+        private static readonly string Tag = "Octo/Data/DataUtils/SecureSerializableDatabase";
 
-        // 0x20
+       
         public T Data { get; set; }
 
         public SecureSerializableDatabase(string path, AESCrypt crypt) : base(path, crypt) { }

@@ -9,9 +9,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLimitContentDeckRestrictionTarget
     {
         [Key(0)]
-        public int EventQuestLimitContentDeckRestrictionTargetId { get; set; } // 0x10
+        public int EventQuestLimitContentDeckRestrictionTargetId { get; set; }
 
         [Key(1)]
-        public LimitContentDeckRestrictionType LimitContentDeckRestrictionType { get; set; } // 0x14
+        public LimitContentDeckRestrictionType LimitContentDeckRestrictionType { get; set; }
     }
 }

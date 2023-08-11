@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCollectionBonusQuestAssignmentGroup
     {
         [Key(0)]
-        public int CollectionBonusQuestAssignmentGroupId { get; set; } // 0x10
+        public int CollectionBonusQuestAssignmentGroupId { get; set; }
 
         [Key(1)]
-        public int CollectionBonusQuestAssignmentId { get; set; } // 0x14
+        public int CollectionBonusQuestAssignmentId { get; set; }
     }
 }

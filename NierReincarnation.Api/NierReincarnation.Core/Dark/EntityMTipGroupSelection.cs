@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTipGroupSelection
     {
         [Key(0)]
-        public int TipGroupId { get; set; } // 0x10
+        public int TipGroupId { get; set; }
 
         [Key(1)]
-        public int TipId { get; set; } // 0x14
+        public int TipId { get; set; }
 
         [Key(2)]
-        public int EncounterRatePermil { get; set; } // 0x18
+        public int EncounterRatePermil { get; set; }
     }
 }

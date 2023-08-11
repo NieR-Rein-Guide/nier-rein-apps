@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcWeaponNote
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public int WeaponId { get; set; } // 0x18
+        public int WeaponId { get; set; }
 
         [Key(2)]
-        public int MaxLevel { get; set; } // 0x1C
+        public int MaxLevel { get; set; }
 
         [Key(3)]
-        public int MaxLimitBreakCount { get; set; } // 0x20
+        public int MaxLimitBreakCount { get; set; }
 
         [Key(4)]
-        public long FirstAcquisitionDatetime { get; set; } // 0x28
+        public long FirstAcquisitionDatetime { get; set; }
     }
 }

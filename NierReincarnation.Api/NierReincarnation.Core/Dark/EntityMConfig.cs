@@ -9,9 +9,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMConfig
     {
         [Key(0)]
-        public string ConfigKey { get; set; } // 0x10
+        public string ConfigKey { get; set; }
 
         [Key(1)]
-        public string Value { get; set; } // 0x18
+        public string Value { get; set; }
     }
 }

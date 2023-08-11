@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillReserveUiType
     {
         [Key(0)]
-        public int SkillDetailId { get; set; } // 0x10
+        public int SkillDetailId { get; set; }
 
         [Key(1)]
-        public int SkillReserveUiTypeId { get; set; } // 0x14
+        public int SkillReserveUiTypeId { get; set; }
     }
 }

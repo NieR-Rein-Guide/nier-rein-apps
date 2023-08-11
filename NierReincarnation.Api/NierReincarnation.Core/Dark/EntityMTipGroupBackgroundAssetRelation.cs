@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTipGroupBackgroundAssetRelation
     {
         [Key(0)]
-        public int TipGroupId { get; set; } // 0x10
+        public int TipGroupId { get; set; }
 
         [Key(1)]
-        public int TipBackgroundAssetId { get; set; } // 0x14
+        public int TipBackgroundAssetId { get; set; }
 
         [Key(2)]
-        public int TipDisplayConditionGroupId { get; set; } // 0x18
+        public int TipDisplayConditionGroupId { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace NierReincarnation.Core.Octo.Proto
     static class StaticSerializer
     {
         // CUSTOM: Not necessary, see Deserialize<T>(MemoryStream stream)
-        //private static OCTProtoSerializer _serializer = new OCTProtoSerializer(); // 0x0
+        //private static OCTProtoSerializer _serializer = new OCTProtoSerializer();
 
         public static T Deserialize<T>(byte[] binary)
         {

@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMLimitedOpenText
     {
         [Key(0)]
-        public LimitedOpenTargetType LimitedOpenTargetType { get; set; } // 0x10
+        public LimitedOpenTargetType LimitedOpenTargetType { get; set; }
 
         [Key(1)]
-        public int TargetId { get; set; } // 0x14
+        public int TargetId { get; set; }
 
         [Key(2)]
-        public int OpenAchievementTextAssetId { get; set; } // 0x18
+        public int OpenAchievementTextAssetId { get; set; }
 
         [Key(3)]
-        public int LocalPushTextAssetId { get; set; } // 0x1C
+        public int LocalPushTextAssetId { get; set; }
 
         [Key(4)]
-        public int OpenAchievementTextGroupId { get; set; } // 0x20
+        public int OpenAchievementTextGroupId { get; set; }
     }
 }

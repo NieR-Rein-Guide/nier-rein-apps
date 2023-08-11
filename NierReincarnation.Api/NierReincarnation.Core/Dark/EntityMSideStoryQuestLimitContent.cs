@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSideStoryQuestLimitContent
     {
         [Key(0)]
-        public int SideStoryQuestLimitContentId { get; set; } // 0x10
+        public int SideStoryQuestLimitContentId { get; set; }
 
         [Key(1)]
-        public int CharacterId { get; set; } // 0x14
+        public int CharacterId { get; set; }
 
         [Key(2)]
-        public int EventQuestChapterId { get; set; } // 0x18
+        public int EventQuestChapterId { get; set; }
 
         [Key(3)]
-        public DifficultyType DifficultyType { get; set; } // 0x1C
+        public DifficultyType DifficultyType { get; set; }
 
         [Key(4)]
-        public int NextSideStoryQuestId { get; set; } // 0x20
+        public int NextSideStoryQuestId { get; set; }
     }
 }

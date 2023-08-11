@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTitleFlowMovie
     {
         [Key(0)]
-        public int TitleFlowMovieId { get; set; } // 0x10
+        public int TitleFlowMovieId { get; set; }
 
         [Key(1)]
-        public int MovieId { get; set; } // 0x14
+        public int MovieId { get; set; }
 
         [Key(2)]
-        public long StartDatetime { get; set; } // 0x18
+        public long StartDatetime { get; set; }
 
         [Key(3)]
-        public long EndDatetime { get; set; } // 0x20
+        public long EndDatetime { get; set; }
     }
 }

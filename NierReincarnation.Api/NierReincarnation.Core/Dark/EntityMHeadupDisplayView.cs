@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMHeadupDisplayView
     {
         [Key(0)]
-        public int HeadupDisplayViewId { get; set; } // 0x10
+        public int HeadupDisplayViewId { get; set; }
 
         [Key(1)]
-        public ViewSkillButtonType ViewSkillButtonType { get; set; } // 0x14
+        public ViewSkillButtonType ViewSkillButtonType { get; set; }
 
         [Key(2)]
-        public HpBarDisplayType HpBarDisplayType { get; set; } // 0x18
+        public HpBarDisplayType HpBarDisplayType { get; set; }
 
         [Key(3)]
-        public ViewNameTextType ViewNameTextType { get; set; } // 0x1C
+        public ViewNameTextType ViewNameTextType { get; set; }
 
         [Key(4)]
-        public ViewBuffAbnormalType ViewBuffAbnormalType { get; set; } // 0x20
+        public ViewBuffAbnormalType ViewBuffAbnormalType { get; set; }
 
         [Key(5)]
-        public ViewLevelTextType ViewLevelTextType { get; set; } // 0x24
+        public ViewLevelTextType ViewLevelTextType { get; set; }
     }
 }

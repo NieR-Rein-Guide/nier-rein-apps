@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMActorObject
     {
         [Key(0)]
-        public int ActorObjectId { get; set; } // 0x10
+        public int ActorObjectId { get; set; }
 
         [Key(1)]
-        public int ActorId { get; set; } // 0x14
+        public int ActorId { get; set; }
     }
 }

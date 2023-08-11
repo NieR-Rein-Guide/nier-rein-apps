@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleAdditionalAbility
     {
         [Key(0)]
-        public int BattleGroupId { get; set; } // 0x10
+        public int BattleGroupId { get; set; }
 
         [Key(1)]
-        public int TargetActorAppearanceWaveNumber { get; set; } // 0x14
+        public int TargetActorAppearanceWaveNumber { get; set; }
 
         [Key(2)]
-        public int AbilityIndex { get; set; } // 0x18
+        public int AbilityIndex { get; set; }
 
         [Key(3)]
-        public int AdditionalAbilityApplyScopeType { get; set; } // 0x1C
+        public int AdditionalAbilityApplyScopeType { get; set; }
 
         [Key(4)]
-        public int AbilityId { get; set; } // 0x20
+        public int AbilityId { get; set; }
 
         [Key(5)]
-        public int AbilityLevel { get; set; } // 0x24
+        public int AbilityLevel { get; set; }
     }
 }

@@ -5,15 +5,15 @@ namespace NierReincarnation.Core.Dark
 {
     public class DataDeck // TypeDefIndex: 9010
     {
-        // 0x10
+       
         public DeckType DeckType { get; set; }
-        // 0x14
+       
         public int UserDeckNumber { get; set; }
-        // 0x18
+       
         public string Name { get; set; }
-        // 0x20
+       
         public int Power { get; set; }
-        // 0x28
+       
         public DataDeckActor[] UserDeckActors { get; set; }
 
         public bool IsEmpty => UserDeckActors == null ||

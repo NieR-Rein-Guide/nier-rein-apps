@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestSceneChoice
     {
         [Key(0)]
-        public int MainFlowQuestSceneId { get; set; } // 0x10
+        public int MainFlowQuestSceneId { get; set; }
 
         [Key(1)]
-        public QuestFlowType QuestFlowType { get; set; } // 0x14
+        public QuestFlowType QuestFlowType { get; set; }
 
         [Key(2)]
-        public int ChoiceNumber { get; set; } // 0x18
+        public int ChoiceNumber { get; set; }
 
         [Key(3)]
-        public int QuestSceneChoiceEffectId { get; set; } // 0x1C
+        public int QuestSceneChoiceEffectId { get; set; }
     }
 }

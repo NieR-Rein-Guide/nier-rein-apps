@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMAssetBackground
     {
         [Key(0)]
-        public int AssetBackgroundId { get; set; } // 0x10
+        public int AssetBackgroundId { get; set; }
 
         [Key(1)]
-        public string BackgroundAssetPath { get; set; } // 0x18
+        public string BackgroundAssetPath { get; set; }
 
         [Key(2)]
-        public string GlobalEventMapAssetPath { get; set; } // 0x20
+        public string GlobalEventMapAssetPath { get; set; }
     }
 }

@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeDefaultSkillGroup
     {
         [Key(0)]
-        public int CostumeDefaultSkillGroupId { get; set; } // 0x10
+        public int CostumeDefaultSkillGroupId { get; set; }
 
         [Key(1)]
-        public CostumeDefaultSkillLotteryType CostumeDefaultSkillLotteryType { get; set; } // 0x14
+        public CostumeDefaultSkillLotteryType CostumeDefaultSkillLotteryType { get; set; }
 
         [Key(2)]
-        public int CostumeDefaultSkillLotteryGroupId { get; set; } // 0x18
+        public int CostumeDefaultSkillLotteryGroupId { get; set; }
     }
 }

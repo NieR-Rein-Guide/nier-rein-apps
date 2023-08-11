@@ -9,11 +9,11 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame
 {
     public static class CalculatorQuestBonus
     {
-        private static readonly int kInvalidQuestBonusItemId = -1; // 0x0
-        private static readonly int kMaxBonusArrayCapacity = 100; // 0x4
-        private static readonly int kBonusItemDropEffectId = 1; // 0x8
-        private static readonly int kMaxResultDropIcon = 32; // 0xC
-        private static readonly int kNoneQuestBonusGroupId = 0; // 0x10
+        private static readonly int kInvalidQuestBonusItemId = -1;
+        private static readonly int kMaxBonusArrayCapacity = 100;
+        private static readonly int kBonusItemDropEffectId = 1;
+        private static readonly int kMaxResultDropIcon = 32;
+        private static readonly int kNoneQuestBonusGroupId = 0;
 
         public static bool HasQuestBonus(IQuest quest)
         {

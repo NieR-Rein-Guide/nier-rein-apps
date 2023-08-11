@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcCharacterViewerField
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public int CharacterViewerFieldId { get; set; } // 0x18
+        public int CharacterViewerFieldId { get; set; }
 
         [Key(2)]
-        public long ReleaseDatetime { get; set; } // 0x20
+        public long ReleaseDatetime { get; set; }
     }
 }

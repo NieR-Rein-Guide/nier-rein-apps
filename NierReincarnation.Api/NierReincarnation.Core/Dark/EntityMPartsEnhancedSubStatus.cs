@@ -9,24 +9,24 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPartsEnhancedSubStatus
     {
         [Key(0)]
-        public int PartsEnhancedId { get; set; } // 0x10
+        public int PartsEnhancedId { get; set; }
 
         [Key(1)]
-        public int StatusIndex { get; set; } // 0x14
+        public int StatusIndex { get; set; }
 
         [Key(2)]
-        public int PartsStatusSubLotteryId { get; set; } // 0x18
+        public int PartsStatusSubLotteryId { get; set; }
 
         [Key(3)]
-        public int Level { get; set; } // 0x1C
+        public int Level { get; set; }
 
         [Key(4)]
-        public StatusKindType StatusKindType { get; set; } // 0x20
+        public StatusKindType StatusKindType { get; set; }
 
         [Key(5)]
-        public StatusCalculationType StatusCalculationType { get; set; } // 0x24
+        public StatusCalculationType StatusCalculationType { get; set; }
 
         [Key(6)]
-        public int FixedStatusChangeValue { get; set; } // 0x28
+        public int FixedStatusChangeValue { get; set; }
     }
 }

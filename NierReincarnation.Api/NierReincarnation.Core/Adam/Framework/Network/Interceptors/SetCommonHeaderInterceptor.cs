@@ -10,12 +10,11 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
     // Adam.Framework.Network.Interceptors.SetCommonHeaderInterceptor
     class SetCommonHeaderInterceptor : INetworkInterceptor
     {
-        // 0x10 onwards
         private string appVersion;
         private string language;
         private string osVersion;
         private string deviceName;
-        private Random rand = new Random(); // 0x30
+        private Random rand = new Random();
         private long prevRequestId;
 
         // static 0x00 onwards
@@ -38,7 +37,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
         private static readonly string kKeyChainUserIdHeader = "x-apb-keychain-user-id";
         private static readonly string kEditorAdjustId = "UnityEditor";
         private static readonly string kKeyChainUserId = "user_id";
-        // 0x98 onwards
+
         private static readonly string kOsTypeiOS = "1";
         private static readonly string kOsTypeAndroid = "2";
         private static readonly string kPlatformAppStore = "1";

@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMTipGroupSituationSeason
     {
         [Key(0)]
-        public TipSituationType TipSituationType { get; set; } // 0x10
+        public TipSituationType TipSituationType { get; set; }
 
         [Key(1)]
-        public int TipSituationSeasonId { get; set; } // 0x14
+        public int TipSituationSeasonId { get; set; }
 
         [Key(2)]
-        public int TipGroupId { get; set; } // 0x18
+        public int TipGroupId { get; set; }
 
         [Key(3)]
-        public int Weight { get; set; } // 0x1C
+        public int Weight { get; set; }
 
         [Key(4)]
-        public int TargetId { get; set; } // 0x20
+        public int TargetId { get; set; }
     }
 }

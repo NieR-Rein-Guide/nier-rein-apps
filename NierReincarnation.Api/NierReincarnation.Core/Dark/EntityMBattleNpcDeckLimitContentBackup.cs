@@ -8,15 +8,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleNpcDeckLimitContentBackup
     {
         [Key(0)]
-        public long BattleNpcId { get; set; } // 0x10
+        public long BattleNpcId { get; set; }
 
         [Key(1)]
-        public int EventQuestChapterId { get; set; } // 0x18
+        public int EventQuestChapterId { get; set; }
 
         [Key(2)]
-        public int EventQuestSequenceSortOrder { get; set; } // 0x1C
+        public int EventQuestSequenceSortOrder { get; set; }
 
         [Key(3)]
-        public string BattleNpcDeckBackupUuid { get; set; } // 0x20
+        public string BattleNpcDeckBackupUuid { get; set; }
     }
 }

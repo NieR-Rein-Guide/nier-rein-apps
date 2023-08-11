@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestLabyrinthQuestEffectDisplay
     {
         [Key(0)]
-        public int QuestId { get; set; } // 0x10
+        public int QuestId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public LabyrinthQuestEffectDescriptionType LabyrinthQuestEffectDescriptionType { get; set; } // 0x18
+        public LabyrinthQuestEffectDescriptionType LabyrinthQuestEffectDescriptionType { get; set; }
 
         [Key(3)]
-        public int EventQuestLabyrinthQuestEffectDescriptionId { get; set; } // 0x1C
+        public int EventQuestLabyrinthQuestEffectDescriptionId { get; set; }
 
         [Key(4)]
-        public AttributeType EffectTargetWeaponAttributeType { get; set; } // 0x20
+        public AttributeType EffectTargetWeaponAttributeType { get; set; }
     }
 }

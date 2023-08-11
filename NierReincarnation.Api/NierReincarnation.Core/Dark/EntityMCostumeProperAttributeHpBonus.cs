@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeProperAttributeHpBonus
     {
         [Key(0)]
-        public int CostumeId { get; set; } // 0x10
+        public int CostumeId { get; set; }
 
         [Key(1)]
-        public AttributeType CostumeProperAttributeType { get; set; } // 0x14
+        public AttributeType CostumeProperAttributeType { get; set; }
 
         [Key(2)]
-        public int MainWeaponHpAdditionalValue { get; set; } // 0x18
+        public int MainWeaponHpAdditionalValue { get; set; }
 
         [Key(3)]
-        public int SubWeaponHpAdditionalValue { get; set; } // 0x1C
+        public int SubWeaponHpAdditionalValue { get; set; }
     }
 }

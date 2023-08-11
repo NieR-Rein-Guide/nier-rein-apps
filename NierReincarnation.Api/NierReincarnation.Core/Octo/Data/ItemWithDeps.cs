@@ -6,8 +6,8 @@ namespace NierReincarnation.Core.Octo.Data
     class ItemWithDeps : Item
     {
         // Fields
-        private Item[] _dependencies; // 0x50
-        private Item[] _flatDependencies; // 0x58
+        private Item[] _dependencies;
+        private Item[] _flatDependencies;
 
         // Properties
         public override Item[] Dependencies => _dependencies;

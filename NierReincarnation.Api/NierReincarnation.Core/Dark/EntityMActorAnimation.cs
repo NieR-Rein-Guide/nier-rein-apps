@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMActorAnimation
     {
         [Key(0)]
-        public int ActorAnimationId { get; set; } // 0x10
+        public int ActorAnimationId { get; set; }
 
         [Key(1)]
-        public int ActorId { get; set; } // 0x14
+        public int ActorId { get; set; }
 
         [Key(2)]
-        public int ActorAnimationCategoryId { get; set; } // 0x18
+        public int ActorAnimationCategoryId { get; set; }
 
         [Key(3)]
-        public int ActorAnimationType { get; set; } // 0x1C
+        public int ActorAnimationType { get; set; }
 
         [Key(4)]
-        public string AssetPath { get; set; } // 0x20
+        public string AssetPath { get; set; }
 
         [Key(5)]
-        public bool IsDefault { get; set; } // 0x28
+        public bool IsDefault { get; set; }
     }
 }

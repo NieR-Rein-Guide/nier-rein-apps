@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup
     {
         [Key(0)]
-        public int SkillCooltimeAdvanceValueOnDefaultSkillGroupId { get; set; } // 0x10
+        public int SkillCooltimeAdvanceValueOnDefaultSkillGroupId { get; set; }
 
         [Key(1)]
-        public int SkillHitCountLowerLimit { get; set; } // 0x14
+        public int SkillHitCountLowerLimit { get; set; }
 
         [Key(2)]
-        public int SkillCooltimeAdvanceValue { get; set; } // 0x18
+        public int SkillCooltimeAdvanceValue { get; set; }
     }
 }

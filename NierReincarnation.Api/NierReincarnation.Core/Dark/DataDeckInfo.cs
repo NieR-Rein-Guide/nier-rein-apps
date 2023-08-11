@@ -9,13 +9,13 @@ namespace NierReincarnation.Core.Dark
     // CUSTOM: DataDeck with less information necessary to be loaded
     public class DataDeckInfo
     {
-        // 0x10
+       
         public DeckType DeckType { get; set; }
-        // 0x14
+       
         public int UserDeckNumber { get; set; }
-        // 0x18
+       
         public string Name { get; set; }
-        // 0x20
+       
         public DataDeckActorInfo[] UserDeckActors { get; set; }
 
         public bool IsEmpty => UserDeckActors[0]?.Costume == null;

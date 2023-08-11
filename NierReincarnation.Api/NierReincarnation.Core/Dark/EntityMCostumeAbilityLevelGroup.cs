@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCostumeAbilityLevelGroup
     {
         [Key(0)] // RVA: 0x1DDBFE8 Offset: 0x1DDBFE8 VA: 0x1DDBFE8
-        public int CostumeAbilityLevelGroupId { get; set; } // 0x10
+        public int CostumeAbilityLevelGroupId { get; set; }
 
         [Key(1)] // RVA: 0x1DDC028 Offset: 0x1DDC028 VA: 0x1DDC028
-        public int CostumeLimitBreakCountLowerLimit { get; set; } // 0x14
+        public int CostumeLimitBreakCountLowerLimit { get; set; }
 
         [Key(2)] // RVA: 0x1DDC068 Offset: 0x1DDC068 VA: 0x1DDC068
-        public int AbilityLevel { get; set; } // 0x18
+        public int AbilityLevel { get; set; }
     }
 }

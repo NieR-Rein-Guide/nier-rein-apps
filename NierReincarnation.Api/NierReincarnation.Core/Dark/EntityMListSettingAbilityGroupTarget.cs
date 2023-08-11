@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMListSettingAbilityGroupTarget
     {
         [Key(0)]
-        public int ListSettingAbilityGroupTargetId { get; set; } // 0x10
+        public int ListSettingAbilityGroupTargetId { get; set; }
 
         [Key(1)]
-        public int SortOrder { get; set; } // 0x14
+        public int SortOrder { get; set; }
 
         [Key(2)]
-        public int AbilityId { get; set; } // 0x18
+        public int AbilityId { get; set; }
     }
 }

@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMStainedGlassStatusUpTargetGroup
     {
         [Key(0)]
-        public int StainedGlassStatusUpTargetGroupId { get; set; } // 0x10
+        public int StainedGlassStatusUpTargetGroupId { get; set; }
 
         [Key(1)]
-        public int GroupIndex { get; set; } // 0x14
+        public int GroupIndex { get; set; }
 
         [Key(2)]
-        public StainedGlassStatusUpTargetType StatusUpTargetType { get; set; } // 0x18
+        public StainedGlassStatusUpTargetType StatusUpTargetType { get; set; }
 
         [Key(3)]
-        public int TargetValue { get; set; } // 0x1C
+        public int TargetValue { get; set; }
     }
 }

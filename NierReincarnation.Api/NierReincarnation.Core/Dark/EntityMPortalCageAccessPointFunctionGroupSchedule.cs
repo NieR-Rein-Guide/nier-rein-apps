@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPortalCageAccessPointFunctionGroupSchedule
     {
         [Key(0)]
-        public int PortalCageAccessPointFunctionGroupScheduleId { get; set; } // 0x10
+        public int PortalCageAccessPointFunctionGroupScheduleId { get; set; }
 
         [Key(1)]
-        public int PriorityDesc { get; set; } // 0x14
+        public int PriorityDesc { get; set; }
 
         [Key(2)]
-        public int AccessPointType { get; set; } // 0x18
+        public int AccessPointType { get; set; }
 
         [Key(3)]
-        public int AccessPointFunctionGroupId { get; set; } // 0x1C
+        public int AccessPointFunctionGroupId { get; set; }
 
         [Key(4)]
-        public long StartDatetime { get; set; } // 0x20
+        public long StartDatetime { get; set; }
 
         [Key(5)]
-        public long EndDatetime { get; set; } // 0x28
+        public long EndDatetime { get; set; }
     }
 }

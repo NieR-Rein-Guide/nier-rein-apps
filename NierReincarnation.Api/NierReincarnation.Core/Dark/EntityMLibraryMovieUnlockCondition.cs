@@ -9,12 +9,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMLibraryMovieUnlockCondition
     {
         [Key(0)]
-        public int LibraryMovieUnlockConditionId { get; set; } // 0x10
+        public int LibraryMovieUnlockConditionId { get; set; }
 
         [Key(1)]
-        public UnlockConditionType UnlockConditionType { get; set; } // 0x14
+        public UnlockConditionType UnlockConditionType { get; set; }
 
         [Key(2)]
-        public int ConditionValue { get; set; } // 0x18
+        public int ConditionValue { get; set; }
     }
 }

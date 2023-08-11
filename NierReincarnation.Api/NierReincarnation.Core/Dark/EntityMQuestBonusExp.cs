@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMQuestBonusExp
     {
         [Key(0)]
-        public int QuestBonusEffectId { get; set; } // 0x10
+        public int QuestBonusEffectId { get; set; }
 
         [Key(1)]
-        public int ExpType { get; set; } // 0x14
+        public int ExpType { get; set; }
 
         [Key(2)]
-        public int BonusValuePermil { get; set; } // 0x18
+        public int BonusValuePermil { get; set; }
     }
 }

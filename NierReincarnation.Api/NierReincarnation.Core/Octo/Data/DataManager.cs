@@ -10,21 +10,21 @@ namespace NierReincarnation.Core.Octo.Data
 {
     class DataManager : IDatabase
     {
-        private static readonly string Tag = "Octo/DataManager"; // 0x0
-        public static readonly string DirName = "pdb"; // 0x8
-        private static readonly string CacheFileName = "octocacheevai"; // 0x10
+        private static readonly string Tag = "Octo/DataManager";
+        public static readonly string DirName = "pdb";
+        private static readonly string CacheFileName = "octocacheevai";
 
-        private string _dataPath; // 0x10
-        private AESCrypt _aes; // 0x18
-        private string[] _tags; // 0x20
-        private Dictionary<string, Item> _assetBundleDictionary; // 0x28
-        private Dictionary<string, Item> _resourceDictionary; // 0x30
-        private readonly int _version; // 0x38
-        private string _urlFormat; // 0x40
-        private string AssetBundleUrlFormat; // 0x48
-        private string ResourceUrlFormat; // 0x50
+        private string _dataPath;
+        private AESCrypt _aes;
+        private string[] _tags;
+        private Dictionary<string, Item> _assetBundleDictionary;
+        private Dictionary<string, Item> _resourceDictionary;
+        private readonly int _version;
+        private string _urlFormat;
+        private string AssetBundleUrlFormat;
+        private string ResourceUrlFormat;
 
-        public int Revision { get; set; } // 0x3C
+        public int Revision { get; set; }
 
         public DataManager(int appId, int version, AESCrypt crypt)
         {

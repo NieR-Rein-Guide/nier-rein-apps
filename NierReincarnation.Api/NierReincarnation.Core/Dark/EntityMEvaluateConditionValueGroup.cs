@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEvaluateConditionValueGroup
     {
         [Key(0)]
-        public int EvaluateConditionValueGroupId { get; set; } // 0x10
+        public int EvaluateConditionValueGroupId { get; set; }
 
         [Key(1)]
-        public int GroupIndex { get; set; } // 0x14
+        public int GroupIndex { get; set; }
 
         [Key(2)]
-        public long Value { get; set; } // 0x18
+        public long Value { get; set; }
     }
 }

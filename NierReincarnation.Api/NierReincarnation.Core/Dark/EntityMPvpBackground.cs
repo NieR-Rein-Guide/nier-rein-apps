@@ -9,30 +9,30 @@ namespace NierReincarnation.Core.Dark
     public class EntityMPvpBackground
     {
         [Key(0)]
-        public int AssetBackgroundId { get; set; } // 0x10
+        public int AssetBackgroundId { get; set; }
 
         [Key(1)]
-        public int BattleFieldLocaleSettingIndex { get; set; } // 0x14
+        public int BattleFieldLocaleSettingIndex { get; set; }
 
         [Key(2)]
-        public int BattlePointIndex { get; set; } // 0x18
+        public int BattlePointIndex { get; set; }
 
         [Key(3)]
-        public int RandomWeight { get; set; } // 0x1C
+        public int RandomWeight { get; set; }
 
         [Key(4)]
-        public int PostProcessConfigurationIndex { get; set; } // 0x20
+        public int PostProcessConfigurationIndex { get; set; }
 
         [Key(5)]
-        public int BattleCameraControllerAssetId { get; set; } // 0x24
+        public int BattleCameraControllerAssetId { get; set; }
 
         [Key(6)]
-        public BattleStartCameraType BattleStartCameraType { get; set; } // 0x28
+        public BattleStartCameraType BattleStartCameraType { get; set; }
 
         [Key(7)]
-        public int WaveStartActAssetId { get; set; } // 0x2C
+        public int WaveStartActAssetId { get; set; }
 
         [Key(8)]
-        public int WaveEndActAssetId { get; set; } // 0x30
+        public int WaveEndActAssetId { get; set; }
     }
 }

@@ -5,15 +5,15 @@ namespace NierReincarnation.Core.Dark.Preference
     // Dark.Preference.PlayerPreference
     class PlayerPreference : PreferenceKeyStoreValue
     {
-        private static readonly string kPlayerRegistrationsKey = "PlayerRegistrations"; // 0x100
-        private static readonly string kCurrentSystemLanguage = "CurrentSystemLanguage"; // 0x148
-        private static readonly int _defaultLanguage = 22; // 0x1F4
+        private static readonly string kPlayerRegistrationsKey = "PlayerRegistrations";
+        private static readonly string kCurrentSystemLanguage = "CurrentSystemLanguage";
+        private static readonly int _defaultLanguage = 22;
 
         public static PlayerPreference Instance = new PlayerPreference();
 
-        private PreferenceKeyValueInt32 _currentLanguage; // 0x68
-        private PlayerRegistrationMap _playerRegistrations; // 0x1B0
-        private PlayerRegistration _activePlayer; // 0x1B8
+        private PreferenceKeyValueInt32 _currentLanguage;
+        private PlayerRegistrationMap _playerRegistrations;
+        private PlayerRegistration _activePlayer;
 
         public PlayerRegistrationMap PlayerRegistrations
         {

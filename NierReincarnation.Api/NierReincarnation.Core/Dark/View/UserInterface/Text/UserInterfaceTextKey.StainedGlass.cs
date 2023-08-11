@@ -4,7 +4,7 @@
     {
         public static class StainedGlass
         {
-            public static readonly string kStainedGlassTitle = "ui.Outgame.Library.Record.StainedGlass"; // 0x0
+            public static readonly string kStainedGlassTitle = "ui.Outgame.Library.Record.StainedGlass";
         }
     }
 }

@@ -11,22 +11,22 @@ namespace NierReincarnation.Core.Octo.Loader
 {
     internal sealed class OctoAPI
     {
-        private static readonly string Tag = "Octo/API"; // 0x0
-        private static readonly string ApiList = "v1/list"; // 0x8
-        private static readonly string AesApiListFormat = "v2/pub/a/{0}/v/{1}/list"; // 0x10
-        private static readonly string ApiRevision = "v1/revision"; // 0x18
-        private static readonly string ApiErrorReport = "v1/er"; // 0x20
-        internal static readonly string HeaderOctoKey = "X-OCTO-KEY"; // 0x28
-        private static readonly int UrlCapacity = 256; // 0x30
+        private static readonly string Tag = "Octo/API";
+        private static readonly string ApiList = "v1/list";
+        private static readonly string AesApiListFormat = "v2/pub/a/{0}/v/{1}/list";
+        private static readonly string ApiRevision = "v1/revision";
+        private static readonly string ApiErrorReport = "v1/er";
+        internal static readonly string HeaderOctoKey = "X-OCTO-KEY";
+        private static readonly int UrlCapacity = 256;
 
-        private readonly StringBuilder _urlBuilder; // 0x10
-        private readonly int _urlBaseLength; // 0x18
-        private readonly int _version; // 0x1C
-        private readonly WebHeaderCollection _headers; // 0x20
-        private readonly string _errorReportUrl; // 0x28
-        private readonly string _aesListUrl; // 0x30
-        private readonly AESCrypt _crypt; // 0x38
-        //private ErrorReport errorReport; // 0x40
+        private readonly StringBuilder _urlBuilder;
+        private readonly int _urlBaseLength;
+        private readonly int _version;
+        private readonly WebHeaderCollection _headers;
+        private readonly string _errorReportUrl;
+        private readonly string _aesListUrl;
+        private readonly AESCrypt _crypt;
+        //private ErrorReport errorReport;
 
         public OctoAPI(IOctoSettings settings)
         {

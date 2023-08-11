@@ -9,15 +9,15 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActivationConditionGroup
     {
         [Key(0)]
-        public int SkillBehaviourActivationConditionGroupId { get; set; } // 0x10
+        public int SkillBehaviourActivationConditionGroupId { get; set; }
 
         [Key(1)]
-        public int ConditionCheckOrder { get; set; } // 0x14
+        public int ConditionCheckOrder { get; set; }
 
         [Key(2)]
-        public SkillBehaviourActivationConditionType SkillBehaviourActivationConditionType { get; set; } // 0x18
+        public SkillBehaviourActivationConditionType SkillBehaviourActivationConditionType { get; set; }
 
         [Key(3)]
-        public int SkillBehaviourActivationConditionId { get; set; } // 0x1C
+        public int SkillBehaviourActivationConditionId { get; set; }
     }
 }

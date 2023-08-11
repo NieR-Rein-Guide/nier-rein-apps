@@ -8,9 +8,9 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleEventGroup
     {
         [Key(0)]
-        public int BattleEventGroupId { get; set; } // 0x10
+        public int BattleEventGroupId { get; set; }
 
         [Key(1)]
-        public int BattleEventId { get; set; } // 0x14
+        public int BattleEventId { get; set; }
     }
 }

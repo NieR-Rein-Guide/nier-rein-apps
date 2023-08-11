@@ -8,21 +8,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMCharacterViewerFieldSettings
     {
         [Key(0)]
-        public int AssetBackgroundId { get; set; } // 0x10
+        public int AssetBackgroundId { get; set; }
 
         [Key(1)]
-        public int BgmAssetId { get; set; } // 0x14
+        public int BgmAssetId { get; set; }
 
         [Key(2)]
-        public int Stem { get; set; } // 0x18
+        public int Stem { get; set; }
 
         [Key(3)]
-        public int BattleFieldLocaleSettingIndex { get; set; } // 0x1C
+        public int BattleFieldLocaleSettingIndex { get; set; }
 
         [Key(4)]
-        public int PostProcessConfigurationIndex { get; set; } // 0x20
+        public int PostProcessConfigurationIndex { get; set; }
 
         [Key(5)]
-        public int BattlePointIndex { get; set; } // 0x24
+        public int BattlePointIndex { get; set; }
     }
 }

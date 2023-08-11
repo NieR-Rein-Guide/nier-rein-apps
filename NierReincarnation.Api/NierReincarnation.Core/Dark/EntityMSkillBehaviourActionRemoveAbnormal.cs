@@ -9,21 +9,21 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillBehaviourActionRemoveAbnormal
     {
         [Key(0)]
-        public int SkillBehaviourActionId { get; set; } // 0x10
+        public int SkillBehaviourActionId { get; set; }
 
         [Key(1)]
-        public int TargetPolarityType { get; set; } // 0x14
+        public int TargetPolarityType { get; set; }
 
         [Key(2)]
-        public int SkillRemoveAbnormalTargetAbnormalGroupId { get; set; } // 0x18
+        public int SkillRemoveAbnormalTargetAbnormalGroupId { get; set; }
 
         [Key(3)]
-        public RemoveAbnormalTargetType RemoveAbnormalTargetType { get; set; } // 0x1C
+        public RemoveAbnormalTargetType RemoveAbnormalTargetType { get; set; }
 
         [Key(4)]
-        public int RemoveCountUpper { get; set; } // 0x20
+        public int RemoveCountUpper { get; set; }
 
         [Key(5)]
-        public int RemoveKindCountUpper { get; set; } // 0x24
+        public int RemoveKindCountUpper { get; set; }
     }
 }

@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBigHuntLink
     {
         [Key(0)]
-        public int BigHuntLinkId { get; set; } // 0x10
+        public int BigHuntLinkId { get; set; }
 
         [Key(1)]
-        public DomainType DestinationDomainType { get; set; } // 0x14
+        public DomainType DestinationDomainType { get; set; }
 
         [Key(2)]
-        public int DestinationDomainId { get; set; } // 0x18
+        public int DestinationDomainId { get; set; }
 
         [Key(3)]
-        public PossessionType PossessionType { get; set; } // 0x1C
+        public PossessionType PossessionType { get; set; }
 
         [Key(4)]
-        public int PossessionId { get; set; } // 0x20
+        public int PossessionId { get; set; }
     }
 }

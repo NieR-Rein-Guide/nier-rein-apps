@@ -9,18 +9,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeapon
     {
         [Key(0)]
-        public int DamageMultiplyAbnormalDetailId { get; set; } // 0x10
+        public int DamageMultiplyAbnormalDetailId { get; set; }
 
         [Key(1)]
-        public int ConditionTargetType { get; set; } // 0x14
+        public int ConditionTargetType { get; set; }
 
         [Key(2)]
-        public WeaponType WeaponType { get; set; } // 0x18
+        public WeaponType WeaponType { get; set; }
 
         [Key(3)]
-        public bool IsSkillfulMainWeapon { get; set; } // 0x1C
+        public bool IsSkillfulMainWeapon { get; set; }
 
         [Key(4)]
-        public int DamageMultiplyCoefficientValuePermil { get; set; } // 0x20
+        public int DamageMultiplyCoefficientValuePermil { get; set; }
     }
 }

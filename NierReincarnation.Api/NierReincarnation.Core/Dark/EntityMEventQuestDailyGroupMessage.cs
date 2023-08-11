@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMEventQuestDailyGroupMessage
     {
         [Key(0)]
-        public int EventQuestDailyGroupMessageId { get; set; } // 0x10
+        public int EventQuestDailyGroupMessageId { get; set; }
 
         [Key(1)]
-        public int OddsNumber { get; set; } // 0x14
+        public int OddsNumber { get; set; }
 
         [Key(2)]
-        public int Weight { get; set; } // 0x18
+        public int Weight { get; set; }
 
         [Key(3)]
-        public int BeforeClearMessageTextId { get; set; } // 0x1C
+        public int BeforeClearMessageTextId { get; set; }
 
         [Key(4)]
-        public int AfterClearMessageTextId { get; set; } // 0x20
+        public int AfterClearMessageTextId { get; set; }
     }
 }

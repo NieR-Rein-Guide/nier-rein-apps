@@ -8,18 +8,18 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBattleBigHuntKnockDownGaugeValueConfigGroup
     {
         [Key(0)]
-        public int KnockDownGaugeValueConfigGroupId { get; set; } // 0x10
+        public int KnockDownGaugeValueConfigGroupId { get; set; }
 
         [Key(1)]
-        public int ActiveSkillHitCount { get; set; } // 0x14
+        public int ActiveSkillHitCount { get; set; }
 
         [Key(2)]
-        public int DamageValueLowerLimit { get; set; } // 0x18
+        public int DamageValueLowerLimit { get; set; }
 
         [Key(3)]
-        public int GaugeValueLowerLimit { get; set; } // 0x1C
+        public int GaugeValueLowerLimit { get; set; }
 
         [Key(4)]
-        public int CorrectionRatioPermil { get; set; } // 0x20
+        public int CorrectionRatioPermil { get; set; }
     }
 }

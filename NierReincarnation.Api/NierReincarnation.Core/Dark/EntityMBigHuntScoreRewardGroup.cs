@@ -8,12 +8,12 @@ namespace NierReincarnation.Core.Dark
     public class EntityMBigHuntScoreRewardGroup
     {
         [Key(0)]
-        public int BigHuntScoreRewardGroupId { get; set; } // 0x10
+        public int BigHuntScoreRewardGroupId { get; set; }
 
         [Key(1)]
-        public long NecessaryScore { get; set; } // 0x18
+        public long NecessaryScore { get; set; }
 
         [Key(2)]
-        public int BigHuntRewardGroupId { get; set; } // 0x20
+        public int BigHuntRewardGroupId { get; set; }
     }
 }
