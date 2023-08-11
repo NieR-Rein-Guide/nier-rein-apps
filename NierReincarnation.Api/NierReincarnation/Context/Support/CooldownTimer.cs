@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace NierReincarnation.Context.Support
 {

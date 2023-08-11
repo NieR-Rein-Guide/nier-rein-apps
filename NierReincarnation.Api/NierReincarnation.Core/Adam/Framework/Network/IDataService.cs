@@ -1,15 +1,15 @@
-﻿using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.Data;
 using Google.Protobuf.WellKnownTypes;
 
-namespace NierReincarnation.Core.Adam.Framework.Network
+namespace NierReincarnation.Core.Adam.Framework.Network;
+
+public interface IDataService
 {
-    public interface IDataService
-    {
-        Task<MasterDataGetLatestVersionResponse> GetLatestMasterDataVersionAsync(Empty request);
+    public abstract Task<MasterDataGetLatestVersionResponse> GetLatestMasterDataVersionAsync(Empty request);
 
-        Task<UserDataGetNameResponse> GetUserDataNameAsync(Empty request);
+    public abstract Task<UserDataGetNameResponse> GetUserDataNameAsync(Empty request);
 
-        Task<UserDataGetResponse> GetUserDataAsync(UserDataGetRequest request);
-	}
+    //public abstract Task<UserDataGetNameResponseV2> GetUserDataNameV2Async(Empty request);
+
+    public abstract Task<UserDataGetResponse> GetUserDataAsync(UserDataGetRequest request);
 }

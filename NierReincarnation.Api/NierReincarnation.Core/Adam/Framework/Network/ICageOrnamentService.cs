@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.CageOrnament;
 
-namespace NierReincarnation.Core.Adam.Framework.Network
+namespace NierReincarnation.Core.Adam.Framework.Network;
+
+public interface ICageOrnamentService
 {
-    public interface ICageOrnamentService
-    {
-        Task<ReceiveRewardResponse> ReceiveRewardAsync(ReceiveRewardRequest request);
-    }
+    public abstract Task<ReceiveRewardResponse> ReceiveRewardAsync(ReceiveRewardRequest request);
+
+    //public abstract Task<RecordAccessResponse> RecordAccessAsync(RecordAccessRequest request);
 }

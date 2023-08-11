@@ -2,7 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-	  <NuspecFile>NierReincarnation.nuspec</NuspecFile>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<NuspecFile>NierReincarnation.nuspec</NuspecFile>
   </PropertyGroup>
 
   <ItemGroup>

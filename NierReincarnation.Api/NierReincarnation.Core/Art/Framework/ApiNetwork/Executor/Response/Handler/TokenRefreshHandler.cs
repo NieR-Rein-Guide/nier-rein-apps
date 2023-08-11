@@ -13,7 +13,7 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Hand
 
         public Task<RetryHandleType> HandleAsync(Api.Api api)
         {
-            var token = api.GetResponseParameter<ResponseParameterBase>().GetCommon().token;
+            var token = api.GetResponseParameter<ResponseParameterBase>().GetCommon().Token;
             if (!string.IsNullOrEmpty(token))
                 ApiSystem.Instance.Parameter.Token.UpdateToken(token);
 

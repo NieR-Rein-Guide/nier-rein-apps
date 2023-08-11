@@ -1,11 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+namespace NierReincarnation.Core.Adam.Framework.Network;
 
-namespace NierReincarnation.Core.Adam.Framework.Network
+public interface INetworkInterceptor
 {
-    // Adam.Framework.Network.INetworkInterceptor
-    public interface INetworkInterceptor
-    {
-        Task<ResponseContext> SendAsync(RequestContext context, Func<RequestContext, Task<ResponseContext>> next);
-    }
+    public abstract Task<ResponseContext> SendAsync(RequestContext context, Func<RequestContext, Task<ResponseContext>> next);
 }

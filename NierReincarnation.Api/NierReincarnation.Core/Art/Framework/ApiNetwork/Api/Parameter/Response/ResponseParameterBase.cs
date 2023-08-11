@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
+using System;
 
 namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response
 {
@@ -8,8 +9,8 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response
         protected CommonResponse CommonResponse; // 0x10
 
         // Properties
-        public int ScreenTransitionType => CommonResponse.screenTransitionType;
-        public string MessageId => CommonResponse.messageCode;
+        public ScreenTransitionType ScreenTransitionType => CommonResponse.ScreenTransitionType;
+        public string MessageId => CommonResponse.MessageCode;
 
         public CommonResponse GetCommon()
         {

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response
 {
     // Art.Framework.ApiNetwork.Api.Parameter.Response.UpdatedUserData
-    class UpdatedUserData
+    public class UpdatedUserData
     {
         public Dictionary<string, UpdatedUserDataList> updateUserDataMap; // 0x10
         public Dictionary<string, DeletedUserDataList> deleteUserDataMap; // 0x18

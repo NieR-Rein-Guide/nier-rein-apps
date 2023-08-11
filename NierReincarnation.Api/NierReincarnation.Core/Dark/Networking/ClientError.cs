@@ -1,8 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.Networking
+﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
+
+namespace NierReincarnation.Core.Dark.Networking
 {
     // Dark.Networking.ClientError
     class ClientError
     {
-        public int ScreenTransitionType; // 0x10
+        public ScreenTransitionType ScreenTransitionType; // 0x10
     }
 }

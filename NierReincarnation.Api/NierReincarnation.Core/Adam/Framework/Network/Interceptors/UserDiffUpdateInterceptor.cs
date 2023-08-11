@@ -19,7 +19,7 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
             var responseContext = await next(context);
 
             var commonResponse = responseContext.GetCommonResponse();
-            SetGameTimeNow?.Invoke(commonResponse.responseDatetime);
+            SetGameTimeNow?.Invoke(commonResponse.ResponseDatetime);
 
             var userDiff = UserDiffInfo.GetUserDiff(responseContext);
 

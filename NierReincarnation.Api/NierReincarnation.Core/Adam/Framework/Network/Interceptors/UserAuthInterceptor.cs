@@ -54,10 +54,10 @@ namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors
 
         private void RefreshToken(CommonResponse response)
         {
-            if (string.IsNullOrEmpty(response.token))
+            if (string.IsNullOrEmpty(response.Token))
                 return;
 
-            ApplicationScopeClientContext.Instance.Token.UpdateToken(response.token);
+            ApplicationScopeClientContext.Instance.Token.UpdateToken(response.Token);
         }
     }
 }

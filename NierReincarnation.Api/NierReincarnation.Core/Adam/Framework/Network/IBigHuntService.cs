@@ -1,14 +1,20 @@
-﻿using System.Threading.Tasks;
 using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
 
-namespace NierReincarnation.Core.Adam.Framework.Network
+namespace NierReincarnation.Core.Adam.Framework.Network;
+
+public interface IBigHuntService
 {
-    public interface IBigHuntService
-    {
-        Task<StartBigHuntQuestResponse> StartBigHuntQuestAsync(StartBigHuntQuestRequest request);
+    public abstract Task<StartBigHuntQuestResponse> StartBigHuntQuestAsync(StartBigHuntQuestRequest request);
 
-        Task<FinishBigHuntQuestResponse> FinishBigHuntQuestAsync(FinishBigHuntQuestRequest request);
+    //public abstract Task<UpdateBigHuntQuestSceneProgressResponse> UpdateBigHuntQuestSceneProgressAsync(UpdateBigHuntQuestSceneProgressRequest request);
 
-        Task<SaveBigHuntBattleInfoResponse> SaveBigHuntBattleInfoAsync(SaveBigHuntBattleInfoRequest request);
-    }
+    public abstract Task<FinishBigHuntQuestResponse> FinishBigHuntQuestAsync(FinishBigHuntQuestRequest request);
+
+    //public abstract Task<RestartBigHuntQuestResponse> RestartBigHuntQuestAsync(RestartBigHuntQuestRequest request);
+
+    //public abstract Task<SkipBigHuntQuestResponse> SkipBigHuntQuestAsync(SkipBigHuntQuestRequest request);
+
+    public abstract Task<SaveBigHuntBattleInfoResponse> SaveBigHuntBattleInfoAsync(SaveBigHuntBattleInfoRequest request);
+
+    //public abstract Task<GetBigHuntTopDataResponse> GetBigHuntTopDataAsync(Empty request);
 }

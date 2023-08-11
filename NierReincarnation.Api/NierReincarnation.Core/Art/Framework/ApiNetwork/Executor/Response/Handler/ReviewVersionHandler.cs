@@ -14,7 +14,7 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Hand
 
         public Task<RetryHandleType> HandleAsync(Api.Api api)
         {
-            var statusType=api.GetResponseParameter<ResponseParameterBase>().GetCommon().appVersionStatusType;
+            var statusType=api.GetResponseParameter<ResponseParameterBase>().GetCommon().AppVersionStatusType;
             if (statusType == 1)
             {
                 ApiSystem.Instance.ServerResolver.SetReviewFlag();

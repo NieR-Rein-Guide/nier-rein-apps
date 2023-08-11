@@ -33,16 +33,16 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Parameter
             _masterDataVersionParameter = new MasterDataVersionParameter();
             _commonRequest = new CommonRequest
             {
-                appVersion = Application.Version,
-                language = Application.SystemLanguage,
-                osVersion = SystemInfo.OperatingSystem,
-                deviceName = SystemInfo.DeviceName
+                AppVersion = Application.Version,
+                Language = Application.SystemLanguage,
+                OsVersion = SystemInfo.OperatingSystem,
+                DeviceName = SystemInfo.DeviceName
             };
         }
 
         public void UpdateSession(string newSessionKey)
         {
-            _commonRequest.sessionKey = newSessionKey;
+            _commonRequest.SessionKey = newSessionKey;
         }
     }
 }
