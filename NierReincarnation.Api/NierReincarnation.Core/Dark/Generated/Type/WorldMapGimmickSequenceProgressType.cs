@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum WorldMapGimmickSequenceProgressType
 {
-    public enum WorldMapGimmickSequenceProgressType
-    {
-        None = 0,
-        RequireHourOnly = 1,
-        StartDateTimeOnly = 2,
-        RequireHourAndStartDateTime = 3
-    }
+    None = 0,
+    RequireHourOnly = 1,
+    StartDateTimeOnly = 2,
+    RequireHourAndStartDateTime = 3
 }

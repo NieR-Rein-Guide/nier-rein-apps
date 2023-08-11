@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Text
+﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Text;
+
+public static partial class UserInterfaceTextKey
 {
-    public static partial class UserInterfaceTextKey
+    public static class CageMemory
     {
-        public static class CageMemory
-        {
-            private const string kCageMemory = "ui.Outgame.CageMemory.";
-            public static readonly string kCageMemoryTitle = kCageMemory + "Title";
-        }
+        private const string kCageMemory = "ui.Outgame.CageMemory.";
+        public static readonly string kCageMemoryTitle = kCageMemory + "Title";
     }
 }

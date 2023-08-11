@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
+﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+
+public sealed class DataLimitContentLevelClearProgress
 {
-    public sealed class DataLimitContentLevelClearProgress
-    {
-        public int LevelCount { get; set; }
-        public int LevelClearCount { get; set; }
-    }
+    public int LevelCount { get; set; }
+    public int LevelClearCount { get; set; }
 }

@@ -2,20 +2,19 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserLoginBonusTable : TableBase<EntityIUserLoginBonus>
 {
-    public class EntityIUserLoginBonusTable : TableBase<EntityIUserLoginBonus>
+    private readonly Func<EntityIUserLoginBonus, (long, int)> primaryIndexSelector;
+
+    public EntityIUserLoginBonusTable(EntityIUserLoginBonus[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUserLoginBonus, (long, int)> primaryIndexSelector;
-
-        public EntityIUserLoginBonusTable(EntityIUserLoginBonus[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.UserId, element.LoginBonusId);
-        }
-
-        public EntityIUserLoginBonus FindByUserIdAndLoginBonusId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
-
-        public bool TryFindByUserIdAndLoginBonusId(ValueTuple<long, int> key, out EntityIUserLoginBonus result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
+        primaryIndexSelector = element => (element.UserId, element.LoginBonusId);
     }
+
+    public EntityIUserLoginBonus FindByUserIdAndLoginBonusId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
+
+    public bool TryFindByUserIdAndLoginBonusId(ValueTuple<long, int> key, out EntityIUserLoginBonus result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
 }

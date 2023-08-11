@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum ShopGroupType
 {
-    public enum ShopGroupType
-    {
-        UNKNOWN = 0,
-        PREMIUM_SHOP = 1,
-        ITEM_SHOP = 3,
-        EXCHANGE_SHOP = 4,
-        RECOVERY_SHOP = 5
-    }
+    UNKNOWN = 0,
+    PREMIUM_SHOP = 1,
+    ITEM_SHOP = 3,
+    EXCHANGE_SHOP = 4,
+    RECOVERY_SHOP = 5
 }

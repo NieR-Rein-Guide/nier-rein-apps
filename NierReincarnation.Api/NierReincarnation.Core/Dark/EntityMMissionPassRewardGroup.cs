@@ -2,31 +2,30 @@ using MessagePack;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
-namespace NierReincarnation.Core.Dark
+namespace NierReincarnation.Core.Dark;
+
+[MessagePackObject]
+[MemoryTable("m_mission_pass_reward_group")]
+public class EntityMMissionPassRewardGroup
 {
-    [MessagePackObject]
-    [MemoryTable("m_mission_pass_reward_group")]
-    public class EntityMMissionPassRewardGroup
-    {
-        [Key(0)]
-        public int MissionPassRewardGroupId { get; set; }
+    [Key(0)]
+    public int MissionPassRewardGroupId { get; set; }
 
-        [Key(1)]
-        public int Level { get; set; }
+    [Key(1)]
+    public int Level { get; set; }
 
-        [Key(2)]
-        public bool IsPremium { get; set; }
+    [Key(2)]
+    public bool IsPremium { get; set; }
 
-        [Key(3)]
-        public int SortOrder { get; set; }
+    [Key(3)]
+    public int SortOrder { get; set; }
 
-        [Key(4)]
-        public PossessionType PossessionType { get; set; }
+    [Key(4)]
+    public PossessionType PossessionType { get; set; }
 
-        [Key(5)]
-        public int PossessionId { get; set; }
+    [Key(5)]
+    public int PossessionId { get; set; }
 
-        [Key(6)]
-        public int Count { get; set; }
-    }
+    [Key(6)]
+    public int Count { get; set; }
 }

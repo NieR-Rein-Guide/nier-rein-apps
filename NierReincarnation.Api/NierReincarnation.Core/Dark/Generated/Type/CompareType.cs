@@ -1,13 +1,12 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum CompareType
 {
-    public enum CompareType
-    {
-        UNKNOWN = 0,
-        EQUAL = 1,
-        NOT_EQUAL = 2,
-        GREATER = 3,
-        GREATER_EQUAL = 4,
-        LESS = 5,
-        LESS_EQUAL = 6
-    }
+    UNKNOWN = 0,
+    EQUAL = 1,
+    NOT_EQUAL = 2,
+    GREATER = 3,
+    GREATER_EQUAL = 4,
+    LESS = 5,
+    LESS_EQUAL = 6
 }

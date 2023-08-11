@@ -2,23 +2,22 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserImportantItemTable : TableBase<EntityIUserImportantItem>
 {
-    public class EntityIUserImportantItemTable : TableBase<EntityIUserImportantItem>
+    private readonly Func<EntityIUserImportantItem, (long, int)> primaryIndexSelector;
+
+    public EntityIUserImportantItemTable(EntityIUserImportantItem[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUserImportantItem, (long, int)> primaryIndexSelector;
-
-        public EntityIUserImportantItemTable(EntityIUserImportantItem[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.UserId, element.ImportantItemId);
-        }
-
-        public EntityIUserImportantItem FindByUserIdAndImportantItemId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
-
-        public bool TryFindByUserIdAndImportantItemId(ValueTuple<long, int> key, out EntityIUserImportantItem result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
-
-        public RangeView<EntityIUserImportantItem> FindRangeByUserIdAndImportantItemId(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true) =>
-            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant);
+        primaryIndexSelector = element => (element.UserId, element.ImportantItemId);
     }
+
+    public EntityIUserImportantItem FindByUserIdAndImportantItemId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
+
+    public bool TryFindByUserIdAndImportantItemId(ValueTuple<long, int> key, out EntityIUserImportantItem result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key, out result);
+
+    public RangeView<EntityIUserImportantItem> FindRangeByUserIdAndImportantItemId(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant);
 }

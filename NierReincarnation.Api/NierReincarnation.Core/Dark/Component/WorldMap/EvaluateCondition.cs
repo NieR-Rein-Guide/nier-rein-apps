@@ -1,17 +1,16 @@
-﻿namespace NierReincarnation.Core.Dark.Component.WorldMap
+﻿namespace NierReincarnation.Core.Dark.Component.WorldMap;
+
+public struct EvaluateCondition
 {
-    public struct EvaluateCondition
+    public int EvaluateConditionId { get; set; }
+
+    public void Reset()
     {
-        public int EvaluateConditionId { get; set; }
+        EvaluateConditionId = GimmickConstant.kInvalidId;
+    }
 
-        public void Reset()
-        {
-            EvaluateConditionId = GimmickConstant.kInvalidId;
-        }
-
-        public bool IsEnable()
-        {
-            return EvaluateConditionId != GimmickConstant.kInvalidId;
-        }
+    public bool IsEnable()
+    {
+        return EvaluateConditionId != GimmickConstant.kInvalidId;
     }
 }

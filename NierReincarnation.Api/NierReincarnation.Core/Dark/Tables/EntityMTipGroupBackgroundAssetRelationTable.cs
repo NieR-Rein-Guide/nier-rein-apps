@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMTipGroupBackgroundAssetRelationTable : TableBase<EntityMTipGroupBackgroundAssetRelation>
-    {
-        private readonly Func<EntityMTipGroupBackgroundAssetRelation, (int, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMTipGroupBackgroundAssetRelationTable(EntityMTipGroupBackgroundAssetRelation[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.TipGroupId, element.TipBackgroundAssetId);
-        }
+public class EntityMTipGroupBackgroundAssetRelationTable : TableBase<EntityMTipGroupBackgroundAssetRelation>
+{
+    private readonly Func<EntityMTipGroupBackgroundAssetRelation, (int, int)> primaryIndexSelector;
+
+    public EntityMTipGroupBackgroundAssetRelationTable(EntityMTipGroupBackgroundAssetRelation[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.TipGroupId, element.TipBackgroundAssetId);
     }
 }

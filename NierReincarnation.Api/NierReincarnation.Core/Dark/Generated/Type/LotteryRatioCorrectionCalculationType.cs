@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum LotteryRatioCorrectionCalculationType
 {
-    public enum LotteryRatioCorrectionCalculationType
-    {
-        UNKNOWN = 0,
-        ADD = 1,
-        SUBTRACT = 2,
-        MULTIPLY = 3
-    }
+    UNKNOWN = 0,
+    ADD = 1,
+    SUBTRACT = 2,
+    MULTIPLY = 3
 }

@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMCompanionBaseStatusTable : TableBase<EntityMCompanionBaseStatus>
 {
-    public class EntityMCompanionBaseStatusTable : TableBase<EntityMCompanionBaseStatus>
+    private readonly Func<EntityMCompanionBaseStatus, int> primaryIndexSelector;
+
+    public EntityMCompanionBaseStatusTable(EntityMCompanionBaseStatus[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMCompanionBaseStatus, int> primaryIndexSelector;
-
-        public EntityMCompanionBaseStatusTable(EntityMCompanionBaseStatus[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.CompanionBaseStatusId;
-        }
-
-        public EntityMCompanionBaseStatus FindByCompanionBaseStatusId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.CompanionBaseStatusId;
     }
+
+    public EntityMCompanionBaseStatus FindByCompanionBaseStatusId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

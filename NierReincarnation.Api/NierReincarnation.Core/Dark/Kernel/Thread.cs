@@ -1,12 +1,11 @@
 ﻿using System.Threading;
 
-namespace NierReincarnation.Core.Dark.Kernel
+namespace NierReincarnation.Core.Dark.Kernel;
+
+class Thread
 {
-    class Thread
+    public static void SetupThread()
     {
-        public static void SetupThread()
-        {
-            ContextApi.ActiveContext.Thread.Source = new CancellationTokenSource();
-        }
+        ContextApi.ActiveContext.Thread.Source = new CancellationTokenSource();
     }
 }

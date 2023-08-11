@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserEventQuestGuerrillaFreeOpenTable : TableBase<EntityIUserEventQuestGuerrillaFreeOpen>
 {
-    public class EntityIUserEventQuestGuerrillaFreeOpenTable : TableBase<EntityIUserEventQuestGuerrillaFreeOpen>
+    private readonly Func<EntityIUserEventQuestGuerrillaFreeOpen, long> primaryIndexSelector;
+
+    public EntityIUserEventQuestGuerrillaFreeOpenTable(EntityIUserEventQuestGuerrillaFreeOpen[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUserEventQuestGuerrillaFreeOpen, long> primaryIndexSelector;
-
-        public EntityIUserEventQuestGuerrillaFreeOpenTable(EntityIUserEventQuestGuerrillaFreeOpen[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.UserId;
-        }
-
-        public bool TryFindByUserId(long key, out EntityIUserEventQuestGuerrillaFreeOpen result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key, out result);
+        primaryIndexSelector = element => element.UserId;
     }
+
+    public bool TryFindByUserId(long key, out EntityIUserEventQuestGuerrillaFreeOpen result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key, out result);
 }

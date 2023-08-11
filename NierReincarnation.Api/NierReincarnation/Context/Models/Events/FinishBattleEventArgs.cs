@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace NierReincarnation.Context.Models.Events
-{
-    public class FinishBattleEventArgs : EventArgs
-    {
-        public BattleDrops Rewards { get; }
+namespace NierReincarnation.Context.Models.Events;
 
-        public FinishBattleEventArgs(BattleDrops rewards)
-        {
-            Rewards = rewards;
-        }
+public class FinishBattleEventArgs : EventArgs
+{
+    public BattleDrops Rewards { get; }
+
+    public FinishBattleEventArgs(BattleDrops rewards)
+    {
+        Rewards = rewards;
     }
 }

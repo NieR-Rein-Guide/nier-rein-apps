@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Localization
+namespace NierReincarnation.Core.Dark.Localization;
+
+public static class LocalizationExtensions
 {
-    public static class LocalizationExtensions
+    public static IDictionary<string, string> Localizations;
+
+    public static string Localize(this string key)
     {
-        public static IDictionary<string, string> Localizations;
+        if (Localizations == null)
+            return string.Empty;
 
-        public static string Localize(this string key)
-        {
-            if (Localizations == null)
-                return string.Empty;
+        if (!Localizations.ContainsKey(key))
+            return string.Empty;
 
-            if (!Localizations.ContainsKey(key))
-                return string.Empty;
+        return Localizations[key];
+    }
 
-            return Localizations[key];
-        }
-
-        public static string LocalizeWithParams(this string key, params object?[] args)
-        {
-            return string.Format(Localize(key), args);
-        }
+    public static string LocalizeWithParams(this string key, params object?[] args)
+    {
+        return string.Format(Localize(key), args);
     }
 }

@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMBattleNpcCostumeTable : TableBase<EntityMBattleNpcCostume>
 {
-    public class EntityMBattleNpcCostumeTable : TableBase<EntityMBattleNpcCostume>
+    private readonly Func<EntityMBattleNpcCostume, (long, string)> primaryIndexSelector;
+
+    public EntityMBattleNpcCostumeTable(EntityMBattleNpcCostume[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMBattleNpcCostume, (long, string)> primaryIndexSelector;
-
-        public EntityMBattleNpcCostumeTable(EntityMBattleNpcCostume[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcCostumeUuid);
-        }
-
-        public EntityMBattleNpcCostume FindByBattleNpcIdAndBattleNpcCostumeUuid(ValueTuple<long, string> key) =>
-            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
+        primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcCostumeUuid);
     }
+
+    public EntityMBattleNpcCostume FindByBattleNpcIdAndBattleNpcCostumeUuid(ValueTuple<long, string> key) =>
+        FindUniqueCore(data, primaryIndexSelector, Comparer<(long, string)>.Default, key);
 }

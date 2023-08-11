@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum AttributeCompatibilityType
 {
-    public enum AttributeCompatibilityType
-    {
-        UNKNOWN = 0,
-        EVEN = 1,
-        GOOD = 2,
-        BAD = 3
-    }
+    UNKNOWN = 0,
+    EVEN = 1,
+    GOOD = 2,
+    BAD = 3
 }

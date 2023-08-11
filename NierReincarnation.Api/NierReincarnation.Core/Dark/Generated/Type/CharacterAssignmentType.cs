@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum CharacterAssignmentType
 {
-    public enum CharacterAssignmentType
-    {
-        UNKNOWN = 0,
-        ORIGINAL = 1,
-        COLLABORATION = 2
-    }
+    UNKNOWN = 0,
+    ORIGINAL = 1,
+    COLLABORATION = 2
 }

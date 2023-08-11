@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.Dark
+﻿namespace NierReincarnation.Core.Dark;
+
+public class DataWeaponSkill : DataSkill
 {
-    public class DataWeaponSkill : DataSkill
-    {
-       
-        public int RecastSeconds { get; set; }
-    }
+   
+    public int RecastSeconds { get; set; }
 }

@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMEvaluateConditionTable : TableBase<EntityMEvaluateCondition>
 {
-    public class EntityMEvaluateConditionTable : TableBase<EntityMEvaluateCondition>
+    private readonly Func<EntityMEvaluateCondition, int> primaryIndexSelector;
+
+    public EntityMEvaluateConditionTable(EntityMEvaluateCondition[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMEvaluateCondition, int> primaryIndexSelector;
-
-        public EntityMEvaluateConditionTable(EntityMEvaluateCondition[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.EvaluateConditionId;
-        }
-
-        public EntityMEvaluateCondition FindByEvaluateConditionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.EvaluateConditionId;
     }
+
+    public EntityMEvaluateCondition FindByEvaluateConditionId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

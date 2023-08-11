@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserMainQuestReplayFlowStatusTable : TableBase<EntityIUserMainQuestReplayFlowStatus>
 {
-    public class EntityIUserMainQuestReplayFlowStatusTable : TableBase<EntityIUserMainQuestReplayFlowStatus>
+    private readonly Func<EntityIUserMainQuestReplayFlowStatus, long> primaryIndexSelector;
+
+    public EntityIUserMainQuestReplayFlowStatusTable(EntityIUserMainQuestReplayFlowStatus[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUserMainQuestReplayFlowStatus, long> primaryIndexSelector;
-
-        public EntityIUserMainQuestReplayFlowStatusTable(EntityIUserMainQuestReplayFlowStatus[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.UserId;
-        }
-
-        public EntityIUserMainQuestReplayFlowStatus FindByUserId(long key) => FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key);
+        primaryIndexSelector = element => element.UserId;
     }
+
+    public EntityIUserMainQuestReplayFlowStatus FindByUserId(long key) => FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key);
 }

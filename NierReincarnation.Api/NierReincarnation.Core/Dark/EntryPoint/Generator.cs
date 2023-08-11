@@ -6,39 +6,38 @@ using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Networking.DataSource.Interceptor;
 
-namespace NierReincarnation.Core.Dark.EntryPoint
+namespace NierReincarnation.Core.Dark.EntryPoint;
+
+class Generator
 {
-    class Generator
+    public static void OnEntrypoint()
     {
-        public static void OnEntrypoint()
-        {
-            OnlyWhenStarting();
-            ApplicationApi.Run();
-        }
+        OnlyWhenStarting();
+        ApplicationApi.Run();
+    }
 
-        private static void OnlyWhenStarting()
-        {
-            SetupLocalizeTime();
+    private static void OnlyWhenStarting()
+    {
+        SetupLocalizeTime();
 
-            // TODO: Investigate
-            //SetupMessagePackResolver();
+        // TODO: Investigate
+        //SetupMessagePackResolver();
 
-            SetupApiSystem();
-        }
+        SetupApiSystem();
+    }
 
-        private static void SetupLocalizeTime()
-        {
-            LocalizeTime.Initialize();
-        }
+    private static void SetupLocalizeTime()
+    {
+        LocalizeTime.Initialize();
+    }
 
-        private static void SetupApiSystem()
-        {
-            ChannelProvider.SetResolver(ApplicationScopeClientContext.Instance.ServerResolver);
+    private static void SetupApiSystem()
+    {
+        ChannelProvider.SetResolver(ApplicationScopeClientContext.Instance.ServerResolver);
 
-            MasterDataDownloader.MasterDataVersionGetter = () => ApplicationScopeClientContext.Instance.MasterData.MasterDataVersion;
-            MasterDataDownloader.MasterDataVersionSetter = v => ApplicationScopeClientContext.Instance.MasterData.UpdateMasterDataVersion(v);
+        MasterDataDownloader.MasterDataVersionGetter = () => ApplicationScopeClientContext.Instance.MasterData.MasterDataVersion;
+        MasterDataDownloader.MasterDataVersionSetter = v => ApplicationScopeClientContext.Instance.MasterData.UpdateMasterDataVersion(v);
 
-            ApiSystem.Instance.RegisterResponseHandler(new UserDataUpdateHandler());
-        }
+        ApiSystem.Instance.RegisterResponseHandler(new UserDataUpdateHandler());
     }
 }

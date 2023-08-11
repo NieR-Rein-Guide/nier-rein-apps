@@ -2,19 +2,18 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMSkillDamageMultiplyHitIndexValueGroupTable : TableBase<EntityMSkillDamageMultiplyHitIndexValueGroup>
 {
-    public class EntityMSkillDamageMultiplyHitIndexValueGroupTable : TableBase<EntityMSkillDamageMultiplyHitIndexValueGroup>
+    private readonly Func<EntityMSkillDamageMultiplyHitIndexValueGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMSkillDamageMultiplyHitIndexValueGroupTable(EntityMSkillDamageMultiplyHitIndexValueGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMSkillDamageMultiplyHitIndexValueGroup, (int, int)> primaryIndexSelector;
-
-        public EntityMSkillDamageMultiplyHitIndexValueGroupTable(EntityMSkillDamageMultiplyHitIndexValueGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.SkillDamageMultiplyHitIndexValueGroupId, element.SkillDamageMultiplyHitIndexValueGroupIndex);
-        }
-
-        public RangeView<EntityMSkillDamageMultiplyHitIndexValueGroup> FindRangeBySkillDamageMultiplyHitIndexValueGroupIdAndSkillDamageMultiplyHitIndexValueGroupIndex(
-            ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
-            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
+        primaryIndexSelector = element => (element.SkillDamageMultiplyHitIndexValueGroupId, element.SkillDamageMultiplyHitIndexValueGroupIndex);
     }
+
+    public RangeView<EntityMSkillDamageMultiplyHitIndexValueGroup> FindRangeBySkillDamageMultiplyHitIndexValueGroupIdAndSkillDamageMultiplyHitIndexValueGroupIndex(
+        ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
 }

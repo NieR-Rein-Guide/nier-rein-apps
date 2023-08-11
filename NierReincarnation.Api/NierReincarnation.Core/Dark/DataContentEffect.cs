@@ -1,11 +1,10 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 
-namespace NierReincarnation.Core.Dark
+namespace NierReincarnation.Core.Dark;
+
+public class DataContentEffect
 {
-    public class DataContentEffect
-    {
-        public EffectTargetType EffectTargetType { get; set; }
-        public EffectValueType EffectValueType { get; set; }
-        public int EffectValue { get; set; }
-    }
+    public EffectTargetType EffectTargetType { get; set; }
+    public EffectValueType EffectValueType { get; set; }
+    public int EffectValue { get; set; }
 }

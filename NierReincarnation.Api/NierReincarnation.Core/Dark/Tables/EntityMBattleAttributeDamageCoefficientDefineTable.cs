@@ -3,17 +3,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMBattleAttributeDamageCoefficientDefineTable : TableBase<EntityMBattleAttributeDamageCoefficientDefine>
 {
-    public class EntityMBattleAttributeDamageCoefficientDefineTable : TableBase<EntityMBattleAttributeDamageCoefficientDefine>
+    private readonly Func<EntityMBattleAttributeDamageCoefficientDefine, BattleSchemeType> primaryIndexSelector;
+
+    public EntityMBattleAttributeDamageCoefficientDefineTable(EntityMBattleAttributeDamageCoefficientDefine[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMBattleAttributeDamageCoefficientDefine, BattleSchemeType> primaryIndexSelector;
-
-        public EntityMBattleAttributeDamageCoefficientDefineTable(EntityMBattleAttributeDamageCoefficientDefine[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.BattleSchemeType;
-        }
-
-        public EntityMBattleAttributeDamageCoefficientDefine FindByBattleSchemeType(BattleSchemeType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<BattleSchemeType>.Default, key);
+        primaryIndexSelector = element => element.BattleSchemeType;
     }
+
+    public EntityMBattleAttributeDamageCoefficientDefine FindByBattleSchemeType(BattleSchemeType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<BattleSchemeType>.Default, key);
 }

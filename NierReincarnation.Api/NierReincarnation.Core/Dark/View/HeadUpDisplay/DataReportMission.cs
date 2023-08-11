@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.View.HeadUpDisplay
-{
-    public sealed class DataReportMission
-    {
-        public string ReportMissionText { get; set; }
+﻿namespace NierReincarnation.Core.Dark.View.HeadUpDisplay;
 
-        public bool IsClear { get; set; }
-    }
+public sealed class DataReportMission
+{
+    public string ReportMissionText { get; set; }
+
+    public bool IsClear { get; set; }
 }

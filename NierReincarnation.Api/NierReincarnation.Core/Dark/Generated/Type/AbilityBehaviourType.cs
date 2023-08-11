@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum AbilityBehaviourType
 {
-    public enum AbilityBehaviourType
-    {
-        UNKNOWN = 0,
-        PASSIVE_SKILL = 1,
-        RESIST_ABNORMAL = 2,
-        STATUS = 3,
-        BLESS = 4
-    }
+    UNKNOWN = 0,
+    PASSIVE_SKILL = 1,
+    RESIST_ABNORMAL = 2,
+    STATUS = 3,
+    BLESS = 4
 }

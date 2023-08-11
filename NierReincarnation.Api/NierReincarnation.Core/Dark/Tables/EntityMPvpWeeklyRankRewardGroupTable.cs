@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMPvpWeeklyRankRewardGroupTable : TableBase<EntityMPvpWeeklyRankRewardGroup>
 {
-    public class EntityMPvpWeeklyRankRewardGroupTable : TableBase<EntityMPvpWeeklyRankRewardGroup>
+    private readonly Func<EntityMPvpWeeklyRankRewardGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMPvpWeeklyRankRewardGroupTable(EntityMPvpWeeklyRankRewardGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMPvpWeeklyRankRewardGroup, (int, int)> primaryIndexSelector;
-
-        public EntityMPvpWeeklyRankRewardGroupTable(EntityMPvpWeeklyRankRewardGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.PvpWeeklyRankRewardGroupId, element.PvpRewardId);
-        }
-
-        public RangeView<EntityMPvpWeeklyRankRewardGroup> FindRangeByPvpWeeklyRankRewardGroupIdAndPvpRewardId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
-            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
+        primaryIndexSelector = element => (element.PvpWeeklyRankRewardGroupId, element.PvpRewardId);
     }
+
+    public RangeView<EntityMPvpWeeklyRankRewardGroup> FindRangeByPvpWeeklyRankRewardGroupIdAndPvpRewardId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
 }

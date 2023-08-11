@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum LimitedOpenTextDisplayConditionType
 {
-    public enum LimitedOpenTextDisplayConditionType
-    {
-        UNKNOWN = 0,
-        COUNT = 1,
-        LEFT_HOUR_COUNT = 2
-    }
+    UNKNOWN = 0,
+    COUNT = 1,
+    LEFT_HOUR_COUNT = 2
 }

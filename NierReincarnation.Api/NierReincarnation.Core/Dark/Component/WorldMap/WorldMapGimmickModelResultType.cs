@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Component.WorldMap
+﻿namespace NierReincarnation.Core.Dark.Component.WorldMap;
+
+public enum WorldMapGimmickModelResultType
 {
-    public enum WorldMapGimmickModelResultType
-    {
-        Success = 0,
-        Failure = 1,
-        OutOfRange = 2
-    }
+    Success = 0,
+    Failure = 1,
+    OutOfRange = 2
 }

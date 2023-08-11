@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum BattleAdditionalAbilityApplyScopeType
 {
-    public enum BattleAdditionalAbilityApplyScopeType
-    {
-        UNKNOWN = 0,
-        BOSS = 1,
-        ENEMY_ALL = 2
-    }
+    UNKNOWN = 0,
+    BOSS = 1,
+    ENEMY_ALL = 2
 }

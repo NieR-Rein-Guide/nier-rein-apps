@@ -1,70 +1,69 @@
 ﻿using System;
 
-namespace NierReincarnation.Core.Dark
+namespace NierReincarnation.Core.Dark;
+
+public class ActorAssetId : IEquatable<ActorAssetId> // TypeDefIndex: 9052
 {
-    public class ActorAssetId : IEquatable<ActorAssetId> // TypeDefIndex: 9052
+    // Fields
+    public static readonly ActorAssetId InvalidActorAssetId = new ActorAssetId();
+    private static readonly int InvalidId = 0;
+
+   
+    public int Id { get; }
+   
+    public SkeletonId SkeletonId { get; }
+   
+    public string StringId { get; }
+
+    public ActorAssetId()
     {
-        // Fields
-        public static readonly ActorAssetId InvalidActorAssetId = new ActorAssetId();
-        private static readonly int InvalidId = 0;
+        Id = InvalidId;
+        SkeletonId = SkeletonId.InvalidSkeletonId;
+        StringId = string.Empty;
+    }
 
-       
-        public int Id { get; }
-       
-        public SkeletonId SkeletonId { get; }
-       
-        public string StringId { get; }
+    public ActorAssetId(string id)
+    {
+        Id = int.Parse(id.Substring(5, 3));
+        SkeletonId = new SkeletonId(id.Substring(0, 5));
+        StringId = CreateStringId();
+    }
 
-        public ActorAssetId()
-        {
-            Id = InvalidId;
-            SkeletonId = SkeletonId.InvalidSkeletonId;
-            StringId = string.Empty;
-        }
+    public ActorAssetId(SkeletonId skeletonId, int id)
+    {
+        SkeletonId = skeletonId;
+        Id = id;
+        StringId = CreateStringId();
+    }
 
-        public ActorAssetId(string id)
-        {
-            Id = int.Parse(id.Substring(5, 3));
-            SkeletonId = new SkeletonId(id.Substring(0, 5));
-            StringId = CreateStringId();
-        }
+    public bool Equals(ActorAssetId other)
+    {
+        return Id == other?.Id;
+    }
 
-        public ActorAssetId(SkeletonId skeletonId, int id)
-        {
-            SkeletonId = skeletonId;
-            Id = id;
-            StringId = CreateStringId();
-        }
+    public override bool Equals(object obj)
+    {
+        if (obj is ActorAssetId aid)
+            return aid.Id == Id;
 
-        public bool Equals(ActorAssetId other)
-        {
-            return Id == other?.Id;
-        }
+        return false;
+    }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is ActorAssetId aid)
-                return aid.Id == Id;
+    public override int GetHashCode()
+    {
+        return Id + SkeletonId.Id * 1000;
+    }
 
-            return false;
-        }
+    public override string ToString()
+    {
+        return StringId;
+    }
 
-        public override int GetHashCode()
-        {
-            return Id + SkeletonId.Id * 1000;
-        }
+    public static bool operator ==(ActorAssetId a, ActorAssetId b) => a?.Id == b?.Id;
+    public static bool operator !=(ActorAssetId a, ActorAssetId b) => a?.Id != b?.Id;
 
-        public override string ToString()
-        {
-            return StringId;
-        }
-
-        public static bool operator ==(ActorAssetId a, ActorAssetId b) => a?.Id == b?.Id;
-        public static bool operator !=(ActorAssetId a, ActorAssetId b) => a?.Id != b?.Id;
-
-        private string CreateStringId()
-        {
-            return $"{SkeletonId}{Id:D3}";
-        }
+    private string CreateStringId()
+    {
+        return $"{SkeletonId}{Id:D3}";
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum CostumeSpecialActActiveSkillConditionType
 {
-    public enum CostumeSpecialActActiveSkillConditionType
-    {
-        UNKNOWN = 0,
-        ALWAYS = 1,
-        ATTRIBUTE_MAIN_WEAPON = 2
-    }
+    UNKNOWN = 0,
+    ALWAYS = 1,
+    ATTRIBUTE_MAIN_WEAPON = 2
 }

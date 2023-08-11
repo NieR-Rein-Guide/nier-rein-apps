@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserWeaponSkillTable : TableBase<EntityIUserWeaponSkill>
 {
-    public class EntityIUserWeaponSkillTable : TableBase<EntityIUserWeaponSkill>
+    private readonly Func<EntityIUserWeaponSkill, (long, string, int)> primaryIndexSelector;
+
+    public EntityIUserWeaponSkillTable(EntityIUserWeaponSkill[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUserWeaponSkill, (long, string, int)> primaryIndexSelector;
-
-        public EntityIUserWeaponSkillTable(EntityIUserWeaponSkill[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.UserId, element.UserWeaponUuid, element.SlotNumber);
-        }
-
-        public bool TryFindByUserIdAndUserWeaponUuidAndSlotNumber(ValueTuple<long, string, int> key, out EntityIUserWeaponSkill result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string, int)>.Default, key, out result);
+        primaryIndexSelector = element => (element.UserId, element.UserWeaponUuid, element.SlotNumber);
     }
+
+    public bool TryFindByUserIdAndUserWeaponUuidAndSlotNumber(ValueTuple<long, string, int> key, out EntityIUserWeaponSkill result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, string, int)>.Default, key, out result);
 }

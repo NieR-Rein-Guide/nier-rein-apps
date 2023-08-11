@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum ListSettingCostumeGroupType
 {
-    public enum ListSettingCostumeGroupType
-    {
-        UNKNOWN = 0,
-        INDIVIDUAL = 1,
-        OTHER = 2
-    }
+    UNKNOWN = 0,
+    INDIVIDUAL = 1,
+    OTHER = 2
 }

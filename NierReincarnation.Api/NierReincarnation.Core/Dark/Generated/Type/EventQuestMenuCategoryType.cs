@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum EventQuestMenuCategoryType
 {
-    public enum EventQuestMenuCategoryType
-    {
-        Unknown = 0,
-        EventDefault = 1,
-        CharacterExQuest = 2
-    }
+    Unknown = 0,
+    EventDefault = 1,
+    CharacterExQuest = 2
 }

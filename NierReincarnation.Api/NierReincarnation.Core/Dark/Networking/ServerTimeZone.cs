@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Networking
+﻿namespace NierReincarnation.Core.Dark.Networking;
+
+// Dark.Networking.ServerTimeZone
+public enum ServerTimeZone
 {
-    // Dark.Networking.ServerTimeZone
-    public enum ServerTimeZone
-    {
-        Tokyo,
-        US_Eastern,
-        UTC
-    }
+    Tokyo,
+    US_Eastern,
+    UTC
 }

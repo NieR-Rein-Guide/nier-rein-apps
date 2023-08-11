@@ -3,22 +3,21 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMSideStoryQuestLimitContentTable : TableBase<EntityMSideStoryQuestLimitContent>
 {
-    public class EntityMSideStoryQuestLimitContentTable : TableBase<EntityMSideStoryQuestLimitContent>
+    private readonly Func<EntityMSideStoryQuestLimitContent, int> primaryIndexSelector;
+    private readonly Func<EntityMSideStoryQuestLimitContent, (int, DifficultyType)> secondaryIndexSelector;
+
+    public EntityMSideStoryQuestLimitContentTable(EntityMSideStoryQuestLimitContent[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMSideStoryQuestLimitContent, int> primaryIndexSelector;
-        private readonly Func<EntityMSideStoryQuestLimitContent, (int, DifficultyType)> secondaryIndexSelector;
-
-        public EntityMSideStoryQuestLimitContentTable(EntityMSideStoryQuestLimitContent[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.SideStoryQuestLimitContentId;
-            secondaryIndexSelector = element => (element.EventQuestChapterId, element.DifficultyType);
-        }
-
-        public EntityMSideStoryQuestLimitContent FindBySideStoryQuestLimitContentId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
-
-        public RangeView<EntityMSideStoryQuestLimitContent> FindByEventQuestChapterIdAndDifficultyType(ValueTuple<int, DifficultyType> key) =>
-            FindManyCore(data, secondaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key);
+        primaryIndexSelector = element => element.SideStoryQuestLimitContentId;
+        secondaryIndexSelector = element => (element.EventQuestChapterId, element.DifficultyType);
     }
+
+    public EntityMSideStoryQuestLimitContent FindBySideStoryQuestLimitContentId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+
+    public RangeView<EntityMSideStoryQuestLimitContent> FindByEventQuestChapterIdAndDifficultyType(ValueTuple<int, DifficultyType> key) =>
+        FindManyCore(data, secondaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key);
 }

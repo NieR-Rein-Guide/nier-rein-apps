@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMSkillAbnormalLifetimeBehaviourGroupTable : TableBase<EntityMSkillAbnormalLifetimeBehaviourGroup>
-    {
-        private readonly Func<EntityMSkillAbnormalLifetimeBehaviourGroup, (int, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMSkillAbnormalLifetimeBehaviourGroupTable(EntityMSkillAbnormalLifetimeBehaviourGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.SkillAbnormalLifetimeBehaviourGroupId, element.AbnormalLifetimeBehaviourIndex);
-        }
+public class EntityMSkillAbnormalLifetimeBehaviourGroupTable : TableBase<EntityMSkillAbnormalLifetimeBehaviourGroup>
+{
+    private readonly Func<EntityMSkillAbnormalLifetimeBehaviourGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMSkillAbnormalLifetimeBehaviourGroupTable(EntityMSkillAbnormalLifetimeBehaviourGroup[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.SkillAbnormalLifetimeBehaviourGroupId, element.AbnormalLifetimeBehaviourIndex);
     }
 }

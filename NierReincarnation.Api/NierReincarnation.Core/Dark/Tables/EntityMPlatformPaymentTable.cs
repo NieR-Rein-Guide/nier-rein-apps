@@ -3,18 +3,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMPlatformPaymentTable : TableBase<EntityMPlatformPayment>
 {
-    public class EntityMPlatformPaymentTable : TableBase<EntityMPlatformPayment>
+    private readonly Func<EntityMPlatformPayment, (int, PlatformType)> primaryIndexSelector;
+
+    public EntityMPlatformPaymentTable(EntityMPlatformPayment[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMPlatformPayment, (int, PlatformType)> primaryIndexSelector;
-
-        public EntityMPlatformPaymentTable(EntityMPlatformPayment[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.PlatformPaymentId, element.PlatformType);
-        }
-
-        public EntityMPlatformPayment FindByPlatformPaymentIdAndPlatformType(ValueTuple<int, PlatformType> key) =>
-            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, PlatformType)>.Default, key);
+        primaryIndexSelector = element => (element.PlatformPaymentId, element.PlatformType);
     }
+
+    public EntityMPlatformPayment FindByPlatformPaymentIdAndPlatformType(ValueTuple<int, PlatformType> key) =>
+        FindUniqueCore(data, primaryIndexSelector, Comparer<(int, PlatformType)>.Default, key);
 }

@@ -4,76 +4,75 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace NierReincarnation.Core.Dark.Preference
+namespace NierReincarnation.Core.Dark.Preference;
+
+// Dark.Preference.PlayerRegistrationMap
+[JsonConverter(typeof(MapJsonConverter))]
+class PlayerRegistrationMap
 {
-    // Dark.Preference.PlayerRegistrationMap
-    [JsonConverter(typeof(MapJsonConverter))]
-    class PlayerRegistrationMap
+    private Dictionary<string, PlayerRegistration> _playerRegistrations;
+
+    public PlayerRegistration this[string index]
     {
-        private Dictionary<string, PlayerRegistration> _playerRegistrations;
+        get => _playerRegistrations[index];
+        set => _playerRegistrations[index] = value;
+    }
 
-        public PlayerRegistration this[string index]
+    public PlayerRegistrationMap()
+    {
+        _playerRegistrations = new Dictionary<string, PlayerRegistration>();
+    }
+
+    public static string GenerateActiveKey()
+    {
+        var serverAddress = KernelState.NetworkConfig.ServerAddress;
+        var port = KernelState.NetworkConfig.ServerPort;
+
+        return GenerateKey(serverAddress, port);
+    }
+
+    public static string GenerateKey(string serverAddress, int serverPort)
+    {
+        return $"{serverAddress}{serverPort}";
+    }
+
+    public bool TryGetValue(string key, out PlayerRegistration player)
+    {
+        return _playerRegistrations.TryGetValue(key, out player);
+    }
+
+    class MapJsonConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
         {
-            get => _playerRegistrations[index];
-            set => _playerRegistrations[index] = value;
+            return objectType == typeof(PlayerRegistrationMap);
         }
 
-        public PlayerRegistrationMap()
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            _playerRegistrations = new Dictionary<string, PlayerRegistration>();
-        }
+            var map = (PlayerRegistrationMap)value;
+            if (map == null)
+                return;
 
-        public static string GenerateActiveKey()
-        {
-            var serverAddress = KernelState.NetworkConfig.ServerAddress;
-            var port = KernelState.NetworkConfig.ServerPort;
-
-            return GenerateKey(serverAddress, port);
-        }
-
-        public static string GenerateKey(string serverAddress, int serverPort)
-        {
-            return $"{serverAddress}{serverPort}";
-        }
-
-        public bool TryGetValue(string key, out PlayerRegistration player)
-        {
-            return _playerRegistrations.TryGetValue(key, out player);
-        }
-
-        class MapJsonConverter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
+            serializer.Serialize(writer, new
             {
-                return objectType == typeof(PlayerRegistrationMap);
-            }
+                _keys = map._playerRegistrations.Keys.ToArray(),
+                _values = map._playerRegistrations.Values.ToArray()
+            });
+        }
 
-            public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-            {
-                var map = (PlayerRegistrationMap)value;
-                if (map == null)
-                    return;
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+        {
+            var mapObj = (JObject)serializer.Deserialize(reader);
 
-                serializer.Serialize(writer, new
-                {
-                    _keys = map._playerRegistrations.Keys.ToArray(),
-                    _values = map._playerRegistrations.Values.ToArray()
-                });
-            }
+            var keys = mapObj["_keys"].ToArray();
+            var values = mapObj["_values"].ToArray();
 
-            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-            {
-                var mapObj = (JObject)serializer.Deserialize(reader);
+            var result = new PlayerRegistrationMap();
+            for (var i = 0; i < keys.Length; i++)
+                result[keys[i].Value<string>()] = values[i].ToObject<PlayerRegistration>();
 
-                var keys = mapObj["_keys"].ToArray();
-                var values = mapObj["_values"].ToArray();
-
-                var result = new PlayerRegistrationMap();
-                for (var i = 0; i < keys.Length; i++)
-                    result[keys[i].Value<string>()] = values[i].ToObject<PlayerRegistration>();
-
-                return result;
-            }
+            return result;
         }
     }
 }

@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMSkillAbnormalBehaviourActionDamageTable : TableBase<EntityMSkillAbnormalBehaviourActionDamage>
 {
-    public class EntityMSkillAbnormalBehaviourActionDamageTable : TableBase<EntityMSkillAbnormalBehaviourActionDamage>
+    private readonly Func<EntityMSkillAbnormalBehaviourActionDamage, int> primaryIndexSelector;
+
+    public EntityMSkillAbnormalBehaviourActionDamageTable(EntityMSkillAbnormalBehaviourActionDamage[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMSkillAbnormalBehaviourActionDamage, int> primaryIndexSelector;
-
-        public EntityMSkillAbnormalBehaviourActionDamageTable(EntityMSkillAbnormalBehaviourActionDamage[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.SkillAbnormalBehaviourActionId;
-        }
-
-        public EntityMSkillAbnormalBehaviourActionDamage FindBySkillAbnormalBehaviourActionId(int key) =>
-            FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.SkillAbnormalBehaviourActionId;
     }
+
+    public EntityMSkillAbnormalBehaviourActionDamage FindBySkillAbnormalBehaviourActionId(int key) =>
+        FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

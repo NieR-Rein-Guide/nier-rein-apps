@@ -2,15 +2,14 @@ using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMTipGroupSituationTable : TableBase<EntityMTipGroupSituation>
-    {
-        private readonly Func<EntityMTipGroupSituation, (TipSituationType, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMTipGroupSituationTable(EntityMTipGroupSituation[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.TipSituationType, element.TipGroupId);
-        }
+public class EntityMTipGroupSituationTable : TableBase<EntityMTipGroupSituation>
+{
+    private readonly Func<EntityMTipGroupSituation, (TipSituationType, int)> primaryIndexSelector;
+
+    public EntityMTipGroupSituationTable(EntityMTipGroupSituation[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.TipSituationType, element.TipGroupId);
     }
 }

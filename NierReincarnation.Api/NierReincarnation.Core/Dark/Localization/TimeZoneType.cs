@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NierReincarnation.Core.Dark.Localization
+namespace NierReincarnation.Core.Dark.Localization;
+
+public enum TimeZoneType
 {
-    public enum TimeZoneType
-    {
-        Tokyo = 0,
-        PacificStandardTime = 1
-    }
+    Tokyo = 0,
+    PacificStandardTime = 1
 }

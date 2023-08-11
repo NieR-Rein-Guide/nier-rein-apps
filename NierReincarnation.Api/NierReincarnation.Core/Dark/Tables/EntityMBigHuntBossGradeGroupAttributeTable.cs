@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMBigHuntBossGradeGroupAttributeTable : TableBase<EntityMBigHuntBossGradeGroupAttribute>
-    {
-        private readonly Func<EntityMBigHuntBossGradeGroupAttribute, int> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMBigHuntBossGradeGroupAttributeTable(EntityMBigHuntBossGradeGroupAttribute[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.AttributeType;
-        }
+public class EntityMBigHuntBossGradeGroupAttributeTable : TableBase<EntityMBigHuntBossGradeGroupAttribute>
+{
+    private readonly Func<EntityMBigHuntBossGradeGroupAttribute, int> primaryIndexSelector;
+
+    public EntityMBigHuntBossGradeGroupAttributeTable(EntityMBigHuntBossGradeGroupAttribute[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => element.AttributeType;
     }
 }

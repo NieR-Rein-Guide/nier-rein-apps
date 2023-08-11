@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum SkillRemoveBuffChoosingType
 {
-    public enum SkillRemoveBuffChoosingType
-    {
-        UNKNOWN = 0,
-        RANDOM = 1
-    }
+    UNKNOWN = 0,
+    RANDOM = 1
 }

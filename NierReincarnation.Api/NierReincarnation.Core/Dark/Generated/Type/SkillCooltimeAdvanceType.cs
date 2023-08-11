@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum SkillCooltimeAdvanceType
 {
-    public enum SkillCooltimeAdvanceType
-    {
-        UNKNOWN = 0,
-        ADD = 1,
-        MULTIPLY = 2
-    }
+    UNKNOWN = 0,
+    ADD = 1,
+    MULTIPLY = 2
 }

@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMPortalCageAccessPointFunctionGroupScheduleTable : TableBase<EntityMPortalCageAccessPointFunctionGroupSchedule>
-    {
-        private readonly Func<EntityMPortalCageAccessPointFunctionGroupSchedule, (int, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMPortalCageAccessPointFunctionGroupScheduleTable(EntityMPortalCageAccessPointFunctionGroupSchedule[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.PortalCageAccessPointFunctionGroupScheduleId, element.PriorityDesc);
-        }
+public class EntityMPortalCageAccessPointFunctionGroupScheduleTable : TableBase<EntityMPortalCageAccessPointFunctionGroupSchedule>
+{
+    private readonly Func<EntityMPortalCageAccessPointFunctionGroupSchedule, (int, int)> primaryIndexSelector;
+
+    public EntityMPortalCageAccessPointFunctionGroupScheduleTable(EntityMPortalCageAccessPointFunctionGroupSchedule[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.PortalCageAccessPointFunctionGroupScheduleId, element.PriorityDesc);
     }
 }

@@ -1,6 +1,5 @@
-﻿namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm
+﻿namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm;
+
+class DataStructure : InternalDataStructure
 {
-    class DataStructure : InternalDataStructure
-    {
-    }
 }

@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMBattleNpcWeaponAwakenTable : TableBase<EntityMBattleNpcWeaponAwaken>
-    {
-        private readonly Func<EntityMBattleNpcWeaponAwaken, (long, string)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMBattleNpcWeaponAwakenTable(EntityMBattleNpcWeaponAwaken[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcWeaponUuid);
-        }
+public class EntityMBattleNpcWeaponAwakenTable : TableBase<EntityMBattleNpcWeaponAwaken>
+{
+    private readonly Func<EntityMBattleNpcWeaponAwaken, (long, string)> primaryIndexSelector;
+
+    public EntityMBattleNpcWeaponAwakenTable(EntityMBattleNpcWeaponAwaken[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcWeaponUuid);
     }
 }

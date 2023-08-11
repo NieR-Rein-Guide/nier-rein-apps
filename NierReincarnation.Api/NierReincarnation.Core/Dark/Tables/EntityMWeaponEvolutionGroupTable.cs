@@ -3,41 +3,40 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMWeaponEvolutionGroupTable : TableBase<EntityMWeaponEvolutionGroup>
 {
-    public class EntityMWeaponEvolutionGroupTable : TableBase<EntityMWeaponEvolutionGroup>
+    private readonly Func<EntityMWeaponEvolutionGroup, (int, int)> primaryIndexSelector;
+    private readonly Func<EntityMWeaponEvolutionGroup, (int, int)> secondaryIndexSelector;
+
+    public EntityMWeaponEvolutionGroupTable(EntityMWeaponEvolutionGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMWeaponEvolutionGroup, (int, int)> primaryIndexSelector;
-        private readonly Func<EntityMWeaponEvolutionGroup, (int, int)> secondaryIndexSelector;
+        primaryIndexSelector = element => (element.WeaponEvolutionGroupId, element.EvolutionOrder);
+        secondaryIndexSelector = element => (element.WeaponEvolutionGroupId, element.WeaponId);
+    }
 
-        public EntityMWeaponEvolutionGroupTable(EntityMWeaponEvolutionGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.WeaponEvolutionGroupId, element.EvolutionOrder);
-            secondaryIndexSelector = element => (element.WeaponEvolutionGroupId, element.WeaponId);
-        }
+    public EntityMWeaponEvolutionGroup FindByWeaponEvolutionGroupIdAndEvolutionOrder(ValueTuple<int, int> key) =>
+        FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
 
-        public EntityMWeaponEvolutionGroup FindByWeaponEvolutionGroupIdAndEvolutionOrder(ValueTuple<int, int> key) =>
-            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key);
+    public EntityMWeaponEvolutionGroup FindClosestByWeaponEvolutionGroupIdAndEvolutionOrder(ValueTuple<int, int> key, bool selectLower = true) =>
+        FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
 
-        public EntityMWeaponEvolutionGroup FindClosestByWeaponEvolutionGroupIdAndEvolutionOrder(ValueTuple<int, int> key, bool selectLower = true) =>
-            FindUniqueClosestCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, key, selectLower);
+    public RangeView<EntityMWeaponEvolutionGroup> FindByWeaponEvolutionGroupId(int key)
+    {
+        var result = data
+            .Where(x => x.WeaponEvolutionGroupId == key)
+            .ToArray();
 
-        public RangeView<EntityMWeaponEvolutionGroup> FindByWeaponEvolutionGroupId(int key)
-        {
-            var result = data
-                .Where(x => x.WeaponEvolutionGroupId == key)
-                .ToArray();
+        return new RangeView<EntityMWeaponEvolutionGroup>(result, 0, result.Length, true);
+    }
 
-            return new RangeView<EntityMWeaponEvolutionGroup>(result, 0, result.Length, true);
-        }
+    public RangeView<EntityMWeaponEvolutionGroup> FindByWeaponId(int key)
+    {
+        var result = data
+            .Where(x => x.WeaponId == key)
+            .ToArray();
 
-        public RangeView<EntityMWeaponEvolutionGroup> FindByWeaponId(int key)
-        {
-            var result = data
-                .Where(x => x.WeaponId == key)
-                .ToArray();
-
-            return new RangeView<EntityMWeaponEvolutionGroup>(result, 0, result.Length, true);
-        }
+        return new RangeView<EntityMWeaponEvolutionGroup>(result, 0, result.Length, true);
     }
 }

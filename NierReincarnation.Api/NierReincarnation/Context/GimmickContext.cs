@@ -11,97 +11,96 @@ using System.Linq;
 using System.Threading.Tasks;
 using GimmickReward = NierReincarnation.Context.Models.GimmickReward;
 
-namespace NierReincarnation.Context
+namespace NierReincarnation.Context;
+
+public class GimmickContext : BaseContext
 {
-    public class GimmickContext : BaseContext
+    private readonly DarkClient _dc = new();
+
+    internal GimmickContext()
+    { }
+
+    public bool IsGimmickQuest(WorldMapGimmickOutGame gimmick)
     {
-        private readonly DarkClient _dc = new();
+        return gimmick.GimmickType == GimmickType.MAP_ONLY_HIDE_OBELISK;
+    }
 
-        internal GimmickContext()
-        { }
-
-        public bool IsGimmickQuest(WorldMapGimmickOutGame gimmick)
+    public async Task Execute(WorldMapGimmickOutGame gimmick, DataDeck deck)
+    {
+        switch (gimmick.GimmickType)
         {
-            return gimmick.GimmickType == GimmickType.MAP_ONLY_HIDE_OBELISK;
+            // Stray Scarecrows
+            case GimmickType.MAP_ONLY_HIDE_OBELISK:
+                await CollectHideObelisk(gimmick, deck);
+                break;
         }
+    }
 
-        public async Task Execute(WorldMapGimmickOutGame gimmick, DataDeck deck)
+    public async Task<IList<GimmickReward>> Collect(WorldMapGimmickOutGame gimmick)
+    {
+        return gimmick.GimmickType switch
         {
-            switch (gimmick.GimmickType)
-            {
-                // Stray Scarecrows
-                case GimmickType.MAP_ONLY_HIDE_OBELISK:
-                    await CollectHideObelisk(gimmick, deck);
-                    break;
-            }
-        }
+            // Lost Items
+            GimmickType.CAGE_INTERVAL_DROP_ITEM or GimmickType.MAP_ONLY_CAGE_INTERVAL_DROP_ITEM or GimmickType.CAGE_TREASURE_HUNT => await CollectGimmickRewards(gimmick),
+            // Black Birds
+            GimmickType.MAP_ONLY_CAGE_TREASURE_HUNT => await CollectCageOrnament(gimmick),
+            // Stray Scarecrows
+            GimmickType.MAP_ONLY_HIDE_OBELISK => throw new InvalidOperationException($"Quest gimmicks should be collected by using '{nameof(Execute)}'."),
+            _ => throw new InvalidOperationException("Gimmick cannot be collected."),
+        };
+    }
 
-        public async Task<IList<GimmickReward>> Collect(WorldMapGimmickOutGame gimmick)
+    private async Task<IList<GimmickReward>> CollectGimmickRewards(WorldMapGimmickOutGame gimmick)
+    {
+        var progRes = await TryRequest(() =>
         {
-            return gimmick.GimmickType switch
+            UpdateGimmickProgressRequest req = new()
             {
-                // Lost Items
-                GimmickType.CAGE_INTERVAL_DROP_ITEM or GimmickType.MAP_ONLY_CAGE_INTERVAL_DROP_ITEM or GimmickType.CAGE_TREASURE_HUNT => await CollectGimmickRewards(gimmick),
-                // Black Birds
-                GimmickType.MAP_ONLY_CAGE_TREASURE_HUNT => await CollectCageOrnament(gimmick),
-                // Stray Scarecrows
-                GimmickType.MAP_ONLY_HIDE_OBELISK => throw new InvalidOperationException($"Quest gimmicks should be collected by using '{nameof(Execute)}'."),
-                _ => throw new InvalidOperationException("Gimmick cannot be collected."),
+                GimmickSequenceScheduleId = gimmick.GimmickSequenceScheduleId,
+                GimmickSequenceId = gimmick.GimmickSequenceId,
+                GimmickId = gimmick.GimmickId,
+                GimmickOrnamentIndex = gimmick.GimmickOrnamentIndex,
+                ProgressValueBit = gimmick.UserGimmickProgressValueBit | (1 << (gimmick.GimmickOrnamentIndex - 1)),
+                FlowType = (int)gimmick.GimmickFlowType
             };
-        }
+            return _dc.GimmickService.UpdateGimmickProgressAsync(req);
+        });
 
-        private async Task<IList<GimmickReward>> CollectGimmickRewards(WorldMapGimmickOutGame gimmick)
-        {
-            var progRes = await TryRequest(() =>
-            {
-                UpdateGimmickProgressRequest req = new()
-                {
-                    GimmickSequenceScheduleId = gimmick.GimmickSequenceScheduleId,
-                    GimmickSequenceId = gimmick.GimmickSequenceId,
-                    GimmickId = gimmick.GimmickId,
-                    GimmickOrnamentIndex = gimmick.GimmickOrnamentIndex,
-                    ProgressValueBit = gimmick.UserGimmickProgressValueBit | (1 << (gimmick.GimmickOrnamentIndex - 1)),
-                    FlowType = (int)gimmick.GimmickFlowType
-                };
-                return _dc.GimmickService.UpdateGimmickProgressAsync(req);
-            });
+        if (progRes == null)
+            return Array.Empty<GimmickReward>();
 
-            if (progRes == null)
-                return Array.Empty<GimmickReward>();
+        var res = new List<GimmickReward>();
+        res.AddRange(progRes.GimmickOrnamentReward.Select(x => new GimmickReward(x)));
+        res.AddRange(progRes.GimmickSequenceClearReward.Select(x => new GimmickReward(x)));
 
-            var res = new List<GimmickReward>();
-            res.AddRange(progRes.GimmickOrnamentReward.Select(x => new GimmickReward(x)));
-            res.AddRange(progRes.GimmickSequenceClearReward.Select(x => new GimmickReward(x)));
+        return res;
+    }
 
-            return res;
-        }
-
-        private async Task<IList<GimmickReward>> CollectCageOrnament(WorldMapGimmickOutGame gimmick)
-        {
-            var rewardRes = await TryRequest(() =>
+    private async Task<IList<GimmickReward>> CollectCageOrnament(WorldMapGimmickOutGame gimmick)
+    {
+        var rewardRes = await TryRequest(() =>
+         {
+             var req = new ReceiveRewardRequest
              {
-                 var req = new ReceiveRewardRequest
-                 {
-                     CageOrnamentId = gimmick.CageOrnamentId
-                 };
-                 return _dc.CageOrnamentService.ReceiveRewardAsync(req);
-             });
+                 CageOrnamentId = gimmick.CageOrnamentId
+             };
+             return _dc.CageOrnamentService.ReceiveRewardAsync(req);
+         });
 
-            var res = new List<GimmickReward>();
-            res.AddRange(rewardRes.CageOrnamentReward.Select(x => new GimmickReward(x)));
+        var res = new List<GimmickReward>();
+        res.AddRange(rewardRes.CageOrnamentReward.Select(x => new GimmickReward(x)));
 
-            return res;
-        }
+        return res;
+    }
 
-        private static Task CollectHideObelisk(WorldMapGimmickOutGame gimmick, DataDeck deck)
-        {
-            if (deck.DeckType != DeckType.RESTRICTED_QUEST)
-                throw new InvalidOperationException("Gimmick quests can only be executed with a restricted deck.");
+    private static Task CollectHideObelisk(WorldMapGimmickOutGame gimmick, DataDeck deck)
+    {
+        if (deck.DeckType != DeckType.RESTRICTED_QUEST)
+            throw new InvalidOperationException("Gimmick quests can only be executed with a restricted deck.");
 
-            var questContext = NierReincarnation.GetContexts().Battles.CreateQuestContext();
-            var gimmickQuest = CalculatorWorldMap.GetHideObeliskQuest(gimmick.GimmickId, gimmick.GimmickOrnamentIndex);
+        var questContext = NierReincarnation.GetContexts().Battles.CreateQuestContext();
+        var gimmickQuest = CalculatorWorldMap.GetHideObeliskQuest(gimmick.GimmickId, gimmick.GimmickOrnamentIndex);
 
-            return questContext.ExecuteExtraQuest(gimmickQuest, deck);
-        }
+        return questContext.ExecuteExtraQuest(gimmickQuest, deck);
     }
 }

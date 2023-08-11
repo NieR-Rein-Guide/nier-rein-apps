@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMEnhanceCampaignTable : TableBase<EntityMEnhanceCampaign>
-    {
-        private readonly Func<EntityMEnhanceCampaign, int> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMEnhanceCampaignTable(EntityMEnhanceCampaign[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.EnhanceCampaignId;
-        }
+public class EntityMEnhanceCampaignTable : TableBase<EntityMEnhanceCampaign>
+{
+    private readonly Func<EntityMEnhanceCampaign, int> primaryIndexSelector;
+
+    public EntityMEnhanceCampaignTable(EntityMEnhanceCampaign[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => element.EnhanceCampaignId;
     }
 }

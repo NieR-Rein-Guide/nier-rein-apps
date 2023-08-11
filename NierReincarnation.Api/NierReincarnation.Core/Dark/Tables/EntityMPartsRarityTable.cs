@@ -3,17 +3,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMPartsRarityTable : TableBase<EntityMPartsRarity>
 {
-    public class EntityMPartsRarityTable : TableBase<EntityMPartsRarity>
+    private readonly Func<EntityMPartsRarity, RarityType> primaryIndexSelector;
+
+    public EntityMPartsRarityTable(EntityMPartsRarity[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMPartsRarity, RarityType> primaryIndexSelector;
-
-        public EntityMPartsRarityTable(EntityMPartsRarity[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.RarityType;
-        }
-
-        public EntityMPartsRarity FindByRarityType(RarityType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<RarityType>.Default, key);
+        primaryIndexSelector = element => element.RarityType;
     }
+
+    public EntityMPartsRarity FindByRarityType(RarityType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<RarityType>.Default, key);
 }

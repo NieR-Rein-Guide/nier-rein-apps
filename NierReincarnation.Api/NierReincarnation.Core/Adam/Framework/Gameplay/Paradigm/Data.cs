@@ -1,22 +1,21 @@
-﻿namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm
+﻿namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm;
+
+class Data
 {
-    class Data
+    public string name;
+    private object _objectReferenceValue;
+
+    public bool GetVariable<T>(out T value)
     {
-        public string name;
-        private object _objectReferenceValue;
+        value = default;
 
-        public bool GetVariable<T>(out T value)
+        var varBase = (VariableBase)_objectReferenceValue;
+        if (varBase.ValueType == typeof(T))
         {
-            value = default;
-
-            var varBase = (VariableBase)_objectReferenceValue;
-            if (varBase.ValueType == typeof(T))
-            {
-                value = ((Variable<T>)varBase).value;
-                return true;
-            }
-
-            return false;
+            value = ((Variable<T>)varBase).value;
+            return true;
         }
+
+        return false;
     }
 }

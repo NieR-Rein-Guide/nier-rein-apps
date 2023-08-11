@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum AppealTargetType
 {
-    public enum AppealTargetType
-    {
-        UNKNOWN = 0,
-        SHOP = 1
-    }
+    UNKNOWN = 0,
+    SHOP = 1
 }

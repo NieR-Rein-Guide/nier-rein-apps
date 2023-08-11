@@ -3,18 +3,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMBattleEnemySizeTypeConfigTable : TableBase<EntityMBattleEnemySizeTypeConfig>
 {
-    public class EntityMBattleEnemySizeTypeConfigTable : TableBase<EntityMBattleEnemySizeTypeConfig>
+    private readonly Func<EntityMBattleEnemySizeTypeConfig, (CostumeAssetCategoryType, int)> primaryIndexSelector;
+
+    public EntityMBattleEnemySizeTypeConfigTable(EntityMBattleEnemySizeTypeConfig[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMBattleEnemySizeTypeConfig, (CostumeAssetCategoryType, int)> primaryIndexSelector;
-
-        public EntityMBattleEnemySizeTypeConfigTable(EntityMBattleEnemySizeTypeConfig[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.CostumeAssetCategoryType, element.ActorSkeletonId);
-        }
-
-        public bool TryFindByCostumeAssetCategoryTypeAndActorSkeletonId(ValueTuple<CostumeAssetCategoryType, int> key, out EntityMBattleEnemySizeTypeConfig result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(CostumeAssetCategoryType, int)>.Default, key, out result);
+        primaryIndexSelector = element => (element.CostumeAssetCategoryType, element.ActorSkeletonId);
     }
+
+    public bool TryFindByCostumeAssetCategoryTypeAndActorSkeletonId(ValueTuple<CostumeAssetCategoryType, int> key, out EntityMBattleEnemySizeTypeConfig result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<(CostumeAssetCategoryType, int)>.Default, key, out result);
 }

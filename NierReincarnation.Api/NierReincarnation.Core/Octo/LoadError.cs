@@ -1,5 +1,4 @@
-﻿namespace NierReincarnation.Core.Octo
-{
-    public interface LoadError : DownloadError
-    { }
-}
+﻿namespace NierReincarnation.Core.Octo;
+
+public interface LoadError : DownloadError
+{ }

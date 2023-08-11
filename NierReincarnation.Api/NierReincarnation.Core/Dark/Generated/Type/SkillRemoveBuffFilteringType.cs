@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum SkillRemoveBuffFilteringType
 {
-    public enum SkillRemoveBuffFilteringType
-    {
-        UNKNOWN = 0,
-        NONE = 1,
-        STATUS_KIND = 2
-    }
+    UNKNOWN = 0,
+    NONE = 1,
+    STATUS_KIND = 2
 }

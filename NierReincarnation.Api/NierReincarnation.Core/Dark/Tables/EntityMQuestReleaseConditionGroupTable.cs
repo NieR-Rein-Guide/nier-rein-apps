@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMQuestReleaseConditionGroupTable : TableBase<EntityMQuestReleaseConditionGroup>
 {
-    public class EntityMQuestReleaseConditionGroupTable : TableBase<EntityMQuestReleaseConditionGroup>
+    private readonly Func<EntityMQuestReleaseConditionGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMQuestReleaseConditionGroupTable(EntityMQuestReleaseConditionGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMQuestReleaseConditionGroup, (int, int)> primaryIndexSelector;
-
-        public EntityMQuestReleaseConditionGroupTable(EntityMQuestReleaseConditionGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.QuestReleaseConditionGroupId, element.SortOrder);
-        }
-
-        public RangeView<EntityMQuestReleaseConditionGroup> FindRangeByQuestReleaseConditionGroupIdAndSortOrder(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
-            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
+        primaryIndexSelector = element => (element.QuestReleaseConditionGroupId, element.SortOrder);
     }
+
+    public RangeView<EntityMQuestReleaseConditionGroup> FindRangeByQuestReleaseConditionGroupIdAndSortOrder(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
 }

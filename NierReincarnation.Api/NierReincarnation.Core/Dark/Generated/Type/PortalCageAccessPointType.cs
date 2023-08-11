@@ -1,12 +1,11 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum PortalCageAccessPointType
 {
-    public enum PortalCageAccessPointType
-    {
-        UNKNOWN = 0,
-        NONE = 1,
-        MAIN_QUEST = 2,
-        DAILY_QUEST = 3,
-        EVENT_QUEST = 4,
-        DAILY_GACHA = 5
-    }
+    UNKNOWN = 0,
+    NONE = 1,
+    MAIN_QUEST = 2,
+    DAILY_QUEST = 3,
+    EVENT_QUEST = 4,
+    DAILY_GACHA = 5
 }

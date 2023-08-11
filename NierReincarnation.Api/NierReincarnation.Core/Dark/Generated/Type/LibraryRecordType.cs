@@ -1,12 +1,11 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum LibraryRecordType
 {
-    public enum LibraryRecordType
-    {
-        UNKNOWN = 0,
-        CARD_STORY = 1,
-        REPORT = 2,
-        CAGE_MEMORY = 3,
-        LIMIT_CONTENT = 4,
-        STAINED_GLASS = 5
-    }
+    UNKNOWN = 0,
+    CARD_STORY = 1,
+    REPORT = 2,
+    CAGE_MEMORY = 3,
+    LIMIT_CONTENT = 4,
+    STAINED_GLASS = 5
 }

@@ -2,15 +2,14 @@ using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMWeaponRarityLimitBreakMaterialGroupTable : TableBase<EntityMWeaponRarityLimitBreakMaterialGroup>
-    {
-        private readonly Func<EntityMWeaponRarityLimitBreakMaterialGroup, (RarityType, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMWeaponRarityLimitBreakMaterialGroupTable(EntityMWeaponRarityLimitBreakMaterialGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.RarityType, element.MaterialId);
-        }
+public class EntityMWeaponRarityLimitBreakMaterialGroupTable : TableBase<EntityMWeaponRarityLimitBreakMaterialGroup>
+{
+    private readonly Func<EntityMWeaponRarityLimitBreakMaterialGroup, (RarityType, int)> primaryIndexSelector;
+
+    public EntityMWeaponRarityLimitBreakMaterialGroupTable(EntityMWeaponRarityLimitBreakMaterialGroup[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.RarityType, element.MaterialId);
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum AbilityBehaviourStatusApplyScopeType
 {
-    public enum AbilityBehaviourStatusApplyScopeType
-    {
-        UNKNOWN = 0,
-        ACTOR = 1,
-        PARTY = 2
-    }
+    UNKNOWN = 0,
+    ACTOR = 1,
+    PARTY = 2
 }

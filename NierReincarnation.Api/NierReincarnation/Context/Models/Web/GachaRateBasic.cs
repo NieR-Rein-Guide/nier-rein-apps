@@ -1,72 +1,71 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Context.Models.Web
+namespace NierReincarnation.Context.Models.Web;
+
+public class GachaRateBasic
 {
-    public class GachaRateBasic
+    public IList<RarityRateListElement> rarityRateList { get; set; }
+
+    public IList<RarityRateListElement> lastChanceRarityRateList { get; set; }
+
+    public IList<RarityRateDetail> rarityRateDetailList { get; set; }
+
+    public IList<RarityRateDetail> lastChanceRarityRateDetailList { get; set; }
+
+    public class RarityRateListElement
     {
-        public IList<RarityRateListElement> rarityRateList { get; set; }
+        public RarityType rarityType { get; set; }
 
-        public IList<RarityRateListElement> lastChanceRarityRateList { get; set; }
+        public string rateString { get; set; }
 
-        public IList<RarityRateDetail> rarityRateDetailList { get; set; }
+        public bool withCostume { get; set; }
+    }
 
-        public IList<RarityRateDetail> lastChanceRarityRateDetailList { get; set; }
+    public class RarityRateDetail
+    {
+        public GachaOddsItem gachaOddsItem { get; set; }
 
-        public class RarityRateListElement
+        public string rateString { get; set; }
+
+        public class GachaOddsItem
         {
-            public RarityType rarityType { get; set; }
+            public GachaItem gachaItem { get; set; }
 
-            public string rateString { get; set; }
+            public IList<ReleaseItem> releaseItem { get; set; }
 
-            public bool withCostume { get; set; }
-        }
-
-        public class RarityRateDetail
-        {
-            public GachaOddsItem gachaOddsItem { get; set; }
-
-            public string rateString { get; set; }
-
-            public class GachaOddsItem
+            public class GachaItem
             {
-                public GachaItem gachaItem { get; set; }
+                public RarityType rarityType { get; set; }
 
-                public IList<ReleaseItem> releaseItem { get; set; }
+                public PossessionType possessionType { get; set; }
 
-                public class GachaItem
-                {
-                    public RarityType rarityType { get; set; }
+                public AttributeType attributeType { get; set; }
 
-                    public PossessionType possessionType { get; set; }
+                public WeaponType weaponType { get; set; }
 
-                    public AttributeType attributeType { get; set; }
+                public int possessionId { get; set; }
 
-                    public WeaponType weaponType { get; set; }
+                public int count { get; set; }
 
-                    public int possessionId { get; set; }
+                public string name { get; set; }
 
-                    public int count { get; set; }
+                public bool isPickup { get; set; }
+            }
 
-                    public string name { get; set; }
+            public class ReleaseItem
+            {
+                public RarityType rarityType { get; set; }
 
-                    public bool isPickup { get; set; }
-                }
+                public PossessionType possessionType { get; set; }
 
-                public class ReleaseItem
-                {
-                    public RarityType rarityType { get; set; }
+                public int possessionId { get; set; }
 
-                    public PossessionType possessionType { get; set; }
+                public int count { get; set; }
 
-                    public int possessionId { get; set; }
+                public string costumeName { get; set; }
 
-                    public int count { get; set; }
-
-                    public string costumeName { get; set; }
-
-                    public string characterName { get; set; }
-                }
+                public string characterName { get; set; }
             }
         }
     }

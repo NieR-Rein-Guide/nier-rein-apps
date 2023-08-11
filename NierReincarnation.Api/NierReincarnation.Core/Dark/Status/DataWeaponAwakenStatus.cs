@@ -1,13 +1,12 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 
-namespace NierReincarnation.Core.Dark.Status
-{
-    public class DataWeaponAwakenStatus
-    {
-       
-        public StatusCalculationType StatusCalculationType { get; set; }
+namespace NierReincarnation.Core.Dark.Status;
 
-       
-        public StatusValue StatusChangeValue { get; set; }
-    }
+public class DataWeaponAwakenStatus
+{
+   
+    public StatusCalculationType StatusCalculationType { get; set; }
+
+   
+    public StatusValue StatusChangeValue { get; set; }
 }

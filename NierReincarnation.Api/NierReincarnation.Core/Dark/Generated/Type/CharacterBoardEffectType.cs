@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum CharacterBoardEffectType
 {
-    public enum CharacterBoardEffectType
-    {
-        UNKNOWN = 0,
-        ABILITY = 1,
-        STATUS_UP = 2
-    }
+    UNKNOWN = 0,
+    ABILITY = 1,
+    STATUS_UP = 2
 }

@@ -1,23 +1,22 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace NierReincarnation.UserData.Models
+namespace NierReincarnation.UserData.Models;
+
+public class UserCostume
 {
-    public class UserCostume
-    {
-        [JsonProperty("userCostumeUuid")]
-        public Guid CustomeUuid { get; set; }
+    [JsonProperty("userCostumeUuid")]
+    public Guid CustomeUuid { get; set; }
 
-        [JsonProperty("costumeId")]
-        public int CustomeId { get; set; }
+    [JsonProperty("costumeId")]
+    public int CustomeId { get; set; }
 
-        [JsonProperty("limitBreakCount")]
-        public int LimitBreakCount { get; set; }
+    [JsonProperty("limitBreakCount")]
+    public int LimitBreakCount { get; set; }
 
-        [JsonProperty("level")]
-        public int Level { get; set; }
+    [JsonProperty("level")]
+    public int Level { get; set; }
 
-        [JsonProperty("exp")]
-        public int Experience { get; set; }
-    }
+    [JsonProperty("exp")]
+    public int Experience { get; set; }
 }

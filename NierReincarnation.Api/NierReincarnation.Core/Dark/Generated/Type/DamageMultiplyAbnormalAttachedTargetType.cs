@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum DamageMultiplyAbnormalAttachedTargetType
 {
-    public enum DamageMultiplyAbnormalAttachedTargetType
-    {
-        UNKNOWN = 0,
-        SKILL_EXECUTOR = 1,
-        SKILL_TARGET = 2
-    }
+    UNKNOWN = 0,
+    SKILL_EXECUTOR = 1,
+    SKILL_TARGET = 2
 }

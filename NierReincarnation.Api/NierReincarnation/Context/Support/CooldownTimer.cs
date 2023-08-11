@@ -2,75 +2,74 @@
 using System.Timers;
 using Timer = System.Timers.Timer;
 
-namespace NierReincarnation.Context.Support
+namespace NierReincarnation.Context.Support;
+
+public static class CooldownTimer
 {
-    public static class CooldownTimer
+    private const int TimerDuration_ = 1000;
+
+    public static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
+    private static readonly Timer Timer;
+
+    private static bool _isRunning;
+    private static TimeSpan _currentTime;
+
+    public static bool IsRunning => _isRunning;
+    public static TimeSpan CurrentCooldown => _currentTime;
+
+    public static event EventHandler<TimeSpan> CooldownStart;
+    public static event EventHandler CooldownFinish;
+    public static event EventHandler<TimeSpan> Elapsed;
+
+    static CooldownTimer()
     {
-        private const int TimerDuration_ = 1000;
+        Timer = new Timer(TimerDuration_);
+        Timer.Elapsed += Timer_Elapsed;
+    }
 
-        public static readonly TimeSpan RateTimeout = TimeSpan.FromMinutes(3);
-        private static readonly Timer Timer;
+    public static void Start()
+    {
+        if (IsRunning)
+            return;
 
-        private static bool _isRunning;
-        private static TimeSpan _currentTime;
+        _isRunning = true;
+        _currentTime = RateTimeout;
 
-        public static bool IsRunning => _isRunning;
-        public static TimeSpan CurrentCooldown => _currentTime;
+        Timer.Start();
 
-        public static event EventHandler<TimeSpan> CooldownStart;
-        public static event EventHandler CooldownFinish;
-        public static event EventHandler<TimeSpan> Elapsed;
+        OnCooldownStart(RateTimeout);
+    }
 
-        static CooldownTimer()
+    private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
+    {
+        _currentTime -= TimeSpan.FromSeconds(1);
+
+        if (_currentTime.TotalMilliseconds > 0)
         {
-            Timer = new Timer(TimerDuration_);
-            Timer.Elapsed += Timer_Elapsed;
+            OnElapsed(_currentTime);
         }
-
-        public static void Start()
+        else
         {
-            if (IsRunning)
-                return;
+            Timer.Stop();
 
-            _isRunning = true;
-            _currentTime = RateTimeout;
+            OnCooldownFinish();
 
-            Timer.Start();
-
-            OnCooldownStart(RateTimeout);
+            _isRunning = false;
         }
+    }
 
-        private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            _currentTime -= TimeSpan.FromSeconds(1);
+    private static void OnCooldownStart(TimeSpan currentTime)
+    {
+        CooldownStart?.Invoke(null, currentTime);
+    }
 
-            if (_currentTime.TotalMilliseconds > 0)
-            {
-                OnElapsed(_currentTime);
-            }
-            else
-            {
-                Timer.Stop();
+    private static void OnCooldownFinish()
+    {
+        CooldownFinish?.Invoke(null, EventArgs.Empty);
+    }
 
-                OnCooldownFinish();
-
-                _isRunning = false;
-            }
-        }
-
-        private static void OnCooldownStart(TimeSpan currentTime)
-        {
-            CooldownStart?.Invoke(null, currentTime);
-        }
-
-        private static void OnCooldownFinish()
-        {
-            CooldownFinish?.Invoke(null, EventArgs.Empty);
-        }
-
-        private static void OnElapsed(TimeSpan currentTime)
-        {
-            Elapsed?.Invoke(null, currentTime);
-        }
+    private static void OnElapsed(TimeSpan currentTime)
+    {
+        Elapsed?.Invoke(null, currentTime);
     }
 }

@@ -1,21 +1,20 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 
-namespace NierReincarnation.Core.Dark.Component.WorldMap
+namespace NierReincarnation.Core.Dark.Component.WorldMap;
+
+public struct Gimmick
 {
-    public struct Gimmick
+    public int GimmickId { get; set; }
+    public GimmickType GimmickType  { get; set; }
+    public int GimmickOrnamentGroupId  { get; set; }
+
+    public void Reset()
     {
-        public int GimmickId { get; set; }
-        public GimmickType GimmickType  { get; set; }
-        public int GimmickOrnamentGroupId  { get; set; }
+        GimmickId = GimmickConstant.kInvalidId;
+    }
 
-        public void Reset()
-        {
-            GimmickId = GimmickConstant.kInvalidId;
-        }
-
-        public bool IsEnable()
-        {
-            return GimmickId != GimmickConstant.kInvalidId;
-        }
+    public bool IsEnable()
+    {
+        return GimmickId != GimmickConstant.kInvalidId;
     }
 }

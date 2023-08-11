@@ -1,10 +1,9 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 
-namespace NierReincarnation.Core.Dark.Game.TurnBattle
+namespace NierReincarnation.Core.Dark.Game.TurnBattle;
+
+public class SimpleCalculationSetting
 {
-    public class SimpleCalculationSetting
-    {
-        public NumericalFunctionType FunctionType { get; set; }
-        public int[] FunctionParameters { get; set; }  
-    }
+    public NumericalFunctionType FunctionType { get; set; }
+    public int[] FunctionParameters { get; set; }  
 }

@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserCharacterBoardAbilityTable : TableBase<EntityIUserCharacterBoardAbility>
 {
-    public class EntityIUserCharacterBoardAbilityTable : TableBase<EntityIUserCharacterBoardAbility>
+    private readonly Func<EntityIUserCharacterBoardAbility, (long, int, int)> primaryIndexSelector;
+
+    public EntityIUserCharacterBoardAbilityTable(EntityIUserCharacterBoardAbility[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUserCharacterBoardAbility, (long, int, int)> primaryIndexSelector;
-
-        public EntityIUserCharacterBoardAbilityTable(EntityIUserCharacterBoardAbility[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.UserId, element.CharacterId, element.AbilityId);
-        }
-
-        public bool TryFindByUserIdAndCharacterIdAndAbilityId(ValueTuple<long, int, int> key, out EntityIUserCharacterBoardAbility result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key, out result);
+        primaryIndexSelector = element => (element.UserId, element.CharacterId, element.AbilityId);
     }
+
+    public bool TryFindByUserIdAndCharacterIdAndAbilityId(ValueTuple<long, int, int> key, out EntityIUserCharacterBoardAbility result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<(long, int, int)>.Default, key, out result);
 }

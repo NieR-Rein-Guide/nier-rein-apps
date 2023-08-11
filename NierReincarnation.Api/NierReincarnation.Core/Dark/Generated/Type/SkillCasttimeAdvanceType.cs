@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum SkillCasttimeAdvanceType
 {
-    public enum SkillCasttimeAdvanceType
-    {
-        UNKNOWN = 0,
-        INCREMENT = 1,
-        DECREMENT = 2
-    }
+    UNKNOWN = 0,
+    INCREMENT = 1,
+    DECREMENT = 2
 }

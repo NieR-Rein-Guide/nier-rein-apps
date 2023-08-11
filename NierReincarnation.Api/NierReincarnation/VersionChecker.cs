@@ -5,39 +5,38 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace NierReincarnation
+namespace NierReincarnation;
+
+public static class VersionChecker
 {
-    public static class VersionChecker
+    private const string ApkMirror = "https://www.apkmirror.com/uploads/?appcategory=nier-reincarnation";
+
+    private static readonly Regex ListHeader = new(@"<h5 title=""NieR Re\[in\]carnation (\d+\.\d+\.\d+)");
+
+    public static bool CanDetermine(SystemLanguage language)
     {
-        private const string ApkMirror = "https://www.apkmirror.com/uploads/?appcategory=nier-reincarnation";
+        return language == SystemLanguage.English;
+    }
 
-        private static readonly Regex ListHeader = new(@"<h5 title=""NieR Re\[in\]carnation (\d+\.\d+\.\d+)");
+    public static string GetCurrentVersion(SystemLanguage language)
+    {
+        if (language != SystemLanguage.English)
+            throw new InvalidOperationException("Current version can only be determined for the global release.");
 
-        public static bool CanDetermine(SystemLanguage language)
-        {
-            return language == SystemLanguage.English;
-        }
+        // Get content
+        var req = WebRequest.CreateHttp(ApkMirror);
+        var res = req.GetResponse().GetResponseStream();
+        if (res == null)
+            return string.Empty;
 
-        public static string GetCurrentVersion(SystemLanguage language)
-        {
-            if (language != SystemLanguage.English)
-                throw new InvalidOperationException("Current version can only be determined for the global release.");
+        var reader = new StreamReader(res);
+        var content = reader.ReadToEnd();
 
-            // Get content
-            var req = WebRequest.CreateHttp(ApkMirror);
-            var res = req.GetResponse().GetResponseStream();
-            if (res == null)
-                return string.Empty;
+        // Get list content
+        var match = ListHeader.Matches(content).FirstOrDefault();
+        if (match == null)
+            return string.Empty;
 
-            var reader = new StreamReader(res);
-            var content = reader.ReadToEnd();
-
-            // Get list content
-            var match = ListHeader.Matches(content).FirstOrDefault();
-            if (match == null)
-                return string.Empty;
-
-            return match.Groups[1].Value;
-        }
+        return match.Groups[1].Value;
     }
 }

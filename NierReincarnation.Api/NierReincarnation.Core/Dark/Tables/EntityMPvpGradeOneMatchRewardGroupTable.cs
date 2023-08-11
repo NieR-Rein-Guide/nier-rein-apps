@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMPvpGradeOneMatchRewardGroupTable : TableBase<EntityMPvpGradeOneMatchRewardGroup>
-    {
-        private readonly Func<EntityMPvpGradeOneMatchRewardGroup, (int, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMPvpGradeOneMatchRewardGroupTable(EntityMPvpGradeOneMatchRewardGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.PvpGradeOneMatchRewardGroupId, element.PvpGradeOneMatchRewardId);
-        }
+public class EntityMPvpGradeOneMatchRewardGroupTable : TableBase<EntityMPvpGradeOneMatchRewardGroup>
+{
+    private readonly Func<EntityMPvpGradeOneMatchRewardGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMPvpGradeOneMatchRewardGroupTable(EntityMPvpGradeOneMatchRewardGroup[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.PvpGradeOneMatchRewardGroupId, element.PvpGradeOneMatchRewardId);
     }
 }

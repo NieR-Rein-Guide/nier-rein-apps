@@ -1,93 +1,92 @@
 ﻿using System;
 
-namespace NierReincarnation.Core.Adam.Framework.Core
+namespace NierReincarnation.Core.Adam.Framework.Core;
+
+abstract class PreferenceKeyValue<T>
 {
-    abstract class PreferenceKeyValue<T>
+    enum State
     {
-        enum State
+        Unknown,
+        Dirty,
+        Normal
+    }
+
+    // Fields
+    private State _state;
+
+    // Properties
+    public T Value
+    {
+        get
         {
-            Unknown,
-            Dirty,
-            Normal
-        }
+            CheckDirtyForGet();
 
-        // Fields
-        private State _state;
-
-        // Properties
-        public T Value
-        {
-            get
+            if (_state != State.Normal)
             {
-                CheckDirtyForGet();
+                if (KeyStoreValue == null)
+                    throw new ArgumentNullException(nameof(KeyStoreValue));
 
-                if (_state != State.Normal)
+                if (KeyStoreValue.HasKey(Key))
                 {
-                    if (KeyStoreValue == null)
-                        throw new ArgumentNullException(nameof(KeyStoreValue));
-
-                    if (KeyStoreValue.HasKey(Key))
-                    {
-                        InternalValue = GetValue();
-                        _state = State.Normal;
-                    }
-                }
-
-                return InternalValue;
-            }
-            set
-            {
-                if (CheckDirty(value))
-                {
-                    InternalValue = value;
-                    Save();
-
+                    InternalValue = GetValue();
                     _state = State.Normal;
                 }
             }
+
+            return InternalValue;
         }
-
-       
-        protected string Key { get; set; }
-       
-        protected T InternalValue { get; set; }
-        // 0x?? depends on T
-        protected T DefaultFallback { get; set; }
-        // 0x?? depends on T
-        protected PreferenceKeyStoreValue KeyStoreValue { get; set; }
-
-        protected PreferenceKeyValue(string key, PreferenceKeyStoreValue keyStoreValue, T defaultFallback)
+        set
         {
-            Key = key;
-            KeyStoreValue = keyStoreValue;
-            DefaultFallback = defaultFallback;
-            InternalValue = defaultFallback;
+            if (CheckDirty(value))
+            {
+                InternalValue = value;
+                Save();
+
+                _state = State.Normal;
+            }
         }
+    }
 
-        public void DeleteKey()
-        {
-            if (KeyStoreValue == null)
-                throw new ArgumentNullException(nameof(KeyStoreValue));
+   
+    protected string Key { get; set; }
+   
+    protected T InternalValue { get; set; }
+    // 0x?? depends on T
+    protected T DefaultFallback { get; set; }
+    // 0x?? depends on T
+    protected PreferenceKeyStoreValue KeyStoreValue { get; set; }
 
-            KeyStoreValue.DeleteKey(Key);
-        }
+    protected PreferenceKeyValue(string key, PreferenceKeyStoreValue keyStoreValue, T defaultFallback)
+    {
+        Key = key;
+        KeyStoreValue = keyStoreValue;
+        DefaultFallback = defaultFallback;
+        InternalValue = defaultFallback;
+    }
 
-       
-        protected abstract T GetValue();
+    public void DeleteKey()
+    {
+        if (KeyStoreValue == null)
+            throw new ArgumentNullException(nameof(KeyStoreValue));
 
-       
-        protected abstract void Save();
+        KeyStoreValue.DeleteKey(Key);
+    }
 
-       
-        protected abstract bool CheckDirty(T value);
+   
+    protected abstract T GetValue();
 
-       
-        protected abstract void CheckDirtyForGet();
+   
+    protected abstract void Save();
 
-       
-        protected void SetDirty()
-        {
-            _state = State.Dirty;
-        }
+   
+    protected abstract bool CheckDirty(T value);
+
+   
+    protected abstract void CheckDirtyForGet();
+
+   
+    protected void SetDirty()
+    {
+        _state = State.Dirty;
     }
 }

@@ -3,18 +3,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMNaviCutInTextTable : TableBase<EntityMNaviCutInText>
 {
-    public class EntityMNaviCutInTextTable : TableBase<EntityMNaviCutInText>
+    private readonly Func<EntityMNaviCutInText, (int, LanguageType)> primaryIndexSelector;
+
+    public EntityMNaviCutInTextTable(EntityMNaviCutInText[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMNaviCutInText, (int, LanguageType)> primaryIndexSelector;
-
-        public EntityMNaviCutInTextTable(EntityMNaviCutInText[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.NaviCutInTextId, element.LanguageType);
-        }
-
-        public EntityMNaviCutInText FindByNaviCutInTextIdAndLanguageType(ValueTuple<int, LanguageType> key) =>
-            FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key);
+        primaryIndexSelector = element => (element.NaviCutInTextId, element.LanguageType);
     }
+
+    public EntityMNaviCutInText FindByNaviCutInTextIdAndLanguageType(ValueTuple<int, LanguageType> key) =>
+        FindUniqueCore(data, primaryIndexSelector, Comparer<(int, LanguageType)>.Default, key);
 }

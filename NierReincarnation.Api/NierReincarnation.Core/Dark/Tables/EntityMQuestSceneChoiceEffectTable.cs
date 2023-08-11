@@ -2,26 +2,25 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Linq;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMQuestSceneChoiceEffectTable : TableBase<EntityMQuestSceneChoiceEffect>
 {
-    public class EntityMQuestSceneChoiceEffectTable : TableBase<EntityMQuestSceneChoiceEffect>
+    private readonly Func<EntityMQuestSceneChoiceEffect, int> primaryIndexSelector;
+    private readonly Func<EntityMQuestSceneChoiceEffect, (int, int)> secondaryIndexSelector;
+
+    public EntityMQuestSceneChoiceEffectTable(EntityMQuestSceneChoiceEffect[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMQuestSceneChoiceEffect, int> primaryIndexSelector;
-        private readonly Func<EntityMQuestSceneChoiceEffect, (int, int)> secondaryIndexSelector;
+        primaryIndexSelector = element => element.QuestSceneChoiceEffectId;
+        secondaryIndexSelector = element => (element.QuestSceneChoiceCostumeEffectGroupId, element.QuestSceneChoiceWeaponEffectGroupId);
+    }
 
-        public EntityMQuestSceneChoiceEffectTable(EntityMQuestSceneChoiceEffect[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.QuestSceneChoiceEffectId;
-            secondaryIndexSelector = element => (element.QuestSceneChoiceCostumeEffectGroupId, element.QuestSceneChoiceWeaponEffectGroupId);
-        }
+    public RangeView<EntityMQuestSceneChoiceEffect> FindByQuestSceneChoiceCostumeEffectGroupId(int key)
+    {
+        var result = data
+            .Where(x => x.QuestSceneChoiceCostumeEffectGroupId == key)
+            .ToArray();
 
-        public RangeView<EntityMQuestSceneChoiceEffect> FindByQuestSceneChoiceCostumeEffectGroupId(int key)
-        {
-            var result = data
-                .Where(x => x.QuestSceneChoiceCostumeEffectGroupId == key)
-                .ToArray();
-
-            return new RangeView<EntityMQuestSceneChoiceEffect>(result, 0, result.Length - 1, true);
-        }
+        return new RangeView<EntityMQuestSceneChoiceEffect>(result, 0, result.Length - 1, true);
     }
 }

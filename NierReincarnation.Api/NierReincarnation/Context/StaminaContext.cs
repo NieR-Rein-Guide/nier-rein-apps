@@ -12,95 +12,94 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NierReincarnation.Context
+namespace NierReincarnation.Context;
+
+public class StaminaContext : BaseContext
 {
-    public class StaminaContext : BaseContext
+    private readonly DarkClient _dc = new();
+
+    public static StaminaPreference Preference { get; private set; } = StaminaPreference.CreateDefault();
+
+    internal StaminaContext()
+    { }
+
+    public static void SetPreferences(StaminaType[] order)
     {
-        private readonly DarkClient _dc = new();
+        Preference = StaminaPreference.Create(order);
+    }
 
-        public static StaminaPreference Preference { get; private set; } = StaminaPreference.CreateDefault();
+    public static int GetCurrentStamina()
+    {
+        return Stamina.CalculateCurrentStamina();
+    }
 
-        internal StaminaContext()
-        { }
+    public static int GetMaxStamina()
+    {
+        return CalculatorUserStatus.GetMaxStamina();
+    }
 
-        public static void SetPreferences(StaminaType[] order)
+    public static int GetLimitMaxStamina()
+    {
+        return Config.GetPossessionCountLimitStamina();
+    }
+
+    public async Task<bool> RefillStamina(int refillCap)
+    {
+        var currentStamina = GetCurrentStamina();
+        if (refillCap <= currentStamina)
+            return true;
+
+        // Get stamina items
+        var staminaItems = GetStaminaItems();
+        var eventPots = staminaItems.Where(x => !CalculatorConsumable.StaminaConsumableItemIds.Contains(x.ConsumableId)).ToArray();
+
+        // Refill by preference
+        var refillBy = refillCap - currentStamina;
+        foreach (var orderType in Preference.GetOrder())
         {
-            Preference = StaminaPreference.Create(order);
-        }
-
-        public static int GetCurrentStamina()
-        {
-            return Stamina.CalculateCurrentStamina();
-        }
-
-        public static int GetMaxStamina()
-        {
-            return CalculatorUserStatus.GetMaxStamina();
-        }
-
-        public static int GetLimitMaxStamina()
-        {
-            return Config.GetPossessionCountLimitStamina();
-        }
-
-        public async Task<bool> RefillStamina(int refillCap)
-        {
-            var currentStamina = GetCurrentStamina();
-            if (refillCap <= currentStamina)
+            // Stop if amount was refilled
+            if (refillBy <= 0)
                 return true;
 
-            // Get stamina items
-            var staminaItems = GetStaminaItems();
-            var eventPots = staminaItems.Where(x => !CalculatorConsumable.StaminaConsumableItemIds.Contains(x.ConsumableId)).ToArray();
+            // Get next stamina item in preference
+            var staminaItem = orderType == StaminaType.EVENT ?
+                Array.Find(eventPots, x => x.PossessionCount > 0) :
+                staminaItems.FirstOrDefault(x => x.ConsumableId == (int)orderType && x.PossessionCount > 0);
 
-            // Refill by preference
-            var refillBy = refillCap - currentStamina;
-            foreach (var orderType in Preference.GetOrder())
+            if (staminaItem == null)
+                continue;
+
+            // Reduce enough of stamina item to replenish
+            var usedCount = 0;
+            while (staminaItem.PossessionCount > 0 && staminaItem.PossessionCount / staminaItem.NeedCount > 0)
             {
-                // Stop if amount was refilled
                 if (refillBy <= 0)
-                    return true;
+                    break;
 
-                // Get next stamina item in preference
-                var staminaItem = orderType == StaminaType.EVENT ?
-                    Array.Find(eventPots, x => x.PossessionCount > 0) :
-                    staminaItems.FirstOrDefault(x => x.ConsumableId == (int)orderType && x.PossessionCount > 0);
+                refillBy -= staminaItem.EffectValue;
+                usedCount += staminaItem.NeedCount;
 
-                if (staminaItem == null)
-                    continue;
-
-                // Reduce enough of stamina item to replenish
-                var usedCount = 0;
-                while (staminaItem.PossessionCount > 0 && staminaItem.PossessionCount / staminaItem.NeedCount > 0)
-                {
-                    if (refillBy <= 0)
-                        break;
-
-                    refillBy -= staminaItem.EffectValue;
-                    usedCount += staminaItem.NeedCount;
-
-                    staminaItem.PossessionCount -= staminaItem.NeedCount;
-                }
-
-                if (usedCount > 0)
-                    await ConsumeStamina(staminaItem, usedCount);
+                staminaItem.PossessionCount -= staminaItem.NeedCount;
             }
 
-            return refillBy <= 0;
+            if (usedCount > 0)
+                await ConsumeStamina(staminaItem, usedCount);
         }
 
-        public static IList<RecoverData> GetStaminaItems()
-        {
-            return CalculatorConsumable.CreateRecoverItemData(EffectTargetType.STAMINA_RECOVERY);
-        }
+        return refillBy <= 0;
+    }
 
-        private async Task ConsumeStamina(RecoverData staminaItem, int consumeCount)
+    public static IList<RecoverData> GetStaminaItems()
+    {
+        return CalculatorConsumable.CreateRecoverItemData(EffectTargetType.STAMINA_RECOVERY);
+    }
+
+    private async Task ConsumeStamina(RecoverData staminaItem, int consumeCount)
+    {
+        await TryRequest(async () =>
         {
-            await TryRequest(async () =>
-            {
-                var useEffectReq = new UseEffectItemRequest { ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount };
-                return await _dc.ConsumableItemService.UseEffectItemAsync(useEffectReq);
-            });
-        }
+            var useEffectReq = new UseEffectItemRequest { ConsumableItemId = staminaItem.ConsumableId, Count = consumeCount };
+            return await _dc.ConsumableItemService.UseEffectItemAsync(useEffectReq);
+        });
     }
 }

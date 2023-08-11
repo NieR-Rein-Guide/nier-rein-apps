@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMQuestBonusCharacterGroupTable : TableBase<EntityMQuestBonusCharacterGroup>
 {
-    public class EntityMQuestBonusCharacterGroupTable : TableBase<EntityMQuestBonusCharacterGroup>
+    private readonly Func<EntityMQuestBonusCharacterGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMQuestBonusCharacterGroupTable(EntityMQuestBonusCharacterGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMQuestBonusCharacterGroup, (int, int)> primaryIndexSelector;
-
-        public EntityMQuestBonusCharacterGroupTable(EntityMQuestBonusCharacterGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.QuestBonusCharacterGroupId, element.CharacterId);
-        }
-
-        public RangeView<EntityMQuestBonusCharacterGroup> FindRangeByQuestBonusCharacterGroupIdAndCharacterId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
-            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
+        primaryIndexSelector = element => (element.QuestBonusCharacterGroupId, element.CharacterId);
     }
+
+    public RangeView<EntityMQuestBonusCharacterGroup> FindRangeByQuestBonusCharacterGroupIdAndCharacterId(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
 }

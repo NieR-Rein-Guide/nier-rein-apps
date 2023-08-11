@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum ActiveSkillType
 {
-    public enum ActiveSkillType
-    {
-        UNKNOWN = 0,
-        ALL_ACTIVE_SKILL = 1,
-        WEAPON_ACTIVE_SKILL = 2,
-        COSTUME_ACTIVE_SKILL = 3
-    }
+    UNKNOWN = 0,
+    ALL_ACTIVE_SKILL = 1,
+    WEAPON_ACTIVE_SKILL = 2,
+    COSTUME_ACTIVE_SKILL = 3
 }

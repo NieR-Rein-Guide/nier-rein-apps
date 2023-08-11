@@ -2,20 +2,19 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMExploreTable : TableBase<EntityMExplore>
 {
-    public class EntityMExploreTable : TableBase<EntityMExplore>
+    private readonly Func<EntityMExplore, int> primaryIndexSelector;
+
+    public EntityMExploreTable(EntityMExplore[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMExplore, int> primaryIndexSelector;
-
-        public EntityMExploreTable(EntityMExplore[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.ExploreId;
-        }
-
-        public EntityMExplore FindByExploreId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
-
-        public RangeView<EntityMExplore> FindRangeByExploreId(int min, int max, bool ascendant = true) =>
-            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant);
+        primaryIndexSelector = element => element.ExploreId;
     }
+
+    public EntityMExplore FindByExploreId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+
+    public RangeView<EntityMExplore> FindRangeByExploreId(int min, int max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<int>.Default, min, max, ascendant);
 }

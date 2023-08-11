@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum QuestDisplayAttributeIconSizeType
 {
-    public enum QuestDisplayAttributeIconSizeType
-    {
-        UNKNOWN = 0,
-        SMALL = 1,
-        LARGE = 2
-    }
+    UNKNOWN = 0,
+    SMALL = 1,
+    LARGE = 2
 }

@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMTipTable : TableBase<EntityMTip>
 {
-    public class EntityMTipTable : TableBase<EntityMTip>
+    private readonly Func<EntityMTip, int> primaryIndexSelector;
+
+    public EntityMTipTable(EntityMTip[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMTip, int> primaryIndexSelector;
-
-        public EntityMTipTable(EntityMTip[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.TipId;
-        }
-
-        public EntityMTip FindByTipId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.TipId;
     }
+
+    public EntityMTip FindByTipId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

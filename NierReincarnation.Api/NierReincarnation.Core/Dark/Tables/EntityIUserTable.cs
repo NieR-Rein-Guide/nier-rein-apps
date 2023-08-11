@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserTable : TableBase<EntityIUser>
 {
-    public class EntityIUserTable : TableBase<EntityIUser>
+    private readonly Func<EntityIUser, long> primaryIndexSelector;
+
+    public EntityIUserTable(EntityIUser[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUser, long> primaryIndexSelector;
-
-        public EntityIUserTable(EntityIUser[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.UserId;
-        }
-
-        public EntityIUser FindByUserId(long key) => FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key);
+        primaryIndexSelector = element => element.UserId;
     }
+
+    public EntityIUser FindByUserId(long key) => FindUniqueCore(data, primaryIndexSelector, Comparer<long>.Default, key);
 }

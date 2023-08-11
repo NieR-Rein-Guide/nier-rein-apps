@@ -1,15 +1,14 @@
-﻿namespace NierReincarnation.Core.Dark.Preference
-{
-    // Dark.Preference.ContextPreference
-    class ContextPreference
-    {
-        public static ContextPreference Instance = new ContextPreference();
+﻿namespace NierReincarnation.Core.Dark.Preference;
 
-       
-        public int MasterDataVersion { get; set; }
-       
-        public string SessionKey { get; set; }
-       
-        public long SessionExpire { get; set; }
-    }
+// Dark.Preference.ContextPreference
+class ContextPreference
+{
+    public static ContextPreference Instance = new ContextPreference();
+
+   
+    public int MasterDataVersion { get; set; }
+   
+    public string SessionKey { get; set; }
+   
+    public long SessionExpire { get; set; }
 }

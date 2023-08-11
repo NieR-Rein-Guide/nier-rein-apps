@@ -4,133 +4,132 @@ using NierReincarnation.Core.Dark.EntryPoint;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Octo;
 
-namespace NierReincarnation.Core.Adam.Framework.Resource
+namespace NierReincarnation.Core.Adam.Framework.Resource;
+
+static class DarkOctoSetupper
 {
-    static class DarkOctoSetupper
+    // Fields
+    private static readonly Dictionary<string, Stream> Streams = new Dictionary<string, Stream>();
+    private static bool _isSetup;
+    private static bool _isReviewEnvironment;
+    private static OctoSettings _overwriteSetting;
+    public static readonly string OverwriteSettingPath = "settings/octo/octo_overwrite_config";
+
+    public static void StartSetup(bool reset = false, bool enableAssetDatabase = false)
     {
-        // Fields
-        private static readonly Dictionary<string, Stream> Streams = new Dictionary<string, Stream>();
-        private static bool _isSetup;
-        private static bool _isReviewEnvironment;
-        private static OctoSettings _overwriteSetting;
-        public static readonly string OverwriteSettingPath = "settings/octo/octo_overwrite_config";
+        SetupOcto(reset, enableAssetDatabase);
 
-        public static void StartSetup(bool reset = false, bool enableAssetDatabase = false)
+        // Set AssetBundleLoadInterceptor and OnAssetBundleUnloadCompleted on OctoManager
+
+        _isSetup = true;
+    }
+
+    public static void SetupOcto(bool reset = false, bool enableAssetDatabase = false)
+    {
+        _isReviewEnvironment = ApplicationApi.IsReviewEnvironment();
+
+        var settings = CreateSetting();
+        settings.EnableAssetDatabase = enableAssetDatabase;
+
+        OctoManager.Setup(settings, reset);
+    }
+
+    public static OctoFullSettings CreateSetting()
+    {
+        if (_overwriteSetting == null)
         {
-            SetupOcto(reset, enableAssetDatabase);
-
-            // Set AssetBundleLoadInterceptor and OnAssetBundleUnloadCompleted on OctoManager
-
-            _isSetup = true;
+            // Unity: Load resource from path OverwriteSettingPath with type 'OctoSettings'
+            // Set loaded settings to field 0x10
         }
 
-        public static void SetupOcto(bool reset = false, bool enableAssetDatabase = false)
+        return new OctoFullSettings
         {
-            _isReviewEnvironment = ApplicationApi.IsReviewEnvironment();
+            AppId = GetA(),
+            ClientSecretKey = GetB(),
+            AesKey = GetC(),
+            Version = GetD(),
+            Url = GetE(),
+            A = GetF(),
 
-            var settings = CreateSetting();
-            settings.EnableAssetDatabase = enableAssetDatabase;
+            AssetLoaderPriority = AssetLoader.LoadPriority.AssetBundle,
+            ExpirationDelay = 0,
+            CachingType = CachingType.OctoFullCache,
+            MaximumAvailableDiskSpace = -1,
+            MaxParallelDownload = 4,
+            MaxParallelLoad = 100,
+            AllowDeleted = false
+        };
 
-            OctoManager.Setup(settings, reset);
-        }
+    }
 
-        public static OctoFullSettings CreateSetting()
-        {
-            if (_overwriteSetting == null)
-            {
-                // Unity: Load resource from path OverwriteSettingPath with type 'OctoSettings'
-                // Set loaded settings to field 0x10
-            }
+    private static int GetA()
+    {
+        if (_isReviewEnvironment)
+            return ApplicationApi.GetReviewEnvironmentOctoAppId();
 
-            return new OctoFullSettings
-            {
-                AppId = GetA(),
-                ClientSecretKey = GetB(),
-                AesKey = GetC(),
-                Version = GetD(),
-                Url = GetE(),
-                A = GetF(),
+        if (_overwriteSetting != null)
+            return _overwriteSetting.AppId;
 
-                AssetLoaderPriority = AssetLoader.LoadPriority.AssetBundle,
-                ExpirationDelay = 0,
-                CachingType = CachingType.OctoFullCache,
-                MaximumAvailableDiskSpace = -1,
-                MaxParallelDownload = 4,
-                MaxParallelLoad = 100,
-                AllowDeleted = false
-            };
+        return Config.Octo.AppId;
+    }
 
-        }
+    private static string GetB()
+    {
+        if (_isReviewEnvironment)
+            return ApplicationApi.GetReviewEnvironmentOctoClientSecretKey();
 
-        private static int GetA()
-        {
-            if (_isReviewEnvironment)
-                return ApplicationApi.GetReviewEnvironmentOctoAppId();
+        if (_overwriteSetting != null)
+            return _overwriteSetting.ClientSecretKey;
 
-            if (_overwriteSetting != null)
-                return _overwriteSetting.AppId;
+        return Config.Octo.ClientSecretKey;
+    }
 
-            return Config.Octo.AppId;
-        }
+    private static string GetC()
+    {
+        if (_isReviewEnvironment)
+            return ApplicationApi.GetReviewEnvironmentOctoAesKey();
 
-        private static string GetB()
-        {
-            if (_isReviewEnvironment)
-                return ApplicationApi.GetReviewEnvironmentOctoClientSecretKey();
+        if (_overwriteSetting != null)
+            return _overwriteSetting.AesKey;
 
-            if (_overwriteSetting != null)
-                return _overwriteSetting.ClientSecretKey;
+        return Config.Octo.AesKey;
+    }
 
-            return Config.Octo.ClientSecretKey;
-        }
+    public static int GetD()
+    {
+        if (_isReviewEnvironment)
+            return ApplicationApi.GetReviewEnvironmentOctoVersion();
 
-        private static string GetC()
-        {
-            if (_isReviewEnvironment)
-                return ApplicationApi.GetReviewEnvironmentOctoAesKey();
+        return GetOriginalD();
+    }
 
-            if (_overwriteSetting != null)
-                return _overwriteSetting.AesKey;
+    public static int GetOriginalD()
+    {
+        if (_overwriteSetting != null)
+            return _overwriteSetting.Version;
 
-            return Config.Octo.AesKey;
-        }
+        return Config.Octo.Version;
+    }
 
-        public static int GetD()
-        {
-            if (_isReviewEnvironment)
-                return ApplicationApi.GetReviewEnvironmentOctoVersion();
+    private static string GetE()
+    {
+        if (_isReviewEnvironment)
+            return ApplicationApi.GetReviewEnvironmentOctoUrl();
 
-            return GetOriginalD();
-        }
+        if (_overwriteSetting != null)
+            return _overwriteSetting.Url;
 
-        public static int GetOriginalD()
-        {
-            if (_overwriteSetting != null)
-                return _overwriteSetting.Version;
+        return Config.Octo.Url;
+    }
 
-            return Config.Octo.Version;
-        }
+    private static string GetF()
+    {
+        if (_isReviewEnvironment)
+            return $"dark_{GetA()}_{GetD()}";
 
-        private static string GetE()
-        {
-            if (_isReviewEnvironment)
-                return ApplicationApi.GetReviewEnvironmentOctoUrl();
+        if (_overwriteSetting != null)
+            return _overwriteSetting.A;
 
-            if (_overwriteSetting != null)
-                return _overwriteSetting.Url;
-
-            return Config.Octo.Url;
-        }
-
-        private static string GetF()
-        {
-            if (_isReviewEnvironment)
-                return $"dark_{GetA()}_{GetD()}";
-
-            if (_overwriteSetting != null)
-                return _overwriteSetting.A;
-
-            return Config.Octo.A;
-        }
+        return Config.Octo.A;
     }
 }

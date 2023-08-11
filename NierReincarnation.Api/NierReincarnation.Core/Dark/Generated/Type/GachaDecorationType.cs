@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum GachaDecorationType
 {
-    public enum GachaDecorationType
-    {
-        UNKNOWN = 0,
-        NORMAL = 1,
-        FESTIVAL = 2,
-    }
+    UNKNOWN = 0,
+    NORMAL = 1,
+    FESTIVAL = 2,
 }

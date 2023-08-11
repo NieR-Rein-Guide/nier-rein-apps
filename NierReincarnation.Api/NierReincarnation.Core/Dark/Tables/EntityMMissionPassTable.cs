@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMMissionPassTable : TableBase<EntityMMissionPass>
 {
-    public class EntityMMissionPassTable : TableBase<EntityMMissionPass>
+    private readonly Func<EntityMMissionPass, int> primaryIndexSelector;
+
+    public EntityMMissionPassTable(EntityMMissionPass[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMMissionPass, int> primaryIndexSelector;
-
-        public EntityMMissionPassTable(EntityMMissionPass[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.MissionPassId;
-        }
-
-        public EntityMMissionPass FindByMissionPassId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.MissionPassId;
     }
+
+    public EntityMMissionPass FindByMissionPassId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

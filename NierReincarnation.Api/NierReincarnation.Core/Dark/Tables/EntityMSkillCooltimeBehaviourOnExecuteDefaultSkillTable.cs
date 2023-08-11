@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable : TableBase<EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill>
 {
-    public class EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable : TableBase<EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill>
+    private readonly Func<EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill, int> primaryIndexSelector;
+
+    public EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable(EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill, int> primaryIndexSelector;
-
-        public EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable(EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.SkillCooltimeBehaviourActionId;
-        }
-
-        public bool TryFindBySkillCooltimeBehaviourActionId(int key, out EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
+        primaryIndexSelector = element => element.SkillCooltimeBehaviourActionId;
     }
+
+    public bool TryFindBySkillCooltimeBehaviourActionId(int key, out EntityMSkillCooltimeBehaviourOnExecuteDefaultSkill result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
 }

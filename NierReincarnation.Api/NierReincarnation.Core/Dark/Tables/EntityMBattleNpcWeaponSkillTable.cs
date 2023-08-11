@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMBattleNpcWeaponSkillTable : TableBase<EntityMBattleNpcWeaponSkill>
-    {
-        private readonly Func<EntityMBattleNpcWeaponSkill, (long, string, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMBattleNpcWeaponSkillTable(EntityMBattleNpcWeaponSkill[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcWeaponUuid, element.SlotNumber);
-        }
+public class EntityMBattleNpcWeaponSkillTable : TableBase<EntityMBattleNpcWeaponSkill>
+{
+    private readonly Func<EntityMBattleNpcWeaponSkill, (long, string, int)> primaryIndexSelector;
+
+    public EntityMBattleNpcWeaponSkillTable(EntityMBattleNpcWeaponSkill[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.BattleNpcId, element.BattleNpcWeaponUuid, element.SlotNumber);
     }
 }

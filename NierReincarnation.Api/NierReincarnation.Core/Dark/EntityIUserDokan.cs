@@ -1,22 +1,21 @@
 using MessagePack;
 using NierReincarnation.Core.MasterMemory;
 
-namespace NierReincarnation.Core.Dark
+namespace NierReincarnation.Core.Dark;
+
+[MessagePackObject]
+[MemoryTable("i_user_dokan")]
+public class EntityIUserDokan
 {
-    [MessagePackObject]
-    [MemoryTable("i_user_dokan")]
-    public class EntityIUserDokan
-    {
-        [Key(0)]
-        public long UserId { get; set; }
+    [Key(0)]
+    public long UserId { get; set; }
 
-        [Key(1)]
-        public int DokanId { get; set; }
+    [Key(1)]
+    public int DokanId { get; set; }
 
-        [Key(2)]
-        public long DisplayDatetime { get; set; }
+    [Key(2)]
+    public long DisplayDatetime { get; set; }
 
-        [Key(3)]
-        public long LatestVersion { get; set; }
-    }
+    [Key(3)]
+    public long LatestVersion { get; set; }
 }

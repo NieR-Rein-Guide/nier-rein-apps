@@ -1,7 +1,6 @@
-﻿namespace NierReincarnation.Context.Models.Web
+﻿namespace NierReincarnation.Context.Models.Web;
+
+internal class CommonResponse
 {
-    internal class CommonResponse
-    {
-        public long responseDatetime { get; set; }
-    }
+    public long responseDatetime { get; set; }
 }

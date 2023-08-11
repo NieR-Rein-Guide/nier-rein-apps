@@ -1,16 +1,15 @@
 using MessagePack;
 using NierReincarnation.Core.MasterMemory;
 
-namespace NierReincarnation.Core.Dark
-{
-    [MessagePackObject]
-    [MemoryTable("m_override_hit_effect_condition_skill_executor")]
-    public class EntityMOverrideHitEffectConditionSkillExecutor
-    {
-        [Key(0)]
-        public int OverrideHitEffectConditionId { get; set; }
+namespace NierReincarnation.Core.Dark;
 
-        [Key(1)]
-        public int SkillOwnerCategoryType { get; set; }
-    }
+[MessagePackObject]
+[MemoryTable("m_override_hit_effect_condition_skill_executor")]
+public class EntityMOverrideHitEffectConditionSkillExecutor
+{
+    [Key(0)]
+    public int OverrideHitEffectConditionId { get; set; }
+
+    [Key(1)]
+    public int SkillOwnerCategoryType { get; set; }
 }

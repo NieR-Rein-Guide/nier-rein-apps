@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMBattleNpcCharacterRebirthTable : TableBase<EntityMBattleNpcCharacterRebirth>
-    {
-        private readonly Func<EntityMBattleNpcCharacterRebirth, (long, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMBattleNpcCharacterRebirthTable(EntityMBattleNpcCharacterRebirth[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.BattleNpcId, element.CharacterId);
-        }
+public class EntityMBattleNpcCharacterRebirthTable : TableBase<EntityMBattleNpcCharacterRebirth>
+{
+    private readonly Func<EntityMBattleNpcCharacterRebirth, (long, int)> primaryIndexSelector;
+
+    public EntityMBattleNpcCharacterRebirthTable(EntityMBattleNpcCharacterRebirth[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.BattleNpcId, element.CharacterId);
     }
 }

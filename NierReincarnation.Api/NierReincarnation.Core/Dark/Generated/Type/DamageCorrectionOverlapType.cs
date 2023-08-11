@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum DamageCorrectionOverlapType
 {
-    public enum DamageCorrectionOverlapType
-    {
-        UNKNOWN = 0,
-        CUMULATIVE = 1,
-        EXTREMUM = 2
-    }
+    UNKNOWN = 0,
+    CUMULATIVE = 1,
+    EXTREMUM = 2
 }

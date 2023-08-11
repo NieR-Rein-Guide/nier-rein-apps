@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum HpBarDisplayType
 {
-    public enum HpBarDisplayType
-    {
-        UNKNOWN = 0,
-        STANDARD = 1,
-        FOLLOW_TARGET = 2,
-        LARGE = 3,
-        NONE = 4
-    }
+    UNKNOWN = 0,
+    STANDARD = 1,
+    FOLLOW_TARGET = 2,
+    LARGE = 3,
+    NONE = 4
 }

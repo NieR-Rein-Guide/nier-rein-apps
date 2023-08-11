@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum AbnormalPolarityType
 {
-    public enum AbnormalPolarityType
-    {
-        UNKNOWN = 0,
-        POSITIVE = 1,
-        NEGATIVE = 2
-    }
+    UNKNOWN = 0,
+    POSITIVE = 1,
+    NEGATIVE = 2
 }

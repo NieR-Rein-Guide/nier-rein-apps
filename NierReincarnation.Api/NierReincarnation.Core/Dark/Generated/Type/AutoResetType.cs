@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum AutoResetType
 {
-    public enum AutoResetType
-    {
-        UNKNOWN = 0,
-        NONE = 1,
-        DAILY = 2,
-        MONTHLY = 3
-    }
+    UNKNOWN = 0,
+    NONE = 1,
+    DAILY = 2,
+    MONTHLY = 3
 }

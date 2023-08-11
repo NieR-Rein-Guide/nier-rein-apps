@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMCatalogPartsGroupTable : TableBase<EntityMCatalogPartsGroup>
 {
-    public class EntityMCatalogPartsGroupTable : TableBase<EntityMCatalogPartsGroup>
+    private readonly Func<EntityMCatalogPartsGroup, int> primaryIndexSelector;
+
+    public EntityMCatalogPartsGroupTable(EntityMCatalogPartsGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMCatalogPartsGroup, int> primaryIndexSelector;
-
-        public EntityMCatalogPartsGroupTable(EntityMCatalogPartsGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.PartsGroupId;
-        }
-
-        public EntityMCatalogPartsGroup FindByPartsGroupId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.PartsGroupId;
     }
+
+    public EntityMCatalogPartsGroup FindByPartsGroupId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

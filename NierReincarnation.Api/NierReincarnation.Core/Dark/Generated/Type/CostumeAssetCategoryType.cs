@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum CostumeAssetCategoryType
 {
-    public enum CostumeAssetCategoryType
-    {
-        UNKNOWN = 0,
-        NORMAL = 1,
-        ENEMY = 2
-    }
+    UNKNOWN = 0,
+    NORMAL = 1,
+    ENEMY = 2
 }

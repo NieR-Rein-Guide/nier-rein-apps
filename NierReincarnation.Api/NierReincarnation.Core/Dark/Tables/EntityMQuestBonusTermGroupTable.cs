@@ -2,19 +2,18 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMQuestBonusTermGroupTable : TableBase<EntityMQuestBonusTermGroup>
 {
-    public class EntityMQuestBonusTermGroupTable : TableBase<EntityMQuestBonusTermGroup>
+    private readonly Func<EntityMQuestBonusTermGroup, (int, int)> primaryIndexSelector;
+    private readonly Func<EntityMQuestBonusTermGroup, int> secondaryIndexSelector;
+
+    public EntityMQuestBonusTermGroupTable(EntityMQuestBonusTermGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMQuestBonusTermGroup, (int, int)> primaryIndexSelector;
-        private readonly Func<EntityMQuestBonusTermGroup, int> secondaryIndexSelector;
-
-        public EntityMQuestBonusTermGroupTable(EntityMQuestBonusTermGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.QuestBonusTermGroupId, element.SortOrder);
-            secondaryIndexSelector = element => element.QuestBonusTermGroupId;
-        }
-
-        public RangeView<EntityMQuestBonusTermGroup> FindByQuestBonusTermGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => (element.QuestBonusTermGroupId, element.SortOrder);
+        secondaryIndexSelector = element => element.QuestBonusTermGroupId;
     }
+
+    public RangeView<EntityMQuestBonusTermGroup> FindByQuestBonusTermGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
 }

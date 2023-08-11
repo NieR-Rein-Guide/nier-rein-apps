@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Context.Models
+﻿namespace NierReincarnation.Context.Models;
+
+public enum BattleStatus
 {
-    public enum BattleStatus
-    {
-        Win,
-        Lose,
-        Retire,
-        ForceShutdown,
-        OutOfStamina
-    }
+    Win,
+    Lose,
+    Retire,
+    ForceShutdown,
+    OutOfStamina
 }

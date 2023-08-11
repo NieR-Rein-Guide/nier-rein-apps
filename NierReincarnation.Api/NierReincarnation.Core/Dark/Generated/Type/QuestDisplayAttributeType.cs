@@ -1,15 +1,14 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum QuestDisplayAttributeType
 {
-    public enum QuestDisplayAttributeType
-    {
-        UNKNOWN = 0,
-        FIRE = 2,
-        WATER = 5,
-        WIND = 6,
-        LIGHT = 3,
-        DARK = 1,
-        NOTHING = 4,
-        VARIOUS = 90,
-        ALL = 100
-    }
+    UNKNOWN = 0,
+    FIRE = 2,
+    WATER = 5,
+    WIND = 6,
+    LIGHT = 3,
+    DARK = 1,
+    NOTHING = 4,
+    VARIOUS = 90,
+    ALL = 100
 }

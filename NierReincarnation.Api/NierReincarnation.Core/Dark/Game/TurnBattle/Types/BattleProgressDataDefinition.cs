@@ -1,7 +1,6 @@
-﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle.Types
+﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle.Types;
+
+static class BattleProgressDataDefinition
 {
-    static class BattleProgressDataDefinition
-    {
-        public static readonly int kTurnBattleSnapshotVersion = 3;
-    }
+    public static readonly int kTurnBattleSnapshotVersion = 3;
 }

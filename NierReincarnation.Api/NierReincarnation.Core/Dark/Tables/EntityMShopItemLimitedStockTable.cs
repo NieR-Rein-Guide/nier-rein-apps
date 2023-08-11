@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMShopItemLimitedStockTable : TableBase<EntityMShopItemLimitedStock>
 {
-    public class EntityMShopItemLimitedStockTable : TableBase<EntityMShopItemLimitedStock>
+    private readonly Func<EntityMShopItemLimitedStock, int> primaryIndexSelector;
+
+    public EntityMShopItemLimitedStockTable(EntityMShopItemLimitedStock[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMShopItemLimitedStock, int> primaryIndexSelector;
-
-        public EntityMShopItemLimitedStockTable(EntityMShopItemLimitedStock[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.ShopItemLimitedStockId;
-        }
-
-        public EntityMShopItemLimitedStock FindByShopItemLimitedStockId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.ShopItemLimitedStockId;
     }
+
+    public EntityMShopItemLimitedStock FindByShopItemLimitedStockId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

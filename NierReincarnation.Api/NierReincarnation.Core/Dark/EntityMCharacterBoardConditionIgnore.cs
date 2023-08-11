@@ -1,19 +1,18 @@
 using MessagePack;
 using NierReincarnation.Core.MasterMemory;
 
-namespace NierReincarnation.Core.Dark
+namespace NierReincarnation.Core.Dark;
+
+[MessagePackObject]
+[MemoryTable("m_character_board_condition_ignore")]
+public class EntityMCharacterBoardConditionIgnore
 {
-    [MessagePackObject]
-    [MemoryTable("m_character_board_condition_ignore")]
-    public class EntityMCharacterBoardConditionIgnore
-    {
-        [Key(0)]
-        public int CharacterBoardConditionIgnoreId { get; set; }
+    [Key(0)]
+    public int CharacterBoardConditionIgnoreId { get; set; }
 
-        [Key(1)]
-        public int IgnoreIndex { get; set; }
+    [Key(1)]
+    public int IgnoreIndex { get; set; }
 
-        [Key(2)]
-        public int ConditionValue { get; set; }
-    }
+    [Key(2)]
+    public int ConditionValue { get; set; }
 }

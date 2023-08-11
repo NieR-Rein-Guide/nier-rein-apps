@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum EnemyThumbnailReplaceMethodType
 {
-    public enum EnemyThumbnailReplaceMethodType
-    {
-        UNKNOWN = 0,
-        SAME_ACTOR = 1
-    }
+    UNKNOWN = 0,
+    SAME_ACTOR = 1
 }

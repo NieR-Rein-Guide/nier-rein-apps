@@ -1,10 +1,10 @@
 ﻿using NierReincarnation.Core.Dark.Component.OctoInfo;
 
-namespace NierReincarnation.Core.Dark.Kernel
-{
+namespace NierReincarnation.Core.Dark.Kernel;
+
 	// Dark.Kernel.ApplicationContext
-    public sealed class ApplicationContext
-    {
+public sealed class ApplicationContext
+{
 		// 0x10
 		//public Config PerformanceConfig { get; set; }
 
@@ -28,5 +28,4 @@ namespace NierReincarnation.Core.Dark.Kernel
 
 		// 0x48
 		//public ViewConfig ViewConfig { get; set; }
-    }
 }

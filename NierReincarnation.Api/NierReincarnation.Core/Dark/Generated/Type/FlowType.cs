@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum FlowType
 {
-    public enum FlowType
-    {
-        UNKNOWN = 0,
-        MAIN = 1,
-        REPLAY = 2,
-        MAIN_AND_REPLAY = 3
-    }
+    UNKNOWN = 0,
+    MAIN = 1,
+    REPLAY = 2,
+    MAIN_AND_REPLAY = 3
 }

@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum StainedGlassStatusUpTargetType
 {
-    public enum StainedGlassStatusUpTargetType
-    {
-        UNKNOWN = 0,
-        CHARACTER = 1,
-        SKILLFUL_WEAPON = 2
-    }
+    UNKNOWN = 0,
+    CHARACTER = 1,
+    SKILLFUL_WEAPON = 2
 }

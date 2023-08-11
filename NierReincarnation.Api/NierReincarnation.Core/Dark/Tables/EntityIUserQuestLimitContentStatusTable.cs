@@ -2,19 +2,18 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityIUserQuestLimitContentStatusTable : TableBase<EntityIUserQuestLimitContentStatus>
 {
-    public class EntityIUserQuestLimitContentStatusTable : TableBase<EntityIUserQuestLimitContentStatus>
+    private readonly Func<EntityIUserQuestLimitContentStatus, (long, int)> primaryIndexSelector;
+    private readonly Func<EntityIUserQuestLimitContentStatus, int> secondaryIndexSelector;
+
+    public EntityIUserQuestLimitContentStatusTable(EntityIUserQuestLimitContentStatus[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityIUserQuestLimitContentStatus, (long, int)> primaryIndexSelector;
-        private readonly Func<EntityIUserQuestLimitContentStatus, int> secondaryIndexSelector;
-
-        public EntityIUserQuestLimitContentStatusTable(EntityIUserQuestLimitContentStatus[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.UserId, element.QuestId);
-            secondaryIndexSelector = element => element.EventQuestChapterId;
-        }
-
-        public EntityIUserQuestLimitContentStatus FindByUserIdAndQuestId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
+        primaryIndexSelector = element => (element.UserId, element.QuestId);
+        secondaryIndexSelector = element => element.EventQuestChapterId;
     }
+
+    public EntityIUserQuestLimitContentStatus FindByUserIdAndQuestId(ValueTuple<long, int> key) => FindUniqueCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, key);
 }

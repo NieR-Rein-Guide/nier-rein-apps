@@ -2,20 +2,19 @@
 using NierReincarnation.Core.Adam.Framework.Network;
 using System.Threading.Tasks;
 
-namespace NierReincarnation.Context
+namespace NierReincarnation.Context;
+
+public class QuestContext : BaseContext
 {
-    public class QuestContext : BaseContext
+    private readonly DarkClient _dc;
+
+    internal QuestContext()
     {
-        private readonly DarkClient _dc;
+        _dc = new DarkClient();
+    }
 
-        internal QuestContext()
-        {
-            _dc = new DarkClient();
-        }
-
-        public Task ReceiveDailyRewards()
-        {
-            return TryRequest(() => _dc.QuestService.ReceiveDailyQuestGroupCompleteRewardAsync(new Empty()));
-        }
+    public Task ReceiveDailyRewards()
+    {
+        return TryRequest(() => _dc.QuestService.ReceiveDailyQuestGroupCompleteRewardAsync(new Empty()));
     }
 }

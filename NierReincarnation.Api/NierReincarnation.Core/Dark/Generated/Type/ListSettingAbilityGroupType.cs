@@ -1,12 +1,11 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum ListSettingAbilityGroupType
 {
-    public enum ListSettingAbilityGroupType
-    {
-        UNKNOWN = 0,
-        COSTUME = 1,
-        WEAPON = 2,
-        COMPANION = 3,
-        THOUGHT = 4,
-        BLESS = 5
-    }
+    UNKNOWN = 0,
+    COSTUME = 1,
+    WEAPON = 2,
+    COMPANION = 3,
+    THOUGHT = 4,
+    BLESS = 5
 }

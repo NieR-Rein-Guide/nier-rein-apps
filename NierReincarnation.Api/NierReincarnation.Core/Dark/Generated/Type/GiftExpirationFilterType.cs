@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum GiftExpirationFilterType
 {
-    public enum GiftExpirationFilterType
-    {
-        UNKNOWN = 0,
-        NONE = 1,
-        ONLY_EXPIRE = 2,
-        ONLY_NOT_EXPIRE = 3
-    }
+    UNKNOWN = 0,
+    NONE = 1,
+    ONLY_EXPIRE = 2,
+    ONLY_NOT_EXPIRE = 3
 }

@@ -1,36 +1,35 @@
 ﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
-namespace NierReincarnation.Context
+namespace NierReincarnation.Context;
+
+public class UserContext
 {
-    public class UserContext
+    internal UserContext()
+    { }
+
+    public static string GetUserName()
     {
-        internal UserContext()
-        { }
+        return CalculatorProfile.GetName(GetUserId());
+    }
 
-        public static string GetUserName()
-        {
-            return CalculatorProfile.GetName(GetUserId());
-        }
+    public static int GetUserLevel()
+    {
+        return CalculatorUserStatus.GetCurrentUserLevel();
+    }
 
-        public static int GetUserLevel()
-        {
-            return CalculatorUserStatus.GetCurrentUserLevel();
-        }
+    public static long GetUserId()
+    {
+        return CalculatorStateUser.GetUserId();
+    }
 
-        public static long GetUserId()
-        {
-            return CalculatorStateUser.GetUserId();
-        }
+    public static int GetCurrentStamina()
+    {
+        return StaminaContext.GetCurrentStamina();
+    }
 
-        public static int GetCurrentStamina()
-        {
-            return StaminaContext.GetCurrentStamina();
-        }
-
-        public static int GetMaxStamina()
-        {
-            return StaminaContext.GetMaxStamina();
-        }
+    public static int GetMaxStamina()
+    {
+        return StaminaContext.GetMaxStamina();
     }
 }

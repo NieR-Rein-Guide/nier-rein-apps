@@ -1,8 +1,7 @@
-﻿namespace NierReincarnation.Core.Dark
+﻿namespace NierReincarnation.Core.Dark;
+
+public class DataCostumeSkill: DataSkill
 {
-    public class DataCostumeSkill: DataSkill
-    {
-       
-        public string GaugeRiseSpeed { get; set; }
-    }
+   
+    public string GaugeRiseSpeed { get; set; }
 }

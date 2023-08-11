@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-namespace NierReincarnation.Core.Dark.Networking.DataSource
+namespace NierReincarnation.Core.Dark.Networking.DataSource;
+
+// Dark.Networking.DataSource.IDataSource
+interface IDataSource
 {
-    // Dark.Networking.DataSource.IDataSource
-    interface IDataSource
-    {
-        Task RequestAsync(object request, bool isInterception);
-    }
+    Task RequestAsync(object request, bool isInterception);
 }

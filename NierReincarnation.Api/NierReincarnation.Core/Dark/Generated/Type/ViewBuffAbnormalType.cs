@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum ViewBuffAbnormalType
 {
-    public enum ViewBuffAbnormalType
-    {
-        UNKNOWN = 0,
-        NONE = 1,
-        BOTTOM_FIXED = 2,
-        TOP_FIXED = 3,
-        FOLLOW_TARGET = 4
-    }
+    UNKNOWN = 0,
+    NONE = 1,
+    BOTTOM_FIXED = 2,
+    TOP_FIXED = 3,
+    FOLLOW_TARGET = 4
 }

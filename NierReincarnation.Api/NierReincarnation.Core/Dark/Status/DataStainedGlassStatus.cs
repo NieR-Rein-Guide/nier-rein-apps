@@ -1,11 +1,10 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 
-namespace NierReincarnation.Core.Dark.Status
-{
-    public class DataStainedGlassStatus
-    {
-        public StatusCalculationType StatusCalculationType { get; set; }
+namespace NierReincarnation.Core.Dark.Status;
 
-        public StatusValue StatusChangeValue { get; set; }
-    }
+public class DataStainedGlassStatus
+{
+    public StatusCalculationType StatusCalculationType { get; set; }
+
+    public StatusValue StatusChangeValue { get; set; }
 }

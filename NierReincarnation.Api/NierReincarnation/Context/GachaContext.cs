@@ -16,132 +16,131 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace NierReincarnation.Context
+namespace NierReincarnation.Context;
+
+public class GachaContext
 {
-    public class GachaContext
+    private readonly HttpClient _client;
+    private readonly DarkClient _dc;
+
+    internal GachaContext(DarkClient dc)
     {
-        private readonly HttpClient _client;
-        private readonly DarkClient _dc;
+        _dc = dc;
+        _client = new HttpClient();
+    }
 
-        internal GachaContext(DarkClient dc)
+    public async IAsyncEnumerable<Banner> GetBanners()
+    {
+        var gachaListRes = await _dc.GachaService.GetGachaListAsync(new GetGachaListRequest
         {
-            _dc = dc;
-            _client = new HttpClient();
-        }
-
-        public async IAsyncEnumerable<Banner> GetBanners()
-        {
-            var gachaListRes = await _dc.GachaService.GetGachaListAsync(new GetGachaListRequest
+            GachaLabelType =
             {
-                GachaLabelType =
-                {
-                    (int)GachaLabelType.PREMIUM,
-                    (int)GachaLabelType.EVENT,
-                    (int)GachaLabelType.CHAPTER,
-                    (int)GachaLabelType.PORTAL_CAGE
-                }
-            });
-
-            foreach (var banner in gachaListRes.Gacha)
-            {
-                string id = null;
-                switch (banner.GachaModeCase)
-                {
-                    case Gacha.GachaModeOneofCase.Basic:
-                        id = banner.Basic.GachaAssetName;
-                        break;
-
-                    case Gacha.GachaModeOneofCase.Stepup:
-                        id = banner.Stepup.GachaAssetName;
-                        break;
-
-                    case Gacha.GachaModeOneofCase.Box:
-                        id = banner.Box.GachaAssetName;
-                        break;
-                }
-
-                yield return new Banner
-                {
-                    GachaId = banner.GachaId,
-
-                    Name = $"gacha.title.{id}".Localize(),
-
-                    StartTime = banner.StartDatetime.ToDateTime(),
-                    EndTime = banner.EndDatetime.ToDateTime(),
-
-                    GachaLabelType = (GachaLabelType)banner.GachaLabelType,
-                    GachaModeType = (GachaModeType)banner.GachaModeType,
-                    GachaAutoResetType = (GachaAutoResetType)banner.GachaAutoResetType,
-                    GachaDecorationType = (GachaDecorationType)banner.GachaDecorationType
-                };
+                (int)GachaLabelType.PREMIUM,
+                (int)GachaLabelType.EVENT,
+                (int)GachaLabelType.CHAPTER,
+                (int)GachaLabelType.PORTAL_CAGE
             }
-        }
+        });
 
-        public async Task<object> GetRates(int bannerId)
+        foreach (var banner in gachaListRes.Gacha)
         {
-            var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri("https://api-web.app.nierreincarnation.com/api/gacha/odds"));
-            req.Headers.Referrer = CreateReferrer(bannerId);
-
-            req.Content = JsonContent.Create(new GachaRateRequest
+            string id = null;
+            switch (banner.GachaModeCase)
             {
-                gachaId = $"{bannerId}"
-            });
+                case Gacha.GachaModeOneofCase.Basic:
+                    id = banner.Basic.GachaAssetName;
+                    break;
 
-            var res = await _client.SendAsync(req);
-            if (!res.IsSuccessStatusCode)
-                return null;
+                case Gacha.GachaModeOneofCase.Stepup:
+                    id = banner.Stepup.GachaAssetName;
+                    break;
 
-            var resCont = await res.Content.ReadAsStringAsync();
-            var gachaRates = JsonConvert.DeserializeObject<GachaRateResponse>(resCont);
+                case Gacha.GachaModeOneofCase.Box:
+                    id = banner.Box.GachaAssetName;
+                    break;
+            }
 
-            return gachaRates?.basic ?? (object)gachaRates?.stepup ?? gachaRates?.box;
-        }
-
-        private static Uri CreateReferrer(int gachaId)
-        {
-            var informationUri = Config.Api.MakeWebViewInformationPageUrl();
-            var parameters = new[]
+            yield return new Banner
             {
-                $"bannerId={gachaId}",
-                "tab=Rate",
-                $"userId={ApplicationScopeClientContext.Instance.User.UserId}",
-                $"playerId={PlayerPreference.Instance.ActivePlayer.PlayerId}",
-                $"sessionKey={ApplicationScopeClientContext.Instance.Auth.SessionKey}",
-                $"appVersion={Application.Version}",
-                $"language={Application.SystemLanguage}",
-                $"osVersion={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
-                $"deviceName={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
-                $"serverAddress={Config.Api.GetHostname()}",
-                $"token={ApplicationScopeClientContext.Instance.Token.Value}",
-                $"osType={(int)Application.Platform}",
-                $"platformType={(int)Application.Platform}",
-                "isIngame=False",
-                "seVolume=0.7"
+                GachaId = banner.GachaId,
+
+                Name = $"gacha.title.{id}".Localize(),
+
+                StartTime = banner.StartDatetime.ToDateTime(),
+                EndTime = banner.EndDatetime.ToDateTime(),
+
+                GachaLabelType = (GachaLabelType)banner.GachaLabelType,
+                GachaModeType = (GachaModeType)banner.GachaModeType,
+                GachaAutoResetType = (GachaAutoResetType)banner.GachaAutoResetType,
+                GachaDecorationType = (GachaDecorationType)banner.GachaDecorationType
             };
-
-            return new Uri(informationUri + string.Join("&", parameters));
         }
     }
 
-    internal class GachaRateRequest
+    public async Task<object> GetRates(int bannerId)
     {
-        public CommonRequest commonRequest { get; set; } = new CommonRequest();
+        var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri("https://api-web.app.nierreincarnation.com/api/gacha/odds"));
+        req.Headers.Referrer = CreateReferrer(bannerId);
 
-        public string gachaId { get; set; }
+        req.Content = JsonContent.Create(new GachaRateRequest
+        {
+            gachaId = $"{bannerId}"
+        });
 
-        public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
+        var res = await _client.SendAsync(req);
+        if (!res.IsSuccessStatusCode)
+            return null;
+
+        var resCont = await res.Content.ReadAsStringAsync();
+        var gachaRates = JsonConvert.DeserializeObject<GachaRateResponse>(resCont);
+
+        return gachaRates?.basic ?? (object)gachaRates?.stepup ?? gachaRates?.box;
     }
 
-    internal class GachaRateResponse
+    private static Uri CreateReferrer(int gachaId)
     {
-        public GachaLabelType gachaLabelType { get; set; }
+        var informationUri = Config.Api.MakeWebViewInformationPageUrl();
+        var parameters = new[]
+        {
+            $"bannerId={gachaId}",
+            "tab=Rate",
+            $"userId={ApplicationScopeClientContext.Instance.User.UserId}",
+            $"playerId={PlayerPreference.Instance.ActivePlayer.PlayerId}",
+            $"sessionKey={ApplicationScopeClientContext.Instance.Auth.SessionKey}",
+            $"appVersion={Application.Version}",
+            $"language={Application.SystemLanguage}",
+            $"osVersion={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
+            $"deviceName={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
+            $"serverAddress={Config.Api.GetHostname()}",
+            $"token={ApplicationScopeClientContext.Instance.Token.Value}",
+            $"osType={(int)Application.Platform}",
+            $"platformType={(int)Application.Platform}",
+            "isIngame=False",
+            "seVolume=0.7"
+        };
 
-        public GachaRateBasic basic { get; set; }
-
-        public GachaRateStepup stepup { get; set; }
-
-        public GachaRateBox box { get; set; }
-
-        public CommonResponse commonResponse { get; set; }
+        return new Uri(informationUri + string.Join("&", parameters));
     }
+}
+
+internal class GachaRateRequest
+{
+    public CommonRequest commonRequest { get; set; } = new CommonRequest();
+
+    public string gachaId { get; set; }
+
+    public string userIdString { get; set; } = $"{ApplicationScopeClientContext.Instance.User.UserId}";
+}
+
+internal class GachaRateResponse
+{
+    public GachaLabelType gachaLabelType { get; set; }
+
+    public GachaRateBasic basic { get; set; }
+
+    public GachaRateStepup stepup { get; set; }
+
+    public GachaRateBox box { get; set; }
+
+    public CommonResponse commonResponse { get; set; }
 }

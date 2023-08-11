@@ -2,17 +2,16 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMCostumeStatusCalculationTable : TableBase<EntityMCostumeStatusCalculation>
 {
-    public class EntityMCostumeStatusCalculationTable : TableBase<EntityMCostumeStatusCalculation>
+    private readonly Func<EntityMCostumeStatusCalculation, int> primaryIndexSelector;
+
+    public EntityMCostumeStatusCalculationTable(EntityMCostumeStatusCalculation[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMCostumeStatusCalculation, int> primaryIndexSelector;
-
-        public EntityMCostumeStatusCalculationTable(EntityMCostumeStatusCalculation[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.CostumeStatusCalculationId;
-        }
-
-        public EntityMCostumeStatusCalculation FindByCostumeStatusCalculationId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.CostumeStatusCalculationId;
     }
+
+    public EntityMCostumeStatusCalculation FindByCostumeStatusCalculationId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

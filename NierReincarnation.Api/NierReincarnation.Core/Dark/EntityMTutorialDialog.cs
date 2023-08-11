@@ -2,16 +2,15 @@ using MessagePack;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
-namespace NierReincarnation.Core.Dark
-{
-    [MessagePackObject]
-    [MemoryTable("m_tutorial_dialog")]
-    public class EntityMTutorialDialog
-    {
-        [Key(0)]
-        public TutorialType TutorialType { get; set; }
+namespace NierReincarnation.Core.Dark;
 
-        [Key(1)]
-        public HelpType HelpType { get; set; }
-    }
+[MessagePackObject]
+[MemoryTable("m_tutorial_dialog")]
+public class EntityMTutorialDialog
+{
+    [Key(0)]
+    public TutorialType TutorialType { get; set; }
+
+    [Key(1)]
+    public HelpType HelpType { get; set; }
 }

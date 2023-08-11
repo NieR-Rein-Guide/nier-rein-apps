@@ -3,19 +3,18 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMWeaponAwakenStatusUpGroupTable : TableBase<EntityMWeaponAwakenStatusUpGroup>
 {
-    public class EntityMWeaponAwakenStatusUpGroupTable : TableBase<EntityMWeaponAwakenStatusUpGroup>
+    private readonly Func<EntityMWeaponAwakenStatusUpGroup, (int, StatusKindType, StatusCalculationType)> primaryIndexSelector;
+    private readonly Func<EntityMWeaponAwakenStatusUpGroup, int> secondaryIndexSelector;
+
+    public EntityMWeaponAwakenStatusUpGroupTable(EntityMWeaponAwakenStatusUpGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMWeaponAwakenStatusUpGroup, (int, StatusKindType, StatusCalculationType)> primaryIndexSelector;
-        private readonly Func<EntityMWeaponAwakenStatusUpGroup, int> secondaryIndexSelector;
-
-        public EntityMWeaponAwakenStatusUpGroupTable(EntityMWeaponAwakenStatusUpGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.WeaponAwakenStatusUpGroupId, element.StatusKindType, element.StatusCalculationType);
-            secondaryIndexSelector = element => element.WeaponAwakenStatusUpGroupId;
-        }
-
-        public RangeView<EntityMWeaponAwakenStatusUpGroup> FindByWeaponAwakenStatusUpGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => (element.WeaponAwakenStatusUpGroupId, element.StatusKindType, element.StatusCalculationType);
+        secondaryIndexSelector = element => element.WeaponAwakenStatusUpGroupId;
     }
+
+    public RangeView<EntityMWeaponAwakenStatusUpGroup> FindByWeaponAwakenStatusUpGroupId(int key) => FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
 }

@@ -2,15 +2,14 @@ using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMLibraryRecordGroupingTable : TableBase<EntityMLibraryRecordGrouping>
-    {
-        private readonly Func<EntityMLibraryRecordGrouping, LibraryRecordType> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMLibraryRecordGroupingTable(EntityMLibraryRecordGrouping[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.LibraryRecordType;
-        }
+public class EntityMLibraryRecordGroupingTable : TableBase<EntityMLibraryRecordGrouping>
+{
+    private readonly Func<EntityMLibraryRecordGrouping, LibraryRecordType> primaryIndexSelector;
+
+    public EntityMLibraryRecordGroupingTable(EntityMLibraryRecordGrouping[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => element.LibraryRecordType;
     }
 }

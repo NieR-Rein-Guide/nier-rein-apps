@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum TitleStillLogoType
 {
-    public enum TitleStillLogoType
-    {
-        UNKNOWN = 0,
-        WHITE = 1,
-        BLACK = 2
-    }
+    UNKNOWN = 0,
+    WHITE = 1,
+    BLACK = 2
 }

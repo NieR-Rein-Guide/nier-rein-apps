@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum HpRatioDamageCalculateDenominatorType
 {
-    public enum HpRatioDamageCalculateDenominatorType
-    {
-        UNKNOWN = 0,
-        CURRENT_HP = 1,
-        MAX_HP = 2
-    }
+    UNKNOWN = 0,
+    CURRENT_HP = 1,
+    MAX_HP = 2
 }

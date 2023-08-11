@@ -1,33 +1,32 @@
 ﻿using NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm;
 using NierReincarnation.Core.Dark.Networking;
 
-namespace NierReincarnation.Core.Dark
+namespace NierReincarnation.Core.Dark;
+
+// Dark.KernelState
+static class KernelState
 {
-    // Dark.KernelState
-    static class KernelState
+   
+    public static NetworkConfig NetworkConfig { get; set; }
+   
+    private static readonly string kUserStatePath = "userstate";
+   
+    private static DataStructure _userState;
+
+    public static bool GetUserState(out DataStructure data)
     {
-       
-        public static NetworkConfig NetworkConfig { get; set; }
-       
-        private static readonly string kUserStatePath = "userstate";
-       
-        private static DataStructure _userState;
+        if (_userState == null)
+            GetDataStructure(kUserStatePath, out _userState);
 
-        public static bool GetUserState(out DataStructure data)
-        {
-            if (_userState == null)
-                GetDataStructure(kUserStatePath, out _userState);
+        data = _userState;
+        return _userState != null;
+    }
 
-            data = _userState;
-            return _userState != null;
-        }
+    private static bool GetDataStructure(string path, out DataStructure data)
+    {
+        // data = UnityEngine.GameObject.Find(path)?.GetComponent<DataStructure>();
+        data = new DataStructure();
 
-        private static bool GetDataStructure(string path, out DataStructure data)
-        {
-            // data = UnityEngine.GameObject.Find(path)?.GetComponent<DataStructure>();
-            data = new DataStructure();
-
-            return data != null;
-        }
+        return data != null;
     }
 }

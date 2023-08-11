@@ -2,78 +2,77 @@
 using NierReincarnation.Core.Dark.Status;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Calculator
+namespace NierReincarnation.Core.Dark.Calculator;
+
+public static class CalculatorWeaponAwakenStatus
 {
-    public static class CalculatorWeaponAwakenStatus
+    public static readonly int kStatusDataListCapacity = 2;
+
+    public static void CreateDataWeaponAwakenStatusList(int weaponAwakenEffectGroupId, List<DataWeaponAwakenStatus> weaponAwakenStatusList)
     {
-        public static readonly int kStatusDataListCapacity = 2;
+        EntityMWeaponAwakenStatusUpGroup[] weaponAwakenStatusUps = Database.CalculatorMasterData.GetEntityMWeaponAwakenStatusUpGroupsByEffectGroupId(weaponAwakenEffectGroupId: weaponAwakenEffectGroupId);
 
-        public static void CreateDataWeaponAwakenStatusList(int weaponAwakenEffectGroupId, List<DataWeaponAwakenStatus> weaponAwakenStatusList)
+        if (weaponAwakenStatusUps.Length == 0) return;
+
+        DataWeaponAwakenStatus multiStatus = CreateDataWeaponAwakenStatus(weaponAwakenStatusUps, StatusCalculationType.MULTIPLY);
+        if (multiStatus != null)
         {
-            EntityMWeaponAwakenStatusUpGroup[] weaponAwakenStatusUps = Database.CalculatorMasterData.GetEntityMWeaponAwakenStatusUpGroupsByEffectGroupId(weaponAwakenEffectGroupId: weaponAwakenEffectGroupId);
+            weaponAwakenStatusList.Add(multiStatus);
+        }
 
-            if (weaponAwakenStatusUps.Length == 0) return;
+        DataWeaponAwakenStatus addStatus = CreateDataWeaponAwakenStatus(weaponAwakenStatusUps, StatusCalculationType.ADD);
+        if (addStatus != null)
+        {
+            weaponAwakenStatusList.Add(addStatus);
+        }
+    }
 
-            DataWeaponAwakenStatus multiStatus = CreateDataWeaponAwakenStatus(weaponAwakenStatusUps, StatusCalculationType.MULTIPLY);
-            if (multiStatus != null)
+    private static DataWeaponAwakenStatus CreateDataWeaponAwakenStatus(EntityMWeaponAwakenStatusUpGroup[] entityMWeaponAwakenStatusUps, StatusCalculationType calculationType)
+    {
+        StatusValue statusValue = new();
+
+        foreach (var entityMWeaponAwakenStatusUp in entityMWeaponAwakenStatusUps)
+        {
+            if (entityMWeaponAwakenStatusUp.StatusCalculationType == calculationType)
             {
-                weaponAwakenStatusList.Add(multiStatus);
-            }
-
-            DataWeaponAwakenStatus addStatus = CreateDataWeaponAwakenStatus(weaponAwakenStatusUps, StatusCalculationType.ADD);
-            if (addStatus != null)
-            {
-                weaponAwakenStatusList.Add(addStatus);
+                AddWeaponAwakenStatusValue(ref statusValue, entityMWeaponAwakenStatusUp.EffectValue, entityMWeaponAwakenStatusUp.StatusKindType);
             }
         }
 
-        private static DataWeaponAwakenStatus CreateDataWeaponAwakenStatus(EntityMWeaponAwakenStatusUpGroup[] entityMWeaponAwakenStatusUps, StatusCalculationType calculationType)
+        return new DataWeaponAwakenStatus
         {
-            StatusValue statusValue = new();
+            StatusCalculationType = calculationType,
+            StatusChangeValue = statusValue
+        };
+    }
 
-            foreach (var entityMWeaponAwakenStatusUp in entityMWeaponAwakenStatusUps)
-            {
-                if (entityMWeaponAwakenStatusUp.StatusCalculationType == calculationType)
-                {
-                    AddWeaponAwakenStatusValue(ref statusValue, entityMWeaponAwakenStatusUp.EffectValue, entityMWeaponAwakenStatusUp.StatusKindType);
-                }
-            }
-
-            return new DataWeaponAwakenStatus
-            {
-                StatusCalculationType = calculationType,
-                StatusChangeValue = statusValue
-            };
-        }
-
-        private static void AddWeaponAwakenStatusValue(ref StatusValue statusValue, int effectValue, StatusKindType statusKindType)
+    private static void AddWeaponAwakenStatusValue(ref StatusValue statusValue, int effectValue, StatusKindType statusKindType)
+    {
+        switch (statusKindType)
         {
-            switch (statusKindType)
-            {
-                case StatusKindType.AGILITY:
-                    statusValue.Agility += effectValue;
-                    break;
+            case StatusKindType.AGILITY:
+                statusValue.Agility += effectValue;
+                break;
 
-                case StatusKindType.ATTACK:
-                    statusValue.Attack += effectValue;
-                    break;
+            case StatusKindType.ATTACK:
+                statusValue.Attack += effectValue;
+                break;
 
-                case StatusKindType.CRITICAL_ATTACK:
-                    statusValue.CriticalAttack += effectValue;
-                    break;
+            case StatusKindType.CRITICAL_ATTACK:
+                statusValue.CriticalAttack += effectValue;
+                break;
 
-                case StatusKindType.CRITICAL_RATIO:
-                    statusValue.CriticalRatio += effectValue;
-                    break;
+            case StatusKindType.CRITICAL_RATIO:
+                statusValue.CriticalRatio += effectValue;
+                break;
 
-                case StatusKindType.HP:
-                    statusValue.Hp += effectValue;
-                    break;
+            case StatusKindType.HP:
+                statusValue.Hp += effectValue;
+                break;
 
-                case StatusKindType.VITALITY:
-                    statusValue.Vitality += effectValue;
-                    break;
-            }
+            case StatusKindType.VITALITY:
+                statusValue.Vitality += effectValue;
+                break;
         }
     }
 }

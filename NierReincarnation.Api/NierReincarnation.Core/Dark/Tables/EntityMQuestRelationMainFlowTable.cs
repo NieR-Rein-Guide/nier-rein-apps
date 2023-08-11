@@ -3,21 +3,20 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMQuestRelationMainFlowTable : TableBase<EntityMQuestRelationMainFlow>
 {
-    public class EntityMQuestRelationMainFlowTable : TableBase<EntityMQuestRelationMainFlow>
+    private readonly Func<EntityMQuestRelationMainFlow, (int, DifficultyType)> primaryIndexSelector;
+
+    public EntityMQuestRelationMainFlowTable(EntityMQuestRelationMainFlow[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMQuestRelationMainFlow, (int, DifficultyType)> primaryIndexSelector;
-
-        public EntityMQuestRelationMainFlowTable(EntityMQuestRelationMainFlow[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.MainFlowQuestId, element.DifficultyType);
-        }
-
-        public bool TryFindByMainFlowQuestIdAndDifficultyType(ValueTuple<int, DifficultyType> key, out EntityMQuestRelationMainFlow result) =>
-            TryFindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key, out result);
-
-        public RangeView<EntityMQuestRelationMainFlow> FindRangeByMainFlowQuestIdAndDifficultyType(ValueTuple<int, DifficultyType> min, ValueTuple<int, DifficultyType> max, bool ascendant = true) =>
-            FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, min, max, ascendant);
+        primaryIndexSelector = element => (element.MainFlowQuestId, element.DifficultyType);
     }
+
+    public bool TryFindByMainFlowQuestIdAndDifficultyType(ValueTuple<int, DifficultyType> key, out EntityMQuestRelationMainFlow result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key, out result);
+
+    public RangeView<EntityMQuestRelationMainFlow> FindRangeByMainFlowQuestIdAndDifficultyType(ValueTuple<int, DifficultyType> min, ValueTuple<int, DifficultyType> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, min, max, ascendant);
 }

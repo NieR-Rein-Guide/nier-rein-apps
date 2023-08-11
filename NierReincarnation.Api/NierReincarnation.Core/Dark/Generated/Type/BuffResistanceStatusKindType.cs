@@ -1,15 +1,14 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum BuffResistanceStatusKindType
 {
-    public enum BuffResistanceStatusKindType
-    {
-        UNKNOWN = 0,
-        AGILITY = 1,
-        ATTACK = 2,
-        CRITICAL_ATTACK = 3,
-        CRITICAL_RATIO = 4,
-        EVASION_RATIO = 5,
-        HP = 6,
-        VITALITY = 7,
-        DONT_CARE = 8
-    }
+    UNKNOWN = 0,
+    AGILITY = 1,
+    ATTACK = 2,
+    CRITICAL_ATTACK = 3,
+    CRITICAL_RATIO = 4,
+    EVASION_RATIO = 5,
+    HP = 6,
+    VITALITY = 7,
+    DONT_CARE = 8
 }

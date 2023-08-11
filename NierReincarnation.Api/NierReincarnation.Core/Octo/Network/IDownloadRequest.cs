@@ -1,7 +1,6 @@
-﻿namespace NierReincarnation.Core.Octo.Network
+﻿namespace NierReincarnation.Core.Octo.Network;
+
+interface IDownloadRequest
 {
-    interface IDownloadRequest
-    {
-        void SetName(string name);
-    }
+    void SetName(string name);
 }

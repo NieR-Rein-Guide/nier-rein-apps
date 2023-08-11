@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMPvpGradeTable : TableBase<EntityMPvpGrade>
-    {
-        private readonly Func<EntityMPvpGrade, int> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMPvpGradeTable(EntityMPvpGrade[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.PvpGradeId;
-        }
+public class EntityMPvpGradeTable : TableBase<EntityMPvpGrade>
+{
+    private readonly Func<EntityMPvpGrade, int> primaryIndexSelector;
+
+    public EntityMPvpGradeTable(EntityMPvpGrade[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => element.PvpGradeId;
     }
 }

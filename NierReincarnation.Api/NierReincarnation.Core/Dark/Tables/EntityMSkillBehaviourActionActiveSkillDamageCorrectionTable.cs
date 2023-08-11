@@ -2,18 +2,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable : TableBase<EntityMSkillBehaviourActionActiveSkillDamageCorrection>
 {
-    public class EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable : TableBase<EntityMSkillBehaviourActionActiveSkillDamageCorrection>
+    private readonly Func<EntityMSkillBehaviourActionActiveSkillDamageCorrection, int> primaryIndexSelector;
+
+    public EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable(EntityMSkillBehaviourActionActiveSkillDamageCorrection[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMSkillBehaviourActionActiveSkillDamageCorrection, int> primaryIndexSelector;
-
-        public EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable(EntityMSkillBehaviourActionActiveSkillDamageCorrection[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => element.SkillBehaviourActionId;
-        }
-
-        public EntityMSkillBehaviourActionActiveSkillDamageCorrection FindBySkillBehaviourActionId(int key) =>
-            FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => element.SkillBehaviourActionId;
     }
+
+    public EntityMSkillBehaviourActionActiveSkillDamageCorrection FindBySkillBehaviourActionId(int key) =>
+        FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

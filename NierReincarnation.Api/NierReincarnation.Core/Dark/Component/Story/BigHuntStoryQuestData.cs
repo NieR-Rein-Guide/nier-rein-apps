@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.Component.Story
-{
-    class BigHuntStoryQuestData
-    {
-        public IQuest Quest { get; set; }
-        public int BigHuntQuestId { get; set; }
+﻿namespace NierReincarnation.Core.Dark.Component.Story;
 
-        // CUSTOM
-        public int SortOrder { get; set; }
-    }
+class BigHuntStoryQuestData
+{
+    public IQuest Quest { get; set; }
+    public int BigHuntQuestId { get; set; }
+
+    // CUSTOM
+    public int SortOrder { get; set; }
 }

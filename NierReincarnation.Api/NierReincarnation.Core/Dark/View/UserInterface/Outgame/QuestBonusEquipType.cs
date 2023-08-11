@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame
+﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+
+public enum QuestBonusEquipType
 {
-    public enum QuestBonusEquipType
-    {
-        Unknown = 0,
-        Character = 1,
-        Costume = 2,
-        Weapon = 3
-    }
+    Unknown = 0,
+    Character = 1,
+    Costume = 2,
+    Weapon = 3
 }

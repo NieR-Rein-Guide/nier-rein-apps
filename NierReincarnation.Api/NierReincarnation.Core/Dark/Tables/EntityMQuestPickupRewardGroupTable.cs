@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMQuestPickupRewardGroupTable : TableBase<EntityMQuestPickupRewardGroup>
-    {
-        private readonly Func<EntityMQuestPickupRewardGroup, (int, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMQuestPickupRewardGroupTable(EntityMQuestPickupRewardGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.QuestPickupRewardGroupId, element.SortOrder);
-        }
+public class EntityMQuestPickupRewardGroupTable : TableBase<EntityMQuestPickupRewardGroup>
+{
+    private readonly Func<EntityMQuestPickupRewardGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMQuestPickupRewardGroupTable(EntityMQuestPickupRewardGroup[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.QuestPickupRewardGroupId, element.SortOrder);
     }
 }

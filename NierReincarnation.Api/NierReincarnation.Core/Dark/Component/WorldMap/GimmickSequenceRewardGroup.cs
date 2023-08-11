@@ -1,17 +1,16 @@
-﻿namespace NierReincarnation.Core.Dark.Component.WorldMap
+﻿namespace NierReincarnation.Core.Dark.Component.WorldMap;
+
+public struct GimmickSequenceRewardGroup
 {
-    public struct GimmickSequenceRewardGroup
+    public int GimmickSequenceRewardGroupId { get; set; }
+
+    public void Reset()
     {
-        public int GimmickSequenceRewardGroupId { get; set; }
+        GimmickSequenceRewardGroupId = GimmickConstant.kInvalidId;
+    }
 
-        public void Reset()
-        {
-            GimmickSequenceRewardGroupId = GimmickConstant.kInvalidId;
-        }
-
-        public bool IsEnable()
-        {
-            return GimmickSequenceRewardGroupId != GimmickConstant.kInvalidId;
-        }
+    public bool IsEnable()
+    {
+        return GimmickSequenceRewardGroupId != GimmickConstant.kInvalidId;
     }
 }

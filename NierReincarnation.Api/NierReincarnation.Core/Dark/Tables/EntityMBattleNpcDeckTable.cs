@@ -3,18 +3,17 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMBattleNpcDeckTable : TableBase<EntityMBattleNpcDeck>
 {
-    public class EntityMBattleNpcDeckTable : TableBase<EntityMBattleNpcDeck>
+    private readonly Func<EntityMBattleNpcDeck, (long, DeckType, int)> primaryIndexSelector;
+
+    public EntityMBattleNpcDeckTable(EntityMBattleNpcDeck[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMBattleNpcDeck, (long, DeckType, int)> primaryIndexSelector;
-
-        public EntityMBattleNpcDeckTable(EntityMBattleNpcDeck[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.BattleNpcId, element.DeckType, element.BattleNpcDeckNumber);
-        }
-
-        public EntityMBattleNpcDeck FindByBattleNpcIdAndDeckTypeAndBattleNpcDeckNumber(ValueTuple<long, DeckType, int> key) =>
-            FindUniqueCore(data, primaryIndexSelector, Comparer<(long, DeckType, int)>.Default, key);
+        primaryIndexSelector = element => (element.BattleNpcId, element.DeckType, element.BattleNpcDeckNumber);
     }
+
+    public EntityMBattleNpcDeck FindByBattleNpcIdAndDeckTypeAndBattleNpcDeckNumber(ValueTuple<long, DeckType, int> key) =>
+        FindUniqueCore(data, primaryIndexSelector, Comparer<(long, DeckType, int)>.Default, key);
 }

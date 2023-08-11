@@ -1,11 +1,10 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum PriceType
 {
-    public enum PriceType
-    {
-        UNKNOWN = 0,
-        CONSUMABLE_ITEM = 1,
-        GEM = 2,
-        PAID_GEM = 3,
-        PLATFORM_PAYMENT = 4
-    }
+    UNKNOWN = 0,
+    CONSUMABLE_ITEM = 1,
+    GEM = 2,
+    PAID_GEM = 3,
+    PLATFORM_PAYMENT = 4
 }

@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMQuestDisplayAttributeGroupTable : TableBase<EntityMQuestDisplayAttributeGroup>
-    {
-        private readonly Func<EntityMQuestDisplayAttributeGroup, (int, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMQuestDisplayAttributeGroupTable(EntityMQuestDisplayAttributeGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.QuestDisplayAttributeGroupId, element.SortOrder);
-        }
+public class EntityMQuestDisplayAttributeGroupTable : TableBase<EntityMQuestDisplayAttributeGroup>
+{
+    private readonly Func<EntityMQuestDisplayAttributeGroup, (int, int)> primaryIndexSelector;
+
+    public EntityMQuestDisplayAttributeGroupTable(EntityMQuestDisplayAttributeGroup[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.QuestDisplayAttributeGroupId, element.SortOrder);
     }
 }

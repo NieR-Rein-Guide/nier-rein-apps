@@ -1,10 +1,9 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum QuestBonusType
 {
-    public enum QuestBonusType
-    {
-        UNKNOWN = 0,
-        ABILITY = 1,
-        EXP = 2,
-        DROP_REWARD = 3
-    }
+    UNKNOWN = 0,
+    ABILITY = 1,
+    EXP = 2,
+    DROP_REWARD = 3
 }

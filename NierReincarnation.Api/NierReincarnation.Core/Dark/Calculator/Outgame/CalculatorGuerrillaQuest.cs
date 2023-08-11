@@ -7,93 +7,92 @@ using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
-namespace NierReincarnation.Core.Dark.Calculator.Outgame
+namespace NierReincarnation.Core.Dark.Calculator.Outgame;
+
+public static class CalculatorGuerrillaQuest
 {
-    public static class CalculatorGuerrillaQuest
+    public static readonly int kDefaultFreeOpenRemainCount = 0;
+    private static readonly int kDefaultFreeOpenMaxCount = 1;
+    private static readonly int kDefaultGuerrillaFreeOpenOpeningTimeMinutes = 60;
+
+    // TODO: Implement
+    public static bool IsValidGuerrillaQuestTerm(int eventQuestId, long userId)
     {
-        public static readonly int kDefaultFreeOpenRemainCount = 0;
-        private static readonly int kDefaultFreeOpenMaxCount = 1;
-        private static readonly int kDefaultGuerrillaFreeOpenOpeningTimeMinutes = 60;
+        throw new NotImplementedException();
+        //if (!TryGetQuestMaxEndTime(eventQuestId, 0, out var maxEndTime) &&
+        //    !IsQuestWithinTermByGuerrillaFreeOpenScheduleCorrespondence(eventQuestId) ||
+        //    !IsTermGuerrillaFreeOpenByQuestId(eventQuestId, userId))
+        //    return false;
 
-        // TODO: Implement
-        public static bool IsValidGuerrillaQuestTerm(int eventQuestId, long userId)
-        {
-            throw new NotImplementedException();
-            //if (!TryGetQuestMaxEndTime(eventQuestId, 0, out var maxEndTime) &&
-            //    !IsQuestWithinTermByGuerrillaFreeOpenScheduleCorrespondence(eventQuestId) ||
-            //    !IsTermGuerrillaFreeOpenByQuestId(eventQuestId, userId))
-            //    return false;
+        //return true;
+    }
 
-            //return true;
-        }
+    public static int GetFreeOpenRemainCount(long userId)
+    {
+        if (!TryGetGuerrillaFreeOpen(out var freeOpen))
+            return kDefaultFreeOpenRemainCount;
 
-        public static int GetFreeOpenRemainCount(long userId)
-        {
-            if (!TryGetGuerrillaFreeOpen(out var freeOpen))
-                return kDefaultFreeOpenRemainCount;
-
-            if (!TryGetUserGuerrillaFreeOpen(userId, out var userFreeOpen))
-                return freeOpen.DailyOpenMaxCount;
-
-            return freeOpen.DailyOpenMaxCount - userFreeOpen.DailyOpenedCount;
-        }
-
-        public static int GetFreeOpenMaxCount()
-        {
-            if (!TryGetGuerrillaFreeOpen(out var freeOpen))
-                return kDefaultFreeOpenMaxCount;
-
+        if (!TryGetUserGuerrillaFreeOpen(userId, out var userFreeOpen))
             return freeOpen.DailyOpenMaxCount;
-        }
 
-        public static string GetGuerrillaFreeOpenOpeningTime()
+        return freeOpen.DailyOpenMaxCount - userFreeOpen.DailyOpenedCount;
+    }
+
+    public static int GetFreeOpenMaxCount()
+    {
+        if (!TryGetGuerrillaFreeOpen(out var freeOpen))
+            return kDefaultFreeOpenMaxCount;
+
+        return freeOpen.DailyOpenMaxCount;
+    }
+
+    public static string GetGuerrillaFreeOpenOpeningTime()
+    {
+        if (!TryGetGuerrillaFreeOpen(out var freeOpen))
+            return UserInterfaceTextKey.Common.kTimeMinute.LocalizeWithParams(kDefaultGuerrillaFreeOpenOpeningTimeMinutes);
+
+        var openMinutes = freeOpen.OpenMinutes;
+        var spanMinutes = TimeSpan.FromMinutes(openMinutes);
+
+        return CalculatorDateTime.GetRemainTimeHmStringWithoutZero(spanMinutes);
+    }
+
+    public static string GetGuerrillaQuestTimeTableText(int eventQuestChapterId)
+    {
+        var result = string.Empty;
+
+        var terms = CalculatorQuest.GetCurrentEventChapterTodayTimeTable(eventQuestChapterId);
+        for (var i = 0; i < terms.Count; i++)
         {
-            if (!TryGetGuerrillaFreeOpen(out var freeOpen))
-                return UserInterfaceTextKey.Common.kTimeMinute.LocalizeWithParams(kDefaultGuerrillaFreeOpenOpeningTimeMinutes);
+            var term = terms[i];
+            var timeTableFormat = CalculatorDateTime.DateTimeFormatTimeTable;
 
-            var openMinutes = freeOpen.OpenMinutes;
-            var spanMinutes = TimeSpan.FromMinutes(openMinutes);
+            var formattedStartTime = CalculatorDateTime.ToLocal(term.Start).ToString(timeTableFormat);
+            var formattedEndTime = CalculatorDateTime.ToLocal(term.End).ToString(timeTableFormat);
 
-            return CalculatorDateTime.GetRemainTimeHmStringWithoutZero(spanMinutes);
+            result += UserInterfaceTextKey.Quest.kEventQuestHoldTermTemplate.LocalizeWithParams(i + 1, formattedStartTime, formattedEndTime) + Environment.NewLine;
         }
 
-        public static string GetGuerrillaQuestTimeTableText(int eventQuestChapterId)
-        {
-            var result = string.Empty;
+        return result;
+    }
 
-            var terms = CalculatorQuest.GetCurrentEventChapterTodayTimeTable(eventQuestChapterId);
-            for (var i = 0; i < terms.Count; i++)
-            {
-                var term = terms[i];
-                var timeTableFormat = CalculatorDateTime.DateTimeFormatTimeTable;
+    public static int GetGuerrillaEventChapterId()
+    {
+        var guerillaChapter = CalculatorQuest.GetEventQuestChapters(EventQuestType.GUERRILLA);
+        return guerillaChapter.First().EventQuestChapterId;
+    }
 
-                var formattedStartTime = CalculatorDateTime.ToLocal(term.Start).ToString(timeTableFormat);
-                var formattedEndTime = CalculatorDateTime.ToLocal(term.End).ToString(timeTableFormat);
+    private static bool TryGetGuerrillaFreeOpen(out EntityMEventQuestGuerrillaFreeOpen resultGuerrillaFreeOpenEntity)
+    {
+        resultGuerrillaFreeOpenEntity = DatabaseDefine.Master.EntityMEventQuestGuerrillaFreeOpenTable.All.FirstOrDefault(x => CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime));
 
-                result += UserInterfaceTextKey.Quest.kEventQuestHoldTermTemplate.LocalizeWithParams(i + 1, formattedStartTime, formattedEndTime) + Environment.NewLine;
-            }
+        return resultGuerrillaFreeOpenEntity != null;
+    }
 
-            return result;
-        }
-
-        public static int GetGuerrillaEventChapterId()
-        {
-            var guerillaChapter = CalculatorQuest.GetEventQuestChapters(EventQuestType.GUERRILLA);
-            return guerillaChapter.First().EventQuestChapterId;
-        }
-
-        private static bool TryGetGuerrillaFreeOpen(out EntityMEventQuestGuerrillaFreeOpen resultGuerrillaFreeOpenEntity)
-        {
-            resultGuerrillaFreeOpenEntity = DatabaseDefine.Master.EntityMEventQuestGuerrillaFreeOpenTable.All.FirstOrDefault(x => CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime));
-
-            return resultGuerrillaFreeOpenEntity != null;
-        }
-
-        private static bool TryGetUserGuerrillaFreeOpen(long userId, out EntityIUserEventQuestGuerrillaFreeOpen guerrillaFreeOpen)
-        {
-            return DatabaseDefine.User.EntityIUserEventQuestGuerrillaFreeOpenTable.TryFindByUserId(userId, out guerrillaFreeOpen)
-                ? CalculatorDateTime.IsAfterTodaySpanningTime(guerrillaFreeOpen.StartDatetime)
-                : false;
-        }
+    private static bool TryGetUserGuerrillaFreeOpen(long userId, out EntityIUserEventQuestGuerrillaFreeOpen guerrillaFreeOpen)
+    {
+        return DatabaseDefine.User.EntityIUserEventQuestGuerrillaFreeOpenTable.TryFindByUserId(userId, out guerrillaFreeOpen)
+            ? CalculatorDateTime.IsAfterTodaySpanningTime(guerrillaFreeOpen.StartDatetime)
+            : false;
     }
 }

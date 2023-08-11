@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.View.UserInterface
+﻿namespace NierReincarnation.Core.Dark.View.UserInterface;
+
+public enum CampaignType
 {
-    public enum CampaignType
-    {
-        Unknown = 0,
-        Quest = 1,
-        Enhance = 2,
-    }
+    Unknown = 0,
+    Quest = 1,
+    Enhance = 2,
 }

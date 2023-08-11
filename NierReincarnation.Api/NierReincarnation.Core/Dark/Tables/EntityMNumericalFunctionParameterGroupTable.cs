@@ -2,20 +2,19 @@ using NierReincarnation.Core.MasterMemory;
 using System;
 using System.Collections.Generic;
 
-namespace NierReincarnation.Core.Dark.Tables
+namespace NierReincarnation.Core.Dark.Tables;
+
+public class EntityMNumericalFunctionParameterGroupTable : TableBase<EntityMNumericalFunctionParameterGroup>
 {
-    public class EntityMNumericalFunctionParameterGroupTable : TableBase<EntityMNumericalFunctionParameterGroup>
+    private readonly Func<EntityMNumericalFunctionParameterGroup, (int, int)> primaryIndexSelector;
+    private readonly Func<EntityMNumericalFunctionParameterGroup, int> secondaryIndexSelector;
+
+    public EntityMNumericalFunctionParameterGroupTable(EntityMNumericalFunctionParameterGroup[] sortedData) : base(sortedData)
     {
-        private readonly Func<EntityMNumericalFunctionParameterGroup, (int, int)> primaryIndexSelector;
-        private readonly Func<EntityMNumericalFunctionParameterGroup, int> secondaryIndexSelector;
-
-        public EntityMNumericalFunctionParameterGroupTable(EntityMNumericalFunctionParameterGroup[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.NumericalFunctionParameterGroupId, element.ParameterIndex);
-            secondaryIndexSelector = element => element.NumericalFunctionParameterGroupId;
-        }
-
-        public RangeView<EntityMNumericalFunctionParameterGroup> FindByNumericalFunctionParameterGroupId(int key) =>
-            FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
+        primaryIndexSelector = element => (element.NumericalFunctionParameterGroupId, element.ParameterIndex);
+        secondaryIndexSelector = element => element.NumericalFunctionParameterGroupId;
     }
+
+    public RangeView<EntityMNumericalFunctionParameterGroup> FindByNumericalFunctionParameterGroupId(int key) =>
+        FindManyCore(data, secondaryIndexSelector, Comparer<int>.Default, key);
 }

@@ -1,15 +1,14 @@
 using NierReincarnation.Core.MasterMemory;
 using System;
 
-namespace NierReincarnation.Core.Dark.Tables
-{
-    public class EntityMMaterialSaleObtainPossessionTable : TableBase<EntityMMaterialSaleObtainPossession>
-    {
-        private readonly Func<EntityMMaterialSaleObtainPossession, (int, int)> primaryIndexSelector;
+namespace NierReincarnation.Core.Dark.Tables;
 
-        public EntityMMaterialSaleObtainPossessionTable(EntityMMaterialSaleObtainPossession[] sortedData) : base(sortedData)
-        {
-            primaryIndexSelector = element => (element.MaterialSaleObtainPossessionId, element.SortOrder);
-        }
+public class EntityMMaterialSaleObtainPossessionTable : TableBase<EntityMMaterialSaleObtainPossession>
+{
+    private readonly Func<EntityMMaterialSaleObtainPossession, (int, int)> primaryIndexSelector;
+
+    public EntityMMaterialSaleObtainPossessionTable(EntityMMaterialSaleObtainPossession[] sortedData) : base(sortedData)
+    {
+        primaryIndexSelector = element => (element.MaterialSaleObtainPossessionId, element.SortOrder);
     }
 }

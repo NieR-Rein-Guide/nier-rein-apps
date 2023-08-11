@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum BattleSchemeType
 {
-    public enum BattleSchemeType
-    {
-        UNKNOWN = 0,
-        DEFAULT = 1,
-        PVP = 2
-    }
+    UNKNOWN = 0,
+    DEFAULT = 1,
+    PVP = 2
 }

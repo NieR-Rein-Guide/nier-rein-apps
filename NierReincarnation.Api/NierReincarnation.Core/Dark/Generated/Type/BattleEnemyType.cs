@@ -1,9 +1,8 @@
-﻿namespace NierReincarnation.Core.Dark.Generated.Type
+﻿namespace NierReincarnation.Core.Dark.Generated.Type;
+
+public enum BattleEnemyType
 {
-    public enum BattleEnemyType
-    {
-        UNKNOWN = 0,
-        NORMAL = 1,
-        BOSS = 2
-    }
+    UNKNOWN = 0,
+    NORMAL = 1,
+    BOSS = 2
 }
