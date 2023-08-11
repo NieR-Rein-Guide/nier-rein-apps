@@ -1,29 +1,28 @@
-﻿namespace NierReincarnation.Core.Subsystem.Serval
+﻿namespace NierReincarnation.Core.Subsystem.Serval;
+
+public static class UserServal
 {
-    public static class UserServal
+    public static (long, long) calcCurrentStaminaMilliValueAndMaxRecoveryDatetime(long lastStaminaMilli,
+        long lastDatetime, long maxStaminaMilli, long nowDatetime, int staminaRecoverySecond)
     {
-        public static (long, long) calcCurrentStaminaMilliValueAndMaxRecoveryDatetime(long lastStaminaMilli,
-            long lastDatetime, long maxStaminaMilli, long nowDatetime, int staminaRecoverySecond)
+        if (lastStaminaMilli < maxStaminaMilli)
         {
-            if (lastStaminaMilli < maxStaminaMilli)
+            var local = 0L;
+            if (staminaRecoverySecond != 0)
+                local = (nowDatetime - lastDatetime) / staminaRecoverySecond;
+
+            local += lastStaminaMilli;
+
+            lastStaminaMilli = maxStaminaMilli;
+            lastDatetime = nowDatetime;
+
+            if (local < maxStaminaMilli)
             {
-                var local = 0L;
-                if (staminaRecoverySecond != 0)
-                    local = (nowDatetime - lastDatetime) / staminaRecoverySecond;
-
-                local += lastStaminaMilli;
-
-                lastStaminaMilli = maxStaminaMilli;
-                lastDatetime = nowDatetime;
-
-                if (local < maxStaminaMilli)
-                {
-                    lastStaminaMilli = local;
-                    lastDatetime = nowDatetime + ((maxStaminaMilli - local) * staminaRecoverySecond);
-                }
+                lastStaminaMilli = local;
+                lastDatetime = nowDatetime + ((maxStaminaMilli - local) * staminaRecoverySecond);
             }
-
-            return (lastStaminaMilli, lastDatetime);
         }
+
+        return (lastStaminaMilli, lastDatetime);
     }
 }

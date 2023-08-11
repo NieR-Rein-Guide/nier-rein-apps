@@ -1,12 +1,11 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 
-namespace NierReincarnation.Core.Subsystem.Serval
+namespace NierReincarnation.Core.Subsystem.Serval;
+
+public static class CharacterServal
 {
-    public static class CharacterServal
+    public static int calcMaxLevel(NumericalFunctionType functionType, int[] functionParameters)
     {
-        public static int calcMaxLevel(NumericalFunctionType functionType, int[] functionParameters)
-        {
-            return FunctionsServal.calcParameter(functionType, functionParameters, new int[1]);
-        }
+        return FunctionsServal.calcParameter(functionType, functionParameters, new int[1]);
     }
 }

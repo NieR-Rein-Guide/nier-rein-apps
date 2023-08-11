@@ -1,77 +1,26 @@
-﻿namespace NierReincarnation.Core.DeviceUtil
+﻿namespace NierReincarnation.Core.DeviceUtil;
+
+public static class DeviceUtil
 {
-    // DeviceUtil.DeviceUtil
-    static class DeviceUtil
-    {
-        private static string _mdcs;
+    private static string _mdcs;
 
-        public static bool GetIjb()
-        {
-            return false;
-        }
+    public static bool GetIjb() => false;
 
-        public static bool GetHig()
-        {
-            return false;
-        }
+    public static bool GetHig() => false;
 
-        public static string GetAcs()
-        {
-            // using var javaObject = new UnityEngine.AndroidJavaObject("com.nekolaboratory.Seeker.Seeker", Array.Empty<object>());
-            // return javaObject.Call("sType");
+    public static string GetAcs() => string.Empty;
 
-            // TODO: Get static value
-            return string.Empty;
-        }
+    public static bool GetPer() => false;
 
-        public static bool GetPer()
-        {
-            // using var javaObject = new UnityEngine.AndroidJavaObject("com.nekolaboratory.Seek.Seeker", Array.Empty<object>());
-            // return javaObject.Call("pType");
+    public static bool GetImu() => false;
 
-            return false;
-        }
+    public static bool GetIr() => false;
 
-        public static bool GetImu()
-        {
-            // using var javaObject = new UnityEngine.AndroidJavaObject("com.nekolaboratory.Seeker.Seeker", Array.Empty<object>());
-            // return javaObject.Call("eType");
+    public static bool GetIda() => false;
 
-            return false;
-        }
+    public static string[] GetMsl() => Array.Empty<string>();
 
-        public static bool GetIr()
-        {
-            // using var javaObject = new UnityEngine.AndroidJavaObject("com.nekolaboratory.Seeker.Seeker", Array.Empty<object>());
-            // return javaObject.Call("rType");
+    public static string GetIcs() => string.Empty;
 
-            return false;
-        }
-
-        public static bool GetIda()
-        {
-            // using var javaObject = new UnityEngine.AndroidJavaObject("com.nekolaboratory.Seeker.Seeker", Array.Empty<object>());
-            // return javaObject.Call("dType");
-
-            return false;
-        }
-
-        public static string[] GetMsl()
-        {
-            return new string[0];
-
-            // Unreachable code in assembly?
-            //var delimiter = ",";
-        }
-
-        public static string GetIcs()
-        {
-            return string.Empty;
-        }
-
-        public static void SetMdcs(string version, string checksum)
-        {
-            _mdcs = $"{{\"v\": \"{version}\", \"cs\": \"{checksum}\"}}";
-        }
-    }
+    public static void SetMdcs(string version, string checksum) => _mdcs = $"{{\"v\": \"{version}\", \"cs\": \"{checksum}\"}}";
 }

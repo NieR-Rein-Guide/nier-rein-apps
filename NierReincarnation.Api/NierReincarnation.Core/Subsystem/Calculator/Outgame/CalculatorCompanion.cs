@@ -1,290 +1,286 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark;
+﻿using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 
-namespace NierReincarnation.Core.Subsystem.Calculator.Outgame
+namespace NierReincarnation.Core.Subsystem.Calculator.Outgame;
+
+public static class CalculatorCompanion
 {
-    public static class CalculatorCompanion
+    private static readonly int kInvalidCompanionId;
+    private static readonly int kSkillMinLevel = 1;
+    private static readonly int kAbilityMinLevel = 1;
+
+    // CUSTOM: Enumerate companion base info
+    public static IEnumerable<DataOutgameCompanionInfo> EnumerateCompanionInfo(long userId)
     {
-        private static readonly int kInvalidCompanionId = 0; // 0x0
-        private static readonly int kSkillMinLevel = 1; // 0x4
-        private static readonly int kAbilityMinLevel = 1; // 0x8
-
-        // CUSTOM: Enumerate companion base info
-        public static IEnumerable<DataOutgameCompanionInfo> EnumerateCompanionInfo(long userId)
+        foreach (var companion in DatabaseDefine.User.EntityIUserCompanionTable.All)
         {
-            foreach (var companion in DatabaseDefine.User.EntityIUserCompanionTable.All)
-            {
-                if (companion.UserId != userId)
-                    continue;
+            if (companion.UserId != userId)
+                continue;
 
-                yield return CreateDataOutgameCompanionInfo(companion);
-            }
+            yield return CreateDataOutgameCompanionInfo(companion);
         }
+    }
 
-        // CUSTOM: Create companion base info
-        public static DataOutgameCompanionInfo CreateDataOutgameCompanionInfo(long userId, string companionUuid)
+    // CUSTOM: Create companion base info
+    public static DataOutgameCompanionInfo CreateDataOutgameCompanionInfo(long userId, string companionUuid)
+    {
+        if (string.IsNullOrEmpty(companionUuid))
+            return null;
+
+        return CreateDataOutgameCompanionInfo(DatabaseDefine.User.EntityIUserCompanionTable.FindByUserIdAndUserCompanionUuid((userId, companionUuid)));
+    }
+
+    // CUSTOM: Create companion base info
+    private static DataOutgameCompanionInfo CreateDataOutgameCompanionInfo(EntityIUserCompanion companion)
+    {
+        var masterCompanion = GetEntityMCompanion(companion.CompanionId);
+        return new DataOutgameCompanionInfo
         {
-            if (string.IsNullOrEmpty(companionUuid))
-                return null;
+            UserCompanionUuid = companion.UserCompanionUuid,
+            Attribute = masterCompanion.AttributeType,
+            CompanionId = companion.CompanionId,
+            Level = companion.Level,
+            ActorAssetId = ActorAssetId(masterCompanion)
+        };
+    }
 
-            return CreateDataOutgameCompanionInfo(DatabaseDefine.User.EntityIUserCompanionTable.FindByUserIdAndUserCompanionUuid((userId, companionUuid)));
-        }
+    public static DataOutgameCompanion CreateDataOutgameCompanion(long userId, string uuid)
+    {
+        var userCompanion = GetEntityIUserCompanion(userId, uuid);
+        if (userCompanion == null)
+            return null;
 
-        // CUSTOM: Create companion base info
-        private static DataOutgameCompanionInfo CreateDataOutgameCompanionInfo(EntityIUserCompanion companion)
+        return CreateDataOutgameCompanion(userCompanion);
+    }
+
+    private static EntityIUserCompanion GetEntityIUserCompanion(long userId, string uuid)
+    {
+        var table = DatabaseDefine.User.EntityIUserCompanionTable;
+        return table.FindByUserIdAndUserCompanionUuid((userId, uuid));
+    }
+
+    private static DataOutgameCompanion CreateDataOutgameCompanion(EntityIUserCompanion entityIUserCompanion)
+    {
+        var id = entityIUserCompanion.CompanionId;
+        var masterCompanion = GetEntityMCompanion(id);
+
+        var companion = CreateDataOutgameCompanion(masterCompanion, entityIUserCompanion.Level, entityIUserCompanion.AcquisitionDatetime);
+        companion.UserCompanionUuid = entityIUserCompanion.UserCompanionUuid;
+
+        return companion;
+    }
+
+    private static DataOutgameCompanion CreateDataOutgameCompanion(EntityMCompanion entityMCompanion, int level, long acquisitionDatetime = 0)
+    {
+        var parameter = CreateDataOutgameCompanionParameter(entityMCompanion, level);
+
+        parameter.CompanionSkill = GetCompanionSkill(entityMCompanion.SkillId, level);
+        parameter.CompanionAbility = GetCompanionAbility(entityMCompanion, level);
+
+        UpdateStatusValue(parameter);
+        parameter.AcquisitionDatetime = acquisitionDatetime;
+
+        return parameter;
+    }
+
+    // CUSTOM: Get companion skill
+    public static DataSkill GetCompanionSkill(int skillId, int companionLevel)
+    {
+        var compSkillLevel = GetEntityMCompanionSkillLevel(companionLevel);
+        var compMaxSkillLevel = GetCompanionMaxSkillLevel();
+
+        return CalculatorSkill.CreateDataCompanionSkill(skillId, compSkillLevel.SkillLevel, compMaxSkillLevel);
+    }
+
+    // CUSTOM: Get companion ability
+    public static DataAbility GetCompanionAbility(EntityMCompanion entityMCompanion, int companionLevel)
+    {
+        var compAbility = GetEntityMCompanionAbility(entityMCompanion);
+        var compAbilityLevel = GetEntityMCompanionAbilityLevel(companionLevel);
+        var compMaxAbilityLevel = GetCompanionMaxAbilityLevel();
+
+        return CalculatorAbility.CreateDataAbility(compAbility.AbilityId, compAbilityLevel.AbilityLevel, compMaxAbilityLevel);
+    }
+
+    private static DataOutgameCompanion CreateDataOutgameCompanionParameter(EntityMCompanion entityMCompanion, int level)
+    {
+        var result = new DataOutgameCompanion();
+
+        var actorAssetId = ActorAssetId(entityMCompanion);
+        var category = GetEntityMCompanionCategory(entityMCompanion.CompanionCategoryType);
+        var name = GetName(actorAssetId);
+
+        result.Name = name;
+        result.CompanionId = entityMCompanion.CompanionId;
+        result.CompanionStatus ??= GetDataCompanionStatus(entityMCompanion);
+        result.CompanionStatus.Level = level;
+
+        result.MaxLevel = 50;
+        result.Description = GetDescription(actorAssetId);
+        result.EnhancementCostNumericalFunctionId = category.EnhancementCostNumericalFunctionId;
+        result.ActorAssetId = actorAssetId;
+        result.CategoryType = category.CompanionCategoryType;
+
+        return result;
+    }
+
+    // CUSTOM: Get easier access to companion status information
+    public static DataCompanionStatus GetDataCompanionStatus(EntityMCompanion companion)
+    {
+        var status = GetEntityMCompanionStatus(companion.CompanionId);
+
+        return new DataCompanionStatus
         {
-            var masterCompanion = GetEntityMCompanion(companion.CompanionId);
-            return new DataOutgameCompanionInfo
-            {
-                UserCompanionUuid = companion.UserCompanionUuid,
-                Attribute = masterCompanion.AttributeType,
-                CompanionId = companion.CompanionId,
-                Level = companion.Level,
-                ActorAssetId = ActorAssetId(masterCompanion)
-            };
-        }
+            AttributeType = companion.AttributeType,
+            StatusCalculationSettings = CalculatorCalculationSetting.CreateCompanionStatusCalculationSetting(companion, status)
+        };
+    }
 
-        public static DataOutgameCompanion CreateDataOutgameCompanion(long userId, string uuid)
-        {
-            var userCompanion = GetEntityIUserCompanion(userId, uuid);
-            if (userCompanion == null)
-                return null;
+    public static ActorAssetId ActorAssetId(EntityMCompanion entityMCompanion)
+    {
+        var skeletonId = new SkeletonId(SkeletonId.SkeletonCategory.Companion, entityMCompanion.ActorSkeletonId);
+        return new ActorAssetId(skeletonId, entityMCompanion.AssetVariationId);
+    }
 
-            return CreateDataOutgameCompanion(userCompanion);
-        }
+    private static EntityMCompanionBaseStatus GetEntityMCompanionStatus(int companionId)
+    {
+        var companion = GetEntityMCompanion(companionId);
 
-        private static EntityIUserCompanion GetEntityIUserCompanion(long userId, string uuid)
-        {
-            var table = DatabaseDefine.User.EntityIUserCompanionTable;
-            return table.FindByUserIdAndUserCompanionUuid((userId, uuid));
-        }
+        var table = DatabaseDefine.Master.EntityMCompanionBaseStatusTable;
+        return table.FindByCompanionBaseStatusId(companion.CompanionBaseStatusId);
+    }
 
-        private static DataOutgameCompanion CreateDataOutgameCompanion(EntityIUserCompanion entityIUserCompanion)
-        {
-            var id = entityIUserCompanion.CompanionId;
-            var masterCompanion = GetEntityMCompanion(id);
+    private static EntityMCompanionCategory GetEntityMCompanionCategory(int companionCategoryType)
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionCategoryTable;
+        return table.FindByCompanionCategoryType(companionCategoryType);
+    }
 
-            var companion = CreateDataOutgameCompanion(masterCompanion, entityIUserCompanion.Level, entityIUserCompanion.AcquisitionDatetime);
-            companion.UserCompanionUuid = entityIUserCompanion.UserCompanionUuid;
+    private static EntityMAbility GetEntityMCompanionAbility(EntityMCompanion mCompanion)
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionAbilityGroupTable;
+        var group = table.FindByCompanionAbilityGroupIdAndSlotNumber((mCompanion.CompanionAbilityGroupId, 1));
 
-            return companion;
-        }
+        var table2 = DatabaseDefine.Master.EntityMAbilityTable;
+        return table2.FindByAbilityId(group.AbilityId);
+    }
 
-        private static DataOutgameCompanion CreateDataOutgameCompanion(EntityMCompanion entityMCompanion, int level, long acquisitionDatetime = 0)
-        {
-            var parameter = CreateDataOutgameCompanionParameter(entityMCompanion, level);
+    public static EntityMCompanionAbilityLevel GetEntityMCompanionAbilityLevel(int companionLevel)
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionAbilityLevelTable;
+        var range = table.FindRangeByCompanionLevelLowerLimit(0, companionLevel);
 
-            parameter.CompanionSkill = GetCompanionSkill(entityMCompanion.SkillId, level);
-            parameter.CompanionAbility = GetCompanionAbility(entityMCompanion, level);
+        return range.OrderByDescending(x => x.CompanionLevelLowerLimit).FirstOrDefault();
+    }
 
-            UpdateStatusValue(parameter);
-            parameter.AcquisitionDatetime = acquisitionDatetime;
+    public static EntityMCompanionSkillLevel GetEntityMCompanionSkillLevel(int companionLevel)
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionSkillLevelTable;
+        var range = table.FindRangeByCompanionLevelLowerLimit(0, companionLevel);
 
-            return parameter;
-        }
+        return range.OrderByDescending(x => x.CompanionLevelLowerLimit).FirstOrDefault();
+    }
 
-        // CUSTOM: Get companion skill
-        public static DataSkill GetCompanionSkill(int skillId, int companionLevel)
-        {
-            var compSkillLevel = GetEntityMCompanionSkillLevel(companionLevel);
-            var compMaxSkillLevel = GetCompanionMaxSkillLevel();
+    public static DataOutgameCompanion CreateDataOutgameNpcCompanion(EntityMBattleNpcCompanion entityNpcCompanion)
+    {
+        var masterCompanion = GetEntityMCompanion(entityNpcCompanion.CompanionId);
+        if (entityNpcCompanion.AcquisitionDatetime == 0)
+            throw new ArgumentNullException("Invalid acquisition time for NPC companion.");
 
-            return CalculatorSkill.CreateDataCompanionSkill(skillId, compSkillLevel.SkillLevel, compMaxSkillLevel);
-        }
+        var npcCompanion = CreateDataOutgameCompanion(masterCompanion, entityNpcCompanion.Level, entityNpcCompanion.AcquisitionDatetime);
+        npcCompanion.UserCompanionUuid = entityNpcCompanion.BattleNpcCompanionUuid;
 
-        // CUSTOM: Get companion ability
-        public static DataAbility GetCompanionAbility(EntityMCompanion entityMCompanion, int companionLevel)
-        {
-            var compAbility = GetEntityMCompanionAbility(entityMCompanion);
-            var compAbilityLevel = GetEntityMCompanionAbilityLevel(companionLevel);
-            var compMaxAbilityLevel = GetCompanionMaxAbilityLevel();
+        return npcCompanion;
+    }
 
-            return CalculatorAbility.CreateDataAbility(compAbility.AbilityId, compAbilityLevel.AbilityLevel, compMaxAbilityLevel);
-        }
+    public static int GetCompanionMaxSkillLevel()
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionSkillLevelTable;
 
-        private static DataOutgameCompanion CreateDataOutgameCompanionParameter(EntityMCompanion entityMCompanion, int level)
-        {
-            var result = new DataOutgameCompanion();
+        var result = table.All.OrderBy(x => x.SkillLevel).LastOrDefault();
+        if (result == null)
+            return kSkillMinLevel;
 
-            var actorAssetId = ActorAssetId(entityMCompanion);
-            var category = GetEntityMCompanionCategory(entityMCompanion.CompanionCategoryType);
-            var name = GetName(actorAssetId);
+        return result.SkillLevel;
+    }
 
-            result.Name = name;
-            result.CompanionId = entityMCompanion.CompanionId;
-            result.CompanionStatus ??= GetDataCompanionStatus(entityMCompanion);
-            result.CompanionStatus.Level = level;
+    public static int GetCompanionMaxAbilityLevel()
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionAbilityLevelTable;
 
-            result.MaxLevel = 50;
-            result.Description = GetDescription(actorAssetId);
-            result.EnhancementCostNumericalFunctionId = category.EnhancementCostNumericalFunctionId;
-            result.ActorAssetId = actorAssetId;
-            result.CategoryType = category.CompanionCategoryType;
+        var level = table.All.OrderBy(x => x.AbilityLevel).LastOrDefault();
+        if (level == null)
+            return kAbilityMinLevel;
 
-            return result;
-        }
+        return level.AbilityLevel;
+    }
 
-        // CUSTOM: Get easier access to companion status information
-        public static DataCompanionStatus GetDataCompanionStatus(EntityMCompanion companion)
-        {
-            var status = GetEntityMCompanionStatus(companion.CompanionId);
+    public static void UpdateStatusValue(DataOutgameCompanion companion)
+    {
+        var status = CalculatorStatusOutgame.GetCompanionStatus(companion);
+        var power = CalculatorPower.CalculateIndividualCompanionPower(companion, status);
 
-            return new DataCompanionStatus
-            {
-                AttributeType = companion.AttributeType,
-                StatusCalculationSettings = CalculatorCalculationSetting.CreateCompanionStatusCalculationSetting(companion, status)
-            };
-        }
+        companion.Power = power;
+    }
 
-        public static ActorAssetId ActorAssetId(EntityMCompanion entityMCompanion)
-        {
-            var skeletonId = new SkeletonId(SkeletonId.SkeletonCategory.Companion, entityMCompanion.ActorSkeletonId);
-            return new ActorAssetId(skeletonId, entityMCompanion.AssetVariationId);
-        }
+    private static EntityMCompanion GetEntityMCompanion(int companionId)
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionTable;
+        return table.FindByCompanionId(companionId);
+    }
 
-        private static EntityMCompanionBaseStatus GetEntityMCompanionStatus(int companionId)
-        {
-            var companion = GetEntityMCompanion(companionId);
+    private static EntityMCompanionEnhanced GetEntityMCompanionEnhanced(int companionEnhancedId)
+    {
+        var table = DatabaseDefine.Master.EntityMCompanionEnhancedTable;
+        table.TryFindByCompanionEnhancedId(companionEnhancedId, out var result);
 
-            var table = DatabaseDefine.Master.EntityMCompanionBaseStatusTable;
-            return table.FindByCompanionBaseStatusId(companion.CompanionBaseStatusId);
-        }
+        return result;
+    }
 
-        private static EntityMCompanionCategory GetEntityMCompanionCategory(int companionCategoryType)
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionCategoryTable;
-            return table.FindByCompanionCategoryType(companionCategoryType);
-        }
+    private static string GetName(ActorAssetId actorAssetId)
+    {
+        return string.Format(UserInterfaceTextKey.Companion.kName, actorAssetId).Localize();
+    }
 
-        private static EntityMAbility GetEntityMCompanionAbility(EntityMCompanion mCompanion)
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionAbilityGroupTable;
-            var group = table.FindByCompanionAbilityGroupIdAndSlotNumber((mCompanion.CompanionAbilityGroupId, 1));
+    private static string GetDescription(ActorAssetId actorAssetId)
+    {
+        return string.Format(UserInterfaceTextKey.Companion.kDescription, actorAssetId).Localize();
+    }
 
-            var table2 = DatabaseDefine.Master.EntityMAbilityTable;
-            return table2.FindByAbilityId(group.AbilityId);
-        }
+    public static int GetCompanionIdByCompanionEnhancedId(int companionEnhancedId)
+    {
+        var enhance = GetEntityMCompanionEnhanced(companionEnhancedId);
+        if (enhance != null)
+            return enhance.CompanionId;
 
-        public static EntityMCompanionAbilityLevel GetEntityMCompanionAbilityLevel(int companionLevel)
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionAbilityLevelTable;
-            var range = table.FindRangeByCompanionLevelLowerLimit(0, companionLevel);
+        return kInvalidCompanionId;
+    }
 
-            return range.OrderByDescending(x => x.CompanionLevelLowerLimit).FirstOrDefault();
-        }
+    public static string CompanionName(int id)
+    {
+        var masterCompanion = GetEntityMCompanion(id);
+        if (masterCompanion == null)
+            return null;
 
-        public static EntityMCompanionSkillLevel GetEntityMCompanionSkillLevel(int companionLevel)
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionSkillLevelTable;
-            var range = table.FindRangeByCompanionLevelLowerLimit(0, companionLevel);
+        return GetName(ActorAssetId(masterCompanion));
+    }
 
-            return range.OrderByDescending(x => x.CompanionLevelLowerLimit).FirstOrDefault();
-        }
+    public static string GetCompanionCategoryName(int companionCategoryType)
+    {
+        return string.Format(UserInterfaceTextKey.Companion.kCategoryName, companionCategoryType).Localize();
+    }
 
-        public static DataOutgameCompanion CreateDataOutgameNpcCompanion(EntityMBattleNpcCompanion entityNpcCompanion)
-        {
-            var masterCompanion = GetEntityMCompanion(entityNpcCompanion.CompanionId);
-            if (entityNpcCompanion.AcquisitionDatetime == 0)
-                throw new ArgumentNullException("Invalid acquisition time for NPC companion.");
+    // CUSTOM: Getting the description of the companion like the name
+    public static string CompanionDescription(int id)
+    {
+        var masterCompanion = GetEntityMCompanion(id);
+        if (masterCompanion == null)
+            return null;
 
-            var npcCompanion = CreateDataOutgameCompanion(masterCompanion, entityNpcCompanion.Level, entityNpcCompanion.AcquisitionDatetime);
-            npcCompanion.UserCompanionUuid = entityNpcCompanion.BattleNpcCompanionUuid;
-
-            return npcCompanion;
-        }
-
-        public static int GetCompanionMaxSkillLevel()
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionSkillLevelTable;
-
-            var result = table.All.OrderBy(x => x.SkillLevel).LastOrDefault();
-            if (result == null)
-                return kSkillMinLevel;
-
-            return result.SkillLevel;
-        }
-
-        public static int GetCompanionMaxAbilityLevel()
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionAbilityLevelTable;
-
-            var level = table.All.OrderBy(x => x.AbilityLevel).LastOrDefault();
-            if (level == null)
-                return kAbilityMinLevel;
-
-            return level.AbilityLevel;
-        }
-
-        public static void UpdateStatusValue(DataOutgameCompanion companion)
-        {
-            var status = CalculatorStatusOutgame.GetCompanionStatus(companion);
-            var power = CalculatorPower.CalculateIndividualCompanionPower(companion, status);
-
-            companion.Power = power;
-        }
-
-        private static EntityMCompanion GetEntityMCompanion(int companionId)
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionTable;
-            return table.FindByCompanionId(companionId);
-        }
-
-        private static EntityMCompanionEnhanced GetEntityMCompanionEnhanced(int companionEnhancedId)
-        {
-            var table = DatabaseDefine.Master.EntityMCompanionEnhancedTable;
-            table.TryFindByCompanionEnhancedId(companionEnhancedId, out var result);
-
-            return result;
-        }
-
-        private static string GetName(ActorAssetId actorAssetId)
-        {
-            return string.Format(UserInterfaceTextKey.Companion.kName, actorAssetId).Localize();
-        }
-
-        private static string GetDescription(ActorAssetId actorAssetId)
-        {
-            return string.Format(UserInterfaceTextKey.Companion.kDescription, actorAssetId).Localize();
-        }
-
-        public static int GetCompanionIdByCompanionEnhancedId(int companionEnhancedId)
-        {
-            var enhance = GetEntityMCompanionEnhanced(companionEnhancedId);
-            if (enhance != null)
-                return enhance.CompanionId;
-
-            return kInvalidCompanionId;
-        }
-
-        public static string CompanionName(int id)
-        {
-            var masterCompanion = GetEntityMCompanion(id);
-            if (masterCompanion == null)
-                return null;
-
-            return GetName(ActorAssetId(masterCompanion));
-        }
-
-        public static string GetCompanionCategoryName(int companionCategoryType)
-        {
-            return string.Format(UserInterfaceTextKey.Companion.kCategoryName, companionCategoryType).Localize();
-        }
-
-        // CUSTOM: Getting the description of the companion like the name
-        public static string CompanionDescription(int id)
-        {
-            var masterCompanion = GetEntityMCompanion(id);
-            if (masterCompanion == null)
-                return null;
-
-            return GetDescription(ActorAssetId(masterCompanion));
-        }
+        return GetDescription(ActorAssetId(masterCompanion));
     }
 }
