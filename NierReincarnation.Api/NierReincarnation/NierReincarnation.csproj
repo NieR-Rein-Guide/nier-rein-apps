@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-	<NuspecFile>NierReincarnation.nuspec</NuspecFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <NuspecFile>NierReincarnation.nuspec</NuspecFile>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Selenium.WebDriver" Version="4.10.0" />
-    <PackageReference Include="WebDriverManager" Version="2.16.3" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Selenium.WebDriver" Version="4.10.0" />
+        <PackageReference Include="WebDriverManager" Version="2.16.3" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NierReincarnation.Core\NierReincarnation.Core.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\NierReincarnation.Core\NierReincarnation.Core.csproj" />
+    </ItemGroup>
 
 </Project>
