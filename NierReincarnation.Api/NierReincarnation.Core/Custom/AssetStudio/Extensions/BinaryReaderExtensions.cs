@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace NierReincarnation.Core.AssetStudio;
+﻿namespace NierReincarnation.Core.AssetStudio;
 
 public static class BinaryReaderExtensions
 {

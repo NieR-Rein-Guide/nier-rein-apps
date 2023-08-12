@@ -5,37 +5,37 @@ using NierReincarnation.Core.UnityEngine;
 namespace NierReincarnation.Core.Dark.EntryPoint;
 
 // Dark.Entrypoint.Config
-static class Config
+internal static class Config
 {
     // CUSTOM: Added En and JP in same config. Use UnityEngine.Application.Language to select correct values
     public static class Api
     {
-       
         public static readonly string HostnameEn = "api.app.nierreincarnation.com";
         public static readonly string HostnameJp = "api.app.nierreincarnation.jp";
-       
+
         public static readonly int Port = 443;
-       
+
         public static readonly string WebViewBaseUrlEn = "https://web.app.nierreincarnation.com";
         public static readonly string WebViewBaseUrlJp = "https://web.app.nierreincarnation.jp";
-       
+
         public static readonly string MasterDataUrlFormatEn = "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin";
         public static readonly string MasterDataUrlFormatJp = "https://web.app.nierreincarnation.jp/assets/release/{0}/database.bin";
-       
+
         public static readonly string EncryptionMasterDataUrlSuffix = ".e";
-       
+
         public static readonly string WebPagePath = "/web";
-       
+
         public static readonly string InformationPagePath = "/information/?";
-       
+
         public static readonly string JaPagePath = "/ja";
-       
+
         public static readonly string EnPagePath = "/en";
-       
+
         public static readonly string KoPagePath = "/ko";
 
         // CUSTOM
         public static readonly string NotificationGetUrlEn = "https://api-web.app.nierreincarnation.com/api/information/list/get";
+
         public static readonly string NotificationGetUrlJp = "https://api-web.app.nierreincarnation.jp/api/information/list/get";
 
         public static readonly string NotificationDetailUrlEn = "https://api-web.app.nierreincarnation.com/api/information/detail/get";

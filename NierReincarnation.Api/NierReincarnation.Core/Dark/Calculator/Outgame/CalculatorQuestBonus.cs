@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Calculator.Database;
+﻿using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;

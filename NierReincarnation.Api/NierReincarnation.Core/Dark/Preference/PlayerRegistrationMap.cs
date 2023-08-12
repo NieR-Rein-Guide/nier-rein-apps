@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace NierReincarnation.Core.Dark.Preference;
 
 // Dark.Preference.PlayerRegistrationMap
 [JsonConverter(typeof(MapJsonConverter))]
-class PlayerRegistrationMap
+internal class PlayerRegistrationMap
 {
     private Dictionary<string, PlayerRegistration> _playerRegistrations;
 
@@ -41,7 +37,7 @@ class PlayerRegistrationMap
         return _playerRegistrations.TryGetValue(key, out player);
     }
 
-    class MapJsonConverter : JsonConverter
+    private class MapJsonConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {

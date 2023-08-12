@@ -1,9 +1,6 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
-using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
-using System;
-using System.Collections.Generic;
 using static NierReincarnation.Core.Dark.View.UserInterface.Text.UserInterfaceTextKey;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;

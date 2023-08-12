@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NierReincarnation.Core.Dark;
 

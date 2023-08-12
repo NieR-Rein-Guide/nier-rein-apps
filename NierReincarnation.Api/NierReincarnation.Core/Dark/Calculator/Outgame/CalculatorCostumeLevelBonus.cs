@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NierReincarnation.Core.Dark.Status;
+﻿using NierReincarnation.Core.Dark.Status;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 

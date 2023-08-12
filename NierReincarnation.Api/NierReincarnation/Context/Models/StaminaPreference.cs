@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace NierReincarnation.Context.Models;
+﻿namespace NierReincarnation.Context.Models;
 
 public sealed class StaminaPreference
 {

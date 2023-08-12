@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api.Data.GetUserData;
+﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api.Data.GetUserData;
 using NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api.Data.GetUserDataName;
 
 namespace NierReincarnation.Core.Dark.Networking.DataSource.User;
 
 // Dark.Networking.DataSource.User
-class UserDataGet
+internal class UserDataGet
 {
     // CUSTOM: Return indicator if download was successful
     public async Task<bool> RequestAsync()

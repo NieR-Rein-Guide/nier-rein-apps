@@ -1,8 +1,6 @@
-﻿using System.Threading;
+﻿namespace NierReincarnation.Core.Dark.Kernel;
 
-namespace NierReincarnation.Core.Dark.Kernel;
-
-class Thread
+internal class Thread
 {
     public static void SetupThread()
     {

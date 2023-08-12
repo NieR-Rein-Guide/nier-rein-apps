@@ -1,1758 +1,1174 @@
 using MessagePack;
 using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
-using System;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark;
 
 // Dark.DarkMasterMemoryDatabase
 public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 {
-   
     public EntityMAbilityTable EntityMAbilityTable { get; private set; }
 
-   
     public EntityMAbilityBehaviourTable EntityMAbilityBehaviourTable { get; private set; }
 
-   
     public EntityMAbilityBehaviourActionBlessTable EntityMAbilityBehaviourActionBlessTable { get; private set; }
 
-   
     public EntityMAbilityBehaviourActionPassiveSkillTable EntityMAbilityBehaviourActionPassiveSkillTable { get; private set; }
 
-   
     public EntityMAbilityBehaviourActionStatusTable EntityMAbilityBehaviourActionStatusTable { get; private set; }
 
-   
     public EntityMAbilityBehaviourActionStatusDownTable EntityMAbilityBehaviourActionStatusDownTable { get; private set; }
 
-   
     public EntityMAbilityBehaviourGroupTable EntityMAbilityBehaviourGroupTable { get; private set; }
 
-   
     public EntityMAbilityDetailTable EntityMAbilityDetailTable { get; private set; }
 
-   
     public EntityMAbilityLevelGroupTable EntityMAbilityLevelGroupTable { get; private set; }
 
-   
     public EntityMAbilityStatusTable EntityMAbilityStatusTable { get; private set; }
 
-   
     public EntityMActorTable EntityMActorTable { get; private set; }
 
-   
     public EntityMActorAnimationTable EntityMActorAnimationTable { get; private set; }
 
-   
     public EntityMActorAnimationCategoryTable EntityMActorAnimationCategoryTable { get; private set; }
 
-   
     public EntityMActorAnimationControllerTable EntityMActorAnimationControllerTable { get; private set; }
 
-   
     public EntityMActorObjectTable EntityMActorObjectTable { get; private set; }
 
-   
     public EntityMAppealDialogTable EntityMAppealDialogTable { get; private set; }
 
-   
     public EntityMAssetBackgroundTable EntityMAssetBackgroundTable { get; private set; }
 
-   
     public EntityMAssetCalculatorTable EntityMAssetCalculatorTable { get; private set; }
 
-   
     public EntityMAssetDataSettingTable EntityMAssetDataSettingTable { get; private set; }
 
-   
     public EntityMAssetEffectTable EntityMAssetEffectTable { get; private set; }
 
-   
     public EntityMAssetGradeIconTable EntityMAssetGradeIconTable { get; private set; }
 
-   
     public EntityMAssetTimelineTable EntityMAssetTimelineTable { get; private set; }
 
-   
     public EntityMAssetTurnbattlePrefabTable EntityMAssetTurnbattlePrefabTable { get; private set; }
 
-   
     public EntityMBattleTable EntityMBattleTable { get; private set; }
 
-   
     public EntityMBattleActorAiTable EntityMBattleActorAiTable { get; private set; }
 
-   
     public EntityMBattleActorSkillAiGroupTable EntityMBattleActorSkillAiGroupTable { get; private set; }
 
-   
     public EntityMBattleAdditionalAbilityTable EntityMBattleAdditionalAbilityTable { get; private set; }
 
-   
     public EntityMBattleAttributeDamageCoefficientDefineTable EntityMBattleAttributeDamageCoefficientDefineTable { get; private set; }
 
-   
     public EntityMBattleAttributeDamageCoefficientGroupTable EntityMBattleAttributeDamageCoefficientGroupTable { get; private set; }
 
-   
     public EntityMBattleBgmSetTable EntityMBattleBgmSetTable { get; private set; }
 
-   
     public EntityMBattleBgmSetGroupTable EntityMBattleBgmSetGroupTable { get; private set; }
 
-   
     public EntityMBattleBigHuntTable EntityMBattleBigHuntTable { get; private set; }
 
-   
     public EntityMBattleBigHuntDamageThresholdGroupTable EntityMBattleBigHuntDamageThresholdGroupTable { get; private set; }
 
-   
     public EntityMBattleBigHuntKnockDownGaugeValueConfigGroupTable EntityMBattleBigHuntKnockDownGaugeValueConfigGroupTable { get; private set; }
 
-   
     public EntityMBattleBigHuntPhaseGroupTable EntityMBattleBigHuntPhaseGroupTable { get; private set; }
 
-   
     public EntityMBattleCompanionSkillAiGroupTable EntityMBattleCompanionSkillAiGroupTable { get; private set; }
 
-   
     public EntityMBattleCostumeSkillFireActTable EntityMBattleCostumeSkillFireActTable { get; private set; }
 
-   
     public EntityMBattleCostumeSkillSeTable EntityMBattleCostumeSkillSeTable { get; private set; }
 
-   
     public EntityMBattleDropRewardTable EntityMBattleDropRewardTable { get; private set; }
 
-   
     public EntityMBattleEnemySizeTypeConfigTable EntityMBattleEnemySizeTypeConfigTable { get; private set; }
 
-   
     public EntityMBattleEventTable EntityMBattleEventTable { get; private set; }
 
-   
     public EntityMBattleEventGroupTable EntityMBattleEventGroupTable { get; private set; }
 
-   
     public EntityMBattleEventReceiverBehaviourGroupTable EntityMBattleEventReceiverBehaviourGroupTable { get; private set; }
 
-   
     public EntityMBattleEventReceiverBehaviourHudActSequenceTable EntityMBattleEventReceiverBehaviourHudActSequenceTable { get; private set; }
 
-   
     public EntityMBattleEventReceiverBehaviourRadioMessageTable EntityMBattleEventReceiverBehaviourRadioMessageTable { get; private set; }
 
-   
     public EntityMBattleEventTriggerBehaviourBattleStartTable EntityMBattleEventTriggerBehaviourBattleStartTable { get; private set; }
 
-   
     public EntityMBattleEventTriggerBehaviourGroupTable EntityMBattleEventTriggerBehaviourGroupTable { get; private set; }
 
-   
     public EntityMBattleEventTriggerBehaviourWaveStartTable EntityMBattleEventTriggerBehaviourWaveStartTable { get; private set; }
 
-   
     public EntityMBattleGeneralViewConfigurationTable EntityMBattleGeneralViewConfigurationTable { get; private set; }
 
-   
     public EntityMBattleGroupTable EntityMBattleGroupTable { get; private set; }
 
-   
     public EntityMBattleNpcTable EntityMBattleNpcTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterTable EntityMBattleNpcCharacterTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterBoardTable EntityMBattleNpcCharacterBoardTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterBoardAbilityTable EntityMBattleNpcCharacterBoardAbilityTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterBoardCompleteRewardTable EntityMBattleNpcCharacterBoardCompleteRewardTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterBoardStatusUpTable EntityMBattleNpcCharacterBoardStatusUpTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterCostumeLevelBonusTable EntityMBattleNpcCharacterCostumeLevelBonusTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterRebirthTable EntityMBattleNpcCharacterRebirthTable { get; private set; }
 
-   
     public EntityMBattleNpcCharacterViewerFieldTable EntityMBattleNpcCharacterViewerFieldTable { get; private set; }
 
-   
     public EntityMBattleNpcCompanionTable EntityMBattleNpcCompanionTable { get; private set; }
 
-   
     public EntityMBattleNpcCostumeTable EntityMBattleNpcCostumeTable { get; private set; }
 
-   
     public EntityMBattleNpcCostumeActiveSkillTable EntityMBattleNpcCostumeActiveSkillTable { get; private set; }
 
-   
     public EntityMBattleNpcCostumeAwakenStatusUpTable EntityMBattleNpcCostumeAwakenStatusUpTable { get; private set; }
 
-   
     public EntityMBattleNpcCostumeLevelBonusReevaluateTable EntityMBattleNpcCostumeLevelBonusReevaluateTable { get; private set; }
 
-   
     public EntityMBattleNpcCostumeLevelBonusReleaseStatusTable EntityMBattleNpcCostumeLevelBonusReleaseStatusTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckTable EntityMBattleNpcDeckTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckBackupTable EntityMBattleNpcDeckBackupTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckCharacterTable EntityMBattleNpcDeckCharacterTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckCharacterDressupCostumeTable EntityMBattleNpcDeckCharacterDressupCostumeTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckCharacterDropCategoryTable EntityMBattleNpcDeckCharacterDropCategoryTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckCharacterTypeTable EntityMBattleNpcDeckCharacterTypeTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckLimitContentBackupTable EntityMBattleNpcDeckLimitContentBackupTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckLimitContentBackupRestoredTable EntityMBattleNpcDeckLimitContentBackupRestoredTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckLimitContentRestrictedTable EntityMBattleNpcDeckLimitContentRestrictedTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckPartsGroupTable EntityMBattleNpcDeckPartsGroupTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckSubWeaponGroupTable EntityMBattleNpcDeckSubWeaponGroupTable { get; private set; }
 
-   
     public EntityMBattleNpcDeckTypeNoteTable EntityMBattleNpcDeckTypeNoteTable { get; private set; }
 
-   
     public EntityMBattleNpcPartsTable EntityMBattleNpcPartsTable { get; private set; }
 
-   
     public EntityMBattleNpcPartsGroupNoteTable EntityMBattleNpcPartsGroupNoteTable { get; private set; }
 
-   
     public EntityMBattleNpcPartsPresetTable EntityMBattleNpcPartsPresetTable { get; private set; }
 
-   
     public EntityMBattleNpcPartsPresetTagTable EntityMBattleNpcPartsPresetTagTable { get; private set; }
 
-   
     public EntityMBattleNpcPartsStatusSubTable EntityMBattleNpcPartsStatusSubTable { get; private set; }
 
-   
     public EntityMBattleNpcSpecialEndActTable EntityMBattleNpcSpecialEndActTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponTable EntityMBattleNpcWeaponTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponAbilityTable EntityMBattleNpcWeaponAbilityTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponAbilityReevaluateTable EntityMBattleNpcWeaponAbilityReevaluateTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponAwakenTable EntityMBattleNpcWeaponAwakenTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponNoteTable EntityMBattleNpcWeaponNoteTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponNoteReevaluateTable EntityMBattleNpcWeaponNoteReevaluateTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponSkillTable EntityMBattleNpcWeaponSkillTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponStoryTable EntityMBattleNpcWeaponStoryTable { get; private set; }
 
-   
     public EntityMBattleNpcWeaponStoryReevaluateTable EntityMBattleNpcWeaponStoryReevaluateTable { get; private set; }
 
-   
     public EntityMBattleProgressUiTypeTable EntityMBattleProgressUiTypeTable { get; private set; }
 
-   
     public EntityMBattleQuestSceneBgmTable EntityMBattleQuestSceneBgmTable { get; private set; }
 
-   
     public EntityMBattleQuestSceneBgmSetGroupTable EntityMBattleQuestSceneBgmSetGroupTable { get; private set; }
 
-   
     public EntityMBattleRentalDeckTable EntityMBattleRentalDeckTable { get; private set; }
 
-   
     public EntityMBattleSkillBehaviourHitDamageConfigurationTable EntityMBattleSkillBehaviourHitDamageConfigurationTable { get; private set; }
 
-   
     public EntityMBattleSkillFireActTable EntityMBattleSkillFireActTable { get; private set; }
 
-   
     public EntityMBattleSkillFireActConditionAttributeTypeTable EntityMBattleSkillFireActConditionAttributeTypeTable { get; private set; }
 
-   
     public EntityMBattleSkillFireActConditionGroupTable EntityMBattleSkillFireActConditionGroupTable { get; private set; }
 
-   
     public EntityMBattleSkillFireActConditionSkillCategoryTypeTable EntityMBattleSkillFireActConditionSkillCategoryTypeTable { get; private set; }
 
-   
     public EntityMBattleSkillFireActConditionWeaponTypeTable EntityMBattleSkillFireActConditionWeaponTypeTable { get; private set; }
 
-   
     public EntityMBeginnerCampaignTable EntityMBeginnerCampaignTable { get; private set; }
 
-   
     public EntityMBigHuntBossTable EntityMBigHuntBossTable { get; private set; }
 
-   
     public EntityMBigHuntBossGradeGroupTable EntityMBigHuntBossGradeGroupTable { get; private set; }
 
-   
     public EntityMBigHuntBossGradeGroupAttributeTable EntityMBigHuntBossGradeGroupAttributeTable { get; private set; }
 
-   
     public EntityMBigHuntBossQuestTable EntityMBigHuntBossQuestTable { get; private set; }
 
-   
     public EntityMBigHuntBossQuestGroupTable EntityMBigHuntBossQuestGroupTable { get; private set; }
 
-   
     public EntityMBigHuntBossQuestGroupChallengeCategoryTable EntityMBigHuntBossQuestGroupChallengeCategoryTable { get; private set; }
 
-   
     public EntityMBigHuntLinkTable EntityMBigHuntLinkTable { get; private set; }
 
-   
     public EntityMBigHuntQuestTable EntityMBigHuntQuestTable { get; private set; }
 
-   
     public EntityMBigHuntQuestGroupTable EntityMBigHuntQuestGroupTable { get; private set; }
 
-   
     public EntityMBigHuntQuestScoreCoefficientTable EntityMBigHuntQuestScoreCoefficientTable { get; private set; }
 
-   
     public EntityMBigHuntRewardGroupTable EntityMBigHuntRewardGroupTable { get; private set; }
 
-   
     public EntityMBigHuntScheduleTable EntityMBigHuntScheduleTable { get; private set; }
 
-   
     public EntityMBigHuntScoreRewardGroupTable EntityMBigHuntScoreRewardGroupTable { get; private set; }
 
-   
     public EntityMBigHuntScoreRewardGroupScheduleTable EntityMBigHuntScoreRewardGroupScheduleTable { get; private set; }
 
-   
     public EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable { get; private set; }
 
-   
     public EntityMCageMemoryTable EntityMCageMemoryTable { get; private set; }
 
-   
     public EntityMCageOrnamentTable EntityMCageOrnamentTable { get; private set; }
 
-   
     public EntityMCageOrnamentMainQuestChapterStillTable EntityMCageOrnamentMainQuestChapterStillTable { get; private set; }
 
-   
     public EntityMCageOrnamentRewardTable EntityMCageOrnamentRewardTable { get; private set; }
 
-   
     public EntityMCageOrnamentStillReleaseConditionTable EntityMCageOrnamentStillReleaseConditionTable { get; private set; }
 
-   
     public EntityMCatalogCompanionTable EntityMCatalogCompanionTable { get; private set; }
 
-   
     public EntityMCatalogCostumeTable EntityMCatalogCostumeTable { get; private set; }
 
-   
     public EntityMCatalogPartsGroupTable EntityMCatalogPartsGroupTable { get; private set; }
 
-   
     public EntityMCatalogTermTable EntityMCatalogTermTable { get; private set; }
 
-   
     public EntityMCatalogThoughtTable EntityMCatalogThoughtTable { get; private set; }
 
-   
     public EntityMCatalogWeaponTable EntityMCatalogWeaponTable { get; private set; }
 
-   
     public EntityMCharacterTable EntityMCharacterTable { get; private set; }
 
-   
     public EntityMCharacterBoardTable EntityMCharacterBoardTable { get; private set; }
 
-   
     public EntityMCharacterBoardAbilityTable EntityMCharacterBoardAbilityTable { get; private set; }
 
-   
     public EntityMCharacterBoardAbilityMaxLevelTable EntityMCharacterBoardAbilityMaxLevelTable { get; private set; }
 
-   
     public EntityMCharacterBoardAssignmentTable EntityMCharacterBoardAssignmentTable { get; private set; }
 
-   
     public EntityMCharacterBoardCategoryTable EntityMCharacterBoardCategoryTable { get; private set; }
 
-   
     public EntityMCharacterBoardCompleteRewardTable EntityMCharacterBoardCompleteRewardTable { get; private set; }
 
-   
     public EntityMCharacterBoardCompleteRewardGroupTable EntityMCharacterBoardCompleteRewardGroupTable { get; private set; }
 
-   
     public EntityMCharacterBoardConditionTable EntityMCharacterBoardConditionTable { get; private set; }
 
-   
     public EntityMCharacterBoardConditionDetailTable EntityMCharacterBoardConditionDetailTable { get; private set; }
 
-   
     public EntityMCharacterBoardConditionGroupTable EntityMCharacterBoardConditionGroupTable { get; private set; }
 
-   
     public EntityMCharacterBoardConditionIgnoreTable EntityMCharacterBoardConditionIgnoreTable { get; private set; }
 
-   
     public EntityMCharacterBoardEffectTargetGroupTable EntityMCharacterBoardEffectTargetGroupTable { get; private set; }
 
-   
     public EntityMCharacterBoardGroupTable EntityMCharacterBoardGroupTable { get; private set; }
 
-   
     public EntityMCharacterBoardPanelTable EntityMCharacterBoardPanelTable { get; private set; }
 
-   
     public EntityMCharacterBoardPanelReleaseEffectGroupTable EntityMCharacterBoardPanelReleaseEffectGroupTable { get; private set; }
 
-   
     public EntityMCharacterBoardPanelReleasePossessionGroupTable EntityMCharacterBoardPanelReleasePossessionGroupTable { get; private set; }
 
-   
     public EntityMCharacterBoardPanelReleaseRewardGroupTable EntityMCharacterBoardPanelReleaseRewardGroupTable { get; private set; }
 
-   
     public EntityMCharacterBoardStatusUpTable EntityMCharacterBoardStatusUpTable { get; private set; }
 
-   
     public EntityMCharacterDisplaySwitchTable EntityMCharacterDisplaySwitchTable { get; private set; }
 
-   
     public EntityMCharacterLevelBonusAbilityGroupTable EntityMCharacterLevelBonusAbilityGroupTable { get; private set; }
 
-   
     public EntityMCharacterRebirthTable EntityMCharacterRebirthTable { get; private set; }
 
-   
     public EntityMCharacterRebirthMaterialGroupTable EntityMCharacterRebirthMaterialGroupTable { get; private set; }
 
-   
     public EntityMCharacterRebirthStepGroupTable EntityMCharacterRebirthStepGroupTable { get; private set; }
 
-   
     public EntityMCharacterViewerActorIconTable EntityMCharacterViewerActorIconTable { get; private set; }
 
-   
     public EntityMCharacterViewerFieldTable EntityMCharacterViewerFieldTable { get; private set; }
 
-   
     public EntityMCharacterViewerFieldSettingsTable EntityMCharacterViewerFieldSettingsTable { get; private set; }
 
-   
     public EntityMCharacterVoiceUnlockConditionTable EntityMCharacterVoiceUnlockConditionTable { get; private set; }
 
-   
     public EntityMCollectionBonusEffectTable EntityMCollectionBonusEffectTable { get; private set; }
 
-   
     public EntityMCollectionBonusQuestAssignmentTable EntityMCollectionBonusQuestAssignmentTable { get; private set; }
 
-   
     public EntityMCollectionBonusQuestAssignmentGroupTable EntityMCollectionBonusQuestAssignmentGroupTable { get; private set; }
 
-   
     public EntityMComboCalculationSettingTable EntityMComboCalculationSettingTable { get; private set; }
 
-   
     public EntityMComebackCampaignTable EntityMComebackCampaignTable { get; private set; }
 
-   
     public EntityMCompanionTable EntityMCompanionTable { get; private set; }
 
-   
     public EntityMCompanionAbilityGroupTable EntityMCompanionAbilityGroupTable { get; private set; }
 
-   
     public EntityMCompanionAbilityLevelTable EntityMCompanionAbilityLevelTable { get; private set; }
 
-   
     public EntityMCompanionBaseStatusTable EntityMCompanionBaseStatusTable { get; private set; }
 
-   
     public EntityMCompanionCategoryTable EntityMCompanionCategoryTable { get; private set; }
 
-   
     public EntityMCompanionDuplicationExchangePossessionGroupTable EntityMCompanionDuplicationExchangePossessionGroupTable { get; private set; }
 
-   
     public EntityMCompanionEnhancedTable EntityMCompanionEnhancedTable { get; private set; }
 
-   
     public EntityMCompanionEnhancementMaterialTable EntityMCompanionEnhancementMaterialTable { get; private set; }
 
-   
     public EntityMCompanionSkillLevelTable EntityMCompanionSkillLevelTable { get; private set; }
 
-   
     public EntityMCompanionStatusCalculationTable EntityMCompanionStatusCalculationTable { get; private set; }
 
-   
     public EntityMCompleteMissionGroupTable EntityMCompleteMissionGroupTable { get; private set; }
 
-   
     public EntityMConfigTable EntityMConfigTable { get; private set; }
 
-   
     public EntityMConsumableItemTable EntityMConsumableItemTable { get; private set; }
 
-   
     public EntityMConsumableItemEffectTable EntityMConsumableItemEffectTable { get; private set; }
 
-   
     public EntityMConsumableItemTermTable EntityMConsumableItemTermTable { get; private set; }
 
-   
     public EntityMContentsStoryTable EntityMContentsStoryTable { get; private set; }
 
-   
     public EntityMCostumeTable EntityMCostumeTable { get; private set; }
 
-   
     public EntityMCostumeAbilityGroupTable EntityMCostumeAbilityGroupTable { get; private set; }
 
-   
     public EntityMCostumeAbilityLevelGroupTable EntityMCostumeAbilityLevelGroupTable { get; private set; }
 
-   
     public EntityMCostumeActiveSkillEnhancementMaterialTable EntityMCostumeActiveSkillEnhancementMaterialTable { get; private set; }
 
-   
     public EntityMCostumeActiveSkillGroupTable EntityMCostumeActiveSkillGroupTable { get; private set; }
 
-   
     public EntityMCostumeAnimationStepTable EntityMCostumeAnimationStepTable { get; private set; }
 
-   
     public EntityMCostumeAutoOrganizationConditionTable EntityMCostumeAutoOrganizationConditionTable { get; private set; }
 
-   
     public EntityMCostumeAwakenTable EntityMCostumeAwakenTable { get; private set; }
 
-   
     public EntityMCostumeAwakenAbilityTable EntityMCostumeAwakenAbilityTable { get; private set; }
 
-   
     public EntityMCostumeAwakenEffectGroupTable EntityMCostumeAwakenEffectGroupTable { get; private set; }
 
-   
     public EntityMCostumeAwakenItemAcquireTable EntityMCostumeAwakenItemAcquireTable { get; private set; }
 
-   
     public EntityMCostumeAwakenMaterialGroupTable EntityMCostumeAwakenMaterialGroupTable { get; private set; }
 
-   
     public EntityMCostumeAwakenPriceGroupTable EntityMCostumeAwakenPriceGroupTable { get; private set; }
 
-   
     public EntityMCostumeAwakenStatusUpGroupTable EntityMCostumeAwakenStatusUpGroupTable { get; private set; }
 
-   
     public EntityMCostumeAwakenStepMaterialGroupTable EntityMCostumeAwakenStepMaterialGroupTable { get; private set; }
 
-   
     public EntityMCostumeBaseStatusTable EntityMCostumeBaseStatusTable { get; private set; }
 
-   
     public EntityMCostumeCollectionBonusTable EntityMCostumeCollectionBonusTable { get; private set; }
 
-   
     public EntityMCostumeCollectionBonusGroupTable EntityMCostumeCollectionBonusGroupTable { get; private set; }
 
-   
     public EntityMCostumeDefaultSkillGroupTable EntityMCostumeDefaultSkillGroupTable { get; private set; }
 
-   
     public EntityMCostumeDefaultSkillLotteryGroupTable EntityMCostumeDefaultSkillLotteryGroupTable { get; private set; }
 
-   
     public EntityMCostumeDisplayCoordinateAdjustmentTable EntityMCostumeDisplayCoordinateAdjustmentTable { get; private set; }
 
-   
     public EntityMCostumeDuplicationExchangePossessionGroupTable EntityMCostumeDuplicationExchangePossessionGroupTable { get; private set; }
 
-   
     public EntityMCostumeEmblemTable EntityMCostumeEmblemTable { get; private set; }
 
-   
     public EntityMCostumeEnhancedTable EntityMCostumeEnhancedTable { get; private set; }
 
-   
     public EntityMCostumeLevelBonusTable EntityMCostumeLevelBonusTable { get; private set; }
 
-   
     public EntityMCostumeLimitBreakMaterialGroupTable EntityMCostumeLimitBreakMaterialGroupTable { get; private set; }
 
-   
     public EntityMCostumeLimitBreakMaterialRarityGroupTable EntityMCostumeLimitBreakMaterialRarityGroupTable { get; private set; }
 
-   
     public EntityMCostumeOverflowExchangePossessionGroupTable EntityMCostumeOverflowExchangePossessionGroupTable { get; private set; }
 
-   
     public EntityMCostumeProperAttributeHpBonusTable EntityMCostumeProperAttributeHpBonusTable { get; private set; }
 
-   
     public EntityMCostumeRarityTable EntityMCostumeRarityTable { get; private set; }
 
-   
     public EntityMCostumeSpecialActActiveSkillTable EntityMCostumeSpecialActActiveSkillTable { get; private set; }
 
-   
     public EntityMCostumeSpecialActActiveSkillConditionAttributeTable EntityMCostumeSpecialActActiveSkillConditionAttributeTable { get; private set; }
 
-   
     public EntityMCostumeStatusCalculationTable EntityMCostumeStatusCalculationTable { get; private set; }
 
-   
     public EntityMDeckEntrustCoefficientAttributeTable EntityMDeckEntrustCoefficientAttributeTable { get; private set; }
 
-   
     public EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable EntityMDeckEntrustCoefficientPartsSeriesBonusCountTable { get; private set; }
 
-   
     public EntityMDeckEntrustCoefficientStatusTable EntityMDeckEntrustCoefficientStatusTable { get; private set; }
 
-   
     public EntityMDokanTable EntityMDokanTable { get; private set; }
 
-   
     public EntityMDokanContentGroupTable EntityMDokanContentGroupTable { get; private set; }
 
-   
     public EntityMDokanTextTable EntityMDokanTextTable { get; private set; }
 
-   
     public EntityMEnhanceCampaignTable EntityMEnhanceCampaignTable { get; private set; }
 
-   
     public EntityMEnhanceCampaignTargetGroupTable EntityMEnhanceCampaignTargetGroupTable { get; private set; }
 
-   
     public EntityMEvaluateConditionTable EntityMEvaluateConditionTable { get; private set; }
 
-   
     public EntityMEvaluateConditionValueGroupTable EntityMEvaluateConditionValueGroupTable { get; private set; }
 
-   
     public EntityMEventQuestChapterTable EntityMEventQuestChapterTable { get; private set; }
 
-   
     public EntityMEventQuestChapterCharacterTable EntityMEventQuestChapterCharacterTable { get; private set; }
 
-   
     public EntityMEventQuestChapterDifficultyLimitContentUnlockTable EntityMEventQuestChapterDifficultyLimitContentUnlockTable { get; private set; }
 
-   
     public EntityMEventQuestChapterLimitContentRelationTable EntityMEventQuestChapterLimitContentRelationTable { get; private set; }
 
-   
     public EntityMEventQuestDailyGroupTable EntityMEventQuestDailyGroupTable { get; private set; }
 
-   
     public EntityMEventQuestDailyGroupCompleteRewardTable EntityMEventQuestDailyGroupCompleteRewardTable { get; private set; }
 
-   
     public EntityMEventQuestDailyGroupMessageTable EntityMEventQuestDailyGroupMessageTable { get; private set; }
 
-   
     public EntityMEventQuestDailyGroupTargetChapterTable EntityMEventQuestDailyGroupTargetChapterTable { get; private set; }
 
-   
     public EntityMEventQuestDisplayItemGroupTable EntityMEventQuestDisplayItemGroupTable { get; private set; }
 
-   
     public EntityMEventQuestGuerrillaFreeOpenTable EntityMEventQuestGuerrillaFreeOpenTable { get; private set; }
 
-   
     public EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondenceTable EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondenceTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthMobTable EntityMEventQuestLabyrinthMobTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthQuestDisplayTable EntityMEventQuestLabyrinthQuestDisplayTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable EntityMEventQuestLabyrinthQuestEffectDescriptionAbilityTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable EntityMEventQuestLabyrinthQuestEffectDescriptionFreeTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthQuestEffectDisplayTable EntityMEventQuestLabyrinthQuestEffectDisplayTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthRewardGroupTable EntityMEventQuestLabyrinthRewardGroupTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthSeasonTable EntityMEventQuestLabyrinthSeasonTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthSeasonRewardGroupTable EntityMEventQuestLabyrinthSeasonRewardGroupTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthStageTable EntityMEventQuestLabyrinthStageTable { get; private set; }
 
-   
     public EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable EntityMEventQuestLabyrinthStageAccumulationRewardGroupTable { get; private set; }
 
-   
     public EntityMEventQuestLimitContentTable EntityMEventQuestLimitContentTable { get; private set; }
 
-   
     public EntityMEventQuestLimitContentDeckRestrictionTable EntityMEventQuestLimitContentDeckRestrictionTable { get; private set; }
 
-   
     public EntityMEventQuestLimitContentDeckRestrictionTargetTable EntityMEventQuestLimitContentDeckRestrictionTargetTable { get; private set; }
 
-   
     public EntityMEventQuestLinkTable EntityMEventQuestLinkTable { get; private set; }
 
-   
     public EntityMEventQuestSequenceTable EntityMEventQuestSequenceTable { get; private set; }
 
-   
     public EntityMEventQuestSequenceGroupTable EntityMEventQuestSequenceGroupTable { get; private set; }
 
-   
     public EntityMEventQuestTowerAccumulationRewardTable EntityMEventQuestTowerAccumulationRewardTable { get; private set; }
 
-   
     public EntityMEventQuestTowerAccumulationRewardGroupTable EntityMEventQuestTowerAccumulationRewardGroupTable { get; private set; }
 
-   
     public EntityMEventQuestTowerAssetTable EntityMEventQuestTowerAssetTable { get; private set; }
 
-   
     public EntityMEventQuestTowerRewardGroupTable EntityMEventQuestTowerRewardGroupTable { get; private set; }
 
-   
     public EntityMEventQuestUnlockConditionTable EntityMEventQuestUnlockConditionTable { get; private set; }
 
-   
     public EntityMExploreTable EntityMExploreTable { get; private set; }
 
-   
     public EntityMExploreGradeAssetTable EntityMExploreGradeAssetTable { get; private set; }
 
-   
     public EntityMExploreGradeScoreTable EntityMExploreGradeScoreTable { get; private set; }
 
-   
     public EntityMExploreGroupTable EntityMExploreGroupTable { get; private set; }
 
-   
     public EntityMExploreUnlockConditionTable EntityMExploreUnlockConditionTable { get; private set; }
 
-   
     public EntityMExtraQuestGroupTable EntityMExtraQuestGroupTable { get; private set; }
 
-   
     public EntityMExtraQuestGroupInMainQuestChapterTable EntityMExtraQuestGroupInMainQuestChapterTable { get; private set; }
 
-   
     public EntityMFieldEffectBlessRelationTable EntityMFieldEffectBlessRelationTable { get; private set; }
 
-   
     public EntityMFieldEffectDecreasePointTable EntityMFieldEffectDecreasePointTable { get; private set; }
 
-   
     public EntityMFieldEffectGroupTable EntityMFieldEffectGroupTable { get; private set; }
 
-   
     public EntityMGachaMedalTable EntityMGachaMedalTable { get; private set; }
 
-   
     public EntityMGiftTextTable EntityMGiftTextTable { get; private set; }
 
-   
     public EntityMGimmickTable EntityMGimmickTable { get; private set; }
 
-   
     public EntityMGimmickAdditionalAssetTable EntityMGimmickAdditionalAssetTable { get; private set; }
 
-   
     public EntityMGimmickExtraQuestTable EntityMGimmickExtraQuestTable { get; private set; }
 
-   
     public EntityMGimmickGroupTable EntityMGimmickGroupTable { get; private set; }
 
-   
     public EntityMGimmickGroupEventLogTable EntityMGimmickGroupEventLogTable { get; private set; }
 
-   
     public EntityMGimmickIntervalTable EntityMGimmickIntervalTable { get; private set; }
 
-   
     public EntityMGimmickOrnamentTable EntityMGimmickOrnamentTable { get; private set; }
 
-   
     public EntityMGimmickSequenceTable EntityMGimmickSequenceTable { get; private set; }
 
-   
     public EntityMGimmickSequenceGroupTable EntityMGimmickSequenceGroupTable { get; private set; }
 
-   
     public EntityMGimmickSequenceRewardGroupTable EntityMGimmickSequenceRewardGroupTable { get; private set; }
 
-   
     public EntityMGimmickSequenceScheduleTable EntityMGimmickSequenceScheduleTable { get; private set; }
 
-   
     public EntityMHeadupDisplayViewTable EntityMHeadupDisplayViewTable { get; private set; }
 
-   
     public EntityMHelpTable EntityMHelpTable { get; private set; }
 
-   
     public EntityMHelpCategoryTable EntityMHelpCategoryTable { get; private set; }
 
-   
     public EntityMHelpItemTable EntityMHelpItemTable { get; private set; }
 
-   
     public EntityMHelpPageGroupTable EntityMHelpPageGroupTable { get; private set; }
 
-   
     public EntityMImportantItemTable EntityMImportantItemTable { get; private set; }
 
-   
     public EntityMImportantItemEffectTable EntityMImportantItemEffectTable { get; private set; }
 
-   
     public EntityMImportantItemEffectDropCountTable EntityMImportantItemEffectDropCountTable { get; private set; }
 
-   
     public EntityMImportantItemEffectDropRateTable EntityMImportantItemEffectDropRateTable { get; private set; }
 
-   
     public EntityMImportantItemEffectTargetItemGroupTable EntityMImportantItemEffectTargetItemGroupTable { get; private set; }
 
-   
     public EntityMImportantItemEffectTargetQuestGroupTable EntityMImportantItemEffectTargetQuestGroupTable { get; private set; }
 
-   
     public EntityMImportantItemEffectUnlockFunctionTable EntityMImportantItemEffectUnlockFunctionTable { get; private set; }
 
-   
     public EntityMLibraryEventQuestStoryGroupingTable EntityMLibraryEventQuestStoryGroupingTable { get; private set; }
 
-   
     public EntityMLibraryMainQuestGroupTable EntityMLibraryMainQuestGroupTable { get; private set; }
 
-   
     public EntityMLibraryMainQuestStoryTable EntityMLibraryMainQuestStoryTable { get; private set; }
 
-   
     public EntityMLibraryMovieTable EntityMLibraryMovieTable { get; private set; }
 
-   
     public EntityMLibraryMovieCategoryTable EntityMLibraryMovieCategoryTable { get; private set; }
 
-   
     public EntityMLibraryMovieUnlockConditionTable EntityMLibraryMovieUnlockConditionTable { get; private set; }
 
-   
     public EntityMLibraryRecordGroupingTable EntityMLibraryRecordGroupingTable { get; private set; }
 
-   
     public EntityMLimitedOpenTextTable EntityMLimitedOpenTextTable { get; private set; }
 
-   
     public EntityMLimitedOpenTextGroupTable EntityMLimitedOpenTextGroupTable { get; private set; }
 
-   
     public EntityMListSettingAbilityGroupTable EntityMListSettingAbilityGroupTable { get; private set; }
 
-   
     public EntityMListSettingAbilityGroupTargetTable EntityMListSettingAbilityGroupTargetTable { get; private set; }
 
-   
     public EntityMLoginBonusTable EntityMLoginBonusTable { get; private set; }
 
-   
     public EntityMLoginBonusStampTable EntityMLoginBonusStampTable { get; private set; }
 
-   
     public EntityMMainQuestChapterTable EntityMMainQuestChapterTable { get; private set; }
 
-   
     public EntityMMainQuestPortalCageCharacterTable EntityMMainQuestPortalCageCharacterTable { get; private set; }
 
-   
     public EntityMMainQuestRouteTable EntityMMainQuestRouteTable { get; private set; }
 
-   
     public EntityMMainQuestSeasonTable EntityMMainQuestSeasonTable { get; private set; }
 
-   
     public EntityMMainQuestSequenceTable EntityMMainQuestSequenceTable { get; private set; }
 
-   
     public EntityMMainQuestSequenceGroupTable EntityMMainQuestSequenceGroupTable { get; private set; }
 
-   
     public EntityMMaintenanceTable EntityMMaintenanceTable { get; private set; }
 
-   
     public EntityMMaintenanceGroupTable EntityMMaintenanceGroupTable { get; private set; }
 
-   
     public EntityMMaterialTable EntityMMaterialTable { get; private set; }
 
-   
     public EntityMMaterialSaleObtainPossessionTable EntityMMaterialSaleObtainPossessionTable { get; private set; }
 
-   
     public EntityMMissionTable EntityMMissionTable { get; private set; }
 
-   
     public EntityMMissionClearConditionValueViewTable EntityMMissionClearConditionValueViewTable { get; private set; }
 
-   
     public EntityMMissionGroupTable EntityMMissionGroupTable { get; private set; }
 
-   
     public EntityMMissionLinkTable EntityMMissionLinkTable { get; private set; }
 
-   
     public EntityMMissionPassTable EntityMMissionPassTable { get; private set; }
 
-   
     public EntityMMissionPassLevelGroupTable EntityMMissionPassLevelGroupTable { get; private set; }
 
-   
     public EntityMMissionPassMissionGroupTable EntityMMissionPassMissionGroupTable { get; private set; }
 
-   
     public EntityMMissionPassRewardGroupTable EntityMMissionPassRewardGroupTable { get; private set; }
 
-   
     public EntityMMissionRewardTable EntityMMissionRewardTable { get; private set; }
 
-   
     public EntityMMissionSubCategoryTextTable EntityMMissionSubCategoryTextTable { get; private set; }
 
-   
     public EntityMMissionTermTable EntityMMissionTermTable { get; private set; }
 
-   
     public EntityMMissionUnlockConditionTable EntityMMissionUnlockConditionTable { get; private set; }
 
-   
     public EntityMMomBannerTable EntityMMomBannerTable { get; private set; }
 
-   
     public EntityMMomPointBannerTable EntityMMomPointBannerTable { get; private set; }
 
-   
     public EntityMMovieTable EntityMMovieTable { get; private set; }
 
-   
     public EntityMNaviCutInTable EntityMNaviCutInTable { get; private set; }
 
-   
     public EntityMNaviCutInContentGroupTable EntityMNaviCutInContentGroupTable { get; private set; }
 
-   
     public EntityMNaviCutInTextTable EntityMNaviCutInTextTable { get; private set; }
 
-   
     public EntityMNumericalFunctionTable EntityMNumericalFunctionTable { get; private set; }
 
-   
     public EntityMNumericalFunctionParameterGroupTable EntityMNumericalFunctionParameterGroupTable { get; private set; }
 
-   
     public EntityMNumericalParameterMapTable EntityMNumericalParameterMapTable { get; private set; }
 
-   
     public EntityMOmikujiTable EntityMOmikujiTable { get; private set; }
 
-   
     public EntityMOverrideHitEffectConditionCriticalTable EntityMOverrideHitEffectConditionCriticalTable { get; private set; }
 
-   
     public EntityMOverrideHitEffectConditionDamageAttributeTable EntityMOverrideHitEffectConditionDamageAttributeTable { get; private set; }
 
-   
     public EntityMOverrideHitEffectConditionGroupTable EntityMOverrideHitEffectConditionGroupTable { get; private set; }
 
-   
     public EntityMOverrideHitEffectConditionSkillExecutorTable EntityMOverrideHitEffectConditionSkillExecutorTable { get; private set; }
 
-   
     public EntityMPartsTable EntityMPartsTable { get; private set; }
 
-   
     public EntityMPartsEnhancedTable EntityMPartsEnhancedTable { get; private set; }
 
-   
     public EntityMPartsEnhancedSubStatusTable EntityMPartsEnhancedSubStatusTable { get; private set; }
 
-   
     public EntityMPartsGroupTable EntityMPartsGroupTable { get; private set; }
 
-   
     public EntityMPartsLevelUpPriceGroupTable EntityMPartsLevelUpPriceGroupTable { get; private set; }
 
-   
     public EntityMPartsLevelUpRateGroupTable EntityMPartsLevelUpRateGroupTable { get; private set; }
 
-   
     public EntityMPartsRarityTable EntityMPartsRarityTable { get; private set; }
 
-   
     public EntityMPartsSeriesTable EntityMPartsSeriesTable { get; private set; }
 
-   
     public EntityMPartsSeriesBonusAbilityGroupTable EntityMPartsSeriesBonusAbilityGroupTable { get; private set; }
 
-   
     public EntityMPartsStatusMainTable EntityMPartsStatusMainTable { get; private set; }
 
-   
     public EntityMPlatformPaymentTable EntityMPlatformPaymentTable { get; private set; }
 
-   
     public EntityMPlatformPaymentPriceTable EntityMPlatformPaymentPriceTable { get; private set; }
 
-   
     public EntityMPortalCageAccessPointFunctionGroupTable EntityMPortalCageAccessPointFunctionGroupTable { get; private set; }
 
-   
     public EntityMPortalCageAccessPointFunctionGroupScheduleTable EntityMPortalCageAccessPointFunctionGroupScheduleTable { get; private set; }
 
-   
     public EntityMPortalCageCharacterGroupTable EntityMPortalCageCharacterGroupTable { get; private set; }
 
-   
     public EntityMPortalCageGateTable EntityMPortalCageGateTable { get; private set; }
 
-   
     public EntityMPortalCageSceneTable EntityMPortalCageSceneTable { get; private set; }
 
-   
     public EntityMPossessionAcquisitionRouteTable EntityMPossessionAcquisitionRouteTable { get; private set; }
 
-   
     public EntityMPowerCalculationConstantValueTable EntityMPowerCalculationConstantValueTable { get; private set; }
 
-   
     public EntityMPowerReferenceStatusGroupTable EntityMPowerReferenceStatusGroupTable { get; private set; }
 
-   
     public EntityMPremiumItemTable EntityMPremiumItemTable { get; private set; }
 
-   
     public EntityMPvpBackgroundTable EntityMPvpBackgroundTable { get; private set; }
 
-   
     public EntityMPvpGradeTable EntityMPvpGradeTable { get; private set; }
 
-   
     public EntityMPvpGradeGroupTable EntityMPvpGradeGroupTable { get; private set; }
 
-   
     public EntityMPvpGradeOneMatchRewardTable EntityMPvpGradeOneMatchRewardTable { get; private set; }
 
-   
     public EntityMPvpGradeOneMatchRewardGroupTable EntityMPvpGradeOneMatchRewardGroupTable { get; private set; }
 
-   
     public EntityMPvpGradeWeeklyRewardGroupTable EntityMPvpGradeWeeklyRewardGroupTable { get; private set; }
 
-   
     public EntityMPvpRewardTable EntityMPvpRewardTable { get; private set; }
 
-   
     public EntityMPvpSeasonTable EntityMPvpSeasonTable { get; private set; }
 
-   
     public EntityMPvpSeasonGradeTable EntityMPvpSeasonGradeTable { get; private set; }
 
-   
     public EntityMPvpSeasonGroupingTable EntityMPvpSeasonGroupingTable { get; private set; }
 
-   
     public EntityMPvpSeasonRankRewardTable EntityMPvpSeasonRankRewardTable { get; private set; }
 
-   
     public EntityMPvpSeasonRankRewardGroupTable EntityMPvpSeasonRankRewardGroupTable { get; private set; }
 
-   
     public EntityMPvpSeasonRankRewardPerSeasonTable EntityMPvpSeasonRankRewardPerSeasonTable { get; private set; }
 
-   
     public EntityMPvpSeasonRankRewardRankGroupTable EntityMPvpSeasonRankRewardRankGroupTable { get; private set; }
 
-   
     public EntityMPvpWeeklyRankRewardGroupTable EntityMPvpWeeklyRankRewardGroupTable { get; private set; }
 
-   
     public EntityMPvpWeeklyRankRewardRankGroupTable EntityMPvpWeeklyRankRewardRankGroupTable { get; private set; }
 
-   
     public EntityMPvpWinStreakCountEffectTable EntityMPvpWinStreakCountEffectTable { get; private set; }
 
-   
     public EntityMQuestTable EntityMQuestTable { get; private set; }
 
-   
     public EntityMQuestBonusTable EntityMQuestBonusTable { get; private set; }
 
-   
     public EntityMQuestBonusAbilityTable EntityMQuestBonusAbilityTable { get; private set; }
 
-   
     public EntityMQuestBonusAllyCharacterTable EntityMQuestBonusAllyCharacterTable { get; private set; }
 
-   
     public EntityMQuestBonusCharacterGroupTable EntityMQuestBonusCharacterGroupTable { get; private set; }
 
-   
     public EntityMQuestBonusCostumeGroupTable EntityMQuestBonusCostumeGroupTable { get; private set; }
 
-   
     public EntityMQuestBonusCostumeSettingGroupTable EntityMQuestBonusCostumeSettingGroupTable { get; private set; }
 
-   
     public EntityMQuestBonusDropRewardTable EntityMQuestBonusDropRewardTable { get; private set; }
 
-   
     public EntityMQuestBonusEffectGroupTable EntityMQuestBonusEffectGroupTable { get; private set; }
 
-   
     public EntityMQuestBonusExpTable EntityMQuestBonusExpTable { get; private set; }
 
-   
     public EntityMQuestBonusTermGroupTable EntityMQuestBonusTermGroupTable { get; private set; }
 
-   
     public EntityMQuestBonusWeaponGroupTable EntityMQuestBonusWeaponGroupTable { get; private set; }
 
-   
     public EntityMQuestCampaignTable EntityMQuestCampaignTable { get; private set; }
 
-   
     public EntityMQuestCampaignEffectGroupTable EntityMQuestCampaignEffectGroupTable { get; private set; }
 
-   
     public EntityMQuestCampaignTargetGroupTable EntityMQuestCampaignTargetGroupTable { get; private set; }
 
-   
     public EntityMQuestCampaignTargetItemGroupTable EntityMQuestCampaignTargetItemGroupTable { get; private set; }
 
-   
     public EntityMQuestDeckRestrictionGroupTable EntityMQuestDeckRestrictionGroupTable { get; private set; }
 
-   
     public EntityMQuestDeckRestrictionGroupUnlockTable EntityMQuestDeckRestrictionGroupUnlockTable { get; private set; }
 
-   
     public EntityMQuestDisplayAttributeGroupTable EntityMQuestDisplayAttributeGroupTable { get; private set; }
 
-   
     public EntityMQuestDisplayEnemyThumbnailReplaceTable EntityMQuestDisplayEnemyThumbnailReplaceTable { get; private set; }
 
-   
     public EntityMQuestFirstClearRewardGroupTable EntityMQuestFirstClearRewardGroupTable { get; private set; }
 
-   
     public EntityMQuestMissionTable EntityMQuestMissionTable { get; private set; }
 
-   
     public EntityMQuestMissionConditionValueGroupTable EntityMQuestMissionConditionValueGroupTable { get; private set; }
 
-   
     public EntityMQuestMissionGroupTable EntityMQuestMissionGroupTable { get; private set; }
 
-   
     public EntityMQuestMissionRewardTable EntityMQuestMissionRewardTable { get; private set; }
 
-   
     public EntityMQuestPickupRewardGroupTable EntityMQuestPickupRewardGroupTable { get; private set; }
 
-   
     public EntityMQuestRelationMainFlowTable EntityMQuestRelationMainFlowTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionBigHuntScoreTable EntityMQuestReleaseConditionBigHuntScoreTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionCharacterLevelTable EntityMQuestReleaseConditionCharacterLevelTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionDeckPowerTable EntityMQuestReleaseConditionDeckPowerTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionGroupTable EntityMQuestReleaseConditionGroupTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionListTable EntityMQuestReleaseConditionListTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionQuestChallengeTable EntityMQuestReleaseConditionQuestChallengeTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionQuestClearTable EntityMQuestReleaseConditionQuestClearTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionUserLevelTable EntityMQuestReleaseConditionUserLevelTable { get; private set; }
 
-   
     public EntityMQuestReleaseConditionWeaponAcquisitionTable EntityMQuestReleaseConditionWeaponAcquisitionTable { get; private set; }
 
-   
     public EntityMQuestReplayFlowRewardGroupTable EntityMQuestReplayFlowRewardGroupTable { get; private set; }
 
-   
     public EntityMQuestSceneTable EntityMQuestSceneTable { get; private set; }
 
-   
     public EntityMQuestSceneBattleTable EntityMQuestSceneBattleTable { get; private set; }
 
-   
     public EntityMQuestSceneChoiceTable EntityMQuestSceneChoiceTable { get; private set; }
 
-   
     public EntityMQuestSceneChoiceCostumeEffectGroupTable EntityMQuestSceneChoiceCostumeEffectGroupTable { get; private set; }
 
-   
     public EntityMQuestSceneChoiceEffectTable EntityMQuestSceneChoiceEffectTable { get; private set; }
 
-   
     public EntityMQuestSceneChoiceWeaponEffectGroupTable EntityMQuestSceneChoiceWeaponEffectGroupTable { get; private set; }
 
-   
     public EntityMQuestSceneNotConfirmTitleDialogTable EntityMQuestSceneNotConfirmTitleDialogTable { get; private set; }
 
-   
     public EntityMQuestSceneOutgameBlendshapeMotionTable EntityMQuestSceneOutgameBlendshapeMotionTable { get; private set; }
 
-   
     public EntityMQuestScheduleTable EntityMQuestScheduleTable { get; private set; }
 
-   
     public EntityMQuestScheduleCorrespondenceTable EntityMQuestScheduleCorrespondenceTable { get; private set; }
 
-   
     public EntityMReportTable EntityMReportTable { get; private set; }
 
-   
     public EntityMShopTable EntityMShopTable { get; private set; }
 
-   
     public EntityMShopDisplayPriceTable EntityMShopDisplayPriceTable { get; private set; }
 
-   
     public EntityMShopItemTable EntityMShopItemTable { get; private set; }
 
-   
     public EntityMShopItemAdditionalContentTable EntityMShopItemAdditionalContentTable { get; private set; }
 
-   
     public EntityMShopItemCellTable EntityMShopItemCellTable { get; private set; }
 
-   
     public EntityMShopItemCellGroupTable EntityMShopItemCellGroupTable { get; private set; }
 
-   
     public EntityMShopItemCellLimitedOpenTable EntityMShopItemCellLimitedOpenTable { get; private set; }
 
-   
     public EntityMShopItemCellTermTable EntityMShopItemCellTermTable { get; private set; }
 
-   
     public EntityMShopItemContentEffectTable EntityMShopItemContentEffectTable { get; private set; }
 
-   
     public EntityMShopItemContentMissionTable EntityMShopItemContentMissionTable { get; private set; }
 
-   
     public EntityMShopItemContentPossessionTable EntityMShopItemContentPossessionTable { get; private set; }
 
-   
     public EntityMShopItemLimitedStockTable EntityMShopItemLimitedStockTable { get; private set; }
 
-   
     public EntityMShopItemUserLevelConditionTable EntityMShopItemUserLevelConditionTable { get; private set; }
 
-   
     public EntityMShopReplaceableGemTable EntityMShopReplaceableGemTable { get; private set; }
 
-   
     public EntityMSideStoryQuestTable EntityMSideStoryQuestTable { get; private set; }
 
-   
     public EntityMSideStoryQuestLimitContentTable EntityMSideStoryQuestLimitContentTable { get; private set; }
 
-   
     public EntityMSideStoryQuestSceneTable EntityMSideStoryQuestSceneTable { get; private set; }
 
-   
     public EntityMSkillTable EntityMSkillTable { get; private set; }
 
-   
     public EntityMSkillAbnormalTable EntityMSkillAbnormalTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourTable EntityMSkillAbnormalBehaviourTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable EntityMSkillAbnormalBehaviourActionAbnormalResistanceTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable EntityMSkillAbnormalBehaviourActionAttributeDamageCorrectionTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionBuffResistanceTable EntityMSkillAbnormalBehaviourActionBuffResistanceTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionDamageTable EntityMSkillAbnormalBehaviourActionDamageTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionDamageMultiplyTable EntityMSkillAbnormalBehaviourActionDamageMultiplyTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable EntityMSkillAbnormalBehaviourActionDamageMultiplyDetailAlwaysTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionHitRatioDownTable EntityMSkillAbnormalBehaviourActionHitRatioDownTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionModifyHateValueTable EntityMSkillAbnormalBehaviourActionModifyHateValueTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionRecoveryTable EntityMSkillAbnormalBehaviourActionRecoveryTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourActionTurnRestrictionTable EntityMSkillAbnormalBehaviourActionTurnRestrictionTable { get; private set; }
 
-   
     public EntityMSkillAbnormalBehaviourGroupTable EntityMSkillAbnormalBehaviourGroupTable { get; private set; }
 
-   
     public EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable EntityMSkillAbnormalDamageMultiplyDetailAbnormalTable { get; private set; }
 
-   
     public EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable EntityMSkillAbnormalDamageMultiplyDetailBuffAttachedTable { get; private set; }
 
-   
     public EntityMSkillAbnormalDamageMultiplyDetailCriticalTable EntityMSkillAbnormalDamageMultiplyDetailCriticalTable { get; private set; }
 
-   
     public EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable EntityMSkillAbnormalDamageMultiplyDetailHitIndexTable { get; private set; }
 
-   
     public EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable EntityMSkillAbnormalDamageMultiplyDetailSkillfulWeaponTable { get; private set; }
 
-   
     public EntityMSkillAbnormalLifetimeTable EntityMSkillAbnormalLifetimeTable { get; private set; }
 
-   
     public EntityMSkillAbnormalLifetimeBehaviourActivateCountTable EntityMSkillAbnormalLifetimeBehaviourActivateCountTable { get; private set; }
 
-   
     public EntityMSkillAbnormalLifetimeBehaviourFrameCountTable EntityMSkillAbnormalLifetimeBehaviourFrameCountTable { get; private set; }
 
-   
     public EntityMSkillAbnormalLifetimeBehaviourGroupTable EntityMSkillAbnormalLifetimeBehaviourGroupTable { get; private set; }
 
-   
     public EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCountTable { get; private set; }
 
-   
     public EntityMSkillAbnormalLifetimeBehaviourTurnCountTable EntityMSkillAbnormalLifetimeBehaviourTurnCountTable { get; private set; }
 
-   
     public EntityMSkillBehaviourTable EntityMSkillBehaviourTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAbnormalTable EntityMSkillBehaviourActionAbnormalTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable EntityMSkillBehaviourActionActiveSkillDamageCorrectionTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable EntityMSkillBehaviourActionAdvanceActiveSkillCooltimeImmediateTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackTable EntityMSkillBehaviourActionAttackTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackClampHpTable EntityMSkillBehaviourActionAttackClampHpTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackComboTable EntityMSkillBehaviourActionAttackComboTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackFixedDamageTable EntityMSkillBehaviourActionAttackFixedDamageTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackHpRatioTable EntityMSkillBehaviourActionAttackHpRatioTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackIgnoreVitalityTable EntityMSkillBehaviourActionAttackIgnoreVitalityTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackMainWeaponAttributeTable EntityMSkillBehaviourActionAttackMainWeaponAttributeTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable EntityMSkillBehaviourActionAttackSkillfulMainWeaponTypeTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttackVitalityTable EntityMSkillBehaviourActionAttackVitalityTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionAttributeDamageCorrectionTable EntityMSkillBehaviourActionAttributeDamageCorrectionTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionBuffTable EntityMSkillBehaviourActionBuffTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionChangestepTable EntityMSkillBehaviourActionChangestepTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionDamageCorrectionHpRatioTable EntityMSkillBehaviourActionDamageCorrectionHpRatioTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionDamageMultiplyTable EntityMSkillBehaviourActionDamageMultiplyTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionDefaultSkillLotteryTable EntityMSkillBehaviourActionDefaultSkillLotteryTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionHpRatioDamageTable EntityMSkillBehaviourActionHpRatioDamageTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionRecoveryTable EntityMSkillBehaviourActionRecoveryTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionRemoveAbnormalTable EntityMSkillBehaviourActionRemoveAbnormalTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionRemoveBuffTable EntityMSkillBehaviourActionRemoveBuffTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable EntityMSkillBehaviourActionSkillRecoveryPowerCorrectionTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActivationConditionActivationUpperCountTable EntityMSkillBehaviourActivationConditionActivationUpperCountTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActivationConditionAttributeTable EntityMSkillBehaviourActivationConditionAttributeTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActivationConditionGroupTable EntityMSkillBehaviourActivationConditionGroupTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActivationConditionHpRatioTable EntityMSkillBehaviourActivationConditionHpRatioTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActivationConditionInSkillFlowTable EntityMSkillBehaviourActivationConditionInSkillFlowTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActivationConditionWaveNumberTable EntityMSkillBehaviourActivationConditionWaveNumberTable { get; private set; }
 
-   
     public EntityMSkillBehaviourActivationMethodTable EntityMSkillBehaviourActivationMethodTable { get; private set; }
 
-   
     public EntityMSkillBehaviourGroupTable EntityMSkillBehaviourGroupTable { get; private set; }
 
-   
     public EntityMSkillBuffTable EntityMSkillBuffTable { get; private set; }
 
-   
     public EntityMSkillCasttimeTable EntityMSkillCasttimeTable { get; private set; }
 
-   
     public EntityMSkillCasttimeBehaviourTable EntityMSkillCasttimeBehaviourTable { get; private set; }
 
-   
     public EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable EntityMSkillCasttimeBehaviourActionOnFrameUpdateTable { get; private set; }
 
-   
     public EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable EntityMSkillCasttimeBehaviourActionOnSkillDamageConditionTable { get; private set; }
 
-   
     public EntityMSkillCasttimeBehaviourGroupTable EntityMSkillCasttimeBehaviourGroupTable { get; private set; }
 
-   
     public EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroupTable { get; private set; }
 
-   
     public EntityMSkillCooltimeBehaviourTable EntityMSkillCooltimeBehaviourTable { get; private set; }
 
-   
     public EntityMSkillCooltimeBehaviourGroupTable EntityMSkillCooltimeBehaviourGroupTable { get; private set; }
 
-   
     public EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable EntityMSkillCooltimeBehaviourOnExecuteActiveSkillTable { get; private set; }
 
-   
     public EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable EntityMSkillCooltimeBehaviourOnExecuteCompanionSkillTable { get; private set; }
 
-   
     public EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable EntityMSkillCooltimeBehaviourOnExecuteDefaultSkillTable { get; private set; }
 
-   
     public EntityMSkillCooltimeBehaviourOnFrameUpdateTable EntityMSkillCooltimeBehaviourOnFrameUpdateTable { get; private set; }
 
-   
     public EntityMSkillCooltimeBehaviourOnSkillDamageTable EntityMSkillCooltimeBehaviourOnSkillDamageTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable EntityMSkillDamageMultiplyAbnormalAttachedValueGroupTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyDetailAbnormalAttachedTable EntityMSkillDamageMultiplyDetailAbnormalAttachedTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyDetailAlwaysTable EntityMSkillDamageMultiplyDetailAlwaysTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyDetailBuffAttachedTable EntityMSkillDamageMultiplyDetailBuffAttachedTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyDetailCriticalTable EntityMSkillDamageMultiplyDetailCriticalTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyDetailHitIndexTable EntityMSkillDamageMultiplyDetailHitIndexTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable { get; private set; }
 
-   
     public EntityMSkillDamageMultiplyHitIndexValueGroupTable EntityMSkillDamageMultiplyHitIndexValueGroupTable { get; private set; }
 
-   
     public EntityMSkillDetailTable EntityMSkillDetailTable { get; private set; }
 
-   
     public EntityMSkillLevelGroupTable EntityMSkillLevelGroupTable { get; private set; }
 
-   
     public EntityMSkillRemoveAbnormalTargetAbnormalGroupTable EntityMSkillRemoveAbnormalTargetAbnormalGroupTable { get; private set; }
 
-   
     public EntityMSkillRemoveBuffFilterStatusKindTable EntityMSkillRemoveBuffFilterStatusKindTable { get; private set; }
 
-   
     public EntityMSkillReserveUiTypeTable EntityMSkillReserveUiTypeTable { get; private set; }
 
-   
     public EntityMSmartphoneChatGroupTable EntityMSmartphoneChatGroupTable { get; private set; }
 
-   
     public EntityMSmartphoneChatGroupMessageTable EntityMSmartphoneChatGroupMessageTable { get; private set; }
 
-   
     public EntityMSpeakerTable EntityMSpeakerTable { get; private set; }
 
-   
     public EntityMStainedGlassTable EntityMStainedGlassTable { get; private set; }
 
-   
     public EntityMStainedGlassStatusUpGroupTable EntityMStainedGlassStatusUpGroupTable { get; private set; }
 
-   
     public EntityMStainedGlassStatusUpTargetGroupTable EntityMStainedGlassStatusUpTargetGroupTable { get; private set; }
 
-   
     public EntityMThoughtTable EntityMThoughtTable { get; private set; }
 
-   
     public EntityMTipTable EntityMTipTable { get; private set; }
 
-   
     public EntityMTipBackgroundAssetTable EntityMTipBackgroundAssetTable { get; private set; }
 
-   
     public EntityMTipDisplayConditionGroupTable EntityMTipDisplayConditionGroupTable { get; private set; }
 
-   
     public EntityMTipGroupTable EntityMTipGroupTable { get; private set; }
 
-   
     public EntityMTipGroupBackgroundAssetTable EntityMTipGroupBackgroundAssetTable { get; private set; }
 
-   
     public EntityMTipGroupBackgroundAssetRelationTable EntityMTipGroupBackgroundAssetRelationTable { get; private set; }
 
-   
     public EntityMTipGroupSelectionTable EntityMTipGroupSelectionTable { get; private set; }
 
-   
     public EntityMTipGroupSituationTable EntityMTipGroupSituationTable { get; private set; }
 
-   
     public EntityMTipGroupSituationSeasonTable EntityMTipGroupSituationSeasonTable { get; private set; }
 
-   
     public EntityMTitleFlowMovieTable EntityMTitleFlowMovieTable { get; private set; }
 
-   
     public EntityMTitleStillTable EntityMTitleStillTable { get; private set; }
 
-   
     public EntityMTitleStillGroupTable EntityMTitleStillGroupTable { get; private set; }
 
-   
     public EntityMTutorialDialogTable EntityMTutorialDialogTable { get; private set; }
 
-   
     public EntityMTutorialUnlockConditionTable EntityMTutorialUnlockConditionTable { get; private set; }
 
-   
     public EntityMUserLevelTable EntityMUserLevelTable { get; private set; }
 
-   
     public EntityMUserQuestSceneGrantPossessionTable EntityMUserQuestSceneGrantPossessionTable { get; private set; }
 
-   
     public EntityMWeaponTable EntityMWeaponTable { get; private set; }
 
-   
     public EntityMWeaponAbilityEnhancementMaterialTable EntityMWeaponAbilityEnhancementMaterialTable { get; private set; }
 
-   
     public EntityMWeaponAbilityGroupTable EntityMWeaponAbilityGroupTable { get; private set; }
 
-   
     public EntityMWeaponAwakenTable EntityMWeaponAwakenTable { get; private set; }
 
-   
     public EntityMWeaponAwakenAbilityTable EntityMWeaponAwakenAbilityTable { get; private set; }
 
-   
     public EntityMWeaponAwakenEffectGroupTable EntityMWeaponAwakenEffectGroupTable { get; private set; }
 
-   
     public EntityMWeaponAwakenMaterialGroupTable EntityMWeaponAwakenMaterialGroupTable { get; private set; }
 
-   
     public EntityMWeaponAwakenStatusUpGroupTable EntityMWeaponAwakenStatusUpGroupTable { get; private set; }
 
-   
     public EntityMWeaponBaseStatusTable EntityMWeaponBaseStatusTable { get; private set; }
 
-   
     public EntityMWeaponConsumeExchangeConsumableItemGroupTable EntityMWeaponConsumeExchangeConsumableItemGroupTable { get; private set; }
 
-   
     public EntityMWeaponEnhancedTable EntityMWeaponEnhancedTable { get; private set; }
 
-   
     public EntityMWeaponEnhancedAbilityTable EntityMWeaponEnhancedAbilityTable { get; private set; }
 
-   
     public EntityMWeaponEnhancedSkillTable EntityMWeaponEnhancedSkillTable { get; private set; }
 
-   
     public EntityMWeaponEvolutionGroupTable EntityMWeaponEvolutionGroupTable { get; private set; }
 
-   
     public EntityMWeaponEvolutionMaterialGroupTable EntityMWeaponEvolutionMaterialGroupTable { get; private set; }
 
-   
     public EntityMWeaponFieldEffectDecreasePointTable EntityMWeaponFieldEffectDecreasePointTable { get; private set; }
 
-   
     public EntityMWeaponRarityTable EntityMWeaponRarityTable { get; private set; }
 
-   
     public EntityMWeaponRarityLimitBreakMaterialGroupTable EntityMWeaponRarityLimitBreakMaterialGroupTable { get; private set; }
 
-   
     public EntityMWeaponSkillEnhancementMaterialTable EntityMWeaponSkillEnhancementMaterialTable { get; private set; }
 
-   
     public EntityMWeaponSkillGroupTable EntityMWeaponSkillGroupTable { get; private set; }
 
-   
     public EntityMWeaponSpecificEnhanceTable EntityMWeaponSpecificEnhanceTable { get; private set; }
 
-   
     public EntityMWeaponSpecificLimitBreakMaterialGroupTable EntityMWeaponSpecificLimitBreakMaterialGroupTable { get; private set; }
 
-   
     public EntityMWeaponStatusCalculationTable EntityMWeaponStatusCalculationTable { get; private set; }
 
-   
     public EntityMWeaponStoryReleaseConditionGroupTable EntityMWeaponStoryReleaseConditionGroupTable { get; private set; }
 
-   
     public EntityMWeaponStoryReleaseConditionOperationTable EntityMWeaponStoryReleaseConditionOperationTable { get; private set; }
 
-   
     public EntityMWeaponStoryReleaseConditionOperationGroupTable EntityMWeaponStoryReleaseConditionOperationGroupTable { get; private set; }
 
-   
     public EntityMWebviewMissionTable EntityMWebviewMissionTable { get; private set; }
 
-   
     public EntityMWebviewMissionTitleTextTable EntityMWebviewMissionTitleTextTable { get; private set; }
 
-   
     public EntityMWebviewPanelMissionTable EntityMWebviewPanelMissionTable { get; private set; }
 
-   
     public EntityMWebviewPanelMissionCompleteFlavorTextTable EntityMWebviewPanelMissionCompleteFlavorTextTable { get; private set; }
 
-   
     public EntityMWebviewPanelMissionPageTable EntityMWebviewPanelMissionPageTable { get; private set; }
 
     public DarkMasterMemoryDatabase(byte[] databaseBinary, bool internString = true, IFormatterResolver formatterResolver = null) :

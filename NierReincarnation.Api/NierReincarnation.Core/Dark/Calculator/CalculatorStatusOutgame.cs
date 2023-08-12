@@ -2,7 +2,6 @@
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Calculator;
 

@@ -40,5 +40,5 @@ public class EntityMEventQuestChapter
     public long EndDatetime { get; set; }
 
     [Key(10)]
-    public int DisplaySortOrder { get; set; }  
+    public int DisplaySortOrder { get; set; }
 }

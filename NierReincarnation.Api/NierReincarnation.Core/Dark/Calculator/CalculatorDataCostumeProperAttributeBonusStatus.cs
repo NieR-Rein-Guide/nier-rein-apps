@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Status;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Calculator;
 

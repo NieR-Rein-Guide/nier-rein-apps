@@ -12,19 +12,15 @@ using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Networking.DataSource.User;
 using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.Octo;
-using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.UnityEngine;
 using NierReincarnation.Localizations;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using Config = NierReincarnation.Core.Dark.EntryPoint.Config;
 
 namespace NierReincarnation;
 
 /// <summary>
-/// HINT: The whole class is static to go with the singleton nature of the application. Doing an instance-based approach at this stage would
-///       require a rewrite of the fundamental code, to never use singleton instances.
+/// HINT: The whole class is static to go with the singleton nature of the application. Doing an instance-based approach at this stage would require a
+/// rewrite of the fundamental code, to never use singleton instances.
 /// </summary>
 public static class NierReincarnation
 {
@@ -40,6 +36,7 @@ public static class NierReincarnation
     public static bool IsSetup { get; private set; }
 
     public static event Func<RpcException, Task<bool>> ApiError;
+
     public static RpcException LastApiError { get; private set; }
 
     static NierReincarnation()

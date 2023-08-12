@@ -1,6 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using System;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
@@ -8,6 +6,7 @@ public sealed class DataLabyrinthQuestListQuestComparer : IComparer<DataLabyrint
 {
     // Fields
     public static readonly DataLabyrinthQuestListQuestComparer InstanceAscending = new DataLabyrinthQuestListQuestComparer(true);
+
     public static readonly DataLabyrinthQuestListQuestComparer InstanceDescending = new DataLabyrinthQuestListQuestComparer(false);
     private readonly bool _ascending;
 

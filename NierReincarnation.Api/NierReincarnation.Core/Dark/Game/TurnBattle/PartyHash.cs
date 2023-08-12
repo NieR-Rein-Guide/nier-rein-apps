@@ -8,7 +8,8 @@ public class PartyHash
     [Key(0)]
     public int Hash { get; set; }
 
-    public PartyHash() { }
+    public PartyHash()
+    { }
 
     public PartyHash(TeamHash teamHash, int waveNumber)
     {

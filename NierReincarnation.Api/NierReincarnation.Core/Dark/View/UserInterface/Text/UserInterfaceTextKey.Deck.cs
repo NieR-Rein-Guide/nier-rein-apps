@@ -35,6 +35,7 @@ public static partial class UserInterfaceTextKey
 
         // Custom
         public static readonly string kOrganization = "ui.Outgame.Deck.Organization";
+
         public static readonly string kDeleteDeck = "ui.Outgame.Deck.Delete";
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using MessagePack;
+﻿using MessagePack;
 
 namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle;
 

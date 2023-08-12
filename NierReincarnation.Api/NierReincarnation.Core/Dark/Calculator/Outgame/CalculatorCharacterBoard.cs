@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Generated.Type;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;

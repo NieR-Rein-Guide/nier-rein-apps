@@ -1,7 +1,7 @@
 ﻿namespace NierReincarnation.Core.Dark.Networking.DataSource;
 
 // Dark.Networking.DataSource.DataSourceType
-enum DataSourceType
+internal enum DataSourceType
 {
     UserRegister = 0,
     UserAuth = 1,
@@ -15,4 +15,4 @@ enum DataSourceType
     UserTransfer = 9,
     UserTransferApple = 10,
     UserTransferFacebook = 11
-	}
+}

@@ -1,5 +1,6 @@
 using MessagePack;
 using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Dark.View.UserInterface.WindowSystem;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
@@ -18,7 +19,7 @@ public class EntityMPossessionAcquisitionRoute
     public int SortOrder { get; set; }
 
     [Key(3)]
-    public int AcquisitionRouteType { get; set; }
+    public TransitionRouteType AcquisitionRouteType { get; set; }
 
     [Key(4)]
     public int RouteId { get; set; }

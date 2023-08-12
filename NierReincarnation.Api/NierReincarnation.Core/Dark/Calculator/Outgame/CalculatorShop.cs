@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Generated.Type;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Purchase;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
@@ -13,6 +11,7 @@ public static class CalculatorShop
     private static readonly int kInvalidLimitedOpenId;
 
     public static int kShopIdItem => ShopId(ShopType.ITEM_SHOP);
+
     public static int kShopIdStamina => ShopId(ShopType.STAMINA_RECOVERY_SHOP);
 
     public static List<DataShop> CreateDataShopList(long userId, ShopGroupType shopGroupType)
@@ -55,8 +54,8 @@ public static class CalculatorShop
             if (string.IsNullOrEmpty(productId))
                 return null;
 
-            // HINT: This check goes against the products retrieved from the platforms shop SDK
-            // Since we do not have access to such a shop SDK, we do not return an invalid result, as the game does
+            // HINT: This check goes against the products retrieved from the platforms shop SDK Since we do not have access to such a shop SDK, we do
+            // not return an invalid result, as the game does
             if (!DarkPurchase.Instance.IsExistsProduct(productId))
                 ;
         }

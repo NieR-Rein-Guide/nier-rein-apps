@@ -1,12 +1,5 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 

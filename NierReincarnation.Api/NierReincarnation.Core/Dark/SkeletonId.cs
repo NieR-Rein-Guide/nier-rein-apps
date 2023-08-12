@@ -1,18 +1,16 @@
-﻿using System;
-
-namespace NierReincarnation.Core.Dark;
+﻿namespace NierReincarnation.Core.Dark;
 
 public class SkeletonId : IEquatable<SkeletonId>
 {
     // Fields
     public static readonly SkeletonId InvalidSkeletonId = new SkeletonId();
+
     private static readonly int InvalidId = 0;
 
-   
     public SkeletonCategory Category { get; }
-   
+
     public int Id { get; }
-   
+
     public string StringId { get; }
 
     public SkeletonId()
@@ -46,7 +44,7 @@ public class SkeletonId : IEquatable<SkeletonId>
 
     public override bool Equals(object obj)
     {
-        if(obj is SkeletonId sid)
+        if (obj is SkeletonId sid)
             return Id == sid.Id;
 
         return false;
@@ -75,6 +73,7 @@ public class SkeletonId : IEquatable<SkeletonId>
     }
 
     public static bool operator ==(SkeletonId a, SkeletonId b) => a?.Id == b?.Id;
+
     public static bool operator !=(SkeletonId a, SkeletonId b) => a?.Id != b?.Id;
 
     private SkeletonCategory GenerateSkeletonCategory(string skeletonId)

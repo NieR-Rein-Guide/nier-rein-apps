@@ -1,317 +1,213 @@
 using MessagePack;
 using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
-using System;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark;
 
 public class DarkUserMemoryDatabase : MemoryDatabaseBase
 {
-   
     public EntityIUserTable EntityIUserTable { get; private set; }
 
-   
     public EntityIUserAppleTable EntityIUserAppleTable { get; private set; }
 
-   
     public EntityIUserAutoSaleSettingDetailTable EntityIUserAutoSaleSettingDetailTable { get; private set; }
 
-   
     public EntityIUserBeginnerCampaignTable EntityIUserBeginnerCampaignTable { get; private set; }
 
-   
     public EntityIUserBigHuntMaxScoreTable EntityIUserBigHuntMaxScoreTable { get; private set; }
 
-   
     public EntityIUserBigHuntProgressStatusTable EntityIUserBigHuntProgressStatusTable { get; private set; }
 
-   
     public EntityIUserBigHuntScheduleMaxScoreTable EntityIUserBigHuntScheduleMaxScoreTable { get; private set; }
 
-   
     public EntityIUserBigHuntStatusTable EntityIUserBigHuntStatusTable { get; private set; }
 
-   
     public EntityIUserBigHuntWeeklyMaxScoreTable EntityIUserBigHuntWeeklyMaxScoreTable { get; private set; }
 
-   
     public EntityIUserBigHuntWeeklyStatusTable EntityIUserBigHuntWeeklyStatusTable { get; private set; }
 
-   
     public EntityIUserCageOrnamentRewardTable EntityIUserCageOrnamentRewardTable { get; private set; }
 
-   
     public EntityIUserCharacterTable EntityIUserCharacterTable { get; private set; }
 
-   
     public EntityIUserCharacterBoardTable EntityIUserCharacterBoardTable { get; private set; }
 
-   
     public EntityIUserCharacterBoardAbilityTable EntityIUserCharacterBoardAbilityTable { get; private set; }
 
-   
     public EntityIUserCharacterBoardCompleteRewardTable EntityIUserCharacterBoardCompleteRewardTable { get; private set; }
 
-   
     public EntityIUserCharacterBoardStatusUpTable EntityIUserCharacterBoardStatusUpTable { get; private set; }
 
-   
     public EntityIUserCharacterCostumeLevelBonusTable EntityIUserCharacterCostumeLevelBonusTable { get; private set; }
 
-   
     public EntityIUserCharacterRebirthTable EntityIUserCharacterRebirthTable { get; private set; }
 
-   
     public EntityIUserCharacterViewerFieldTable EntityIUserCharacterViewerFieldTable { get; private set; }
 
-   
     public EntityIUserComebackCampaignTable EntityIUserComebackCampaignTable { get; private set; }
 
-   
     public EntityIUserCompanionTable EntityIUserCompanionTable { get; private set; }
 
-   
     public EntityIUserConsumableItemTable EntityIUserConsumableItemTable { get; private set; }
 
-   
     public EntityIUserContentsStoryTable EntityIUserContentsStoryTable { get; private set; }
 
-   
     public EntityIUserCostumeTable EntityIUserCostumeTable { get; private set; }
 
-   
     public EntityIUserCostumeActiveSkillTable EntityIUserCostumeActiveSkillTable { get; private set; }
 
-   
     public EntityIUserCostumeAwakenStatusUpTable EntityIUserCostumeAwakenStatusUpTable { get; private set; }
 
-   
     public EntityIUserCostumeLevelBonusReleaseStatusTable EntityIUserCostumeLevelBonusReleaseStatusTable { get; private set; }
 
-   
     public EntityIUserDeckTable EntityIUserDeckTable { get; private set; }
 
-   
     public EntityIUserDeckCharacterTable EntityIUserDeckCharacterTable { get; private set; }
 
-   
     public EntityIUserDeckCharacterDressupCostumeTable EntityIUserDeckCharacterDressupCostumeTable { get; private set; }
 
-   
     public EntityIUserDeckLimitContentRestrictedTable EntityIUserDeckLimitContentRestrictedTable { get; private set; }
 
-   
     public EntityIUserDeckPartsGroupTable EntityIUserDeckPartsGroupTable { get; private set; }
 
-   
     public EntityIUserDeckSubWeaponGroupTable EntityIUserDeckSubWeaponGroupTable { get; private set; }
 
-   
     public EntityIUserDeckTypeNoteTable EntityIUserDeckTypeNoteTable { get; private set; }
 
-   
     public EntityIUserDokanTable EntityIUserDokanTable { get; private set; }
 
-   
     public EntityIUserEventQuestDailyGroupCompleteRewardTable EntityIUserEventQuestDailyGroupCompleteRewardTable { get; private set; }
 
-   
     public EntityIUserEventQuestGuerrillaFreeOpenTable EntityIUserEventQuestGuerrillaFreeOpenTable { get; private set; }
 
-   
     public EntityIUserEventQuestLabyrinthSeasonTable EntityIUserEventQuestLabyrinthSeasonTable { get; private set; }
 
-   
     public EntityIUserEventQuestLabyrinthStageTable EntityIUserEventQuestLabyrinthStageTable { get; private set; }
 
-   
     public EntityIUserEventQuestProgressStatusTable EntityIUserEventQuestProgressStatusTable { get; private set; }
 
-   
     public EntityIUserEventQuestTowerAccumulationRewardTable EntityIUserEventQuestTowerAccumulationRewardTable { get; private set; }
 
-   
     public EntityIUserExploreTable EntityIUserExploreTable { get; private set; }
 
-   
     public EntityIUserExploreScoreTable EntityIUserExploreScoreTable { get; private set; }
 
-   
     public EntityIUserExtraQuestProgressStatusTable EntityIUserExtraQuestProgressStatusTable { get; private set; }
 
-   
     public EntityIUserFacebookTable EntityIUserFacebookTable { get; private set; }
 
-   
     public EntityIUserGemTable EntityIUserGemTable { get; private set; }
 
-   
     public EntityIUserGimmickTable EntityIUserGimmickTable { get; private set; }
 
-   
     public EntityIUserGimmickOrnamentProgressTable EntityIUserGimmickOrnamentProgressTable { get; private set; }
 
-   
     public EntityIUserGimmickSequenceTable EntityIUserGimmickSequenceTable { get; private set; }
 
-   
     public EntityIUserGimmickUnlockTable EntityIUserGimmickUnlockTable { get; private set; }
 
-   
     public EntityIUserImportantItemTable EntityIUserImportantItemTable { get; private set; }
 
-   
     public EntityIUserLimitedOpenTable EntityIUserLimitedOpenTable { get; private set; }
 
-   
     public EntityIUserLoginTable EntityIUserLoginTable { get; private set; }
 
-   
     public EntityIUserLoginBonusTable EntityIUserLoginBonusTable { get; private set; }
 
-   
     public EntityIUserMainQuestFlowStatusTable EntityIUserMainQuestFlowStatusTable { get; private set; }
 
-   
     public EntityIUserMainQuestMainFlowStatusTable EntityIUserMainQuestMainFlowStatusTable { get; private set; }
 
-   
     public EntityIUserMainQuestProgressStatusTable EntityIUserMainQuestProgressStatusTable { get; private set; }
 
-   
     public EntityIUserMainQuestReplayFlowStatusTable EntityIUserMainQuestReplayFlowStatusTable { get; private set; }
 
-   
     public EntityIUserMainQuestSeasonRouteTable EntityIUserMainQuestSeasonRouteTable { get; private set; }
 
-   
     public EntityIUserMaterialTable EntityIUserMaterialTable { get; private set; }
 
-   
     public EntityIUserMissionTable EntityIUserMissionTable { get; private set; }
 
-   
     public EntityIUserMissionCompletionProgressTable EntityIUserMissionCompletionProgressTable { get; private set; }
 
-   
     public EntityIUserMissionPassPointTable EntityIUserMissionPassPointTable { get; private set; }
 
-   
     public EntityIUserMovieTable EntityIUserMovieTable { get; private set; }
 
-   
     public EntityIUserNaviCutInTable EntityIUserNaviCutInTable { get; private set; }
 
-   
     public EntityIUserOmikujiTable EntityIUserOmikujiTable { get; private set; }
 
-   
     public EntityIUserPartsTable EntityIUserPartsTable { get; private set; }
 
-   
     public EntityIUserPartsGroupNoteTable EntityIUserPartsGroupNoteTable { get; private set; }
 
-   
     public EntityIUserPartsPresetTable EntityIUserPartsPresetTable { get; private set; }
 
-   
     public EntityIUserPartsPresetTagTable EntityIUserPartsPresetTagTable { get; private set; }
 
-   
     public EntityIUserPartsStatusSubTable EntityIUserPartsStatusSubTable { get; private set; }
 
-   
     public EntityIUserPortalCageStatusTable EntityIUserPortalCageStatusTable { get; private set; }
 
-   
     public EntityIUserPossessionAutoConvertTable EntityIUserPossessionAutoConvertTable { get; private set; }
 
-   
     public EntityIUserPremiumItemTable EntityIUserPremiumItemTable { get; private set; }
 
-   
     public EntityIUserProfileTable EntityIUserProfileTable { get; private set; }
 
-   
     public EntityIUserPvpDefenseDeckTable EntityIUserPvpDefenseDeckTable { get; private set; }
 
-   
     public EntityIUserPvpStatusTable EntityIUserPvpStatusTable { get; private set; }
 
-   
     public EntityIUserPvpWeeklyResultTable EntityIUserPvpWeeklyResultTable { get; private set; }
 
-   
     public EntityIUserQuestTable EntityIUserQuestTable { get; private set; }
 
-   
     public EntityIUserQuestAutoOrbitTable EntityIUserQuestAutoOrbitTable { get; private set; }
 
-   
     public EntityIUserQuestLimitContentStatusTable EntityIUserQuestLimitContentStatusTable { get; private set; }
 
-   
     public EntityIUserQuestMissionTable EntityIUserQuestMissionTable { get; private set; }
 
-   
     public EntityIUserQuestReplayFlowRewardGroupTable EntityIUserQuestReplayFlowRewardGroupTable { get; private set; }
 
-   
     public EntityIUserQuestSceneChoiceTable EntityIUserQuestSceneChoiceTable { get; private set; }
 
-   
     public EntityIUserQuestSceneChoiceHistoryTable EntityIUserQuestSceneChoiceHistoryTable { get; private set; }
 
-   
     public EntityIUserSettingTable EntityIUserSettingTable { get; private set; }
 
-   
     public EntityIUserShopItemTable EntityIUserShopItemTable { get; private set; }
 
-   
     public EntityIUserShopReplaceableTable EntityIUserShopReplaceableTable { get; private set; }
 
-   
     public EntityIUserShopReplaceableLineupTable EntityIUserShopReplaceableLineupTable { get; private set; }
 
-   
     public EntityIUserSideStoryQuestTable EntityIUserSideStoryQuestTable { get; private set; }
 
-   
     public EntityIUserSideStoryQuestSceneProgressStatusTable EntityIUserSideStoryQuestSceneProgressStatusTable { get; private set; }
 
-   
     public EntityIUserStatusTable EntityIUserStatusTable { get; private set; }
 
-   
     public EntityIUserThoughtTable EntityIUserThoughtTable { get; private set; }
 
-   
     public EntityIUserTripleDeckTable EntityIUserTripleDeckTable { get; private set; }
 
-   
     public EntityIUserTutorialProgressTable EntityIUserTutorialProgressTable { get; private set; }
 
-   
     public EntityIUserWeaponTable EntityIUserWeaponTable { get; private set; }
 
-   
     public EntityIUserWeaponAbilityTable EntityIUserWeaponAbilityTable { get; private set; }
 
-   
     public EntityIUserWeaponAwakenTable EntityIUserWeaponAwakenTable { get; private set; }
 
-   
     public EntityIUserWeaponNoteTable EntityIUserWeaponNoteTable { get; private set; }
 
-   
     public EntityIUserWeaponSkillTable EntityIUserWeaponSkillTable { get; private set; }
 
-   
     public EntityIUserWeaponStoryTable EntityIUserWeaponStoryTable { get; private set; }
 
-   
     public EntityIUserWebviewPanelMissionTable EntityIUserWebviewPanelMissionTable { get; private set; }
 
     public DarkUserMemoryDatabase(byte[] databaseBinary, bool internString = true, IFormatterResolver formatterResolver = null) :

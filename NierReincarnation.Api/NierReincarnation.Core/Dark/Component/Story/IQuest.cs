@@ -5,12 +5,19 @@ namespace NierReincarnation.Core.Dark.Component.Story;
 public interface IQuest
 {
     EntityMQuest EntityQuest { get; }
+
     int ChapterId { get; }
+
     int QuestSequenceSortOrder { get; }
+
     int QuestId { get; }
+
     int QuestBonusId { get; }
+
     bool IsRunInTheBackground { get; }
+
     DifficultyType DifficultyType { get; }
+
     QuestType QuestType { get; }
 
     //// RVA: -1 Offset: -1 Slot: 0
@@ -36,4 +43,4 @@ public interface IQuest
 
     //// RVA: -1 Offset: -1 Slot: 7
     //public abstract QuestType get_QuestType();
-	}
+}

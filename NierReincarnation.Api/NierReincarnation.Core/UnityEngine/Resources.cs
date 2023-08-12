@@ -1,5 +1,5 @@
-﻿using NierReincarnation.Core.AssetStudio;
-using NierReincarnation.Core.Adam.Framework.Resource;
+﻿using NierReincarnation.Core.Adam.Framework.Resource;
+using NierReincarnation.Core.AssetStudio;
 using NierReincarnation.Core.Octo.Util;
 
 namespace NierReincarnation.Core.UnityEngine;

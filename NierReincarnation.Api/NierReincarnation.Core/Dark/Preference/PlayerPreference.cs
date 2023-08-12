@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark.Preference;
 
 // Dark.Preference.PlayerPreference
-class PlayerPreference : PreferenceKeyStoreValue
+internal class PlayerPreference : PreferenceKeyStoreValue
 {
     private static readonly string kPlayerRegistrationsKey = "PlayerRegistrations";
     private static readonly string kCurrentSystemLanguage = "CurrentSystemLanguage";
@@ -25,6 +25,7 @@ class PlayerPreference : PreferenceKeyStoreValue
             _playerRegistrations = value;
             return value;
         }
+
         set
         {
             _playerRegistrations = value;
@@ -44,6 +45,7 @@ class PlayerPreference : PreferenceKeyStoreValue
 
             return null;
         }
+
         set
         {
             _activePlayer = value;

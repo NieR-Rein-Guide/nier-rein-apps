@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Generated.Type;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
-using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 

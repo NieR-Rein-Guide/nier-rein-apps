@@ -1,5 +1,4 @@
 using NierReincarnation.Core.MasterMemory;
-using System;
 
 namespace NierReincarnation.Core.Dark.Tables;
 

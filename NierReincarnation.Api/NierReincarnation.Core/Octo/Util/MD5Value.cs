@@ -61,7 +61,6 @@ public struct MD5Value
                b15 == md5.b15;
     }
 
-    // RVA: 0x3EC9220 Offset: 0x3EC9220 VA: 0x3EC9220
     public void Set(string md5)
     {
         var hex = Convert.FromHexString(md5);

@@ -1,10 +1,6 @@
 ﻿using NierReincarnation.Core.Adam.Framework.Resource;
 using NierReincarnation.Core.Octo.Util;
 using NierReincarnation.Core.UnityEngine;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace NierReincarnation.Localizations;
 

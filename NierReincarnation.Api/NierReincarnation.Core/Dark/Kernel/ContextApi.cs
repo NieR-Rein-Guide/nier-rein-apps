@@ -3,7 +3,6 @@
 // Dark.Kernel.ContextApi
 internal static class ContextApi
 {
-   
     private static Context _activeContext;
 
     public static Context ActiveContext => _activeContext;
@@ -24,4 +23,4 @@ internal static class ContextApi
     {
         _activeContext = context;
     }
-	}
+}

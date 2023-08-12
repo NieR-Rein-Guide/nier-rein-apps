@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using MessagePack;
+﻿using MessagePack;
 using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
-class DarkUserDatabaseBuilder : DatabaseBuilderBase
+internal class DarkUserDatabaseBuilder : DatabaseBuilderBase
 {
     public DarkUserDatabaseBuilder() : base(null)
     {
@@ -275,7 +273,7 @@ class DarkUserDatabaseBuilder : DatabaseBuilderBase
 
     public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserQuestSceneChoice> dataSource)
     {
-        AppendCore(dataSource, user => (user.UserId,user.QuestSceneChoiceGroupingId), Comparer<(long, int)>.Default);
+        AppendCore(dataSource, user => (user.UserId, user.QuestSceneChoiceGroupingId), Comparer<(long, int)>.Default);
         return this;
     }
 

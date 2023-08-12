@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Context.Models.Web;
 

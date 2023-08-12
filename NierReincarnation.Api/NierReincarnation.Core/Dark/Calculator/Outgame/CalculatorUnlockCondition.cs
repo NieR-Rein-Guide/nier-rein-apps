@@ -3,8 +3,6 @@ using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
-using System;
-using System.Linq;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
@@ -150,7 +148,9 @@ public static class CalculatorUnlockCondition
     public static bool IsUnlockChapterGachaLabelType() => !CalculatorOutgame.IsTutorialMenu();
 
     public static bool IsUnlockCharacterBoard() => CalculatorQuest.IsClearQuest(Config.GetUnlockCharacterBoardQuestId(), CalculatorStateUser.GetUserId());
+
     public static bool IsUnlockCharacterBoardWithNeedTutorial() => IsUnlockCharacterBoard();
+
     public static bool IsUnlockBigHuntBoard(long userId) => CalculatorEvaluateCondition.EvaluateCondition(userId, Config.GetUnlockBigHuntBoardEvaluateConditionId());
 
     public static bool IsUnlockGachaExchange() => !CalculatorOutgame.IsTutorialMenu();

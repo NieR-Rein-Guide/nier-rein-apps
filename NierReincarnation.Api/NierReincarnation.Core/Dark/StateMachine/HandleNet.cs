@@ -1,21 +1,17 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Grpc.Core;
+﻿using Grpc.Core;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
 using NierReincarnation.Core.Art.Library.Masterdata.Download;
 using NierReincarnation.Core.Custom;
+using System.Security.Cryptography;
 
 namespace NierReincarnation.Core.Dark.StateMachine;
 
 // Dark.StateMachine.HandleNet
 public class HandleNet
 {
-   
     private Aes _aes;
-   
+
     private Aes _masterAes;
 
     public HandleNet()
@@ -81,7 +77,6 @@ public class HandleNet
 
     private void SetDatetimeNow(long unixTime)
     {
-
     }
 
     private Task ShowStayError(string messageTextId, string messageCode, string errorDetailInfo)
@@ -138,6 +133,5 @@ public class HandleNet
 
     private void OnVerifyToken(string methodPath, object request)
     {
-
     }
 }

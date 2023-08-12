@@ -5,17 +5,16 @@ namespace NierReincarnation.Core.Dark.Component.OctoInfo;
 // Dark.Component.OctoInfo.OctoInfo
 public sealed class OctoInfo
 {
-   
     public bool IsReviewEnvironment { get; set; }
-   
+
     public int AppId { get; set; }
-   
+
     public int Version { get; set; }
-   
+
     public string ClientSecretKey { get; set; }
-   
+
     public string AesKey { get; set; }
-   
+
     public string Url { get; set; }
 
     public void SetupReviewEnvironment(OctoConfig config)
@@ -27,4 +26,4 @@ public sealed class OctoInfo
         AesKey = config.AesKey;
         Url = config.Url;
     }
-	}
+}

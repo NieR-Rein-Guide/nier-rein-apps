@@ -3,9 +3,13 @@
 public struct UserGimmickSequence
 {
     public long UserId { get; set; }
+
     public int GimmickSequenceScheduleId { get; set; }
+
     public int GimmickSequenceId { get; set; }
+
     public bool IsGimmickSequenceCleared { get; set; }
+
     public long ClearDateTime { get; set; }
 
     public void Reset()
@@ -17,4 +21,4 @@ public struct UserGimmickSequence
     {
         return UserId != GimmickConstant.kInvalidId;
     }
-	}
+}

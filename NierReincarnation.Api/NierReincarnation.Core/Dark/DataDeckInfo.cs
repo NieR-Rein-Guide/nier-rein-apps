@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
+﻿using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
@@ -9,13 +8,12 @@ namespace NierReincarnation.Core.Dark;
 // CUSTOM: DataDeck with less information necessary to be loaded
 public class DataDeckInfo
 {
-   
     public DeckType DeckType { get; set; }
-   
+
     public int UserDeckNumber { get; set; }
-   
+
     public string Name { get; set; }
-   
+
     public DataDeckActorInfo[] UserDeckActors { get; set; }
 
     public bool IsEmpty => UserDeckActors[0]?.Costume == null;

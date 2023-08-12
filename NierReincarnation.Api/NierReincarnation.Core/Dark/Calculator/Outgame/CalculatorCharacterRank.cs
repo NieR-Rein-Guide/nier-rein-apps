@@ -2,8 +2,6 @@
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Serval;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 

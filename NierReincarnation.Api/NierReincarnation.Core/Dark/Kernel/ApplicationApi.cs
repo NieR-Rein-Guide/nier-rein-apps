@@ -1,14 +1,12 @@
-﻿using System;
-using NierReincarnation.Core.Dark.Component.OctoInfo;
+﻿using NierReincarnation.Core.Dark.Component.OctoInfo;
 
 namespace NierReincarnation.Core.Dark.Kernel;
 
 // Dark.Kernel.ApplicationApi
 public static class ApplicationApi
 {
-   
     private static readonly string UnregistUserName = "Un-regist User Name";
-   
+
     public static readonly string kEntrypointSceneName = "dark_gameplay";
 
     public static void Run()
@@ -85,8 +83,7 @@ public static class ApplicationApi
 
     private static bool ValidGameplayScene()
     {
-        // HINT: Should check the unity scene manager for a valid scene to be active
-        // We're always on a valid scene now
+        // HINT: Should check the unity scene manager for a valid scene to be active We're always on a valid scene now
         return true;
     }
 }

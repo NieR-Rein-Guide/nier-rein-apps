@@ -1,17 +1,13 @@
 ﻿using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
 public sealed class DataLabyrinthQuestListStageComparer : IComparer<DataLabyrinthQuestListStage>
 {
     // Fields
-    public static readonly DataLabyrinthQuestListStageComparer InstanceAscending=new DataLabyrinthQuestListStageComparer(true);
-    public static readonly DataLabyrinthQuestListStageComparer InstanceDescending=new DataLabyrinthQuestListStageComparer(false);
+    public static readonly DataLabyrinthQuestListStageComparer InstanceAscending = new DataLabyrinthQuestListStageComparer(true);
+
+    public static readonly DataLabyrinthQuestListStageComparer InstanceDescending = new DataLabyrinthQuestListStageComparer(false);
     private readonly bool _ascending;
 
     // Methods

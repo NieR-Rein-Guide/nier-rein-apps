@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
+﻿using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
@@ -9,6 +8,7 @@ public static class CalculatorDeckActor // TypeDefIndex: 18807
 {
     // Fields
     public static readonly int ControlCharacterIndex = 0;
+
     public static readonly int kSubWeaponMaxCount = 2;
 
     // CUSTOM: Create actors base info

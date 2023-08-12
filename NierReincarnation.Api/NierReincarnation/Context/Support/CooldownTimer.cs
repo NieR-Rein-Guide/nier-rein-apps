@@ -1,5 +1,4 @@
-﻿using System;
-using System.Timers;
+﻿using System.Timers;
 using Timer = System.Timers.Timer;
 
 namespace NierReincarnation.Context.Support;
@@ -15,10 +14,13 @@ public static class CooldownTimer
     private static TimeSpan _currentTime;
 
     public static bool IsRunning => _isRunning;
+
     public static TimeSpan CurrentCooldown => _currentTime;
 
     public static event EventHandler<TimeSpan> CooldownStart;
+
     public static event EventHandler CooldownFinish;
+
     public static event EventHandler<TimeSpan> Elapsed;
 
     static CooldownTimer()

@@ -3,7 +3,9 @@
 public class EntityMBigHuntStoryQuestSequence
 {
     public int BigHuntQuestId { get; set; }
+
     public int QuestId { get; set; }
+
     public int BigHuntQuestScoreCoefficientId { get; set; }
 
     public void Setup(int BigHuntQuestId, int QuestId, int BigHuntQuestScoreCoefficientId)

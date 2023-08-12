@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NierReincarnation.Core.Dark.Generated.Type;
-using System;
 
 namespace NierReincarnation.UserData.Models;
 

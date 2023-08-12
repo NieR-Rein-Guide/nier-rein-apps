@@ -1,18 +1,16 @@
-﻿using System;
-
-namespace NierReincarnation.Core.Dark;
+﻿namespace NierReincarnation.Core.Dark;
 
 public class ActorAssetId : IEquatable<ActorAssetId> // TypeDefIndex: 9052
 {
     // Fields
     public static readonly ActorAssetId InvalidActorAssetId = new ActorAssetId();
+
     private static readonly int InvalidId = 0;
 
-   
     public int Id { get; }
-   
+
     public SkeletonId SkeletonId { get; }
-   
+
     public string StringId { get; }
 
     public ActorAssetId()
@@ -60,6 +58,7 @@ public class ActorAssetId : IEquatable<ActorAssetId> // TypeDefIndex: 9052
     }
 
     public static bool operator ==(ActorAssetId a, ActorAssetId b) => a?.Id == b?.Id;
+
     public static bool operator !=(ActorAssetId a, ActorAssetId b) => a?.Id != b?.Id;
 
     private string CreateStringId()

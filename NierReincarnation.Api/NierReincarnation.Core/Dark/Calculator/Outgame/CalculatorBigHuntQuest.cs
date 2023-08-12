@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Component.Story;
+﻿using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Component.Story.Ghost;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;

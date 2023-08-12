@@ -2,6 +2,5 @@
 
 public class DataWeaponSkill : DataSkill
 {
-   
     public int RecastSeconds { get; set; }
 }

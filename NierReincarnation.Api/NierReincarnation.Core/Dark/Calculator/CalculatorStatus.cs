@@ -4,7 +4,6 @@ using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.Subsystem.Serval;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Calculator;
 

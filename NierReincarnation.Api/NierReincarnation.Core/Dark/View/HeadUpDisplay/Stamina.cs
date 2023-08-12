@@ -1,5 +1,4 @@
-﻿using System;
-using NierReincarnation.Core.Dark.Calculator;
+﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.Subsystem.Serval;

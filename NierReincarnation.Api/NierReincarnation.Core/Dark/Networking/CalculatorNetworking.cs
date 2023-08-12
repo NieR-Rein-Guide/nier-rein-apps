@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Art.Framework.ApiNetwork.Grpc.Api.User;
-using Newtonsoft.Json;
+﻿using Art.Framework.ApiNetwork.Grpc.Api.User;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Art.Framework.ApiNetwork.Server;
 using NierReincarnation.Core.Dark.Kernel;
@@ -8,7 +6,7 @@ using NierReincarnation.Core.Dark.Kernel;
 namespace NierReincarnation.Core.Dark.Networking;
 
 // Dark.Networking.CalculatorNetworking
-static class CalculatorNetworking
+internal static class CalculatorNetworking
 {
     public class TrList
     {

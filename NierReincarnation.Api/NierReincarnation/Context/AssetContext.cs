@@ -3,14 +3,7 @@ using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.Octo.Util;
 using NierReincarnation.Core.UnityEngine;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NierReincarnation.Context;
 

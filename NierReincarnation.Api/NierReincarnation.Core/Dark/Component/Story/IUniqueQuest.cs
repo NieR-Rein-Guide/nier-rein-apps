@@ -1,6 +1,5 @@
 ﻿namespace NierReincarnation.Core.Dark.Component.Story;
 
-interface IUniqueQuest<TQuestChapter, TQuestSequenceGroup, TQuestSequence> : IQuest
+internal interface IUniqueQuest<TQuestChapter, TQuestSequenceGroup, TQuestSequence> : IQuest
 {
-
 }

@@ -15,7 +15,6 @@ public static class CalculatorGem
         return gems.FreeGem + gems.PaidGem;
     }
 
-
     public static int PossessionFreeGemCount(long userId)
     {
         var table = DatabaseDefine.User.EntityIUserGemTable;

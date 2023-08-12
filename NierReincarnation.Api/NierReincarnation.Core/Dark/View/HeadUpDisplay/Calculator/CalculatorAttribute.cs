@@ -8,7 +8,7 @@ public static class CalculatorAttribute
 {
     public static string GetAttributeText(AttributeType attributeType)
     {
-        return GetAttributeText((int) attributeType);
+        return GetAttributeText((int)attributeType);
     }
 
     public static string GetAttributeText(int attributeType)

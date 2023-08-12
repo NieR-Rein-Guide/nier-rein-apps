@@ -1,11 +1,11 @@
 ﻿namespace NierReincarnation.Core.Dark.Networking;
 
-// Dark.Networking.NetworkTextKey
-// APK Resource file: 1dc4624c9ddde409fb4ffb1b0cb2faeb
-class NetworkTextKey
+// Dark.Networking.NetworkTextKey APK Resource file: 1dc4624c9ddde409fb4ffb1b0cb2faeb
+internal class NetworkTextKey
 {
     //private static readonly ArtStringBuilder _artStringBuilder;
     public static readonly string kNetworkErrorTitleKey = "nt.Network.Error.Title";
+
     public static readonly string kNetworkDataUpdateErrorTitleKey = "nt.Network.Error.Title.DataUpdate";
     public static readonly string kNetworkLackCapacityKey = "nt.Network.Error.Message.LackCapacity";
     public static readonly string kNetworkFatalErrorKey = "nt.Network.Error.Message.FatalDownload";

@@ -2,12 +2,16 @@
 
 namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
-class DataOutgameMemoryStatusSubInfo
+internal class DataOutgameMemoryStatusSubInfo
 {
     public int StatusIndex { get; }
+
     public int Level { get; }
+
     public StatusKindType StatusKindType { get; }
+
     public StatusCalculationType StatusCalculationType { get; }
+
     public int StatusChangeValue { get; }
 
     public DataOutgameMemoryStatusSubInfo(int statusIndex, int level, StatusKindType statusKindType, StatusCalculationType calculationType, int changeValue)

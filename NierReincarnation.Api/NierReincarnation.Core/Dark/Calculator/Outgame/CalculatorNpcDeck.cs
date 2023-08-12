@@ -73,7 +73,7 @@ public static class CalculatorNpcDeck
 
         var table2 = DatabaseDefine.Master.EntityMBattleNpcCompanionTable;
         var npcCompanion = table2.FindByBattleNpcIdAndBattleNpcCompanionUuid((userId, entityIUserDeckCharacter.BattleNpcCompanionUuid));
-        if(npcCompanion==null)
+        if (npcCompanion == null)
             return;
 
         dataDeckActor.Companion = CalculatorCompanion.CreateDataOutgameNpcCompanion(npcCompanion);

@@ -2,9 +2,6 @@
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Subsystem.Serval;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NierReincarnation.Core.Dark.Calculator;
 

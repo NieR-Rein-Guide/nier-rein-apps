@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using NierReincarnation.Core.Dark.Localization;
+﻿using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;

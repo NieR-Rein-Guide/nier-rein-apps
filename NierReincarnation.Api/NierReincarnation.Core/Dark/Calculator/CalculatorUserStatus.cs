@@ -1,5 +1,4 @@
-﻿using System;
-using NierReincarnation.Core.Dark.View.HeadUpDisplay;
+﻿using NierReincarnation.Core.Dark.View.HeadUpDisplay;
 
 namespace NierReincarnation.Core.Dark.Calculator;
 

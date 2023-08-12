@@ -20,7 +20,7 @@ public static class CalculatorLimitedOpen
         var table = DatabaseDefine.User.EntityIUserLimitedOpenTable;
         var element = table.FindByUserIdAndLimitedOpenTargetTypeAndTargetId((userId, limitedOpenTargetType, targetId));
         if (element == null)
-            return (0,0);
+            return (0, 0);
 
         return (element.OpenDatetime, element.CloseDatetime);
     }

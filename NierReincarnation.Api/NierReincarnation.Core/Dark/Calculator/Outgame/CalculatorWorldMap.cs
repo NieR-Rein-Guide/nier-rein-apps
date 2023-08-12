@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Dark.Component.WorldMap;
+﻿using NierReincarnation.Core.Dark.Component.WorldMap;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 

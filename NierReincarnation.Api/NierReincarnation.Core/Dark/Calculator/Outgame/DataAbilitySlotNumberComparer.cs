@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
-namespace NierReincarnation.Core.Dark.Calculator.Outgame;
-
-class DataAbilitySlotNumberComparer : IComparer<DataAbility>
+internal class DataAbilitySlotNumberComparer : IComparer<DataAbility>
 {
     public static readonly DataAbilitySlotNumberComparer InstanceAscending = new DataAbilitySlotNumberComparer(true);
     public static readonly DataAbilitySlotNumberComparer InstanceDescending = new DataAbilitySlotNumberComparer(false);

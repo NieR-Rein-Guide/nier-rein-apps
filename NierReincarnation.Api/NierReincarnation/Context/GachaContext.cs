@@ -9,11 +9,7 @@ using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.UnityEngine;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace NierReincarnation.Context;

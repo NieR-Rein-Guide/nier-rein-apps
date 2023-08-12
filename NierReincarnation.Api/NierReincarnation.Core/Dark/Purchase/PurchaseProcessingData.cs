@@ -2,11 +2,10 @@
 
 namespace NierReincarnation.Core.Dark.Purchase;
 
-class PurchaseProcessingData
+internal class PurchaseProcessingData
 {
-   
     public string BridgeTransactionId { get; set; }
-   
+
     public Product Product { get; }
 
     public PurchaseProcessingData(Product product)

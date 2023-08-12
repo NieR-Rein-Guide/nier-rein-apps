@@ -21,7 +21,7 @@ public class EntityMCompanion
     public int CompanionBaseStatusId { get; set; }
 
     [Key(4)] // RVA: 0x1DDB458 Offset: 0x1DDB458 VA: 0x1DDB458
-    public int CompanionStatusCalculationId { get; set; }  
+    public int CompanionStatusCalculationId { get; set; }
 
     [Key(5)] // RVA: 0x1DDB46C Offset: 0x1DDB46C VA: 0x1DDB46C
     public int SkillId { get; set; }

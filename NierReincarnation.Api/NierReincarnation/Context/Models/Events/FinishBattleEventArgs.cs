@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NierReincarnation.Context.Models.Events;
+﻿namespace NierReincarnation.Context.Models.Events;
 
 public class FinishBattleEventArgs : EventArgs
 {

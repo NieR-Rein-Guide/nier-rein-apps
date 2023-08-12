@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using NierReincarnation.Core.Dark.Status;
+﻿using NierReincarnation.Core.Dark.Status;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
-class OutgameAbilityCache
+internal class OutgameAbilityCache
 {
     private static readonly int kCharacterCapacity = 64;
     private static readonly int kAbilityCacheCapacity = 128;

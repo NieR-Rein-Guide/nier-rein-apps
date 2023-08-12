@@ -8,9 +8,6 @@ using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.Subsystem.Serval;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 

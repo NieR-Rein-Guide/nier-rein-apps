@@ -4,7 +4,7 @@ using NierReincarnation.Core.Dark.Variable;
 namespace NierReincarnation.Core.Dark;
 
 // Dark.FieldState
-static class FieldState
+internal static class FieldState
 {
     public static readonly string kBackground = "background";
     public static readonly string kCamer = "camera";

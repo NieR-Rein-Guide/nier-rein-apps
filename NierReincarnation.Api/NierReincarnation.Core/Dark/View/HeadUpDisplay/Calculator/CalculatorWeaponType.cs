@@ -8,7 +8,7 @@ public static class CalculatorWeaponType
 {
     public static string GetWeaponTypeText(WeaponType weaponType)
     {
-        return GetWeaponTypeText((int) weaponType);
+        return GetWeaponTypeText((int)weaponType);
     }
 
     public static string GetWeaponTypeText(int weaponType)

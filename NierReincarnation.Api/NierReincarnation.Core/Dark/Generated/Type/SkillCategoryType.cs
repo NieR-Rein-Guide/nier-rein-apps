@@ -8,4 +8,4 @@ public enum SkillCategoryType
     DEFAULT_SKILL = 3,
     PASSIVE_SKILL = 4,
     COSTUME_ACTIVE_SKILL = 5
-	}
+}

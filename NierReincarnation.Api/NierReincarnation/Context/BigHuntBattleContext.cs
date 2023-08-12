@@ -12,9 +12,6 @@ using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NierReincarnation.Context;
 

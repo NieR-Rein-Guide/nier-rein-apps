@@ -31,6 +31,7 @@ public static class Application
     public static ThreadPriority BackgroundLoadingPriority => ThreadPriority.Normal;
 
     public static PlatformType Platform => PlatformType.GOOGLE_PLAY_STORE;
+
     //public static RuntimePlatform Platform => RuntimePlatform.Android;
 
     public static bool IsMobilePlatform => true;

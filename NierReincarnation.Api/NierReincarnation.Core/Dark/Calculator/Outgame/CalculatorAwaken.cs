@@ -2,8 +2,6 @@
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.MasterMemory;
-using System;
-using System.Collections.Generic;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 

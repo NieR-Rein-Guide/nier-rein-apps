@@ -1,7 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
-
-namespace NierReincarnation.Core.Dark.Calculator.Outgame;
+﻿namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
 public static class CalculatorLibrary
 {

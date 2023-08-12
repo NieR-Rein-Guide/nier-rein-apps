@@ -3,6 +3,7 @@
 public struct GimmickSequenceGroup
 {
     public int GimmickSequenceGroupId { get; set; }
+
     public int GimmickSequenceId { get; set; }
 
     public void Reset()

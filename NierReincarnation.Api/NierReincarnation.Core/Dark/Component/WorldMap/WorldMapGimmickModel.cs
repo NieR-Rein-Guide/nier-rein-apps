@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using NierReincarnation.Core.Dark.Calculator;
+﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Core.Dark.Component.WorldMap;
@@ -659,7 +657,7 @@ public sealed class WorldMapGimmickModel
         return WorldMapGimmickModelResultType.Success;
     }
 
-    #endregion
+    #endregion Generate
 
     #region TryAdd
 
@@ -859,7 +857,7 @@ public sealed class WorldMapGimmickModel
         return false;
     }
 
-    #endregion
+    #endregion TryAdd
 
     #region Fetch
 
@@ -1226,7 +1224,7 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    #endregion
+    #endregion Fetch
 
     #region Get
 
@@ -1326,7 +1324,7 @@ public sealed class WorldMapGimmickModel
         return kInvalidId;
     }
 
-    #endregion
+    #endregion Get
 
     #region Reset
 
@@ -1496,7 +1494,7 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    #endregion
+    #endregion Reset
 
     private bool IsExistProgressRequireHour(long sequenceProgressRequireHour)
     {

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Net.Http;
+﻿using NierReincarnation.Core.UnityEngine;
 using System.Net.Http.Headers;
-using System.Web;
-using NierReincarnation.Core.Adam.Framework.Network;
-using NierReincarnation.Core.Dark.EntryPoint;
-using NierReincarnation.Core.Dark.Preference;
-using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Context.Support;
 
-static class WebApiSupport
+internal static class WebApiSupport
 {
     public static HttpRequestMessage CreateRequest(HttpMethod method, Uri uri)
     {

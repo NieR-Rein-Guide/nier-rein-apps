@@ -1,25 +1,18 @@
-﻿using System;
-using NierReincarnation.Core.UnityEngine;
-
-namespace NierReincarnation.Core.Dark.Networking;
+﻿namespace NierReincarnation.Core.Dark.Networking;
 
 // Dark.Networking.NetworkConfig
-class NetworkConfig
+internal class NetworkConfig
 {
-   
     private static TimeZoneInfo _timeZone;
-   
+
     private static readonly int InvalidPort;
 
-   
     public int MasterVersion { get; set; }
 
-   
     private string _serverAddress;
-   
+
     private int _serverPort;
 
-   
     public ServerTimeZone ServerTimeZone { get; set; }
 
     public static TimeZoneInfo TimeZone => CreateTimeZoneInfo(KernelState.NetworkConfig.ServerTimeZone);
@@ -33,6 +26,7 @@ class NetworkConfig
 
             return _serverAddress = EntryPoint.Config.Api.GetHostname();
         }
+
         set => _serverAddress = value;
     }
 
@@ -45,6 +39,7 @@ class NetworkConfig
 
             return _serverPort = EntryPoint.Config.Api.Port;
         }
+
         set => _serverPort = value;
     }
 

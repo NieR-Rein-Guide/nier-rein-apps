@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using MessagePack;
+﻿using MessagePack;
 using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
 
 namespace NierReincarnation.Core.Dark.Game.TurnBattle;
@@ -11,6 +7,7 @@ public static class CalculatorBattleBinary
 {
     // Fields
     private static byte[] _battleBinaryPool;
+
     private static byte[] _snapshotBinaryPool;
     private static byte[] _checksumBinaryPool;
     private static readonly int BinaryPoolSize = 0x2000;
@@ -21,8 +18,11 @@ public static class CalculatorBattleBinary
 
     // Properties
     private static MemoryStream StreamBattleBinaryPool => _streamBattleBinaryPool ??= new MemoryStream(BinaryPoolSize);
+
     private static byte[] BattleBinaryPool => _battleBinaryPool ??= new byte[BinaryPoolSize];
+
     private static byte[] SnapshotBinaryPool => _snapshotBinaryPool ??= new byte[BinaryPoolSize];
+
     private static byte[] ChecksumBinaryPool => _checksumBinaryPool ??= new byte[ChecksumBinaryLength];
 
     public static bool DeserializeBattleBinary(byte[] battleBinary, out TurnBattleSnapshot snapshot, CancellationToken cxlToken)

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Art.Framework.ApiNetwork.Grpc.Api.User;
+﻿using Art.Framework.ApiNetwork.Grpc.Api.User;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Art.Framework.ApiNetwork;
 using NierReincarnation.Core.Dark.Networking.DataSource;
@@ -12,7 +9,7 @@ using NierReincarnation.Core.UnityEngine;
 namespace NierReincarnation.Core.Dark.Networking;
 
 // Dark.Networking.UserAuthComposite
-class UserAuthComposite
+internal class UserAuthComposite
 {
     // Fields
     private static UserAuthComposite _userAuthComposite;

@@ -21,7 +21,7 @@ public class EntityMShopItem
     public int ShopItemContentType { get; set; }
 
     [Key(4)] // RVA: 0x1DDFA90 Offset: 0x1DDFA90 VA: 0x1DDFA90
-    public PriceType PriceType { get; set; } 
+    public PriceType PriceType { get; set; }
 
     [Key(5)] // RVA: 0x1DDFAA4 Offset: 0x1DDFAA4 VA: 0x1DDFAA4
     public int PriceId { get; set; }

@@ -1,16 +1,16 @@
-﻿using System;
-using System.Threading.Tasks;
-using NierReincarnation.Core.Art.Framework.ApiNetwork.Exception;
+﻿using NierReincarnation.Core.Art.Framework.ApiNetwork.Exception;
 
 namespace NierReincarnation.Core.Dark.Networking.DataSource;
 
 // Dark.Networking.DataSource.DarkServerAPI
-abstract class DarkServerAPI<TRequest, TResponse> : IDataSource
+internal abstract class DarkServerAPI<TRequest, TResponse> : IDataSource
 {
     public delegate void HandleSuccess(TResponse response);
+
     public delegate void HandleError(ClientError error);
 
     public event HandleSuccess OnSuccess;
+
     public event HandleError OnFailed;
 
     public async Task RequestAsync(object request, bool isInterception)

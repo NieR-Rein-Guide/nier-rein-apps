@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NierReincarnation.Core.Dark.Calculator;
+﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Octo;
@@ -13,16 +9,15 @@ namespace NierReincarnation.Core.Dark.Purchase;
 public class DarkPurchase
 {
     private static readonly Lazy<DarkPurchase> Lazy = new Lazy<DarkPurchase>(() => new DarkPurchase());
+
     public static DarkPurchase Instance => Lazy.Value;
 
-   
     private Purchaser _purchaser;
-   
+
     private Dictionary<string, PurchaseProcessingData> _purchaseProcessingDatas;
-   
+
     private Dictionary<string, int> _shopIdByProductId;
 
-   
     public bool Initialized { get; private set; }
 
     public DarkPurchase()
@@ -84,8 +79,7 @@ public class DarkPurchase
             //PlayerPreference.Instance.RemoveTransaction();
             //PlayerPreference.Instance.FinishTransaction();
 
-            // AdjustSDK.TrackPurchaseEvent
-            // AdjustSDK.TrackPurchaseRevenueEvent
+            // AdjustSDK.TrackPurchaseEvent AdjustSDK.TrackPurchaseRevenueEvent
         }
 
         //PlayerPreference.Instance.DeleteProductTransactions();
@@ -121,11 +115,9 @@ public class DarkPurchase
         //    if (!TryGetProduct(shopItem, out var product))
         //        continue;
 
-        //    var localProductId = $"com.square_enix.nierspww.{product.ProductIdSuffix}";
-        //    if (productId != localProductId)
-        //        continue;
+        // var localProductId = $"com.square_enix.nierspww.{product.ProductIdSuffix}"; if (productId != localProductId) continue;
 
-        //    shopItem.ShopItemId;
+        // shopItem.ShopItemId;
 
         //}
 

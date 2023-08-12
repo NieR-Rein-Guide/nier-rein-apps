@@ -15,7 +15,7 @@ public class EntityMWeapon
     public int WeaponCategoryType { get; set; }
 
     [Key(2)] // RVA: 0x1DE6690 Offset: 0x1DE6690 VA: 0x1DE6690
-    public WeaponType WeaponType { get; set; } 
+    public WeaponType WeaponType { get; set; }
 
     [Key(3)] // RVA: 0x1DE66A4 Offset: 0x1DE66A4 VA: 0x1DE66A4
     public int AssetVariationId { get; set; }

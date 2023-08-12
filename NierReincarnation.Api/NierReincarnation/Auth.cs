@@ -5,13 +5,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 

@@ -4,8 +4,6 @@ using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Generated.Type;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NierReincarnation.Context;
 
@@ -49,8 +47,8 @@ public class DeckContext : BaseContext
         }, deckType != DeckType.RESTRICTED_LIMIT_CONTENT_QUEST);
 
         // Manually remove deck from user database
-        // HINT: We can delete restricted decks for recollections of dusk with this, however we do not receive a valid response, so we take care
-        //       of the user database ourselves
+        // HINT: We can delete restricted decks for recollections of dusk with this, however we do not receive a valid response, so we take care of
+        // the user database ourselves
         var deckData = DatabaseDefine.User.EntityIUserDeckTable.GetRawDataUnsafe();
         deckData = deckData.Where(x => x.DeckType != deckType || x.UserDeckNumber != userDeckNumber).ToArray();
         DatabaseDefine.User.EntityIUserDeckTable.SetRawDataUnsafe(deckData);

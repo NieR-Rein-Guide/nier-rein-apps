@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NierReincarnation.Core.Dark.Localization;
+﻿namespace NierReincarnation.Core.Dark.Localization;
 
 public static class LocalizationExtensions
 {

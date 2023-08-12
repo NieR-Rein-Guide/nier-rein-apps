@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using NierReincarnation.Core.UnityEngine.Purchasing;
+﻿using NierReincarnation.Core.UnityEngine.Purchasing;
 
 namespace NierReincarnation.Core.Dark.Purchase;
 
-class Purchaser: IStoreListener
+internal class Purchaser : IStoreListener
 {
     private ConfigurationBuilder _builder;
     private bool _purchaseOnInitialize;

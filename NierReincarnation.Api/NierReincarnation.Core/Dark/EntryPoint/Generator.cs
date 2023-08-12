@@ -8,7 +8,7 @@ using NierReincarnation.Core.Dark.Networking.DataSource.Interceptor;
 
 namespace NierReincarnation.Core.Dark.EntryPoint;
 
-class Generator
+internal class Generator
 {
     public static void OnEntrypoint()
     {

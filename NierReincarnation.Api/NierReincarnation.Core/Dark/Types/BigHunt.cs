@@ -2,7 +2,7 @@
 
 namespace NierReincarnation.Core.Dark.Types;
 
-sealed class BigHunt
+internal sealed class BigHunt
 {
     public static readonly int FixChapterId = 0;
     public static readonly int FixSortOrder = 1;

@@ -1,7 +1,4 @@
-﻿using System;
-using NierReincarnation.Core.UnityEngine;
-
-namespace NierReincarnation.Core.Dark.Localization;
+﻿namespace NierReincarnation.Core.Dark.Localization;
 
 public static class LocalizeTime
 {

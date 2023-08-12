@@ -1,5 +1,4 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.Battle;
-using System;
 
 namespace NierReincarnation.Context.Models.Events;
 
