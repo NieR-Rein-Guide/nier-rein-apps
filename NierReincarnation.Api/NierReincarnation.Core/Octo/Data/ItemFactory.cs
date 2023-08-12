@@ -1,35 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace NierReincarnation.Core.Octo.Data;
 
-namespace NierReincarnation.Core.Octo.Data;
-
-static class ItemFactory
+internal static class ItemFactory
 {
     public static Item Create(Proto.Data data, IList<string> tagNames)
     {
-        switch (CalculateItemType(data))
+        return CalculateItemType(data) switch
         {
-            case ItemType.WithTags:
-                return new ItemWithTags(data, tagNames);
-
-            case ItemType.WithDeps:
-                return new ItemWithDeps(data, tagNames);
-
-            case ItemType.Minimum:
-                return new Item(data, tagNames);
-
-            case ItemType.WithDepsAndTags:
-                return new ItemWithDepsAndTags(data, tagNames);
-
-            // CUSTOM: Makes code more readable if all cases are stated explicitly and the default case throws
-            default:
-                throw new InvalidOperationException("Unsupported item type.");
-        }
+            ItemType.WithTags => new ItemWithTags(data, tagNames),
+            ItemType.WithDeps => new ItemWithDeps(data, tagNames),
+            ItemType.Minimum => new Item(data, tagNames),
+            ItemType.WithDepsAndTags => new ItemWithDepsAndTags(data, tagNames),
+            // Note: Makes code more readable if all cases are stated explicitly and the default case throws
+            _ => throw new InvalidOperationException("Unsupported item type"),
+        };
     }
 
     public static Item CreateByResource(Proto.Data data, IList<string> tagNames)
     {
-        return !data.Tags.IsNullOrEmpty() ? new ItemWithTags(data,tagNames) : new Item(data, tagNames);
+        return !data.Tags.IsNullOrEmpty() ? new ItemWithTags(data, tagNames) : new Item(data, tagNames);
     }
 
     public static bool IsSameItemType(Item item, Proto.Data data)

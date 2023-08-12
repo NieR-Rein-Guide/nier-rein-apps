@@ -1,11 +1,9 @@
 ﻿namespace NierReincarnation.Core.Octo.Data;
 
-abstract class SecureSerializableDatabase<T> : SecureFile // TypeDefIndex: 6572
+internal abstract class SecureSerializableDatabase<T> : SecureFile
 {
-    // Fields
-    private static readonly string Tag = "Octo/Data/DataUtils/SecureSerializableDatabase";
+    private const string Tag = "Octo/Data/DataUtils/SecureSerializableDatabase";
 
-   
     public T Data { get; set; }
 
     public SecureSerializableDatabase(string path, AESCrypt crypt) : base(path, crypt) { }
@@ -15,8 +13,7 @@ abstract class SecureSerializableDatabase<T> : SecureFile // TypeDefIndex: 6572
     public void Deserialize()
     {
         var loadedFile = Load();
-        if (loadedFile == null || loadedFile.Length <= 0)
-            return;
+        if (loadedFile == null || loadedFile.Length == 0) return;
 
         Data = Deserialize(loadedFile);
     }

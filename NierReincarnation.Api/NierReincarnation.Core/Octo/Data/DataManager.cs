@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using NierReincarnation.Core.Octo.Proto;
+﻿using NierReincarnation.Core.Octo.Proto;
 using NierReincarnation.Core.Octo.Util;
 using ProtoBuf;
 
 namespace NierReincarnation.Core.Octo.Data;
 
-class DataManager : IDatabase
+internal class DataManager : IDatabase
 {
-    private static readonly string Tag = "Octo/DataManager";
+    private const string Tag = "Octo/DataManager";
     public static readonly string DirName = "pdb";
-    private static readonly string CacheFileName = "octocacheevai";
+    private const string CacheFileName = "octocacheevai";
 
-    private string _dataPath;
-    private AESCrypt _aes;
+    private readonly string _dataPath;
+    private readonly AESCrypt _aes;
     private string[] _tags;
     private Dictionary<string, Item> _assetBundleDictionary;
     private Dictionary<string, Item> _resourceDictionary;
@@ -48,40 +44,43 @@ class DataManager : IDatabase
 
     public Error ApplyToDatabase(byte[] downloadedBytes, bool reset)
     {
-        var db = StaticSerializer.Deserialize<Database>(downloadedBytes);
+        Database db = StaticSerializer.Deserialize<Database>(downloadedBytes);
         if (db == null)
+        {
             return new Error("octo.network.unknown_reason", "Failed to deserialize database");
+        }
 
         SetUrls(db);
 
         if (db.Revision == Revision && !reset)
         {
-            // Log info with OctoManager+0x18 with message ('Local DB is up-to-date: current={0}', Revision)
             return null;
         }
 
         _tags = db.TagName.ToArray();
+        SecureFile file = new(_dataPath, _aes);
         if (Revision == 0 || !reset)
         {
-            // Log info with OctoManager+0x18 with message ('Constructing new DB: revison={0}', Revision)
             Revision = db.Revision;
             ConstructDictionary(db);
 
-            var file = new SecureFile(_dataPath, _aes);
             return file.Save(downloadedBytes);
         }
 
-        // Log info with OctoManager+0x18 with message ('Updating DB: revision={0} => {1}', Revision, db.Revision)
         Revision = db.Revision;
         foreach (var ab in db.AssetBundleList)
+        {
             UpdateWithNewData(_assetBundleDictionary, ab);
+        }
+
         foreach (var resource in db.ResourceList)
+        {
             UpdateWithNewData(_resourceDictionary, resource);
+        }
 
         ResetAllDependencies(db);
 
-        var file1 = new SecureFile(_dataPath, _aes);
-        return file1.Save(SerializeDatabase());
+        return file.Save(SerializeDatabase());
     }
 
     public Item GetAssetBundleItemByName(string name, bool allowDeleted = false)
@@ -147,7 +146,6 @@ class DataManager : IDatabase
             return;
         }
 
-        // Log info with OctoManager+0x18 with message (Tag, ('Read local DB: revision={0}, tag count={1}, AB count={2}, resource count={3}', db.Data...))
         SetUrls(db.Data);
         ConstructDictionary(db.Data);
     }
@@ -218,11 +216,6 @@ class DataManager : IDatabase
             return;
         }
 
-        if (octoData.State == Proto.Data.DataState.Add)
-        {
-            // Log info with OctoManager+0x18 with message (Tag, ('Record already exists but state is 'ADD': {0}', octoData.Name))
-        }
-
         if (ItemFactory.IsSameItemType(value, octoData))
             value.SetData(octoData, _tags);
         else
@@ -235,8 +228,8 @@ class DataManager : IDatabase
         for (var i = 0; i < _tags.Length; i++)
             tagIds[_tags[i]] = i;
 
-        // CUSTOM: To accomodate no direct access to ProtoWriter, we create and statically serialize the Database object here
-        var db = new Database
+        // Note: To accommodate no direct access to ProtoWriter, we create and statically serialize the Database object here
+        Database db = new()
         {
             Revision = Revision,
             AssetBundleList = _assetBundleDictionary.Values.Select(x => x.GetData(tagIds)).ToList(),
@@ -245,8 +238,8 @@ class DataManager : IDatabase
             UrlFormat = _urlFormat
         };
 
-        var ms = new MemoryStream();
-        Serializer.Serialize(new MemoryStream(), db);
+        MemoryStream ms = new();
+        Serializer.Serialize(ms, db);
 
         return ms.ToArray();
     }
@@ -255,7 +248,7 @@ class DataManager : IDatabase
     {
         if (!allowDeleted)
         {
-            dictionary.TryGetValue(name,out var value);
+            dictionary.TryGetValue(name, out var value);
             return value;
         }
 

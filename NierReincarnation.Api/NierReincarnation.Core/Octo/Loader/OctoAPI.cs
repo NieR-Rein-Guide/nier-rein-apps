@@ -1,32 +1,27 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using NierReincarnation.Core.Octo.Data;
+﻿using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.Octo.Network;
 using NierReincarnation.Core.Octo.Util;
+using System.Net;
+using System.Security.Cryptography;
 
 namespace NierReincarnation.Core.Octo.Loader;
 
 internal sealed class OctoAPI
 {
-    private static readonly string Tag = "Octo/API";
-    private static readonly string ApiList = "v1/list";
-    private static readonly string AesApiListFormat = "v2/pub/a/{0}/v/{1}/list";
-    private static readonly string ApiRevision = "v1/revision";
-    private static readonly string ApiErrorReport = "v1/er";
+    private const string Tag = "Octo/API";
+    private const string ApiList = "v1/list";
+    private const string AesApiListFormat = "v2/pub/a/{0}/v/{1}/list";
+    private const string ApiRevision = "v1/revision";
+    private const string ApiErrorReport = "v1/er";
     internal static readonly string HeaderOctoKey = "X-OCTO-KEY";
-    private static readonly int UrlCapacity = 256;
+    private const int UrlCapacity = 256;
 
     private readonly StringBuilder _urlBuilder;
     private readonly int _urlBaseLength;
     private readonly int _version;
     private readonly WebHeaderCollection _headers;
-    private readonly string _errorReportUrl;
     private readonly string _aesListUrl;
     private readonly AESCrypt _crypt;
-    //private ErrorReport errorReport;
 
     public OctoAPI(IOctoSettings settings)
     {
@@ -48,7 +43,7 @@ internal sealed class OctoAPI
 
         _aesListUrl = string.Format(AesApiListFormat, settings.AppId, settings.Version);
 
-        var key = SHA256.Create().ComputeHash(Bytes.StringToByteArray(settings.A));
+        var key = SHA256.HashData(Bytes.StringToByteArray(settings.A));
         _crypt = new AESCrypt(key);
     }
 
@@ -62,13 +57,12 @@ internal sealed class OctoAPI
                 return;
             }
 
-            if (bytes != null && bytes.Length > 0)
+            if (bytes?.Length > 0)
             {
                 onComplete(bytes, error);
                 return;
             }
 
-            // Log error with logger at OctoManager+0x18 and message 'Octo server returned empty data'
             error = CreateEmptyDataError();
             onComplete(bytes, error);
         });
@@ -76,8 +70,7 @@ internal sealed class OctoAPI
 
     private void GetList(int revision, Action<byte[], Error> onComplete)
     {
-        if (GetListAes(revision, onComplete))
-            return;
+        if (GetListAes(revision, onComplete)) return;
 
         var apiUrl = CreateUrl(ApiList, new[] { $"{_version}", $"{revision}" });
         var req = ExecuteRequest(apiUrl, _headers, null, onComplete);
@@ -87,14 +80,15 @@ internal sealed class OctoAPI
 
     private bool GetListAes(int revision, Action<byte[], Error> onComplete)
     {
-        if (_crypt == null)
-            return false;
+        if (_crypt == null) return false;
 
         var url = CreateUrl(_aesListUrl, new[] { $"{revision}" });
         var req = ExecuteRequest(url, _headers, null, (bytes, error) =>
         {
             if (error != null || bytes == null)
+            {
                 throw new ArgumentNullException();
+            }
 
             var dec = DecryptAes(bytes);
             onComplete(dec, error);
@@ -104,19 +98,35 @@ internal sealed class OctoAPI
         return true;
     }
 
+    public byte[] DecryptAes(byte[] bytes)
+    {
+        if (_crypt == null)
+        {
+            return bytes;
+        }
+
+        byte[] iv = new byte[0x10];
+        Array.Copy(bytes, iv, iv.Length);
+        _crypt.UpdateIV(iv);
+
+        MemoryStream ms = new(bytes, 0x10, bytes.Length - 0x10);
+        return _crypt.Decrypt(ms);
+    }
+
     private string CreateUrl(string endpoint, string[] args)
     {
         _urlBuilder.Length = _urlBaseLength;
         _urlBuilder.Append(endpoint);
 
-        if (args == null || args.Length <= 0)
+        if (args == null || args.Length == 0)
+        {
             throw new ArgumentNullException();
+        }
 
         var isQuery = false;
         foreach (var arg in args)
         {
-            if (string.IsNullOrEmpty(arg))
-                continue;
+            if (string.IsNullOrEmpty(arg)) continue;
 
             if (arg[0] != '?')
             {
@@ -137,19 +147,6 @@ internal sealed class OctoAPI
         Action<byte[], Error> onComplete)
     {
         return OctoManager.Internal._downloader.Request(url, header, requestData, onComplete, null, true);
-    }
-
-    public byte[] DecryptAes(byte[] bytes)
-    {
-        if (_crypt == null)
-            return bytes;
-
-        var iv = new byte[0x10];
-        Array.Copy(bytes, iv, iv.Length);
-        _crypt.UpdateIV(iv);
-
-        var ms = new MemoryStream(bytes, 0x10, bytes.Length - 0x10);
-        return _crypt.Decrypt(ms);
     }
 
     private static Error CreateEmptyDataError()

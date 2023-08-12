@@ -1,10 +1,7 @@
-﻿using System.Text;
-
-namespace NierReincarnation.Core.Octo.Data;
+﻿namespace NierReincarnation.Core.Octo.Data;
 
 public struct ObjectName
 {
-    // Fields
     private static readonly Encoding ascii = Encoding.ASCII;
 
     private byte b0;
@@ -14,13 +11,9 @@ public struct ObjectName
     private byte b4;
     private byte b5;
 
-    // Methods
-
-    // RVA: 0x3302C9C Offset: 0x3302C9C VA: 0x3302C9C
     public void Set(string name)
     {
-        if (name == null || name.Length != 6)
-            return;
+        if (name == null || name.Length != 6) return;
 
         var data = ascii.GetBytes(name);
 
@@ -32,15 +25,7 @@ public struct ObjectName
         b5 = data[5];
     }
 
-    // RVA: 0x32FC6B4 Offset: 0x32FC6B4 VA: 0x32FC6B4 Slot: 3
-    public override string ToString()
-    {
-        return ascii.GetString(new[] {b0, b1, b2, b3, b4, b5});
-    }
+    public override readonly string ToString() => ascii.GetString(new[] { b0, b1, b2, b3, b4, b5 });
 
-    // RVA: 0x330284C Offset: 0x330284C VA: 0x330284C
-    public string ToHexString()
-    {
-        return $"{b0:X}{b1:X}{b1:X}{b2:X}{b3:X}{b4:X}{b5:X}";
-    }
+    public readonly string ToHexString() => $"{b0:X}{b1:X}{b1:X}{b2:X}{b3:X}{b4:X}{b5:X}";
 }

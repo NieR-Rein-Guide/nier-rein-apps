@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using MD5 = NierReincarnation.Core.Octo.Util.MD5;
 
 namespace NierReincarnation.Core.Octo.Data;
 
 internal class AESCrypt
 {
-    // Fields
     private static readonly List<int> ValidKeyLengths = new() { 128, 196, 256 };
 
     private const string IV = "LvAUtf+tnz";
     private readonly Aes _aesAlgo;
-
-    // Methods
 
     public AESCrypt(byte[] key, CipherMode cipherMode = CipherMode.CBC, PaddingMode paddingMode = PaddingMode.PKCS7)
     {

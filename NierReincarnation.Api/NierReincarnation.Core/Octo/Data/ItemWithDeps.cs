@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace NierReincarnation.Core.Octo.Data;
 
-namespace NierReincarnation.Core.Octo.Data;
-
-class ItemWithDeps : Item
+internal class ItemWithDeps : Item
 {
-    // Fields
     private Item[] _dependencies;
     private Item[] _flatDependencies;
 
-    // Properties
     public override Item[] Dependencies => _dependencies;
 
     public override Item[] FlatDependencies => _flatDependencies ??= CreateFlatDependencies();
@@ -26,14 +21,14 @@ class ItemWithDeps : Item
         {
             items.TryGetValue(x, out var item);
             return item;
-        }).Where(x => x != null).ToArray();
+        }).Where(x => x != null).ToArray()!;
 
         _flatDependencies = null;
     }
 
     private Item[] CreateFlatDependencies()
     {
-        var set = new HashSet<Item> { this };
+        HashSet<Item> set = new() { this };
         CreateFlatDependencies(set, Dependencies);
 
         set.Remove(this);

@@ -1,14 +1,13 @@
-﻿using System;
-using NierReincarnation.Core.Octo.Data;
+﻿using NierReincarnation.Core.Octo.Data;
 
 namespace NierReincarnation.Core.Octo.Caching;
 
-class OctoCaching : OctoBaseCaching, IOctoCaching
+internal sealed class OctoCaching : OctoBaseCaching, IOctoCaching
 {
-    // Stubbed for compilation
-
     public bool IsReady { get; }
+
     public int ExpirationDelay { get; set; }
+
     public long MaximumAvailableDiskSpace { get; set; }
 
     public OctoCaching(IOctoSettings settings, bool isAutoDelete) : base(settings, isAutoDelete)
@@ -51,6 +50,7 @@ class OctoCaching : OctoBaseCaching, IOctoCaching
     }
 
     public OctoCaching StorageCaching { get; }
+
     public bool IsInApp(string bucket, Item item)
     {
         throw new NotImplementedException();

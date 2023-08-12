@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Octo;
 
-internal static class ActionExtensions
+public static class ActionExtensions
 {
     public static void TrySafeInvoke<T1>(this Action<T1> action, T1 param1)
     {

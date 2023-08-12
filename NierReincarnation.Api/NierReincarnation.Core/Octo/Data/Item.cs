@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NierReincarnation.Core.Octo.Util;
-using ProtoBuf;
+﻿using NierReincarnation.Core.Octo.Util;
 
 namespace NierReincarnation.Core.Octo.Data;
 
 public class Item
 {
-    private static readonly string Tag = "Octo/Data/Item";
-    private static string[] EmptyTags = new string[0];
-    private static Item[] EmptyDependencies = new Item[0];
+    private const string Tag = "Octo/Data/Item";
+    private static readonly string[] EmptyTags = Array.Empty<string>();
+    private static readonly Item[] EmptyDependencies = Array.Empty<Item>();
 
     public int id;
     public string name;
@@ -21,18 +18,17 @@ public class Item
     public Proto.Data.DataState state;
     public int uploadVersionId;
 
-    // Properties
     public virtual ItemType Type => ItemType.Minimum;
-    public virtual string[] Tags { get => EmptyTags; set { } }
+
+    public virtual string[] Tags
+    { get => EmptyTags; set { } }
+
     public virtual Item[] Dependencies => EmptyDependencies;
+
     public virtual Item[] FlatDependencies => EmptyDependencies;
-    public bool IsValid => state != Proto.Data.DataState.Delete;  // Hint: Unknown what exactly is checked for validity here
-    //public Hash128 Hash { get; }
-    //public CachedAssetBundle CachedAssetBundle { get; }
 
-    // Methods
+    public bool IsValid => state != Proto.Data.DataState.Delete;
 
-    // RVA: 0x3302AE4 Offset: 0x3302AE4 VA: 0x3302AE4
     public Item(Proto.Data data, IList<string> tagNames)
     {
         SetData(data, tagNames);
@@ -53,7 +49,7 @@ public class Item
         Tags = data.Tags.Select(x => $"{x}").ToArray();
     }
 
-    // CUSTOM: Recreate Data object from Item for writing into Database
+    // Note: Recreate Data object from Item for writing into Database
     public Proto.Data GetData(Dictionary<string, int> tagDictionary)
     {
         return new Proto.Data
@@ -73,7 +69,8 @@ public class Item
         };
     }
 
-    public virtual void SetDependencies(Proto.Data data, Dictionary<int, Item> items) { }
+    public virtual void SetDependencies(Proto.Data data, Dictionary<int, Item> items)
+    { }
 
     public override string ToString()
     {

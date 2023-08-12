@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Octo.Caching;
 
-enum CacheState
+internal enum CacheState
 {
     None = 0,
     Old = 1,

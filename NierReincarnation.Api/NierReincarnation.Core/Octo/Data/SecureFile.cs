@@ -1,15 +1,14 @@
-﻿using System.IO;
-using NierReincarnation.Core.Octo.Util;
+﻿using NierReincarnation.Core.Octo.Util;
+using MD5 = NierReincarnation.Core.Octo.Util.MD5;
 
 namespace NierReincarnation.Core.Octo.Data;
 
-class SecureFile
+internal class SecureFile
 {
-    private static readonly string Tag = "Octo/SecureFile";
+    private const string Tag = "Octo/SecureFile";
 
     protected AESCrypt _crypt;
 
-   
     public string Path { get; set; }
 
     public SecureFile(string path, AESCrypt crypt)
@@ -20,21 +19,21 @@ class SecureFile
 
     public BinaryReader GetReader()
     {
-        if (!File.Exists(Path))
-            return null;
+        if (!File.Exists(Path)) return null;
 
         var data = FileUtil.ReadAllBytes(Path);
         if (data == null || data.Length == 0)
         {
-            // Log error with OctoManager+0x18 with message ('Secure file is empty: {0}', Tag)
             return null;
         }
 
-        var ms = new MemoryStream(data, false);
+        MemoryStream ms = new(data, false);
 
         var cipherMode = ms.ReadByte();
         if (cipherMode == 0)
+        {
             return new BinaryReader(ms);
+        }
 
         if (cipherMode == 1)
         {
@@ -45,7 +44,6 @@ class SecureFile
             return new BinaryReader(ms1);
         }
 
-        // Log error with OctoManager+0x18 with message (Tag, ('Unknown cipher mode: {0}', s))
         ms.Dispose();
 
         return null;
@@ -55,18 +53,16 @@ class SecureFile
     {
         if (_crypt == null)
         {
-            // Log error with OctoManager+0x18 with message (Tag, ('Secure file is encrypted while AES is not set, mode={0}', Mode.AESWithMD5))
             return null;
         }
 
         var decData = _crypt.Decrypt(cipherStream);
         if (decData == null || decData.Length <= 0xF)
         {
-            // Log error with OctoManager+0x18 with message (Tag, ('Secure file is corrupt: {0}', Path))
             return null;
         }
 
-        var ms = new MemoryStream(decData);
+        MemoryStream ms = new(decData);
         var buffer = new byte[0x10];
         var _ = ms.Read(buffer);
 
@@ -77,7 +73,6 @@ class SecureFile
             return ms;
         }
 
-        // Log error with OctoManager+0x18 with message (Tag, ('Secure file has been tampered with: {0}', Path))
         ms.Dispose();
 
         return null;
@@ -87,15 +82,15 @@ class SecureFile
     {
         using var reader = GetReader();
 
-        var data = reader?.ReadBytes((int)reader.BaseStream.Length);
-
-        return data;
+        return reader?.ReadBytes((int)reader.BaseStream.Length);
     }
 
     public Error Save(byte[] plainBytes)
     {
         if (plainBytes == null)
+        {
             return null;
+        }
 
         var b = new byte[1];
         if (_crypt != null)

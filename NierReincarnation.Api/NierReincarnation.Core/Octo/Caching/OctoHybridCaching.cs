@@ -1,20 +1,20 @@
-﻿using System;
-using NierReincarnation.Core.Octo.Data;
+﻿using NierReincarnation.Core.Octo.Data;
 
 namespace NierReincarnation.Core.Octo.Caching;
 
-class OctoHybridCaching : IOctoCaching
+internal class OctoHybridCaching : IOctoCaching
 {
     private static readonly string Tag;
 
     private IOctoCaching _caching;
-    private OctoAppCaching _appCaching;
+    private readonly OctoAppCaching _appCaching;
 
-   
     public OctoCaching StorageCaching { get; set; }
 
     public bool IsReady { get; }
+
     public int ExpirationDelay { get; set; }
+
     public long MaximumAvailableDiskSpace { get; set; }
 
     public bool IsLatestAssetBundleCached(string name)
@@ -74,9 +74,8 @@ class OctoHybridCaching : IOctoCaching
 
         return new OctoHybridCaching
         {
-            StorageCaching = caching.StorageCaching, 
+            StorageCaching = caching.StorageCaching,
             _caching = caching.StorageCaching
         };
-
     }
 }

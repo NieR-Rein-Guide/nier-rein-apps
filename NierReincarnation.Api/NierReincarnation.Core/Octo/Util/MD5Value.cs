@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NierReincarnation.Core.Octo.Util;
+﻿namespace NierReincarnation.Core.Octo.Util;
 
 public struct MD5Value
 {
@@ -21,9 +19,6 @@ public struct MD5Value
     private byte b14;
     private byte b15;
 
-    // Methods
-
-    // RVA: 0x3EC9218 Offset: 0x3EC9218 VA: 0x3EC9218
     public MD5Value(string md5)
     {
         b0 = 0;
@@ -46,8 +41,7 @@ public struct MD5Value
         Set(md5);
     }
 
-    // RVA: 0x3EC9DA8 Offset: 0x3EC9DA8 VA: 0x3EC9DA8
-    public bool Equals(MD5Value md5)
+    public readonly bool Equals(MD5Value md5)
     {
         return b0 == md5.b0 &&
                b1 == md5.b1 &&

@@ -1,8 +1,6 @@
-﻿using System;
+﻿namespace NierReincarnation.Core.Octo.Loader;
 
-namespace NierReincarnation.Core.Octo.Loader;
-
-abstract class BaseExecutor : IExecutor
+internal abstract class BaseExecutor : IExecutor
 {
     public bool SetTopPriority(string name, bool immediateExecute = false)
     {

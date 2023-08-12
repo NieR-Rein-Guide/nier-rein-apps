@@ -1,22 +1,18 @@
-﻿using System.IO;
-using ProtoBuf;
+﻿using ProtoBuf;
 
 namespace NierReincarnation.Core.Octo.Proto;
 
-static class StaticSerializer
+internal static class StaticSerializer
 {
-    // CUSTOM: Not necessary, see Deserialize<T>(MemoryStream stream)
-    //private static OCTProtoSerializer _serializer = new OCTProtoSerializer();
-
     public static T Deserialize<T>(byte[] binary)
     {
-        using var ms = new MemoryStream(binary);
+        using MemoryStream ms = new(binary);
         return Deserialize<T>(ms);
     }
 
     public static T Deserialize<T>(MemoryStream stream)
     {
-        // CUSTOM: Does not use original code, due to outdated version of protobuf library used in the game
+        // Note: Does not use original code, due to outdated version of protobuf library used in the game
         return Serializer.Deserialize<T>(stream);
     }
 }

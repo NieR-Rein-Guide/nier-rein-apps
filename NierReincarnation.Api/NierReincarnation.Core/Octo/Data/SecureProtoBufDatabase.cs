@@ -2,7 +2,7 @@
 
 namespace NierReincarnation.Core.Octo.Data;
 
-class SecureProtoBufDatabase<T> : SecureSerializableDatabase<T>
+internal sealed class SecureProtoBufDatabase<T> : SecureSerializableDatabase<T>
 {
     public SecureProtoBufDatabase(string path, AESCrypt crypt) : base(path, crypt)
     {

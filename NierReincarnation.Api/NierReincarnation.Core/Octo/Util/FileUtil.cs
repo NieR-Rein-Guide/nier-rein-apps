@@ -1,14 +1,13 @@
-﻿using System.IO;
-using NierReincarnation.Core.UnityEngine;
+﻿using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Octo.Util;
 
-static class FileUtil
+internal static class FileUtil
 {
-    private static readonly string Tag = "Octo/FileUtil";
-    private static readonly string OctoDirectory = "octo";
-    private static readonly string CacheDirectory = "Caches";
-    private static string _mobileRootPath = null;
+    private const string Tag = "Octo/FileUtil";
+    private const string OctoDirectory = "octo";
+    private const string CacheDirectory = "Caches";
+    private static string _mobileRootPath;
 
     public static string GetCachePath()
     {
@@ -34,12 +33,11 @@ static class FileUtil
         return _mobileRootPath ??= GetAndroidOctoRoot();
     }
 
-    // CUSTOM: Implementation by observation of behaviour
+    // Note: Implementation by observation of behavior
     private static string GetAndroidOctoRoot()
     {
-        var octoRoot = Path.Combine(Application.DataPath, "files", OctoDirectory);
-        if (!Directory.Exists(octoRoot))
-            Directory.CreateDirectory(octoRoot);
+        string octoRoot = Path.Combine(Application.DataPath, "files", OctoDirectory);
+        Directory.CreateDirectory(octoRoot);
 
         return octoRoot;
     }
@@ -51,26 +49,30 @@ static class FileUtil
 
     public static Error WriteAllBytes(string path, params byte[][] data)
     {
-        using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+        using FileStream fileStream = new(path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
         foreach (var dat in data)
+        {
             fileStream.Write(dat);
+        }
 
         return null;
     }
 
     public static bool FileDelete(string filePath)
     {
-        var fileExists = File.Exists(filePath);
+        bool fileExists = File.Exists(filePath);
 
         if (fileExists)
+        {
             File.Delete(filePath);
+        }
 
         return fileExists;
     }
 
     public static string UnsafePathCombine(string root, params string[] parts)
     {
-        // CUSTOM: Does not use StringBuilder
+        // Note: Not using StringBuilder
         return Path.Combine(root, Path.Combine(parts));
     }
 }
