@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using NierReincarnation.Core.Dark.EntryPoint;
+﻿using NierReincarnation.Core.Dark.EntryPoint;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Octo;
 
 namespace NierReincarnation.Core.Adam.Framework.Resource;
 
-static class DarkOctoSetupper
+public static class DarkOctoSetupper
 {
-    // Fields
-    private static readonly Dictionary<string, Stream> Streams = new Dictionary<string, Stream>();
+    private static readonly Dictionary<string, Stream> Streams = new();
     private static bool _isSetup;
     private static bool _isReviewEnvironment;
-    private static OctoSettings _overwriteSetting;
+    private static readonly OctoSettings _overwriteSetting;
     public static readonly string OverwriteSettingPath = "settings/octo/octo_overwrite_config";
 
     public static void StartSetup(bool reset = false, bool enableAssetDatabase = false)
@@ -38,8 +35,7 @@ static class DarkOctoSetupper
     {
         if (_overwriteSetting == null)
         {
-            // Unity: Load resource from path OverwriteSettingPath with type 'OctoSettings'
-            // Set loaded settings to field 0x10
+            // Unity: Load resource from path OverwriteSettingPath with type 'OctoSettings' Set loaded settings to field 0x10
         }
 
         return new OctoFullSettings
@@ -59,7 +55,6 @@ static class DarkOctoSetupper
             MaxParallelLoad = 100,
             AllowDeleted = false
         };
-
     }
 
     private static int GetA()

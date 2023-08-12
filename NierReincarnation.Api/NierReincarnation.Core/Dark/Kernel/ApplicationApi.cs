@@ -4,7 +4,7 @@ using NierReincarnation.Core.Dark.Component.OctoInfo;
 namespace NierReincarnation.Core.Dark.Kernel;
 
 // Dark.Kernel.ApplicationApi
-static class ApplicationApi
+public static class ApplicationApi
 {
    
     private static readonly string UnregistUserName = "Un-regist User Name";

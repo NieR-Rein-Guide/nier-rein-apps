@@ -1,178 +1,135 @@
-﻿using System;
-using Newtonsoft.Json;
-using NierReincarnation.Core.Dark.Preference;
+﻿using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Adam.Framework.Core;
 
-// Adam.Framework.Core.PreferenceKeyStoreValue
-class PreferenceKeyStoreValue
+public class PreferenceKeyStoreValue
 {
-    private static readonly string kPrivateKeyPrefix = "dead";
-    private static readonly string kPrivateKeyRandom = "nan";
-    private static readonly string kPrivateKeySuffix = "x";
-    private static readonly string kRandomKey = "deadnanx";
+    private const string kPrivateKeyPrefix = "dead";
+    private const string kPrivateKeyRandom = "nan";
+    private const string kPrivateKeySuffix = "x";
+    private const string kRandomKey = "deadnanx";
 
     private string _privateKey;
-    private DES _des;
 
-   
     public bool IsInitialized { get; set; }
-   
+
     public bool EnabledLoggingErrors { get; set; }
 
-    // Done
-    public PreferenceKeyStoreValue()
-    {
-        _des = new DES();
-    }
-
-    // Done
     public void Initialize()
     {
-        if (IsInitialized)
-            return;
+        if (IsInitialized) return;
 
         if (!HasKey(kRandomKey))
+        {
             GeneratePrivateKey();
+        }
         else
+        {
             ReadPrivateKey();
+        }
 
         IsInitialized = true;
     }
 
-    // Done
     public void SetString(string key, string value)
     {
-        PlayerPrefs.Instance.SetString(key, _des.Encryption(value, _privateKey));
+        PlayerPrefs.Instance.SetString(key, DES.Encryption(value, _privateKey));
     }
 
-    // Done
     public string GetString(string key)
     {
         return GetString(key, string.Empty);
     }
 
-    // Done
     public string GetString(string key, string fallbackValue)
     {
         var value = PlayerPrefs.Instance.GetString(key);
-        if (string.IsNullOrEmpty(value))
-            return fallbackValue;
-
-        return _des.Decryption(value, _privateKey);
+        return !string.IsNullOrEmpty(value) ? DES.Decryption(value, _privateKey) : fallbackValue;
     }
 
-    // Done
     public void SetInt32(string key, int val)
     {
         SetString(key, val.ToString());
     }
 
-    // Done
     public int GetInt32(string key)
     {
         var value = GetString(key);
-
         int.TryParse(value, out var result);
 
         return result;
     }
 
-    // Done
     public int GetInt32(string key, int fallbackValue)
     {
         var value = GetString(key);
 
-        if (!int.TryParse(value, out var result))
-            result = fallbackValue;
-
-        return result;
+        return int.TryParse(value, out int result) ? result : fallbackValue;
     }
 
-    // Done
     public long GetInt64(string key)
     {
         var value = GetString(key);
-
         long.TryParse(value, out var result);
 
         return result;
     }
 
-    // Done
     public long GetInt64(string key, long fallbackValue)
     {
         var value = GetString(key);
 
-        if (!long.TryParse(value, out var result))
-            result = fallbackValue;
-
-        return result;
+        return long.TryParse(value, out long result) ? result : fallbackValue;
     }
 
-    // Done
     public void SetInt64(string key, long val)
     {
         SetString(key, val.ToString());
     }
 
-    // Done
     public bool GetBool(string key)
     {
         var value = GetString(key);
-
-        return int.TryParse(value, out var result) && result == 1;
+        return int.TryParse(value, out int result) && result == 1;
     }
 
-    // Done
     public bool GetBool(string key, bool fallbackValue)
     {
         var value = GetString(key);
-
-        return int.TryParse(value, out var result) && result == 1 || fallbackValue;
+        return (int.TryParse(value, out int result) && result == 1) || fallbackValue;
     }
 
-    // Done
     public void SetBool(string key, bool val)
     {
         SetString(key, val.ToString());
     }
 
-    // Done
     public float GetFloat(string key)
     {
         var value = GetString(key);
-
         float.TryParse(value, out var result);
 
         return result;
     }
 
-    // Done
     public float GetFloat(string key, float fallbackValue)
     {
         var value = GetString(key);
 
-        if (!float.TryParse(value, out var result))
-            result = fallbackValue;
-
-        return result;
+        return float.TryParse(value, out float result) ? result : fallbackValue;
     }
 
-    // Done
     public void SetFloat(string key, float val)
     {
         SetString(key, val.ToString());
     }
 
-    // Done
     public void SetValue<T>(string key, T genericObject)
     {
         SetString(key, JsonConvert.SerializeObject(genericObject));
     }
 
-    // Done
     public bool GetValue<T>(string key, out T genericObject, T defaultFallback)
     {
         var value = GetString(key);
@@ -182,54 +139,32 @@ class PreferenceKeyStoreValue
             return false;
         }
 
-        // Differences in NewtonsoftJson and Unity Json library need work-around
-        // HINT: Explicit type checks as work-around
-        switch (typeof(T).Name)
+        genericObject = typeof(T).Name switch
         {
-            case nameof(PlayerRegistrationMap):
-                genericObject = (T)(object)JsonConvert.DeserializeObject<PlayerRegistrationMap>(value);
-                break;
-
-            default:
-                genericObject = (T)Convert.ChangeType(value, typeof(T));
-                break;
-        }
-
+            nameof(PlayerRegistrationMap) => (T)(object)JsonConvert.DeserializeObject<PlayerRegistrationMap>(value),
+            _ => (T)Convert.ChangeType(value, typeof(T))
+        };
         return true;
     }
 
-    // Done
-    public void DeleteKey(string key)
-    {
-        PlayerPrefs.Instance.DeleteKey(key);
-    }
+    public void DeleteKey(string key) => PlayerPrefs.Instance.DeleteKey(key);
 
-    // Done
-    public void DeleteAll()
-    {
-        PlayerPrefs.Instance.DeleteAll();
-    }
+    public void DeleteAll() => PlayerPrefs.Instance.DeleteAll();
 
-    // Done
-    public bool HasKey(string key)
-    {
-        return PlayerPrefs.Instance.HasKey(key);
-    }
+    public bool HasKey(string key) => PlayerPrefs.Instance.HasKey(key);
 
-    // Done
     private void ReadPrivateKey()
     {
-        _privateKey = $"{kPrivateKeyPrefix}{kPrivateKeyRandom}{kPrivateKeySuffix}";
-        _privateKey = $"{kPrivateKeyPrefix}{GetString(kRandomKey)}{kPrivateKeySuffix}";
+        _privateKey = kPrivateKeyPrefix + kPrivateKeyRandom + kPrivateKeySuffix;
+        _privateKey = kPrivateKeyPrefix + GetString(kRandomKey) + kPrivateKeySuffix;
     }
 
-    // Done
     private void GeneratePrivateKey()
     {
-        var random = new Random();
-        var randomBase = random.Next(100, 1000);
+        Random random = new();
+        int randomBase = random.Next(100, 1000);
 
-        _privateKey = $"{kPrivateKeyPrefix}{kPrivateKeyRandom}{kPrivateKeySuffix}";
+        _privateKey = kPrivateKeyPrefix + kPrivateKeyRandom + kPrivateKeySuffix;
         SetString(kRandomKey, randomBase.ToString());
 
         _privateKey = $"{kPrivateKeyPrefix}{randomBase}{kPrivateKeySuffix}";

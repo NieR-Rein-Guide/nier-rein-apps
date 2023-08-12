@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace NierReincarnation.Core.Dark.Preference;
 
 // Dark.Preference.PlayerRegistration
-class PlayerRegistration
+public class PlayerRegistration
 {
     private static readonly string kBlockAdId = Guid.Empty.ToString("D");
 

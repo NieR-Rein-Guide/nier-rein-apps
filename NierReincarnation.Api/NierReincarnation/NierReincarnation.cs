@@ -178,7 +178,7 @@ public static class NierReincarnation
             var activePlayer = PlayerPreference.Instance.ActivePlayer ?? throw new InvalidOperationException("No user is logged in.");
 
             // Set logged in user globally
-            ApplicationScopeClientContext.Instance.User = new ApplicationScopeClientContext.UserInfo(activePlayer);
+            ApplicationScopeClientContext.Instance.User = new UserInfo(activePlayer);
 
             // Authorize user on API
             await AuthorizeUser(activePlayer.UserId);
@@ -227,7 +227,7 @@ public static class NierReincarnation
         PlayerPreference.Instance.ActivePlayer = activePlayer;
 
         // Initialize globally accessible user info
-        ApplicationScopeClientContext.Instance.User = new ApplicationScopeClientContext.UserInfo(activePlayer);
+        ApplicationScopeClientContext.Instance.User = new UserInfo(activePlayer);
     }
 
     private static void InitializeNetwork()
@@ -287,7 +287,7 @@ public static class NierReincarnation
 
         // Set globally accessible user instances
         PlayerPreference.Instance.ActivePlayer = activePlayer;
-        ApplicationScopeClientContext.Instance.User = new ApplicationScopeClientContext.UserInfo(activePlayer);
+        ApplicationScopeClientContext.Instance.User = new UserInfo(activePlayer);
 
         // Persist preferences
         PlayerPrefs.Instance.Save();

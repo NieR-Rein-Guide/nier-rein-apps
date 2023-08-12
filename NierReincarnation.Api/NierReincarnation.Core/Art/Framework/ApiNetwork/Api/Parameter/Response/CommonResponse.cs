@@ -2,7 +2,6 @@
 
 namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Response;
 
-// Art.Framework.ApiNetwork.Api.Parameter.Response.CommonResponse
 public class CommonResponse
 {
     public ScreenTransitionType ScreenTransitionType;

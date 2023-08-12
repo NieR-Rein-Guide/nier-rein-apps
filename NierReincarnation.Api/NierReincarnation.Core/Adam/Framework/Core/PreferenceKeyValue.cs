@@ -1,20 +1,16 @@
-﻿using System;
+﻿namespace NierReincarnation.Core.Adam.Framework.Core;
 
-namespace NierReincarnation.Core.Adam.Framework.Core;
-
-abstract class PreferenceKeyValue<T>
+public abstract class PreferenceKeyValue<T>
 {
-    enum State
+    private enum State
     {
         Unknown,
         Dirty,
         Normal
     }
 
-    // Fields
     private State _state;
 
-    // Properties
     public T Value
     {
         get
@@ -35,6 +31,7 @@ abstract class PreferenceKeyValue<T>
 
             return InternalValue;
         }
+
         set
         {
             if (CheckDirty(value))
@@ -47,13 +44,12 @@ abstract class PreferenceKeyValue<T>
         }
     }
 
-   
     protected string Key { get; set; }
-   
+
     protected T InternalValue { get; set; }
-    // 0x?? depends on T
+
     protected T DefaultFallback { get; set; }
-    // 0x?? depends on T
+
     protected PreferenceKeyStoreValue KeyStoreValue { get; set; }
 
     protected PreferenceKeyValue(string key, PreferenceKeyStoreValue keyStoreValue, T defaultFallback)
@@ -72,19 +68,14 @@ abstract class PreferenceKeyValue<T>
         KeyStoreValue.DeleteKey(Key);
     }
 
-   
     protected abstract T GetValue();
 
-   
     protected abstract void Save();
 
-   
     protected abstract bool CheckDirty(T value);
 
-   
     protected abstract void CheckDirtyForGet();
 
-   
     protected void SetDirty()
     {
         _state = State.Dirty;

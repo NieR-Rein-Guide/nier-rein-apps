@@ -1,13 +1,14 @@
-﻿using System;
+﻿namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm;
 
-namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm;
-
-abstract class VariableBase
+public abstract class VariableBase
 {
     private static InternalDataStructure _gCreatingDataStructure;
 
     public abstract Type ValueType { get; }
+
     public abstract object ValueObject { get; set; }
+
+    public static InternalDataStructure DataStructure => _gCreatingDataStructure;
 
     public static VariableBase Create(InternalDataStructure structure, Type type)
     {

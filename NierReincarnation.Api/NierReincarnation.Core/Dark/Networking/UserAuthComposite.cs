@@ -71,10 +71,10 @@ class UserAuthComposite
                 SessionExpire = res.ExpireDatetime.Seconds
             };
 
-            ApplicationScopeClientContext.Instance.Auth = new ApplicationScopeClientContext.AuthInfo(preference);
+            ApplicationScopeClientContext.Instance.Auth = new AuthInfo(preference);
 
             var masterDataVersion = ApplicationScopeClientContext.Instance.MasterData;
-            ApplicationScopeClientContext.Instance.MasterData = new ApplicationScopeClientContext.MasterDataVersionInfo(preference);
+            ApplicationScopeClientContext.Instance.MasterData = new MasterDataVersionInfo(preference);
             ApplicationScopeClientContext.Instance.MasterData.UpdateMasterDataHash(masterDataVersion.MasterDataHash);
 
             ReplaceUserData(res.UserId, res.Signature);
@@ -105,7 +105,7 @@ class UserAuthComposite
 
         PlayerPreference.Instance.ActivePlayer = playerRegistration;
 
-        ApplicationScopeClientContext.Instance.User = new ApplicationScopeClientContext.UserInfo(playerRegistration);
+        ApplicationScopeClientContext.Instance.User = new UserInfo(playerRegistration);
         CalculatorNetworking.SetupAuthUpdateUserState(userId, signature);
     }
 

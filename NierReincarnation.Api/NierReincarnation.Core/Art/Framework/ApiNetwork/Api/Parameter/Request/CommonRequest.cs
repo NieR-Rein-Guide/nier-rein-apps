@@ -1,9 +1,7 @@
 ﻿namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Api.Parameter.Request;
 
-// Art.Framework.ApiNetwork.Api.Parameter.Request.CommonRequest
-class CommonRequest
+public class CommonRequest
 {
-    // Fields
     public string AppVersion;
     public long UserId;
     public string SessionKey;

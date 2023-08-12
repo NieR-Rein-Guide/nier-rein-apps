@@ -1,9 +1,9 @@
 ﻿namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm;
 
-class Data
+public class Data
 {
     public string name;
-    private object _objectReferenceValue;
+    private readonly object _objectReferenceValue;
 
     public bool GetVariable<T>(out T value)
     {

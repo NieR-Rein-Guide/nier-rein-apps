@@ -5,10 +5,7 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Hand
 
 public class TokenRefreshHandler : IResponseHandler
 {
-    public int GetPriority()
-    {
-        return 1000;
-    }
+    public int GetPriority() => 1000;
 
     public Task<RetryHandleType> HandleAsync(Api.Api api)
     {

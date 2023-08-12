@@ -1,46 +1,37 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Security.Cryptography;
+using NativeDES = System.Security.Cryptography.DES;
 
 namespace NierReincarnation.Core.Adam.Framework.Core;
 
-// Adam.Framework.Core.DES
-class DES
+public static class DES
 {
-    // Done
-    public string Decryption(string encryptedString, string key)
+    public static string Decryption(string encryptedString, string key)
     {
-        var des = new DESCryptoServiceProvider
-        {
-            Mode = CipherMode.ECB,
-            Padding = PaddingMode.PKCS7,
-            Key = Encoding.ASCII.GetBytes(key)
-        };
-
-        using var ms = new MemoryStream(Convert.FromBase64String(encryptedString));
-        using var cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read);
-        using var sr = new StreamReader(cs, Encoding.ASCII);
+        using MemoryStream ms = new(Convert.FromBase64String(encryptedString));
+        using CryptoStream cs = new(ms, GetDES(key).CreateDecryptor(), CryptoStreamMode.Read);
+        using StreamReader sr = new(cs, Encoding.ASCII);
 
         return sr.ReadToEnd();
     }
 
-    // Done
-    public string Encryption(string plain, string key)
+    public static string Encryption(string plain, string key)
     {
-        var des = new DESCryptoServiceProvider
-        {
-            Mode = CipherMode.ECB,
-            Padding = PaddingMode.PKCS7,
-            Key = Encoding.ASCII.GetBytes(key)
-        };
-
-        using var ms = new MemoryStream();
-        using var cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write);
+        using MemoryStream ms = new();
+        using CryptoStream cs = new(ms, GetDES(key).CreateEncryptor(), CryptoStreamMode.Write);
 
         cs.Write(Encoding.Default.GetBytes(plain));
         cs.FlushFinalBlock();
 
         return Convert.ToBase64String(ms.ToArray());
+    }
+
+    private static NativeDES GetDES(string key)
+    {
+        NativeDES des = NativeDES.Create();
+        des.Mode = CipherMode.ECB;
+        des.Padding = PaddingMode.PKCS7;
+        des.Key = Encoding.ASCII.GetBytes(key);
+
+        return des;
     }
 }

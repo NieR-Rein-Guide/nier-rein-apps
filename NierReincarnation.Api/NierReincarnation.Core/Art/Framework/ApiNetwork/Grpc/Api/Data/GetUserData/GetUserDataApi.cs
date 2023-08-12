@@ -5,7 +5,6 @@ namespace NierReincarnation.Core.Art.Framework.ApiNetwork.Grpc.Api.Data.GetUserD
 
 public class GetUserDataApi
 {
-    // CUSTOM: Return list of objects to parse them into a safe type later
     public static async Task<(string, List<object>)[]> RequestAsyncMethod(IReadOnlyList<string> tableNames)
     {
         DarkClient darkClient = new();

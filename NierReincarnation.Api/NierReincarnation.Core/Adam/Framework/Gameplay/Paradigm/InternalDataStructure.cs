@@ -3,17 +3,10 @@ using NierReincarnation.Core.Dark.Variable;
 
 namespace NierReincarnation.Core.Adam.Framework.Gameplay.Paradigm;
 
-// Adam.Framework.Gameplay.Paradigm.InternalDataStructure
-class InternalDataStructure : DataStructureBase
+public class InternalDataStructure : DataStructureBase
 {
-    //private List<Data> _datas;
-
-    // TODO: Implement data structure variable methods
     public bool GetVariable<TVariable>(string name, out TVariable value) where TVariable : new()
     {
-        //var data = GetParam(name);
-        //return data.GetVariable(out value);
-
         if (typeof(TVariable) == typeof(StateUser))
         {
             value = (TVariable)(object)new StateUser
@@ -28,23 +21,4 @@ class InternalDataStructure : DataStructureBase
         value = new TVariable();
         return false;
     }
-
-    //public Data GetParam(string name)
-    //{
-    //    return FindDataWithName(name);
-    //}
-
-    //private Data FindDataWithName(string name)
-    //{
-    //    if (_datas == null || _datas.Count < 1)
-    //        return null;
-
-    //    foreach (var data in _datas)
-    //    {
-    //        if (data.name == name)
-    //            return data;
-    //    }
-
-    //    return null;
-    //}
 }

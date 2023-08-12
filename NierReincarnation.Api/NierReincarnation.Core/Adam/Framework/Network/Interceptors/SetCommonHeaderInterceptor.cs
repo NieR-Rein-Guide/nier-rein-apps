@@ -1,111 +1,114 @@
-﻿using System;
-using System.Threading.Tasks;
 using Grpc.Core;
-using NierReincarnation.Core.Custom;
 using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors;
 
-// Adam.Framework.Network.Interceptors.SetCommonHeaderInterceptor
-class SetCommonHeaderInterceptor : INetworkInterceptor
+public class SetCommonHeaderInterceptor : INetworkInterceptor
 {
-    private string appVersion;
-    private string language;
-    private string osVersion;
-    private string deviceName;
-    private Random rand = new Random();
-    private long prevRequestId;
+    private readonly string _appVersion;
+    private readonly string _language;
+    private readonly string _osVersion;
+    private readonly string _deviceName;
+    private readonly Random _rand = new();
+    private long _prevRequestId;
 
-    // static 0x00 onwards
-    private static readonly string kAppVersionHeader = "x-apb-app-version";
-    private static readonly string kLanguageHeader = "x-apb-language";
-    private static readonly string kOsVersionHeader = "x-apb-os-version";
-    private static readonly string kDeviceNameHeader = "x-apb-device-name";
-    private static readonly string kOsTypeHeader = "x-apb-os-type";
-    private static readonly string kPlatformTypeHeader = "x-apb-platform-type";
-    private static readonly string kRequestDateTimeHeader = "x-apb-request-datetime";
-    private static readonly string kRequestIdHeader = "x-apb-request-id";
-    private static readonly string kMacAddressHeader = "x-apb-mac-addr";
-    private static readonly string kUserIdHeader = "x-apb-user-id";
-    private static readonly string kSessionKeyHeader = "x-apb-session-key";
-    private static readonly string kTokenHeader = "x-apb-token";
-    private static readonly string kMasterDataHashHeader = "x-apb-master-data-hash";
-    private static readonly string kAdjustIdHeader = "x-adjust-id";
-    private static readonly string kDeviceIdHeader = "x-apb-device-id";
-    private static readonly string kAdvertisingIdHeader = "x-apb-advertising-id";
-    private static readonly string kKeyChainUserIdHeader = "x-apb-keychain-user-id";
-    private static readonly string kEditorAdjustId = "UnityEditor";
-    private static readonly string kKeyChainUserId = "user_id";
+    private const string kAppVersionHeader = "x-apb-app-version";
+    private const string kLanguageHeader = "x-apb-language";
+    private const string kOsVersionHeader = "x-apb-os-version";
+    private const string kDeviceNameHeader = "x-apb-device-name";
+    private const string kOsTypeHeader = "x-apb-os-type";
+    private const string kPlatformTypeHeader = "x-apb-platform-type";
+    private const string kRequestDateTimeHeader = "x-apb-request-datetime";
+    private const string kRequestIdHeader = "x-apb-request-id";
+    private const string kMacAddressHeader = "x-apb-mac-addr";
+    private const string kUserIdHeader = "x-apb-user-id";
+    private const string kSessionKeyHeader = "x-apb-session-key";
+    private const string kTokenHeader = "x-apb-token";
+    private const string kMasterDataHashHeader = "x-apb-master-data-hash";
+    private const string kAdjustIdHeader = "x-adjust-id";
+    private const string kDeviceIdHeader = "x-apb-device-id";
+    private const string kAdvertisingIdHeader = "x-apb-advertising-id";
+    private const string kKeyChainUserIdHeader = "x-apb-keychain-user-id";
+    private const string kEditorAdjustId = "UnityEditor";
+    private const string kKeyChainUserId = "user_id";
 
-    private static readonly string kOsTypeiOS = "1";
-    private static readonly string kOsTypeAndroid = "2";
-    private static readonly string kPlatformAppStore = "1";
-    private static readonly string kPlatformGooglePlayStore = "2";
-    private static readonly string kPlatformAmazon = "8";
+    private const string kOsTypeiOS = "1";
+    private const string kOsTypeAndroid = "2";
+    private const string kPlatformAppStore = "1";
+    private const string kPlatformGooglePlayStore = "2";
+    private const string kPlatformAmazon = "8";
+
+    public SetCommonHeaderInterceptor()
+    {
+        _appVersion ??= Application.Version;
+        _language ??= Application.SystemLanguage.ToString();
+        _osVersion ??= SystemInfo.OperatingSystem;
+        _deviceName ??= SystemInfo.DeviceModel;
+    }
 
     public Task<ResponseContext> SendAsync(RequestContext context, Func<RequestContext, Task<ResponseContext>> next)
     {
-        if (context == null)
-            throw new ArgumentNullException(nameof(context));
-
         SetCommonHeader(context.Headers);
-
-        return next?.Invoke(context);
+        return next.Invoke(context);
     }
 
     private void SetCommonHeader(Metadata headers)
     {
-        // At least required headers:
-        // - kAppVersionHeader
-        // - kUserIdHeader
+        headers.Add(kAppVersionHeader, _appVersion);
+        headers.Add(kLanguageHeader, _language);
+        headers.Add(kOsVersionHeader, _osVersion);
+        headers.Add(kDeviceNameHeader, _deviceName);
+        headers.Add(kDeviceIdHeader, SystemInfo.DeviceUniqueIdentifier);
 
-        headers.Add(kAppVersionHeader, appVersion ??= Application.Version);
-        headers.Add(kLanguageHeader, language ??= Application.SystemLanguage.ToString());
-        headers.Add(kOsVersionHeader, osVersion ??= SystemInfo.OperatingSystem);
-        headers.Add(kDeviceNameHeader, deviceName ??= SystemInfo.DeviceName);
+        if (Application.Platform != PlatformType.APP_STORE)
+        {
+            headers.Add(kOsTypeHeader, kOsTypeAndroid);
 
-        if (Application.Platform == PlatformType.AMAZON_APP_STORE)
+            if (Application.Platform == PlatformType.GOOGLE_PLAY_STORE)
+            {
+                headers.Add(kPlatformTypeHeader, kPlatformGooglePlayStore);
+            }
+            else if (Application.Platform == PlatformType.AMAZON_APP_STORE)
+            {
+                headers.Add(kPlatformTypeHeader, kPlatformAmazon);
+            }
+        }
+        else
         {
             headers.Add(kOsTypeHeader, kOsTypeiOS);
             headers.Add(kPlatformTypeHeader, kPlatformAppStore);
         }
-        else
-        {
-            headers.Add(kOsTypeHeader, kOsTypeAndroid);
-            headers.Add(kPlatformTypeHeader, kPlatformGooglePlayStore);
-        }
 
         headers.Add(kRequestDateTimeHeader, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString());
 
-        prevRequestId = ErrorHandlingInterceptor.IsRetrying ? prevRequestId : GetRandomLongValue();
-        headers.Add(kRequestIdHeader, prevRequestId.ToString());
+        _prevRequestId = ErrorHandlingInterceptor.IsRetrying ? _prevRequestId : GetRandomLongValue();
+        headers.Add(kRequestIdHeader, _prevRequestId.ToString());
 
-        var userInfo = ApplicationScopeClientContext.Instance?.User;
-        var authInfo = ApplicationScopeClientContext.Instance?.Auth;
-        var tokenInfo = ApplicationScopeClientContext.Instance?.Token;
-        var masterData = ApplicationScopeClientContext.Instance?.MasterData;
-
-        if (userInfo != null)
+        if (ApplicationScopeClientContext.Instance.User is not null)
         {
-            headers.Add(kUserIdHeader, userInfo.UserId.ToString());
-
-            headers.Add(kAdvertisingIdHeader, userInfo.AdvertisingId ?? string.Empty);
-            headers.Add(kKeyChainUserIdHeader, SystemInformation.Instance.KeyChainUserId ?? string.Empty);
+            headers.Add(kUserIdHeader, ApplicationScopeClientContext.Instance.User.UserId.ToString());
+            headers.Add(kAdvertisingIdHeader, ApplicationScopeClientContext.Instance.User.AdvertisingId ?? string.Empty);
         }
-        if (authInfo != null)
-            headers.Add(kSessionKeyHeader, authInfo.SessionKey ?? string.Empty);
-        if (tokenInfo != null)
-            headers.Add(kTokenHeader, tokenInfo.Value ?? string.Empty);
-        if (masterData != null)
-            headers.Add(kMasterDataHashHeader, masterData.MasterDataHash ?? string.Empty);
 
-        headers.Add(kAdjustIdHeader, SystemInformation.Instance.AdjustId ?? string.Empty);
-        headers.Add(kDeviceIdHeader, SystemInfo.DeviceUniqueIdentifier ?? string.Empty);
+        if (ApplicationScopeClientContext.Instance.Auth is not null)
+        {
+            headers.Add(kSessionKeyHeader, ApplicationScopeClientContext.Instance.Auth.SessionKey ?? string.Empty);
+        }
+
+        if (ApplicationScopeClientContext.Instance.Token is not null)
+        {
+            headers.Add(kTokenHeader, ApplicationScopeClientContext.Instance.Token.Value ?? string.Empty);
+        }
+
+        if (ApplicationScopeClientContext.Instance.MasterData is not null)
+        {
+            headers.Add(kMasterDataHashHeader, ApplicationScopeClientContext.Instance.MasterData.MasterDataHash ?? string.Empty);
+        }
+
+        headers.Add(kAdjustIdHeader, string.Empty);
+        headers.Add(kKeyChainUserIdHeader, string.Empty);
     }
 
-    private long GetRandomLongValue()
-    {
-        return rand.Next();
-    }
+    private long GetRandomLongValue() => _rand.Next();
 }

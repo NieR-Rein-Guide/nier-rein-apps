@@ -8,7 +8,7 @@ namespace NierReincarnation.Core.MasterMemory;
 
 public abstract class DatabaseBuilderBase
 {
-    // CUSTOM: Use ArrayBufferWriter instead of self-implemented ByteBufferWriter
+    // Note: Use ArrayBufferWriter instead of self-implemented ByteBufferWriter
     private readonly ArrayBufferWriter<byte> bufferWriter;
 
     private readonly Dictionary<string, (int, int)> header;
