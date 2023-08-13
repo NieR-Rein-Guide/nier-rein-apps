@@ -1,8 +1,6 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.ConsumableItem;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Adam.Framework.Network;
-using NierReincarnation.Core.Dark.Calculator;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;

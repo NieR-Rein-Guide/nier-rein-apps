@@ -1,5 +1,4 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.CageOrnament;
-using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Context.Models;
 

@@ -8,7 +8,7 @@ internal static class Localizer
 {
     public static IDictionary<string, string> Create(SystemLanguage lang = SystemLanguage.English)
     {
-        var result = new Dictionary<string, string>();
+        Dictionary<string, string> result = new();
 
         var rootPath = Path.Combine(FileUtil.GetCachePath(), "v1", $"{DarkOctoSetupper.CreateSetting().AppId}");
         var locPath = Path.Combine(rootPath, "assets", "text", GetLanguagePath(lang));

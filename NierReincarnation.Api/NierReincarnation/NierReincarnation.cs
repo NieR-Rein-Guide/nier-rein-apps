@@ -4,7 +4,6 @@ using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
 using NierReincarnation.Core.Adam.Framework.Resource;
 using NierReincarnation.Core.Art.Library.Masterdata.Download;
-using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.EntryPoint;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.Localization;

@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Context.Models;
+﻿namespace NierReincarnation.Context.Models;
 
 public class Banner
 {

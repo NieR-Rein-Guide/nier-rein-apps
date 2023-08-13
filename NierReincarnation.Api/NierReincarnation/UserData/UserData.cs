@@ -1,7 +1,6 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.Data;
 using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
-using Newtonsoft.Json;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.UserData.Models;
 

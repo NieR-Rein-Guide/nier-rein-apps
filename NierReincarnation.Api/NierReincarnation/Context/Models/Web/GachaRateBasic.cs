@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Context.Models.Web;
+﻿namespace NierReincarnation.Context.Models.Web;
 
 public class GachaRateBasic
 {

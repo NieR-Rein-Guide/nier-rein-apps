@@ -1,11 +1,9 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.Gacha;
-using Newtonsoft.Json;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Context.Models.Web;
 using NierReincarnation.Context.Support;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Dark.EntryPoint;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Preference;
 using NierReincarnation.Core.UnityEngine;

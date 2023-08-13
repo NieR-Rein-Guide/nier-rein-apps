@@ -3,13 +3,9 @@ using Art.Framework.ApiNetwork.Grpc.Api.BigHunt;
 using Google.Protobuf;
 using NierReincarnation.Context.Models;
 using NierReincarnation.Core.Adam.Framework.Network;
-using NierReincarnation.Core.Dark;
-using NierReincarnation.Core.Dark.Calculator;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Game.TurnBattle;
 using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 

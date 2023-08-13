@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NierReincarnation.Context.Models.Web;
+﻿using NierReincarnation.Context.Models.Web;
 using NierReincarnation.Context.Support;
 using NierReincarnation.Core.Dark.EntryPoint;
 using NierReincarnation.Core.UnityEngine;

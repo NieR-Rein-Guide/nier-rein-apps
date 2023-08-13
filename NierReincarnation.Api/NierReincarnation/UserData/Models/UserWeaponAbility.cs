@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace NierReincarnation.UserData.Models;
+﻿namespace NierReincarnation.UserData.Models;
 
 public class UserWeaponAbility
 {

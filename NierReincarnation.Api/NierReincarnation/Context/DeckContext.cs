@@ -1,9 +1,5 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.Deck;
 using NierReincarnation.Core.Adam.Framework.Network;
-using NierReincarnation.Core.Dark;
-using NierReincarnation.Core.Dark.Calculator;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Context;
 

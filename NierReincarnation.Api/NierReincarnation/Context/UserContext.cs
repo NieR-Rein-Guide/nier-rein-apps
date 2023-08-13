@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Calculator;
-using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+﻿using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Context;
 

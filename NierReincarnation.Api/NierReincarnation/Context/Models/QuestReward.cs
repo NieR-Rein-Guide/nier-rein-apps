@@ -1,6 +1,4 @@
 ﻿using NierReincarnation.Context.Models.Events;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Context.Models;
 

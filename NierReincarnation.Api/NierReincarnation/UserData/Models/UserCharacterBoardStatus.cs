@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.UserData.Models;
+﻿namespace NierReincarnation.UserData.Models;
 
 public class UserCharacterBoardStatus
 {

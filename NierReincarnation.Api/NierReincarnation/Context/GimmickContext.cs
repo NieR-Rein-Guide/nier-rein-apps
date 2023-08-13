@@ -1,10 +1,7 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.CageOrnament;
 using Art.Framework.ApiNetwork.Grpc.Api.Gimmick;
 using NierReincarnation.Core.Adam.Framework.Network;
-using NierReincarnation.Core.Dark;
-using NierReincarnation.Core.Dark.Calculator.Outgame;
 using NierReincarnation.Core.Dark.Component.WorldMap;
-using NierReincarnation.Core.Dark.Generated.Type;
 using GimmickReward = NierReincarnation.Context.Models.GimmickReward;
 
 namespace NierReincarnation.Context;
