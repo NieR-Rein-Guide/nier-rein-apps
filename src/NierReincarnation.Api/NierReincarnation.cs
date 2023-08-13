@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using NierReincarnation.Api.Authentication;
 using NierReincarnation.Context;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
@@ -56,28 +57,18 @@ public static class NierReincarnation
     /// <summary>
     /// Sets up and initializes the application with a user for direct use on the command line.
     /// </summary>
-    /// <param name="username">The user to log in with. Will only be used if a user is not already present.</param>
-    /// <param name="password">The password of the user. Will only be used if a user is not already present.</param>
-    /// <param name="otpCallback">A callback to receive the OTP for logging.</param>
     /// <param name="isLogin">True if the user should be logged in, otherwise false</param>
     /// <param name="isReset">True if the Master database should be reset, otherwise false</param>
     /// <param name="dbRevision">The revision to reset the Master database to</param>
     /// <returns><see cref="Task"/> representing the setup operation.</returns>
-    public static async Task PrepareCommandLine(string username, string password, Func<Task<string>> otpCallback = null,
-        bool isLogin = true, bool isReset = false, int dbRevision = 0)
+    public static async Task PrepareCommandLine(bool isLogin = true, bool isReset = false, int dbRevision = 0)
     {
         Setup(isReset, dbRevision);
 
         if (isLogin && !IsLoggedIn())
         {
-            if (string.IsNullOrEmpty(username))
-                throw new InvalidOperationException("A username is required for an initial login.");
-            if (string.IsNullOrEmpty(password))
-                throw new InvalidOperationException("A password is required for an initial login.");
-
-            var isLoggedIn = await Login(username, password, otpCallback);
-            if (!isLoggedIn)
-                return;
+            var isLoggedIn = await Login();
+            if (!isLoggedIn) return;
         }
 
         await Initialize(isLogin);
@@ -118,14 +109,14 @@ public static class NierReincarnation
         return PlayerPrefs.Exists;
     }
 
-    public static async Task<bool> Login(string username, string password, Func<Task<string>> otpCallback = null)
+    public static async Task<bool> Login()
     {
         // Setup application instances
         if (!IsSetup)
             Setup();
 
         // Login user
-        return await LoginUser(username, password, otpCallback);
+        return await LoginUser();
     }
 
     /// <summary>
@@ -196,16 +187,23 @@ public static class NierReincarnation
         IsInitialized = true;
     }
 
-    private static async Task<bool> LoginUser(string username, string password, Func<Task<string>> otpCallback)
+    private static async Task<bool> LoginUser()
     {
-        // Login with SquareEnix-Bridge account
-        Console.WriteLine($"Login user '{username}'.");
-        var (uuid, userId, signature) = await Auth.LoginSquareEnixBridge(username, password, otpCallback);
-        if (uuid == null)
-            return false;
+        IAuthenticationProvider authProvider = new BaseAuthenticationProvider();
+
+        // Get auth URL
+        AuthenticationUrlResult authUrlResult = await authProvider.GetAuthenticationUrlAsync();
+
+        if (authUrlResult.Uuid is null) return false;
+
+        Console.WriteLine($"Login to your account at: {authUrlResult.Url}");
+        Console.WriteLine("After you login and confirm transfer, press any key to continue");
+        Console.ReadLine();
+
+        var transferResult = await authProvider.TransferUserAsync(authUrlResult.Uuid);
 
         // Set user information obtained after login
-        SetUser(uuid, userId, signature);
+        SetUser(authUrlResult.Uuid, transferResult.UserId, transferResult.Signature);
 
         return true;
     }

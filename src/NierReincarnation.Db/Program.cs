@@ -98,7 +98,7 @@ public static class Program
 
         Application.Version = reinConfig.GameVersion;
 
-        await NierReincarnation.PrepareCommandLine(reinConfig.User, reinConfig.Password);
+        await NierReincarnation.PrepareCommandLine();
         await NierReincarnation.LoadLocalizations(SystemLanguage.English);
     }
 

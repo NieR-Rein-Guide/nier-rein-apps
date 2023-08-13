@@ -34,7 +34,7 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
         try
         {
-            Console.SetOut(TextWriter.Null);
+            //Console.SetOut(TextWriter.Null);
             if (Reset)
             {
                 NierReincarnation.Reset();
@@ -59,7 +59,7 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
     private static async Task InitializeNierReinApi(int revision = 0, bool login = true)
     {
-        await NierReincarnation.PrepareCommandLine(Program.AppSettings.Username, Program.AppSettings.Password, null, login, true, revision);
+        await NierReincarnation.PrepareCommandLine(login, true, revision);
     }
 
     private static async Task InitializeLocalizations()

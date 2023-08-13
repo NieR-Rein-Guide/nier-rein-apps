@@ -64,7 +64,7 @@ namespace NierReincarnation.Cli
                 case Mode.FutureQuests:
                 case Mode.CurrentQuests:
                 case Mode.Decks:
-                    await NierReincarnation.PrepareCommandLine(o.Username, o.Password);
+                    await NierReincarnation.PrepareCommandLine();
                     await NierReincarnation.LoadLocalizations(SystemLanguage.English);
                     break;
             }
