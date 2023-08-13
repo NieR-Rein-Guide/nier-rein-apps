@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
+﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
 public class DataCampaign
 {

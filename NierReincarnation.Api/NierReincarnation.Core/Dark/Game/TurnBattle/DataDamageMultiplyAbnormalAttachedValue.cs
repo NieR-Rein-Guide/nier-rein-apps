@@ -1,23 +1,20 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle;
 
 [MessagePackObject]
 public class DataDamageMultiplyAbnormalAttachedValue
 {
-    [Key(0)] // RVA: 0x1DEC118 Offset: 0x1DEC118 VA: 0x1DEC118
+    [Key(0)]
     public DamageMultiplyAbnormalAttachedPolarityConditionType PolarityConditionType { get; set; }
 
-    [Key(1)] // RVA: 0x1DEC12C Offset: 0x1DEC12C VA: 0x1DEC12C
+    [Key(1)]
     public int AbnormalTypeIdCondition { get; set; }
 
-    [Key(2)] // RVA: 0x1DEC140 Offset: 0x1DEC140 VA: 0x1DEC140
+    [Key(2)]
     public DamageMultiplyAbnormalAttachedTargetType ReferenceActorType { get; set; }
 
-    [Key(3)] // RVA: 0x1DEC154 Offset: 0x1DEC154 VA: 0x1DEC154
+    [Key(3)]
     public int CoefficientValuePermil { get; set; }
 
-    [Key(4)] // RVA: 0x1DEC168 Offset: 0x1DEC168 VA: 0x1DEC168
+    [Key(4)]
     public DamageMultiplyTargetType MultiplyTargetType { get; set; }
 }

@@ -1,7 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.Networking.DataSource;
 
-// Dark.Networking.DataSource.DataSourceType
-internal enum DataSourceType
+public enum DataSourceType
 {
     UserRegister = 0,
     UserAuth = 1,

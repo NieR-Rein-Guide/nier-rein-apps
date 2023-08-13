@@ -1,7 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.Kernel;
 
-// Dark.Kernel.ThreadContext
-internal class ThreadContext
+public sealed class ThreadContext
 {
     public CancellationTokenSource Source { get; set; }
 

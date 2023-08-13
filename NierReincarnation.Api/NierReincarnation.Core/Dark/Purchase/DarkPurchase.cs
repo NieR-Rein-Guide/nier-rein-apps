@@ -1,6 +1,5 @@
 ﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.UnityEngine.Purchasing;
 
@@ -8,15 +7,15 @@ namespace NierReincarnation.Core.Dark.Purchase;
 
 public class DarkPurchase
 {
-    private static readonly Lazy<DarkPurchase> Lazy = new Lazy<DarkPurchase>(() => new DarkPurchase());
+    private static readonly Lazy<DarkPurchase> Lazy = new(() => new DarkPurchase());
 
     public static DarkPurchase Instance => Lazy.Value;
 
     private Purchaser _purchaser;
 
-    private Dictionary<string, PurchaseProcessingData> _purchaseProcessingDatas;
+    private readonly Dictionary<string, PurchaseProcessingData> _purchaseProcessingDatas;
 
-    private Dictionary<string, int> _shopIdByProductId;
+    private readonly Dictionary<string, int> _shopIdByProductId;
 
     public bool Initialized { get; private set; }
 

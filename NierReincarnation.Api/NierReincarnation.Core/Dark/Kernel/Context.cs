@@ -1,7 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.Kernel;
 
-// Dark.Kernel.Context
-internal class Context
+public sealed class Context
 {
     public ApplicationContext Application { get; } = new ApplicationContext();
 

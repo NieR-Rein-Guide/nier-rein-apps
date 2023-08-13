@@ -1,11 +1,10 @@
 ﻿namespace NierReincarnation.Core.Dark;
 
-public class ActorAssetId : IEquatable<ActorAssetId> // TypeDefIndex: 9052
+public class ActorAssetId : IEquatable<ActorAssetId>
 {
-    // Fields
-    public static readonly ActorAssetId InvalidActorAssetId = new ActorAssetId();
+    public static readonly ActorAssetId InvalidActorAssetId = new();
 
-    private static readonly int InvalidId = 0;
+    private static readonly int InvalidId;
 
     public int Id { get; }
 
@@ -23,7 +22,7 @@ public class ActorAssetId : IEquatable<ActorAssetId> // TypeDefIndex: 9052
     public ActorAssetId(string id)
     {
         Id = int.Parse(id.Substring(5, 3));
-        SkeletonId = new SkeletonId(id.Substring(0, 5));
+        SkeletonId = new SkeletonId(id[..5]);
         StringId = CreateStringId();
     }
 

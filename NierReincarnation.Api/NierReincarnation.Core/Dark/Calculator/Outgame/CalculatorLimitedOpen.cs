@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Subsystem.Calculator.Outgame;
+﻿using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 

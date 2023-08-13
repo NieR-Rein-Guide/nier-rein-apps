@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.UnityEngine;
+﻿namespace NierReincarnation.Core.UnityEngine;
 
 public static class Application
 {

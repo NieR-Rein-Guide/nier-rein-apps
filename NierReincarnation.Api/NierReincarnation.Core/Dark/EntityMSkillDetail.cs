@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,63 +6,63 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_skill_detail")]
 public class EntityMSkillDetail
 {
-    [Key(0)] // RVA: 0x1DE5814 Offset: 0x1DE5814 VA: 0x1DE5814
+    [Key(0)]
     public int SkillDetailId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE5854 Offset: 0x1DE5854 VA: 0x1DE5854
+    [Key(1)]
     public int SkillBehaviourGroupId { get; set; }
 
-    [Key(2)] // RVA: 0x1DE5868 Offset: 0x1DE5868 VA: 0x1DE5868
+    [Key(2)]
     public int NameSkillTextId { get; set; }
 
-    [Key(3)] // RVA: 0x1DE587C Offset: 0x1DE587C VA: 0x1DE587C
+    [Key(3)]
     public int SkillCooltimeValue { get; set; }
 
-    [Key(4)] // RVA: 0x1DE5890 Offset: 0x1DE5890 VA: 0x1DE5890
+    [Key(4)]
     public int SkillCooltimeBehaviourGroupId { get; set; }
 
-    [Key(5)] // RVA: 0x1DE58A4 Offset: 0x1DE58A4 VA: 0x1DE58A4
+    [Key(5)]
     public int CasttimeFrameCount { get; set; }
 
-    [Key(6)] // RVA: 0x1DE58B8 Offset: 0x1DE58B8 VA: 0x1DE58B8
+    [Key(6)]
     public int HitRatioPermil { get; set; }
 
-    [Key(7)] // RVA: 0x1DE58CC Offset: 0x1DE58CC VA: 0x1DE58CC
+    [Key(7)]
     public int SkillRangeMilli { get; set; }
 
-    [Key(8)] // RVA: 0x1DE58E0 Offset: 0x1DE58E0 VA: 0x1DE58E0
+    [Key(8)]
     public int SkillHitAssetCalculatorId { get; set; }
 
-    [Key(9)] // RVA: 0x1DE58F4 Offset: 0x1DE58F4 VA: 0x1DE58F4
+    [Key(9)]
     public bool IsCounterApplicable { get; set; }
 
-    [Key(10)] // RVA: 0x1DE5908 Offset: 0x1DE5908 VA: 0x1DE5908
+    [Key(10)]
     public bool IsComboCalculationTarget { get; set; }
 
-    [Key(11)] // RVA: 0x1DE591C Offset: 0x1DE591C VA: 0x1DE591C
+    [Key(11)]
     public int SkillAssetCategoryId { get; set; }
 
-    [Key(12)] // RVA: 0x1DE5930 Offset: 0x1DE5930 VA: 0x1DE5930
+    [Key(12)]
     public int SkillAssetVariationId { get; set; }
 
-    [Key(13)] // RVA: 0x1DE5944 Offset: 0x1DE5944 VA: 0x1DE5944
+    [Key(13)]
     public int DescriptionSkillTextId { get; set; }
 
-    [Key(14)] // RVA: 0x1DE5958 Offset: 0x1DE5958 VA: 0x1DE5958
+    [Key(14)]
     public SkillActType SkillActType { get; set; }
 
-    [Key(15)] // RVA: 0x1DE596C Offset: 0x1DE596C VA: 0x1DE596C
+    [Key(15)]
     public int SkillHitCount { get; set; }
 
-    [Key(16)] // RVA: 0x1DE5980 Offset: 0x1DE5980 VA: 0x1DE5980
+    [Key(16)]
     public int SkillPowerBaseValue { get; set; }
 
-    [Key(17)] // RVA: 0x1DE5994 Offset: 0x1DE5994 VA: 0x1DE5994
+    [Key(17)]
     public PowerCalculationReferenceStatusType PowerCalculationReferenceStatusType { get; set; }
 
-    [Key(18)] // RVA: 0x1DE59A8 Offset: 0x1DE59A8 VA: 0x1DE59A8
+    [Key(18)]
     public int PowerReferenceStatusGroupId { get; set; }
 
-    [Key(19)] // RVA: 0x1DE59BC Offset: 0x1DE59BC VA: 0x1DE59BC
+    [Key(19)]
     public int SkillCasttimeId { get; set; }
 }

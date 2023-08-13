@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_quest_release_condition_group")]
 public class EntityMQuestReleaseConditionGroup
 {
-    [Key(0)] // RVA: 0x1DE264C Offset: 0x1DE264C VA: 0x1DE264C
+    [Key(0)]
     public int QuestReleaseConditionGroupId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE268C Offset: 0x1DE268C VA: 0x1DE268C
+    [Key(1)]
     public int SortOrder { get; set; }
 
-    [Key(2)] // RVA: 0x1DE26CC Offset: 0x1DE26CC VA: 0x1DE26CC
+    [Key(2)]
     public QuestReleaseConditionType QuestReleaseConditionType { get; set; }
 
-    [Key(3)] // RVA: 0x1DE26E0 Offset: 0x1DE26E0 VA: 0x1DE26E0
+    [Key(3)]
     public int QuestReleaseConditionId { get; set; }
 }

@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_quest_deck_restriction_group")]
 public class EntityMQuestDeckRestrictionGroup
 {
-    [Key(0)] // RVA: 0x1DDEA9C Offset: 0x1DDEA9C VA: 0x1DDEA9C
+    [Key(0)]
     public int QuestDeckRestrictionGroupId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDEADC Offset: 0x1DDEADC VA: 0x1DDEADC
+    [Key(1)]
     public int SlotNumber { get; set; }
 
-    [Key(2)] // RVA: 0x1DDEB1C Offset: 0x1DDEB1C VA: 0x1DDEB1C
+    [Key(2)]
     public QuestDeckRestrictionType QuestDeckRestrictionType { get; set; }
 
-    [Key(3)] // RVA: 0x1DDEB30 Offset: 0x1DDEB30 VA: 0x1DDEB30
+    [Key(3)]
     public int RestrictionValue { get; set; }
 }

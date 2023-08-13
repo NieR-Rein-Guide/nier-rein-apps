@@ -1,12 +1,11 @@
 ﻿using NierReincarnation.Core.Dark.Component.WorldMap;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
 public static class CalculatorWorldMap
 {
-    private static readonly float kHalf = 2f;
+    private const float kHalf = 2f;
 
     // CUSTOM: Enumerate all gimmicks of a chapter without checking for clear state
     public static IEnumerable<WorldMapGimmickOutGame> EnumerateAllChapterGimmickDataAsync(int chapterId)

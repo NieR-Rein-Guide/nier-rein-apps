@@ -1,6 +1,5 @@
 ﻿namespace NierReincarnation.Core.Dark.Networking;
 
-// Dark.Networking.Config
 public static class Config
 {
     private const string ConsumableItemIdForGoldKey = "CONSUMABLE_ITEM_ID_FOR_GOLD";
@@ -103,559 +102,190 @@ public static class Config
     private const string AutoOrganizationBlessAdditionalCoefficientApplyThreshold = "AUTO_ORGANIZATION_BRESS_ADDITIONAL_COEFFICIENT_APPLY_THRESHOLD";
     private const string AutoOrganizationBlessAdditionalCoefficient = "AUTO_ORGANIZATION_BRESS_ADDITIONAL_COEFFICIENT_PERMIL";
 
-    // RVA: 0x298DDAC Offset: 0x298DDAC VA: 0x298DDAC
-    public static int GetConsumableIdForGold()
-    {
-        return GetConfigIntValue(ConsumableItemIdForGoldKey);
-    }
-
-    // RVA: 0x298DEB8 Offset: 0x298DEB8 VA: 0x298DEB8
-    public static int GetConsumableIdForMedal()
-    {
-        return GetConfigIntValue(ConsumableItemIdForMedalKey);
-    }
-
-    // RVA: 0x298DF20 Offset: 0x298DF20 VA: 0x298DF20
-    public static int GetConsumableIdForRareMedal()
-    {
-        return GetConfigIntValue(ConsumableItemIdForRareMedalKey);
-    }
-
-    // RVA: 0x298DF88 Offset: 0x298DF88 VA: 0x298DF88
-    public static int GetConsumableIdForArenaCoin()
-    {
-        return GetConfigIntValue(ConsumableItemIdForArenaCoinKey);
-    }
-
-    // RVA: 0x298DFF0 Offset: 0x298DFF0 VA: 0x298DFF0
-    public static int GetConsumableItemIdForExploreTicket()
-    {
-        return GetConfigIntValue(ConsumableItemIdForExploreTicketKey);
-    }
-
-    // RVA: 0x298E058 Offset: 0x298E058 VA: 0x298E058
-    public static int GetConsumableItemIdForQuestSkipTicket()
-    {
-        return GetConfigIntValue(ConsumableItemIdForQuestSkipTicketKey);
-    }
-
-    // RVA: 0x298E0C0 Offset: 0x298E0C0 VA: 0x298E0C0
-    public static int GetMaxBattlePoint()
-    {
-        return GetConfigIntValue(PvpMaxBattlePointKey);
-    }
-
-    // RVA: 0x298E128 Offset: 0x298E128 VA: 0x298E128
-    public static int GetBattleConsumeBattlePoint()
-    {
-        return GetConfigIntValue(PvpBattleConsumeBattlePointKey);
-    }
-
-    // RVA: 0x298E190 Offset: 0x298E190 VA: 0x298E190
-    public static int GetUpdateMatchingConsumeBattlePoint()
-    {
-        return GetConfigIntValue(PvpUpdateMatchingBattlePointKey);
-    }
-
-    // RVA: 0x298E1F8 Offset: 0x298E1F8 VA: 0x298E1F8
-    public static int GetStaminaRecoverySecond()
-    {
-        return GetConfigIntValue(StaminaRecoverySecondKey);
-    }
-
-    // RVA: 0x298E260 Offset: 0x298E260 VA: 0x298E260
-    public static int GetBattlePointRecoverySecond()
-    {
-        return GetConfigIntValue(BattlePointRecoverySecondKey);
-    }
-
-    // RVA: 0x298E2C8 Offset: 0x298E2C8 VA: 0x298E2C8
-    public static int GetCostumeLimitBreakAvailableCount()
-    {
-        return GetConfigIntValue(CostumeLimitBreakAvailableCountKey);
-    }
-
-    // RVA: 0x298E330 Offset: 0x298E330 VA: 0x298E330
-    public static int GetWeaponLimitBreakAvailableCount()
-    {
-        return GetConfigIntValue(WeaponLimitBreakAvailableCountKey);
-    }
-
-    // RVA: 0x298E398 Offset: 0x298E398 VA: 0x298E398
-    public static int GetCostumeAwakenAvailableCount()
-    {
-        return GetConfigIntValue(CostumeAwakenAvailableCount);
-    }
-
-    // RVA: 0x298E400 Offset: 0x298E400 VA: 0x298E400
-    public static int GetMaterialSameWeaponExpCoefficientPermil()
-    {
-        return GetConfigIntValue(MaterialSameWeaponExpCoefficientPermilKey);
-    }
-
-    // RVA: 0x298E468 Offset: 0x298E468 VA: 0x298E468
-    public static int GetWeaponEnhanceCalcCoefficientPermil()
-    {
-        return GetConfigIntValue(WeaponEnhanceCalcCoefficientPermilKey);
-    }
-
-    // RVA: 0x298E4D0 Offset: 0x298E4D0 VA: 0x298E4D0
-    public static int GetGrpcTimeoutMilliseconds()
-    {
-        return GetConfigIntValue(GrpcTimeoutMilliseconds);
-    }
-
-    // RVA: 0x298E538 Offset: 0x298E538 VA: 0x298E538
-    public static int GetUserNameMinLength()
-    {
-        return GetConfigIntValue(UserNameMinLength);
-    }
-
-    // RVA: 0x298E5A0 Offset: 0x298E5A0 VA: 0x298E5A0
-    public static int GetUserNameMaxLength()
-    {
-        return GetConfigIntValue(UserNameMaxLength);
-    }
-
-    // RVA: 0x298E608 Offset: 0x298E608 VA: 0x298E608
-    public static int GetUserMessageMinLength()
-    {
-        return GetConfigIntValue(UserMessageMinLength);
-    }
-
-    // RVA: 0x298E670 Offset: 0x298E670 VA: 0x298E670
-    public static int GetUserMessageMaxLength()
-    {
-        return GetConfigIntValue(UserMessageMaxLength);
-    }
-
-    // RVA: 0x298E6D8 Offset: 0x298E6D8 VA: 0x298E6D8
-    public static int GetDeckNameMinLength()
-    {
-        return GetConfigIntValue(DeckNameMinLength);
-    }
-
-    // RVA: 0x298E740 Offset: 0x298E740 VA: 0x298E740
-    public static int GetDeckNameMaxLength()
-    {
-        return GetConfigIntValue(DeckNameMaxLength);
-    }
-
-    // RVA: 0x298E7A8 Offset: 0x298E7A8 VA: 0x298E7A8
-    public static int GetUserLevelExpNumericalParameterMapId()
-    {
-        return GetConfigIntValue(UserLevelExpNumericalParameterMapId);
-    }
-
-    // RVA: 0x298E810 Offset: 0x298E810 VA: 0x298E810
-    public static int GetExplorePlayIntervalMinute()
-    {
-        return GetConfigIntValue(ExplorePlayIntervalMinuteKey);
-    }
-
-    // RVA: 0x298E878 Offset: 0x298E878 VA: 0x298E878
-    public static int GetHeaderNoticeCountApiInterval()
-    {
-        return GetConfigIntValue(HeaderNoticeCountApiInterval);
-    }
-
-    // RVA: 0x298E8E0 Offset: 0x298E8E0 VA: 0x298E8E0
-    public static int GetUnlockPvpQuestId()
-    {
-        return GetConfigIntValue(UnlockPvpQuestId);
-    }
-
-    // RVA: 0x298E948 Offset: 0x298E948 VA: 0x298E948
-    public static int GetUnlockPartsQuestId()
-    {
-        return GetConfigIntValue(UnlockPartsQuestId);
-    }
-
-    // RVA: 0x298E9B0 Offset: 0x298E9B0 VA: 0x298E9B0
-    public static int GetUnlockMapQuestId()
-    {
-        return GetConfigIntValue(UnlockMapQuestId);
-    }
-
-    // RVA: 0x298EA18 Offset: 0x298EA18 VA: 0x298EA18
-    public static int GetUnlockTutorialMenuChapterId()
-    {
-        return GetConfigIntValue(UnlockTutorialMenuChapterId);
-    }
-
-    // RVA: 0x298EA80 Offset: 0x298EA80 VA: 0x298EA80
-    public static int GetUnlockEventQuestMenuQuestId()
-    {
-        return GetConfigIntValue(UnlockEventQuestMenuQuestId);
-    }
-
-    // RVA: 0x298EAE8 Offset: 0x298EAE8 VA: 0x298EAE8
-    public static int GetUnlockCharacterBoardQuestId()
-    {
-        return GetConfigIntValue(UnlockCharacterBoardQuestId);
-    }
-
-    // RVA: 0x298EB50 Offset: 0x298EB50 VA: 0x298EB50
-    public static int GetUnlockCharacterViewerQuestId()
-    {
-        return GetConfigIntValue(UnlockCharacterViewerQuestId);
-    }
-
-    // RVA: 0x298EBB8 Offset: 0x298EBB8 VA: 0x298EBB8
-    public static int GetPortalCageSceneId()
-    {
-        return GetConfigIntValue(PortalCageSceneId);
-    }
-
-    // RVA: 0x298EC20 Offset: 0x298EC20 VA: 0x298EC20
-    public static int GetPortalCageFunctionUnlockQuestIdForPortalCage()
-    {
-        return GetConfigIntValue(PortalCageFunctionUnlockQuestIdForPortalCage);
-    }
-
-    // RVA: 0x298EC88 Offset: 0x298EC88 VA: 0x298EC88
-    public static int GetMomTapCountInterval()
-    {
-        return GetConfigIntValue(MamaTapCountInterval);
-    }
-
-    // RVA: 0x298ECF0 Offset: 0x298ECF0 VA: 0x298ECF0
-    public static int GetPurchaseAlertThresholdMoney()
-    {
-        return GetConfigIntValue(PurchaseAlertThresholdMoney);
-    }
-
-    // RVA: 0x298ED58 Offset: 0x298ED58 VA: 0x298ED58
-    public static int GetTutorialSortCharacterId()
-    {
-        return GetConfigIntValue(TutorialSortCharacterId);
-    }
-
-    // RVA: 0x298EDC0 Offset: 0x298EDC0 VA: 0x298EDC0
-    public static int GetTutorialSortWeaponId()
-    {
-        return GetConfigIntValue(TutorialSortWeaponId);
-    }
-
-    // RVA: 0x298EE28 Offset: 0x298EE28 VA: 0x298EE28
-    public static int GetInitialUserQuestSceneId()
-    {
-        return GetConfigIntValue(InitialUserQuestSceneId);
-    }
-
-    // RVA: 0x298EE90 Offset: 0x298EE90 VA: 0x298EE90
-    public static int GetEnhanceConsumableWeaponCountAtOnce()
-    {
-        return GetConfigIntValue(EnhanceConsumableWeaponCountAtOnce);
-    }
-
-    // RVA: 0x298EEF8 Offset: 0x298EEF8 VA: 0x298EEF8
-    public static int GetQuestRestartGraceTimeAfterEvent()
-    {
-        return GetConfigIntValue(QuestRestartGraceTimeAfterEvent);
-    }
-
-    // RVA: 0x298EF60 Offset: 0x298EF60 VA: 0x298EF60
-    public static int GetUnlockHardQuestQuestId()
-    {
-        return GetConfigIntValue(UnlockHardQuestId);
-    }
-
-    // RVA: 0x298EFC8 Offset: 0x298EFC8 VA: 0x298EFC8
-    public static int GetUnlockVeryHardQuestQuestId()
-    {
-        return GetConfigIntValue(UnlockVeryHardQuestId);
-    }
-
-    // RVA: 0x298F030 Offset: 0x298F030 VA: 0x298F030
-    public static int GetLoseFirstThresholdQuestId()
-    {
-        return GetConfigIntValue(LoseFirstThresholdQuestId);
-    }
-
-    // RVA: 0x298F098 Offset: 0x298F098 VA: 0x298F098
-    public static int GetLoseFirstMinimumThresholdQuestId()
-    {
-        return GetConfigIntValue(LoseFirstMinimumThresholdQuestId);
-    }
-
-    // RVA: 0x298F100 Offset: 0x298F100 VA: 0x298F100
-    public static int GetLoseFirstThresholdAfterChapterQuestId()
-    {
-        return GetConfigIntValue(LoseFirstThresholdAfterChapterQuestId);
-    }
-
-    // RVA: 0x298F168 Offset: 0x298F168 VA: 0x298F168
-    public static int GetUnlockBigHuntQuestId()
-    {
-        return GetConfigIntValue(UnlockBigHuntQuestId);
-    }
-
-    // RVA: 0x298F1D0 Offset: 0x298F1D0 VA: 0x298F1D0
-    public static int GetQuestSkipMaxCountAtOnce()
-    {
-        return GetConfigIntValue(QuestSkipMaxCountAtOnce);
-    }
-
-    // RVA: 0x298F238 Offset: 0x298F238 VA: 0x298F238
-    public static int GetUnlockQuestSkipQuestId()
-    {
-        return GetConfigIntValue(UnlockQuestSkipQuestId);
-    }
-
-    // RVA: 0x298F2A0 Offset: 0x298F2A0 VA: 0x298F2A0
-    public static int GetUnlockDailyGachaId()
-    {
-        return GetConfigIntValue(UnlockDailyGachaQuestId);
-    }
-
-    // RVA: 0x298F308 Offset: 0x298F308 VA: 0x298F308
-    public static int GetUnlockDailyQuestId()
-    {
-        return GetConfigIntValue(UnlockDailyQuestQuestId);
-    }
-
-    // RVA: 0x298F370 Offset: 0x298F370 VA: 0x298F370
-    public static int GetPossessionCountLimitMaterial()
-    {
-        return GetConfigIntValue(PossessionCountLimitMaterial);
-    }
-
-    // RVA: 0x298F3D8 Offset: 0x298F3D8 VA: 0x298F3D8
-    public static int GetPossessionCountLimitConsumableItem()
-    {
-        return GetConfigIntValue(PossessionCountLimitConsumableItem);
-    }
-
-    // RVA: 0x298F440 Offset: 0x298F440 VA: 0x298F440
-    public static int GetPossessionCountLimitGoldAndCoin()
-    {
-        return GetConfigIntValue(PossessionCountLimitGoldAndCoin);
-    }
-
-    // RVA: 0x298F4A8 Offset: 0x298F4A8 VA: 0x298F4A8
-    public static int GetPossessionCountLimitWeapon()
-    {
-        return GetConfigIntValue(PossessionCountLimitWeapon);
-    }
-
-    // RVA: 0x298F510 Offset: 0x298F510 VA: 0x298F510
-    public static int GetPossessionCountLimitParts()
-    {
-        return GetConfigIntValue(PossessionCountLimitParts);
-    }
-
-    // RVA: 0x298F578 Offset: 0x298F578 VA: 0x298F578
-    public static int GetPossessionCountLimitStamina()
-    {
-        return GetConfigIntValue(PossessionCountLimitStamina);
-    }
-
-    // RVA: 0x298F5E0 Offset: 0x298F5E0 VA: 0x298F5E0
-    public static int GetPossessionCountLimitBp()
-    {
-        return GetConfigIntValue(PossessionCountLimitBp);
-    }
-
-    // RVA: 0x298F648 Offset: 0x298F648 VA: 0x298F648
-    public static int GetPossessionCountGachaMedal()
-    {
-        return GetConfigIntValue(PossessionCountGachaMedal);
-    }
-
-    // RVA: 0x298F6B0 Offset: 0x298F6B0 VA: 0x298F6B0
-    public static int GetUserFriendReceiveCheerMaxNumber()
-    {
-        return GetConfigIntValue(UserFriendReceiveCheerMaxNumber);
-    }
-
-    // RVA: 0x298F718 Offset: 0x298F718 VA: 0x298F718
-    public static int GeUserFriendSendCheerMaxNumber()
-    {
-        return GetConfigIntValue(UserFriendSendCheerMaxNumber);
-    }
-
-    // RVA: 0x298F780 Offset: 0x298F780 VA: 0x298F780
-    public static bool IsUseTierPrice()
-    {
-        return GetConfigBoolValue(UseTierPriceFlag);
-    }
-
-    // RVA: 0x298F890 Offset: 0x298F890 VA: 0x298F890
-    public static int GetQuestMissionBigWinBonusPower()
-    {
-        return GetConfigIntValue(QuestMissionBigWinBonusPower);
-    }
-
-    // RVA: 0x298F8F8 Offset: 0x298F8F8 VA: 0x298F8F8
-    public static int GetMemoryPresetNameMinLength()
-    {
-        return GetConfigIntValue(MemoryPresetNameMinLength);
-    }
-
-    // RVA: 0x298F960 Offset: 0x298F960 VA: 0x298F960
-    public static int GetMemoryPresetNameMaxLength()
-    {
-        return GetConfigIntValue(MemoryPresetNameMaxLength);
-    }
-
-    // RVA: 0x298F9C8 Offset: 0x298F9C8 VA: 0x298F9C8
-    public static int GetMemoryPresetTagNameMinLength()
-    {
-        return GetConfigIntValue(MemoryPresetTagNameMinLength);
-    }
-
-    // RVA: 0x298FA30 Offset: 0x298FA30 VA: 0x298FA30
-    public static int GetMemoryPresetTagNameMaxLength()
-    {
-        return GetConfigIntValue(MemoryPresetTagNameMaxLength);
-    }
-
-    // RVA: 0x298FA98 Offset: 0x298FA98 VA: 0x298FA98
-    public static int GetUnlockBigHuntBoardEvaluateConditionId()
-    {
-        return GetConfigIntValue(UnlockBigHuntBoardEvaluateConditionId);
-    }
-
-    // RVA: 0x298FB00 Offset: 0x298FB00 VA: 0x298FB00
-    public static int GetNecessaryGemCountForGuerrillaOpen()
-    {
-        return GetConfigIntValue(NecessaryGemCountForGuerrillaOpen);
-    }
-
-    // RVA: 0x298FB68 Offset: 0x298FB68 VA: 0x298FB68
-    public static int GetPossessionSellCountLimitAtOnce()
-    {
-        return GetConfigIntValue(PossessionSellCountLimitAtOnce);
-    }
-
-    // RVA: 0x298FBD0 Offset: 0x298FBD0 VA: 0x298FBD0
-    public static int GetMaterialMaxSalableCountAtOnce()
-    {
-        return GetConfigIntValue(MaterialMaxSalableCountAtOnce);
-    }
-
-    // RVA: 0x298FC38 Offset: 0x298FC38 VA: 0x298FC38
-    public static int GetConsumableItemMaxSalableCountAtOnce()
-    {
-        return GetConfigIntValue(ConsumableItemMaxSalableCountAtOnce);
-    }
-
-    // RVA: 0x298FCA0 Offset: 0x298FCA0 VA: 0x298FCA0
-    public static int GetLimitedShopId()
-    {
-        return GetConfigIntValue(LimitedShopId);
-    }
-
-    // RVA: 0x298FD08 Offset: 0x298FD08 VA: 0x298FD08
-    public static int GetUnlockDressupCostumeQuestId()
-    {
-        return GetConfigIntValue(UnlockDressupCostumeQuestId);
-    }
-
-    // RVA: 0x298FD70 Offset: 0x298FD70 VA: 0x298FD70
-    public static int GetEndQuestTutorialWebViewPlayGuideId()
-    {
-        return GetConfigIntValue(EndQuestTutorialWebViewPlayGuideId);
-    }
-
-    // RVA: 0x298FDD8 Offset: 0x298FDD8 VA: 0x298FDD8
-    public static int GetLimitQuestTutorialWebViewPlayGuideId()
-    {
-        return GetConfigIntValue(LimitQuestTutorialWebViewPlayGuideId);
-    }
-
-    // RVA: 0x298FE40 Offset: 0x298FE40 VA: 0x298FE40
-    public static int GetUnlockDailyMissionV2Id()
-    {
-        return GetConfigIntValue(UnDailyMissionV2);
-    }
-
-    // RVA: 0x298FEA8 Offset: 0x298FEA8 VA: 0x298FEA8
-    public static long GetSwitchRewardReceiveFlowDateMilliSecondForBigHunt()
-    {
-        return GetConfigIntValue(SwitchRewardReceiveFlowDateMilliSecondForBigHunt);
-    }
-
-    // RVA: 0x298FFB4 Offset: 0x298FFB4 VA: 0x298FFB4
-    public static long GetSwitchRewardReceiveFlowDateMilliSecondForPvp()
-    {
-        return GetConfigIntValue(SwitchRewardReceiveFlowDateMilliSecondForPvp);
-    }
-
-    // RVA: 0x299001C Offset: 0x299001C VA: 0x299001C
-    public static int GetConsumableIdForMomPoint()
-    {
-        return GetConfigIntValue(ConsumableItemIdForMomPointKey);
-    }
-
-    // RVA: 0x2990084 Offset: 0x2990084 VA: 0x2990084
-    public static int GetMomPointShopId()
-    {
-        return GetConfigIntValue(MomPointShopId);
-    }
-
-    // RVA: 0x29900EC Offset: 0x29900EC VA: 0x29900EC
-    public static long GetMomPointOpenDateMilliSecond()
-    {
-        return GetConfigIntValue(MomPointOpenDateMilliSecond);
-    }
-
-    // RVA: 0x2990154 Offset: 0x2990154 VA: 0x2990154
-    public static int GetConsumableItemIdForPremiumGachaTicket()
-    {
-        return GetConfigIntValue(ConsumableItemIdForPremiumGachaTicket);
-    }
-
-    // RVA: 0x29901BC Offset: 0x29901BC VA: 0x29901BC
-    public static int GetCharacterRebirthAvailableCount()
-    {
-        return GetConfigIntValue(CharacterRebirthAvailableCount);
-    }
-
-    // RVA: 0x2990224 Offset: 0x2990224 VA: 0x2990224
-    public static int GetCharacterRebirthConsumeGold()
-    {
-        return GetConfigIntValue(CharacterRebirthConsumeGold);
-    }
-
-    // RVA: 0x299028C Offset: 0x299028C VA: 0x299028C
-    public static int GetCostumeGrowthCoefficientThreshold()
-    {
-        return GetConfigIntValue(CostumeGrowthCurveCoefficientThreshold);
-    }
-
-    // RVA: 0x29902F4 Offset: 0x29902F4 VA: 0x29902F4
-    public static int GetCostumeGrowthCoefficient()
-    {
-        return GetConfigIntValue(CostumeGrowthCurveCoefficient);
-    }
-
-    // RVA: 0x299035C Offset: 0x299035C VA: 0x299035C
-    public static int GetWeaponGrowthCoefficientThreshold()
-    {
-        return GetConfigIntValue(WeaponGrowthCurveCoefficientThreshold);
-    }
-
-    // RVA: 0x29903C4 Offset: 0x29903C4 VA: 0x29903C4
-    public static int GetWeaponGrowthCoefficient()
-    {
-        return GetConfigIntValue(WeaponGrowthCurveCoefficient);
-    }
-
-    // RVA: 0x27F2BB8 Offset: 0x27F2BB8 VA: 0x27F2BB8
-    public static int GetAutoOrganizationBlessAdditionalCoefficientApplyThreshold()
-    {
-        return GetConfigIntValue(AutoOrganizationBlessAdditionalCoefficientApplyThreshold);
-    }
-
-    // RVA: 0x27F2C20 Offset: 0x27F2C20 VA: 0x27F2C20
-    public static int GetAutoOrganizationBlessAdditionalCoefficient()
-    {
-        return GetConfigIntValue(AutoOrganizationBlessAdditionalCoefficient);
-    }
-
-    // RVA: 0x298DE14 Offset: 0x298DE14 VA: 0x298DE14
+    public static int GetConsumableIdForGold() => GetConfigIntValue(ConsumableItemIdForGoldKey);
+
+    public static int GetConsumableIdForMedal() => GetConfigIntValue(ConsumableItemIdForMedalKey);
+
+    public static int GetConsumableIdForRareMedal() => GetConfigIntValue(ConsumableItemIdForRareMedalKey);
+
+    public static int GetConsumableIdForArenaCoin() => GetConfigIntValue(ConsumableItemIdForArenaCoinKey);
+
+    public static int GetConsumableItemIdForExploreTicket() => GetConfigIntValue(ConsumableItemIdForExploreTicketKey);
+
+    public static int GetConsumableItemIdForQuestSkipTicket() => GetConfigIntValue(ConsumableItemIdForQuestSkipTicketKey);
+
+    public static int GetMaxBattlePoint() => GetConfigIntValue(PvpMaxBattlePointKey);
+
+    public static int GetBattleConsumeBattlePoint() => GetConfigIntValue(PvpBattleConsumeBattlePointKey);
+
+    public static int GetUpdateMatchingConsumeBattlePoint() => GetConfigIntValue(PvpUpdateMatchingBattlePointKey);
+
+    public static int GetStaminaRecoverySecond() => GetConfigIntValue(StaminaRecoverySecondKey);
+
+    public static int GetBattlePointRecoverySecond() => GetConfigIntValue(BattlePointRecoverySecondKey);
+
+    public static int GetCostumeLimitBreakAvailableCount() => GetConfigIntValue(CostumeLimitBreakAvailableCountKey);
+
+    public static int GetWeaponLimitBreakAvailableCount() => GetConfigIntValue(WeaponLimitBreakAvailableCountKey);
+
+    public static int GetCostumeAwakenAvailableCount() => GetConfigIntValue(CostumeAwakenAvailableCount);
+
+    public static int GetMaterialSameWeaponExpCoefficientPermil() => GetConfigIntValue(MaterialSameWeaponExpCoefficientPermilKey);
+
+    public static int GetWeaponEnhanceCalcCoefficientPermil() => GetConfigIntValue(WeaponEnhanceCalcCoefficientPermilKey);
+
+    public static int GetGrpcTimeoutMilliseconds() => GetConfigIntValue(GrpcTimeoutMilliseconds);
+
+    public static int GetUserNameMinLength() => GetConfigIntValue(UserNameMinLength);
+
+    public static int GetUserNameMaxLength() => GetConfigIntValue(UserNameMaxLength);
+
+    public static int GetUserMessageMinLength() => GetConfigIntValue(UserMessageMinLength);
+
+    public static int GetUserMessageMaxLength() => GetConfigIntValue(UserMessageMaxLength);
+
+    public static int GetDeckNameMinLength() => GetConfigIntValue(DeckNameMinLength);
+
+    public static int GetDeckNameMaxLength() => GetConfigIntValue(DeckNameMaxLength);
+
+    public static int GetUserLevelExpNumericalParameterMapId() => GetConfigIntValue(UserLevelExpNumericalParameterMapId);
+
+    public static int GetExplorePlayIntervalMinute() => GetConfigIntValue(ExplorePlayIntervalMinuteKey);
+
+    public static int GetHeaderNoticeCountApiInterval() => GetConfigIntValue(HeaderNoticeCountApiInterval);
+
+    public static int GetUnlockPvpQuestId() => GetConfigIntValue(UnlockPvpQuestId);
+
+    public static int GetUnlockPartsQuestId() => GetConfigIntValue(UnlockPartsQuestId);
+
+    public static int GetUnlockMapQuestId() => GetConfigIntValue(UnlockMapQuestId);
+
+    public static int GetUnlockTutorialMenuChapterId() => GetConfigIntValue(UnlockTutorialMenuChapterId);
+
+    public static int GetUnlockEventQuestMenuQuestId() => GetConfigIntValue(UnlockEventQuestMenuQuestId);
+
+    public static int GetUnlockCharacterBoardQuestId() => GetConfigIntValue(UnlockCharacterBoardQuestId);
+
+    public static int GetUnlockCharacterViewerQuestId() => GetConfigIntValue(UnlockCharacterViewerQuestId);
+
+    public static int GetPortalCageSceneId() => GetConfigIntValue(PortalCageSceneId);
+
+    public static int GetPortalCageFunctionUnlockQuestIdForPortalCage() => GetConfigIntValue(PortalCageFunctionUnlockQuestIdForPortalCage);
+
+    public static int GetMomTapCountInterval() => GetConfigIntValue(MamaTapCountInterval);
+
+    public static int GetPurchaseAlertThresholdMoney() => GetConfigIntValue(PurchaseAlertThresholdMoney);
+
+    public static int GetTutorialSortCharacterId() => GetConfigIntValue(TutorialSortCharacterId);
+
+    public static int GetTutorialSortWeaponId() => GetConfigIntValue(TutorialSortWeaponId);
+
+    public static int GetInitialUserQuestSceneId() => GetConfigIntValue(InitialUserQuestSceneId);
+
+    public static int GetEnhanceConsumableWeaponCountAtOnce() => GetConfigIntValue(EnhanceConsumableWeaponCountAtOnce);
+
+    public static int GetQuestRestartGraceTimeAfterEvent() => GetConfigIntValue(QuestRestartGraceTimeAfterEvent);
+
+    public static int GetUnlockHardQuestQuestId() => GetConfigIntValue(UnlockHardQuestId);
+
+    public static int GetUnlockVeryHardQuestQuestId() => GetConfigIntValue(UnlockVeryHardQuestId);
+
+    public static int GetLoseFirstThresholdQuestId() => GetConfigIntValue(LoseFirstThresholdQuestId);
+
+    public static int GetLoseFirstMinimumThresholdQuestId() => GetConfigIntValue(LoseFirstMinimumThresholdQuestId);
+
+    public static int GetLoseFirstThresholdAfterChapterQuestId() => GetConfigIntValue(LoseFirstThresholdAfterChapterQuestId);
+
+    public static int GetUnlockBigHuntQuestId() => GetConfigIntValue(UnlockBigHuntQuestId);
+
+    public static int GetQuestSkipMaxCountAtOnce() => GetConfigIntValue(QuestSkipMaxCountAtOnce);
+
+    public static int GetUnlockQuestSkipQuestId() => GetConfigIntValue(UnlockQuestSkipQuestId);
+
+    public static int GetUnlockDailyGachaId() => GetConfigIntValue(UnlockDailyGachaQuestId);
+
+    public static int GetUnlockDailyQuestId() => GetConfigIntValue(UnlockDailyQuestQuestId);
+
+    public static int GetPossessionCountLimitMaterial() => GetConfigIntValue(PossessionCountLimitMaterial);
+
+    public static int GetPossessionCountLimitConsumableItem() => GetConfigIntValue(PossessionCountLimitConsumableItem);
+
+    public static int GetPossessionCountLimitGoldAndCoin() => GetConfigIntValue(PossessionCountLimitGoldAndCoin);
+
+    public static int GetPossessionCountLimitWeapon() => GetConfigIntValue(PossessionCountLimitWeapon);
+
+    public static int GetPossessionCountLimitParts() => GetConfigIntValue(PossessionCountLimitParts);
+
+    public static int GetPossessionCountLimitStamina() => GetConfigIntValue(PossessionCountLimitStamina);
+
+    public static int GetPossessionCountLimitBp() => GetConfigIntValue(PossessionCountLimitBp);
+
+    public static int GetPossessionCountGachaMedal() => GetConfigIntValue(PossessionCountGachaMedal);
+
+    public static int GetUserFriendReceiveCheerMaxNumber() => GetConfigIntValue(UserFriendReceiveCheerMaxNumber);
+
+    public static int GeUserFriendSendCheerMaxNumber() => GetConfigIntValue(UserFriendSendCheerMaxNumber);
+
+    public static bool IsUseTierPrice() => GetConfigBoolValue(UseTierPriceFlag);
+
+    public static int GetQuestMissionBigWinBonusPower() => GetConfigIntValue(QuestMissionBigWinBonusPower);
+
+    public static int GetMemoryPresetNameMinLength() => GetConfigIntValue(MemoryPresetNameMinLength);
+
+    public static int GetMemoryPresetNameMaxLength() => GetConfigIntValue(MemoryPresetNameMaxLength);
+
+    public static int GetMemoryPresetTagNameMinLength() => GetConfigIntValue(MemoryPresetTagNameMinLength);
+
+    public static int GetMemoryPresetTagNameMaxLength() => GetConfigIntValue(MemoryPresetTagNameMaxLength);
+
+    public static int GetUnlockBigHuntBoardEvaluateConditionId() => GetConfigIntValue(UnlockBigHuntBoardEvaluateConditionId);
+
+    public static int GetNecessaryGemCountForGuerrillaOpen() => GetConfigIntValue(NecessaryGemCountForGuerrillaOpen);
+
+    public static int GetPossessionSellCountLimitAtOnce() => GetConfigIntValue(PossessionSellCountLimitAtOnce);
+
+    public static int GetMaterialMaxSalableCountAtOnce() => GetConfigIntValue(MaterialMaxSalableCountAtOnce);
+
+    public static int GetConsumableItemMaxSalableCountAtOnce() => GetConfigIntValue(ConsumableItemMaxSalableCountAtOnce);
+
+    public static int GetLimitedShopId() => GetConfigIntValue(LimitedShopId);
+
+    public static int GetUnlockDressupCostumeQuestId() => GetConfigIntValue(UnlockDressupCostumeQuestId);
+
+    public static int GetEndQuestTutorialWebViewPlayGuideId() => GetConfigIntValue(EndQuestTutorialWebViewPlayGuideId);
+
+    public static int GetLimitQuestTutorialWebViewPlayGuideId() => GetConfigIntValue(LimitQuestTutorialWebViewPlayGuideId);
+
+    public static int GetUnlockDailyMissionV2Id() => GetConfigIntValue(UnDailyMissionV2);
+
+    public static long GetSwitchRewardReceiveFlowDateMilliSecondForBigHunt() => GetConfigIntValue(SwitchRewardReceiveFlowDateMilliSecondForBigHunt);
+
+    public static long GetSwitchRewardReceiveFlowDateMilliSecondForPvp() => GetConfigIntValue(SwitchRewardReceiveFlowDateMilliSecondForPvp);
+
+    public static int GetConsumableIdForMomPoint() => GetConfigIntValue(ConsumableItemIdForMomPointKey);
+
+    public static int GetMomPointShopId() => GetConfigIntValue(MomPointShopId);
+
+    public static long GetMomPointOpenDateMilliSecond() => GetConfigIntValue(MomPointOpenDateMilliSecond);
+
+    public static int GetConsumableItemIdForPremiumGachaTicket() => GetConfigIntValue(ConsumableItemIdForPremiumGachaTicket);
+
+    public static int GetCharacterRebirthAvailableCount() => GetConfigIntValue(CharacterRebirthAvailableCount);
+
+    public static int GetCharacterRebirthConsumeGold() => GetConfigIntValue(CharacterRebirthConsumeGold);
+
+    public static int GetCostumeGrowthCoefficientThreshold() => GetConfigIntValue(CostumeGrowthCurveCoefficientThreshold);
+
+    public static int GetCostumeGrowthCoefficient() => GetConfigIntValue(CostumeGrowthCurveCoefficient);
+
+    public static int GetWeaponGrowthCoefficientThreshold() => GetConfigIntValue(WeaponGrowthCurveCoefficientThreshold);
+
+    public static int GetWeaponGrowthCoefficient() => GetConfigIntValue(WeaponGrowthCurveCoefficient);
+
+    public static int GetAutoOrganizationBlessAdditionalCoefficientApplyThreshold() => GetConfigIntValue(AutoOrganizationBlessAdditionalCoefficientApplyThreshold);
+
+    public static int GetAutoOrganizationBlessAdditionalCoefficient() => GetConfigIntValue(AutoOrganizationBlessAdditionalCoefficient);
+
     private static int GetConfigIntValue(string key)
     {
         if (DatabaseDefine.Master == null)
@@ -667,7 +297,6 @@ public static class Config
         return 0;
     }
 
-    // RVA: 0x298FF10 Offset: 0x298FF10 VA: 0x298FF10
     private static long GetConfigLongValue(string key)
     {
         if (DatabaseDefine.Master == null)
@@ -679,7 +308,6 @@ public static class Config
         return 0;
     }
 
-    // RVA: 0x298F7E8 Offset: 0x298F7E8 VA: 0x298F7E8
     private static bool GetConfigBoolValue(string key)
     {
         if (DatabaseDefine.Master == null)

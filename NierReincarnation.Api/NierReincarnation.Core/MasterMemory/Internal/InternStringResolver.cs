@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using MessagePack.Formatters;
+﻿using MessagePack.Formatters;
 
 namespace NierReincarnation.Core.MasterMemory.Internal;
 

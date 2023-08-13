@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,24 +6,24 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_big_hunt_boss_quest")]
 public class EntityMBigHuntBossQuest
 {
-    [Key(0)] // RVA: 0x1DD62AC Offset: 0x1DD62AC VA: 0x1DD62AC
+    [Key(0)]
     public int BigHuntBossQuestId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD62EC Offset: 0x1DD62EC VA: 0x1DD62EC
+    [Key(1)]
     public int BigHuntBossId { get; set; }
 
-    [Key(2)] // RVA: 0x1DD6300 Offset: 0x1DD6300 VA: 0x1DD6300
+    [Key(2)]
     public int BigHuntQuestGroupId { get; set; }
 
-    [Key(3)] // RVA: 0x1DD6314 Offset: 0x1DD6314 VA: 0x1DD6314
+    [Key(3)]
     public int BigHuntBossQuestScoreCoefficientId { get; set; }
 
-    [Key(4)] // RVA: 0x1DD6328 Offset: 0x1DD6328 VA: 0x1DD6328
+    [Key(4)]
     public int BigHuntScoreRewardGroupScheduleId { get; set; }
 
-    [Key(5)] // RVA: 0x1DD633C Offset: 0x1DD633C VA: 0x1DD633C
+    [Key(5)]
     public int BigHuntLinkId { get; set; }
 
-    [Key(6)] // RVA: 0x1DD6350 Offset: 0x1DD6350 VA: 0x1DD6350
+    [Key(6)]
     public int DailyChallengeCount { get; set; }
 }

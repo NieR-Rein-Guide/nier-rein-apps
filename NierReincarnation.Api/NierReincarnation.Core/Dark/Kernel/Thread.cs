@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.Kernel;
 
-internal class Thread
+public sealed class Thread
 {
     public static void SetupThread()
     {

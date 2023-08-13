@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_shop_item_limited_stock")]
 public class EntityMShopItemLimitedStock
 {
-    [Key(0)] // RVA: 0x1DDFF74 Offset: 0x1DDFF74 VA: 0x1DDFF74
+    [Key(0)]
     public int ShopItemLimitedStockId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDFFB4 Offset: 0x1DDFFB4 VA: 0x1DDFFB4
+    [Key(1)]
     public int MaxCount { get; set; }
 
-    [Key(2)] // RVA: 0x1DDFFC8 Offset: 0x1DDFFC8 VA: 0x1DDFFC8
+    [Key(2)]
     public AutoResetType ShopItemAutoResetType { get; set; }
 
-    [Key(3)] // RVA: 0x1DDFFDC Offset: 0x1DDFFDC VA: 0x1DDFFDC
+    [Key(3)]
     public int ShopItemAutoResetPeriod { get; set; }
 }

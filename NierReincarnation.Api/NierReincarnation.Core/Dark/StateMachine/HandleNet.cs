@@ -7,12 +7,10 @@ using System.Security.Cryptography;
 
 namespace NierReincarnation.Core.Dark.StateMachine;
 
-// Dark.StateMachine.HandleNet
 public class HandleNet
 {
-    private Aes _aes;
-
-    private Aes _masterAes;
+    private readonly Aes _aes;
+    private readonly Aes _masterAes;
 
     public HandleNet()
     {
@@ -29,7 +27,7 @@ public class HandleNet
 
     public static HandleNet Generate()
     {
-        var net = new HandleNet();
+        HandleNet net = new();
         net.Initialize();
 
         return net;

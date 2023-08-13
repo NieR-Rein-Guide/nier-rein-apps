@@ -2,10 +2,9 @@
 
 namespace NierReincarnation.Core.Dark.Kernel;
 
-// Dark.Kernel.ApplicationApi
 public static class ApplicationApi
 {
-    private static readonly string UnregistUserName = "Un-regist User Name";
+    private const string UnregistUserName = "Un-regist User Name";
 
     public static readonly string kEntrypointSceneName = "dark_gameplay";
 
@@ -28,7 +27,6 @@ public static class ApplicationApi
         //ContextApi.ActiveContext.Application.TransitionState = new ApplicationTransitionState();
         ContextApi.ActiveContext.Application.OctoInfo = new OctoInfo();
         //ContextApi.ActiveContext.Application.ViewConfig = new ViewConfig();
-
         //ContextApi.ActiveContext.Application.ViewConfig.LoadDefaultViewConfigLanguage();
     }
 
@@ -83,7 +81,7 @@ public static class ApplicationApi
 
     private static bool ValidGameplayScene()
     {
-        // HINT: Should check the unity scene manager for a valid scene to be active We're always on a valid scene now
+        // Hint: Should check the unity scene manager for a valid scene to be active We're always on a valid scene now.
         return true;
     }
 }

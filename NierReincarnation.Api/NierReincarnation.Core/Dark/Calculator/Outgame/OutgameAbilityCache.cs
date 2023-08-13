@@ -2,19 +2,19 @@
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
-internal class OutgameAbilityCache
+public sealed class OutgameAbilityCache
 {
-    private static readonly int kCharacterCapacity = 64;
-    private static readonly int kAbilityCacheCapacity = 128;
-    private static readonly int kAbilityMaxLevel = 0;
-    private static OutgameAbilityCache _instance = null;
+    private const int kCharacterCapacity = 64;
+    private const int kAbilityCacheCapacity = 128;
+    private const int kAbilityMaxLevel = 0;
+    private static readonly OutgameAbilityCache _instance;
 
     public static bool IsCacheEnabled => _instance != null;
 
-    private Dictionary<int, List<DataAbilityStatus>> _characterAbilityStatusCache;
-    private Dictionary<int, List<DataSkill>> _characterAbilityPassiveSkillCache;
-    private List<IDisposable> _onUserDataUpdatedDisposable;
-    private List<int> _characterIdList;
+    private readonly Dictionary<int, List<DataAbilityStatus>> _characterAbilityStatusCache;
+    private readonly Dictionary<int, List<DataSkill>> _characterAbilityPassiveSkillCache;
+    private readonly List<IDisposable> _onUserDataUpdatedDisposable;
+    private readonly List<int> _characterIdList;
 
     public static bool TryGetCharacterAbilityStatusList(int characterId, out List<DataAbilityStatus> abilityStatusList)
     {

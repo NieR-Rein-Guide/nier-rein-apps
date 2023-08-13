@@ -4,10 +4,9 @@ using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
-public static class CalculatorDeckActor // TypeDefIndex: 18807
+public static class CalculatorDeckActor
 {
-    // Fields
-    public static readonly int ControlCharacterIndex = 0;
+    public static readonly int ControlCharacterIndex;
 
     public static readonly int kSubWeaponMaxCount = 2;
 

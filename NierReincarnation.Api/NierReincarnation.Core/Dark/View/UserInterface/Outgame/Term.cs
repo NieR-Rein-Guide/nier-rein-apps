@@ -5,7 +5,7 @@ namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 public class Term
 {
     // CUSTOM: Get term of current day
-    public static Term CurrentDay => new Term(CalculatorDateTime.GetTodayChangeDateTime(), CalculatorDateTime.GetNextChangeDateTime());
+    public static Term CurrentDay => new(CalculatorDateTime.GetTodayChangeDateTime(), CalculatorDateTime.GetNextChangeDateTime());
 
     public DateTimeOffset Start { get; set; }
 

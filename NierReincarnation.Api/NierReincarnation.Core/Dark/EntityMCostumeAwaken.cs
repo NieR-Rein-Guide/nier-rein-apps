@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_costume_awaken")]
 public class EntityMCostumeAwaken
 {
-    [Key(0)] // RVA: 0x1E9DFC8 Offset: 0x1E9DFC8 VA: 0x1E9DFC8
+    [Key(0)]
     public int CostumeId { get; set; }
 
-    [Key(1)] // RVA: 0x1E9E008 Offset: 0x1E9E008 VA: 0x1E9E008
+    [Key(1)]
     public int CostumeAwakenEffectGroupId { get; set; }
 
-    [Key(2)] // RVA: 0x1E9E01C Offset: 0x1E9E01C VA: 0x1E9E01C
+    [Key(2)]
     public int CostumeAwakenStepMaterialGroupId { get; set; }
 
-    [Key(3)] // RVA: 0x1E9E030 Offset: 0x1E9E030 VA: 0x1E9E030
+    [Key(3)]
     public int CostumeAwakenPriceGroupId { get; set; }
 }

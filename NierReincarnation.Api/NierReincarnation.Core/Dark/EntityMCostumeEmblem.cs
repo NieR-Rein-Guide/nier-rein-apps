@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,9 +6,9 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_costume_emblem")]
 public class EntityMCostumeEmblem
 {
-    [Key(0)] // RVA: 0x1DD92B4 Offset: 0x1DD92B4 VA: 0x1DD92B4
+    [Key(0)]
     public int CostumeEmblemAssetId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD92F4 Offset: 0x1DD92F4 VA: 0x1DD92F4
+    [Key(1)]
     public int SortOrder { get; set; }
 }

@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,9 +6,9 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_main_quest_season")]
 public class EntityMMainQuestSeason
 {
-    [Key(0)] // RVA: 0x1DDBD18 Offset: 0x1DDBD18 VA: 0x1DDBD18
+    [Key(0)]
     public int MainQuestSeasonId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDBD58 Offset: 0x1DDBD58 VA: 0x1DDBD58
+    [Key(1)]
     public int SortOrder { get; set; }
 }

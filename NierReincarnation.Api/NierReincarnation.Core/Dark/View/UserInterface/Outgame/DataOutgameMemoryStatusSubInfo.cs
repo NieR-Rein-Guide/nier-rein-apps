@@ -1,8 +1,6 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
+﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
-namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
-
-internal class DataOutgameMemoryStatusSubInfo
+public sealed class DataOutgameMemoryStatusSubInfo
 {
     public int StatusIndex { get; }
 

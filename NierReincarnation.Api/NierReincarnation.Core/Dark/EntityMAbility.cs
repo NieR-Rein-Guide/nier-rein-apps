@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,9 +6,9 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_ability")]
 public class EntityMAbility
 {
-    [Key(0)] // RVA: 0x1DD62B8 Offset: 0x1DD62B8 VA: 0x1DD62B8
+    [Key(0)]
     public int AbilityId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD62F8 Offset: 0x1DD62F8 VA: 0x1DD62F8
+    [Key(1)]
     public int AbilityLevelGroupId { get; set; }
 }

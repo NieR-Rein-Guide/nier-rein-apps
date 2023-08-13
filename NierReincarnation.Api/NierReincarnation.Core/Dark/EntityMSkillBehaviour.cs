@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,30 +6,30 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_skill_behaviour")]
 public class EntityMSkillBehaviour
 {
-    [Key(0)] // RVA: 0x1DE417C Offset: 0x1DE417C VA: 0x1DE417C
+    [Key(0)]
     public int SkillBehaviourId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE41BC Offset: 0x1DE41BC VA: 0x1DE41BC
+    [Key(1)]
     public SkillBehaviourType SkillBehaviourType { get; set; }
 
-    [Key(2)] // RVA: 0x1DE41D0 Offset: 0x1DE41D0 VA: 0x1DE41D0
+    [Key(2)]
     public int SkillBehaviourActionId { get; set; }
 
-    [Key(3)] // RVA: 0x1DE41E4 Offset: 0x1DE41E4 VA: 0x1DE41E4
+    [Key(3)]
     public int SkillBehaviourActivationMethodId { get; set; }
 
-    [Key(4)] // RVA: 0x1DE41F8 Offset: 0x1DE41F8 VA: 0x1DE41F8
+    [Key(4)]
     public int SkillBehaviourAssetCalculatorId { get; set; }
 
-    [Key(5)] // RVA: 0x1DE420C Offset: 0x1DE420C VA: 0x1DE420C
+    [Key(5)]
     public int HitRatioPermil { get; set; }
 
-    [Key(6)] // RVA: 0x1DE4220 Offset: 0x1DE4220 VA: 0x1DE4220
+    [Key(6)]
     public SkillBehaviourLifetimeCalculationMethodType SkillBehaviourLifetimeCalculationMethodType { get; set; }
 
-    [Key(7)] // RVA: 0x1DE4234 Offset: 0x1DE4234 VA: 0x1DE4234
+    [Key(7)]
     public int LifetimeCount { get; set; }
 
-    [Key(8)] // RVA: 0x1DE4248 Offset: 0x1DE4248 VA: 0x1DE4248
+    [Key(8)]
     public int SkillTargetScopeAssetCalculatorId { get; set; }
 }

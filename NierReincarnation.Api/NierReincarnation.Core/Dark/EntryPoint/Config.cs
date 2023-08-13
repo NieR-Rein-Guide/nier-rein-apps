@@ -1,125 +1,94 @@
 ﻿using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.Preference;
-using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Dark.EntryPoint;
 
-// Dark.Entrypoint.Config
-internal static class Config
+public static class Config
 {
-    // CUSTOM: Added En and JP in same config. Use UnityEngine.Application.Language to select correct values
     public static class Api
     {
-        public static readonly string HostnameEn = "api.app.nierreincarnation.com";
-        public static readonly string HostnameJp = "api.app.nierreincarnation.jp";
-
+        private const string MasterDataDevUrlFormat = "https://dev-web.dark.abot.sh/assets/release/{0}/database.bin";
+        public static readonly string Hostname = "api.app.nierreincarnation.com";
         public static readonly int Port = 443;
-
-        public static readonly string WebViewBaseUrlEn = "https://web.app.nierreincarnation.com";
-        public static readonly string WebViewBaseUrlJp = "https://web.app.nierreincarnation.jp";
-
-        public static readonly string MasterDataUrlFormatEn = "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin";
-        public static readonly string MasterDataUrlFormatJp = "https://web.app.nierreincarnation.jp/assets/release/{0}/database.bin";
-
+        public static readonly string WebViewBaseUrl = "https://web.app.nierreincarnation.com";
+        public static string MasterDataUrlFormat = "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin";
+        public static readonly string Salt = "qxDjPftFRGc4aGpHtwZajxzV";
+        public static readonly int BridgeGameId = 288;
         public static readonly string EncryptionMasterDataUrlSuffix = ".e";
-
-        public static readonly string WebPagePath = "/web";
-
-        public static readonly string InformationPagePath = "/information/?";
-
+        public static readonly string AccountRegisterUrl = "https://psg.sqex-bridge.jp/ntv/{gameId}/reg/top?type={deviceType}&token={bridgeBackupToken}";
+        public static readonly string AccountTransferUrl = "https://psg.sqex-bridge.jp/ntv/{gameId}/update/top?type={deviceType}&token={bridgeBackupToken}";
+        public static int BridgeTypeId = 2;
+        public static readonly string AmazonStoreURL = "amzn://apps/android?p=com.square_enix.android_amazon.nierspjp";
+        public static readonly string GoogleStoreUrl = "https://play.google.com/store/apps/details?id=com.square_enix.android_googleplay.nierspww";
+        public static readonly string ItunesStoreUrl = "https://apps.apple.com/us/app/nier-re-in-carnation/id1506553488?mt=8";
+        public static readonly string SNSUrl = "https://twitter.com/NieRReinEN";
+        private const string WebPagePath = "/web";
+        private const string StaticPagePath = "/web/static";
+        private const string InquiryPagePath = "/inquiry?";
+        private const string InformationPagePath = "/information/?";
+        private const string InformationPageQueryPathFormat = "informationId={0}&";
+        public static readonly string WebviewMissionPageQueryPathFormat = "/panelmission/{0}?";
+        public static readonly string TermsOfUsePagePath = "/terms/termsofuse";
+        public static readonly string AgeVerificationPagePath = "/terms/ageverification";
+        public static readonly string PersonalizeAddPagePath = "/terms/personalizeadd_1";
+        public static readonly string LicensePagePath = "/terms/license";
+        public static readonly string PrivacyPolicyPagePath = "/terms/privacypolicy";
+        public static readonly string ActOnSettlementPagePath = "/terms/shikin";
+        public static readonly string ActOnSpecifiedCommercialTransactions = "/terms/tokutei";
+        public static readonly string MaintenancePagePath = "/system/maintenance";
+        public static readonly string IndividualPopupPath = "/popup?detail={0}&";
+        private const string SubQuestPlayGuidePagePath = "/sub-quest/?";
+        private const string SubQuestPlayGuidePageQueryPathFormat = "playguideId={0}&";
+        public static readonly string IronSourceAppKey = "100f45ad9";
         public static readonly string JaPagePath = "/ja";
-
         public static readonly string EnPagePath = "/en";
-
         public static readonly string KoPagePath = "/ko";
 
         // CUSTOM
-        public static readonly string NotificationGetUrlEn = "https://api-web.app.nierreincarnation.com/api/information/list/get";
+        public static readonly string NotificationGetUrl = "https://api-web.app.nierreincarnation.com/api/information/list/get";
+        public static readonly string NotificationDetailUrl = "https://api-web.app.nierreincarnation.com/api/information/detail/get";
 
-        public static readonly string NotificationGetUrlJp = "https://api-web.app.nierreincarnation.jp/api/information/list/get";
-
-        public static readonly string NotificationDetailUrlEn = "https://api-web.app.nierreincarnation.com/api/information/detail/get";
-        public static readonly string NotificationDetailUrlJp = "https://api-web.app.nierreincarnation.jp/api/information/detail/get";
-
-        // CUSTOM: Get hostname based on language identifier
-        public static string GetHostname()
-        {
-            return Application.SystemLanguage == SystemLanguage.English ? HostnameEn : HostnameJp;
-        }
-
-        // CUSTOM: Get notification list url
-        public static string GetNotificationGetUrl()
-        {
-            return Application.SystemLanguage == SystemLanguage.English ? NotificationGetUrlEn : NotificationGetUrlJp;
-        }
-
-        // CUSTOM: Get notification detail url
-        public static string GetNotificationDetailUrl()
-        {
-            return Application.SystemLanguage == SystemLanguage.English ? NotificationDetailUrlEn : NotificationDetailUrlJp;
-        }
-
-        /// <summary>
-        /// Creates the URL to retrieve the master data from.
-        /// </summary>
-        /// <param name="masterVersion">The version of the masterdata to retrieve.</param>
-        /// <returns>The URL to retrieve masterdata from.</returns>
         public static string MakeMasterDataUrl(string masterVersion)
         {
             var urlFormat = ApplicationApi.IsReviewEnvironment()
                 ? ApplicationApi.GetReviewUrlFormat()
-                : Application.SystemLanguage == SystemLanguage.English ? MasterDataUrlFormatEn : MasterDataUrlFormatJp;
+                : MasterDataUrlFormat;
 
             return string.Format(urlFormat, masterVersion) + EncryptionMasterDataUrlSuffix;
         }
 
-        /// <summary>
-        /// Creates the URL to retrieve any webview from.
-        /// </summary>
-        /// <param name="path">The path to a webview.</param>
-        /// <returns>The full URL to a web view without query parameters.</returns>
-        public static string MakeFullWebViewWebPagePath(string path)
-        {
-            return MakeWebViewUrl(WebPagePath, path);
-        }
+        public static string MakeFullWebViewWebPagePath(string path) => MakeWebViewUrl(WebPagePath, path);
 
-        /// <summary>
-        /// Creates the URL to retrieve any notification from.
-        /// </summary>
-        /// <returns></returns>
-        public static string MakeWebViewInformationPageUrl()
-        {
-            return MakeWebViewUrl(string.Empty, InformationPagePath);
-        }
+        public static string MakeFullWebViewStaticPageUrl(string path) => MakeWebViewUrl(StaticPagePath, path);
 
-        public static string MakeWebViewInformationPageUrl(int informationId)
-        {
-            return MakeWebViewUrl(string.Empty, $"{InformationPagePath}informationId={informationId}");
-        }
+        public static string MakeWebViewInquiryPageUrl(string query) => MakeFullWebViewWebPagePath(InquiryPagePath + query);
+
+        public static string MakeWebViewInformationPageUrl() => MakeWebViewUrl(string.Empty, InformationPagePath);
+
+        public static string MakeWebViewInformationPageUrl(int domainId) =>
+            MakeWebViewUrl(string.Empty, InformationPagePath + string.Format(InformationPageQueryPathFormat, domainId));
+
+        public static string MakeWebViewSubQuestPlayGuidePageUrl(int playGuideId) =>
+            MakeFullWebViewWebPagePath(SubQuestPlayGuidePagePath + string.Format(SubQuestPlayGuidePageQueryPathFormat, playGuideId));
 
         private static string MakeWebViewUrl(string basePath, string path)
         {
             var langPath = GetLanguagePath();
             var webViewBase = ApplicationApi.IsReviewEnvironment()
                 ? ApplicationApi.GetReviewWebViewBaseUrl()
-                : Application.SystemLanguage == SystemLanguage.English ? WebViewBaseUrlEn : WebViewBaseUrlJp;
+                : WebViewBaseUrl;
 
-            return $"{webViewBase}{basePath}{langPath}{path}";
+            return webViewBase + basePath + langPath + path;
         }
 
         private static string GetLanguagePath()
         {
-            switch (PlayerPreference.Instance.CurrentLanguage)
+            return PlayerPreference.Instance.CurrentLanguage switch
             {
-                case 10:
-                    return EnPagePath;
-
-                case 17:
-                    return KoPagePath;
-
-                default:
-                    return JaPagePath;
-            }
+                10 => EnPagePath,
+                17 => KoPagePath,
+                _ => JaPagePath,
+            };
         }
     }
 
@@ -129,9 +98,9 @@ internal static class Config
         public static readonly string ClientSecretKey = "l488k2zmalogay245osa257ifw2lczq4";
         public static readonly string AesKey = "st4q3c7p1ibgwdhm";
         public static readonly string Url = "https://resources-api.app.nierreincarnation.com/";
-        private static readonly int OctoPeriod = 0x1C85E;
-        private static readonly int OCTO_STAGE = 300000000;
-        private static readonly int OCTO_PLATFORM = 2;
+        private const int OctoPeriod = 116830;
+        private const int OCTO_STAGE = 300000000;
+        private const int OCTO_PLATFORM = 2;
         public static readonly int Version = OctoPeriod + OCTO_STAGE + OCTO_PLATFORM;
         public static readonly string A = $"dark_{AppId}_{Version}";
     }

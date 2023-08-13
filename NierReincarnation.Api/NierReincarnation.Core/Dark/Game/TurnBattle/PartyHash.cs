@@ -1,6 +1,4 @@
-﻿using MessagePack;
-
-namespace NierReincarnation.Core.Dark.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle;
 
 [MessagePackObject]
 public class PartyHash
@@ -13,6 +11,6 @@ public class PartyHash
 
     public PartyHash(TeamHash teamHash, int waveNumber)
     {
-        Hash = waveNumber + teamHash.Hash * 4 - 3;
+        Hash = waveNumber + (teamHash.Hash * 4) - 3;
     }
 }

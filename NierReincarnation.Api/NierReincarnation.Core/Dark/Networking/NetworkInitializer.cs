@@ -1,7 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.Networking;
 
-// Dark.Networking.NetworkInitializer
-internal class NetworkInitializer
+public class NetworkInitializer
 {
     public void Initialize(NetworkConfig config)
     {

@@ -3,12 +3,11 @@ using NierReincarnation.Core.Dark.Networking;
 
 namespace NierReincarnation.Core.Dark;
 
-// Dark.KernelState
-internal static class KernelState
+public static class KernelState
 {
     public static NetworkConfig NetworkConfig { get; set; }
 
-    private static readonly string kUserStatePath = "userstate";
+    private const string kUserStatePath = "userstate";
 
     private static DataStructure _userState;
 

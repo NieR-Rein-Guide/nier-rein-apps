@@ -1,31 +1,24 @@
 ﻿namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
-internal class DataAbilitySlotNumberComparer : IComparer<DataAbility>
+public class DataAbilitySlotNumberComparer : IComparer<DataAbility>
 {
-    public static readonly DataAbilitySlotNumberComparer InstanceAscending = new DataAbilitySlotNumberComparer(true);
-    public static readonly DataAbilitySlotNumberComparer InstanceDescending = new DataAbilitySlotNumberComparer(false);
+    public static readonly DataAbilitySlotNumberComparer InstanceAscending = new(true);
+    public static readonly DataAbilitySlotNumberComparer InstanceDescending = new(false);
 
-    // Fields
     private readonly bool _ascending;
 
-    // Methods
-
-    // RVA: 0x22E9724 Offset: 0x22E9724 VA: 0x22E9724
     public DataAbilitySlotNumberComparer(bool ascending)
     {
         _ascending = ascending;
     }
 
-    // RVA: 0x22E9754 Offset: 0x22E9754 VA: 0x22E9754 Slot: 4
     public int Compare(DataAbility x, DataAbility y)
     {
-        if (!_ascending)
-            if (y != null && x != null)
-                return y.SlotNumber - x.SlotNumber;
+        if (!_ascending && y != null && x != null)
+            return y.SlotNumber - x.SlotNumber;
 
-        if (_ascending)
-            if (x != null && y != null)
-                return x.SlotNumber - y.SlotNumber;
+        if (_ascending && x != null && y != null)
+            return x.SlotNumber - y.SlotNumber;
 
         return 0;
     }

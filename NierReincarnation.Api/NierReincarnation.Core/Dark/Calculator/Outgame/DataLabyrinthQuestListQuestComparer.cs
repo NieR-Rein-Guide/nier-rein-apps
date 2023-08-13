@@ -4,21 +4,16 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
 public sealed class DataLabyrinthQuestListQuestComparer : IComparer<DataLabyrinthQuestListQuest>
 {
-    // Fields
-    public static readonly DataLabyrinthQuestListQuestComparer InstanceAscending = new DataLabyrinthQuestListQuestComparer(true);
+    public static readonly DataLabyrinthQuestListQuestComparer InstanceAscending = new(true);
 
-    public static readonly DataLabyrinthQuestListQuestComparer InstanceDescending = new DataLabyrinthQuestListQuestComparer(false);
+    public static readonly DataLabyrinthQuestListQuestComparer InstanceDescending = new(false);
     private readonly bool _ascending;
 
-    // Methods
-
-    // RVA: 0x28F1918 Offset: 0x28F1918 VA: 0x28F1918
     private DataLabyrinthQuestListQuestComparer(bool ascending)
     {
         _ascending = ascending;
     }
 
-    // RVA: 0x28F1948 Offset: 0x28F1948 VA: 0x28F1948 Slot: 4
     public int Compare(DataLabyrinthQuestListQuest x, DataLabyrinthQuestListQuest y)
     {
         if (!_ascending)

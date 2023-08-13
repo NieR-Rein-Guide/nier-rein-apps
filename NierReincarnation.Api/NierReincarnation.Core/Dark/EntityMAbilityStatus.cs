@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,27 +6,27 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_ability_status")]
 public class EntityMAbilityStatus
 {
-    [Key(0)] // RVA: 0x1DD6638 Offset: 0x1DD6638 VA: 0x1DD6638
+    [Key(0)]
     public int AbilityStatusId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD6678 Offset: 0x1DD6678 VA: 0x1DD6678
+    [Key(1)]
     public int Agility { get; set; }
 
-    [Key(2)] // RVA: 0x1DD668C Offset: 0x1DD668C VA: 0x1DD668C
+    [Key(2)]
     public int Attack { get; set; }
 
-    [Key(3)] // RVA: 0x1DD66A0 Offset: 0x1DD66A0 VA: 0x1DD66A0
+    [Key(3)]
     public int CriticalAttackRatioPermil { get; set; }
 
-    [Key(4)] // RVA: 0x1DD66B4 Offset: 0x1DD66B4 VA: 0x1DD66B4
+    [Key(4)]
     public int CriticalRatioPermil { get; set; }
 
-    [Key(5)] // RVA: 0x1DD66C8 Offset: 0x1DD66C8 VA: 0x1DD66C8
+    [Key(5)]
     public int EvasionRatioPermil { get; set; }
 
-    [Key(6)] // RVA: 0x1DD66DC Offset: 0x1DD66DC VA: 0x1DD66DC
+    [Key(6)]
     public int Hp { get; set; }
 
-    [Key(7)] // RVA: 0x1DD66F0 Offset: 0x1DD66F0 VA: 0x1DD66F0
+    [Key(7)]
     public int Vitality { get; set; }
 }

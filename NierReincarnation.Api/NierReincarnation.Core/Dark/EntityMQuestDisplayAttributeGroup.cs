@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_quest_display_attribute_group")]
 public class EntityMQuestDisplayAttributeGroup
 {
-    [Key(0)] // RVA: 0x1DE2000 Offset: 0x1DE2000 VA: 0x1DE2000
+    [Key(0)]
     public int QuestDisplayAttributeGroupId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE2040 Offset: 0x1DE2040 VA: 0x1DE2040
+    [Key(1)]
     public int SortOrder { get; set; }
 
-    [Key(2)] // RVA: 0x1DE2080 Offset: 0x1DE2080 VA: 0x1DE2080
+    [Key(2)]
     public QuestDisplayAttributeType QuestDisplayAttributeType { get; set; }
 
-    [Key(3)] // RVA: 0x1DE2094 Offset: 0x1DE2094 VA: 0x1DE2094
+    [Key(3)]
     public QuestDisplayAttributeIconSizeType QuestDisplayAttributeIconSizeType { get; set; }
 }

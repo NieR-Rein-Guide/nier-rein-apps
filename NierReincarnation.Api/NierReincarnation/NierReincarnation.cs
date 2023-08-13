@@ -218,7 +218,7 @@ public static class NierReincarnation
         {
             UserId = userId,
             Signature = signature,
-            ServerAddressAndPort = Config.Api.GetHostname() + Config.Api.Port
+            ServerAddressAndPort = Config.Api.Hostname + Config.Api.Port
         };
 
         PlayerPreference.Instance.ActivePlayer = activePlayer;

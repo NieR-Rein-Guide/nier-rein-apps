@@ -107,7 +107,7 @@ public class GachaContext
             $"language={Application.SystemLanguage}",
             $"osVersion={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
             $"deviceName={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
-            $"serverAddress={Config.Api.GetHostname()}",
+            $"serverAddress={Config.Api.Hostname}",
             $"token={ApplicationScopeClientContext.Instance.Token.Value}",
             $"osType={(int)Application.Platform}",
             $"platformType={(int)Application.Platform}",

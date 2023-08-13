@@ -1,6 +1,5 @@
 ﻿using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Calculator.Factory;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.Subsystem.Serval;
 
@@ -13,12 +12,12 @@ public static class CalculatorDeck
     public static readonly int LowerLimitChangeCharaDeckActorCount = 2;
     public static readonly int kTripleDeckWaveCount = 3;
     public static readonly int kInvalidWaveIndex = -1;
-    public static readonly int kMinWaveIndex = 0;
-    private static readonly int kInitialDeckActorNumber = 0;
+    public static readonly int kMinWaveIndex;
+    private const int kInitialDeckActorNumber = 0;
     public static readonly int kInvalidDeckActorIndex = -1;
-    private static readonly int kWaveIndexToWaveNumberAddValue = 1;
-    private static readonly int kUserDeckNumberTripleDeckToWaveDeckValue = 100;
-    private static readonly string kWaveDeckNameFormat = "{0}{1}ï¼{2}";
+    private const int kWaveIndexToWaveNumberAddValue = 1;
+    private const int kUserDeckNumberTripleDeckToWaveDeckValue = 100;
+    private const string kWaveDeckNameFormat = "{0}{1}ï¼{2}";
 
     public static readonly int kMaxDeckCount = 15;
 

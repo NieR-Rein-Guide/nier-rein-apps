@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle;
 
 public class SimpleCalculationSetting
 {

@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Localization;
+﻿using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Purchase;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Core.UnityEngine;

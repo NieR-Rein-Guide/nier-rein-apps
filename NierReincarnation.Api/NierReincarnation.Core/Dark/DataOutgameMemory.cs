@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Status;
+﻿using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Subsystem.Serval;
 
 namespace NierReincarnation.Core.Dark;

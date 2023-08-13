@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 

@@ -1,20 +1,18 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Component.WorldMap;
+﻿namespace NierReincarnation.Core.Dark.Component.WorldMap;
 
 public sealed class GimmickManager
 {
     #region Singleton
 
-    private static readonly Lazy<GimmickManager> Lazy = new Lazy<GimmickManager>(() => new GimmickManager());
+    private static readonly Lazy<GimmickManager> Lazy = new(() => new GimmickManager());
 
     public static GimmickManager Instance => Lazy.Value;
 
     #endregion Singleton
 
-    private static readonly long validStartTimeRange = 86400000;
-    private static readonly int kInvalidId = -1;
-    private static readonly float kInitSequenceRequestIntervalTimeSeconds = 10f;
+    private const long validStartTimeRange = 86400000;
+    private const int kInvalidId = -1;
+    private const float kInitSequenceRequestIntervalTimeSeconds = 10f;
 
     private readonly WorldMapGimmickModel _worldMapGimmickModel;
 
@@ -25,11 +23,11 @@ public sealed class GimmickManager
     //private readonly WorldMapUpdateGimmickProgressResponse _worldMapUpdateGimmickProgressResponse;
     //private readonly UpdateSequenceRequest _updateSequenceRequest;
     //private readonly WorldMapUpdateSequenceResponse _worldMapUpdateSequenceResponse;
-    private FlowType _currentFlowType;
+    private readonly FlowType _currentFlowType;
 
-    private int _currentChapterId;
-    private int _currentBackgroundAssetId;
-    private float _initSequenceRequestLastSuccessTime;
+    private readonly int _currentChapterId;
+    private readonly int _currentBackgroundAssetId;
+    private readonly float _initSequenceRequestLastSuccessTime;
 
     public GimmickManager()
     {

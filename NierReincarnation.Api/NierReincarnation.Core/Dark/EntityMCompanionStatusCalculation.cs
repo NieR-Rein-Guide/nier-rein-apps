@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_companion_status_calculation")]
 public class EntityMCompanionStatusCalculation
 {
-    [Key(0)] // RVA: 0x1DDB8E8 Offset: 0x1DDB8E8 VA: 0x1DDB8E8
+    [Key(0)]
     public int CompanionStatusCalculationId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDB928 Offset: 0x1DDB928 VA: 0x1DDB928
+    [Key(1)]
     public int AttackNumericalFunctionId { get; set; }
 
-    [Key(2)] // RVA: 0x1DDB93C Offset: 0x1DDB93C VA: 0x1DDB93C
+    [Key(2)]
     public int HpNumericalFunctionId { get; set; }
 
-    [Key(3)] // RVA: 0x1DDB950 Offset: 0x1DDB950 VA: 0x1DDB950
+    [Key(3)]
     public int VitalityNumericalFunctionId { get; set; }
 }

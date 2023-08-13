@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_shop_item_cell_group")]
 public class EntityMShopItemCellGroup
 {
-    [Key(0)] // RVA: 0x1DDFCAC Offset: 0x1DDFCAC VA: 0x1DDFCAC
+    [Key(0)]
     public int ShopItemCellGroupId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDFCEC Offset: 0x1DDFCEC VA: 0x1DDFCEC
+    [Key(1)]
     public int ShopItemCellId { get; set; }
 
-    [Key(2)] // RVA: 0x1DDFD2C Offset: 0x1DDFD2C VA: 0x1DDFD2C
+    [Key(2)]
     public int SortOrder { get; set; }
 
-    [Key(3)] // RVA: 0x1DDFD40 Offset: 0x1DDFD40 VA: 0x1DDFD40
+    [Key(3)]
     public int ShopItemCellTermId { get; set; }
 }

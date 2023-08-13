@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,21 +6,21 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_skill_behaviour_group")]
 public class EntityMSkillBehaviourGroup
 {
-    [Key(0)] // RVA: 0x1DE4DA4 Offset: 0x1DE4DA4 VA: 0x1DE4DA4
+    [Key(0)]
     public int SkillBehaviourGroupId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE4DE4 Offset: 0x1DE4DE4 VA: 0x1DE4DE4
+    [Key(1)]
     public int SkillBehaviourId { get; set; }
 
-    [Key(2)] // RVA: 0x1DE4E24 Offset: 0x1DE4E24 VA: 0x1DE4E24
+    [Key(2)]
     public int SkillBehaviourIndex { get; set; }
 
-    [Key(3)] // RVA: 0x1DE4E38 Offset: 0x1DE4E38 VA: 0x1DE4E38
+    [Key(3)]
     public int TargetSelectorIndex { get; set; }// 0x1C
 
-    [Key(4)] // RVA: 0x1DE4E4C Offset: 0x1DE4E4C VA: 0x1DE4E4C
+    [Key(4)]
     public int SkillHitStartIndex { get; set; }
 
-    [Key(5)] // RVA: 0x1DE4E60 Offset: 0x1DE4E60 VA: 0x1DE4E60
+    [Key(5)]
     public int SkillHitEndIndex { get; set; }
 }

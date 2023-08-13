@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,21 +6,21 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_main_quest_chapter")]
 public class EntityMMainQuestChapter
 {
-    [Key(0)] // RVA: 0x1DDBBA4 Offset: 0x1DDBBA4 VA: 0x1DDBBA4
+    [Key(0)]
     public int MainQuestChapterId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDBBE4 Offset: 0x1DDBBE4 VA: 0x1DDBBE4
+    [Key(1)]
     public int MainQuestRouteId { get; set; }
 
-    [Key(2)] // RVA: 0x1DDBBF8 Offset: 0x1DDBBF8 VA: 0x1DDBBF8
+    [Key(2)]
     public int SortOrder { get; set; }
 
-    [Key(3)] // RVA: 0x1DDBC0C Offset: 0x1DDBC0C VA: 0x1DDBC0C
+    [Key(3)]
     public int MainQuestSequenceGroupId { get; set; }
 
-    [Key(4)] // RVA: 0x1DDBC20 Offset: 0x1DDBC20 VA: 0x1DDBC20
+    [Key(4)]
     public int PortalCageCharacterGroupId { get; set; }
 
-    [Key(5)] // RVA: 0x1DDBC34 Offset: 0x1DDBC34 VA: 0x1DDBC34
+    [Key(5)]
     public long StartDatetime { get; set; }
 }

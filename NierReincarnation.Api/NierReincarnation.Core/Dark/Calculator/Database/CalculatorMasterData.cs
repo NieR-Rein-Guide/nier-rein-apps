@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.View.UserInterface.WindowSystem;
+﻿using NierReincarnation.Core.Dark.View.UserInterface.WindowSystem;
 using NierReincarnation.Core.MasterMemory;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 

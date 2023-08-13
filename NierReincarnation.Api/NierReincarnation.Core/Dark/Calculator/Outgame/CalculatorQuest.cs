@@ -2,7 +2,6 @@
 using NierReincarnation.Core.Custom;
 using NierReincarnation.Core.Dark.Calculator.Factory;
 using NierReincarnation.Core.Dark.Component.Story;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
@@ -18,8 +17,8 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
 public static class CalculatorQuest
 {
-    public static readonly int kInvalidChapterId = 0;
-    public static readonly int kInvalidQuestId = 0;
+    public static readonly int kInvalidChapterId;
+    public static readonly int kInvalidQuestId;
     private const int kInvalidSeasonId = 0;
     private const int kInvalidQuestMissionConditionGroupId = 0;
     private const int kNotFindEventId = 0;

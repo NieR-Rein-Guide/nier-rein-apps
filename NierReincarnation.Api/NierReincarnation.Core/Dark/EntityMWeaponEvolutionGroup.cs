@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,12 +6,12 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_weapon_evolution_group")]
 public class EntityMWeaponEvolutionGroup
 {
-    [Key(0)] // RVA: 0x1DE6C00 Offset: 0x1DE6C00 VA: 0x1DE6C00
+    [Key(0)]
     public int WeaponEvolutionGroupId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE6C68 Offset: 0x1DE6C68 VA: 0x1DE6C68
+    [Key(1)]
     public int EvolutionOrder { get; set; }
 
-    [Key(2)] // RVA: 0x1DE6CA8 Offset: 0x1DE6CA8 VA: 0x1DE6CA8
+    [Key(2)]
     public int WeaponId { get; set; }
 }

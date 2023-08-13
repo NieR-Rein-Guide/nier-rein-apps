@@ -1,12 +1,11 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Status;
+﻿using NierReincarnation.Core.Dark.Status;
 
 namespace NierReincarnation.Core.Dark;
 
 public class DataWeapon
 {
-    private int SkillAiId;
-    private int ActorMovableAreaPrefabId;
+    private readonly int SkillAiId;
+    private readonly int ActorMovableAreaPrefabId;
 
     public DataWeaponStatus WeaponStatus { get; set; }
 

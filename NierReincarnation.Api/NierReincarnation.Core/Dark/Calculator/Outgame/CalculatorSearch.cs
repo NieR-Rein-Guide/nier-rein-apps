@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Localization;
+﻿using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Types;
 using NierReincarnation.Core.MasterMemory;

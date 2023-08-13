@@ -1,5 +1,4 @@
 using Grpc.Core;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Adam.Framework.Network.Interceptors;

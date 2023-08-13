@@ -2,7 +2,6 @@
 
 namespace NierReincarnation.Core.Dark.Kernel;
 
-// Dark.Kernel.StateMachine
 public sealed class StateMachine
 {
     public static void SetupFirstStateMachines()

@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Status;
+﻿using NierReincarnation.Core.Dark.Status;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
@@ -7,25 +6,25 @@ public static class CalculatorCharacterBoard
 {
     public static readonly DataOutgameCharacterBoardStatus kDefaultStatus;
     public static readonly int kReleaseRankFirst = 1;
-    private static readonly string kProgressFormat = "F0";
-    private static readonly int kInvalidCharacterBoardGroupId = 0;
-    private static readonly int kInvalidCharacterBoardPanelId = 0;
-    private static readonly int kInvalidCharacterBoardUnlockConditionGroupId = 0;
-    private static readonly int kPanelReleaseBit1SortOrderBorder = 32;
-    private static readonly int kPanelReleaseBit2SortOrderBorder = 64;
-    private static readonly int kPanelReleaseBit3SortOrderBorder = 96;
-    private static readonly int kPanelReleaseBit4SortOrderBorder = 128;
-    private static readonly int kPanelReleaseBitAdjustedValue = 1;
-    private static readonly int kCharacterBoardPanelReleaseEffectGroupSortOrder = 1;
-    private static readonly int kCharacterCellCharacterBoardAssignmentDataCount = 1;
-    private static readonly int kCharacterBoardGroupDefaultIndex = 0;
-    private static readonly int kCharacterBoardDetailConditionDefaultIndex = 1;
-    private static readonly int kSingleTargetGroupCount = 1;
-    private static readonly float kMinProgress = 0;
-    private static readonly float kMaxProgress = 1;
-    private static readonly int kPanelMaxCount = 128;
-    private static readonly int kConditiomMaxCount = 16;
-    private static readonly StatusCalculationType kCharacterBoardStatusCalculationType = StatusCalculationType.ADD;
+    private const string kProgressFormat = "F0";
+    private static readonly int kInvalidCharacterBoardGroupId;
+    private static readonly int kInvalidCharacterBoardPanelId;
+    private static readonly int kInvalidCharacterBoardUnlockConditionGroupId;
+    private const int kPanelReleaseBit1SortOrderBorder = 32;
+    private const int kPanelReleaseBit2SortOrderBorder = 64;
+    private const int kPanelReleaseBit3SortOrderBorder = 96;
+    private const int kPanelReleaseBit4SortOrderBorder = 128;
+    private const int kPanelReleaseBitAdjustedValue = 1;
+    private const int kCharacterBoardPanelReleaseEffectGroupSortOrder = 1;
+    private const int kCharacterCellCharacterBoardAssignmentDataCount = 1;
+    private static readonly int kCharacterBoardGroupDefaultIndex;
+    private const int kCharacterBoardDetailConditionDefaultIndex = 1;
+    private const int kSingleTargetGroupCount = 1;
+    private static readonly float kMinProgress;
+    private const float kMaxProgress = 1;
+    private const int kPanelMaxCount = 128;
+    private const int kConditiomMaxCount = 16;
+    private const StatusCalculationType kCharacterBoardStatusCalculationType = StatusCalculationType.ADD;
 
     public static List<DataAbilityStatus> CreateCharacterBoardAbilityStatusList(long userId, int characterId)
     {

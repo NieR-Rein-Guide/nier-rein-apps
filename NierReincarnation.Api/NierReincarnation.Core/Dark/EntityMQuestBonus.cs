@@ -1,4 +1,3 @@
-using MessagePack;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
@@ -7,19 +6,19 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_quest_bonus")]
 public class EntityMQuestBonus
 {
-    [Key(0)] // RVA: 0x1EA4238 Offset: 0x1EA4238 VA: 0x1EA4238
+    [Key(0)]
     public int QuestBonusId { get; set; }
 
-    [Key(1)] // RVA: 0x1EA4278 Offset: 0x1EA4278 VA: 0x1EA4278
+    [Key(1)]
     public int QuestBonusCharacterGroupId { get; set; }
 
-    [Key(2)] // RVA: 0x1EA428C Offset: 0x1EA428C VA: 0x1EA428C
+    [Key(2)]
     public int QuestBonusCostumeGroupId { get; set; }
 
-    [Key(3)] // RVA: 0x1EA42A0 Offset: 0x1EA42A0 VA: 0x1EA42A0
+    [Key(3)]
     public int QuestBonusWeaponGroupId { get; set; }
 
-    [Key(4)] // RVA: 0x1EA42B4 Offset: 0x1EA42B4 VA: 0x1EA42B4
+    [Key(4)]
     public int QuestBonusCostumeSettingGroupId { get; set; }
 
     [Key(5)]

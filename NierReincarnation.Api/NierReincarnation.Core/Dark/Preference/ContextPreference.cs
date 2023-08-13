@@ -1,9 +1,8 @@
 ﻿namespace NierReincarnation.Core.Dark.Preference;
 
-// Dark.Preference.ContextPreference
 public class ContextPreference
 {
-    public static ContextPreference Instance = new ContextPreference();
+    public static ContextPreference Instance = new();
 
     public int MasterDataVersion { get; set; }
 

@@ -1,22 +1,20 @@
-﻿using MessagePack;
-
-namespace NierReincarnation.Core.Dark.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle;
 
 [MessagePackObject]
 public class TurnBattleSkillBehaviourSnapshot
 {
-    [Key(0)] // RVA: 0x1DEBE80 Offset: 0x1DEBE80 VA: 0x1DEBE80
+    [Key(0)]
     public ProgressDataKey ProgressDataKey { get; set; }
 
-    [Key(1)] // RVA: 0x1DEBE94 Offset: 0x1DEBE94 VA: 0x1DEBE94
+    [Key(1)]
     public SkillBehaviourHash SkillBehaviourHash { get; set; }
 
-    [Key(2)] // RVA: 0x1DEBEA8 Offset: 0x1DEBEA8 VA: 0x1DEBEA8
+    [Key(2)]
     public int Lifetime { get; set; }
 
-    [Key(3)] // RVA: 0x1DEBEBC Offset: 0x1DEBEBC VA: 0x1DEBEBC
+    [Key(3)]
     public bool EndOfLife { get; set; }
 
-    [Key(4)] // RVA: 0x1DEBED0 Offset: 0x1DEBED0 VA: 0x1DEBED0
+    [Key(4)]
     public int ActivatedCount { get; set; }
 }

@@ -1,10 +1,8 @@
-using MessagePack;
 using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
-// Dark.DarkMasterMemoryDatabase
 public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 {
     public EntityMAbilityTable EntityMAbilityTable { get; private set; }

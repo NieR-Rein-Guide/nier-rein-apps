@@ -5,7 +5,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 // CUSTOM: Mostly custom code on basis of the original to better utilize logic
-internal static class DarkUserDataDatabaseBuilderAppendHelper
+public static class DarkUserDataDatabaseBuilderAppendHelper
 {
     private static readonly Dictionary<string, Func<IEnumerable<object>, IEnumerable<object>>> parsers;
     private static readonly Dictionary<string, Action<DarkUserDatabaseBuilder, IEnumerable<object>>> appenders;

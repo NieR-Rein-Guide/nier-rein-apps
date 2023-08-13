@@ -3,8 +3,7 @@ using NierReincarnation.Core.Adam.Framework.Network;
 
 namespace NierReincarnation.Core.Dark.Networking.DataSource.DarkServer.Grpc;
 
-// Dark.Networking.DataSource.DarkServer.Grpc.UserAuth
-internal class UserAuth : DarkServerAPI<AuthUserRequest, AuthUserResponse>
+public class UserAuth : DarkServerAPI<AuthUserRequest, AuthUserResponse>
 {
     protected override Func<AuthUserRequest, Task<AuthUserResponse>> CreateRequester()
     {

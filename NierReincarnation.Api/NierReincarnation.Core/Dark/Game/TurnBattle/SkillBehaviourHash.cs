@@ -1,16 +1,14 @@
-﻿using MessagePack;
-
-namespace NierReincarnation.Core.Dark.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle;
 
 [MessagePackObject]
 public class SkillBehaviourHash
 {
-    [Key(0)] // RVA: 0x1DEC35C Offset: 0x1DEC35C VA: 0x1DEC35C
+    [Key(0)]
     public SkillHash SkillHash { get; set; }
 
-    [Key(1)] // RVA: 0x1DEC370 Offset: 0x1DEC370 VA: 0x1DEC370
+    [Key(1)]
     public int SkillBehaviourOrder { get; set; }
 
-    [Key(2)] // RVA: 0x1DEC384 Offset: 0x1DEC384 VA: 0x1DEC384
+    [Key(2)]
     public int HashValue { get; set; }
 }

@@ -5,8 +5,7 @@ using NierReincarnation.Core.Dark.Kernel;
 
 namespace NierReincarnation.Core.Dark.Networking;
 
-// Dark.Networking.CalculatorNetworking
-internal static class CalculatorNetworking
+public static class CalculatorNetworking
 {
     public class TrList
     {
@@ -43,7 +42,7 @@ internal static class CalculatorNetworking
         ApplicationApi.SetReviewServerInfo(serverAddress, serverPort);
         ApplicationScopeClientContext.Instance.MasterData.UpdateMasterDataVersion(masterVersion);
 
-        var config = new ServerConfiguration
+        ServerConfiguration config = new()
         {
             Server = $"{serverAddress}:{serverPort}",
             ReviewServer = $"{serverAddress}:{serverPort}"

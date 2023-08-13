@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,21 +6,21 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_quest_scene_battle")]
 public class EntityMQuestSceneBattle
 {
-    [Key(0)] // RVA: 0x1DE2A1C Offset: 0x1DE2A1C VA: 0x1DE2A1C
+    [Key(0)]
     public int QuestSceneId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE2A5C Offset: 0x1DE2A5C VA: 0x1DE2A5C
+    [Key(1)]
     public int BattleGroupId { get; set; }
 
-    [Key(2)] // RVA: 0x1DE2A70 Offset: 0x1DE2A70 VA: 0x1DE2A70
+    [Key(2)]
     public int BattleDropBoxGroupId { get; set; }
 
-    [Key(3)] // RVA: 0x1DE2A84 Offset: 0x1DE2A84 VA: 0x1DE2A84
+    [Key(3)]
     public int BattleFieldLocaleSettingIndex { get; set; }
 
-    [Key(4)] // RVA: 0x1DE2A98 Offset: 0x1DE2A98 VA: 0x1DE2A98
+    [Key(4)]
     public int BattleEventGroupId { get; set; }
 
-    [Key(5)] // RVA: 0x1DE2AAC Offset: 0x1DE2AAC VA: 0x1DE2AAC
+    [Key(5)]
     public int PostProcessConfigurationIndex { get; set; }
 }

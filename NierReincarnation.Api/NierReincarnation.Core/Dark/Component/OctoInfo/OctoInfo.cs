@@ -2,7 +2,6 @@
 
 namespace NierReincarnation.Core.Dark.Component.OctoInfo;
 
-// Dark.Component.OctoInfo.OctoInfo
 public sealed class OctoInfo
 {
     public bool IsReviewEnvironment { get; set; }

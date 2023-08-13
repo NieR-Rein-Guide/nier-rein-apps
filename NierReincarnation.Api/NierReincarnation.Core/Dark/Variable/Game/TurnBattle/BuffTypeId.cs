@@ -1,14 +1,11 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle;
 
 [MessagePackObject]
 public class BuffTypeId
 {
-    [Key(0)] // RVA: 0x1DEB75C Offset: 0x1DEB75C VA: 0x1DEB75C
+    [Key(0)]
     public BuffType BuffType { get; set; }
 
-    [Key(1)] // RVA: 0x1DEB770 Offset: 0x1DEB770 VA: 0x1DEB770
+    [Key(1)]
     public StatusKindType StatusType { get; set; }
 }

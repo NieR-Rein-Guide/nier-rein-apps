@@ -10,8 +10,8 @@ namespace NierReincarnation.Core.Subsystem.Calculator.Outgame;
 public static class CalculatorCompanion
 {
     private static readonly int kInvalidCompanionId;
-    private static readonly int kSkillMinLevel = 1;
-    private static readonly int kAbilityMinLevel = 1;
+    private const int kSkillMinLevel = 1;
+    private const int kAbilityMinLevel = 1;
 
     // CUSTOM: Enumerate companion base info
     public static IEnumerable<DataOutgameCompanionInfo> EnumerateCompanionInfo(long userId)

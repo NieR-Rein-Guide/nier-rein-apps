@@ -43,7 +43,7 @@ public class NotificationContext
         if (page <= 0 || perPage <= 0)
             yield break;
 
-        var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri(Config.Api.GetNotificationGetUrl()));
+        var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri(Config.Api.NotificationGetUrl));
         req.Headers.Referrer = CreateReferrer();
 
         req.Content = JsonContent.Create(new NotificationListRequest
@@ -63,7 +63,7 @@ public class NotificationContext
 
     public async Task<Notification> GetNotification(int informationId)
     {
-        var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri(Config.Api.GetNotificationDetailUrl()));
+        var req = WebApiSupport.CreateRequest(HttpMethod.Post, new Uri(Config.Api.NotificationDetailUrl));
         req.Headers.Referrer = CreateReferrer();
 
         req.Content = JsonContent.Create(new NotificationRequest
@@ -102,7 +102,7 @@ public class NotificationContext
             $"language={Application.SystemLanguage}",
             $"osVersion={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
             $"deviceName={HttpUtility.UrlEncode(SystemInfo.OperatingSystem)}",
-            $"serverAddress={Config.Api.GetHostname()}",
+            $"serverAddress={Config.Api.Hostname}",
             //$"token={ApplicationScopeClientContext.Instance.Token.Value}",
             $"osType={(int)Application.Platform}",
             $"platformType={(int)Application.Platform}",

@@ -8,7 +8,7 @@ using NierReincarnation.Core.Dark.Networking.DataSource.Interceptor;
 
 namespace NierReincarnation.Core.Dark.EntryPoint;
 
-internal class Generator
+public class Generator
 {
     public static void OnEntrypoint()
     {
@@ -36,7 +36,7 @@ internal class Generator
         ChannelProvider.SetResolver(ApplicationScopeClientContext.Instance.ServerResolver);
 
         MasterDataDownloader.MasterDataVersionGetter = () => ApplicationScopeClientContext.Instance.MasterData.MasterDataVersion;
-        MasterDataDownloader.MasterDataVersionSetter = v => ApplicationScopeClientContext.Instance.MasterData.UpdateMasterDataVersion(v);
+        MasterDataDownloader.MasterDataVersionSetter = ApplicationScopeClientContext.Instance.MasterData.UpdateMasterDataVersion;
 
         ApiSystem.Instance.RegisterResponseHandler(new UserDataUpdateHandler());
     }

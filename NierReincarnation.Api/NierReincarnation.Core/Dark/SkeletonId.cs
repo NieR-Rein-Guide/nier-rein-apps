@@ -2,10 +2,9 @@
 
 public class SkeletonId : IEquatable<SkeletonId>
 {
-    // Fields
-    public static readonly SkeletonId InvalidSkeletonId = new SkeletonId();
+    public static readonly SkeletonId InvalidSkeletonId = new();
 
-    private static readonly int InvalidId = 0;
+    private static readonly int InvalidId;
 
     public SkeletonCategory Category { get; }
 
@@ -78,29 +77,16 @@ public class SkeletonId : IEquatable<SkeletonId>
 
     private SkeletonCategory GenerateSkeletonCategory(string skeletonId)
     {
-        var category = skeletonId.Substring(0, 2);
-        switch (category)
+        return skeletonId[..2] switch
         {
-            case "ch":
-                return SkeletonCategory.Character;
-
-            case "cm":
-                return SkeletonCategory.Companion;
-
-            case "cw":
-                return SkeletonCategory.CompanionWeapon;
-
-            case "mt":
-                return SkeletonCategory.Enemy;
-
-            case "mw":
-                return SkeletonCategory.EnemyWeapon;
-
-            case "wp":
-                return SkeletonCategory.Weapon;
-        }
-
-        return SkeletonCategory.Unknown;
+            "ch" => SkeletonCategory.Character,
+            "cm" => SkeletonCategory.Companion,
+            "cw" => SkeletonCategory.CompanionWeapon,
+            "mt" => SkeletonCategory.Enemy,
+            "mw" => SkeletonCategory.EnemyWeapon,
+            "wp" => SkeletonCategory.Weapon,
+            _ => SkeletonCategory.Unknown,
+        };
     }
 
     public enum SkeletonCategory

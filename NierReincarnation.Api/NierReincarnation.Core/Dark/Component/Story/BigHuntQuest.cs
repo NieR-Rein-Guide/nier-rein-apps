@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Component.Story.Ghost;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Types;
 
 namespace NierReincarnation.Core.Dark.Component.Story;

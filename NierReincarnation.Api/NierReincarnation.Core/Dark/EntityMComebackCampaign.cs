@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,24 +6,24 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_comeback_campaign")]
 public class EntityMComebackCampaign
 {
-    [Key(0)] // RVA: 0x1E9D034 Offset: 0x1E9D034 VA: 0x1E9D034
+    [Key(0)]
     public int ComebackCampaignId { get; set; }
 
-    [Key(1)] // RVA: 0x1E9D074 Offset: 0x1E9D074 VA: 0x1E9D074
+    [Key(1)]
     public long ComebackJudgeStartDatetime { get; set; }
 
-    [Key(2)] // RVA: 0x1E9D088 Offset: 0x1E9D088 VA: 0x1E9D088
+    [Key(2)]
     public long ComebackJudgeEndDatetime { get; set; }
 
-    [Key(3)] // RVA: 0x1E9D09C Offset: 0x1E9D09C VA: 0x1E9D09C
+    [Key(3)]
     public int ComebackJudgeDayCount { get; set; }
 
-    [Key(4)] // RVA: 0x1E9D0B0 Offset: 0x1E9D0B0 VA: 0x1E9D0B0
+    [Key(4)]
     public int GrantCampaignTermDayCount { get; set; }
 
-    [Key(5)] // RVA: 0x1E9D0C4 Offset: 0x1E9D0C4 VA: 0x1E9D0C4
+    [Key(5)]
     public int CampaignUnlockQuestId { get; set; }
 
-    [Key(6)] // RVA: 0x1F758C8 Offset: 0x1F758C8 VA: 0x1F758C8
+    [Key(6)]
     public int ComebackCampaignGradeGroupId { get; set; }
 }

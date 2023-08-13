@@ -1,6 +1,5 @@
 ﻿using NierReincarnation.Core.Dark.Component.Story;
 using NierReincarnation.Core.Dark.Component.Story.Ghost;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;

@@ -4,13 +4,9 @@ using NierReincarnation.Core.Art.Framework.ApiNetwork.Executor.Response.Handler;
 
 namespace NierReincarnation.Core.Dark.Networking.DataSource.Interceptor;
 
-// Dark.Networking.DataSource.Interceptor.UserDataUpdateHandler
-internal class UserDataUpdateHandler : IResponseHandler
+public class UserDataUpdateHandler : IResponseHandler
 {
-    public int GetPriority()
-    {
-        return 2000;
-    }
+    public int GetPriority() => 2000;
 
     public Task<RetryHandleType> HandleAsync(Api api)
     {

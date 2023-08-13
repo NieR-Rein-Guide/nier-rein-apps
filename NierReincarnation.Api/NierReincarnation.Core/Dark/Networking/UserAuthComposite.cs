@@ -8,13 +8,9 @@ using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Dark.Networking;
 
-// Dark.Networking.UserAuthComposite
-internal class UserAuthComposite
+public class UserAuthComposite
 {
-    // Fields
     private static UserAuthComposite _userAuthComposite;
-
-    // Methods
 
     public static Task UserAuth(CancellationToken cancellationToken)
     {
@@ -35,10 +31,9 @@ internal class UserAuthComposite
 
         // Update tr objects
         var response = await new DarkClient().UserService.GetAndroidArgsAsync(argsRequest);
-        // var liliumObject = await SafetyNet.Lilium(response.ApiKey,response.Nonce)
 
         var trList = new CalculatorNetworking.TrList();
-        trList.AddTrJson("lr", null);   // Add liliumObject
+        trList.AddTrJson("lr", null); // Add liliumObject
         trList.AddTrJson("ijb", DeviceUtil.DeviceUtil.GetIjb());
         trList.AddTrJson("hig", DeviceUtil.DeviceUtil.GetHig());
         trList.AddTrJson("acs", DeviceUtil.DeviceUtil.GetAcs());
@@ -83,9 +78,8 @@ internal class UserAuthComposite
     private void ReplaceUserData(long userId, string signature)
     {
         var activePlayer = PlayerPreference.Instance.ActivePlayer;
-        var uuid = activePlayer.Uuid;
 
-        var playerRegistration = new PlayerRegistration(uuid)
+        var playerRegistration = new PlayerRegistration(activePlayer.Uuid)
         {
             Signature = signature,
             UserId = userId,
@@ -95,7 +89,7 @@ internal class UserAuthComposite
             AdvertisingId = activePlayer.AdvertisingId,
             IsTrackingEnabled = activePlayer.IsTrackingEnabled,
 
-            // CUSTOM: Keep those information with an update, to use it in operations
+            // Custom: Keep those information with an update, to use it in operations
             PlayerId = activePlayer.PlayerId,
             MomTappedCount = activePlayer.MomTappedCount
         };

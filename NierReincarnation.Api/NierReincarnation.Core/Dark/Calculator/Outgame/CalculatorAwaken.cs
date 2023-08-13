@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Networking;
+﻿using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.MasterMemory;
 
@@ -7,10 +6,10 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
 public static class CalculatorAwaken
 {
-    public static readonly int kDefaultAwakenRank = 0;
-    public static readonly int kInvalidCostumeAwakenEffectGroupId = 0;
-    public static readonly int kInvalidCostumeAwakenStepMaterialGroupId = 0;
-    public static readonly int kInvalidCostumeAwakenPriceGroupId = 0;
+    public static readonly int kDefaultAwakenRank;
+    public static readonly int kInvalidCostumeAwakenEffectGroupId;
+    public static readonly int kInvalidCostumeAwakenStepMaterialGroupId;
+    public static readonly int kInvalidCostumeAwakenPriceGroupId;
     public static readonly int kStatusDataListCapacity = 2;
 
     public static DataAbility[] CreateCostumeAwakenAbilities(int costumeAwakenEffectGroupId, int awakenCount, bool withoutAwakenAbilityNotMatchAwakenCount = false)

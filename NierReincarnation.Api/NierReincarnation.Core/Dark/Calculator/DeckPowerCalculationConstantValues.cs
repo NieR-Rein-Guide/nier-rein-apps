@@ -1,8 +1,6 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
+﻿namespace NierReincarnation.Core.Dark.Calculator;
 
-namespace NierReincarnation.Core.Dark.Calculator;
-
-internal class DeckPowerCalculationConstantValues
+public class DeckPowerCalculationConstantValues
 {
     private static DeckPowerCalculationConstantValues _instance;
 

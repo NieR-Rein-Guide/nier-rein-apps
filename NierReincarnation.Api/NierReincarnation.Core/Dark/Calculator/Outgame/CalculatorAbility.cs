@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Calculator.Database;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
@@ -11,9 +10,7 @@ public static class CalculatorAbility
 {
     public static int MIN_LEVEL = 1;
     public static int MAX_LEVEL = 15;
-    private static readonly int kInvalidAbilityId = 0;
-    //private static readonly int kStringCapacity;
-    //private static readonly ArtStringBuilder ArtStringBuilder;
+    private const int kInvalidAbilityId = 0;
 
     public static DataAbility CreateDataAbility(int abilityId, int slotNumber, int level, int levelMax)
     {

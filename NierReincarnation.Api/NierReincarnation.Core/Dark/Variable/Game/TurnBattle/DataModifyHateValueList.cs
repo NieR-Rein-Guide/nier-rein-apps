@@ -1,11 +1,10 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Game.TurnBattle;
+﻿using NierReincarnation.Core.Dark.Game.TurnBattle;
 
 namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle;
 
 [MessagePackObject]
 public class DataModifyHateValueList
 {
-    [Key(0)] // RVA: 0x1DEB89C Offset: 0x1DEB89C VA: 0x1DEB89C
+    [Key(0)]
     public List<DataModifyHateValue> List { get; set; } = new List<DataModifyHateValue>();
 }

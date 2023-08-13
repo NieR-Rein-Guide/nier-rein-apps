@@ -1,32 +1,29 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Variable.Game.TurnBattle;
 
 [MessagePackObject]
 public class OverrideHitEffectValue
 {
-    [Key(0)] // RVA: 0x1DEB914 Offset: 0x1DEB914 VA: 0x1DEB914
+    [Key(0)]
     public int OverrideEffectId { get; set; }
 
-    [Key(1)] // RVA: 0x1DEB928 Offset: 0x1DEB928 VA: 0x1DEB928
+    [Key(1)]
     public int OverrideSeId { get; set; }
 
-    [Key(2)] // RVA: 0x1DEB93C Offset: 0x1DEB93C VA: 0x1DEB93C
+    [Key(2)]
     public int Priority { get; set; }
 
-    [Key(3)] // RVA: 0x1DEB950 Offset: 0x1DEB950 VA: 0x1DEB950
+    [Key(3)]
     public bool DisablePlayHitVoice { get; set; }
 
-    [Key(4)] // RVA: 0x1DEB964 Offset: 0x1DEB964 VA: 0x1DEB964
+    [Key(4)]
     public bool PlayOnMiss { get; set; }
 
-    [Key(5)] // RVA: 0x1DEB978 Offset: 0x1DEB978 VA: 0x1DEB978
+    [Key(5)]
     public bool ForceRotateOnHit { get; set; }
 
-    [Key(6)] // RVA: 0x1DEB98C Offset: 0x1DEB98C VA: 0x1DEB98C
+    [Key(6)]
     public List<OverrideHitEffectCondition> Conditions { get; set; } = new List<OverrideHitEffectCondition>();
 
-    [Key(7)] // RVA: 0x1DEB9A0 Offset: 0x1DEB9A0 VA: 0x1DEB9A0
+    [Key(7)]
     public ConditionOperationType ConditionOperationType { get; set; }
 }

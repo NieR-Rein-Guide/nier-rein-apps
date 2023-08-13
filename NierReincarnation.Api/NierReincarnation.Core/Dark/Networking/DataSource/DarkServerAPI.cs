@@ -2,8 +2,7 @@
 
 namespace NierReincarnation.Core.Dark.Networking.DataSource;
 
-// Dark.Networking.DataSource.DarkServerAPI
-internal abstract class DarkServerAPI<TRequest, TResponse> : IDataSource
+public abstract class DarkServerAPI<TRequest, TResponse> : IDataSource
 {
     public delegate void HandleSuccess(TResponse response);
 
@@ -19,15 +18,14 @@ internal abstract class DarkServerAPI<TRequest, TResponse> : IDataSource
         try
         {
             var requester = CreateRequester();
-            if (requester == null)
-                return;
+            if (requester == null) return;
 
             var response = await requester.Invoke((TRequest)request);
             OnSuccessRequest(response);
         }
         catch
         {
-            // TODO: Implement on error invokation
+            // TODO: Implement on error invocation
             //OnFatalErrorRequest(new ApiFatalErrorException());
         }
     }

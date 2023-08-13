@@ -1,31 +1,30 @@
 ﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Core.Dark.Component.WorldMap;
 
 public sealed class WorldMapGimmickModel
 {
-    private static readonly int kInvalidId = -1;
-    private static readonly int kTerminalSequenceGroupId = 0;
-    public static readonly int kTerminalSequenceId = 0;
-    private static readonly int kPortalCageChapterId = 0;
-    private static readonly int MaxGimmickOrnament = 0x400;
-    private static readonly int MaxGimmickSequenceGroup = 0x400;
-    private static readonly int MaxGimmickSequence = 0x400;
-    private static readonly int MaxGimmickSequenceSchedule = 0x400;
-    private static readonly int MaxGimmick = 0x400;
-    private static readonly int MaxGimmickGroup = 0x400;
-    private static readonly int MaxGimmickSequenceRewardGroup = 0x400;
-    private static readonly int MaxGimmickInterval = 0x400;
-    private static readonly int MaxEvaluateCondition = 0x400;
-    private static readonly int MaxEvaluateConditionValueGroup = 0x400;
-    private static readonly int MaxUserGimmick = 0x400;
-    private static readonly int MaxUserGimmickSequence = 0x400;
-    private static readonly int MaxUserGimmickOrnamentProgress = 0x400;
-    private static readonly int MaxGimmickOrnamentCage = 0x80;
-    private static readonly int MaxWorldMapGimmickOutGame = 0x400;
+    private const int kInvalidId = -1;
+    private static readonly int kTerminalSequenceGroupId;
+    public static readonly int kTerminalSequenceId;
+    private static readonly int kPortalCageChapterId;
+    private const int MaxGimmickOrnament = 0x400;
+    private const int MaxGimmickSequenceGroup = 0x400;
+    private const int MaxGimmickSequence = 0x400;
+    private const int MaxGimmickSequenceSchedule = 0x400;
+    private const int MaxGimmick = 0x400;
+    private const int MaxGimmickGroup = 0x400;
+    private const int MaxGimmickSequenceRewardGroup = 0x400;
+    private const int MaxGimmickInterval = 0x400;
+    private const int MaxEvaluateCondition = 0x400;
+    private const int MaxEvaluateConditionValueGroup = 0x400;
+    private const int MaxUserGimmick = 0x400;
+    private const int MaxUserGimmickSequence = 0x400;
+    private const int MaxUserGimmickOrnamentProgress = 0x400;
+    private const int MaxGimmickOrnamentCage = 0x80;
+    private const int MaxWorldMapGimmickOutGame = 0x400;
     //private static readonly int MaxProcessAwait = 0x32;
 
     private GimmickOrnament[] _gimmickOrnamentsMaster;
@@ -65,7 +64,7 @@ public sealed class WorldMapGimmickModel
     private int _gimmickCacheCount;
     private int _gimmickGroupCacheCount;
     private int _gimmickIntervalCacheCount;
-    private int _gimmickOrnamentCagesCacheCount;
+    private readonly int _gimmickOrnamentCagesCacheCount;
     private int _worldMapGimmickOutGameCacheCount;
     private int _userGimmickCacheCount;
     private int _userGimmickSequenceCacheCount;
@@ -1355,7 +1354,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292D454 Offset: 0x292D454 VA: 0x292D454
     private void ResetGimmickSequenceGroup()
     {
         for (var i = 0; i < MaxGimmickSequenceGroup; i++)
@@ -1365,7 +1363,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292D534 Offset: 0x292D534 VA: 0x292D534
     private void ResetGimmickSequence()
     {
         for (var i = 0; i < MaxGimmickSequence; i++)
@@ -1375,7 +1372,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292D614 Offset: 0x292D614 VA: 0x292D614
     private void ResetGimmickSequenceRewardGroup()
     {
         for (var i = 0; i < MaxGimmickSequenceRewardGroup; i++)
@@ -1385,7 +1381,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292D6F4 Offset: 0x292D6F4 VA: 0x292D6F4
     private void ResetGimmickSequenceSchedule()
     {
         for (var i = 0; i < MaxGimmickSequenceSchedule; i++)
@@ -1395,7 +1390,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292D7D4 Offset: 0x292D7D4 VA: 0x292D7D4
     private void ResetGimmick()
     {
         for (var i = 0; i < MaxGimmick; i++)
@@ -1405,7 +1399,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292D8B4 Offset: 0x292D8B4 VA: 0x292D8B4
     private void ResetGimmickGroup()
     {
         for (var i = 0; i < MaxGimmickGroup; i++)
@@ -1415,7 +1408,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292D994 Offset: 0x292D994 VA: 0x292D994
     private void ResetGimmickInterval()
     {
         for (var i = 0; i < MaxGimmickInterval; i++)
@@ -1425,7 +1417,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292DA74 Offset: 0x292DA74 VA: 0x292DA74
     private void ResetEvaluateCondition()
     {
         for (var i = 0; i < MaxEvaluateCondition; i++)
@@ -1435,7 +1426,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292DB54 Offset: 0x292DB54 VA: 0x292DB54
     private void ResetEvaluateConditionValueGroup()
     {
         for (var i = 0; i < MaxEvaluateConditionValueGroup; i++)
@@ -1445,7 +1435,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292DC34 Offset: 0x292DC34 VA: 0x292DC34
     private void ResetWorldMapGimmickOutGames()
     {
         for (var i = 0; i < MaxWorldMapGimmickOutGame; i++)
@@ -1455,7 +1444,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292DD0C Offset: 0x292DD0C VA: 0x292DD0C
     private void ResetGimmickOrnamentCages()
     {
         for (var i = 0; i < MaxGimmickOrnamentCage; i++)
@@ -1465,7 +1453,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292DDEC Offset: 0x292DDEC VA: 0x292DDEC
     private void ResetUserGimmick()
     {
         for (var i = 0; i < MaxUserGimmick; i++)
@@ -1475,7 +1462,6 @@ public sealed class WorldMapGimmickModel
         }
     }
 
-    // RVA: 0x292DEC4 Offset: 0x292DEC4 VA: 0x292DEC4
     private void ResetUserGimmickOrnamentProgress()
     {
         for (var i = 0; i < MaxUserGimmickOrnamentProgress; i++)

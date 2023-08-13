@@ -1,13 +1,12 @@
 ﻿using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 public static class CalculatorEvaluateCondition
 {
-    public static readonly int kInvalidEvaluateConditionId = 0;
+    public static readonly int kInvalidEvaluateConditionId;
     private const int kDefaultEvaluateConditionValue = 0;
     private const int kDefaultEvaluateConditionValueGroupIndex = 1;
 

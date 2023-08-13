@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Component.Story;
+﻿namespace NierReincarnation.Core.Dark.Component.Story;
 
 public class MainQuest : IUniqueQuest<EntityMMainQuestChapter, EntityMMainQuestSequenceGroup, EntityMMainQuestSequence>
 {

@@ -2,11 +2,10 @@
 
 namespace NierReincarnation.Core.Dark.Preference;
 
-// Dark.Preference.PlayerRegistrationMap
 [JsonConverter(typeof(MapJsonConverter))]
-internal class PlayerRegistrationMap
+public class PlayerRegistrationMap
 {
-    private Dictionary<string, PlayerRegistration> _playerRegistrations;
+    private readonly Dictionary<string, PlayerRegistration> _playerRegistrations;
 
     public PlayerRegistration this[string index]
     {
@@ -64,9 +63,11 @@ internal class PlayerRegistrationMap
             var keys = mapObj["_keys"].ToArray();
             var values = mapObj["_values"].ToArray();
 
-            var result = new PlayerRegistrationMap();
+            PlayerRegistrationMap result = new();
             for (var i = 0; i < keys.Length; i++)
+            {
                 result[keys[i].Value<string>()] = values[i].ToObject<PlayerRegistration>();
+            }
 
             return result;
         }

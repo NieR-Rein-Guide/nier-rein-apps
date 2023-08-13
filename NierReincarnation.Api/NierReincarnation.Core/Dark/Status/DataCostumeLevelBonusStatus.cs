@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Status;
+﻿namespace NierReincarnation.Core.Dark.Status;
 
 public class DataCostumeLevelBonusStatus
 {

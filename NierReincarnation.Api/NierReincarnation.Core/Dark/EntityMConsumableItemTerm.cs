@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,12 +6,12 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_consumable_item_term")]
 public class EntityMConsumableItemTerm
 {
-    [Key(0)] // RVA: 0x1DD8718 Offset: 0x1DD8718 VA: 0x1DD8718
+    [Key(0)]
     public int ConsumableItemTermId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD8758 Offset: 0x1DD8758 VA: 0x1DD8758
+    [Key(1)]
     public long StartDatetime { get; set; }
 
-    [Key(2)] // RVA: 0x1DD876C Offset: 0x1DD876C VA: 0x1DD876C
+    [Key(2)]
     public long EndDatetime { get; set; }
 }

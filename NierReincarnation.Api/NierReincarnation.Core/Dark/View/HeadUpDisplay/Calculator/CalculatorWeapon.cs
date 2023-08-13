@@ -1,7 +1,6 @@
 ﻿using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Database;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
@@ -13,8 +12,8 @@ namespace NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 
 public static class CalculatorWeapon
 {
-    public static readonly int kInvalidWeaponId = 0;
-    private static readonly int kDefaultWeaponEvolutionOrder = 1;
+    public static readonly int kInvalidWeaponId;
+    private const int kDefaultWeaponEvolutionOrder = 1;
 
     // CUSTOM: Enumerate weapon base info
     public static IEnumerable<DataWeaponInfo> EnumerateWeaponInfo(long userId)

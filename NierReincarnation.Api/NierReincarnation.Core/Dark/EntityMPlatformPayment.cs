@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,12 +6,12 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_platform_payment")]
 public class EntityMPlatformPayment
 {
-    [Key(0)] // RVA: 0x1DDD294 Offset: 0x1DDD294 VA: 0x1DDD294
+    [Key(0)]
     public int PlatformPaymentId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDD2D4 Offset: 0x1DDD2D4 VA: 0x1DDD2D4
+    [Key(1)]
     public PlatformType PlatformType { get; set; }
 
-    [Key(2)] // RVA: 0x1DDD314 Offset: 0x1DDD314 VA: 0x1DDD314
+    [Key(2)]
     public string ProductIdSuffix { get; set; }
 }

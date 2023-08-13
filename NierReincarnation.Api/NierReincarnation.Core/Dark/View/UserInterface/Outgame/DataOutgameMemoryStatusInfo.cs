@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.View.UserInterface.Outgame;
 
-internal class DataOutgameMemoryStatusInfo
+public sealed class DataOutgameMemoryStatusInfo
 {
     public int Level { get; }
 

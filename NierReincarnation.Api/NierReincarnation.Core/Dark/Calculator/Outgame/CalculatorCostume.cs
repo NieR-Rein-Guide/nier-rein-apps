@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Calculator.Database;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Status;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
@@ -14,12 +13,12 @@ public static class CalculatorCostume
     public static readonly int PassiveSkillSecondIndex = 1;
     public static readonly int kMaxCostumeAbilityCount = 2;
     public static readonly int kMaxSkillCount = 2;
-    public static readonly int kInvalidCostumeId = 0;
+    public static readonly int kInvalidCostumeId;
     private static readonly string kInvalidCostumeUuid = string.Empty;
-    public static readonly int kInvalidCostumeLevel = 0;
-    public static readonly int kDefaultDressupCostumeId = 0;
-    private static readonly float kCostumePerMille = 1000f;
-    private static readonly int kNpcRebirthCount = 0;
+    public static readonly int kInvalidCostumeLevel;
+    public static readonly int kDefaultDressupCostumeId;
+    private const float kCostumePerMille = 1000f;
+    private static readonly int kNpcRebirthCount;
 
     // CUSTOM: Enumerate all user-owned costumes
     public static IEnumerable<DataOutgameCostumeInfo> EnumerateCostumeInfo(long userId)

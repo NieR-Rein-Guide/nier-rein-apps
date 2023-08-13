@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,9 +6,9 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_event_quest_chapter_character")]
 public class EntityMEventQuestChapterCharacter
 {
-    [Key(0)] // RVA: 0x1DD9F5C Offset: 0x1DD9F5C VA: 0x1DD9F5C
+    [Key(0)]
     public int EventQuestChapterId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD9F9C Offset: 0x1DD9F9C VA: 0x1DD9F9C
+    [Key(1)]
     public int CharacterId { get; set; }
 }

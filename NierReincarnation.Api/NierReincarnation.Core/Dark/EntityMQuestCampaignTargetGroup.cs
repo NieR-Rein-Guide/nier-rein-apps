@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,15 +6,15 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_quest_campaign_target_group")]
 public class EntityMQuestCampaignTargetGroup
 {
-    [Key(0)] // RVA: 0x1DE1E08 Offset: 0x1DE1E08 VA: 0x1DE1E08
+    [Key(0)]
     public int QuestCampaignTargetGroupId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE1E48 Offset: 0x1DE1E48 VA: 0x1DE1E48
+    [Key(1)]
     public int QuestCampaignTargetIndex { get; set; }
 
-    [Key(2)] // RVA: 0x1DE1E88 Offset: 0x1DE1E88 VA: 0x1DE1E88
+    [Key(2)]
     public QuestCampaignTargetType QuestCampaignTargetType { get; set; }
 
-    [Key(3)] // RVA: 0x1DE1E9C Offset: 0x1DE1E9C VA: 0x1DE1E9C
+    [Key(3)]
     public int QuestCampaignTargetValue { get; set; }
 }

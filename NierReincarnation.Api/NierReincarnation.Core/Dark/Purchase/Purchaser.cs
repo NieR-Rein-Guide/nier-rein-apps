@@ -2,7 +2,7 @@
 
 namespace NierReincarnation.Core.Dark.Purchase;
 
-internal class Purchaser : IStoreListener
+public class Purchaser : IStoreListener
 {
     private ConfigurationBuilder _builder;
     private bool _purchaseOnInitialize;

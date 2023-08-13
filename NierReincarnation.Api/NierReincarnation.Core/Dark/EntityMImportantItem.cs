@@ -1,4 +1,3 @@
-using MessagePack;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
@@ -7,34 +6,34 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_important_item")]
 public class EntityMImportantItem
 {
-    [Key(0)] // RVA: 0x1DDB1AC Offset: 0x1DDB1AC VA: 0x1DDB1AC
+    [Key(0)]
     public int ImportantItemId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDB1EC Offset: 0x1DDB1EC VA: 0x1DDB1EC
+    [Key(1)]
     public int NameImportantItemTextId { get; set; }
 
-    [Key(2)] // RVA: 0x1DDB200 Offset: 0x1DDB200 VA: 0x1DDB200
+    [Key(2)]
     public int DescriptionImportantItemTextId { get; set; }
 
-    [Key(3)] // RVA: 0x1DDB214 Offset: 0x1DDB214 VA: 0x1DDB214
+    [Key(3)]
     public int SortOrder { get; set; }
 
-    [Key(4)] // RVA: 0x1DDB228 Offset: 0x1DDB228 VA: 0x1DDB228
+    [Key(4)]
     public int AssetCategoryId { get; set; }
 
-    [Key(5)] // RVA: 0x1DDB23C Offset: 0x1DDB23C VA: 0x1DDB23C
+    [Key(5)]
     public int AssetVariationId { get; set; }
 
-    [Key(6)] // RVA: 0x1DDB250 Offset: 0x1DDB250 VA: 0x1DDB250
+    [Key(6)]
     public int ImportantItemEffectId { get; set; }
 
-    [Key(7)] // RVA: 0x1DDB264 Offset: 0x1DDB264 VA: 0x1DDB264
+    [Key(7)]
     public int ReportId { get; set; }
 
-    [Key(8)] // RVA: 0x1F79AAC Offset: 0x1F79AAC VA: 0x1F79AAC
+    [Key(8)]
     public int CageMemoryId { get; set; }
 
-    [Key(9)] // RVA: 0x1F79AC0 Offset: 0x1F79AC0 VA: 0x1F79AC0
+    [Key(9)]
     public int ImportantItemType { get; set; }
 
     [Key(10)]

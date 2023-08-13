@@ -1,23 +1,20 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Game.TurnBattle;
+﻿namespace NierReincarnation.Core.Dark.Game.TurnBattle;
 
 [MessagePackObject]
 public class DataDamageMultiplyDetailBuffAttached
 {
-    [Key(0)] // RVA: 0x1E75CB0 Offset: 0x1E75CB0 VA: 0x1E75CB0
+    [Key(0)]
     public DamageMultiplyTargetType MultiplyTargetType { get; set; }
 
-    [Key(1)] // RVA: 0x1E75CC4 Offset: 0x1E75CC4 VA: 0x1E75CC4
+    [Key(1)]
     public DamageMultiplyBuffAttachedConditionTargetType ConditionTargetType { get; set; }
 
-    [Key(2)] // RVA: 0x1E75CD8 Offset: 0x1E75CD8 VA: 0x1E75CD8
+    [Key(2)]
     public DamageMultiplyBuffAttachedTargetBuffType TargetBuffType { get; set; }
 
-    [Key(3)] // RVA: 0x1E75CEC Offset: 0x1E75CEC VA: 0x1E75CEC
+    [Key(3)]
     public DamageMultiplyBuffAttachedTargetStatusKindType TargetStatusKindType { get; set; }
 
-    [Key(4)] // RVA: 0x1E75D00 Offset: 0x1E75D00 VA: 0x1E75D00
+    [Key(4)]
     public int DamageMultiplyCoefficientValuePermil { get; set; }
 }

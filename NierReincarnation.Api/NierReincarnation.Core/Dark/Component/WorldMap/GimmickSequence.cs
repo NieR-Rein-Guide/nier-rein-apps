@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Component.WorldMap;
+﻿namespace NierReincarnation.Core.Dark.Component.WorldMap;
 
 public struct GimmickSequence
 {

@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Localization;
+﻿using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.View.UserInterface.Text;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
@@ -7,9 +6,9 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 
 public static class CalculatorGuerrillaQuest
 {
-    public static readonly int kDefaultFreeOpenRemainCount = 0;
-    private static readonly int kDefaultFreeOpenMaxCount = 1;
-    private static readonly int kDefaultGuerrillaFreeOpenOpeningTimeMinutes = 60;
+    public static readonly int kDefaultFreeOpenRemainCount;
+    private const int kDefaultFreeOpenMaxCount = 1;
+    private const int kDefaultGuerrillaFreeOpenOpeningTimeMinutes = 60;
 
     // TODO: Implement
     public static bool IsValidGuerrillaQuestTerm(int eventQuestId, long userId)

@@ -1,22 +1,19 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
+﻿using NierReincarnation.Core.Dark.Game.TurnBattle.Types;
 
 namespace NierReincarnation.Core.Dark.Game.TurnBattle;
 
 public static class CalculatorBattleBinary
 {
-    // Fields
     private static byte[] _battleBinaryPool;
 
     private static byte[] _snapshotBinaryPool;
     private static byte[] _checksumBinaryPool;
-    private static readonly int BinaryPoolSize = 0x2000;
+    private const int BinaryPoolSize = 0x2000;
     private static MemoryStream _streamBattleBinaryPool;
-    private static readonly int VersionBinaryLength = 4;
-    private static readonly int ChecksumBinaryLength = 4;
-    private static readonly int SuccessFlagBinaryLength = 1;
+    private const int VersionBinaryLength = 4;
+    private const int ChecksumBinaryLength = 4;
+    private const int SuccessFlagBinaryLength = 1;
 
-    // Properties
     private static MemoryStream StreamBattleBinaryPool => _streamBattleBinaryPool ??= new MemoryStream(BinaryPoolSize);
 
     private static byte[] BattleBinaryPool => _battleBinaryPool ??= new byte[BinaryPoolSize];

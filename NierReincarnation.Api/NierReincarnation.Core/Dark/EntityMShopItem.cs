@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,42 +6,42 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_shop_item")]
 public class EntityMShopItem
 {
-    [Key(0)] // RVA: 0x1DDFA14 Offset: 0x1DDFA14 VA: 0x1DDFA14
+    [Key(0)]
     public int ShopItemId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDFA54 Offset: 0x1DDFA54 VA: 0x1DDFA54
+    [Key(1)]
     public int NameShopTextId { get; set; }
 
-    [Key(2)] // RVA: 0x1DDFA68 Offset: 0x1DDFA68 VA: 0x1DDFA68
+    [Key(2)]
     public int DescriptionShopTextId { get; set; }
 
-    [Key(3)] // RVA: 0x1DDFA7C Offset: 0x1DDFA7C VA: 0x1DDFA7C
+    [Key(3)]
     public int ShopItemContentType { get; set; }
 
-    [Key(4)] // RVA: 0x1DDFA90 Offset: 0x1DDFA90 VA: 0x1DDFA90
+    [Key(4)]
     public PriceType PriceType { get; set; }
 
-    [Key(5)] // RVA: 0x1DDFAA4 Offset: 0x1DDFAA4 VA: 0x1DDFAA4
+    [Key(5)]
     public int PriceId { get; set; }
 
-    [Key(6)] // RVA: 0x1DDFAB8 Offset: 0x1DDFAB8 VA: 0x1DDFAB8
+    [Key(6)]
     public int Price { get; set; }
 
-    [Key(7)] // RVA: 0x1DDFACC Offset: 0x1DDFACC VA: 0x1DDFACC
+    [Key(7)]
     public int RegularPrice { get; set; }
 
-    [Key(8)] // RVA: 0x1DDFAE0 Offset: 0x1DDFAE0 VA: 0x1DDFAE0
+    [Key(8)]
     public ShopPromotionType ShopPromotionType { get; set; }
 
-    [Key(9)] // RVA: 0x1DDFAF4 Offset: 0x1DDFAF4 VA: 0x1DDFAF4
+    [Key(9)]
     public int ShopItemLimitedStockId { get; set; }
 
-    [Key(10)] // RVA: 0x1DDFB08 Offset: 0x1DDFB08 VA: 0x1DDFB08
+    [Key(10)]
     public int AssetCategoryId { get; set; }
 
-    [Key(11)] // RVA: 0x1DDFB1C Offset: 0x1DDFB1C VA: 0x1DDFB1C
+    [Key(11)]
     public int AssetVariationId { get; set; }
 
-    [Key(12)] // RVA: 0x1DDFB30 Offset: 0x1DDFB30 VA: 0x1DDFB30
+    [Key(12)]
     public ShopItemDecorationType ShopItemDecorationType { get; set; }
 }

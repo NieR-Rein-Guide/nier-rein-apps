@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Subsystem.Serval;
+﻿namespace NierReincarnation.Core.Subsystem.Serval;
 
 public static class CompanionServal
 {

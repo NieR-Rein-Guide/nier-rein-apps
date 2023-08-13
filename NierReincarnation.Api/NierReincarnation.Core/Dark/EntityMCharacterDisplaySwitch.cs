@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,21 +6,21 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_character_display_switch")]
 public class EntityMCharacterDisplaySwitch
 {
-    [Key(0)] // RVA: 0x1DDAED4 Offset: 0x1DDAED4 VA: 0x1DDAED4
+    [Key(0)]
     public int CharacterId { get; set; }
 
-    [Key(1)] // RVA: 0x1DDAF14 Offset: 0x1DDAF14 VA: 0x1DDAF14
+    [Key(1)]
     public int NameCharacterTextId { get; set; }
 
-    [Key(2)] // RVA: 0x1DDAF28 Offset: 0x1DDAF28 VA: 0x1DDAF28
+    [Key(2)]
     public int DefaultCostumeId { get; set; }
 
-    [Key(3)] // RVA: 0x1DDAF3C Offset: 0x1DDAF3C VA: 0x1DDAF3C
+    [Key(3)]
     public int DefaultWeaponId { get; set; }
 
-    [Key(4)] // RVA: 0x1DDAF50 Offset: 0x1DDAF50 VA: 0x1DDAF50
+    [Key(4)]
     public int DisplayConditionClearQuestId { get; set; }
 
-    [Key(5)] // RVA: 0x1DDAF64 Offset: 0x1DDAF64 VA: 0x1DDAF64
+    [Key(5)]
     public int CharacterAssetId { get; set; }
 }

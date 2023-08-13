@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,12 +6,12 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_big_hunt_quest")]
 public class EntityMBigHuntQuest
 {
-    [Key(0)] // RVA: 0x1DD651C Offset: 0x1DD651C VA: 0x1DD651C
+    [Key(0)]
     public int BigHuntQuestId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD655C Offset: 0x1DD655C VA: 0x1DD655C
+    [Key(1)]
     public int QuestId { get; set; }
 
-    [Key(2)] // RVA: 0x1DD6570 Offset: 0x1DD6570 VA: 0x1DD6570
+    [Key(2)]
     public int BigHuntQuestScoreCoefficientId { get; set; }
 }

@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Game.TurnBattle;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Status;
 
 namespace NierReincarnation.Core.Dark.Calculator;

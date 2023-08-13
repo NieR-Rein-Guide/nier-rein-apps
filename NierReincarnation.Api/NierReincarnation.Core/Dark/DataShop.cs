@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark;
+﻿namespace NierReincarnation.Core.Dark;
 
 public class DataShop
 {

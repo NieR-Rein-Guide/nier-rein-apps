@@ -1,4 +1,3 @@
-using MessagePack;
 using NierReincarnation.Core.Dark.Tables;
 using NierReincarnation.Core.MasterMemory;
 

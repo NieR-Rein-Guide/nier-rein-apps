@@ -17,5 +17,5 @@ internal class PayloadDeserializationContext : DeserializationContext
 
     public override byte[] PayloadAsNewBuffer() => Payload;
 
-    public override ReadOnlySequence<byte> PayloadAsReadOnlySequence() => new ReadOnlySequence<byte>(Payload);
+    public override ReadOnlySequence<byte> PayloadAsReadOnlySequence() => new(Payload);
 }

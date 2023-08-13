@@ -5,7 +5,7 @@ namespace NierReincarnation.Core.Dark.Calculator.Outgame;
 public static class CalculatorMission
 {
     public static readonly int kFreeTermId = 1;
-    public static readonly int kInvalidMissionGroupId = 0;
+    public static readonly int kInvalidMissionGroupId;
     private const int kInvalidMissionSubCategoryId = 0;
 
     public static bool IsMissionClear(long userId, int missionId) =>

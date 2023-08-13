@@ -1,6 +1,5 @@
 ﻿using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
-using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Dark.Status;
@@ -12,7 +11,7 @@ public static class CalculatorSkill
 {
     public static int MIN_LEVEL = 1;
     public static int MAX_LEVEL = 15;
-    private static readonly int kWeaponSkillCooltimeSecondConvertValue = 30;
+    private const int kWeaponSkillCooltimeSecondConvertValue = 30;
     private const int kCooltimeGaugeRiseSpeedALowerValue = 1500;
     private const int kCooltimeGaugeRiseSpeedBLowerValue = 1300;
     private const int kCooltimeGaugeRiseSpeedCLowerValue = 1000;

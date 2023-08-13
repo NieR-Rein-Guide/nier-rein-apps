@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.Component.Story;
 
-internal class BigHuntStoryQuestData
+public class BigHuntStoryQuestData
 {
     public IQuest Quest { get; set; }
 

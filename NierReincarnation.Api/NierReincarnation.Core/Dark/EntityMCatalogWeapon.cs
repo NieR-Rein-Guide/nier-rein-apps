@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,12 +6,12 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_catalog_weapon")]
 public class EntityMCatalogWeapon
 {
-    [Key(0)] // RVA: 0x1DD6D78 Offset: 0x1DD6D78 VA: 0x1DD6D78
+    [Key(0)]
     public int WeaponId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD6DB8 Offset: 0x1DD6DB8 VA: 0x1DD6DB8
+    [Key(1)]
     public int SortOrder { get; set; }
 
-    [Key(2)] // RVA: 0x1DD6DCC Offset: 0x1DD6DCC VA: 0x1DD6DCC
+    [Key(2)]
     public int CatalogTermId { get; set; }
 }

@@ -1,6 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -8,57 +6,57 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_weapon")]
 public class EntityMWeapon
 {
-    [Key(0)] // RVA: 0x1DE663C Offset: 0x1DE663C VA: 0x1DE663C
+    [Key(0)]
     public int WeaponId { get; set; }
 
-    [Key(1)] // RVA: 0x1DE667C Offset: 0x1DE667C VA: 0x1DE667C
+    [Key(1)]
     public int WeaponCategoryType { get; set; }
 
-    [Key(2)] // RVA: 0x1DE6690 Offset: 0x1DE6690 VA: 0x1DE6690
+    [Key(2)]
     public WeaponType WeaponType { get; set; }
 
-    [Key(3)] // RVA: 0x1DE66A4 Offset: 0x1DE66A4 VA: 0x1DE66A4
+    [Key(3)]
     public int AssetVariationId { get; set; }
 
-    [Key(4)] // RVA: 0x1DE66B8 Offset: 0x1DE66B8 VA: 0x1DE66B8
+    [Key(4)]
     public RarityType RarityType { get; set; }
 
-    [Key(5)] // RVA: 0x1DE66CC Offset: 0x1DE66CC VA: 0x1DE66CC
+    [Key(5)]
     public AttributeType AttributeType { get; set; }
 
-    [Key(6)] // RVA: 0x1DE66E0 Offset: 0x1DE66E0 VA: 0x1DE66E0
+    [Key(6)]
     public bool IsRestrictDiscard { get; set; }
 
-    [Key(7)] // RVA: 0x1DE66F4 Offset: 0x1DE66F4 VA: 0x1DE66F4
+    [Key(7)]
     public int WeaponBaseStatusId { get; set; }
 
-    [Key(8)] // RVA: 0x1DE6708 Offset: 0x1DE6708 VA: 0x1DE6708
+    [Key(8)]
     public int WeaponStatusCalculationId { get; set; }
 
-    [Key(9)] // RVA: 0x1DE671C Offset: 0x1DE671C VA: 0x1DE671C
+    [Key(9)]
     public int WeaponSkillGroupId { get; set; }
 
-    [Key(10)] // RVA: 0x1DE6730 Offset: 0x1DE6730 VA: 0x1DE6730
+    [Key(10)]
     public int WeaponAbilityGroupId { get; set; }
 
-    [Key(11)] // RVA: 0x1DE6744 Offset: 0x1DE6744 VA: 0x1DE6744
+    [Key(11)]
     public int WeaponEvolutionMaterialGroupId { get; set; }
 
-    [Key(12)] // RVA: 0x1DE6758 Offset: 0x1DE6758 VA: 0x1DE6758
+    [Key(12)]
     public int WeaponEvolutionGrantPossessionGroupId { get; set; }
 
-    [Key(13)] // RVA: 0x1DE676C Offset: 0x1DE676C VA: 0x1DE676C
+    [Key(13)]
     public int WeaponStoryReleaseConditionGroupId { get; set; }
 
-    [Key(14)] // RVA: 0x1DE6780 Offset: 0x1DE6780 VA: 0x1DE6780
+    [Key(14)]
     public int WeaponSpecificEnhanceId { get; set; }
 
-    [Key(15)] // RVA: 0x1DE6794 Offset: 0x1DE6794 VA: 0x1DE6794
+    [Key(15)]
     public int WeaponSpecificLimitBreakMaterialGroupId { get; set; }
 
-    [Key(16)] // RVA: 0x1DE67A8 Offset: 0x1DE67A8 VA: 0x1DE67A8
+    [Key(16)]
     public int CharacterWalkaroundRangeType { get; set; }
 
-    [Key(17)] // RVA: 0x1F826FC Offset: 0x1F826FC VA: 0x1F826FC
+    [Key(17)]
     public bool IsRecyclable { get; set; }
 }

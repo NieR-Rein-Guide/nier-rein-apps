@@ -1,5 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
+﻿using NierReincarnation.Core.Dark.View.HeadUpDisplay.Calculator;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 
 namespace NierReincarnation.Core.Dark.Calculator.Outgame;
@@ -32,7 +31,7 @@ public static class CalculatorPossession
             PossessionType.FREE_GEM => (isDistinctionGem) ? CalculatorGem.FreeGemName() : CalculatorGem.Name(),
             PossessionType.IMPORTANT_ITEM => CalculatorImportantItem.ImportantItemName(possessionId),
             PossessionType.MISSION_PASS_POINT => CalculatorMissionPass.GetMissionPointName(),
-            _ => null,
+            _ => default!,
         };
     }
 

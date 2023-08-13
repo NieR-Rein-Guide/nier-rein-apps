@@ -1,6 +1,5 @@
 ﻿namespace NierReincarnation.Core.Dark.Preference;
 
-// Dark.Preference.PlayerRegistration
 public class PlayerRegistration
 {
     private static readonly string kBlockAdId = Guid.Empty.ToString("D");
@@ -33,12 +32,12 @@ public class PlayerRegistration
     public bool IsTrackingEnabled { get; set; }
 
     [JsonProperty("_id")]
-    private string _id;
+    private readonly string _id;
 
     [JsonProperty("_serverAddressAndPort")]
     public string ServerAddressAndPort { get; set; }
 
-    private Guid _guid;
+    private readonly Guid _guid;
 
     [JsonProperty("_momTappedCount")]
     public int MomTappedCount { get; set; }
@@ -55,7 +54,6 @@ public class PlayerRegistration
     public Task UpdateAdvertisingIdAsync()
     {
         // Needs access to unity classes to attain advertising information
-
         AdvertisingId = Guid.NewGuid().ToString("N");
         IsTrackingEnabled = false;
 

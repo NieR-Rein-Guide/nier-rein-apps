@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.View.UserInterface;
+﻿namespace NierReincarnation.Core.Dark.View.UserInterface;
 
 // CUSTOM: Emulates EventQuestChapterData to represent main quest chapters
 public class MainQuestChapterData

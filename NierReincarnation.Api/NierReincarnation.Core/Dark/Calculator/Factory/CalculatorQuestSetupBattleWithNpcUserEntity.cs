@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Calculator.Database;
-using NierReincarnation.Core.Dark.Generated.Type;
 
 namespace NierReincarnation.Core.Dark.Calculator.Factory;
 

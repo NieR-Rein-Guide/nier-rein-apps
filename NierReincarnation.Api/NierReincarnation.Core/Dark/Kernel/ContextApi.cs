@@ -1,7 +1,6 @@
 ﻿namespace NierReincarnation.Core.Dark.Kernel;
 
-// Dark.Kernel.ContextApi
-internal static class ContextApi
+public static class ContextApi
 {
     private static Context _activeContext;
 

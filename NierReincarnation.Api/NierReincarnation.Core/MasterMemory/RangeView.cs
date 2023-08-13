@@ -4,7 +4,7 @@ namespace NierReincarnation.Core.MasterMemory;
 
 public readonly struct RangeView<T> : IReadOnlyList<T>
 {
-    public static RangeView<T> Empty = new();
+    public static RangeView<T> Empty;
 
     private readonly T[] OrderedData;
 

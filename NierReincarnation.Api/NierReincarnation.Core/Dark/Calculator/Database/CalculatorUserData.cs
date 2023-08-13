@@ -1,6 +1,4 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
-
-namespace NierReincarnation.Core.Dark.Calculator.Database;
+﻿namespace NierReincarnation.Core.Dark.Calculator.Database;
 
 public static class CalculatorUserData
 {

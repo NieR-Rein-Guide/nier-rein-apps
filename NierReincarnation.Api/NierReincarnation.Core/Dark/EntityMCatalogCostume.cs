@@ -1,5 +1,4 @@
-﻿using MessagePack;
-using NierReincarnation.Core.MasterMemory;
+﻿using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
 
@@ -7,12 +6,12 @@ namespace NierReincarnation.Core.Dark;
 [MemoryTable("m_catalog_costume")]
 public class EntityMCatalogCostume
 {
-    [Key(0)] // RVA: 0x1DD6C54 Offset: 0x1DD6C54 VA: 0x1DD6C54
+    [Key(0)]
     public int CostumeId { get; set; }
 
-    [Key(1)] // RVA: 0x1DD6C94 Offset: 0x1DD6C94 VA: 0x1DD6C94
+    [Key(1)]
     public int SortOrder { get; set; }
 
-    [Key(2)] // RVA: 0x1DD6CA8 Offset: 0x1DD6CA8 VA: 0x1DD6CA8
+    [Key(2)]
     public int CatalogTermId { get; set; }
 }
