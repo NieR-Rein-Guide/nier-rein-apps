@@ -10,6 +10,6 @@ public class GetUserDataNameApi
         DarkClient darkClient = new();
         var result = await darkClient.DataService.GetUserDataNameAsync(new Empty());
 
-        return result?.TableName.ToList();
+        return result?.TableName.ToList() ?? new();
     }
 }

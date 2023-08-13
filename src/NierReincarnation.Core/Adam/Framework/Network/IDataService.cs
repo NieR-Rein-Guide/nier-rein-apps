@@ -9,7 +9,7 @@ public interface IDataService
 
     public abstract Task<UserDataGetNameResponse> GetUserDataNameAsync(Empty request);
 
-    //public abstract Task<UserDataGetNameResponseV2> GetUserDataNameV2Async(Empty request);
+    public abstract Task<UserDataGetNameResponseV2> GetUserDataNameV2Async(Empty request);
 
     public abstract Task<UserDataGetResponse> GetUserDataAsync(UserDataGetRequest request);
 }

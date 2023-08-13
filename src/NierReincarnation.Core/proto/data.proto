@@ -9,15 +9,20 @@ package apb.api.data;
 service DataService {
 	rpc GetLatestMasterDataVersion (google.protobuf.Empty) returns (MasterDataGetLatestVersionResponse);
 	rpc GetUserDataName (google.protobuf.Empty) returns (UserDataGetNameResponse);
+	rpc GetUserDataNameV2 (google.protobuf.Empty) returns (UserDataGetNameResponseV2);
 	rpc GetUserData (UserDataGetRequest) returns (UserDataGetResponse);
 }
 
 message MasterDataGetLatestVersionResponse {
-	string latestMasterDataVersion = 1;
+	string LatestMasterDataVersion = 1;
 }
 
 message UserDataGetNameResponse {
 	repeated string TableName = 1;
+}
+
+message UserDataGetNameResponseV2 {
+	repeated TableNameList TableNameList = 1;
 }
 
 message UserDataGetRequest {
@@ -29,6 +34,10 @@ message UserDataGetResponse {
 }
 
 message DiffData {
-	string updateRecordsJson = 1;
-	string deleteKeysJson = 2;
+	string UpdateRecordsJson = 1;
+	string DeleteKeysJson = 2;
+}
+
+message TableNameList {
+	repeated string TableName = 1;
 }

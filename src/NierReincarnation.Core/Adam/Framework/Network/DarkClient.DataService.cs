@@ -23,6 +23,14 @@ public partial class DarkClient : IDataService
                 new ResponseContext<UserDataGetNameResponse>(new DataService.DataServiceClient(GetCallInvoker(ctx.Channel)).GetUserDataNameAsync((Empty)ctx.Request, ctx.Headers, ctx.Deadline)));
     }
 
+    public Task<UserDataGetNameResponseV2> GetUserDataNameV2Async(Empty request)
+    {
+        var path = "DataService/GetUserDataNameV2Async";
+        return InvokeAsync<UserDataGetNameResponseV2, Empty>(path, request,
+            ctx =>
+                new ResponseContext<UserDataGetNameResponseV2>(new DataService.DataServiceClient(GetCallInvoker(ctx.Channel)).GetUserDataNameV2Async((Empty)ctx.Request, ctx.Headers, ctx.Deadline)));
+    }
+
     public Task<UserDataGetResponse> GetUserDataAsync(UserDataGetRequest request)
     {
         const string path = "DataService/GetUserDataAsync";

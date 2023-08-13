@@ -8,10 +8,11 @@ public class UserDataGet
     // Custom: Return indicator if download was successful
     public async Task<bool> RequestAsync()
     {
-        var userNames = await GetUserDataNameApi.RequestAsyncMethod();
-        if (userNames == null) return false;
+        var userNames = await GetUserDataNameV2Api.RequestAsyncMethod();
+        var mergedUserNames = userNames.SelectMany(x => x).ToList();
+        if (mergedUserNames.Count == 0) return false;
 
-        var userData = await GetUserDataApi.RequestAsyncMethod(userNames);
+        var userData = await GetUserDataApi.RequestAsyncMethod(mergedUserNames);
         if (userData == null) return false;
 
         DarkUserDatabaseBuilder dbBuilder = new();
