@@ -24,7 +24,6 @@ namespace NierReincarnation.Db;
 public static class Program
 {
     private const string _dbConfigJsonPath = "config/dbConfig.json";
-    private const string _nierReinConfigJsonPath = "config/userConfig.json";
     private static PostgreDbContext _postgreDbContext;
     private static readonly DateTimeOffset MaxDate = DateTimeOffset.UtcNow.AddYears(1);
 
@@ -109,17 +108,6 @@ public static class Program
         _weaponAbilityCache = new();
         _companionSkillCache = new();
         _companionAbilityCache = new();
-    }
-
-    private static NierReinConfig GetNierReinConfig()
-    {
-        if (!File.Exists(_nierReinConfigJsonPath))
-        {
-            Console.WriteLine($"NieR Re[in]carnation configuration '{_nierReinConfigJsonPath}' not found.");
-            Environment.Exit(1);
-        }
-
-        return JsonConvert.DeserializeObject<NierReinConfig>(File.ReadAllText(_nierReinConfigJsonPath));
     }
 
     private static DbConfig GetDbConfig()

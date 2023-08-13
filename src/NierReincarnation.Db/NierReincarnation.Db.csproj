@@ -19,11 +19,8 @@
         <None Update="config\dbConfig.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="config\userConfig.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties config_4userconfig_1json__JsonSchema="appsettings" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
