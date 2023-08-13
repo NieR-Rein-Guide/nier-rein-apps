@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NierReincarnation.Api;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Database;
@@ -94,12 +95,10 @@ public static class Program
 
     private static async Task SetupNierReinAsync()
     {
-        var reinConfig = GetNierReinConfig();
+        Application.Version = await ApkMirrorVersionChecker.GetCurrentVersion();
 
-        Application.Version = reinConfig.GameVersion;
-
-        await NierReincarnation.PrepareCommandLine();
-        await NierReincarnation.LoadLocalizations(SystemLanguage.English);
+        await NierReincarnationApp.InitializeApplicationAsync(new ApplicationInitArguments(true, true, false));
+        await NierReincarnationApp.LoadLocalizations(SystemLanguage.English);
     }
 
     private static void SetupCaches()
@@ -194,9 +193,9 @@ public static class Program
     private static async Task AddNotifications()
     {
         WriteLineWithTimestamp("Notifications");
-        await foreach (var darkNotification in NierReincarnation.Notifications.GetAllNotifications())
+        await foreach (var darkNotification in NierReincarnationApp.Notifications.GetAllNotifications())
         {
-            var darkNotificationDetails = await NierReincarnation.Notifications.GetNotification(darkNotification.informationId);
+            var darkNotificationDetails = await NierReincarnationApp.Notifications.GetNotification(darkNotification.informationId);
             if (darkNotificationDetails == null) continue;
 
             // Get or create db notification

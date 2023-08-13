@@ -22,9 +22,9 @@ public class MasterDataDownloader
 
     private const int Timeout = 10;
 
-    private const int InvalidSize = 0;
+    private const int InvalidSize = -1;
 
-    private const int InvalidUpdateCount = 0;
+    private const int InvalidUpdateCount = -1;
 
     private const string HttpContentLength = "Content-Length";
 

@@ -91,7 +91,7 @@ public class GimmickContext : BaseContext
         if (deck.DeckType != DeckType.RESTRICTED_QUEST)
             throw new InvalidOperationException("Gimmick quests can only be executed with a restricted deck.");
 
-        var questContext = NierReincarnation.GetContexts().Battles.CreateQuestContext();
+        var questContext = NierReincarnationApp.GetContexts().Battles.CreateQuestContext();
         var gimmickQuest = CalculatorWorldMap.GetHideObeliskQuest(gimmick.GimmickId, gimmick.GimmickOrnamentIndex);
 
         return questContext.ExecuteExtraQuest(gimmickQuest, deck);

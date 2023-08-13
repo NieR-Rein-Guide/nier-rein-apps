@@ -4,7 +4,7 @@ using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Localizations;
 
-internal static class Localizer
+internal static class TextLocalizer
 {
     public static IDictionary<string, string> Create(SystemLanguage lang = SystemLanguage.English)
     {

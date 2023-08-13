@@ -18,21 +18,21 @@ public abstract class BaseContext
             var result = await requestAction();
             if (result != null)
             {
-                NierReincarnation.ClearNetworkError();
+                NierReincarnationApp.ClearNetworkError();
                 return result;
             }
 
-            switch (NierReincarnation.LastApiError.StatusCode)
+            switch (NierReincarnationApp.LastApiError.StatusCode)
             {
                 // Pass invalid result back to caller
                 default:
                     if (handleGeneralError)
-                        await OnGeneralError(NierReincarnation.LastApiError);
+                        await OnGeneralError(NierReincarnationApp.LastApiError);
 
-                    NierReincarnation.ClearNetworkError();
+                    NierReincarnationApp.ClearNetworkError();
 
                     // Re-authorize user after error
-                    await NierReincarnation.AuthorizeUser(CalculatorStateUser.GetUserId());
+                    await NierReincarnationApp.AuthorizeUserAsync(CalculatorStateUser.GetUserId());
 
                     return default;
 
@@ -52,7 +52,7 @@ public abstract class BaseContext
                     OnBeforeUnauthenticated();
 
                     // Re-authorize user
-                    await NierReincarnation.AuthorizeUser(CalculatorStateUser.GetUserId());
+                    await NierReincarnationApp.AuthorizeUserAsync(CalculatorStateUser.GetUserId());
 
                     // Re-download user data
                     //await NierReincarnation.UpdateUserData();
@@ -64,7 +64,7 @@ public abstract class BaseContext
                     break;
             }
 
-            NierReincarnation.ClearNetworkError();
+            NierReincarnationApp.ClearNetworkError();
         }
     }
 

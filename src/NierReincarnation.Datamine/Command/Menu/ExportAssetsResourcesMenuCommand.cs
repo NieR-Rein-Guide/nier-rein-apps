@@ -1,4 +1,5 @@
-﻿using NierReincarnation.Core.Dark.Localization;
+﻿using NierReincarnation.Api;
+using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.UnityEngine;
 
@@ -65,10 +66,10 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
         if (LocalizationExtensions.Localizations?.Count > 0)
         {
             Console.WriteLine("Reloading localizations");
-            await NierReincarnation.LoadLocalizations(SystemLanguage.English);
+            await NierReincarnationApp.LoadLocalizations(SystemLanguage.English);
         }
 
         // Workaround: Reset state
-        NierReincarnation.Reset();
+        NierReincarnationApp.ResetApplication();
     }
 }

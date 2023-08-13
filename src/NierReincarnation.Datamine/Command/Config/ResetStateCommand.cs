@@ -1,10 +1,12 @@
-﻿namespace NierReincarnation.Datamine.Command;
+﻿using NierReincarnation.Api;
+
+namespace NierReincarnation.Datamine.Command;
 
 public class ResetStateCommand : IAsyncCommand
 {
     public Task ExecuteAsync()
     {
-        NierReincarnation.Reset();
+        NierReincarnationApp.ResetApplication();
 
         return Task.CompletedTask;
     }

@@ -1,6 +1,7 @@
 ﻿using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Controls.Musical;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
+using NierReincarnation.Api;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.UnityEngine;
@@ -37,7 +38,7 @@ public abstract class AbstractSimpleMenuCommand : ICommand
             //Console.SetOut(TextWriter.Null);
             if (Reset)
             {
-                NierReincarnation.Reset();
+                NierReincarnationApp.ResetApplication();
             }
 
             if (UseApi)
@@ -59,12 +60,12 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
     private static async Task InitializeNierReinApi(int revision = 0, bool login = true)
     {
-        await NierReincarnation.PrepareCommandLine(login, true, revision);
+        await NierReincarnationApp.InitializeApplicationAsync(new ApplicationInitArguments(login, login, true, revision));
     }
 
     private static async Task InitializeLocalizations()
     {
-        await NierReincarnation.LoadLocalizations(SystemLanguage.English);
+        await NierReincarnationApp.LoadLocalizations(SystemLanguage.English);
     }
 }
 
