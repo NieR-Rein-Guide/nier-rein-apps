@@ -2,7 +2,7 @@
 
 namespace NierReincarnation.Core.Octo.Util;
 
-internal static class FileUtil
+public static class FileUtil
 {
     private const string Tag = "Octo/FileUtil";
     private const string OctoDirectory = "octo";

@@ -4,7 +4,7 @@ using ProtoBuf;
 
 namespace NierReincarnation.Core.Octo.Data;
 
-internal class DataManager : IDatabase
+public class DataManager : IDatabase
 {
     private const string Tag = "Octo/DataManager";
     public static readonly string DirName = "pdb";
@@ -22,7 +22,7 @@ internal class DataManager : IDatabase
 
     public int Revision { get; set; }
 
-    public DataManager(int appId, int version, AESCrypt crypt)
+    internal DataManager(int appId, int version, AESCrypt crypt)
     {
         _version = version;
 

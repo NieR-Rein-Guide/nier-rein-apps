@@ -1,4 +1,4 @@
-﻿using static NierReincarnation.Core.Octo.OctoManager;
+﻿using NierReincarnation.Core.Octo;
 
 namespace NierReincarnation.Datamine.Command;
 
@@ -16,7 +16,7 @@ public class RevisionWatcherMenuCommand : AbstractWatcherMenuCommand<RevisionWat
 
     public override int Interval => 5000;
 
-    private static int DbRevision => Internal._dataManager.Revision;
+    private static int DbRevision => OctoManager.DbRevision;
 
     public RevisionWatcherMenuCommand(RevisionWatcherMenuCommandArg arg) : base(arg)
     {

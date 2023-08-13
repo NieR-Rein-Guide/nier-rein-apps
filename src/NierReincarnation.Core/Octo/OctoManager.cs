@@ -25,6 +25,8 @@ public static class OctoManager
 
     public static int DbRevision => Internal._dataManager.Revision;
 
+    public static DataManager DataManager => Internal._dataManager;
+
     //public static ILogger Logger { get; set; }
     //public static IAssetBundleLoader AssetBundleLoader { get; set; }
     //public static IResourceLoader ResourceLoader { get; set; }

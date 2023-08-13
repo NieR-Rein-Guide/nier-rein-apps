@@ -1,6 +1,6 @@
 ﻿namespace NierReincarnation.Core.Octo;
 
-internal sealed class Error
+public sealed class Error
 {
     public string Code { get; set; }
 

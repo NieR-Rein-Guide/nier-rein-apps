@@ -1,6 +1,6 @@
 ﻿using NierReincarnation.Core.Dark.Localization;
+using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.UnityEngine;
-using static NierReincarnation.Core.Octo.OctoManager;
 
 namespace NierReincarnation.Datamine.Command;
 
@@ -16,7 +16,7 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
 
     public override int Revision => Program.AppSettings.DbRevision;
 
-    private static int DbRevision => Internal._dataManager.Revision;
+    private static int DbRevision => OctoManager.DbRevision;
 
     private readonly List<string> FoldersToExport = new() { "2d", "audio", "character_select", "minigame", "text", "timeline", "ui", "voice" };
 
