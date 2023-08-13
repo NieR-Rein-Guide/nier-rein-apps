@@ -1,4 +1,5 @@
-﻿using NierReincarnation.Core.UnityEngine;
+﻿using NierReincarnation.Core.Dark.EntryPoint;
+using NierReincarnation.Core.UnityEngine;
 using System.Net.Http.Headers;
 
 namespace NierReincarnation.Context.Support;
@@ -7,10 +8,10 @@ internal static class WebApiSupport
 {
     public static HttpRequestMessage CreateRequest(HttpMethod method, Uri uri)
     {
-        var request = new HttpRequestMessage(method, uri) { Version = new Version(2, 0) };
+        HttpRequestMessage request = new(method, uri) { Version = new Version(2, 0) };
 
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        request.Headers.Add("Origin", "https://web.app.nierreincarnation.com");
+        request.Headers.Add("Origin", Config.Api.WebViewBaseUrl);
         request.Headers.Add("x-requested-with", Application.Identifier);
 
         AddUserAgents(request);

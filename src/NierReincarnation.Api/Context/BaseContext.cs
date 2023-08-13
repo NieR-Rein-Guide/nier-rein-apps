@@ -18,18 +18,18 @@ public abstract class BaseContext
             var result = await requestAction();
             if (result != null)
             {
-                NierReincarnationApp.ClearNetworkError();
+                NierReincarnationApp.ClearLastNetworkError();
                 return result;
             }
 
-            switch (NierReincarnationApp.LastApiError.StatusCode)
+            switch (NierReincarnationApp.LastNetworkError.StatusCode)
             {
                 // Pass invalid result back to caller
                 default:
                     if (handleGeneralError)
-                        await OnGeneralError(NierReincarnationApp.LastApiError);
+                        await OnGeneralError(NierReincarnationApp.LastNetworkError);
 
-                    NierReincarnationApp.ClearNetworkError();
+                    NierReincarnationApp.ClearLastNetworkError();
 
                     // Re-authorize user after error
                     await NierReincarnationApp.AuthorizeUserAsync(CalculatorStateUser.GetUserId());
@@ -64,23 +64,19 @@ public abstract class BaseContext
                     break;
             }
 
-            NierReincarnationApp.ClearNetworkError();
+            NierReincarnationApp.ClearLastNetworkError();
         }
     }
 
     protected async Task OnGeneralError(RpcException error)
     {
         if (GeneralError != null)
+        {
             await GeneralError(error);
+        }
     }
 
-    protected void OnBeforeUnauthenticated()
-    {
-        BeforeUnauthenticated?.Invoke();
-    }
+    protected void OnBeforeUnauthenticated() => BeforeUnauthenticated?.Invoke();
 
-    protected void OnAfterUnauthenticated(bool hasReauthorized)
-    {
-        AfterUnauthenticated?.Invoke(hasReauthorized);
-    }
+    protected void OnAfterUnauthenticated(bool hasReauthorized) => AfterUnauthenticated?.Invoke(hasReauthorized);
 }

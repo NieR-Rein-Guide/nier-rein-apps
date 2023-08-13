@@ -35,9 +35,9 @@ public static class NierReincarnationApp
 
     public static bool IsInitialized { get; set; }
 
-    public static event Func<RpcException, Task<bool>> ApiError;
+    public static event Func<RpcException, Task<bool>> NetworkErrorEvent;
 
-    public static RpcException LastApiError { get; private set; }
+    public static RpcException LastNetworkError { get; private set; }
 
     static NierReincarnationApp()
     {
@@ -92,7 +92,7 @@ public static class NierReincarnationApp
         if (IsSetup) return;
 
         // Setup network error handling
-        ApiError = args.NetworkErrorEvent;
+        NetworkErrorEvent = args.NetworkErrorEvent;
         ErrorHandlingInterceptor.OnErrorAction = OnNetworkError;
 
         // Setup asset systems
@@ -211,7 +211,7 @@ public static class NierReincarnationApp
 
         if (!success)
         {
-            throw new ApiException($"Failed to update user data: {LastApiError.Message}");
+            throw new ApiException($"Failed to update user data: {LastNetworkError.Message}");
         }
     }
 
@@ -236,17 +236,17 @@ public static class NierReincarnationApp
     private static async Task<bool> OnNetworkError(RpcException e)
     {
         var result = false;
-        if (ApiError != null)
-            result = await ApiError(e);
+        if (NetworkErrorEvent != null)
+            result = await NetworkErrorEvent(e);
 
-        LastApiError = e;
+        LastNetworkError = e;
 
         return result;
     }
 
-    internal static void ClearNetworkError()
+    internal static void ClearLastNetworkError()
     {
-        LastApiError = null;
+        LastNetworkError = null;
     }
 }
 

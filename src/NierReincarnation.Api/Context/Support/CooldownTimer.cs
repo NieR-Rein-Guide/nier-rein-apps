@@ -60,18 +60,9 @@ public static class CooldownTimer
         }
     }
 
-    private static void OnCooldownStart(TimeSpan currentTime)
-    {
-        CooldownStart?.Invoke(null, currentTime);
-    }
+    private static void OnCooldownStart(TimeSpan currentTime) => CooldownStart?.Invoke(null, currentTime);
 
-    private static void OnCooldownFinish()
-    {
-        CooldownFinish?.Invoke(null, EventArgs.Empty);
-    }
+    private static void OnCooldownFinish() => CooldownFinish?.Invoke(null, EventArgs.Empty);
 
-    private static void OnElapsed(TimeSpan currentTime)
-    {
-        Elapsed?.Invoke(null, currentTime);
-    }
+    private static void OnElapsed(TimeSpan currentTime) => Elapsed?.Invoke(null, currentTime);
 }
