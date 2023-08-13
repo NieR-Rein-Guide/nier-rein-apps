@@ -365,7 +365,7 @@ public static class CalculatorWeapon
     {
         var table = DatabaseDefine.Master.EntityMWeaponEvolutionGroupTable;
         var weapons = table.FindByWeaponId(weaponId);
-        if (weapons.Count <= 0)
+        if (weapons.Count == 0)
             return null;
 
         return weapons[0];
@@ -453,7 +453,7 @@ public static class CalculatorWeapon
     public static bool HasWeapon(long userId, int weaponId)
     {
         var table = DatabaseDefine.User.EntityIUserWeaponTable;
-        return table.All.Where(x => x.UserId == userId).Any(x => x.WeaponId == weaponId);
+        return table.All.Any(x => x.UserId == userId && x.WeaponId == weaponId);
     }
 
     public static List<int> GetAfterEvolutionWeapons(int weaponId)

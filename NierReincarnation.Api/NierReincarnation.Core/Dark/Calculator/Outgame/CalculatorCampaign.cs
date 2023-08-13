@@ -52,9 +52,11 @@ public static class CalculatorCampaign
                         continue;
                     }
 
-                    if (isBeginner && dataCampaign.TargetUserStatusType == TargetUserStatusType.BEGINNER ||
-                       isComeback && dataCampaign.TargetUserStatusType == TargetUserStatusType.COMEBACK)
+                    if ((isBeginner && dataCampaign.TargetUserStatusType == TargetUserStatusType.BEGINNER) ||
+                       (isComeback && dataCampaign.TargetUserStatusType == TargetUserStatusType.COMEBACK))
+                    {
                         result.SpecialCampaignList.Add(dataCampaign);
+                    }
                 }
             }
         }
@@ -73,7 +75,9 @@ public static class CalculatorCampaign
 
         if (targetUserStatusType != TargetUserStatusType.COMEBACK &&
             targetUserStatusType != TargetUserStatusType.BEGINNER)
+        {
             return false;
+        }
 
         var campaignTime = targetUserStatusType == TargetUserStatusType.COMEBACK ?
             CalculatorComeback.GetComeBackDateTime(userId) :
@@ -125,7 +129,7 @@ public static class CalculatorCampaign
                     result.TargetValue = entityMQuestCampaignTargetGroup.QuestCampaignTargetValue;
                 }
             }
-        };
+        }
 
         return result;
     }

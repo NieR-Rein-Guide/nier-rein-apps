@@ -51,7 +51,7 @@ public class SkeletonId : IEquatable<SkeletonId>
 
     public override int GetHashCode()
     {
-        return Id + (int)Category * 1000;
+        return Id + ((int)Category * 1000);
     }
 
     public override string ToString()

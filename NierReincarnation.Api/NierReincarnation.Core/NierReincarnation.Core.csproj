@@ -4,6 +4,16 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+		<!--<NuspecFile>NierReincarnation.Core.nuspec</NuspecFile>-->
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>1.0.0-rc2</Version>
+		<Authors>BillyCool, onepiecefreak</Authors>
+		<Description>Core game implementation for NieR Re[in]carnation</Description>
+		<PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</RepositoryUrl>
+		<PackageTags>NieR;Re[in]carnation;Reincarnation;Core</PackageTags>
+		<Copyright>2023</Copyright>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,7 +29,6 @@
         <PackageReference Include="ncrontab" Version="3.3.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="protobuf-net" Version="3.2.26" />
-        <PackageReference Include="protobuf-net.Core" Version="3.2.26" />
     </ItemGroup>
 
     <ItemGroup>

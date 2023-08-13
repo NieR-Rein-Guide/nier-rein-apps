@@ -71,7 +71,7 @@ public static class CalculatorLimitContent
                 levelCount++;
 
                 var chapterQuests = CalculatorQuest.GenerateEventQuestData(relation.EventQuestChapterId, difficulty);
-                if (chapterQuests.Count <= 0)
+                if (chapterQuests.Count == 0)
                     continue;
 
                 var limitStatus = userTable.FindByUserIdAndQuestId((CalculatorStateUser.GetUserId(), chapterQuests.Last().Quest.QuestId));
@@ -123,7 +123,7 @@ public static class CalculatorLimitContent
         var table = DatabaseDefine.Master.EntityMEventQuestChapterLimitContentRelationTable;
         var relations = table.FindByEventQuestLimitContentId(eventQuestLimitContentId);
 
-        if (relations.Count <= 0)
+        if (relations.Count == 0)
             return null;
 
         var result = new List<DifficultyType>();
@@ -136,10 +136,10 @@ public static class CalculatorLimitContent
 
             var table2 = DatabaseDefine.Master.EntityMEventQuestSequenceGroupTable;
             var groups = table2.FindRangeByEventQuestSequenceGroupIdAndDifficultyType((groupId, DifficultyType.UNKNOWN), (groupId, DifficultyType.EX_HARD));
-            if (groups.Count <= 0)
+            if (groups.Count == 0)
                 continue;
 
-            var sequenceGroup = groups.First();
+            var sequenceGroup = groups[0];
             if (sequenceGroup.EventQuestSequenceGroupId != chapter.EventQuestSequenceGroupId)
                 continue;
 
@@ -154,7 +154,7 @@ public static class CalculatorLimitContent
     {
         var table = DatabaseDefine.Master.EntityMEventQuestChapterLimitContentRelationTable;
         var relations = table.FindByEventQuestLimitContentId(eventQuestLimitContentId);
-        if (relations.Count <= 0)
+        if (relations.Count == 0)
             return null;
 
         var result = new List<DataLimitContentLevel>();
@@ -176,7 +176,7 @@ public static class CalculatorLimitContent
     {
         var chapter = CalculatorQuest.GetEventQuestChapter(eventQuestChapterId);
         var chapterQuests = CalculatorQuest.GenerateEventQuestData(eventQuestChapterId, difficultyType);
-        if (chapterQuests.Count <= 0)
+        if (chapterQuests.Count == 0)
             return null;
 
         var questClearCount = 0;

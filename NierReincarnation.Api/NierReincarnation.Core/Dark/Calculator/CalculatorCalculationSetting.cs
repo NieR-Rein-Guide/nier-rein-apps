@@ -65,10 +65,7 @@ public static class CalculatorCalculationSetting
     public static SimpleCalculationSetting CreateWeaponMaxAbilityLevelCalculationSetting(int weaponSpecificEnhanceId, RarityType rarityType)
     {
         var setting = CreateWeaponSpecificMaxAbilityLevelCalculationSetting(weaponSpecificEnhanceId);
-        if (setting != null)
-            return setting;
-
-        return CreateWeaponRarityMaxAbilityLevelCalculationSetting(rarityType);
+        return setting ?? CreateWeaponRarityMaxAbilityLevelCalculationSetting(rarityType);
     }
 
     private static SimpleCalculationSetting CreateWeaponSpecificMaxAbilityLevelCalculationSetting(int weaponSpecificEnhanceId)
@@ -92,19 +89,13 @@ public static class CalculatorCalculationSetting
     public static SimpleCalculationSetting CreateMaxLevelCalculationSettingOnWeaponRarity(int weaponSpecificEnhanceId, RarityType rarityType)
     {
         var setting = CreateWeaponSpecificMaxLevelCalculationSetting(weaponSpecificEnhanceId);
-        if (setting != null)
-            return setting;
-
-        return CreateWeaponRarityMaxLevelCalculationSetting(rarityType);
+        return setting ?? CreateWeaponRarityMaxLevelCalculationSetting(rarityType);
     }
 
     public static SimpleCalculationSetting CreateWeaponMaxSkillLevelCalculationSetting(int weaponSpecificEnhanceId, RarityType rarityType)
     {
         var setting = CreateWeaponSpecificMaxSkillLevelCalculationSetting(weaponSpecificEnhanceId);
-        if (setting != null)
-            return setting;
-
-        return CreateWeaponRarityMaxSkillLevelCalculationSetting(rarityType);
+        return setting ?? CreateWeaponRarityMaxSkillLevelCalculationSetting(rarityType);
     }
 
     private static SimpleCalculationSetting CreateWeaponSpecificMaxSkillLevelCalculationSetting(int weaponSpecificEnhanceId)

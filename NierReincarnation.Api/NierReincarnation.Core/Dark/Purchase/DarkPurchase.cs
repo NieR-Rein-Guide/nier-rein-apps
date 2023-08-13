@@ -142,8 +142,12 @@ public class DarkPurchase
     private IEnumerable<EntityMPlatformPayment> GetProducts()
     {
         foreach (var shopItem in GetShopItems())
+        {
             if (TryGetProduct(shopItem, out var platform))
+            {
                 yield return platform;
+            }
+        }
     }
 
     private IEnumerable<EntityMShopItem> GetShopItems()

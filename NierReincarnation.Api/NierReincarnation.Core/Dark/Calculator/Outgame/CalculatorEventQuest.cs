@@ -35,7 +35,7 @@ public static class CalculatorEventQuest
 
         LimitDailyQuestData limitQuest = null;
         if (CalculatorQuest.IsValidEventQuestChapterTerm(chapterId) && CalculatorQuest.IsValidEventQuestTerm(questId) && CalculatorQuest.IsUnlockedQuestByQuestId(questId, userId))
-            limitQuest = CalculatorQuest.CreateLimitDailyQuestData(userId, chapterQuests.FirstOrDefault(x => x.QuestId == questId));
+            limitQuest = CalculatorQuest.CreateLimitDailyQuestData(userId, chapterQuests.Find(x => x.QuestId == questId));
 
         var list = new List<LimitDailyQuestData> { limitQuest };
 

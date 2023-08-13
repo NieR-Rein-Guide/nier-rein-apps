@@ -48,7 +48,7 @@ public class ActorAssetId : IEquatable<ActorAssetId>
 
     public override int GetHashCode()
     {
-        return Id + SkeletonId.Id * 1000;
+        return Id + (SkeletonId.Id * 1000);
     }
 
     public override string ToString()

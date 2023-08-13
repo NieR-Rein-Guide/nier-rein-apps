@@ -74,7 +74,7 @@ public static class CalculatorGuerrillaQuest
     public static int GetGuerrillaEventChapterId()
     {
         var guerillaChapter = CalculatorQuest.GetEventQuestChapters(EventQuestType.GUERRILLA);
-        return guerillaChapter.First().EventQuestChapterId;
+        return guerillaChapter[0].EventQuestChapterId;
     }
 
     private static bool TryGetGuerrillaFreeOpen(out EntityMEventQuestGuerrillaFreeOpen resultGuerrillaFreeOpenEntity)
@@ -87,7 +87,6 @@ public static class CalculatorGuerrillaQuest
     private static bool TryGetUserGuerrillaFreeOpen(long userId, out EntityIUserEventQuestGuerrillaFreeOpen guerrillaFreeOpen)
     {
         return DatabaseDefine.User.EntityIUserEventQuestGuerrillaFreeOpenTable.TryFindByUserId(userId, out guerrillaFreeOpen)
-            ? CalculatorDateTime.IsAfterTodaySpanningTime(guerrillaFreeOpen.StartDatetime)
-            : false;
+            && CalculatorDateTime.IsAfterTodaySpanningTime(guerrillaFreeOpen.StartDatetime);
     }
 }

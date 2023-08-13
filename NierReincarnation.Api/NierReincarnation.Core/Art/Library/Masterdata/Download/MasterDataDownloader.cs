@@ -198,7 +198,7 @@ public class MasterDataDownloader
         var result = new Range[count];
         for (var i = 0; i < count; i++)
         {
-            result[i] = new Range(i * bytesPerSplit, i * bytesPerSplit + bytesPerSplit);
+            result[i] = new Range(i * bytesPerSplit, (i * bytesPerSplit) + bytesPerSplit);
         }
 
         // Make last split large enough to fit remaining data

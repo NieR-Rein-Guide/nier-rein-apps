@@ -16,7 +16,7 @@ public static class CalculatorUserStatus
         // CUSTOM: Calculate max stamina by user level
         // HINT: It's unclear how this part works exactly, since the code references MasterTable that is seemingly unrelated to any stamina values
         // Implementation by in-game observations
-        return 50 + Math.Min(lvl - 1, 100) + Math.Max(0, lvl - 103) / 3;
+        return 50 + Math.Min(lvl - 1, 100) + (Math.Max(0, lvl - 103) / 3);
     }
 
     public static int GetCurrentUserLevel()

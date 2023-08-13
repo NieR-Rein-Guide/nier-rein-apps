@@ -24,7 +24,7 @@ public class QuestCellData
     public List<EntityMQuestScene> Scenes { get; set; }
 
     // CUSTOM: Determines the scene id for the battle field
-    public int FieldSceneId => Scenes.FirstOrDefault(x => x.QuestSceneType == QuestSceneType.FIELD)?.QuestSceneId ?? 0;
+    public int FieldSceneId => Scenes.Find(x => x.QuestSceneType == QuestSceneType.FIELD)?.QuestSceneId ?? 0;
 
     // CUSTOM: Determines if quest was already cleared
     public bool IsClear { get; set; }

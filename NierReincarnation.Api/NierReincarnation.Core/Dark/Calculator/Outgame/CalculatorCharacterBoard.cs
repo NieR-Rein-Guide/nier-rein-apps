@@ -53,9 +53,9 @@ public static class CalculatorCharacterBoard
     public static List<DataAbility> CreateCharacterBoardAbilityList(long userId, int characterId)
     {
         var boardAbilities = CalculatorDataCharacterBoard.CreateUserCharacterBoardAbilities(userId, characterId);
-        if (boardAbilities.Count <= 0)
+        if (boardAbilities.Count == 0)
             return null;
 
-        return boardAbilities.Select(ba => CalculatorAbility.CreateDataAbility(ba.AbilityId, ba.Level, 0)).ToList();
+        return boardAbilities.ConvertAll(ba => CalculatorAbility.CreateDataAbility(ba.AbilityId, ba.Level, 0));
     }
 }

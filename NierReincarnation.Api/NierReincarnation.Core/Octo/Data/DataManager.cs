@@ -183,7 +183,7 @@ internal class DataManager : IDatabase
 
     private void ConstructDictionary(Database db)
     {
-        var items = db.AssetBundleList.Select(ab => ItemFactory.Create(ab, db.TagName)).ToList();
+        var items = db.AssetBundleList.ConvertAll(ab => ItemFactory.Create(ab, db.TagName));
         _assetBundleDictionary = new Dictionary<string, Item>(items.Count + 1000);
 
         foreach (var item in items)
@@ -191,7 +191,7 @@ internal class DataManager : IDatabase
 
         ResetAllDependencies(db);
 
-        var items2 = db.ResourceList.Select(r => ItemFactory.CreateByResource(r, db.TagName)).ToList();
+        var items2 = db.ResourceList.ConvertAll(r => ItemFactory.CreateByResource(r, db.TagName));
         _resourceDictionary = new Dictionary<string, Item>(db.ResourceList.Count + 1000);
 
         foreach (var data in items2)

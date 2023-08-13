@@ -144,7 +144,7 @@ public static class CalculatorMemory
             var groupId = GetPartsSeriesBonusAbilityGroupId(serie.Key);
             var group = GetEntityMPartsSeriesBonusAbilityGroup(groupId, kMaxBonusSetCount);
 
-            if (group == null || group.Length <= 0)
+            if (group == null || group.Length == 0)
                 continue;
 
             foreach (var groupElement in group)

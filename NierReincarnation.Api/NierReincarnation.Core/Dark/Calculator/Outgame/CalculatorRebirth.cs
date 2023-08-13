@@ -20,8 +20,12 @@ public static class CalculatorRebirth
     {
         var table = DatabaseDefine.Master.EntityMCharacterRebirthTable;
         foreach (var entry in table.All)
+        {
             if (entry.CharacterId == characterId)
+            {
                 return GenerateTotalLevelLimitUpValue(entry.CharacterRebirthStepGroupId, rebirthCount);
+            }
+        }
 
         return kDefaultLevelLimitUpValue;
     }
@@ -37,7 +41,9 @@ public static class CalculatorRebirth
         var result = 0;
         var table = DatabaseDefine.Master.EntityMCharacterRebirthStepGroupTable;
         for (var i = 0; i < rebirthCount; i++)
+        {
             result += table.FindByCharacterRebirthStepGroupIdAndBeforeRebirthCount((characterRebirthStepGroupId, i)).CostumeLevelLimitUp;
+        }
 
         return result;
     }

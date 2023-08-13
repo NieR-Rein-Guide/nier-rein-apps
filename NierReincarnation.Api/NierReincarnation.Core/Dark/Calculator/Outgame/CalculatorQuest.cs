@@ -529,8 +529,7 @@ public static class CalculatorQuest
     public static List<CharacterQuestChapterData> GetCharacterQuestChapters()
     {
         return DatabaseDefine.Master.EntityMEventQuestChapterTable.All
-            .Where(x => x.EventQuestType == EventQuestType.CHARACTER)
-            .Where(x => CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime))
+            .Where(x => x.EventQuestType == EventQuestType.CHARACTER && CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime))
             .OrderBy(x => x.DisplaySortOrder)
             .Select(x => new CharacterQuestChapterData
             {
@@ -546,8 +545,7 @@ public static class CalculatorQuest
     public static List<CharacterQuestChapterData> GetEndQuestChapters()
     {
         return DatabaseDefine.Master.EntityMEventQuestChapterTable.All
-            .Where(x => x.EventQuestType == EventQuestType.END_CONTENTS)
-            .Where(x => CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime))
+            .Where(x => x.EventQuestType == EventQuestType.END_CONTENTS && CalculatorDateTime.IsWithinThePeriod(x.StartDatetime, x.EndDatetime))
             .OrderBy(x => x.DisplaySortOrder)
             .Select(x => new CharacterQuestChapterData
             {
@@ -761,7 +759,7 @@ public static class CalculatorQuest
         var userDeckPwr = table.FindByQuestReleaseConditionId(questReleaseConditionId);
 
         var table1 = DatabaseDefine.User.EntityIUserDeckTypeNoteTable;
-        return table1.All.Where(x => x.UserId == userId).Any(x => userDeckPwr.MaxDeckPower <= x.MaxDeckPower);
+        return table1.All.Any(x => x.UserId == userId && userDeckPwr.MaxDeckPower <= x.MaxDeckPower);
     }
 
     private static bool IsCheckUserLevel(int questReleaseConditionId, long userId)
@@ -1625,11 +1623,13 @@ public static class CalculatorQuest
 
         var seasonTable = DatabaseDefine.Master.EntityMMainQuestSeasonTable;
         foreach (var season in seasonTable.All)
+        {
             result.Add(new MainQuestSeasonData
             {
                 MainQuestSeasonId = season.MainQuestSeasonId,
                 MainQuestSeasonName = GetMainQuestSeasonName(season.SortOrder)
             });
+        }
 
         return result;
     }

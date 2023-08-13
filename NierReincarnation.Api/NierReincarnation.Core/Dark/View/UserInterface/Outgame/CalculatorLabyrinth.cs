@@ -61,14 +61,18 @@ public static class CalculatorLabyrinth
             var sequenceTable = DatabaseDefine.Master.EntityMEventQuestSequenceTable;
             var sequences = sequenceTable.FindRangeByEventQuestSequenceIdAndSortOrder((sequenceGroup.EventQuestSequenceId, labyrinthStage.StartSequenceSortOrder), (sequenceGroup.EventQuestSequenceId, labyrinthStage.EndSequenceSortOrder));
 
-            var firstSequence = sequences.First();
+            var firstSequence = sequences[0];
             if (firstSequence.EventQuestSequenceId != sequenceGroup.EventQuestSequenceId)
                 continue;
 
             var stageQuests = new List<DataLabyrinthQuestListQuest>(sequences.Count);
             if (sequences.Count > 0)
+            {
                 foreach (var sequence in sequences)
+                {
                     stageQuests.Add(new DataLabyrinthQuestListQuest(sequence.QuestId, sequence.SortOrder));
+                }
+            }
 
             stageQuests.Sort(DataLabyrinthQuestListQuestComparer.InstanceAscending);
 

@@ -56,7 +56,9 @@ public static class CalculatorShop
             // HINT: This check goes against the products retrieved from the platforms shop SDK Since we do not have access to such a shop SDK, we do
             // not return an invalid result, as the game does
             if (!DarkPurchase.Instance.IsExistsProduct(productId))
-                ;
+            {
+
+            }
         }
 
         var result = new DataShopItem
@@ -82,12 +84,12 @@ public static class CalculatorShop
             AssetCategoryId = entityMShopItem.AssetCategoryId,
             AssetVariationId = entityMShopItem.AssetVariationId,
 
-            DataPossessionItemList = itemPossession.Select(x => new DataPossessionItem
+            DataPossessionItemList = itemPossession.ConvertAll(x => new DataPossessionItem
             {
                 PossessionType = x.PossessionType,
                 PossessionId = x.PossessionId,
                 Count = x.Count
-            }).ToList(),
+            }),
 
             IsLimitedStock = limitedStock != null,
 
