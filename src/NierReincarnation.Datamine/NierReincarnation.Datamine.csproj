@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\External\AssetStudio\AssetStudioUtility\AssetStudioUtility.csproj" />
 		<ProjectReference Include="..\NierReincarnation.Api\NierReincarnation.Api.csproj" Condition="'$(Configuration)' == 'Debug' And Exists('..\NierReincarnation.Api\NierReincarnation.Api.csproj')" />
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="ConsoleTools" Version="1.1.1" />
@@ -19,8 +20,8 @@
 
 	<!-- Debug -->
 	<Target Name="CopyNativeBinariesBuild" DependsOnTargets="CopyFilesToOutputDirectory" AfterTargets="Build" Condition="$(Configuration) == 'Debug'">
-		<Copy SourceFiles="$(TargetDir)/runtimes/win-x64/native/fmod.dll" DestinationFolder="$(TargetDir)/x64" ContinueOnError="true" />
-		<Copy SourceFiles="$(TargetDir)/runtimes/win-x64/native/Texture2DDecoderNative.dll" DestinationFolder="$(TargetDir)/x64" ContinueOnError="true" />
+		<Copy SourceFiles="$(ProjectDir)/Libraries/x64/fmod.dll" DestinationFolder="$(TargetDir)/x64" ContinueOnError="true" />
+		<Copy SourceFiles="$(ProjectDir)/Libraries/x64/Texture2DDecoderNative.dll" DestinationFolder="$(TargetDir)/x64" ContinueOnError="true" />
 	</Target>
 
 	<!-- Publish -->

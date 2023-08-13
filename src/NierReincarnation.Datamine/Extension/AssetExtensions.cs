@@ -1,4 +1,5 @@
-﻿//using Object = AssetStudio.Object;
+﻿using AssetStudio;
+using Object = AssetStudio.Object;
 
 namespace NierReincarnation.Datamine.Extension;
 
@@ -8,10 +9,10 @@ public static class AssetExtensions
     {
         return item switch
         {
-            //AudioClip audioClip => audioClip.m_Name,
-            //Sprite sprite => sprite.m_Name,
-            //TextAsset textAsset => textAsset.m_Name,
-            //AssetBundle assetBundle => assetBundle.m_Name,
+            AudioClip audioClip => audioClip.m_Name,
+            Sprite sprite => sprite.m_Name,
+            TextAsset textAsset => textAsset.m_Name,
+            AssetBundle assetBundle => assetBundle.m_Name,
 
             _ => string.Empty
         };

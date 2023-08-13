@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation.Db", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation.Cli", "src\NierReincarnation.Cli\NierReincarnation.Cli.csproj", "{ED85063C-0B53-4816-844C-90B8CCAA6F50}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "src\External\AssetStudio\AssetStudioUtility\AssetStudioUtility.csproj", "{E5064D48-7650-4BDC-87F1-0DB8E0CA1B12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{ED85063C-0B53-4816-844C-90B8CCAA6F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED85063C-0B53-4816-844C-90B8CCAA6F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED85063C-0B53-4816-844C-90B8CCAA6F50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5064D48-7650-4BDC-87F1-0DB8E0CA1B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5064D48-7650-4BDC-87F1-0DB8E0CA1B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5064D48-7650-4BDC-87F1-0DB8E0CA1B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5064D48-7650-4BDC-87F1-0DB8E0CA1B12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{259D56DA-1964-41FA-8DA8-FB800793C05B} = {0533A24F-25AE-4809-8A5F-1BFFCA4D1528}
 		{3BDDA088-EAA4-4DBD-9C1C-4223DFD7D079} = {0533A24F-25AE-4809-8A5F-1BFFCA4D1528}
 		{ED85063C-0B53-4816-844C-90B8CCAA6F50} = {0533A24F-25AE-4809-8A5F-1BFFCA4D1528}
+		{E5064D48-7650-4BDC-87F1-0DB8E0CA1B12} = {11630C88-D5D0-49AC-88D0-CE3922260EE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93B10AC4-88B0-4540-933C-08FD862162D4}

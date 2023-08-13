@@ -1,9 +1,8 @@
-﻿using DustInTheWind.ConsoleTools.Controls.Spinners;
-using NierReincarnation.Core.AssetStudio;
+﻿using AssetStudio;
+using DustInTheWind.ConsoleTools.Controls.Spinners;
 using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Datamine.Extension;
-
-//using Object = AssetStudio.Object;
+using Object = AssetStudio.Object;
 
 namespace NierReincarnation.Datamine.Command;
 
@@ -110,7 +109,7 @@ public class ExportAssetsCommand : AbstractExportCommand
     private static Dictionary<Object, string> GetAssetsToExport(BaseExportEntityCommandArg arg)
     {
         Dictionary<Object, string> assetsDic = new();
-        //List<(PPtr<Object>, string)> containers = new();
+        List<(PPtr<Object>, string)> containers = new();
         List<Object> assetFileList = new();
         List<string> assetNames = new();
 
@@ -122,8 +121,8 @@ public class ExportAssetsCommand : AbstractExportCommand
             if (!Directory.Exists(folderPath)) continue;
 
             AssetsManager assetsManager = new();
-            //assetsManager.LoadFolder(folderPath);
-            //assetFileList.AddRange(assetsManager.assetsFileList.SelectMany(x => x.Objects).Where(x => x is AudioClip || x is Sprite || x is TextAsset || x is AssetBundle));
+            assetsManager.LoadFolder(folderPath);
+            assetFileList.AddRange(assetsManager.assetsFileList.SelectMany(x => x.Objects).Where(x => x is AudioClip || x is Sprite || x is TextAsset || x is AssetBundle));
         }
 
         // Collect assets and containers to export
@@ -134,44 +133,44 @@ public class ExportAssetsCommand : AbstractExportCommand
             if (assetNames.Contains(assetName)) continue;
             assetNames.Add(assetName);
 
-            //if (asset is AudioClip audioClip)
-            //{
-            //    assetsDic.TryAdd(audioClip, string.Empty);
-            //}
-            //else if (asset is Sprite sprite)
-            //{
-            //    assetsDic.TryAdd(sprite, string.Empty);
-            //}
-            //else if (asset is TextAsset textAsset)
-            //{
-            //    assetsDic.TryAdd(textAsset, string.Empty);
-            //}
-            //else if (asset is AssetBundle assetBundle)
-            //{
-            //    foreach (var m_Container in assetBundle.m_Container)
-            //    {
-            //        int preloadIndex = m_Container.Value.preloadIndex;
-            //        int preloadSize = m_Container.Value.preloadSize;
-            //        int preloadEnd = preloadIndex + preloadSize;
-            //        for (int k = preloadIndex; k < preloadEnd; k++)
-            //        {
-            //            containers.Add((assetBundle.m_PreloadTable[k], m_Container.Key));
-            //        }
-            //    }
-            //}
+            if (asset is AudioClip audioClip)
+            {
+                assetsDic.TryAdd(audioClip, string.Empty);
+            }
+            else if (asset is Sprite sprite)
+            {
+                assetsDic.TryAdd(sprite, string.Empty);
+            }
+            else if (asset is TextAsset textAsset)
+            {
+                assetsDic.TryAdd(textAsset, string.Empty);
+            }
+            else if (asset is AssetBundle assetBundle)
+            {
+                foreach (var m_Container in assetBundle.m_Container)
+                {
+                    int preloadIndex = m_Container.Value.preloadIndex;
+                    int preloadSize = m_Container.Value.preloadSize;
+                    int preloadEnd = preloadIndex + preloadSize;
+                    for (int k = preloadIndex; k < preloadEnd; k++)
+                    {
+                        containers.Add((assetBundle.m_PreloadTable[k], m_Container.Key));
+                    }
+                }
+            }
         }
 
         // Assign containers to assets
-        //foreach ((var pptr, string container) in containers)
-        //{
-        //    if (pptr.TryGet(out Object obj))
-        //    {
-        //        if (obj is AudioClip || obj is Sprite || obj is TextAsset)
-        //        {
-        //            assetsDic[obj] = container;
-        //        }
-        //    }
-        //}
+        foreach ((var pptr, string container) in containers)
+        {
+            if (pptr.TryGet(out Object obj))
+            {
+                if (obj is AudioClip || obj is Sprite || obj is TextAsset)
+                {
+                    assetsDic[obj] = container;
+                }
+            }
+        }
 
         return assetsDic;
     }
@@ -180,8 +179,8 @@ public class ExportAssetsCommand : AbstractExportCommand
     {
         return asset switch
         {
-            //AudioClip => ".wav",
-            //Sprite => $".{nameof(ImageFormat.Png).ToLower()}",
+            AudioClip => ".wav",
+            Sprite => $".{nameof(ImageFormat.Png).ToLower()}",
             TextAsset => ".txt",
             _ => ".unknown"
         };
@@ -191,61 +190,61 @@ public class ExportAssetsCommand : AbstractExportCommand
     {
         return asset switch
         {
-            //AudioClip audioClip => ExportAudioClip(audioClip, basePath, containerPath),
-            //Sprite sprite => ExportSprite(sprite, basePath, containerPath),
-            //TextAsset textAsset => ExportTextAsset(textAsset, basePath, containerPath),
+            AudioClip audioClip => ExportAudioClip(audioClip, basePath, containerPath),
+            Sprite sprite => ExportSprite(sprite, basePath, containerPath),
+            TextAsset textAsset => ExportTextAsset(textAsset, basePath, containerPath),
             _ => false
         };
     }
 
-    //public bool ExportAudioClip(AudioClip item, string basePath, string containerPath)
-    //{
-    //    byte[] audioData = item.m_AudioData.GetData();
-    //    if (audioData == null || audioData.Length == 0) return false;
+    public bool ExportAudioClip(AudioClip item, string basePath, string containerPath)
+    {
+        byte[] audioData = item.m_AudioData.GetData();
+        if (audioData == null || audioData.Length == 0) return false;
 
-    // AudioClipConverter converter = new(item); string fileName = FixFileName(item.GetItemName()) + GetAssetExtension(item);
+        AudioClipConverter converter = new(item); string fileName = FixFileName(item.GetItemName()) + GetAssetExtension(item);
 
-    // if (!TryExportFile(basePath, containerPath, fileName, out string exportFullPath)) return false;
+        if (!TryExportFile(basePath, containerPath, fileName, out string exportFullPath)) return false;
 
-    // byte[] buffer = converter.ConvertToWav(); if (buffer == null) return false;
+        byte[] buffer = converter.ConvertToWav(); if (buffer == null) return false;
 
-    // File.WriteAllBytes(exportFullPath, buffer); ExportedFiles.Add(Path.Combine(containerPath, fileName));
+        File.WriteAllBytes(exportFullPath, buffer); ExportedFiles.Add(Path.Combine(containerPath, fileName));
 
-    //    return true;
-    //}
+        return true;
+    }
 
-    //public bool ExportSprite(Sprite item, string basePath, string containerPath)
-    //{
-    //    string fileName = FixFileName(item.GetItemName()) + GetAssetExtension(item);
+    public bool ExportSprite(Sprite item, string basePath, string containerPath)
+    {
+        string fileName = FixFileName(item.GetItemName()) + GetAssetExtension(item);
 
-    // if (!TryExportFile(basePath, containerPath, fileName, out string exportFullPath)) return false;
+        if (!TryExportFile(basePath, containerPath, fileName, out string exportFullPath)) return false;
 
-    //    var image = item.GetImage();
-    //    if (image != null)
-    //    {
-    //        using (image)
-    //        {
-    //            using (var file = File.OpenWrite(exportFullPath))
-    //            {
-    //                image.WriteToStream(file, ImageFormat.Png);
-    //            }
-    //            ExportedFiles.Add(Path.Combine(containerPath, fileName));
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
+        var image = item.GetImage();
+        if (image != null)
+        {
+            using (image)
+            {
+                using (var file = File.OpenWrite(exportFullPath))
+                {
+                    image.WriteToStream(file, ImageFormat.Png);
+                }
+                ExportedFiles.Add(Path.Combine(containerPath, fileName));
+                return true;
+            }
+        }
+        return false;
+    }
 
-    //public bool ExportTextAsset(TextAsset item, string basePath, string containerPath)
-    //{
-    //    string fileName = FixFileName(item.GetItemName()) + GetAssetExtension(item);
+    public bool ExportTextAsset(TextAsset item, string basePath, string containerPath)
+    {
+        string fileName = FixFileName(item.GetItemName()) + GetAssetExtension(item);
 
-    // if (!TryExportFile(basePath, containerPath, fileName, out string exportFullPath)) return false;
+        if (!TryExportFile(basePath, containerPath, fileName, out string exportFullPath)) return false;
 
-    // File.WriteAllBytes(exportFullPath, item.m_Script); ExportedFiles.Add(Path.Combine(containerPath, fileName));
+        File.WriteAllBytes(exportFullPath, item.m_Script); ExportedFiles.Add(Path.Combine(containerPath, fileName));
 
-    //    return true;
-    //}
+        return true;
+    }
 
     private static bool TryExportFile(string basePath, string containerPath, string fileName, out string fullPath)
     {

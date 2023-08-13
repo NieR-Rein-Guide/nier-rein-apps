@@ -5,7 +5,7 @@ namespace NierReincarnation.Datamine.Extension;
 
 public static class DateTimeExtensions
 {
-    public static DateTimeOffset Yesterday => DateTimeOffset.UtcNow.AddDays(-30);
+    public static DateTimeOffset Yesterday => DateTimeOffset.UtcNow.AddDays(-1);
 
     public static DateTimeOffset Now => DateTimeOffset.UtcNow;
 
