@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Version>1.0.0</Version>
+        <Authors>BillyCool, onepiecefreak</Authors>
+        <Description>API to interact with NieR Re[in]carnation data</Description>
+        <Copyright>2023</Copyright>
+        <PackageProjectUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</RepositoryUrl>
+        <PackageTags>NieR;Re[in]carnation;Reincarnation;API</PackageTags>
+        <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\NierReincarnation.Core\NierReincarnation.Core.csproj" Condition="'$(Configuration)' == 'Debug' And Exists('..\NierReincarnation.Core\NierReincarnation.Core.csproj')" />
+		<PackageReference Include="NierReincarnation.Core" Version="1.0.0" />
+	</ItemGroup>
+
+</Project>

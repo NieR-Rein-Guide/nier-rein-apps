@@ -1,0 +1,26 @@
+using NierReincarnation.Core.MasterMemory;
+
+namespace NierReincarnation.Core.Dark;
+
+[MessagePackObject]
+[MemoryTable("m_character_viewer_field_settings")]
+public class EntityMCharacterViewerFieldSettings
+{
+    [Key(0)]
+    public int AssetBackgroundId { get; set; }
+
+    [Key(1)]
+    public int BgmAssetId { get; set; }
+
+    [Key(2)]
+    public int Stem { get; set; }
+
+    [Key(3)]
+    public int BattleFieldLocaleSettingIndex { get; set; }
+
+    [Key(4)]
+    public int PostProcessConfigurationIndex { get; set; }
+
+    [Key(5)]
+    public int BattlePointIndex { get; set; }
+}

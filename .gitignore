@@ -350,5 +350,5 @@ MigrationBackup/
 .ionide/
 
 # Db and user configuration files
-/NierReincarnation.Db/config/dbConfig.json
-/NierReincarnation.Db/config/userConfig.json
+/src/NierReincarnation.Db/config/dbConfig.json
+/src/NierReincarnation.Db/config/userConfig.json
