@@ -44,6 +44,7 @@ public static class Program
     {
         await SetupApplicationAsync();
 
+        Console.WriteLine("Running...");
         await AddNotifications();
         await AddCharactersAsync();
         await AddCharacterRankBonusesAsync();
@@ -58,6 +59,7 @@ public static class Program
         await AddLibraryStoriesAsync();
 
         await _postgreDbContext.SaveChangesAsync();
+        Console.WriteLine("Done");
     }
 
     #region Setup
@@ -71,6 +73,7 @@ public static class Program
 
     private static async Task SetupDatabaseAsync()
     {
+        Console.WriteLine("Setting up database...");
         var dbConfig = GetDbConfig();
 
         _postgreDbContext = new PostgreDbContext(dbConfig);
@@ -96,7 +99,9 @@ public static class Program
     {
         Application.Version = await ApkMirrorVersionChecker.GetCurrentVersion();
 
+        Console.WriteLine("Initializing application...");
         await NierReincarnationApp.InitializeApplicationAsync(new ApplicationInitArguments(true, true, false));
+        Console.WriteLine("Initializing localizations...");
         await NierReincarnationApp.LoadLocalizations(SystemLanguage.English);
     }
 

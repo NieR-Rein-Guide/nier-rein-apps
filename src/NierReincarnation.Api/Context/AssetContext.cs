@@ -9,8 +9,6 @@ namespace NierReincarnation.Context;
 
 public class AssetContext
 {
-    private static readonly object _lockObj = new();
-
     private static readonly Func<DataManager, IEnumerable<Item>> GetAssets = manager =>
         manager.GetAllAssetBundleNames().Select(n => manager.GetAssetBundleItemByName(n));
 
@@ -108,18 +106,10 @@ public class AssetContext
 
         var items = getItemsFunc(dataManager).Where(itemSelector).ToArray();
 
-        var counter = 0;
-        Console.Write($"\rProcessed 0/{items.Length}");
-
         await Task.Run(() => items.AsParallel().ForAll(item =>
         {
             ProcessSingleAsset(item, targetDir, isAssetBundle, client, dataManager).Wait();
-
-            lock (_lockObj)
-                Console.Write($"\rProcessed {counter++}/{items.Length}");
         }));
-
-        Console.WriteLine();
     }
 
     private static async Task ProcessSingleAsset(Item item, string targetDir, bool isAssetBundle, HttpClient client, DataManager dataManager)

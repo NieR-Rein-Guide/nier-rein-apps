@@ -129,6 +129,7 @@ public static class NierReincarnationApp
             throw new ApiException("Failed to generate login URL");
         }
 
+        Console.WriteLine();
         Console.WriteLine($"Login to your account at: {authUrlResult.Url}");
         Console.WriteLine("Once you login and confirm transfer, press ENTER to continue");
 

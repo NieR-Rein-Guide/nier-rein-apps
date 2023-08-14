@@ -31,11 +31,8 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
     protected async Task Setup()
     {
-        var tempTextWriter = Console.Out;
-
         try
         {
-            //Console.SetOut(TextWriter.Null);
             if (Reset)
             {
                 NierReincarnationApp.ResetApplication();
@@ -53,7 +50,6 @@ public abstract class AbstractSimpleMenuCommand : ICommand
         }
         finally
         {
-            Console.SetOut(tempTextWriter);
             Console.WriteLine();
         }
     }
