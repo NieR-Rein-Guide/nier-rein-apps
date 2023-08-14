@@ -5,7 +5,7 @@ An assortment of applications interfacing with the API of Nier Reincarnation, bu
 This is the Core implementation of the game by reverse engineering the game code and closely follows the same structure and behavior.
 
 ## NierReincarnation.Api
-This is a higher level library that uses NierReincarnation.Core and exploses extra custom functionality.
+This is a higher level library that uses NierReincarnation.Core and exposes extra custom functionality.
 
 ## NierReincarnation.Datamine
 An application used to datamine information from the game. It has a dependency on [AssetStudio](https://github.com/Perfare/AssetStudio).
