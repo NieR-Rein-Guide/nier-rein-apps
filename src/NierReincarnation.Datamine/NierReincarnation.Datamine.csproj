@@ -14,10 +14,6 @@
 		<PackageReference Include="NierReincarnation.Api" Version="1.0.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\NierReincarnation.Api\NierReincarnation.Api.csproj" />
-	</ItemGroup>
-
 	<!-- Debug -->
 	<Target Name="CopyNativeBinariesBuild" DependsOnTargets="CopyFilesToOutputDirectory" AfterTargets="Build" Condition="$(Configuration) == 'Debug'">
 		<Copy SourceFiles="$(ProjectDir)/Libraries/x64/fmod.dll" DestinationFolder="$(TargetDir)/x64" ContinueOnError="true" />

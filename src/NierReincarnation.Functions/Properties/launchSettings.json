@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "NierReincarnation.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7266"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 31191,
+      "useSSL": false
+    }
+  }
+}
