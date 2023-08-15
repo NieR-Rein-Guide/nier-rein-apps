@@ -14,12 +14,6 @@ public static class Program
 {
     public class Options
     {
-        [Option('u', "username", Required = false, HelpText = "Set the username of the account.")]
-        public string Username { get; set; } = "";
-
-        [Option('p', "password", Required = false, HelpText = "Set the password of the account.")]
-        public string Password { get; set; } = "";
-
         [Option('r', "revision", Required = false, HelpText = "Set the current database revision.")]
         public int DbRevision { get; set; }
 
@@ -39,7 +33,7 @@ public static class Program
         public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(2);
 
         [JsonIgnore]
-        public bool IsSetup => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password) && DbRevision >= 0 && !string.IsNullOrEmpty(AppVersion) && !string.IsNullOrEmpty(WorkingfDir);
+        public bool IsSetup => DbRevision >= 0 && !string.IsNullOrEmpty(AppVersion) && !string.IsNullOrEmpty(WorkingfDir);
     }
 
     public static Options AppSettings { get; set; }
@@ -100,15 +94,19 @@ public static class Program
                     : new();
 
             Directory.CreateDirectory(AppSettings.WorkingfDir);
+
+            if (string.IsNullOrWhiteSpace(AppSettings.AppVersion))
+            {
+                AppSettings.AppVersion = ApkMirrorVersionChecker.GetCurrentVersion().GetAwaiter().GetResult();
+            }
         }
         catch (Exception)
         {
-            AppSettings = new();
+            AppSettings ??= new();
         }
         finally
         {
             Application.Version = AppSettings.AppVersion;
-            //Application.Language = Language.Japanese;
 
             await new SaveConfigurationCommand().ExecuteAsync();
         }
@@ -116,7 +114,7 @@ public static class Program
 
     private static TextMenu BuildMainMenu()
     {
-        TextMenu textMenu = MenuExtensions.GetTextMenu($"NieR Re[in]carnation Dataminer | App: {AppSettings.AppVersion} | DB: {AppSettings.DbRevision} | User: {AppSettings.Username} | Workspace: {AppSettings.WorkingfDir}");
+        TextMenu textMenu = MenuExtensions.GetTextMenu($"NieR Re[in]carnation Dataminer | App: {AppSettings.AppVersion} | DB: {AppSettings.DbRevision} | Workspace: {AppSettings.WorkingfDir}");
 
         textMenu.AddItems(new List<TextMenuItem>
         {

@@ -16,7 +16,6 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
     {
         Console.Clear();
         Console.WriteLine("=====CONFIGURATION=====");
-        Console.WriteLine($"Username: {AppSettings.Username}");
         Console.WriteLine($"App Version: {AppSettings.AppVersion}");
         Console.WriteLine($"DB Revision: {AppSettings.DbRevision}");
         Console.WriteLine($"Working Directory: {AppSettings.WorkingfDir}");
@@ -45,43 +44,43 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
             new TextMenuItem
             {
                 Id = "1",
-                Text = "Change Account",
-                Command = new UpdateAccountMenuCommand(new UpdateConfigurationCommandArg { Reset = true })
+                Text = "Remove Account",
+                Command = new RemoveAccountMenuCommand(new UpdateConfigurationCommandArg { Reset = true })
             },
             new TextMenuItem
             {
                 Id = "2",
-                Text = "Change Database Revision",
+                Text = "Set Database Revision",
                 Command = new UpdateDbRevisionMenuCommand(new UpdateConfigurationCommandArg { Reset = true })
             },
             new TextMenuItem
             {
                 Id = "3",
-                Text = "Change App Version",
+                Text = "Set App Version",
                 Command = new UpdateAppVersionMenuCommand(new UpdateConfigurationCommandArg { Reset = true })
             },
             new TextMenuItem
             {
                 Id = "4",
-                Text = "Change Working Directory",
+                Text = "Set Working Directory",
                 Command = new UpdateWorkingDirMenuCommand(new UpdateConfigurationCommandArg())
             },
             new TextMenuItem
             {
                 Id = "5",
-                Text = "Change Date Format",
+                Text = "Set Date Format",
                 Command = new UpdateDateFormatMenuCommand(new UpdateConfigurationCommandArg())
             },
             new TextMenuItem
             {
                 Id = "6",
-                Text = "Change Asset Download Timeout",
+                Text = "Set Asset Download Timeout",
                 Command = new UpdateAssetDownloadTimeoutMenuCommand(new UpdateConfigurationCommandArg())
             },
             new TextMenuItem
             {
                 Id = "7",
-                Text = "Change Asset Auto Copy Behavior",
+                Text = "Set Asset Auto Copy Behavior",
                 Command = new UpdateAssetAutoCopyMenuCommand(new UpdateConfigurationCommandArg())
             }
         });
