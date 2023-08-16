@@ -13,22 +13,18 @@ public abstract class DatabaseBuilderBase
     private readonly Dictionary<string, (int, int)> header;
     private readonly MessagePackSerializerOptions options;
 
-    public DatabaseBuilderBase(IFormatterResolver resolver)
+    protected DatabaseBuilderBase(IFormatterResolver resolver)
     {
         bufferWriter = new ArrayBufferWriter<byte>();
         header = new Dictionary<string, (int, int)>();
-
-        if (resolver == null)
-            return;
-
         options = MessagePackSerializer.DefaultOptions
-            .WithCompression(MessagePackCompression.Lz4Block)
-            .WithResolver(resolver);
+                .WithCompression(MessagePackCompression.Lz4Block)
+                .WithResolver(resolver ?? MessagePackSerializer.DefaultOptions.Resolver);
     }
 
     public byte[] Build()
     {
-        using var ms = new MemoryStream();
+        using MemoryStream ms = new();
         WriteToStream(ms);
 
         return ms.ToArray();
@@ -40,9 +36,6 @@ public abstract class DatabaseBuilderBase
         MessagePackSerializer.Serialize(stream, header, HeaderFormatterResolver.StandardOptions);
 
         // Write data blob
-        if (bufferWriter == null)
-            return;
-
         MemoryMarshal.TryGetArray(bufferWriter.WrittenMemory, out var array);
         stream.Write(array);
     }
@@ -58,11 +51,8 @@ public abstract class DatabaseBuilderBase
         }
 
         var elements = dataSource.OrderBy(indexSelector, comparer).ToArray();
-
-        var localOptions = options ?? MessagePackSerializer.DefaultOptions.WithCompression(MessagePackCompression.Lz4Block).WithResolver(MessagePackSerializer.DefaultOptions.Resolver);
-
         var offset = bufferWriter.WrittenCount;
-        MessagePackSerializer.Serialize(bufferWriter, elements, localOptions);
+        MessagePackSerializer.Serialize(bufferWriter, elements, options);
         header[memoryTableAttribute.TableName] = (offset, bufferWriter.WrittenCount - offset);
     }
 }

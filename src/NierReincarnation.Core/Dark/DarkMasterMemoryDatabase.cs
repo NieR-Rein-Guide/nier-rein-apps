@@ -1176,6 +1176,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     protected override void Init(Dictionary<string, (int, int)> header, ReadOnlyMemory<byte> databaseBinary, MessagePackSerializerOptions options)
     {
+        //var tableCount = GetType().GetProperties().Count(x => x.PropertyType.BaseType?.IsGenericType == true && x.PropertyType.BaseType.GetGenericTypeDefinition() == typeof(TableBase<>));
         EntityMAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbility[], EntityMAbilityTable>(data => new EntityMAbilityTable(data)));
         EntityMAbilityBehaviourTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviour[], EntityMAbilityBehaviourTable>(data => new EntityMAbilityBehaviourTable(data)));
         EntityMAbilityBehaviourActionBlessTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMAbilityBehaviourActionBless[], EntityMAbilityBehaviourActionBlessTable>(data => new EntityMAbilityBehaviourActionBlessTable(data)));
