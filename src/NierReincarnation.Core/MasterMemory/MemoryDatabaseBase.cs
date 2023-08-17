@@ -6,6 +6,8 @@ namespace NierReincarnation.Core.MasterMemory;
 
 public abstract class MemoryDatabaseBase
 {
+    public string Version { get; set; } // Note: Custom property to keep track of memory db version
+
     protected MemoryDatabaseBase()
     { }
 

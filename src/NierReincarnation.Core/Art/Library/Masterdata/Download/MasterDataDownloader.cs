@@ -66,7 +66,10 @@ public class MasterDataDownloader
         }
 
         var decMasterData = Decrypt?.Invoke(masterData);
-        DatabaseDefine.Master = new DarkMasterMemoryDatabase(decMasterData);
+        DatabaseDefine.Master = new DarkMasterMemoryDatabase(decMasterData)
+        {
+            Version = versionResponse.LatestMasterDataVersion.Split('/').LastOrDefault()
+        };
 
         if (!masterDataCache.Item1)
         {
