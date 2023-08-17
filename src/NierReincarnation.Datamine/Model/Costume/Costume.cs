@@ -26,6 +26,8 @@ public class Costume
 
     public Debris Debris { get; init; }
 
+    public List<CostumeKarmaSlot> KarmaSlots { get; init; }
+
     public IEnumerable<string> AwakenStrings => Stats?.OrderBy(x => x.Awakenings).Select(x => x.Awakenings != null ? $"A{x.Awakenings}" : "Base").Distinct();
 
     public IEnumerable<int> AgilityStrings => Stats?.OrderBy(x => x.Awakenings).Select(x => x.Agility);
@@ -60,6 +62,9 @@ public class Costume
 
         // Debris
         WriteCostumeDebris(stringBuilder);
+
+        // Karma slots
+        WriteCostumeKarmaSlots(stringBuilder);
 
         return stringBuilder.ToString();
     }
@@ -119,7 +124,19 @@ public class Costume
     {
         if (Debris != null)
         {
-            stringBuilder.Append(Debris);
+            stringBuilder.AppendLine(Debris.ToString());
+        }
+    }
+
+    private void WriteCostumeKarmaSlots(StringBuilder stringBuilder)
+    {
+        if (KarmaSlots?.Count > 0)
+        {
+            stringBuilder.AppendLine($"Karma Slots ({RarityType.SS_RARE.ToFormattedStr(false)})".ToBold());
+            foreach (var karmaSlot in KarmaSlots)
+            {
+                stringBuilder.Append(karmaSlot.ToString());
+            }
         }
     }
 }

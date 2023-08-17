@@ -1,5 +1,4 @@
 ﻿using NierReincarnation.Core.Dark.Generated.Type;
-using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Datamine.Extension;
 using NierReincarnation.Datamine.Model;
 
@@ -27,7 +26,6 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         await WriteLoginBonusesAsync();
         await WriteMissionGroupsAsync();
         await WriteFateBoardsAsync();
-        WriteItems();
     }
 
     #region Costumes
@@ -176,7 +174,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllRemnantsCommand().ExecuteAsync(new FetchAllRemnantsCommandArg
         {
-            FromDate = DateTimeExtensions.Yesterday.AddDays(-90)
+            FromDate = DateTimeExtensions.Yesterday
         });
     }
 
@@ -332,33 +330,6 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
     #endregion Missions
 
-    #region Items
-
-    public static void WriteItems()
-    {
-        List<string> items = new();
-        foreach (var material in MasterDb.EntityMMaterialTable.All)
-        {
-            if (material.MaterialId <= 313200 || material.MaterialId >= 313203) continue;
-
-            items.Add($"material.name.{material.MaterialId}".Localize());
-        }
-
-        if (items.Count > 0)
-        {
-            Console.WriteLine("Items".ToHeader2());
-
-            foreach (var item in items)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine();
-            Console.WriteLine();
-        }
-    }
-
-    #endregion Items
-
     #region Fate Boards
 
     private static async Task<List<FateBoard>> GetFateBoardsAsync()
@@ -376,16 +347,16 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         var fateBoards = await GetFateBoardsAsync();
 
         if (fateBoards.Count > 0)
-            {
+        {
             Console.WriteLine("Fate Boards".ToHeader2());
             foreach (var fateBoard in fateBoards.OrderBy(x => x.StartDateTimeOffset))
-                {
+            {
                 Console.WriteLine(fateBoard);
-                }
-                Console.WriteLine();
-                Console.WriteLine();
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
+    }
 
     #endregion Fate Boards
 }

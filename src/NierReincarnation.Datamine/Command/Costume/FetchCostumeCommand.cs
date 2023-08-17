@@ -35,7 +35,8 @@ public class FetchCostumeCommand : AbstractDbQueryCommand<FetchCostumeCommandArg
             Stats = await GetCostumeStatsAsync(arg, darkCostume),
             Skill = await GetCostumeSkillAsync(arg, darkCostume),
             Abilities = await GetCostumeAbilitiesAsync(arg, darkCostume),
-            Debris = await GetCostumeDebrisAsync(arg, darkCostume)
+            Debris = await GetCostumeDebrisAsync(arg, darkCostume),
+            KarmaSlots = await GetCostumeKarmaSlotsAsync(arg, darkCostume)
         };
     }
 
@@ -80,6 +81,17 @@ public class FetchCostumeCommand : AbstractDbQueryCommand<FetchCostumeCommandArg
             Entity = darkCostume
         });
     }
+
+    private static async Task<List<CostumeKarmaSlot>> GetCostumeKarmaSlotsAsync(FetchCostumeCommandArg arg, EntityMCostume darkCostume)
+    {
+        if (!arg.IncludeKarmaSlots) return null;
+
+        return await new FetchCostumeKarmaSlotsCommand().ExecuteAsync(new FetchCostumeKarmaSlotsCommandArg
+        {
+            Entity = darkCostume,
+            KarmaSlots = new[] { 1, 2, 3 } 
+        });
+    }
 }
 
 public class FetchCostumeCommandArg : AbstractEntityCommandWithDatesArg<EntityMCostume>
@@ -93,6 +105,8 @@ public class FetchCostumeCommandArg : AbstractEntityCommandWithDatesArg<EntityMC
     public bool IncludeAbilities { get; init; } = true;
 
     public bool IncludeDebris { get; init; } = true;
+
+    public bool IncludeKarmaSlots { get; init; } = true;
 
     public override bool IsValid()
     {

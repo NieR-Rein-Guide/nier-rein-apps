@@ -29,7 +29,7 @@ public class UserMemoir
 
     public decimal DefenseFlat { get; init; }
 
-    public decimal DefencePercent { get; init; }
+    public decimal DefensePercent { get; init; }
 
     public decimal EvasionRate { get; init; }
 
@@ -62,7 +62,7 @@ public class UserMemoir
         DefenseFlat = GetMainStatValue(darkUserMemoirData.MainMemoryStatus, darkUserMemoirData.RarityType, StatusKindType.VITALITY, StatusCalculationType.ADD) +
             darkUserMemoirData.SubMemoryStatus.Sum(x => GetSubStatValue(x, StatusKindType.VITALITY, StatusCalculationType.ADD, x.StatusChangeValue));
 
-        DefencePercent = GetMainStatValue(darkUserMemoirData.MainMemoryStatus, darkUserMemoirData.RarityType, StatusKindType.VITALITY, StatusCalculationType.MULTIPLY) +
+        DefensePercent = GetMainStatValue(darkUserMemoirData.MainMemoryStatus, darkUserMemoirData.RarityType, StatusKindType.VITALITY, StatusCalculationType.MULTIPLY) +
             darkUserMemoirData.SubMemoryStatus.Sum(x => GetSubStatValue(x, StatusKindType.VITALITY, StatusCalculationType.MULTIPLY, x.StatusChangeValue));
 
         EvasionRate = GetMainStatValue(darkUserMemoirData.MainMemoryStatus, darkUserMemoirData.RarityType, StatusKindType.EVASION_RATIO, StatusCalculationType.ADD) +

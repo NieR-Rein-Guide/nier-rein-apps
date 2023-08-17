@@ -74,7 +74,7 @@ public class ExportMemoirsMenuCommand : AbstractMenuCommand
             .Append(',')
             .Append(userMemoir.DefenseFlat)
             .Append(',')
-            .Append(userMemoir.DefencePercent)
+            .Append(userMemoir.DefensePercent)
             .Append(',')
             .Append(userMemoir.Agility)
             .Append(',')

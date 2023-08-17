@@ -17,6 +17,7 @@ public class FetchAllCostumesCommand : AbstractDbQueryCommand<FetchAllCostumesCo
                 IncludeSkills = arg.IncludeSkills,
                 IncludeAbilities = arg.IncludeAbilities,
                 IncludeDebris = arg.IncludeDebris,
+                IncludeKarmaSlots = arg.IncludeKarmaSlots,
                 FromDate = arg.FromDate,
                 ToDate = arg.ToDate
             });
@@ -42,4 +43,6 @@ public class FetchAllCostumesCommandArg : AbstractCommandWithDatesArg
     public bool IncludeAbilities { get; init; } = true;
 
     public bool IncludeDebris { get; init; } = true;
+
+    public bool IncludeKarmaSlots { get; init; } = true;
 }

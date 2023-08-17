@@ -9,7 +9,8 @@ public class ExportCostumeInfoMenuCommand : AbstractMenuCommand
             IncludeStats = false,
             IncludeSkills = false,
             IncludeAbilities = false,
-            IncludeDebris = false
+            IncludeDebris = false,
+            IncludeKarmaSlots = false,
         });
 
         foreach (var costume in costumes.OrderBy(x => x.AssetId))
