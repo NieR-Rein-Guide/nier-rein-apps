@@ -16,7 +16,7 @@ public class ExportMemoirStoryMenuCommand : AbstractMenuCommand<ExportMemoirStor
         var darkMemoirSeries = MasterDb.EntityMPartsSeriesTable.FindByPartsSeriesId(arg.PartsSeriesId);
         var memoirSeriesName = CalculatorMemory.MemorySeriesName(darkMemoirSeries.PartsSeriesId);
 
-        Console.WriteLine($"__**{memoirSeriesName}**__");
+        Console.WriteLine(memoirSeriesName.ToHeader2());
         Console.WriteLine();
 
         foreach (var darkMemoirGroup in MasterDb.EntityMPartsGroupTable.All.Where(x => x.PartsSeriesId == darkMemoirSeries.PartsSeriesId).OrderBy(x => x.SortOrder))
@@ -27,7 +27,7 @@ public class ExportMemoirStoryMenuCommand : AbstractMenuCommand<ExportMemoirStor
                 if (memoirNames.Contains(memoirName)) continue;
                 memoirNames.Add(memoirName);
 
-                Console.WriteLine($"**{memoirName}**");
+                Console.WriteLine(memoirName.ToBold());
 
                 foreach (var line in CalculatorMemory.MemoryDescription(darkMemoir.PartsId).HtmlToDiscordText().Split("\\n"))
                 {

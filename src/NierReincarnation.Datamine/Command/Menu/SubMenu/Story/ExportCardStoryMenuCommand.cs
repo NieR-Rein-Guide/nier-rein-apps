@@ -16,7 +16,7 @@ public class ExportCardStoryMenuCommand : AbstractMenuCommand<ExportCardStoryMen
         var darkWebviewPanelMissions = MasterDb.EntityMWebviewPanelMissionTable.All.Where(x => x.WebviewPanelMissionId == darkWebviewMission.WebviewMissionTargetId).OrderBy(x => x.Page);
         var counter = 0;
 
-        Console.WriteLine($"__**{darkWebviewMissionTitleText.Text}**__");
+        Console.WriteLine(darkWebviewMissionTitleText.Text.ToHeader2());
         Console.WriteLine();
         foreach (var darkWebviewPanelMission in darkWebviewPanelMissions)
         {
@@ -29,7 +29,7 @@ public class ExportCardStoryMenuCommand : AbstractMenuCommand<ExportCardStoryMen
 
             var lines = text.HtmlToDiscordText().Split("\\n");
 
-            Console.WriteLine($"**Story {++counter}**");
+            Console.WriteLine($"Story {++counter}".ToBold());
             foreach (var line in lines)
             {
                 Console.WriteLine(line);

@@ -1,4 +1,6 @@
-﻿namespace NierReincarnation.Datamine.Model;
+﻿using NierReincarnation.Datamine.Extension;
+
+namespace NierReincarnation.Datamine.Model;
 
 public class Memoir
 {
@@ -10,6 +12,6 @@ public class Memoir
 
     public override string ToString()
     {
-        return $"**Piece {Order}:** {Name}";
+        return Name.ToListItem();
     }
 }

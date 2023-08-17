@@ -16,7 +16,7 @@ public class ExportLostArchiveStoryMenuCommand : AbstractMenuCommand<ExportLostA
         var title = $"cage.memory.title.{darkCageMemory.CageMemoryAssetId:D6}".Localize();
         var description = $"cage.memory.description.{darkCageMemory.CageMemoryAssetId:D6}".Localize();
 
-        Console.WriteLine($"__**{number} ~ {title}**__");
+        Console.WriteLine($"{number} ~ {title}".ToHeader2());
         Console.WriteLine();
 
         foreach (var line in description.HtmlToDiscordText().Split("\\n"))

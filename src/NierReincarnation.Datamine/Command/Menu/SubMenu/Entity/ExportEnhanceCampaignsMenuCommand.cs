@@ -31,7 +31,7 @@ public class ExportEnhanceCampaignsMenuCommand : AbstractMenuCommand
                     ? $"({enhanceCampaign.TargetUserStatusType.ToFormattedStr()} players) "
                     : string.Empty;
 
-                Console.WriteLine($"**{targetGroup.Key} - {descStr} x{(enhanceCampaign.EnhanceCampaignEffectValue / 1000M) + 1} ({targetStr}) {userTargetStr}{enhanceCampaign.ToFormattedDateStr()}**");
+                Console.WriteLine($"{targetGroup.Key} - {descStr} x{(enhanceCampaign.EnhanceCampaignEffectValue / 1000M) + 1} ({targetStr}) {userTargetStr}{enhanceCampaign.ToFormattedDateStr()}".ToBold());
 
                 foreach (var targetItem in targetItems.GroupBy(x => GetTargetStr(targetGroupOne.EnhanceCampaignTargetType, x)))
                 {

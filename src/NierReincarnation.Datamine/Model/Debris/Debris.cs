@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using NierReincarnation.Datamine.Extension;
+using System.Text;
 
 namespace NierReincarnation.Datamine.Model;
 
@@ -16,8 +17,12 @@ public class Debris
     {
         StringBuilder stringBuilder = new();
 
-        stringBuilder.AppendLine($"**Debris:** {Name} - {Description} -> {(SourceType == DebrisSourceType.MISSION ? UnlockCondition : "Unknown source")}");
-        stringBuilder.AppendLine();
+        stringBuilder.Append("Debris: ".ToBold()).Append(Name).Append(" - ").Append(Description);
+
+        if (SourceType != DebrisSourceType.COSTUME)
+        {
+            stringBuilder.Append(" -> ").AppendLine(SourceType == DebrisSourceType.MISSION ? UnlockCondition : "Unknown source");
+        }
 
         return stringBuilder.ToString();
     }

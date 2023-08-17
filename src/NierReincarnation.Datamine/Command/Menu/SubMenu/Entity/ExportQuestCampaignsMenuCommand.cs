@@ -34,7 +34,7 @@ public class ExportQuestCampaignsMenuCommand : AbstractMenuCommand
                     ? $"({questCampaign.TargetUserStatusType.ToFormattedStr()} players) "
                     : string.Empty;
 
-                Console.WriteLine($"**{targetGroup.Key} - {descStr} {userTargetStr}({targetStr}) {questCampaign.ToFormattedDateStr()}**");
+                Console.WriteLine($"{targetGroup.Key} - {descStr} {userTargetStr}({targetStr}) {questCampaign.ToFormattedDateStr()}".ToBold());
 
                 foreach (var targetQuest in targetQuests.GroupBy(x => x.QuestName))
                 {

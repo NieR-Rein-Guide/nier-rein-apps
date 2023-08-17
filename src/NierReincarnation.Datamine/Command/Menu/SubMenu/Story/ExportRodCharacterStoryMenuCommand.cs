@@ -28,7 +28,7 @@ public class ExportRodCharacterStoryMenuCommand : AbstractMenuCommand<ExportRodC
             texts.Add($"limit.content.story.{lastQuestId:D7}".Localize());
         }
 
-        Console.WriteLine($"__**{characterName}**__");
+        Console.WriteLine(characterName.ToHeader2());
         Console.WriteLine();
         foreach (var text in texts)
         {
@@ -36,7 +36,7 @@ public class ExportRodCharacterStoryMenuCommand : AbstractMenuCommand<ExportRodC
 
             var lines = text.HtmlToDiscordText().Split("\\n");
 
-            Console.WriteLine($"**Story {++counter}**");
+            Console.WriteLine($"Story {++counter}".ToBold());
             foreach (var line in lines)
             {
                 Console.WriteLine(line);

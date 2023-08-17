@@ -43,27 +43,27 @@ public class ExportSubjugationMenuCommand : AbstractMenuCommand
                     var questSceneBattle = MasterDb.EntityMQuestSceneBattleTable.FindByQuestSceneId(questScene.QuestSceneId);
                     var battle = MasterDb.EntityMBattleBigHuntTable.FindByBattleGroupId(questSceneBattle.BattleGroupId);
 
-                    Console.WriteLine($"- {questName} {questName2} ({quest2.RecommendedDeckPower}) - {questScoreCoefficient.ScoreDifficultBonusPermil / 10}%");
+                    Console.WriteLine($"{questName} {questName2} ({quest2.RecommendedDeckPower}) - {questScoreCoefficient.ScoreDifficultBonusPermil / 10}%".ToListItem());
 
-                    //var battleKdGaugeGroups = Db.EntityMBattleBigHuntKnockDownGaugeValueConfigGroupTable.All
+                    //var battleKdGaugeGroups = MasterDb.EntityMBattleBigHuntKnockDownGaugeValueConfigGroupTable.All
                     //    .Where(x => x.KnockDownGaugeValueConfigGroupId == battle.KnockDownGaugeValueConfigGroupId)
                     //    .GroupBy(x => x.ActiveSkillHitCount);
                     //foreach (var battleKdGaugeGroup in battleKdGaugeGroups)
                     //{
-                    //    Console.WriteLine($"-- {battleKdGaugeGroup.Key}-hit skill");
+                    //    Console.WriteLine($"{battleKdGaugeGroup.Key}-hit skill".ToListItem(true));
 
                     //    foreach (var battleKdGauge in battleKdGaugeGroup.OrderBy(x => x.GaugeValueLowerLimit))
                     //    {
-                    //        Console.WriteLine($"--- DMG Lower Limit: {battleKdGauge.DamageValueLowerLimit} | Gauge Lower Limit: {battleKdGauge.GaugeValueLowerLimit} | Correction Ratio: {battleKdGauge.CorrectionRatioPermil}");
+                    //        Console.WriteLine($"- DMG Lower Limit: {battleKdGauge.DamageValueLowerLimit} | Gauge Lower Limit: {battleKdGauge.GaugeValueLowerLimit} | Correction Ratio: {battleKdGauge.CorrectionRatioPermil}".ToListItem(true));
                     //    }
                     //}
 
                     //int wave = 1;
-                    //var battlePhaseGroups = Db.EntityMBattleBigHuntPhaseGroupTable.All.Where(x => x.BattleBigHuntPhaseGroupId == battle.BattleBigHuntPhaseGroupId).OrderBy(x => x.BattleBigHuntPhaseGroupOrder);
+                    //var battlePhaseGroups = MasterDb.EntityMBattleBigHuntPhaseGroupTable.All.Where(x => x.BattleBigHuntPhaseGroupId == battle.BattleBigHuntPhaseGroupId).OrderBy(x => x.BattleBigHuntPhaseGroupOrder);
                     //foreach (var battlePhaseGroup in battlePhaseGroups)
                     //{
-                    //    Console.WriteLine($"-- Wave {wave++} ({battlePhaseGroup.NormalPhaseFrameCount / 30}sec)");
-                    //    var battleDamageThresholdGroups = Db.EntityMBattleBigHuntDamageThresholdGroupTable.All
+                    //    Console.WriteLine($"Wave {wave++} ({battlePhaseGroup.NormalPhaseFrameCount / 30}sec)".ToListItem(true));
+                    //    var battleDamageThresholdGroups = MasterDb.EntityMBattleBigHuntDamageThresholdGroupTable.All
                     //        .Where(x => x.KnockDownDamageThresholdGroupId == battlePhaseGroup.KnockDownDamageThresholdGroupId)
                     //        .OrderBy(x => x.KnockDownDamageThresholdGroupOrder);
 
@@ -71,14 +71,14 @@ public class ExportSubjugationMenuCommand : AbstractMenuCommand
                     //    {
                     //        if (battleDamageThresholdGroup.IsKnockDown)
                     //        {
-                    //            Console.WriteLine("--- KD: Yes | " +
+                    //            Console.WriteLine(("- KD: Yes | " +
                     //                $"DMG Threshold: {battleDamageThresholdGroup.KnockDownCumulativeDamageThreshold} | " +
-                    //                $"Damage Ratio: {battleDamageThresholdGroup.DamageRatio / 10}% | "
-                    //                $"Duration: {battleDamageThresholdGroup.KnockDownDurationFrameCount / 30}sec");
+                    //                $"Damage Ratio: {battleDamageThresholdGroup.DamageRatio / 10}% | " +
+                    //                $"Duration: {battleDamageThresholdGroup.KnockDownDurationFrameCount / 30}sec").ToListItem(true));
                     //        }
                     //        else
                     //        {
-                    //            Console.WriteLine($"--- KD: No  | DMG Threshold: {battleDamageThresholdGroup.KnockDownCumulativeDamageThreshold}");
+                    //            Console.WriteLine($"- KD: No  | DMG Threshold: {battleDamageThresholdGroup.KnockDownCumulativeDamageThreshold}".ToListItem(true));
                     //        }
                     //    }
                     //}

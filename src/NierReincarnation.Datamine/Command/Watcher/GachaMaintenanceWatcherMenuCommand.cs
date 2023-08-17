@@ -34,7 +34,7 @@ public class GachaMaintenanceWatcherMenuCommand : AbstractWatcherMenuCommand<Rev
                 {
                     foreach (var affectedEntity in maintenance.AffectedEntities)
                     {
-                        Console.WriteLine($"- {GetGachaName(affectedEntity)}");
+                        Console.WriteLine(GetGachaName(affectedEntity).ToListItem());
                     }
                 }
             }

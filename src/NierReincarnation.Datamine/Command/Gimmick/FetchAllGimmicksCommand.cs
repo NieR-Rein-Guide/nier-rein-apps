@@ -13,15 +13,15 @@ public class FetchAllGimmicksCommand : AbstractDbQueryCommand<FetchAllGimmicksCo
     {
         List<Gimmick> gimmicks = new();
 
-        foreach (EntityMGimmickOrnament darkGimmickOrnament in MasterDb.EntityMGimmickOrnamentTable.All.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder))
+        MasterDb.EntityMGimmickOrnamentTable.All.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder).AsParallel().ForAll(darkGimmickOrnament =>
         {
             EntityMGimmick darkGimmick = MasterDb.EntityMGimmickTable.All.FirstOrDefault(x => x.GimmickOrnamentGroupId == darkGimmickOrnament.GimmickOrnamentGroupId);
 
-            if (arg.GimmickTypes?.Length > 0 && !arg.GimmickTypes.Contains(darkGimmick.GimmickType)) continue;
+            if (arg.GimmickTypes?.Length > 0 && !arg.GimmickTypes.Contains(darkGimmick.GimmickType)) return;
 
             EntityMGimmickGroup darkGimmickGroup = MasterDb.EntityMGimmickGroupTable.All.FirstOrDefault(x => x.GimmickId == darkGimmick.GimmickId);
 
-            foreach (var darkGimmickSequenceSchedule in MasterDb.EntityMGimmickSequenceScheduleTable.All)
+            MasterDb.EntityMGimmickSequenceScheduleTable.All.AsParallel().ForAll(darkGimmickSequenceSchedule =>
             {
                 int sequenceId = darkGimmickSequenceSchedule.FirstGimmickSequenceId;
 
@@ -44,10 +44,10 @@ public class FetchAllGimmicksCommand : AbstractDbQueryCommand<FetchAllGimmicksCo
                     sequenceId = nextSequenceId;
                 }
                 while (sequenceId != 0);
-            }
-        }
+            });
+        });
 
-        return Task.FromResult(gimmicks);
+        return Task.FromResult(gimmicks.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder).ToList());
     }
 
     private int GetNextGimmickSequenceId(int gimmickSequenceId)
@@ -79,6 +79,7 @@ public class FetchAllGimmicksCommand : AbstractDbQueryCommand<FetchAllGimmicksCo
         Gimmick gimmick = new()
         {
             ChapterId = darkGimmickOrnament.ChapterId,
+            SortOrder = darkGimmickOrnament.SortOrder,
             GimmickType = darkGimmick.GimmickType,
             FlowType = darkGimmickSequence.FlowType,
             StartDateTimeOffset = darkGimmickSequenceSchedule != null ? CalculatorDateTime.FromUnixTime(darkGimmickSequenceSchedule.StartDatetime) : null,

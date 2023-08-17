@@ -19,7 +19,7 @@ public class ExportMainStoryMenuCommand : AbstractMenuCommand<ExportMainStoryMen
         var darkMainQuestSequenceGroup = MasterDb.EntityMMainQuestSequenceGroupTable.FindByMainQuestSequenceGroupIdAndDifficultyType((darkMainQuestChapter.MainQuestSequenceGroupId, DifficultyType.NORMAL));
         var darkMainQuestSequences = MasterDb.EntityMMainQuestSequenceTable.All.Where(x => x.MainQuestSequenceId == darkMainQuestSequenceGroup.MainQuestSequenceId).OrderBy(x => x.SortOrder);
 
-        Console.WriteLine($"__**{chapterTitle}**__");
+        Console.WriteLine(chapterTitle.ToHeader2());
         Console.WriteLine();
         if (arg.LibraryMainQuestGroupId == null)
         {
@@ -51,7 +51,7 @@ public class ExportMainStoryMenuCommand : AbstractMenuCommand<ExportMainStoryMen
                 if (string.IsNullOrEmpty(text)) continue;
                 var lines = text.HtmlToDiscordText().Split("\\n");
 
-                Console.WriteLine($"**Story {++counter}**");
+                Console.WriteLine($"Story {++counter}".ToBold());
                 foreach (var line in lines)
                 {
                     Console.WriteLine(line);
@@ -73,7 +73,7 @@ public class ExportMainStoryMenuCommand : AbstractMenuCommand<ExportMainStoryMen
             if (string.IsNullOrEmpty(text)) continue;
             var lines = text.HtmlToDiscordText().Split("\\n");
 
-            Console.WriteLine($"**Story {++counter}**");
+            Console.WriteLine($"Story {++counter}".ToBold());
             foreach (var line in lines)
             {
                 Console.WriteLine(line);

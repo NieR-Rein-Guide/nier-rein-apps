@@ -15,7 +15,7 @@ public class ExportCompanionStoryMenuCommand : AbstractMenuCommand<ExportCompani
         var companionName = CalculatorCompanion.CompanionName(darkCompanion.CompanionId);
         var companionDescription = CalculatorCompanion.CompanionDescription(darkCompanion.CompanionId);
 
-        Console.WriteLine($"__**{companionName} ({darkCompanion.AttributeType.ToFormattedStr()})**__");
+        Console.WriteLine($"{companionName} ({darkCompanion.AttributeType.ToFormattedStr()})".ToHeader2());
         Console.WriteLine();
 
         foreach (var line in companionDescription.HtmlToDiscordText().Split("\\n"))

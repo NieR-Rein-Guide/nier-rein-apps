@@ -25,7 +25,7 @@ public class ExportHiddenStoryMenuCommand : AbstractMenuCommand<ExportHiddenStor
             texts.Add(new HiddenStoryRecord($"report.library.title.{darkReport.ReportAssetId:D6}".Localize(), $"report.title.{darkReport.ReportAssetId:D6}".Localize(), $"report.description.{darkReport.ReportAssetId:D6}".Localize()));
         }
 
-        Console.WriteLine($"__**{string.Format(UserInterfaceTextKey.Report.kReportSymbolTitle.Localize(), characterSymbolName)}**__");
+        Console.WriteLine($"{string.Format(UserInterfaceTextKey.Report.kReportSymbolTitle.Localize(), characterSymbolName)}".ToHeader2());
         Console.WriteLine();
         foreach (var text in texts)
         {
@@ -33,7 +33,7 @@ public class ExportHiddenStoryMenuCommand : AbstractMenuCommand<ExportHiddenStor
 
             var lines = text.Description.HtmlToDiscordText().Split("\\n");
 
-            Console.WriteLine($"**{text.Number} ~ {text.Title}**");
+            Console.WriteLine($"{text.Number} ~ {text.Title}".ToBold());
             foreach (var line in lines)
             {
                 Console.WriteLine(line);

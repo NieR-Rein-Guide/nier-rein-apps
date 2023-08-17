@@ -2,6 +2,7 @@
 using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.Octo.Data;
+using NierReincarnation.Datamine.Extension;
 using System.Text.RegularExpressions;
 
 namespace NierReincarnation.Datamine.Command;
@@ -49,7 +50,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
 
         foreach ((string costume, List<string> files) in unreleasedCostumes.OrderBy(x => x.Key))
         {
-            Console.WriteLine($"**{costume}**");
+            Console.WriteLine($"{costume}".ToHeader3());
             foreach (var fileName in files.OrderBy(x => x))
             {
                 Console.WriteLine(fileName);
@@ -59,7 +60,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
 
         Console.WriteLine();
         Console.WriteLine();
-        Console.WriteLine("**Unreleased costumes**");
+        Console.WriteLine("Unreleased costumes".ToHeader3());
         Console.WriteLine("```diff");
         foreach ((string costume, List<string> _) in unreleasedCostumes.OrderBy(x => x.Key))
         {

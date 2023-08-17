@@ -44,23 +44,21 @@ public class Weapon
         // Abilities
         WriteWeaponAbilities(stringBuilder);
 
-        stringBuilder.AppendLine();
-
         return stringBuilder.ToString();
     }
 
     private void WriteWeaponInfo(StringBuilder stringBuilder)
     {
-        stringBuilder.AppendLine($"__**Weapon: {Name} ({AttributeType.ToFormattedStr()} {WeaponType.ToFormattedStr()}) ({RarityType.ToFormattedStr(true)}) (lvl{Level}) ({ReleaseDateTimeOffset.ToFormattedDate()})**__");
+        stringBuilder.AppendLine($"Weapon: {Name} ({AttributeType.ToFormattedStr()} {WeaponType.ToFormattedStr()}) ({RarityType.ToFormattedStr(true)}) (lvl{Level}) ({ReleaseDateTimeOffset.ToFormattedDate()})".ToHeader2());
     }
 
     private void WriteWeaponStats(StringBuilder stringBuilder)
     {
         if (Stats == null) return;
 
-        stringBuilder.AppendLine($"**ATK:** {string.Join("/", Stats.Attack)}");
-        stringBuilder.AppendLine($"**HP:** {string.Join("/", Stats.Hp)}");
-        stringBuilder.AppendLine($"**DEF:** {string.Join("/", Stats.Defense)}");
+        stringBuilder.Append("ATK: ".ToBold()).AppendJoin("/", Stats.Attack).AppendLine();
+        stringBuilder.Append("HP: ".ToBold()).AppendJoin("/", Stats.Hp).AppendLine();
+        stringBuilder.Append("DEF: ".ToBold()).AppendJoin("/", Stats.Defense).AppendLine();
     }
 
     private void WriteWeaponSkill(StringBuilder stringBuilder)
@@ -69,7 +67,7 @@ public class Weapon
 
         foreach (var skill in Skills.OrderBy(x => x.SlotNumber))
         {
-            stringBuilder.AppendLine($"**Skill {skill.SlotNumber}:** {skill.Name} - {skill.Description} ({skill.Cooldown}sec)");
+            stringBuilder.Append($"Skill {skill.SlotNumber}: ".ToBold()).Append(skill.Name).Append(" - ").Append(skill.Description).Append(" (").Append(skill.Cooldown).AppendLine("sec)");
         }
     }
 
@@ -79,7 +77,7 @@ public class Weapon
 
         foreach (var ability in Abilities.OrderBy(x => x.SlotNumber))
         {
-            stringBuilder.AppendLine($"**Ability {ability.SlotNumber}:** {ability.Name} - {ability.Description}");
+            stringBuilder.Append($"Ability {ability.SlotNumber}: ".ToBold()).Append(ability.Name).Append(" - ").AppendLine(ability.Description);
         }
     }
 }

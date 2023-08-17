@@ -21,7 +21,7 @@ public class ExportMamaNewsMenuCommand : AbstractMenuCommand
 
             foreach (var text in texts)
             {
-                Console.WriteLine($"- {text.Text}");
+                Console.WriteLine(text.Text.ToListItem());
             }
             Console.WriteLine();
         }

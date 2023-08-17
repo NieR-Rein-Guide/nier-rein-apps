@@ -16,7 +16,7 @@ public class ExportCostumeStoryMenuCommand : AbstractMenuCommand<ExportCostumeSt
         var costumeName = CalculatorCostume.CostumeName(darkCostume.CostumeId);
         var costumeDescription = CalculatorCostume.CostumeDescription(darkCostume.CostumeId);
 
-        Console.WriteLine($"__**{characterName} ~ {costumeName} ({darkCostume.RarityType.ToFormattedStr(false)})**__");
+        Console.WriteLine($"{characterName} ~ {costumeName} ({darkCostume.RarityType.ToFormattedStr(false)})".ToHeader2());
         Console.WriteLine();
 
         foreach (var line in costumeDescription.HtmlToDiscordText().Split("\\n"))

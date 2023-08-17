@@ -1,4 +1,6 @@
-﻿namespace NierReincarnation.Datamine.Command;
+﻿using NierReincarnation.Datamine.Extension;
+
+namespace NierReincarnation.Datamine.Command;
 
 public class ExportMoviesMenuCommand : AbstractMenuCommand
 {
@@ -10,7 +12,7 @@ public class ExportMoviesMenuCommand : AbstractMenuCommand
 
         foreach (var movieGroup in movies.GroupBy(x => x.Category))
         {
-            Console.WriteLine($"**{movieGroup.Key}**");
+            Console.WriteLine($"{movieGroup.Key}".ToBold());
 
             foreach (var movie in movieGroup)
             {

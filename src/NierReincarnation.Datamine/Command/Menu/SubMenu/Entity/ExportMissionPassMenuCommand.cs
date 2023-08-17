@@ -13,7 +13,7 @@ public class ExportMissionPassMenuCommand : AbstractMenuCommand
             .Where(x => DateTimeExtensions.IsCurrentOrFuture(x.StartDatetime, x.EndDatetime))
             .OrderBy(x => x.StartDatetime))
         {
-            Console.WriteLine($"__**Mission Pass ({darkMissionPass.ToFormattedDateStr()})**__");
+            Console.WriteLine($"Mission Pass ({darkMissionPass.ToFormattedDateStr()})".ToHeader3());
 
             //var premiumItem = MasterDb.EntityMPremiumItemTable.All.FirstOrDefault(x => x.PremiumItemId == darkMissionPass.PremiumItemId);
 
@@ -29,7 +29,7 @@ public class ExportMissionPassMenuCommand : AbstractMenuCommand
                 {
                     var prefix = darkMissionPassRewardGroup.IsPremium ? "($) " : string.Empty;
                     var rewardStr = CalculatorPossession.GetItemName(darkMissionPassRewardGroup.PossessionType, darkMissionPassRewardGroup.PossessionId);
-                    Console.WriteLine($"- {prefix}{rewardStr} x{darkMissionPassRewardGroup.Count}");
+                    Console.WriteLine($"{prefix}{rewardStr} x{darkMissionPassRewardGroup.Count}".ToListItem());
                 }
             }
             Console.WriteLine();
@@ -42,7 +42,7 @@ public class ExportMissionPassMenuCommand : AbstractMenuCommand
                     Entity = darkMissionGroup
                 });
 
-                Console.WriteLine($"**{missionGroup.Name}**");
+                Console.WriteLine($"{missionGroup.Name}".ToBold());
                 foreach (var mission in missionGroup.Missions)
                 {
                     Console.WriteLine($"{mission.Name} -> {mission.Reward}");

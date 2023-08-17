@@ -33,4 +33,6 @@ public class Gimmick
     public int NextSequenceId { get; set; }
 
     public Gimmick NextGimmick { get; set; }
+
+    public int SortOrder { get; set; }
 }

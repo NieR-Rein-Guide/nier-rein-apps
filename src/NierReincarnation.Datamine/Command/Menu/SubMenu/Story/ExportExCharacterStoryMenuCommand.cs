@@ -21,7 +21,7 @@ public class ExportExCharacterStoryMenuCommand : AbstractMenuCommand<ExportExCha
         var eventMapNumberUpper = MasterDb.EntityMContentsStoryTable.All.Where(x => x.ConditionValue == endWeaponId).Select(x => x.EventMapNumberUpper).FirstOrDefault();
         var darkContentsStories = MasterDb.EntityMContentsStoryTable.All.Where(x => x.EventMapNumberUpper == eventMapNumberUpper).OrderBy(x => x.EventMapNumberLower);
 
-        Console.WriteLine($"__**{characterName}**__");
+        Console.WriteLine(characterName.ToHeader2());
         Console.WriteLine();
         foreach (var darkContentsStory in darkContentsStories)
         {
@@ -31,7 +31,7 @@ public class ExportExCharacterStoryMenuCommand : AbstractMenuCommand<ExportExCha
 
             var lines = text.HtmlToDiscordText().Split("\\n");
 
-            Console.WriteLine($"**Story {++counter}**");
+            Console.WriteLine($"Story {++counter}".ToBold());
             foreach (var line in lines)
             {
                 Console.WriteLine(line);

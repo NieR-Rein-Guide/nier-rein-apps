@@ -15,7 +15,7 @@ public class ExportCharacterStoryMenuCommand : AbstractMenuCommand<ExportCharact
         var darkEventQuestChapter = MasterDb.EntityMEventQuestChapterTable.FindByEventQuestChapterId(arg.EventQuestChapterId);
         var characterName = CalculatorCharacter.GetCharacterName(CalculatorQuest.GetChapterCharacterId(darkEventQuestChapter.EventQuestChapterId));
 
-        Console.WriteLine($"__**{characterName}**__");
+        Console.WriteLine(characterName.ToHeader2());
         Console.WriteLine();
         foreach (var darkEventQuestSequenceGroup in MasterDb.EntityMEventQuestSequenceGroupTable.All.Where(x => x.EventQuestSequenceGroupId == darkEventQuestChapter.EventQuestSequenceGroupId))
         {
@@ -33,7 +33,7 @@ public class ExportCharacterStoryMenuCommand : AbstractMenuCommand<ExportCharact
 
                 var lines = text.HtmlToDiscordText().Split("\\n");
 
-                Console.WriteLine($"**Story {++counter}**");
+                Console.WriteLine($"Story {++counter}".ToBold());
                 foreach (var line in lines)
                 {
                     Console.WriteLine(line);

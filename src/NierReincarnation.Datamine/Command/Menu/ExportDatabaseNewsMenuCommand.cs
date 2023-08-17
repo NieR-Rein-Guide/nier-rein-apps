@@ -23,8 +23,8 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         await WriteMemoirSeriesAsync();
         await WriteRemnantsAsync();
         await WriteEventsAsync();
-        //WriteHiddenStoriesAsync();
-        await WriteLoginBonusessAsync();
+        WriteHiddenStoriesAsync();
+        await WriteLoginBonusesAsync();
         await WriteMissionGroupsAsync();
         await WriteFateBoardsAsync();
         WriteItems();
@@ -45,9 +45,14 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         var costumes = await GetCostumesAsync();
 
-        foreach (var costume in costumes.OrderBy(x => x.ReleaseDateTimeOffset))
+        if (costumes.Count > 0)
         {
-            Console.WriteLine(costume);
+            foreach (var costume in costumes.OrderBy(x => x.ReleaseDateTimeOffset))
+            {
+                Console.WriteLine(costume);
+            }
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 
@@ -67,9 +72,14 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         var weapons = await GetWeaponsAsync();
 
-        foreach (var weapon in weapons.OrderBy(x => x.ReleaseDateTimeOffset))
+        if (weapons.Count > 0)
         {
-            Console.WriteLine(weapon);
+            foreach (var weapon in weapons.OrderBy(x => x.ReleaseDateTimeOffset))
+            {
+                Console.WriteLine(weapon);
+            }
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 
@@ -87,15 +97,15 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
     private static async Task WriteDebrisAsync()
     {
-        var debris = (await GetDebrisAsync()).Where(x => x.SourceType != DebrisSourceType.COSTUME);
+        var debris = (await GetDebrisAsync()).Where(x => x.SourceType != DebrisSourceType.COSTUME).ToList();
 
-        if (debris.Any())
+        if (debris.Count > 0)
         {
-            Console.WriteLine("__**Debris**__");
+            Console.WriteLine("Debris".ToHeader2());
 
             foreach (var debri in debris)
             {
-                Console.Write(debri);
+                Console.WriteLine(debri);
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -117,9 +127,15 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     private static async Task WriteCompanionsAsync()
     {
         var companions = await GetCompanionsAsync();
-        foreach (var companion in companions.OrderBy(x => x.ReleaseDateTimeOffset))
+
+        if (companions.Count > 0)
         {
-            Console.WriteLine(companion);
+            foreach (var companion in companions.OrderBy(x => x.ReleaseDateTimeOffset))
+            {
+                Console.WriteLine(companion);
+            }
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 
@@ -140,9 +156,15 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     private static async Task WriteMemoirSeriesAsync()
     {
         var memoirSerieses = await GetMemoirSeriesAsync();
-        foreach (var memoirSeries in memoirSerieses)
+
+        if (memoirSerieses.Count > 0)
         {
-            Console.WriteLine(memoirSeries);
+            foreach (var memoirSeries in memoirSerieses)
+            {
+                Console.WriteLine(memoirSeries);
+            }
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 
@@ -154,7 +176,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllRemnantsCommand().ExecuteAsync(new FetchAllRemnantsCommandArg
         {
-            FromDate = DateTimeExtensions.Yesterday
+            FromDate = DateTimeExtensions.Yesterday.AddDays(-90)
         });
     }
 
@@ -164,14 +186,12 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
         if (remnants.Count > 0)
         {
-            Console.WriteLine("__**Remnant**__");
-        }
+            Console.WriteLine("Remnants".ToHeader2());
 
-        foreach (var remnant in remnants)
-        {
-            Console.WriteLine($"**{remnant.Name} ({remnant.ReleaseDateTimeOffset.ToFormattedDate()})**");
-            Console.WriteLine(remnant.Description);
-
+            foreach (var remnant in remnants)
+            {
+                Console.WriteLine(remnant);
+            }
             Console.WriteLine();
             Console.WriteLine();
         }
@@ -195,106 +215,15 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     private static async Task WriteEventsAsync()
     {
         var events = await GetEventsAsync();
-        foreach (var @event in events.OrderBy(x => x.StartDateTimeOffset))
+
+        if (events.Count > 0)
         {
-            // Event Series
-            WriteEventInfo(@event);
-
-            // Event Quests
-            WriteEventQuests(@event);
-
+            foreach (var @event in events.OrderBy(x => x.StartDateTimeOffset))
+            {
+                Console.WriteLine(@event);
+            }
             Console.WriteLine();
             Console.WriteLine();
-        }
-    }
-
-    private static void WriteEventInfo(Event @event) => Console.WriteLine($"__**{@event.Name} {@event.ToFormattedDateStr()}**__");
-
-    private static void WriteEventQuests(Event @event)
-    {
-        if (@event.Difficulties == null) return;
-
-        foreach (var difficulty in @event.Difficulties)
-        {
-            var eventQuests = @event.EventType == EventQuestType.TOWER
-                ? difficulty.Quests.TakeLast(10).ToList()
-                : difficulty.Quests;
-
-            if (@event.HasMultiDifficulties)
-            {
-                Console.WriteLine($"**{difficulty.DifficultyType.ToFormattedStr()}**");
-            }
-
-            if (difficulty.CanGroupQuests() && difficulty.DifficultyType != DifficultyType.EX_HARD)
-            {
-                WriteGenericGroupedEventQuests(eventQuests);
-            }
-            else
-            {
-                WriteGenericFullEventQuests(@event, eventQuests);
-            }
-        }
-    }
-
-    private static void WriteGenericGroupedEventQuests(List<EventQuest> eventQuests)
-    {
-        string questCount = eventQuests.Count > 1 ? $"1-{eventQuests.Count}" : "1";
-        var firstEventQuest = eventQuests[0];
-
-        if (firstEventQuest.AllRewardCount > 1)
-        {
-            Console.WriteLine($"Quest {questCount} - {firstEventQuest.AttributeType.ToFormattedStr()}");
-
-            foreach (var firstClearReward in firstEventQuest.FirstClearRewards)
-            {
-                var prefix = firstEventQuest.PickupRewards.Count > 0 ? "(First Clear) " : string.Empty;
-                Console.WriteLine($"- {firstClearReward.Name} x{eventQuests.SelectMany(x => x.FirstClearRewards).Where(x => x.Name == firstClearReward.Name).Sum(x => x.Count)}");
-            }
-
-            foreach (var pickupReward in firstEventQuest.PickupRewards)
-            {
-                Console.WriteLine($"- {pickupReward.Name} x{eventQuests.SelectMany(x => x.PickupRewards).Where(x => x.Name == pickupReward.Name).Sum(x => x.Count)}");
-            }
-        }
-        else if (firstEventQuest.PickupRewards.Count == 0)
-        {
-            Console.WriteLine($"Quest {questCount} - {firstEventQuest.AttributeType.ToFormattedStr()} -> {firstEventQuest.FirstClearRewards[0].Name} x{eventQuests.SelectMany(x => x.FirstClearRewards).Sum(x => x.Count)}");
-        }
-        else
-        {
-            Console.WriteLine($"Quest {questCount} - {firstEventQuest.AttributeType.ToFormattedStr()} -> {firstEventQuest.PickupRewards[0].Name} x{eventQuests.SelectMany(x => x.PickupRewards).Sum(x => x.Count)}");
-        }
-    }
-
-    private static void WriteGenericFullEventQuests(Event @event, List<EventQuest> eventQuests)
-    {
-        foreach (var eventQuest in eventQuests)
-        {
-            var extraScheduleStr = DateTimeExtensions.GetExtraScheduleStr(@event.StartDateTimeOffset, @event.EndDateTimeOffset, eventQuest.StartDateTimeOffset, eventQuest.EndDateTimeOffset);
-
-            if (eventQuest.AllRewardCount > 1)
-            {
-                Console.WriteLine($"{eventQuest.Name} - {eventQuest.AttributeType.ToFormattedStr()} ({eventQuest.RecommendedForce}) {extraScheduleStr}");
-
-                foreach (var firstClearReward in eventQuest.FirstClearRewards)
-                {
-                    var prefix = eventQuest.PickupRewards.Count > 0 ? "(First Clear) " : string.Empty;
-                    Console.WriteLine($"- {prefix}{firstClearReward.Name} x{firstClearReward.Count}");
-                }
-
-                foreach (var pickupReward in eventQuest.PickupRewards)
-                {
-                    Console.WriteLine($"- {pickupReward.Name} x{pickupReward.Count}");
-                }
-            }
-            else if (eventQuest.PickupRewards.Count == 0)
-            {
-                Console.WriteLine($"{eventQuest.Name} - {eventQuest.AttributeType.ToFormattedStr()} ({eventQuest.RecommendedForce}) -> {eventQuest.FirstClearRewards[0].Name} x{eventQuest.FirstClearRewards[0].Count} {extraScheduleStr}");
-            }
-            else
-            {
-                Console.WriteLine($"{eventQuest.Name} - {eventQuest.AttributeType.ToFormattedStr()} ({eventQuest.RecommendedForce}) -> {eventQuest.PickupRewards[0].Name} x{eventQuest.PickupRewards[0].Count} {extraScheduleStr}");
-            }
         }
     }
 
@@ -302,7 +231,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
     #region Hidden Stories
 
-    private static async Task<List<Model.Gimmick>> GetHiddenStoriesAsync()
+    private static async Task<List<Gimmick>> GetHiddenStoriesAsync()
     {
         return await new FetchAllGimmicksCommand().ExecuteAsync(new FetchAllGimmicksCommandArg
         {
@@ -318,18 +247,18 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         if (hiddenStories.Count > 0)
         {
             List<string> uniqueNames = new();
-            Console.WriteLine("__**Hidden Stories**__");
+            Console.WriteLine("Hidden Stories".ToHeader2());
 
             foreach (var hiddenStoryGroup in hiddenStories.OrderBy(x => x.ProgressStartDateTimeOffset).GroupBy(x => x.ProgressStartDateTimeOffset))
             {
-                Console.WriteLine(hiddenStoryGroup.Key.ToFormattedDate());
+                Console.WriteLine(hiddenStoryGroup.Key.ToFormattedDate().ToBold());
 
                 foreach (var hiddenStory in hiddenStoryGroup)
                 {
                     if (uniqueNames.Contains(hiddenStory.Reward.Name)) continue;
                     uniqueNames.Add(hiddenStory.Reward.Name);
 
-                    Console.WriteLine($"- {hiddenStory.Reward.Name} -> {string.Join(" & ", hiddenStory.ClearConditions)}");
+                    Console.WriteLine($"{hiddenStory.Reward.Name.ToBold()} -> {string.Join(" & ", hiddenStory.ClearConditions)}".ToListItem());
                 }
             }
 
@@ -352,44 +281,20 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         });
     }
 
-    private static async Task WriteLoginBonusessAsync()
+    private static async Task WriteLoginBonusesAsync()
     {
         var loginBonuses = await GetLoginBonusesAsync();
 
         if (loginBonuses.Count > 0)
         {
-            Console.WriteLine("__**Login Bonus**__");
-        }
+            Console.WriteLine("Login Bonus".ToHeader2());
 
-        foreach (var loginBonus in loginBonuses.OrderBy(x => x.StartDateTimeOffset))
-        {
-            // Login Bonus
-            WriteLoginBonusInfo(loginBonus);
-
-            // Login Bonus Rewards
-            WriteLoginBonusRewards(loginBonus);
-
-            Console.WriteLine();
-            Console.WriteLine();
-        }
-    }
-
-    private static void WriteLoginBonusInfo(LoginBonus loginBonus) => Console.WriteLine($"**{loginBonus.Name} {loginBonus.ToFormattedDateStr()}**");
-
-    private static void WriteLoginBonusRewards(LoginBonus loginBonus)
-    {
-        if (loginBonus.Rewards == null) return;
-
-        if (loginBonus.CanGroupRewards)
-        {
-            Console.WriteLine($"{loginBonus.Rewards[0].Name} x{loginBonus.Rewards.Sum(x => x.Count)}");
-        }
-        else
-        {
-            foreach (var loginBonusReward in loginBonus.Rewards)
+            foreach (var loginBonus in loginBonuses.OrderBy(x => x.StartDateTimeOffset))
             {
-                Console.WriteLine($"{loginBonusReward.Name} x{loginBonusReward.Count}");
+                Console.WriteLine(loginBonus);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 
@@ -414,32 +319,14 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
         if (missionGroups.Count > 0)
         {
-            Console.WriteLine("__**Missions**__");
-        }
+            Console.WriteLine("Missions".ToHeader2());
 
-        foreach (var missionGroup in missionGroups.OrderBy(x => x.StartDateTimeOffset))
-        {
-            // Mission Group
-            WriteMissionGroupInfo(missionGroup);
-
-            // Mission Group Missions
-            WriteMissionGroupMissions(missionGroup);
-
+            foreach (var missionGroup in missionGroups.OrderBy(x => x.StartDateTimeOffset))
+            {
+                Console.WriteLine(missionGroup);
+            }
             Console.WriteLine();
             Console.WriteLine();
-        }
-    }
-
-    private static void WriteMissionGroupInfo(MissionGroup missionGroup) => Console.WriteLine($"**{missionGroup.Name} {missionGroup.ToFormattedDateStr()}**");
-
-    private static void WriteMissionGroupMissions(MissionGroup missionGroup)
-    {
-        if (missionGroup.Missions == null) return;
-
-        foreach (var mission in missionGroup.Missions)
-        {
-            var extraScheduleStr = DateTimeExtensions.GetExtraScheduleStr(missionGroup.StartDateTimeOffset, missionGroup.EndDateTimeOffset, mission.StartDateTimeOffset, mission.EndDateTimeOffset);
-            Console.WriteLine($"{mission.Name} -> {mission.Reward.Name} x{mission.Reward.Count} {extraScheduleStr}");
         }
     }
 
@@ -459,13 +346,12 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
         if (items.Count > 0)
         {
-            Console.WriteLine("__**Items**__");
+            Console.WriteLine("Items".ToHeader2());
 
             foreach (var item in items)
             {
                 Console.WriteLine(item);
             }
-
             Console.WriteLine();
             Console.WriteLine();
         }
@@ -489,89 +375,17 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         var fateBoards = await GetFateBoardsAsync();
 
-        foreach (var fateBoard in fateBoards.OrderBy(x => x.StartDateTimeOffset))
-        {
-            foreach (var fateBoardSeason in fateBoard.Seasons)
+        if (fateBoards.Count > 0)
             {
-                // Season info
-                WriteFateBoardSeasonInfo(fateBoard, fateBoardSeason);
-
-                // Season stages
-                foreach (var fateBoardStage in fateBoardSeason.Stages)
+            Console.WriteLine("Fate Boards".ToHeader2());
+            foreach (var fateBoard in fateBoards.OrderBy(x => x.StartDateTimeOffset))
                 {
-                    WriteFateBoardSeasonStageInfo(fateBoardStage);
+                Console.WriteLine(fateBoard);
                 }
-
-                // Season rewards
-                WriteFateBoardSeasonRewardInfo(fateBoardSeason);
-
                 Console.WriteLine();
                 Console.WriteLine();
             }
         }
-    }
-
-    private static void WriteFateBoardSeasonInfo(FateBoard fateBoard, FateBoardSeason fateBoardSeason)
-    {
-        Console.WriteLine($"__**{fateBoard.Name} - Season {fateBoardSeason.SeasonNumber} {fateBoardSeason.ToFormattedDateStr()}**__");
-    }
-
-    private static void WriteFateBoardSeasonStageInfo(FateBoardStage fateBoardStage)
-    {
-        Console.WriteLine($"**Stage {fateBoardStage.StageNumber}**");
-
-        foreach (var difficulty in fateBoardStage.Difficulties)
-        {
-            if (fateBoardStage.HasMultiDifficulties)
-            {
-                Console.WriteLine($"**{difficulty.DifficultyType.ToFormattedStr()}**");
-            }
-
-            Console.WriteLine("Quests");
-            foreach (var stageQuest in difficulty.Quests)
-            {
-                Console.WriteLine($"- {stageQuest.Name} - {stageQuest.AttributeType.ToFormattedStr()} ({stageQuest.RecommendedForce}) -> {stageQuest.FirstClearRewards.FirstOrDefault()}");
-            }
-
-            Console.WriteLine("Missions Rewards");
-            foreach (var reward in difficulty.MissionRewards)
-            {
-                Console.WriteLine($"{reward.MissionName} -> {reward}");
-            }
-
-            Console.WriteLine("Treasures");
-            foreach (var treasure in difficulty.Treasures)
-            {
-                Console.WriteLine($"- {treasure}");
-            }
-        }
-
-        Console.WriteLine();
-    }
-
-    private static void WriteFateBoardSeasonRewardInfo(FateBoardSeason fateBoardSeason)
-    {
-        Console.WriteLine("**Season Rewards**");
-
-        foreach (var seasonRewardQuestGroup in fateBoardSeason.SeasonRewardQuests.GroupBy(x => string.Join(",", x.SeasonRewards.Select(x => x.ToString()))))
-        {
-            var first = seasonRewardQuestGroup.First();
-            if (seasonRewardQuestGroup.Count() > 1)
-            {
-                var last = seasonRewardQuestGroup.Last();
-                Console.WriteLine($"{first.Name} - {last.Name}");
-            }
-            else
-            {
-                Console.WriteLine(first.Name);
-            }
-
-            foreach (var reward in first.SeasonRewards)
-            {
-                Console.WriteLine($"- {reward}");
-            }
-        }
-    }
 
     #endregion Fate Boards
 }

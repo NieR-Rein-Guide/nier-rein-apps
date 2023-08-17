@@ -34,36 +34,34 @@ public class Companion
         // Ability
         WriteCompanionAbility(stringBuilder);
 
-        stringBuilder.AppendLine();
-
         return stringBuilder.ToString();
     }
 
     private void WriteCompanionInfo(StringBuilder stringBuilder)
     {
-        stringBuilder.AppendLine($"__**Companion: {Name} ({AttributeType.ToFormattedStr()}) ({ReleaseDateTimeOffset.ToFormattedDate()})**__");
+        stringBuilder.AppendLine($"Companion: {Name} ({AttributeType.ToFormattedStr()}) ({ReleaseDateTimeOffset.ToFormattedDate()})".ToHeader2());
     }
 
     private void WriteCompanionStats(StringBuilder stringBuilder)
     {
         if (Stats == null) return;
 
-        stringBuilder.AppendLine($"**ATK:** {Stats.Attack}");
-        stringBuilder.AppendLine($"**HP:** {Stats.Hp}");
-        stringBuilder.AppendLine($"**DEF:** {Stats.Defense}");
+        stringBuilder.Append("ATK: ".ToBold()).Append(Stats.Attack).AppendLine();
+        stringBuilder.Append("HP: ".ToBold()).Append(Stats.Hp).AppendLine();
+        stringBuilder.Append("DEF: ".ToBold()).Append(Stats.Defense).AppendLine();
     }
 
     private void WriteCompanionSkill(StringBuilder stringBuilder)
     {
         if (Skill == null) return;
 
-        stringBuilder.AppendLine($"**Skill:** {Skill.Name} - {Skill.Description} ({Skill.Cooldown}sec)");
+        stringBuilder.Append("Skill: ".ToBold()).Append(Skill.Name).Append(" - ").Append(Skill.Description).Append(" (").Append(Skill.Cooldown).AppendLine("sec)");
     }
 
     private void WriteCompanionAbility(StringBuilder stringBuilder)
     {
         if (Ability == null) return;
 
-        stringBuilder.AppendLine($"**Ability:** {Ability.Name} - {Ability.Description}");
+        stringBuilder.Append("Ability: ".ToBold()).Append(Ability.Name).Append(" - ").AppendLine(Ability.Description);
     }
 }

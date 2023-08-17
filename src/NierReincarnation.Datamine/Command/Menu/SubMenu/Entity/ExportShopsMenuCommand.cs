@@ -22,7 +22,7 @@ public class ExportShopsMenuCommand : AbstractMenuCommand
 
             var darkShopItemCellGroups = MasterDb.EntityMShopItemCellGroupTable.All.Where(x => x.ShopItemCellGroupId == darkShop.ShopItemCellGroupId);
 
-            Console.WriteLine($"**{shopStr} ({darkShop.ShopType.ToFormattedStr()}) {darkShop.ToFormattedDateStr()}**");
+            Console.WriteLine($"{shopStr} ({darkShop.ShopType.ToFormattedStr()}) {darkShop.ToFormattedDateStr()}".ToBold());
 
             List<int> terms = new();
             bool skipItemDate = darkShopItemCellGroups.All(x => x.ShopItemCellTermId > 0);
@@ -51,7 +51,7 @@ public class ExportShopsMenuCommand : AbstractMenuCommand
                             var missionRewardStr = CalculatorPossession.GetItemName(darkMissionReward.PossessionType, darkMissionReward.PossessionId);
 
                             Console.WriteLine($"{missionStr}");
-                            Console.WriteLine($"- {missionRewardStr} x{darkMissionReward.Count}");
+                            Console.WriteLine($"{missionRewardStr} x{darkMissionReward.Count}".ToListItem());
                         }
                     }
                     else
@@ -82,7 +82,7 @@ public class ExportShopsMenuCommand : AbstractMenuCommand
 
                             if (itemPosession.Count == 1 && shopItemStr.Equals(itemPosessionStr, StringComparison.OrdinalIgnoreCase)) continue;
 
-                            Console.WriteLine($"- {itemPosessionStr} x{itemPosession.Count}");
+                            Console.WriteLine($"{itemPosessionStr} x{itemPosession.Count}".ToListItem());
                         }
                     }
                 }

@@ -30,13 +30,14 @@ public class MemoirSeries
 
     private void WriteMemoirSeriesInfo(StringBuilder stringBuilder)
     {
-        stringBuilder.AppendLine($"__**Memoir Series: {Name} ({Memoirs.FirstOrDefault().ReleaseDateTimeOffset.ToFormattedDate()})**__");
-        stringBuilder.AppendLine($"**Small Set:** {SmallSet}");
-        stringBuilder.AppendLine($"**Large Set:** {LargeSet}");
+        stringBuilder.AppendLine($"Memoir Series: {Name} ({Memoirs.FirstOrDefault().ReleaseDateTimeOffset.ToFormattedDate()})".ToHeader2());
+        stringBuilder.Append("Small Set: ".ToBold()).AppendLine(SmallSet);
+        stringBuilder.Append("Large Set: ".ToBold()).AppendLine(LargeSet);
     }
 
     private void WriteMemoirSeriesPieces(StringBuilder stringBuilder)
     {
+        stringBuilder.AppendLine("Pieces: ".ToBold());
         foreach (var memoir in Memoirs.OrderBy(x => x.Order))
         {
             stringBuilder.AppendLine(memoir.ToString());

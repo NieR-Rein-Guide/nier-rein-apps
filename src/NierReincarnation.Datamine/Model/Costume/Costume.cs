@@ -61,15 +61,13 @@ public class Costume
         // Debris
         WriteCostumeDebris(stringBuilder);
 
-        stringBuilder.AppendLine();
-
         return stringBuilder.ToString();
     }
 
     private void WriteCostumeInfo(StringBuilder stringBuilder)
     {
         var awakenings = string.Join("/", AwakenStrings);
-        stringBuilder.AppendLine($"__**Costume: {Name} ({WeaponType.ToFormattedStr()}) ({RarityType.ToFormattedStr(false)}) (lvl{Level}) ({awakenings}) ({ReleaseDateTimeOffset.ToFormattedDate()})**__");
+        stringBuilder.AppendLine($"Costume: {Name} ({WeaponType.ToFormattedStr()}) ({RarityType.ToFormattedStr(false)}) (lvl{Level}) ({awakenings}) ({ReleaseDateTimeOffset.ToFormattedDate()})".ToHeader2());
     }
 
     private void WriteCostumeStats(StringBuilder stringBuilder)
@@ -77,35 +75,35 @@ public class Costume
         if (Stats == null) return;
 
         var baseStats = Stats.Find(x => x.Awakenings == null);
-        stringBuilder.AppendLine($"**ATK:** {string.Join("/", AttackStrings)}");
-        stringBuilder.AppendLine($"**HP:** {string.Join("/", HpStrings)}");
-        stringBuilder.AppendLine($"**DEF:** {string.Join("/", DefenseStrings)}");
+        stringBuilder.Append("ATK: ".ToBold()).AppendJoin("/", AttackStrings).AppendLine();
+        stringBuilder.Append("HP: ".ToBold()).AppendJoin("/", HpStrings).AppendLine();
+        stringBuilder.Append("DEF: ".ToBold()).AppendJoin("/", DefenseStrings).AppendLine();
 
         if (baseStats.Agility != 1000)
         {
-            stringBuilder.AppendLine($"**AGI:** {string.Join("/", AgilityStrings)}");
+            stringBuilder.Append("AGI: ".ToBold()).AppendJoin("/", AgilityStrings).AppendLine();
         }
 
         if (baseStats.CritRate != 10)
         {
-            stringBuilder.AppendLine($"**CR:** {string.Join("/", CritRateStrings)}");
+            stringBuilder.Append("CR: ".ToBold()).AppendJoin("/", CritRateStrings).AppendLine();
         }
 
         if (baseStats.CritDamage != 150)
         {
-            stringBuilder.AppendLine($"**CD:** {string.Join("/", CritDamageStrings)}");
+            stringBuilder.Append("CD: ".ToBold()).AppendJoin("/", CritDamageStrings).AppendLine();
         }
 
         if (baseStats.EvasionRate != 10)
         {
-            stringBuilder.AppendLine($"**EV:** {string.Join("/", EvasionRateStrings)}");
+            stringBuilder.Append("EV: ".ToBold()).AppendJoin("/", EvasionRateStrings).AppendLine();
         }
     }
 
     private void WriteCostumeSkill(StringBuilder stringBuilder)
     {
         if (Skill == null) return;
-        stringBuilder.AppendLine($"**Skill:** {Skill.Name} - {Skill.Description} - {Skill.Gauge} Gauge ({Skill.Cooldown}/{Skill.CooldownMax})");
+        stringBuilder.Append("Skill: ".ToBold()).Append(Skill.Name).Append(" - ").Append(Skill.Description).Append(" - ").Append(Skill.Gauge).Append(" Gauge (").Append(Skill.Cooldown).Append('/').Append(Skill.CooldownMax).AppendLine(")");
     }
 
     private void WriteCostumeAbilities(StringBuilder stringBuilder)
@@ -113,7 +111,7 @@ public class Costume
         if (Abilities == null) return;
         foreach (var ability in Abilities)
         {
-            stringBuilder.AppendLine($"**Ability {ability.SlotNumber}:** {ability.Name} - {ability.Description}");
+            stringBuilder.Append($"Ability {ability.SlotNumber}: ".ToBold()).Append(ability.Name).Append(" - ").AppendLine(ability.Description);
         }
     }
 
@@ -121,7 +119,7 @@ public class Costume
     {
         if (Debris != null)
         {
-            stringBuilder.AppendLine($"**Debris:** {Debris.Name} - {Debris.Description}");
+            stringBuilder.Append(Debris);
         }
     }
 }

@@ -15,7 +15,7 @@ public class ExportEventStoryMenuCommand : AbstractMenuCommand<ExportEventStoryM
         var darkEventQuestChapter = MasterDb.EntityMEventQuestChapterTable.FindByEventQuestChapterId(arg.EventQuestChapterId);
         var eventName = string.Format(UserInterfaceTextKey.Quest.kEventChapterTitle, darkEventQuestChapter.NameEventQuestTextId).Localize();
 
-        Console.WriteLine($"__**{eventName}**__");
+        Console.WriteLine(eventName.ToHeader2());
         Console.WriteLine();
         foreach (var darkEventQuestSequenceGroup in MasterDb.EntityMEventQuestSequenceGroupTable.All.Where(x => x.EventQuestSequenceGroupId == darkEventQuestChapter.EventQuestSequenceGroupId))
         {
@@ -33,7 +33,7 @@ public class ExportEventStoryMenuCommand : AbstractMenuCommand<ExportEventStoryM
 
                 var lines = text.HtmlToDiscordText().Split("\\n");
 
-                Console.WriteLine($"**Story {++counter}**");
+                Console.WriteLine($"Story {++counter}".ToBold());
                 foreach (var line in lines)
                 {
                     Console.WriteLine(line);

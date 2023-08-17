@@ -19,7 +19,7 @@ public class ExportWeaponStoryMenuCommand : AbstractMenuCommand<ExportWeaponStor
 
         var darkWeaponStoryReleaseConditionGroups = MasterDb.EntityMWeaponStoryReleaseConditionGroupTable.All.Where(x => x.WeaponStoryReleaseConditionGroupId == darkWeapon.WeaponStoryReleaseConditionGroupId);
 
-        Console.WriteLine($"__**{weaponName} ({darkWeapon.WeaponType.ToFormattedStr()}) ({darkWeapon.RarityType.ToFormattedStr(true)})**__");
+        Console.WriteLine($"{weaponName} ({darkWeapon.WeaponType.ToFormattedStr()}) ({darkWeapon.RarityType.ToFormattedStr(true)})".ToHeader2());
         Console.WriteLine();
 
         foreach (var darkWeaponStoryReleaseConditionGroup in darkWeaponStoryReleaseConditionGroups)
@@ -30,7 +30,7 @@ public class ExportWeaponStoryMenuCommand : AbstractMenuCommand<ExportWeaponStor
 
             var lines = text.HtmlToDiscordText().Split("\\n");
 
-            Console.WriteLine($"**Story {++counter}**");
+            Console.WriteLine($"Story {++counter}".ToBold());
             foreach (var line in lines)
             {
                 Console.WriteLine(line);

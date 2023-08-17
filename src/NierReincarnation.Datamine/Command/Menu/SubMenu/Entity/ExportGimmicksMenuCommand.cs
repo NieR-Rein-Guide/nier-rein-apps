@@ -15,7 +15,7 @@ public class ExportGimmicksMenuCommand : AbstractMenuCommand
 
         foreach (var chapterGroup in gimmicks.GroupBy(x => x.ChapterId).OrderBy(x => x.Key))
         {
-            Console.WriteLine($"**Chapter {chapterGroup.Key}**");
+            Console.WriteLine($"Chapter {chapterGroup.Key}".ToBold());
 
             foreach (var gimmickGroup in chapterGroup.GroupBy(x => x.GimmickType))
             {
@@ -34,11 +34,11 @@ public class ExportGimmicksMenuCommand : AbstractMenuCommand
                     var pastGimmicks = gimmickGroup.Where(x => x.EndDateTimeOffset < DateTimeOffset.Now);
 
                     Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()} ({gimmickGroup.Count()})");
-                    Console.WriteLine($"- {pastGimmicks.Count()} birds in the past");
+                    Console.WriteLine($"{pastGimmicks.Count()} birds in the past".ToListItem());
 
                     foreach (var gimmick in gimmickGroup.Except(pastGimmicks).OrderBy(x => x.StartDateTimeOffset))
                     {
-                        Console.WriteLine($"- {gimmick.StartDateTimeOffset.Value.ToFormattedDate()} ~ {gimmick.EndDateTimeOffset.Value.ToFormattedDate()}");
+                        Console.WriteLine($"{gimmick.StartDateTimeOffset.Value.ToFormattedDate()} ~ {gimmick.EndDateTimeOffset.Value.ToFormattedDate()}".ToListItem());
                     }
                 }
                 else if (gimmickGroup.Key == GimmickType.MAP_ONLY_CAGE_TREASURE_HUNT)
@@ -54,7 +54,7 @@ public class ExportGimmicksMenuCommand : AbstractMenuCommand
                     Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()}");
                     foreach (var gimmick in gimmickGroup.OrderBy(x => x.ProgressStartDateTimeOffset))
                     {
-                        Console.WriteLine($"- {gimmick.ProgressStartDateTimeOffset.ToFormattedDate(true)} - {gimmick.Reward.Name} -> {string.Join(" & ", gimmick.ClearConditions)}");
+                        Console.WriteLine($"{gimmick.ProgressStartDateTimeOffset.ToFormattedDate(true)} - {gimmick.Reward.Name} -> {string.Join(" & ", gimmick.ClearConditions)}".ToListItem());
                     }
                 }
                 else
@@ -62,7 +62,7 @@ public class ExportGimmicksMenuCommand : AbstractMenuCommand
                     Console.WriteLine($"{gimmickGroup.Key.ToFormattedStr()}");
                     foreach (var gimmick in gimmickGroup.OrderBy(x => x.StartDateTimeOffset))
                     {
-                        Console.WriteLine($"- {gimmick.StartDateTimeOffset.Value.ToFormattedDate(true)} ~ {gimmick.EndDateTimeOffset.Value.ToFormattedDate(true)}");
+                        Console.WriteLine($"{gimmick.StartDateTimeOffset.Value.ToFormattedDate(true)} ~ {gimmick.EndDateTimeOffset.Value.ToFormattedDate(true)}".ToListItem());
                     }
                 }
             }
