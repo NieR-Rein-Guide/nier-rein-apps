@@ -11,7 +11,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
 {
     private readonly string Pattern = "ch[0-9]{6}";
 
-    internal static DataManager DataManager => OctoManager.Database as DataManager;
+    private static DataManager DataManager => OctoManager.DataManager;
 
     public override Task ExecuteAsync()
     {

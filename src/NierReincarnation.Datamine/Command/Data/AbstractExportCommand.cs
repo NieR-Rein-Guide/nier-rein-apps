@@ -10,7 +10,7 @@ public abstract class AbstractExportCommand : IAsyncCommand<BaseExportEntityComm
 {
     private static readonly object _lockObj = new();
 
-    internal static DataManager DataManager => OctoManager.Database as DataManager;
+    protected static DataManager DataManager => OctoManager.DataManager;
 
     public abstract string FileExt { get; }
 
