@@ -135,6 +135,14 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMBattleNpcCostumeLevelBonusReleaseStatusTable EntityMBattleNpcCostumeLevelBonusReleaseStatusTable { get; private set; }
 
+    public EntityMBattleNpcCostumeLotteryEffectTable EntityMBattleNpcCostumeLotteryEffectTable { get; private set; }
+
+    public EntityMBattleNpcCostumeLotteryEffectAbilityTable EntityMBattleNpcCostumeLotteryEffectAbilityTable { get; private set; }
+
+    public EntityMBattleNpcCostumeLotteryEffectPendingTable EntityMBattleNpcCostumeLotteryEffectPendingTable { get; private set; }
+
+    public EntityMBattleNpcCostumeLotteryEffectStatusUpTable EntityMBattleNpcCostumeLotteryEffectStatusUpTable { get; private set; }
+
     public EntityMBattleNpcDeckTable EntityMBattleNpcDeckTable { get; private set; }
 
     public EntityMBattleNpcDeckBackupTable EntityMBattleNpcDeckBackupTable { get; private set; }
@@ -414,6 +422,18 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
     public EntityMCostumeLimitBreakMaterialGroupTable EntityMCostumeLimitBreakMaterialGroupTable { get; private set; }
 
     public EntityMCostumeLimitBreakMaterialRarityGroupTable EntityMCostumeLimitBreakMaterialRarityGroupTable { get; private set; }
+
+    public EntityMCostumeLotteryEffectTable EntityMCostumeLotteryEffectTable { get; private set; }
+
+    public EntityMCostumeLotteryEffectMaterialGroupTable EntityMCostumeLotteryEffectMaterialGroupTable { get; private set; }
+
+    public EntityMCostumeLotteryEffectOddsGroupTable EntityMCostumeLotteryEffectOddsGroupTable { get; private set; }
+
+    public EntityMCostumeLotteryEffectReleaseScheduleTable EntityMCostumeLotteryEffectReleaseScheduleTable { get; private set; }
+
+    public EntityMCostumeLotteryEffectTargetAbilityTable EntityMCostumeLotteryEffectTargetAbilityTable { get; private set; }
+
+    public EntityMCostumeLotteryEffectTargetStatusUpTable EntityMCostumeLotteryEffectTargetStatusUpTable { get; private set; }
 
     public EntityMCostumeOverflowExchangePossessionGroupTable EntityMCostumeOverflowExchangePossessionGroupTable { get; private set; }
 
@@ -909,6 +929,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMSkillAbnormalBehaviourActionModifyHateValueTable EntityMSkillAbnormalBehaviourActionModifyHateValueTable { get; private set; }
 
+    public EntityMSkillAbnormalBehaviourActionOverrideEvasionValueTable EntityMSkillAbnormalBehaviourActionOverrideEvasionValueTable { get; private set; }
+
     public EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable { get; private set; }
 
     public EntityMSkillAbnormalBehaviourActionRecoveryTable EntityMSkillAbnormalBehaviourActionRecoveryTable { get; private set; }
@@ -978,6 +1000,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
     public EntityMSkillBehaviourActionDamageMultiplyTable EntityMSkillBehaviourActionDamageMultiplyTable { get; private set; }
 
     public EntityMSkillBehaviourActionDefaultSkillLotteryTable EntityMSkillBehaviourActionDefaultSkillLotteryTable { get; private set; }
+
+    public EntityMSkillBehaviourActionExtendBuffCooltimeTable EntityMSkillBehaviourActionExtendBuffCooltimeTable { get; private set; }
 
     public EntityMSkillBehaviourActionHpRatioDamageTable EntityMSkillBehaviourActionHpRatioDamageTable { get; private set; }
 
@@ -1242,6 +1266,10 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMBattleNpcCostumeAwakenStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeAwakenStatusUp[], EntityMBattleNpcCostumeAwakenStatusUpTable>(data => new EntityMBattleNpcCostumeAwakenStatusUpTable(data)));
         EntityMBattleNpcCostumeLevelBonusReevaluateTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLevelBonusReevaluate[], EntityMBattleNpcCostumeLevelBonusReevaluateTable>(data => new EntityMBattleNpcCostumeLevelBonusReevaluateTable(data)));
         EntityMBattleNpcCostumeLevelBonusReleaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLevelBonusReleaseStatus[], EntityMBattleNpcCostumeLevelBonusReleaseStatusTable>(data => new EntityMBattleNpcCostumeLevelBonusReleaseStatusTable(data)));
+        EntityMBattleNpcCostumeLotteryEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLotteryEffect[], EntityMBattleNpcCostumeLotteryEffectTable>(data => new EntityMBattleNpcCostumeLotteryEffectTable(data)));
+        EntityMBattleNpcCostumeLotteryEffectAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLotteryEffectAbility[], EntityMBattleNpcCostumeLotteryEffectAbilityTable>(data => new EntityMBattleNpcCostumeLotteryEffectAbilityTable(data)));
+        EntityMBattleNpcCostumeLotteryEffectPendingTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLotteryEffectPending[], EntityMBattleNpcCostumeLotteryEffectPendingTable>(data => new EntityMBattleNpcCostumeLotteryEffectPendingTable(data)));
+        EntityMBattleNpcCostumeLotteryEffectStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcCostumeLotteryEffectStatusUp[], EntityMBattleNpcCostumeLotteryEffectStatusUpTable>(data => new EntityMBattleNpcCostumeLotteryEffectStatusUpTable(data)));
         EntityMBattleNpcDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeck[], EntityMBattleNpcDeckTable>(data => new EntityMBattleNpcDeckTable(data)));
         EntityMBattleNpcDeckBackupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckBackup[], EntityMBattleNpcDeckBackupTable>(data => new EntityMBattleNpcDeckBackupTable(data)));
         EntityMBattleNpcDeckCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacter[], EntityMBattleNpcDeckCharacterTable>(data => new EntityMBattleNpcDeckCharacterTable(data)));
@@ -1382,6 +1410,12 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMCostumeLevelBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLevelBonus[], EntityMCostumeLevelBonusTable>(data => new EntityMCostumeLevelBonusTable(data)));
         EntityMCostumeLimitBreakMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLimitBreakMaterialGroup[], EntityMCostumeLimitBreakMaterialGroupTable>(data => new EntityMCostumeLimitBreakMaterialGroupTable(data)));
         EntityMCostumeLimitBreakMaterialRarityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLimitBreakMaterialRarityGroup[], EntityMCostumeLimitBreakMaterialRarityGroupTable>(data => new EntityMCostumeLimitBreakMaterialRarityGroupTable(data)));
+        EntityMCostumeLotteryEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLotteryEffect[], EntityMCostumeLotteryEffectTable>(data => new EntityMCostumeLotteryEffectTable(data)));
+        EntityMCostumeLotteryEffectMaterialGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLotteryEffectMaterialGroup[], EntityMCostumeLotteryEffectMaterialGroupTable>(data => new EntityMCostumeLotteryEffectMaterialGroupTable(data)));
+        EntityMCostumeLotteryEffectOddsGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLotteryEffectOddsGroup[], EntityMCostumeLotteryEffectOddsGroupTable>(data => new EntityMCostumeLotteryEffectOddsGroupTable(data)));
+        EntityMCostumeLotteryEffectReleaseScheduleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLotteryEffectReleaseSchedule[], EntityMCostumeLotteryEffectReleaseScheduleTable>(data => new EntityMCostumeLotteryEffectReleaseScheduleTable(data)));
+        EntityMCostumeLotteryEffectTargetAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLotteryEffectTargetAbility[], EntityMCostumeLotteryEffectTargetAbilityTable>(data => new EntityMCostumeLotteryEffectTargetAbilityTable(data)));
+        EntityMCostumeLotteryEffectTargetStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeLotteryEffectTargetStatusUp[], EntityMCostumeLotteryEffectTargetStatusUpTable>(data => new EntityMCostumeLotteryEffectTargetStatusUpTable(data)));
         EntityMCostumeOverflowExchangePossessionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeOverflowExchangePossessionGroup[], EntityMCostumeOverflowExchangePossessionGroupTable>(data => new EntityMCostumeOverflowExchangePossessionGroupTable(data)));
         EntityMCostumeProperAttributeHpBonusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeProperAttributeHpBonus[], EntityMCostumeProperAttributeHpBonusTable>(data => new EntityMCostumeProperAttributeHpBonusTable(data)));
         EntityMCostumeRarityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeRarity[], EntityMCostumeRarityTable>(data => new EntityMCostumeRarityTable(data)));
@@ -1629,6 +1663,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionDefaultSkillLottery[], EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable>(data => new EntityMSkillAbnormalBehaviourActionDefaultSkillLotteryTable(data)));
         EntityMSkillAbnormalBehaviourActionHitRatioDownTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionHitRatioDown[], EntityMSkillAbnormalBehaviourActionHitRatioDownTable>(data => new EntityMSkillAbnormalBehaviourActionHitRatioDownTable(data)));
         EntityMSkillAbnormalBehaviourActionModifyHateValueTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionModifyHateValue[], EntityMSkillAbnormalBehaviourActionModifyHateValueTable>(data => new EntityMSkillAbnormalBehaviourActionModifyHateValueTable(data)));
+        EntityMSkillAbnormalBehaviourActionOverrideEvasionValueTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionOverrideEvasionValue[], EntityMSkillAbnormalBehaviourActionOverrideEvasionValueTable>(data => new EntityMSkillAbnormalBehaviourActionOverrideEvasionValueTable(data)));
         EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionOverrideHitEffect[], EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable>(data => new EntityMSkillAbnormalBehaviourActionOverrideHitEffectTable(data)));
         EntityMSkillAbnormalBehaviourActionRecoveryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionRecovery[], EntityMSkillAbnormalBehaviourActionRecoveryTable>(data => new EntityMSkillAbnormalBehaviourActionRecoveryTable(data)));
         EntityMSkillAbnormalBehaviourActionTurnRestrictionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillAbnormalBehaviourActionTurnRestriction[], EntityMSkillAbnormalBehaviourActionTurnRestrictionTable>(data => new EntityMSkillAbnormalBehaviourActionTurnRestrictionTable(data)));
@@ -1664,6 +1699,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMSkillBehaviourActionDamageCorrectionHpRatioTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionDamageCorrectionHpRatio[], EntityMSkillBehaviourActionDamageCorrectionHpRatioTable>(data => new EntityMSkillBehaviourActionDamageCorrectionHpRatioTable(data)));
         EntityMSkillBehaviourActionDamageMultiplyTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionDamageMultiply[], EntityMSkillBehaviourActionDamageMultiplyTable>(data => new EntityMSkillBehaviourActionDamageMultiplyTable(data)));
         EntityMSkillBehaviourActionDefaultSkillLotteryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionDefaultSkillLottery[], EntityMSkillBehaviourActionDefaultSkillLotteryTable>(data => new EntityMSkillBehaviourActionDefaultSkillLotteryTable(data)));
+        EntityMSkillBehaviourActionExtendBuffCooltimeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionExtendBuffCooltime[], EntityMSkillBehaviourActionExtendBuffCooltimeTable>(data => new EntityMSkillBehaviourActionExtendBuffCooltimeTable(data)));
         EntityMSkillBehaviourActionHpRatioDamageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionHpRatioDamage[], EntityMSkillBehaviourActionHpRatioDamageTable>(data => new EntityMSkillBehaviourActionHpRatioDamageTable(data)));
         EntityMSkillBehaviourActionRecoveryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRecovery[], EntityMSkillBehaviourActionRecoveryTable>(data => new EntityMSkillBehaviourActionRecoveryTable(data)));
         EntityMSkillBehaviourActionRemoveAbnormalTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRemoveAbnormal[], EntityMSkillBehaviourActionRemoveAbnormalTable>(data => new EntityMSkillBehaviourActionRemoveAbnormalTable(data)));

@@ -30,5 +30,6 @@ public static partial class UserInterfaceTextKey
         public static readonly string kQuestDropBonusFilterTitle = "ui.Outgame.Sort.Priority.Quest.Bonus";
         public static readonly string kBlessFilterTitle = "ui.Outgame.Sort.Priority.Bless";
         public static readonly string kBlessAndBonusFilterTitle = "ui.Outgame.Sort.Priority.BlessAndBonus";
+        public static readonly string kCostumeLotteryEffectRank = "ui.Outgame.SortFilter.CostumeLotteryEffectRank";
     }
 }

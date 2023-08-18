@@ -1,0 +1,26 @@
+﻿using NierReincarnation.Core.MasterMemory;
+
+namespace NierReincarnation.Core.Dark;
+
+[MessagePackObject]
+[MemoryTable("m_skill_behaviour_action_extend_buff_cooltime")]
+public class EntityMSkillBehaviourActionExtendBuffCooltime
+{
+    [Key(0)]
+    public int SkillBehaviourActionId { get; set; }
+
+    [Key(1)]
+    public ExtendBuffCooltimeBuffType ExtendBuffCooltimeBuffType { get; set; }
+
+    [Key(2)]
+    public ExtendBuffCooltimeStatusType ExtendBuffCooltimeStatusType { get; set; }
+
+    [Key(3)]
+    public ExtendBuffCooltimeTargetSkillType ExtendBuffCooltimeTargetSkillType { get; set; }
+
+    [Key(4)]
+    public ExtendBuffCooltimeExtendType ExtendBuffCooltimeExtendType { get; set; }
+
+    [Key(5)]
+    public int ExtendValue { get; set; }
+}

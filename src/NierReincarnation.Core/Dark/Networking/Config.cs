@@ -101,6 +101,9 @@ public static class Config
     private const string WeaponGrowthCurveCoefficient = "WEAPON_STATUS_FUNCTION_THRESHOLD_OVER_COEFFICIENT";
     private const string AutoOrganizationBlessAdditionalCoefficientApplyThreshold = "AUTO_ORGANIZATION_BRESS_ADDITIONAL_COEFFICIENT_APPLY_THRESHOLD";
     private const string AutoOrganizationBlessAdditionalCoefficient = "AUTO_ORGANIZATION_BRESS_ADDITIONAL_COEFFICIENT_PERMIL";
+    private const string CostumeLotteryEffectSlotMaxCount = "COSTUME_LOTTERY_EFFECT_SLOT_MAX_COUNT";
+    private const string CostumeLotteryEffectUnlockSlotConsumeGold = "COSTUME_LOTTERY_EFFECT_UNLOCK_SLOT_CONSUME_GOLD";
+    private const string CostumeLotteryEffectDrawSlotConsumeGold = "COSTUME_LOTTERY_EFFECT_DRAW_SLOT_CONSUME_GOLD";
 
     public static int GetConsumableIdForGold() => GetConfigIntValue(ConsumableItemIdForGoldKey);
 
@@ -286,6 +289,12 @@ public static class Config
 
     public static int GetAutoOrganizationBlessAdditionalCoefficient() => GetConfigIntValue(AutoOrganizationBlessAdditionalCoefficient);
 
+    public static int GetCostumeLotteryEffectMaxSlotCount() => GetConfigIntValue(CostumeLotteryEffectSlotMaxCount);
+
+    public static bool TryGetCostumeLotteryEffectUnlockSlotConsumeGold(out int value) => TryGetConfigIntValue(CostumeLotteryEffectUnlockSlotConsumeGold, out value);
+
+    public static bool TryGetCostumeLotteryEffectDrawSlotConsumeGold(out int value) => TryGetConfigIntValue(CostumeLotteryEffectDrawSlotConsumeGold, out value);
+
     private static int GetConfigIntValue(string key)
     {
         if (DatabaseDefine.Master == null)
@@ -295,6 +304,19 @@ public static class Config
             return configValue;
 
         return 0;
+    }
+
+    private static bool TryGetConfigIntValue(string key, out int value)
+    {
+        value = 0;
+
+        if (DatabaseDefine.Master == null)
+            return false;
+
+        if (int.TryParse(DatabaseDefine.Master.EntityMConfigTable.FindByConfigKey(key).Value, out value))
+            return true;
+
+        return false;
     }
 
     private static long GetConfigLongValue(string key)

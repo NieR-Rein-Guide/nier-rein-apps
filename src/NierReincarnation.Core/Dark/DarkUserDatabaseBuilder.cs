@@ -174,6 +174,30 @@ public sealed class DarkUserDatabaseBuilder : DatabaseBuilderBase
         return this;
     }
 
+    public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCostumeLotteryEffect> dataSource)
+    {
+        AppendCore(dataSource, x => (x.UserId, x.UserCostumeUuid, x.SlotNumber), Comparer<(long, string, int)>.Default);
+        return this;
+    }
+
+    public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCostumeLotteryEffectAbility> dataSource)
+    {
+        AppendCore(dataSource, x => (x.UserId, x.UserCostumeUuid, x.SlotNumber), Comparer<(long, string, int)>.Default);
+        return this;
+    }
+
+    public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCostumeLotteryEffectPending> dataSource)
+    {
+        AppendCore(dataSource, x => (x.UserId, x.UserCostumeUuid), Comparer<(long, string)>.Default);
+        return this;
+    }
+
+    public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserCostumeLotteryEffectStatusUp> dataSource)
+    {
+        AppendCore(dataSource, x => (x.UserId, x.UserCostumeUuid, x.StatusCalculationType), Comparer<(long, string, StatusCalculationType)>.Default);
+        return this;
+    }
+
     public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserDeck> dataSource)
     {
         AppendCore(dataSource, x => (x.UserId, x.DeckType, x.UserDeckNumber), Comparer<(long, DeckType, int)>.Default);

@@ -56,7 +56,8 @@ public static partial class UserInterfaceTextKey
         public static readonly string kEventLevelResetConfirmationTitle = "ui.Outgame.Gacha.Event.Level.Reset.Confirmation.Title";
         public static readonly string kEventLevelResetConfirmationMessage = "ui.Outgame.Gacha.Event.Level.Reset.Confirmation.Message";
         public static readonly string kEventDescriptionTitle = "ui.Outgame.Gacha.Event.Description.Title";
-        public static readonly string kEventDescription = "ui.Outgame.Gacha.Event.Description";
+        public static readonly string kEventDescriptionDefault = "ui.Outgame.Gacha.Event.Description";
+        public static readonly string kEventDescriptionSpecified = "ui.Outgame.Gacha.Event.Description.{0}";
         public static readonly string kGachaTitle = "gacha.title.{0}";
         public static readonly string kGachaMedalAutoConvertDescription = "ui.Outgame.Gacha.GachaMedalAutoConvert.Description";
         public static readonly string kChapterEnd = "ui.Outgame.Gacha.Chapter.End";

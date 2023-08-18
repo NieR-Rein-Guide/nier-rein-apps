@@ -19,5 +19,7 @@ public static partial class UserInterfaceTextKey
         public static readonly string kStatusName = kStatusBasePrefix + "Title";
         public static readonly string kStatusDescription = kStatusBasePrefix + "Description";
         public static readonly string kVariousAttribute = kStatusBasePrefix + "VariousAttribute";
+        public static readonly string kStatusCostumeLotteryEffectSlot = kStatusBasePrefix + "CostumeLotteryEffect.Slot";
+        public static readonly string kStatusCostumeLotteryEffectSlotLock = kStatusBasePrefix + "CostumeLotteryEffect.Slot.Lock";
     }
 }

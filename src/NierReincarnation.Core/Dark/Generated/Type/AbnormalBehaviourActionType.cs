@@ -14,5 +14,6 @@ public enum AbnormalBehaviourActionType
     BUFF_RESISTANCE = 9,
     OVERRIDE_HIT_EFFECT = 10,
     MODIFY_HATE_VALUE = 11,
-    UNDEAD = 12
+    UNDEAD = 12,
+    OVERRIDE_EVASION_VALUE = 13
 }

@@ -12,6 +12,8 @@ public static partial class UserInterfaceTextKey
         public static readonly string kAbility = "ui.Outgame.Enhance.Ability";
         public static readonly string kAwaken = "ui.Outgame.Enhance.Awaken";
         public static readonly string kWeaponAwaken = "ui.Outgame.Enhance.WeaponAwaken";
+        public static readonly string kLotteryEffect = "ui.Outgame.Enhance.CostumeLotteryEffect";
+        public static readonly string kLotteryEffectDraw = "ui.Outgame.Enhance.CostumeLotteryEffect.Draw";
         public static readonly string kEnhanceConfirm = "ui.Outgame.Enhance.EnhanceConfirm";
         public static readonly string kEnhanceSkillConfirm = "ui.Outgame.Enhance.EnhanceSkillConfirm";
         public static readonly string kLimitBreakConfirm = "ui.Outgame.Enhance.BreakthroughConfirm";
@@ -22,6 +24,7 @@ public static partial class UserInterfaceTextKey
         public static readonly string kWeaponAwakenConfirm = "ui.Outgame.Enhance.WeaponAwakenConfirm";
         public static readonly string kSuccess = "ui.Outgame.Enhance.Success";
         public static readonly string kFailed = "ui.Outgame.Enhance.Failed";
+        public static readonly string kRelease = "ui.Outgame.Enhance.Release";
         public static readonly string kReleaseAbiltiy = "ui.Outgame.Enhance.ReleaseAbility";
         public static readonly string kReleaseBlessAbiltiy = "ui.Outgame.Enhance.ReleaseBlessAbility";
         public static readonly string kReleaseAwakenAbility = "ui.Outgame.Enhance.Awaken.ReleaseAbility";
@@ -94,9 +97,40 @@ public static partial class UserInterfaceTextKey
         public static readonly string kCharacterBoardReleaseRank = kCharacterBoard + "ReleaseRank";
         public static readonly string kCharacterBoardNeedReleaseParentPanel = kCharacterBoard + "NeedReleaseParentPanel";
         public static readonly string kCharacterBoardProgressTitle = kCharacterBoard + "Progress.Title";
+        public static readonly string kCharacterBoardDisableAllRelease = kCharacterBoard + "AllReleased";
+        public static readonly string kCharacterBoardBundleReleaseDialogTitle = kCharacterBoard + "BundleReleaseDialog.Title";
+        public static readonly string kCharacterBoardBundleReleaseDialogProgressRate = kCharacterBoard + "BundleReleaseDialog.ProgressRate";
+        public static readonly string kCharacterBoardAllReleaseMaterialDialogTitle = kCharacterBoard + "AllReleaseMaterialDialog.Title";
         private const string kRebirth = "ui.Outgame.Enhance.Rebirth.";
         public static readonly string kRebirthTitle = kRebirth + "Title";
         public static readonly string kRebirthConfirmation = kRebirth + "Confirmation";
         public static readonly string kAlertMaxRebirth = kRebirth + "MaxRebirth";
+        public static readonly string kCostumeLotteryEffect = "ui.Outgame.Enhance.CostumeLotteryEffect.";
+        public static readonly string kCostumeLotteryEffectStatusSeparator = kCostumeLotteryEffect + "StatusSeparator";
+        public static readonly string kCostumeLotteryEffectHp = kCostumeLotteryEffect + "Hp";
+        public static readonly string kCostumeLotteryEffectAttack = kCostumeLotteryEffect + "Attack";
+        public static readonly string kCostumeLotteryEffectVitality = kCostumeLotteryEffect + "Vitality";
+        public static readonly string kCostumeLotteryEffectAgility = kCostumeLotteryEffect + "Agility";
+        public static readonly string kCostumeLotteryEffectCriticalRatio = kCostumeLotteryEffect + "CriticalRatio";
+        public static readonly string kCostumeLotteryEffectCriticalAttack = kCostumeLotteryEffect + "CriticalAttack";
+        public static readonly string kCostumeLotteryEffectStatusAdd = kCostumeLotteryEffect + "StatusAdd";
+        public static readonly string kCostumeLotteryEffectStatusMultiply = kCostumeLotteryEffect + "StatusMultiply";
+        public static readonly string kCostumeLotteryEffectStatusMultiplyPerLine = kCostumeLotteryEffect + "StatusMultiplyPerLine";
+        public static readonly string kCostumeLotteryEffectStatusUp = kCostumeLotteryEffect + "StatusUp";
+        public static readonly string kCostumeLotteryEffectListDialogTitle = kCostumeLotteryEffect + "LotteryEffectListDialog.Title";
+        public static readonly string kCostumeLotteryEffectSlotNotReleased = kCostumeLotteryEffect + "SlotNotReleased";
+        public static readonly string kCostumeLotteryEffectSlotNameFormat = kCostumeLotteryEffect + "Slot{0}";
+        public static readonly string kCostumeLotteryEffectNotImplemented = kCostumeLotteryEffect + "NotImplemented";
+        public static readonly string kCostumeLotteryEffectFunctionUnlockCostumeLevelCondition = kCostumeLotteryEffect + "FunctionUnlockCostumeLevelCondition";
+        public static readonly string kCostumeLotteryEffectFunctionUnlockCostumeSkillLevelCondition = kCostumeLotteryEffect + "FunctionUnlockCostumeSkillLevelCondition";
+        public static readonly string kCostumeLotteryEffectUnlockConfirmationDialogTitle = kCostumeLotteryEffect + "LotteryEffectUnlockConfirmationDialog.Title";
+        public static readonly string kCostumeLotteryEffectUnlockConfirmationDialogDescription = kCostumeLotteryEffect + "LotteryEffectUnlockConfirmationDialog.Description";
+        public static readonly string kCostumeLotteryEffectDrawConfirmationDialogTitle = kCostumeLotteryEffect + "LotteryEffectDrawConfirmationDialog.Title";
+        public static readonly string kCostumeLotteryEffectSetEffectConfirmationDialogTitle = kCostumeLotteryEffect + "LotteryEffectSetEffectConfirmationDialog.Title";
+        public static readonly string kCostumeLotteryEffectSetEffectReConfirmationDialogTitle = kCostumeLotteryEffect + "LotteryEffectSetEffectReConfirmationDialog.Title";
+        public static readonly string kCostumeLotteryEffectSetEffectReConfirmationDialogDescription = kCostumeLotteryEffect + "LotteryEffectSetEffectReConfirmationDialog.Description";
+        public static readonly string kCostumeLotteryEffectDetailDialogTitle = kCostumeLotteryEffect + "LotteryEffectDetailDialog.Title";
+        public static readonly string kCostumeLotteryEffectProductionStatusAdd = kCostumeLotteryEffect + "ProductionStatusAdd";
+        public static readonly string kCostumeLotteryEffectProductionStatusMultiply = kCostumeLotteryEffect + "ProductionStatusMultiply";
     }
 }

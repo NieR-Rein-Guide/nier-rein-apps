@@ -6,7 +6,7 @@ public static class CalculatorCharacterBoard
 {
     public static readonly DataOutgameCharacterBoardStatus kDefaultStatus;
     public static readonly int kReleaseRankFirst = 1;
-    private const string kProgressFormat = "F0";
+    public const string kProgressFormat = "F0";
     private static readonly int kInvalidCharacterBoardGroupId;
     private static readonly int kInvalidCharacterBoardPanelId;
     private static readonly int kInvalidCharacterBoardUnlockConditionGroupId;

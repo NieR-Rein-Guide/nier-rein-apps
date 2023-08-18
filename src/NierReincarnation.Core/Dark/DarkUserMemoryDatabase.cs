@@ -59,6 +59,14 @@ public class DarkUserMemoryDatabase : MemoryDatabaseBase
 
     public EntityIUserCostumeLevelBonusReleaseStatusTable EntityIUserCostumeLevelBonusReleaseStatusTable { get; private set; }
 
+    public EntityIUserCostumeLotteryEffectTable EntityIUserCostumeLotteryEffectTable { get; private set; }
+
+    public EntityIUserCostumeLotteryEffectAbilityTable EntityIUserCostumeLotteryEffectAbilityTable { get; private set; }
+
+    public EntityIUserCostumeLotteryEffectPendingTable EntityIUserCostumeLotteryEffectPendingTable { get; private set; }
+
+    public EntityIUserCostumeLotteryEffectStatusUpTable EntityIUserCostumeLotteryEffectStatusUpTable { get; private set; }
+
     public EntityIUserDeckTable EntityIUserDeckTable { get; private set; }
 
     public EntityIUserDeckCharacterTable EntityIUserDeckCharacterTable { get; private set; }
@@ -243,6 +251,10 @@ public class DarkUserMemoryDatabase : MemoryDatabaseBase
         EntityIUserCostumeActiveSkillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCostumeActiveSkill[], EntityIUserCostumeActiveSkillTable>(data => new EntityIUserCostumeActiveSkillTable(data)));
         EntityIUserCostumeAwakenStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCostumeAwakenStatusUp[], EntityIUserCostumeAwakenStatusUpTable>(data => new EntityIUserCostumeAwakenStatusUpTable(data)));
         EntityIUserCostumeLevelBonusReleaseStatusTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCostumeLevelBonusReleaseStatus[], EntityIUserCostumeLevelBonusReleaseStatusTable>(data => new EntityIUserCostumeLevelBonusReleaseStatusTable(data)));
+        EntityIUserCostumeLotteryEffectTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCostumeLotteryEffect[], EntityIUserCostumeLotteryEffectTable>(data => new EntityIUserCostumeLotteryEffectTable(data)));
+        EntityIUserCostumeLotteryEffectAbilityTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCostumeLotteryEffectAbility[], EntityIUserCostumeLotteryEffectAbilityTable>(data => new EntityIUserCostumeLotteryEffectAbilityTable(data)));
+        EntityIUserCostumeLotteryEffectPendingTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCostumeLotteryEffectPending[], EntityIUserCostumeLotteryEffectPendingTable>(data => new EntityIUserCostumeLotteryEffectPendingTable(data)));
+        EntityIUserCostumeLotteryEffectStatusUpTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserCostumeLotteryEffectStatusUp[], EntityIUserCostumeLotteryEffectStatusUpTable>(data => new EntityIUserCostumeLotteryEffectStatusUpTable(data)));
         EntityIUserDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeck[], EntityIUserDeckTable>(data => new EntityIUserDeckTable(data)));
         EntityIUserDeckCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckCharacter[], EntityIUserDeckCharacterTable>(data => new EntityIUserDeckCharacterTable(data)));
         EntityIUserDeckCharacterDressupCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckCharacterDressupCostume[], EntityIUserDeckCharacterDressupCostumeTable>(data => new EntityIUserDeckCharacterDressupCostumeTable(data)));

@@ -29,6 +29,9 @@ public static partial class UserInterfaceTextKey
         public static readonly string kCharacterViewerFieldSelectConfirmation = "ui.Outgame.Organization.FieldSelect.Confirmation.Title";
         public static readonly string kCharacterViewerFieldSelectRelease = "ui.Outgame.Organization.FieldSelect.Release";
         public static readonly string kCharacterViewerJumpError = "ui.Outgame.Organization.ViewerJump.Error";
+        public static readonly string kConfirmationLimitContentAlreadyEquip = "ui.Outgame.Organization.Confirmation.LimitContent.AlreadyEquip";
+        public static readonly string kConfirmationLimitContentAlreadyEquipCostume = "ui.Outgame.Organization.Confirmation.LimitContent.AlreadyEquip.Costume";
+        public static readonly string kConfirmationLimitContentAlreadyEquipFromEmpty = "ui.Outgame.Organization.Confirmation.LimitContent.AlreadyEquip.FromEmpty";
         public static readonly string kErrorRestrictionAnotherSlotCostumeTextKey = "ui.Outgame.Organization.Error.RestrictionAnotherSlotCostume";
         public static readonly string kErrorRestrictionAnotherSlotCharacterTextKey = "ui.Outgame.Organization.Error.RestrictionAnotherSlotCharacter";
         public static readonly string kErrorRestrictionAnotherSlotProperAttributeTypeTextKey = "ui.Outgame.Organization.Error.RestrictionAnotherSlotProperAttributeType";
@@ -41,6 +44,7 @@ public static partial class UserInterfaceTextKey
         public static readonly string kErrorRestrictionLimitContentMemory = "ui.Outgame.Organization.Error.LimitContentMemory";
         public static readonly string kErrorRestrictionLimitContentThought = "ui.Outgame.Organization.Error.LimitContentThought";
         public static readonly string kErrorRestrictionLimitContentMainWeapon = "ui.Outgame.Organization.Error.LimitContentMainWeapon";
+        public static readonly string kErrorRestrictionLimitContentMainWeaponAnotherDeck = "ui.Outgame.Organization.Error.LimitContentMainWeaponAnotherDeck";
         public static readonly string kErrorPleaseSelectCostume = "ui.Outgame.Organization.Error.PleaseSelectCostume";
         public static readonly string kErrorPleaseSelectDressupCostume = "ui.Outgame.Organization.Error.PleaseSelectDressupCostume";
         public static readonly string kErrorPleaseSelectWeapon = "ui.Outgame.Organization.Error.PleaseSelectWeapon";
@@ -102,5 +106,9 @@ public static partial class UserInterfaceTextKey
         public static readonly string kOrganizationWeaponConfirmationTitle = "ui.Outgame.Organization.Weapon.Confirm.Title";
         public static readonly string kOrganizationWeaponInfoBlessEmptyWeapon = "ui.Outgame.Organization.Weapon.Info.Bless.EmptyWeapon";
         public static readonly string kOrganizationWeaponInfoBlessNoEffect = "ui.Outgame.Organization.Weapon.Info.Bless.NoEffect";
+        public static readonly string kOrganizationCostumeLotteryEffectSlotLock = "ui.Outgame.Organization.CostumeLotteryEffect.Slot.Lock";
+        public static readonly string kOrganizationCostumeLotteryEffectSlotNoEffect = "ui.Outgame.Organization.CostumeLotteryEffect.Slot.NoEffect";
+        public static readonly string kOrganizationWeaponConfirmMessage = "ui.Outgame.Organization.Weapon.Confirm.Message";
+        public static readonly string kOrganizationWeaponConfirmMessageLimitContent = "ui.Outgame.Organization.Weapon.Confirm.Message.LimitContent";
     }
 }
