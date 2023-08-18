@@ -27,7 +27,7 @@ public class ExportCostumeStatsMenuCommand : AbstractMenuCommand<ExportCostumeSt
             {
                 Id = "0",
                 Text = "Go Back",
-                Command = new ExportCharacterCostumeStoriesMenuCommand()
+                Command = new ExportCharacterCostumeStatsMenuCommand()
             }
         };
 

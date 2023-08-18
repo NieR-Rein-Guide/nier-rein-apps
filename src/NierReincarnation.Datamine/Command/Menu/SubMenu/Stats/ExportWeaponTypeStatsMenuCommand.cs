@@ -25,7 +25,7 @@ public class ExportWeaponTypeStatsMenuCommand : AbstractMenuCommand
             {
                 Id = "0",
                 Text = "Go Back",
-                Command = new ExportStoriesMenuCommand()
+                Command = new ExportStatsMenuCommand()
             }
         };
 
