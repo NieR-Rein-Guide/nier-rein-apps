@@ -13,7 +13,7 @@ public class EntityMCharacterBoardEffectTargetGroup
     public int GroupIndex { get; set; }
 
     [Key(2)]
-    public int CharacterBoardEffectTargetType { get; set; }
+    public CharacterBoardEffectType CharacterBoardEffectTargetType { get; set; }
 
     [Key(3)]
     public int TargetValue { get; set; }

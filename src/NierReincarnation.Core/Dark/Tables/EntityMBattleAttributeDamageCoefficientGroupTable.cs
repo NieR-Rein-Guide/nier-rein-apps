@@ -4,7 +4,7 @@ namespace NierReincarnation.Core.Dark.Tables;
 
 public class EntityMBattleAttributeDamageCoefficientGroupTable : TableBase<EntityMBattleAttributeDamageCoefficientGroup>
 {
-    private readonly Func<EntityMBattleAttributeDamageCoefficientGroup, (int, int, int)> primaryIndexSelector;
+    private readonly Func<EntityMBattleAttributeDamageCoefficientGroup, (int, AttributeType, AttributeType)> primaryIndexSelector;
 
     public EntityMBattleAttributeDamageCoefficientGroupTable(EntityMBattleAttributeDamageCoefficientGroup[] sortedData) : base(sortedData)
     {

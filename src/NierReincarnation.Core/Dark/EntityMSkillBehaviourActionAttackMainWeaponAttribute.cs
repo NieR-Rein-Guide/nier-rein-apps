@@ -13,7 +13,7 @@ public class EntityMSkillBehaviourActionAttackMainWeaponAttribute
     public int SkillPower { get; set; }
 
     [Key(2)]
-    public int AttributeType { get; set; }
+    public AttributeType AttributeType { get; set; }
 
     [Key(3)]
     public int MagnificationRate { get; set; }

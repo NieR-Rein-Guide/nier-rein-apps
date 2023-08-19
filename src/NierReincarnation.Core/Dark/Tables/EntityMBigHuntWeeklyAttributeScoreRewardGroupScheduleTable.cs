@@ -4,7 +4,7 @@ namespace NierReincarnation.Core.Dark.Tables;
 
 public class EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable : TableBase<EntityMBigHuntWeeklyAttributeScoreRewardGroupSchedule>
 {
-    private readonly Func<EntityMBigHuntWeeklyAttributeScoreRewardGroupSchedule, (int, int, int)> primaryIndexSelector;
+    private readonly Func<EntityMBigHuntWeeklyAttributeScoreRewardGroupSchedule, (int, AttributeType, int)> primaryIndexSelector;
 
     public EntityMBigHuntWeeklyAttributeScoreRewardGroupScheduleTable(EntityMBigHuntWeeklyAttributeScoreRewardGroupSchedule[] sortedData) : base(sortedData)
     {

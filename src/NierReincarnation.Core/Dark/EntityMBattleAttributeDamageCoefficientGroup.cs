@@ -10,10 +10,10 @@ public class EntityMBattleAttributeDamageCoefficientGroup
     public int AttributeDamageCoefficientGroupId { get; set; }
 
     [Key(1)]
-    public int SkillExecutorAttributeType { get; set; }
+    public AttributeType SkillExecutorAttributeType { get; set; }
 
     [Key(2)]
-    public int SkillTargetAttributeType { get; set; }
+    public AttributeType SkillTargetAttributeType { get; set; }
 
     [Key(3)]
     public AttributeCompatibilityType AttributeCompatibilityType { get; set; }

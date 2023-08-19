@@ -13,7 +13,7 @@ public class EntityMCostumeSpecialActActiveSkill
     public int SkillActIndex { get; set; }
 
     [Key(2)]
-    public int CostumeSpecialActActiveSkillConditionType { get; set; }
+    public CostumeSpecialActActiveSkillConditionType CostumeSpecialActActiveSkillConditionType { get; set; }
 
     [Key(3)]
     public int CostumeSpecialActActiveSkillConditionId { get; set; }

@@ -4,7 +4,7 @@ namespace NierReincarnation.Core.Dark.Tables;
 
 public class EntityMDeckEntrustCoefficientAttributeTable : TableBase<EntityMDeckEntrustCoefficientAttribute>
 {
-    private readonly Func<EntityMDeckEntrustCoefficientAttribute, (int, int)> primaryIndexSelector;
+    private readonly Func<EntityMDeckEntrustCoefficientAttribute, (AttributeType, AttributeType)> primaryIndexSelector;
 
     public EntityMDeckEntrustCoefficientAttributeTable(EntityMDeckEntrustCoefficientAttribute[] sortedData) : base(sortedData)
     {

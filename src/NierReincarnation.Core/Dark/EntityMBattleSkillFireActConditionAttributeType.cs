@@ -10,5 +10,5 @@ public class EntityMBattleSkillFireActConditionAttributeType
     public int BattleSkillFireActConditionId { get; set; }
 
     [Key(1)]
-    public int AttributeType { get; set; }
+    public AttributeType AttributeType { get; set; }
 }

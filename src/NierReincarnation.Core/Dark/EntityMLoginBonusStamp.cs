@@ -16,7 +16,7 @@ public class EntityMLoginBonusStamp
     public int StampNumber { get; set; }
 
     [Key(3)]
-    public int RewardPossessionType { get; set; }
+    public PossessionType RewardPossessionType { get; set; }
 
     [Key(4)]
     public int RewardPossessionId { get; set; }

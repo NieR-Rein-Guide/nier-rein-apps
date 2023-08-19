@@ -1,3 +1,4 @@
+using NierReincarnation.Core.Art.Framework.ApiNetwork.Enum;
 using NierReincarnation.Core.MasterMemory;
 
 namespace NierReincarnation.Core.Dark;
@@ -16,7 +17,7 @@ public class EntityMMaintenanceGroup
     public int Priority { get; set; }
 
     [Key(3)]
-    public int ScreenTransitionType { get; set; }
+    public ScreenTransitionType ScreenTransitionType { get; set; }
 
     [Key(4)]
     public MaintenanceBlockFunctionType BlockFunctionType { get; set; }

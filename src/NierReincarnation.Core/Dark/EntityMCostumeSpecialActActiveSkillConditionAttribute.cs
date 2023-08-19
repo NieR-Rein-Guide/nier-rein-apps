@@ -10,5 +10,5 @@ public class EntityMCostumeSpecialActActiveSkillConditionAttribute
     public int CostumeSpecialActActiveSkillConditionId { get; set; }
 
     [Key(1)]
-    public int CostumeSpecialActActiveSkillConditionAttributeType { get; set; }
+    public AttributeType CostumeSpecialActActiveSkillConditionAttributeType { get; set; }
 }

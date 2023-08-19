@@ -13,5 +13,5 @@ public class EntityMOverrideHitEffectConditionDamageAttribute
     public bool IsExcepting { get; set; }
 
     [Key(2)]
-    public int AttributeType { get; set; }
+    public AttributeType AttributeType { get; set; }
 }

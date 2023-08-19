@@ -10,7 +10,7 @@ public class EntityMSkillAbnormalBehaviourActionAttributeDamageCorrection
     public int SkillAbnormalBehaviourActionId { get; set; }
 
     [Key(1)]
-    public int AttributeType { get; set; }
+    public AttributeType AttributeType { get; set; }
 
     [Key(2)]
     public CorrectionTargetDamageType CorrectionTargetDamageType { get; set; }
