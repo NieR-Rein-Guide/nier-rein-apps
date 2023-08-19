@@ -124,7 +124,7 @@ public static class NierReincarnationApp
         // Get auth URL
         AuthenticationUrlResult authUrlResult = await authProvider.GetAuthenticationUrlAsync();
 
-        if (authUrlResult.Uuid is null)
+        if (!authUrlResult.Success)
         {
             throw new ApiException("Failed to generate login URL");
         }
