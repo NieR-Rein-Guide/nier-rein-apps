@@ -1007,6 +1007,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMSkillBehaviourActionRecoveryTable EntityMSkillBehaviourActionRecoveryTable { get; private set; }
 
+    public EntityMSkillBehaviourActionRecoveryPointCorrectionTable EntityMSkillBehaviourActionRecoveryPointCorrectionTable { get; private set; }
+
     public EntityMSkillBehaviourActionRemoveAbnormalTable EntityMSkillBehaviourActionRemoveAbnormalTable { get; private set; }
 
     public EntityMSkillBehaviourActionRemoveBuffTable EntityMSkillBehaviourActionRemoveBuffTable { get; private set; }
@@ -1702,6 +1704,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMSkillBehaviourActionExtendBuffCooltimeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionExtendBuffCooltime[], EntityMSkillBehaviourActionExtendBuffCooltimeTable>(data => new EntityMSkillBehaviourActionExtendBuffCooltimeTable(data)));
         EntityMSkillBehaviourActionHpRatioDamageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionHpRatioDamage[], EntityMSkillBehaviourActionHpRatioDamageTable>(data => new EntityMSkillBehaviourActionHpRatioDamageTable(data)));
         EntityMSkillBehaviourActionRecoveryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRecovery[], EntityMSkillBehaviourActionRecoveryTable>(data => new EntityMSkillBehaviourActionRecoveryTable(data)));
+        EntityMSkillBehaviourActionRecoveryPointCorrectionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRecoveryPointCorrection[], EntityMSkillBehaviourActionRecoveryPointCorrectionTable>(data => new EntityMSkillBehaviourActionRecoveryPointCorrectionTable(data)));
         EntityMSkillBehaviourActionRemoveAbnormalTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRemoveAbnormal[], EntityMSkillBehaviourActionRemoveAbnormalTable>(data => new EntityMSkillBehaviourActionRemoveAbnormalTable(data)));
         EntityMSkillBehaviourActionRemoveBuffTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRemoveBuff[], EntityMSkillBehaviourActionRemoveBuffTable>(data => new EntityMSkillBehaviourActionRemoveBuffTable(data)));
         EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionShortenActiveSkillCooltime[], EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable>(data => new EntityMSkillBehaviourActionShortenActiveSkillCooltimeTable(data)));
