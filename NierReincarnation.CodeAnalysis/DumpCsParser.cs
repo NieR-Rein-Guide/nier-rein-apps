@@ -50,9 +50,10 @@ public static class DumpCsParser
             if (!options.IsValidNamespace(@namespace)) continue;
             if (!options.IsValidClass(@class.Identifier.Text)) continue;
 
+            List<FieldRecord> fieldRecords = new();
             List<ConstructorRecord> constructorRecords = new();
             List<MethodRecord> methodRecords = new();
-            ClassRecord classRecord = new(@class, constructorRecords, methodRecords, @namespace!);
+            ClassRecord classRecord = new(@class, fieldRecords, constructorRecords, methodRecords, @namespace!);
 
             List<SyntaxNode> descendantNodes = @class.DescendantNodes().ToList();
 
@@ -62,9 +63,7 @@ public static class DumpCsParser
                 {
                     if (!options.IsValidMethod(methodSyntax.Identifier.Text)) continue;
 
-                    string? methodOffset = methodSyntax.GetOffset();
-                    if (methodOffset is null) continue;
-
+                    string methodOffset = methodSyntax.GetOffset() ?? string.Empty;
                     methodRecords.Add(new MethodRecord(methodSyntax, methodOffset));
                 }
                 else if (options.IncludeConstructors && descendantNode is ConstructorDeclarationSyntax constructorSyntax)
@@ -75,10 +74,14 @@ public static class DumpCsParser
 
                     if (incompleteMemberSyntaxIndex == -1) continue;
 
-                    string? constructorOffset = ((IncompleteMemberSyntax)descendantNodes[incompleteMemberSyntaxIndex]).GetOffset();
-                    if (constructorOffset is null) continue;
-
+                    string constructorOffset = ((IncompleteMemberSyntax)descendantNodes[incompleteMemberSyntaxIndex]).GetOffset() ?? string.Empty;
                     constructorRecords.Add(new ConstructorRecord(constructorSyntax, constructorOffset));
+                }
+                else if (options.IncludeFields && descendantNode is FieldDeclarationSyntax fieldDeclarationSyntax)
+                {
+                    //var fieldOffset = fieldDeclarationSyntax.AttributeLists.FirstOrDefault()?.GetOffset() ?? string.Empty;
+                    var fieldOffset = fieldDeclarationSyntax.GetOffset() ?? string.Empty;
+                    fieldRecords.Add(new FieldRecord(fieldDeclarationSyntax, fieldOffset));
                 }
             }
 
@@ -91,7 +94,9 @@ public static class DumpCsParser
 
 public class DumpCsParserOptions
 {
-    public required string DumpPath { get; init; }
+    public string DumpPath { get; init; }
+
+    public bool IncludeFields { get; init; }
 
     public bool IncludeConstructors { get; init; }
 

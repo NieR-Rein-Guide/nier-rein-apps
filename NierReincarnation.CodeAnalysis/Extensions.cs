@@ -22,6 +22,9 @@ public static partial class Extensions
     [GeneratedRegex("Offset: (\\w+)")]
     private static partial Regex OffsetRegex();
 
+    [GeneratedRegex("// (\\w+)")]
+    private static partial Regex InlineOffsetRegex();
+
     [GeneratedRegex("Namespace: (.+)")]
     private static partial Regex NamespaceRegex();
 
@@ -31,6 +34,14 @@ public static partial class Extensions
 
         var attributeText = attributeList.ToFullString();
         Match match = OffsetRegex().Match(attributeText);
+
+        return match.Success ? match.Groups[1].Value : null;
+    }
+
+    public static string? GetOffset(this FieldDeclarationSyntax fieldDeclaration)
+    {
+        var methodText = fieldDeclaration.ToFullString();
+        Match match = InlineOffsetRegex().Matches(methodText).Last();
 
         return match.Success ? match.Groups[1].Value : null;
     }
