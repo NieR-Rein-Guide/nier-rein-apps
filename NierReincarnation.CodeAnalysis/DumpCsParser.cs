@@ -51,9 +51,10 @@ public static class DumpCsParser
             if (!options.IsValidClass(@class.Identifier.Text)) continue;
 
             List<FieldRecord> fieldRecords = new();
+            List<PropertyRecord> propertyRecords = new();
             List<ConstructorRecord> constructorRecords = new();
             List<MethodRecord> methodRecords = new();
-            ClassRecord classRecord = new(@class, fieldRecords, constructorRecords, methodRecords, @namespace!);
+            ClassRecord classRecord = new(@class, fieldRecords, propertyRecords, constructorRecords, methodRecords, @namespace!);
 
             List<SyntaxNode> descendantNodes = @class.DescendantNodes().ToList();
 
@@ -83,6 +84,10 @@ public static class DumpCsParser
                     var fieldOffset = fieldDeclarationSyntax.GetOffset() ?? string.Empty;
                     fieldRecords.Add(new FieldRecord(fieldDeclarationSyntax, fieldOffset));
                 }
+                else if (options.IncludeProperties && descendantNode is  PropertyDeclarationSyntax propertyDeclarationSyntax)
+                {
+                    propertyRecords.Add(new PropertyRecord(propertyDeclarationSyntax));
+                }
             }
 
             results.Add(classRecord);
@@ -97,6 +102,8 @@ public class DumpCsParserOptions
     public string DumpPath { get; init; }
 
     public bool IncludeFields { get; init; }
+
+    public bool IncludeProperties { get; init; }
 
     public bool IncludeConstructors { get; init; }
 
