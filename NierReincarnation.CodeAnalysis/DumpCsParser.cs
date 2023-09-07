@@ -30,14 +30,14 @@ public static class DumpCsParser
         return results;
     }
 
-    private static List<ClassRecord> ParseWithRoslyn(DumpCsParserOptions arg)
+    private static List<ClassRecord> ParseWithRoslyn(DumpCsParserOptions options)
     {
         List<ClassRecord> results = new();
-        if (!File.Exists(arg.DumpPath)) return results;
+        if (!File.Exists(options.DumpPath)) return results;
 
-        string dumpText = File.ReadAllText(arg.DumpPath);
-        CSharpParseOptions options = new CSharpParseOptions().WithDocumentationMode(DocumentationMode.Parse);
-        SyntaxTree tree = CSharpSyntaxTree.ParseText(dumpText, options);
+        string dumpText = File.ReadAllText(options.DumpPath);
+        CSharpParseOptions parseOptions = new CSharpParseOptions().WithDocumentationMode(DocumentationMode.Parse);
+        SyntaxTree tree = CSharpSyntaxTree.ParseText(dumpText, parseOptions);
 
         IEnumerable<ClassDeclarationSyntax> classes = tree.GetRoot()
             .DescendantNodes()
@@ -47,29 +47,42 @@ public static class DumpCsParser
         {
             string? @namespace = @class.GetNamespace();
 
-            if (!arg.IsValidNamespace(@namespace)) continue;
-            if (!arg.IsValidClass(@class.Identifier.Text)) continue;
+            if (!options.IsValidNamespace(@namespace)) continue;
+            if (!options.IsValidClass(@class.Identifier.Text)) continue;
 
+            List<ConstructorRecord> constructorRecords = new();
             List<MethodRecord> methodRecords = new();
-            ClassRecord classRecord = new(@class, methodRecords, @namespace!);
+            ClassRecord classRecord = new(@class, constructorRecords, methodRecords, @namespace!);
 
-            IEnumerable<MethodDeclarationSyntax> methods = @class.DescendantNodes()
-                .OfType<MethodDeclarationSyntax>();
+            List<SyntaxNode> descendantNodes = @class.DescendantNodes().ToList();
 
-            foreach (MethodDeclarationSyntax method in methods)
+            foreach (var descendantNode in descendantNodes)
             {
-                if (!arg.IsValidMethod(method.Identifier.Text)) continue;
+                if (options.IncludeMethods && descendantNode is MethodDeclarationSyntax methodSyntax)
+                {
+                    if (!options.IsValidMethod(methodSyntax.Identifier.Text)) continue;
 
-                string? methodOffset = method.GetOffset();
-                if (methodOffset == null) continue;
+                    string? methodOffset = methodSyntax.GetOffset();
+                    if (methodOffset is null) continue;
 
-                methodRecords.Add(new MethodRecord(method, methodOffset));
+                    methodRecords.Add(new MethodRecord(methodSyntax, methodOffset));
+                }
+                else if (options.IncludeConstructors && descendantNode is ConstructorDeclarationSyntax constructorSyntax)
+                {
+                    int nodeIndex = descendantNodes.IndexOf(descendantNode);
+                    int incompleteMemberSyntaxIndex = descendantNodes
+                        .FindLastIndex(nodeIndex, 3, x => x is IncompleteMemberSyntax);
+
+                    if (incompleteMemberSyntaxIndex == -1) continue;
+
+                    string? constructorOffset = ((IncompleteMemberSyntax)descendantNodes[incompleteMemberSyntaxIndex]).GetOffset();
+                    if (constructorOffset is null) continue;
+
+                    constructorRecords.Add(new ConstructorRecord(constructorSyntax, constructorOffset));
+                }
             }
 
-            if (arg.IncludeEmptyClasses || methodRecords.Count > 0)
-            {
-                results.Add(classRecord);
-            }
+            results.Add(classRecord);
         }
 
         return results;
@@ -78,9 +91,11 @@ public static class DumpCsParser
 
 public class DumpCsParserOptions
 {
-    public string DumpPath { get; init; }
+    public required string DumpPath { get; init; }
 
-    public bool IncludeEmptyClasses { get; init; }
+    public bool IncludeConstructors { get; init; }
+
+    public bool IncludeMethods { get; init; }
 
     public List<FilterRecord> NamespaceFilters = Extensions.GameNamespaceFilters;
 
@@ -90,7 +105,7 @@ public class DumpCsParserOptions
 
     public bool IsValidNamespace(string? @namespace)
     {
-        return NamespaceFilters.Count == 0 || NamespaceFilters.Any(x => x.IsMatch(@namespace?.Split(".")[0] ?? string.Empty));
+        return NamespaceFilters.Count == 0 || NamespaceFilters.Any(x => x.IsMatch(@namespace ?? string.Empty));
     }
 
     public bool IsValidClass(string className)

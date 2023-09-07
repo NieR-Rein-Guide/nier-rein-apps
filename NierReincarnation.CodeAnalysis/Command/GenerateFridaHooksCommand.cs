@@ -65,7 +65,7 @@ public class GenerateFridaHooksCommand : ICommand
 
 public class GenerateFridaHooksCommandArg
 {
-    public DumpCsParserOptions DumpCsParserOptions { get; init; } = null!;
+    public required DumpCsParserOptions DumpCsParserOptions { get; init; }
 
     public bool OutputToFile { get; init; }
 }

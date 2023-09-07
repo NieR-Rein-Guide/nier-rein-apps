@@ -52,7 +52,7 @@ public static class Program
                 {
                     DumpCsParserOptions = new DumpCsParserOptions
                     {
-                        IncludeEmptyClasses = true,
+                        IncludeMethods = true,
                         DumpPath = DumpPath
                     }
                 })
@@ -65,6 +65,7 @@ public static class Program
                 {
                     DumpCsParserOptions = new DumpCsParserOptions
                     {
+                        IncludeMethods = true,
                         DumpPath = DumpPath
                     }
                 })

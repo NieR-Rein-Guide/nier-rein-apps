@@ -8,15 +8,15 @@ namespace NierReincarnation.CodeAnalysis;
 
 public static partial class Extensions
 {
-    public static List<FilterRecord> GameNamespaceFilters = new()
+    public readonly static List<FilterRecord> GameNamespaceFilters = new()
     {
-        new FilterRecord("Adam", FilterType.Equals),
-        new FilterRecord("Art", FilterType.Equals),
-        new FilterRecord("Applibot", FilterType.Equals),
-        new FilterRecord("Dark", FilterType.Equals),
-        new FilterRecord("MasterMemory", FilterType.Equals),
-        new FilterRecord("Octo", FilterType.Equals),
-        new FilterRecord("Subsystem", FilterType.Equals),
+        new FilterRecord("Adam.", FilterType.StartsWith),
+        new FilterRecord("Art.", FilterType.StartsWith),
+        new FilterRecord("Applibot.", FilterType.StartsWith),
+        new FilterRecord("Dark.", FilterType.StartsWith),
+        new FilterRecord("MasterMemory.", FilterType.StartsWith),
+        new FilterRecord("Octo.", FilterType.StartsWith),
+        new FilterRecord("Subsystem.", FilterType.StartsWith),
     };
 
     [GeneratedRegex("Offset: (\\w+)")]
@@ -25,27 +25,36 @@ public static partial class Extensions
     [GeneratedRegex("Namespace: (.+)")]
     private static partial Regex NamespaceRegex();
 
-    public static string? GetOffset(this AttributeListSyntax? attribute)
+    public static string? GetOffset(this AttributeListSyntax? attributeList)
     {
-        if (attribute == null) return null;
+        if (attributeList == null) return null;
 
-        var attributeText = attribute.ToFullString();
+        var attributeText = attributeList.ToFullString();
         Match match = OffsetRegex().Match(attributeText);
 
         return match.Success ? match.Groups[1].Value : null;
     }
 
-    public static string? GetOffset(this MethodDeclarationSyntax method)
+    public static string? GetOffset(this IncompleteMemberSyntax incompleteMember)
     {
-        var methodText = method.ToFullString();
+        var methodText = incompleteMember.ToFullString();
         Match match = OffsetRegex().Match(methodText);
 
         return match.Success ? match.Groups[1].Value : null;
     }
 
-    public static string? GetNamespace(this ClassDeclarationSyntax @class)
+    public static string? GetOffset(this MethodDeclarationSyntax methodDeclaration)
     {
-        var namespaceComment = @class.GetLeadingTrivia().FirstOrDefault(x => x.IsKind(SyntaxKind.SingleLineCommentTrivia) || x.IsKind(SyntaxKind.MultiLineCommentTrivia));
+        var methodText = methodDeclaration.ToFullString();
+        Match match = OffsetRegex().Match(methodText);
+
+        return match.Success ? match.Groups[1].Value : null;
+    }
+
+    public static string? GetNamespace(this ClassDeclarationSyntax classDeclaration)
+    {
+        var namespaceComment = classDeclaration.GetLeadingTrivia()
+            .FirstOrDefault(x => x.IsKind(SyntaxKind.SingleLineCommentTrivia) || x.IsKind(SyntaxKind.MultiLineCommentTrivia));
 
         Match match = NamespaceRegex().Match(namespaceComment.ToString());
 
