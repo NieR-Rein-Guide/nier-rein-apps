@@ -1,22 +1,24 @@
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using NierReincarnation.Core.Adam.Framework.Resource;
+using NierReincarnation.Core.Dark.EntryPoint;
 using NierReincarnation.Core.Octo;
+using NierReincarnation.Core.Octo.Data;
+using NierReincarnation.Core.Octo.Proto;
 using NierReincarnation.Core.UnityEngine;
+using ProtoBuf;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace NierReincarnation.Functions;
 
 public class AssetDbFunctions
 {
-    private static readonly SemaphoreSlim _semaphore = new(1, 1);
-
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
     private static int CurrentGlobalAssetDbRevision;
     private static int CurrentJpAssetDbRevision;
-
-    private static int LatestAssetDbRevision => OctoManager.DbRevision;
 
     public AssetDbFunctions(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory)
     {
@@ -27,47 +29,69 @@ public class AssetDbFunctions
     [Function(nameof(CheckGlobalAssetsOffPeak))] // Every 15 minutes on the 0th second during off-peak time window
     public async Task CheckGlobalAssetsOffPeak([TimerTrigger("0 */15 * * * *")] FunctionContext context)
     {
-        await _semaphore.WaitAsync();
         await CheckAndNotifyRevisionChangesAsync(SystemRegion.GL);
         _logger.LogInformation($"{nameof(CheckGlobalAssetsOffPeak)} executed at: {DateTime.Now} with revision {CurrentGlobalAssetDbRevision}");
-        _semaphore.Release();
     }
 
     [Function(nameof(CheckGlobalAssetsOnPeak))] // Every minute on the 30th second during on-peak time window on weekdays
     public async Task CheckGlobalAssetsOnPeak([TimerTrigger("30 * 1-2 * * 1-5")] FunctionContext context)
     {
-        await _semaphore.WaitAsync();
         await CheckAndNotifyRevisionChangesAsync(SystemRegion.GL);
         _logger.LogInformation($"{nameof(CheckGlobalAssetsOnPeak)} executed at: {DateTime.Now} with revision {CurrentGlobalAssetDbRevision}");
-        _semaphore.Release();
     }
 
     [Function(nameof(CheckJpAssetsOffPeak))] // Every 15 minutes on the 15th second during off-peak time window
     public async Task CheckJpAssetsOffPeak([TimerTrigger("15 */15 * * * *")] FunctionContext context)
     {
-        await _semaphore.WaitAsync();
         await CheckAndNotifyRevisionChangesAsync(SystemRegion.JP);
         _logger.LogInformation($"{nameof(CheckJpAssetsOffPeak)} executed at: {DateTime.Now} with revision {CurrentJpAssetDbRevision}");
-        _semaphore.Release();
     }
 
     private async Task CheckAndNotifyRevisionChangesAsync(SystemRegion systemRegion)
     {
-        // Initialize app
+        // Initialize
         Application.SystemRegion = systemRegion;
-        ApplicationInitArguments args = new(false, false, true);
-        NierReincarnationApp.ResetApplication();
-        await NierReincarnationApp.InitializeApplicationAsync(args);
+        OctoFullSettings octoSettings = DarkOctoSetupper.CreateSetting();
+        AESCrypt crypt = new(SHA256.HashData(Encoding.UTF8.GetBytes(octoSettings.A)));
+        int currentAssetDbRevision = GetCurrentAssetDbRevision(systemRegion);
+
+        // Send request
+        HttpRequestMessage req = new(HttpMethod.Get, Config.Octo.Url + $"v2/pub/a/{octoSettings.AppId}/v/{octoSettings.Version}/list/{currentAssetDbRevision}");
+        req.Headers.Add("Accept", $"application/x-protobuf,x-octo-app/{octoSettings.AppId}");
+        req.Headers.Add("X-OCTO-KEY", $"{octoSettings.ClientSecretKey}");
+        HttpResponseMessage res = await _httpClient.SendAsync(req);
+
+        // Handle response
+        if (!res.IsSuccessStatusCode)
+        {
+            _logger.LogError($"Error while fetching {systemRegion} asset list: {res.ReasonPhrase} - {res.StatusCode}");
+            return;
+        }
+
+        byte[] bytes = await res.Content.ReadAsByteArrayAsync();
+        bytes = DecryptAes(crypt, bytes);
+
+        using MemoryStream memoryStream = new(bytes);
+        Database db = Serializer.Deserialize<Database>(memoryStream);
 
         // If db revision changed, send Discord notification
-        int currentAssetDbRevision = GetCurrentAssetDbRevision(systemRegion);
-        if (currentAssetDbRevision != 0 && currentAssetDbRevision < LatestAssetDbRevision)
+        if (currentAssetDbRevision != 0 && currentAssetDbRevision < db.Revision)
         {
-            await SendDiscordNotification(systemRegion, currentAssetDbRevision, LatestAssetDbRevision);
+            await SendDiscordNotification(systemRegion, currentAssetDbRevision, db.Revision);
         }
 
         // Update db revision
-        UpdateCurrentAssetDbRevision(systemRegion, LatestAssetDbRevision);
+        UpdateCurrentAssetDbRevision(systemRegion, db.Revision);
+    }
+
+    private static byte[] DecryptAes(AESCrypt crypt, byte[] bytes)
+    {
+        byte[] iv = new byte[0x10];
+        Array.Copy(bytes, iv, iv.Length);
+        crypt.UpdateIV(iv);
+
+        using MemoryStream ms = new(bytes, 0x10, bytes.Length - 0x10);
+        return crypt.Decrypt(ms);
     }
 
     private static int GetCurrentAssetDbRevision(SystemRegion systemRegion) => systemRegion == SystemRegion.GL ? CurrentGlobalAssetDbRevision : CurrentJpAssetDbRevision;

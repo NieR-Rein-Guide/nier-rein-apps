@@ -3,7 +3,7 @@ using MD5 = NierReincarnation.Core.Octo.Util.MD5;
 
 namespace NierReincarnation.Core.Octo.Data;
 
-internal class AESCrypt
+public class AESCrypt
 {
     private static readonly List<int> ValidKeyLengths = new() { 128, 196, 256 };
 
