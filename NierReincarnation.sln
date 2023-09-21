@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "src\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation.Functions", "src\NierReincarnation.Functions\NierReincarnation.Functions.csproj", "{C9D694D6-2A00-453E-9139-8823B80B4EAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NierReincarnation.CodeAnalysis", "NierReincarnation.CodeAnalysis\NierReincarnation.CodeAnalysis.csproj", "{F2E78B2D-60EB-4289-AD7E-2DBE67C34506}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NierReincarnation.CodeAnalysis", "src\NierReincarnation.CodeAnalysis\NierReincarnation.CodeAnalysis.csproj", "{F2E78B2D-60EB-4289-AD7E-2DBE67C34506}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
