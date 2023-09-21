@@ -16,6 +16,7 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
     {
         Console.Clear();
         Console.WriteLine("=====CONFIGURATION=====");
+        Console.WriteLine($"Region: {AppSettings.SystemRegion}");
         Console.WriteLine($"App Version: {AppSettings.AppVersion}");
         Console.WriteLine($"DB Revision: {AppSettings.DbRevision}");
         Console.WriteLine($"Working Directory: {AppSettings.WorkingfDir}");
@@ -68,18 +69,24 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
             new TextMenuItem
             {
                 Id = "5",
+                Text = "Set Region",
+                Command = new UpdateSystemRegionMenuCommand(new UpdateConfigurationCommandArg() { Reset = true } )
+            },
+            new TextMenuItem
+            {
+                Id = "6",
                 Text = "Set Date Format",
                 Command = new UpdateDateFormatMenuCommand(new UpdateConfigurationCommandArg())
             },
             new TextMenuItem
             {
-                Id = "6",
+                Id = "7",
                 Text = "Set Asset Download Timeout",
                 Command = new UpdateAssetDownloadTimeoutMenuCommand(new UpdateConfigurationCommandArg())
             },
             new TextMenuItem
             {
-                Id = "7",
+                Id = "8",
                 Text = "Set Asset Auto Copy Behavior",
                 Command = new UpdateAssetAutoCopyMenuCommand(new UpdateConfigurationCommandArg())
             }

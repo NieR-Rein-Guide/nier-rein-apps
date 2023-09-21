@@ -32,6 +32,9 @@ public static class Program
         [Option("timeout", Required = false, HelpText = "Timeout for asset downloads")]
         public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(2);
 
+        [Option("region", Required = false, Default = SystemRegion.GL, HelpText = "Game region")]
+        public SystemRegion SystemRegion { get; set; } = SystemRegion.GL;
+
         [JsonIgnore]
         public bool IsSetup => DbRevision >= 0 && !string.IsNullOrEmpty(AppVersion) && !string.IsNullOrEmpty(WorkingfDir);
     }
@@ -107,6 +110,10 @@ public static class Program
         finally
         {
             Application.Version = AppSettings.AppVersion;
+            Application.SystemRegion = AppSettings.SystemRegion;
+            Application.SystemLanguage = AppSettings.SystemRegion == SystemRegion.GL
+                ? SystemLanguage.English
+                : SystemLanguage.Japanese;
 
             await new SaveConfigurationCommand().ExecuteAsync();
         }

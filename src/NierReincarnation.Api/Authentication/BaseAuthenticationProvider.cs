@@ -1,5 +1,6 @@
 ﻿using Art.Framework.ApiNetwork.Grpc.Api.User;
 using NierReincarnation.Core.Adam.Framework.Network;
+using NierReincarnation.Core.Dark.EntryPoint;
 
 namespace NierReincarnation.Api.Authentication;
 
@@ -18,7 +19,7 @@ public class BaseAuthenticationProvider : IAuthenticationProvider
         var backupTokenResponse = await DarkClient.GetBackupTokenAsync(new GetBackupTokenRequest { Uuid = uuid });
 
         return backupTokenResponse != null
-            ? new AuthenticationUrlResult(true, uuid, $"https://psg.sqex-bridge.jp/ntv/288/update/top?type=2&token={backupTokenResponse.BackupToken}")
+            ? new AuthenticationUrlResult(true, uuid, string.Format(Config.Api.AccountTransferUrl, Config.Api.BridgeGameId, Config.Api.BridgeTypeId, backupTokenResponse.BackupToken))
             : new AuthenticationUrlResult(false);
     }
 

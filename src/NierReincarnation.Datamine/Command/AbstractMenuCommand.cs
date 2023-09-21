@@ -61,7 +61,7 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
     private static async Task InitializeLocalizations()
     {
-        await NierReincarnationApp.LoadLocalizations(SystemLanguage.English);
+        await NierReincarnationApp.LoadLocalizations(Application.SystemLanguage);
     }
 }
 

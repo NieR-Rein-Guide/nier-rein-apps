@@ -1,27 +1,56 @@
 ﻿using NierReincarnation.Core.Dark.Kernel;
 using NierReincarnation.Core.Dark.Preference;
+using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Core.Dark.EntryPoint;
 
 public static class Config
 {
+    // CUSTOM
+    private static bool IsGlobal => Application.SystemRegion == SystemRegion.GL;
+
     public static class Api
     {
         private const string MasterDataDevUrlFormat = "https://dev-web.dark.abot.sh/assets/release/{0}/database.bin";
-        public static readonly string Hostname = "api.app.nierreincarnation.com";
+
+        public static string Hostname => IsGlobal
+            ? "api.app.nierreincarnation.com"
+            : "api.app.nierreincarnation.jp";
+
         public static readonly int Port = 443;
-        public static readonly string WebViewBaseUrl = "https://web.app.nierreincarnation.com";
-        public static string MasterDataUrlFormat = "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin";
-        public static readonly string Salt = "qxDjPftFRGc4aGpHtwZajxzV";
-        public static readonly int BridgeGameId = 288;
+
+        public static string WebViewBaseUrl => IsGlobal
+            ? "https://web.app.nierreincarnation.com"
+            : "https://mama:na23R6uh7P@web.app.nierreincarnation.jp";
+
+        public static string MasterDataUrlFormat => IsGlobal
+            ? "https://web.app.nierreincarnation.com/assets/release/{0}/database.bin"
+            : "https://web.app.nierreincarnation.jp/assets/release/{0}/database.bin";
+
+        public static string Salt => IsGlobal
+            ? "qxDjPftFRGc4aGpHtwZajxzV"
+            : "qzn8MLVdfXEcNVuqEirJbogd";
+
+        public static int BridgeGameId => IsGlobal ? 288 : 255;
+
         public static readonly string EncryptionMasterDataUrlSuffix = ".e";
-        public static readonly string AccountRegisterUrl = "https://psg.sqex-bridge.jp/ntv/{gameId}/reg/top?type={deviceType}&token={bridgeBackupToken}";
-        public static readonly string AccountTransferUrl = "https://psg.sqex-bridge.jp/ntv/{gameId}/update/top?type={deviceType}&token={bridgeBackupToken}";
-        public static int BridgeTypeId = 2;
+        public static readonly string AccountRegisterUrl = "https://psg.sqex-bridge.jp/ntv/{0}/reg/top?type={1}&token={2}";
+        public static readonly string AccountTransferUrl = "https://psg.sqex-bridge.jp/ntv/{0}/update/top?type={1}&token={2}";
+        public static readonly int BridgeTypeId = 2;
         public static readonly string AmazonStoreURL = "amzn://apps/android?p=com.square_enix.android_amazon.nierspjp";
-        public static readonly string GoogleStoreUrl = "https://play.google.com/store/apps/details?id=com.square_enix.android_googleplay.nierspww";
-        public static readonly string ItunesStoreUrl = "https://apps.apple.com/us/app/nier-re-in-carnation/id1506553488?mt=8";
-        public static readonly string SNSUrl = "https://twitter.com/NieRReinEN";
+
+        public static string GoogleStoreUrl => IsGlobal
+            ? "https://play.google.com/store/apps/details?id=com.square_enix.android_googleplay.nierspww"
+            : "https://play.google.com/store/apps/details?id=com.square_enix.android_googleplay.nierspjp";
+
+        public static string ItunesStoreUrl => IsGlobal
+            ? "https://apps.apple.com/us/app/nier-re-in-carnation/id1506553488?mt=8"
+            : "https://apps.apple.com/jp/app/id1504185645?mt=8";
+
+        public static string SNSUrl => IsGlobal
+            ? "https://twitter.com/NieRReinEN"
+            : "https://twitter.com/nier_rein";
+
         private const string WebPagePath = "/web";
         private const string StaticPagePath = "/web/static";
         private const string InquiryPagePath = "/inquiry?";
@@ -45,8 +74,13 @@ public static class Config
         public static readonly string KoPagePath = "/ko";
 
         // CUSTOM
-        public static readonly string NotificationGetUrl = "https://api-web.app.nierreincarnation.com/api/information/list/get";
-        public static readonly string NotificationDetailUrl = "https://api-web.app.nierreincarnation.com/api/information/detail/get";
+        public static string NotificationGetUrl => IsGlobal
+            ? "https://api-web.app.nierreincarnation.com/api/information/list/get"
+            : "https://api-web.app.nierreincarnation.jp/api/information/list/get";
+
+        public static string NotificationDetailUrl => IsGlobal
+            ? "https://api-web.app.nierreincarnation.com/api/information/detail/get"
+            : "https://api-web.app.nierreincarnation.jp/api/information/detail/get";
 
         public static string MakeMasterDataUrl(string masterVersion)
         {
@@ -94,14 +128,21 @@ public static class Config
 
     public static class Octo
     {
-        public static readonly int AppId = 301;
-        public static readonly string ClientSecretKey = "l488k2zmalogay245osa257ifw2lczq4";
-        public static readonly string AesKey = "st4q3c7p1ibgwdhm";
-        public static readonly string Url = "https://resources-api.app.nierreincarnation.com/";
-        private const int OctoPeriod = 116830;
+        public static int AppId => IsGlobal ? 301 : 201;
+
+        public static string ClientSecretKey => IsGlobal ? "l488k2zmalogay245osa257ifw2lczq4" : "kgflql1vj1aos2m24v4hxxunuxwla0cm";
+
+        public static string AesKey => IsGlobal ? "st4q3c7p1ibgwdhm" : "p4nohhrnijynw45m";
+
+        public static string Url => IsGlobal ? "https://resources-api.app.nierreincarnation.com/" : "https://resources-api.app.nierreincarnation.jp/";
+
+        private static int OctoPeriod => IsGlobal ? 116830 : 558240;
+
         private const int OCTO_STAGE = 300000000;
         private const int OCTO_PLATFORM = 2;
-        public static readonly int Version = OctoPeriod + OCTO_STAGE + OCTO_PLATFORM;
-        public static readonly string A = $"dark_{AppId}_{Version}";
+
+        public static int Version => OctoPeriod + OCTO_STAGE + OCTO_PLATFORM;
+
+        public static string A => $"dark_{AppId}_{Version}";
     }
 }

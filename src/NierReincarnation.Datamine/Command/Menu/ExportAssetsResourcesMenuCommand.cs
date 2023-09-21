@@ -65,7 +65,7 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
         if (LocalizationExtensions.Localizations?.Count > 0)
         {
             Console.WriteLine("Reloading localizations");
-            await NierReincarnationApp.LoadLocalizations(SystemLanguage.English);
+            await NierReincarnationApp.LoadLocalizations(Application.SystemLanguage);
         }
     }
 }

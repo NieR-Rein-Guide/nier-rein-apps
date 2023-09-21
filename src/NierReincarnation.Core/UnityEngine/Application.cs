@@ -44,6 +44,9 @@ public static class Application
 
     public static string SharedPrefsPath => Path.Combine(DataPath, "shared_prefs");
 
+    // Custom
+    public static SystemRegion SystemRegion { get; set; } = SystemRegion.GL;
+
     static Application()
     {
         Directory.CreateDirectory(DataPath);

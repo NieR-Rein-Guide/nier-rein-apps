@@ -102,7 +102,7 @@ public static class Program
         Console.WriteLine("Initializing application...");
         await NierReincarnationApp.InitializeApplicationAsync(new ApplicationInitArguments(true, true, false));
         Console.WriteLine("Initializing localizations...");
-        await NierReincarnationApp.LoadLocalizations(SystemLanguage.English);
+        await NierReincarnationApp.LoadLocalizations(Application.SystemLanguage);
     }
 
     private static void SetupCaches()
