@@ -25,7 +25,7 @@ public class AssetDbFunctions
     }
 
     [Function(nameof(CheckGlobalAssetsOffPeak))] // Every 15 minutes on the 0th second during off-peak time window
-    public async Task CheckGlobalAssetsOffPeak([TimerTrigger("0 */1 0-1,2-23 * * *")] FunctionContext context)
+    public async Task CheckGlobalAssetsOffPeak([TimerTrigger("0 */15 * * * *")] FunctionContext context)
     {
         await _semaphore.WaitAsync();
         await CheckAndNotifyRevisionChangesAsync(SystemRegion.GL);
@@ -33,8 +33,8 @@ public class AssetDbFunctions
         _semaphore.Release();
     }
 
-    //[Function(nameof(CheckGlobalAssetsOnPeak))] // Every minute on the 30th second during on-peak time window on weekdays
-    public async Task CheckGlobalAssetsOnPeak([TimerTrigger("0 * 1-2 * * 1-5")] FunctionContext context)
+    [Function(nameof(CheckGlobalAssetsOnPeak))] // Every minute on the 30th second during on-peak time window on weekdays
+    public async Task CheckGlobalAssetsOnPeak([TimerTrigger("30 * 1-2 * * 1-5")] FunctionContext context)
     {
         await _semaphore.WaitAsync();
         await CheckAndNotifyRevisionChangesAsync(SystemRegion.GL);
@@ -42,8 +42,8 @@ public class AssetDbFunctions
         _semaphore.Release();
     }
 
-    [Function(nameof(CheckJpAssetsOffPeak))] // Every 15 minutes on the 30th second during off-peak time window
-    public async Task CheckJpAssetsOffPeak([TimerTrigger("30 */1 0-1,2-23 * * *")] FunctionContext context)
+    [Function(nameof(CheckJpAssetsOffPeak))] // Every 15 minutes on the 15th second during off-peak time window
+    public async Task CheckJpAssetsOffPeak([TimerTrigger("15 */15 * * * *")] FunctionContext context)
     {
         await _semaphore.WaitAsync();
         await CheckAndNotifyRevisionChangesAsync(SystemRegion.JP);
