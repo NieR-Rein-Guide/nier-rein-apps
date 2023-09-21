@@ -6,7 +6,7 @@ namespace NierReincarnation.Core.Octo;
 
 public static class OctoManager
 {
-    public static readonly string Version = "2.8.4";
+    public static readonly string Version = "3.3.10";
     private const int SaveVersion = 0x20804;
     private const string Tag = "Octo/OctoManager";
 

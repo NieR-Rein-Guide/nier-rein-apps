@@ -85,6 +85,7 @@ public static class NierReincarnationApp
         IsSetup = false;
         IsInitialized = false;
         IsAuthorized = false;
+        OctoManager.IsSetupped = false;
     }
 
     private static void SetupApplicationSystems(ApplicationInitArguments args)
