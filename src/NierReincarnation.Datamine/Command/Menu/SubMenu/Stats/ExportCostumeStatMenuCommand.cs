@@ -1,4 +1,5 @@
-﻿using NierReincarnation.Datamine.Model;
+﻿using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Datamine.Model;
 
 namespace NierReincarnation.Datamine.Command;
 
@@ -13,7 +14,8 @@ public class ExportCostumeStatMenuCommand : AbstractMenuCommand<ExportCostumeSta
         Costume costume = await new FetchCostumeCommand().ExecuteAsync(new FetchCostumeCommandArg
         {
             EntityId = arg.CostumeId,
-            Awakenings = new[] { 0, 5 }
+            Awakenings = new[] { 0, 5 },
+            KarmaRarityTypes = new[] { RarityType.RARE, RarityType.S_RARE, RarityType.SS_RARE }
         });
 
         Console.WriteLine(costume);

@@ -29,11 +29,11 @@ public class FetchCostumeKarmaSlotsCommand : AbstractDbQueryCommand<FetchCostume
                 .FindByCostumeLotteryEffectOddsGroupId(darkCostumeKarmaSlot.CostumeLotteryEffectOddsGroupId);
 
             List<CostumeKarmaItem> costumeKarmaItems = new();
-            foreach (var darkCostumeKarmaSlotOdd in darkCostumeKarmaSlotOdds.OrderBy(x => x.OddsNumber))
+            foreach (var darkCostumeKarmaSlotOdd in darkCostumeKarmaSlotOdds.OrderByDescending(x => x.RarityType).ThenBy(x => x.OddsNumber))
             {
-                if (darkCostumeKarmaSlotOdd.RarityType != RarityType.SS_RARE) continue;
+                if (!arg.KarmaRarityTypes.Contains(darkCostumeKarmaSlotOdd.RarityType)) continue;
 
-                    if (darkCostumeKarmaSlotOdd.CostumeLotteryEffectType == CostumeLotteryEffectType.ABILITY)
+                if (darkCostumeKarmaSlotOdd.CostumeLotteryEffectType == CostumeLotteryEffectType.ABILITY)
                 {
                     var darkCostumeKarmaSlotAbility = MasterDb.EntityMCostumeLotteryEffectTargetAbilityTable
                         .FindByCostumeLotteryEffectTargetAbilityId(darkCostumeKarmaSlotOdd.CostumeLotteryEffectTargetId);
@@ -132,6 +132,8 @@ public class FetchCostumeKarmaSlotsCommand : AbstractDbQueryCommand<FetchCostume
 public class FetchCostumeKarmaSlotsCommandArg : AbstractEntityCommandArg<EntityMCostume>
 {
     public int[] KarmaSlots { get; init; } = Array.Empty<int>();
+
+    public RarityType[] KarmaRarityTypes { get; init; } = new[] { RarityType.SS_RARE };
 
     public override bool IsValid()
     {

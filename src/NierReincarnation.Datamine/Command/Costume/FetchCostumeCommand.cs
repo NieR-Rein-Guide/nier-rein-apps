@@ -1,5 +1,6 @@
 ﻿using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator.Outgame;
+using NierReincarnation.Core.Dark.Generated.Type;
 using NierReincarnation.Core.Dark.Networking;
 using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Datamine.Model;
@@ -89,7 +90,8 @@ public class FetchCostumeCommand : AbstractDbQueryCommand<FetchCostumeCommandArg
         return await new FetchCostumeKarmaSlotsCommand().ExecuteAsync(new FetchCostumeKarmaSlotsCommandArg
         {
             Entity = darkCostume,
-            KarmaSlots = new[] { 1, 2, 3 } 
+            KarmaSlots = new[] { 1, 2, 3 },
+            KarmaRarityTypes = arg.KarmaRarityTypes
         });
     }
 }
@@ -107,6 +109,8 @@ public class FetchCostumeCommandArg : AbstractEntityCommandWithDatesArg<EntityMC
     public bool IncludeDebris { get; init; } = true;
 
     public bool IncludeKarmaSlots { get; init; } = true;
+
+    public RarityType[] KarmaRarityTypes { get; init; } = new[] { RarityType.SS_RARE };
 
     public override bool IsValid()
     {
