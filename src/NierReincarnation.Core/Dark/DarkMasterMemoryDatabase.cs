@@ -1125,6 +1125,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMTitleStillGroupTable EntityMTitleStillGroupTable { get; private set; }
 
+    public EntityMTutorialConsumePossessionGroupTable EntityMTutorialConsumePossessionGroupTable { get; private set; }
+
     public EntityMTutorialDialogTable EntityMTutorialDialogTable { get; private set; }
 
     public EntityMTutorialUnlockConditionTable EntityMTutorialUnlockConditionTable { get; private set; }
@@ -1763,6 +1765,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMTitleFlowMovieTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTitleFlowMovie[], EntityMTitleFlowMovieTable>(data => new EntityMTitleFlowMovieTable(data)));
         EntityMTitleStillTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTitleStill[], EntityMTitleStillTable>(data => new EntityMTitleStillTable(data)));
         EntityMTitleStillGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTitleStillGroup[], EntityMTitleStillGroupTable>(data => new EntityMTitleStillGroupTable(data)));
+        EntityMTutorialConsumePossessionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTutorialConsumePossessionGroup[], EntityMTutorialConsumePossessionGroupTable>(data => new EntityMTutorialConsumePossessionGroupTable(data)));
         EntityMTutorialDialogTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTutorialDialog[], EntityMTutorialDialogTable>(data => new EntityMTutorialDialogTable(data)));
         EntityMTutorialUnlockConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMTutorialUnlockCondition[], EntityMTutorialUnlockConditionTable>(data => new EntityMTutorialUnlockConditionTable(data)));
         EntityMUserLevelTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMUserLevel[], EntityMUserLevelTable>(data => new EntityMUserLevelTable(data)));
