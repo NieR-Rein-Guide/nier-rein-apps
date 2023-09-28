@@ -15,7 +15,7 @@
         <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" Version="4.2.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.14.1" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-        <PackageReference Include="NierReincarnation.Api" Version="1.0.2" />
+        <PackageReference Include="NierReincarnation.Api" Version="1.0.3" />
     </ItemGroup>
     <ItemGroup>
         <None Update="host.json">
