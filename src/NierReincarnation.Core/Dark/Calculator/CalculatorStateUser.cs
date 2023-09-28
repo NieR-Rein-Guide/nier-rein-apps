@@ -6,10 +6,17 @@ public class CalculatorStateUser
 {
     public static long GetUserId()
     {
-        var structure = GetStateUserDataStructure();
-        var stateUser = structure.FieldStateUser();
+        try
+        {
+            var structure = GetStateUserDataStructure();
+            var stateUser = structure.FieldStateUser();
 
-        return stateUser.Id;
+            return stateUser.Id;
+        }
+        catch (Exception)
+        {
+            return -1;
+        }
     }
 
     private static DataStructure GetStateUserDataStructure()

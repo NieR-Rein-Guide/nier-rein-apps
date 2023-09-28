@@ -3,12 +3,23 @@ using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.Octo.Data;
 using System.Collections;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace NierReincarnation.Datamine.Command;
 
-public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand
+public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand<ExportDatabaseTablesMenuCommandArg>
 {
+    private readonly ExportDatabaseTablesMenuCommandArg _Arg;
+
+    public ExportDatabaseTablesMenuCommand(ExportDatabaseTablesMenuCommandArg arg) : base(arg)
+    {
+        _Arg = arg;
+    }
+
     public override bool IsActive => Program.AppSettings.IsSetup;
+
+    public override bool UseApi => !_Arg.ExportLocalDb;
 
     public override bool Reset => true;
 
@@ -16,10 +27,17 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand
 
     private static DataManager DataManager => OctoManager.DataManager;
 
-    public override async Task ExecuteAsync()
+    public override async Task ExecuteAsync(ExportDatabaseTablesMenuCommandArg arg)
     {
-        await ExportMasterDb();
-        //await ExportUserDb();
+        if (_Arg.ExportLocalDb)
+        {
+            await ExportLocalMasterDb();
+        }
+        else
+        {
+            await ExportMasterDb();
+            //await ExportUserDb();
+        }
     }
 
     private static async Task ExportMasterDb()
@@ -93,4 +111,65 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand
             Console.WriteLine(exportedTable);
         }
     }
+
+    private static async Task ExportLocalMasterDb()
+    {
+        var latestLocalDbFileName = Directory.GetFiles(Path.Combine(Constants.DatabasePath, "bin")).OrderBy(x => x).LastOrDefault();
+
+        if (latestLocalDbFileName == null) return;
+
+        var masterData = await File.ReadAllBytesAsync(latestLocalDbFileName);
+        var decMasterData = DecryptMasterData(masterData);
+        DarkMasterMemoryDatabase masterMemoryDatabase = new(decMasterData)
+        {
+            Version = Path.GetFileNameWithoutExtension(latestLocalDbFileName).Split(".").FirstOrDefault()
+        };
+        string emptyString = string.Concat(Enumerable.Repeat(" ", 80));
+        List<string> exportedTables = new();
+
+        await Parallel.ForEachAsync(typeof(DarkMasterMemoryDatabase).GetProperties(), new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (tableProp, _) =>
+        {
+            var allProp = tableProp.PropertyType.GetProperty("All");
+            if (allProp is null) return;
+
+            Console.Write($"\r{emptyString}");
+            Console.Write($"\rChecking {tableProp.Name}");
+            var filePath = Path.Combine(Constants.DatabasePath, $"{tableProp.Name}.json");
+            var tempFilePath = Path.Combine(Constants.DatabasePath, Constants.TempFolder, $"{masterMemoryDatabase.Version}", $"{tableProp.Name}.json");
+            var tableValue = tableProp.GetValue(masterMemoryDatabase, null);
+            var allValue = allProp.GetValue(tableValue, null);
+
+            string json = JsonConvert.SerializeObject(allValue as IEnumerable, Formatting.Indented);
+
+            // Skip file without changes
+            if (File.Exists(filePath) && await File.ReadAllTextAsync(filePath, _) == json) return;
+
+            // Write file with changes
+            Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
+            await File.WriteAllTextAsync(tempFilePath, json, _);
+            exportedTables.Add(filePath);
+        });
+        Console.Write($"\r{emptyString}");
+        Console.WriteLine();
+
+        foreach (var exportedTable in exportedTables)
+        {
+            Console.WriteLine(exportedTable);
+        }
+    }
+
+    private static byte[] DecryptMasterData(byte[] data)
+    {
+        Aes masterAes = Aes.Create();
+        masterAes.Mode = CipherMode.CBC;
+        masterAes.Key = Encoding.UTF8.GetBytes("6Cb01321EE5e6bBe");
+        masterAes.IV = Encoding.UTF8.GetBytes("EfcAef4CAe5f6DaA");
+
+        return masterAes.CreateDecryptor().TransformFinalBlock(data, 0, data.Length);
+    }
+}
+
+public class ExportDatabaseTablesMenuCommandArg
+{
+    public bool ExportLocalDb { get; init; }
 }

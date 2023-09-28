@@ -154,7 +154,10 @@ public static class Program
             {
                 Id = "3",
                 Text = "Export Database",
-                Command = new ExportDatabaseTablesMenuCommand()
+                Command = new ExportDatabaseTablesMenuCommand(new ExportDatabaseTablesMenuCommandArg
+                {
+                    ExportLocalDb = false
+                })
             },
             new TextMenuItem
             {
