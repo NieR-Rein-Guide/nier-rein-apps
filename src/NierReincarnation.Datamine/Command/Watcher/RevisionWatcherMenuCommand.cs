@@ -6,7 +6,7 @@ public class RevisionWatcherMenuCommand : AbstractWatcherMenuCommand<RevisionWat
 {
     public override bool IsActive => Program.AppSettings.IsSetup;
 
-    public override bool Reset => true;
+    public override bool Reset => false;
 
     public override bool Login => false;
 
@@ -14,7 +14,7 @@ public class RevisionWatcherMenuCommand : AbstractWatcherMenuCommand<RevisionWat
 
     public override int Revision => Program.AppSettings.DbRevision;
 
-    public override int Interval => 5000;
+    public override TimeSpan Interval => TimeSpan.FromSeconds(5);
 
     private static int DbRevision => OctoManager.DbRevision;
 

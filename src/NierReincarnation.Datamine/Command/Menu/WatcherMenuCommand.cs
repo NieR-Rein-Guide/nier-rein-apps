@@ -40,8 +40,8 @@ public class WatcherMenuCommand : AbstractMenuCommand
             new TextMenuItem
             {
                 Id = "2",
-                Text = "Gacha Maintenance",
-                Command = new GachaMaintenanceWatcherMenuCommand(new RevisionWatcherMenuCommandArg())
+                Text = "Master Database",
+                Command = new MasterDatabaseWatcherMenuCommand(new MasterDatabaseWatcherMenuCommandArg())
             }
         });
 

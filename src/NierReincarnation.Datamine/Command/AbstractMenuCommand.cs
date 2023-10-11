@@ -135,7 +135,7 @@ public abstract class AbstractWatcherMenuCommand<T, R> : AbstractSimpleMenuComma
 
     public virtual int NotificationDuration => 5000;
 
-    public virtual int Interval => 25000;
+    public virtual TimeSpan Interval => TimeSpan.FromSeconds(30);
 
     public string TimeNow => DateTimeOffset.Now.ToString("H:mm:ss");
 
