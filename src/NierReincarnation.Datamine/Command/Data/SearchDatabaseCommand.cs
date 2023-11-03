@@ -15,6 +15,7 @@ public class SearchDatabaseCommand : AbstractDbQueryCommand<SearchDatabaseComman
         {
             var tableValue = tableProp.GetValue(MasterDb, null);
             var allProp = tableProp.PropertyType.GetProperty("All");
+            if (allProp is null) continue;
             var allValue = allProp.GetValue(tableValue, null);
 
             foreach (var item in allValue as IEnumerable)
