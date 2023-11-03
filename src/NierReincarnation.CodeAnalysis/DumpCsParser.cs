@@ -84,7 +84,7 @@ public static class DumpCsParser
                     var fieldOffset = fieldDeclarationSyntax.GetOffset() ?? string.Empty;
                     fieldRecords.Add(new FieldRecord(fieldDeclarationSyntax, fieldOffset));
                 }
-                else if (options.IncludeProperties && descendantNode is  PropertyDeclarationSyntax propertyDeclarationSyntax)
+                else if (options.IncludeProperties && descendantNode is PropertyDeclarationSyntax propertyDeclarationSyntax)
                 {
                     propertyRecords.Add(new PropertyRecord(propertyDeclarationSyntax));
                 }
@@ -117,16 +117,37 @@ public class DumpCsParserOptions
 
     public bool IsValidNamespace(string? @namespace)
     {
-        return NamespaceFilters.Count == 0 || NamespaceFilters.Any(x => x.IsMatch(@namespace ?? string.Empty));
+        if (NamespaceFilters.Count == 0) return true;
+
+        var inclusiveFilters = NamespaceFilters.Where(x => x.IsMatch).ToList();
+        var exclusiveFilters = NamespaceFilters.Where(x => !x.IsMatch).ToList();
+        bool isIncluded = inclusiveFilters.Count == 0 || inclusiveFilters.Any(x => x.IsMatch && x.IsMatch(@namespace ?? string.Empty));
+        bool isExcluded = exclusiveFilters.Any(x => x.IsMatch(@namespace ?? string.Empty));
+
+        return isIncluded && !isExcluded;
     }
 
     public bool IsValidClass(string className)
     {
-        return ClassFilters.Count == 0 || ClassFilters.Any(x => x.IsMatch(className));
+        if (ClassFilters.Count == 0) return true;
+
+        var inclusiveFilters = ClassFilters.Where(x => x.IsMatch).ToList();
+        var exclusiveFilters = ClassFilters.Where(x => !x.IsMatch).ToList();
+        bool isIncluded = inclusiveFilters.Count == 0 || inclusiveFilters.Any(x => x.IsMatch && x.IsMatch(className));
+        bool isExcluded = exclusiveFilters.Any(x => x.IsMatch(className));
+
+        return isIncluded && !isExcluded;
     }
 
     public bool IsValidMethod(string methodName)
     {
-        return MethodFilters.Count == 0 || MethodFilters.Any(x => x.IsMatch(methodName));
+        if (MethodFilters.Count == 0) return true;
+
+        var inclusiveFilters = MethodFilters.Where(x => x.IsMatch).ToList();
+        var exclusiveFilters = MethodFilters.Where(x => !x.IsMatch).ToList();
+        bool isIncluded = inclusiveFilters.Count == 0 || inclusiveFilters.Any(x => x.IsMatch && x.IsMatch(methodName));
+        bool isExcluded = exclusiveFilters.Any(x => x.IsMatch(methodName));
+
+        return isIncluded && !isExcluded;
     }
 }
