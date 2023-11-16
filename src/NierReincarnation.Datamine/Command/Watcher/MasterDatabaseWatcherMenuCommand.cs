@@ -7,7 +7,7 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
 {
     private static readonly object _lockObj = new();
 
-    private static readonly int[] _hours = { 1, 2, 3, 4, 5, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
+    private static readonly int[] _hours = { /* 1, 2, 3, 4, 5, 14, */ 15, 16, 17, 18, 19, /* 20, 21, 22, 23 */ };
 
     private const int _batchSize = 10000;
 
@@ -31,25 +31,24 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
     {
         HttpClient httpClient = new();
         List<string> masterVersions = new();
-        List<string> masterVersionsFound = new();
+        Dictionary<string, byte[]> masterVersionsFound = new();
 
-        var serverTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+        var serverTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
         var serverTime = DateTimeOffset.UtcNow.Add(serverTimeZone.BaseUtcOffset);
-        var prev3Days = serverTime.AddDays(-3);
-        var next3Days = serverTime.AddDays(1);
+        var twoDaysAgo = serverTime.AddDays(-2);
 
-        int[] months = new[] { prev3Days.Month, next3Days.Month }.Distinct().ToArray();
+        int[] months = new[] { twoDaysAgo.Month, serverTime.Month }.Distinct().ToArray();
 
         Dictionary<int, int[]> days = new();
 
         if (months.Length == 2)
         {
-            days.Add(months[0], Enumerable.Range(prev3Days.Day, DateTime.DaysInMonth(serverTime.Year, months[0]) - prev3Days.Day + 1).ToArray());
-            days.Add(months[1], Enumerable.Range(1, next3Days.Day).ToArray());
+            days.Add(months[0], Enumerable.Range(twoDaysAgo.Day, DateTime.DaysInMonth(serverTime.Year, months[0]) - twoDaysAgo.Day + 1).ToArray());
+            days.Add(months[1], Enumerable.Range(1, serverTime.Day).ToArray());
         }
         else
         {
-            days.Add(months[0], Enumerable.Range(prev3Days.Day, next3Days.Day - prev3Days.Day + 1).ToArray());
+            days.Add(months[0], Enumerable.Range(twoDaysAgo.Day, serverTime.Day - twoDaysAgo.Day + 1).ToArray());
         }
 
         foreach (var month in months)
@@ -62,7 +61,7 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
                     {
                         for (int second = 1; second <= 60; second++)
                         {
-                            string masterVersion = $"prd-us/{serverTime.Year}{month:D2}{days[month][dayIndex]:D2}{_hours[hourIndex]:D2}{minute:D2}{second:D2}";
+                            string masterVersion = $"{serverTime.Year}{month:D2}{days[month][dayIndex]:D2}{_hours[hourIndex]:D2}{minute:D2}{second:D2}";
                             masterVersions.Add(masterVersion);
                         }
                     }
@@ -90,7 +89,8 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
 
         foreach (var masterVersion in masterVersionsFound)
         {
-            WriteLineWithTimestamp(masterVersion);
+            WriteLineWithTimestamp(masterVersion.Key);
+            await File.WriteAllBytesAsync(Path.Combine(Constants.DatabasePath, "bin", $"{masterVersion.Key}.bin.e"), masterVersion.Value);
         }
 
         return new WatcherResult(masterVersionsFound.Count > 0);
@@ -101,11 +101,11 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
             {
                 if (cancellationToken.IsCancellationRequested) return;
 
-                HttpResponseMessage res = await httpClient.GetAsync(Config.Api.MakeMasterDataUrl(masterVersion), cancellationToken);
+                HttpResponseMessage res = await httpClient.GetAsync(Config.Api.MakeMasterDataUrl($"prd-us/{masterVersion}"), cancellationToken);
 
                 if (res.IsSuccessStatusCode && res.Content?.Headers?.ContentLength > 4096)
                 {
-                    masterVersionsFound.Add(masterVersion);
+                    masterVersionsFound.Add(masterVersion, await res.Content.ReadAsByteArrayAsync(cancellationToken));
                     cancellationTokenSource.Cancel();
                 }
 
