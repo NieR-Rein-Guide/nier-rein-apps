@@ -1,10 +1,8 @@
 ﻿using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Controls.Musical;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
-using NierReincarnation.Api;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Localization;
-using NierReincarnation.Core.UnityEngine;
 using NierReincarnation.Datamine.Extension;
 
 namespace NierReincarnation.Datamine.Command;
@@ -45,7 +43,7 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
             if (UseLocalizations && !IsLocalizationInitialized)
             {
-                await InitializeLocalizations();
+                await new InitializeLocalizationsCommand().ExecuteAsync();
             }
         }
         finally
@@ -56,12 +54,14 @@ public abstract class AbstractSimpleMenuCommand : ICommand
 
     private static async Task InitializeNierReinApi(int revision = 0, bool login = true)
     {
-        await NierReincarnationApp.InitializeApplicationAsync(new ApplicationInitArguments(login, login, true, revision));
-    }
-
-    private static async Task InitializeLocalizations()
-    {
-        await NierReincarnationApp.LoadLocalizations(Application.SystemLanguage);
+        if (Program.AppSettings.IsOfflineMode)
+        {
+            await new InitializeOfflineDatabaseCommand().ExecuteAsync();
+        }
+        else
+        {
+            await NierReincarnationApp.InitializeApplicationAsync(new ApplicationInitArguments(login, login, true, revision));
+        }
     }
 }
 
@@ -155,8 +155,11 @@ public abstract class AbstractWatcherMenuCommand<T, R> : AbstractSimpleMenuComma
 
                 @break = ExecuteAsync(_Arg).GetAwaiter().GetResult().Success;
 
-                Task.Delay(Interval).GetAwaiter().GetResult();
-                Setup().GetAwaiter().GetResult();
+                if (!@break)
+                {
+                    Task.Delay(Interval).GetAwaiter().GetResult();
+                    Setup().GetAwaiter().GetResult();
+                }
             }
             break;
         }

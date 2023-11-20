@@ -1,4 +1,5 @@
-﻿using DustInTheWind.ConsoleTools.Controls.Spinners;
+﻿using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Spinners;
 using NierReincarnation.Core.Dark.EntryPoint;
 
 namespace NierReincarnation.Datamine.Command;
@@ -11,7 +12,7 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
 
     private const int _batchSize = 10000;
 
-    public override bool IsActive => Program.AppSettings.IsSetup && System.Diagnostics.Debugger.IsAttached;
+    public override bool IsActive => Program.AppSettings.IsSetup && Program.AppSettings.IsOfflineMode;
 
     public override bool Reset => false;
 
@@ -29,6 +30,9 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
 
     public override async Task<WatcherResult> ExecuteAsync(MasterDatabaseWatcherMenuCommandArg arg)
     {
+        string okText = StringValue.QuickRead("WARNING!!! Do NOT use this without an active VPN. Type OK to continue:");
+        if (!okText.Equals("OK", StringComparison.Ordinal)) return new WatcherResult(true);
+
         HttpClient httpClient = new();
         List<string> masterVersions = new();
         Dictionary<string, byte[]> masterVersionsFound = new();

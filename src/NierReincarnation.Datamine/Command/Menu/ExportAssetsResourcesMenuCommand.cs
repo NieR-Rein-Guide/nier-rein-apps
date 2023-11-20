@@ -1,6 +1,5 @@
 ﻿using NierReincarnation.Core.Dark.Localization;
 using NierReincarnation.Core.Octo;
-using NierReincarnation.Core.UnityEngine;
 
 namespace NierReincarnation.Datamine.Command;
 
@@ -65,7 +64,7 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
         if (LocalizationExtensions.Localizations?.Count > 0)
         {
             Console.WriteLine("Reloading localizations");
-            await NierReincarnationApp.LoadLocalizations(Application.SystemLanguage);
+            await new InitializeLocalizationsCommand().ExecuteAsync();
         }
     }
 }

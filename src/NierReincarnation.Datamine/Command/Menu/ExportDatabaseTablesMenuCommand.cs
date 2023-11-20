@@ -2,6 +2,7 @@
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Octo;
 using NierReincarnation.Core.Octo.Data;
+using NierReincarnation.Datamine.Extension;
 using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
@@ -119,7 +120,7 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand<ExportDatabas
         if (latestLocalDbFileName == null) return;
 
         var masterData = await File.ReadAllBytesAsync(latestLocalDbFileName);
-        var decMasterData = DecryptMasterData(masterData);
+        var decMasterData = MasterDataExtensions.DecryptMasterData(masterData);
         DarkMasterMemoryDatabase masterMemoryDatabase = new(decMasterData)
         {
             Version = Path.GetFileNameWithoutExtension(latestLocalDbFileName).Split(".").FirstOrDefault()
@@ -156,16 +157,6 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand<ExportDatabas
         {
             Console.WriteLine(exportedTable);
         }
-    }
-
-    private static byte[] DecryptMasterData(byte[] data)
-    {
-        Aes masterAes = Aes.Create();
-        masterAes.Mode = CipherMode.CBC;
-        masterAes.Key = Encoding.UTF8.GetBytes("6Cb01321EE5e6bBe");
-        masterAes.IV = Encoding.UTF8.GetBytes("EfcAef4CAe5f6DaA");
-
-        return masterAes.CreateDecryptor().TransformFinalBlock(data, 0, data.Length);
     }
 }
 

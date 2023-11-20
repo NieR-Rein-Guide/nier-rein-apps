@@ -27,7 +27,7 @@ public static class NierReincarnationApp
 
     public static AssetContext Assets { get; } = new AssetContext();
 
-    public static bool IsSetup { get; private set; }
+    public static bool IsSetup { get; set; }
 
     public static bool IsLoggedIn => PlayerPrefs.Exists;
 

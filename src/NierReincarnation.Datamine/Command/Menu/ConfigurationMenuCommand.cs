@@ -23,6 +23,7 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
         Console.WriteLine($"Date Format: {(AppSettings.UseDiscordDates ? "Discord" : "Normal")}");
         Console.WriteLine($"Asset Download Timeout: {AppSettings.Timeout}");
         Console.WriteLine($"Asset Auto Copy: {(AppSettings.AutoCopyAssets ? "Yes" : "No")}");
+        Console.WriteLine($"Operation Mode: {(AppSettings.IsOfflineMode? "Offline" : "Online")}");
         Console.WriteLine();
 
         BuildSubMenu().Display();
@@ -89,6 +90,12 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
                 Id = "8",
                 Text = "Set Asset Auto Copy Behavior",
                 Command = new UpdateAssetAutoCopyMenuCommand(new UpdateConfigurationCommandArg())
+            },
+            new TextMenuItem
+            {
+                Id = "9",
+                Text = "Set Operation Mode",
+                Command = new ToggleOperatingModeMenuCommand(new UpdateConfigurationCommandArg())
             }
         });
 

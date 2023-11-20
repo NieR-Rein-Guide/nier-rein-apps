@@ -37,6 +37,9 @@ public static class Program
 
         [JsonIgnore]
         public bool IsSetup => DbRevision >= 0 && !string.IsNullOrEmpty(AppVersion) && !string.IsNullOrEmpty(WorkingfDir);
+
+        [JsonIgnore]
+        public bool IsOfflineMode { get; set; }
     }
 
     public static Options AppSettings { get; set; }
