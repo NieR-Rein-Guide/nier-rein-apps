@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_deck_sub_weapon_group")]
+[MemoryTable(nameof(EntityMBattleNpcDeckSubWeaponGroup))]
 public class EntityMBattleNpcDeckSubWeaponGroup
 {
     [Key(0)]

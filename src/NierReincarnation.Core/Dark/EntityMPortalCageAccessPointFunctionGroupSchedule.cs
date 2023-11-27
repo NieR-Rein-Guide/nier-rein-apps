@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_portal_cage_access_point_function_group_schedule")]
+[MemoryTable(nameof(EntityMPortalCageAccessPointFunctionGroupSchedule))]
 public class EntityMPortalCageAccessPointFunctionGroupSchedule
 {
     [Key(0)]

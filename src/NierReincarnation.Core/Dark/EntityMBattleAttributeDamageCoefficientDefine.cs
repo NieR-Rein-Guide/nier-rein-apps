@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_attribute_damage_coefficient_define")]
+[MemoryTable(nameof(EntityMBattleAttributeDamageCoefficientDefine))]
 public class EntityMBattleAttributeDamageCoefficientDefine
 {
     [Key(0)]

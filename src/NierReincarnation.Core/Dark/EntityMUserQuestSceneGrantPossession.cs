@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_user_quest_scene_grant_possession")]
+[MemoryTable(nameof(EntityMUserQuestSceneGrantPossession))]
 public class EntityMUserQuestSceneGrantPossession
 {
     [Key(0)]

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_group")]
+[MemoryTable(nameof(EntityMSkillBehaviourGroup))]
 public class EntityMSkillBehaviourGroup
 {
     [Key(0)]
@@ -16,7 +16,7 @@ public class EntityMSkillBehaviourGroup
     public int SkillBehaviourIndex { get; set; }
 
     [Key(3)]
-    public int TargetSelectorIndex { get; set; }// 0x1C
+    public int TargetSelectorIndex { get; set; }
 
     [Key(4)]
     public int SkillHitStartIndex { get; set; }

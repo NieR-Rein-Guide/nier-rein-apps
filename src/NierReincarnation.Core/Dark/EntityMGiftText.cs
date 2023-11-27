@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_gift_text")]
+[MemoryTable(nameof(EntityMGiftText))]
 public class EntityMGiftText
 {
     [Key(0)]

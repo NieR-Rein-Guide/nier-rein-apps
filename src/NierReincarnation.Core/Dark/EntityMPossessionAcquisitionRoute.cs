@@ -4,7 +4,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_possession_acquisition_route")]
+[MemoryTable(nameof(EntityMPossessionAcquisitionRoute))]
 public class EntityMPossessionAcquisitionRoute
 {
     [Key(0)]

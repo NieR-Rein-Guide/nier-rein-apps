@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_lottery_effect_release_schedule")]
+[MemoryTable(nameof(EntityMCostumeLotteryEffectReleaseSchedule))]
 public class EntityMCostumeLotteryEffectReleaseSchedule
 {
     [Key(0)]

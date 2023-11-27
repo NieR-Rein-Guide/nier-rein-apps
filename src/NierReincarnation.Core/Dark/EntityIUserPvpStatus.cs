@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_pvp_status")]
+[MemoryTable(nameof(EntityIUserPvpStatus))]
 public class EntityIUserPvpStatus
 {
     [Key(0)]

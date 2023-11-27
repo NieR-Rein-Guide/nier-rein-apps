@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_field_effect_bless_relation")]
+[MemoryTable(nameof(EntityMFieldEffectBlessRelation))]
 public class EntityMFieldEffectBlessRelation
 {
     [Key(0)]

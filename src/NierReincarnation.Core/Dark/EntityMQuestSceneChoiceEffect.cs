@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_scene_choice_effect")]
+[MemoryTable(nameof(EntityMQuestSceneChoiceEffect))]
 public class EntityMQuestSceneChoiceEffect
 {
     [Key(0)]

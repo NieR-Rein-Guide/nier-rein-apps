@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_deck_backup")]
+[MemoryTable(nameof(EntityMBattleNpcDeckBackup))]
 public class EntityMBattleNpcDeckBackup
 {
     [Key(0)]

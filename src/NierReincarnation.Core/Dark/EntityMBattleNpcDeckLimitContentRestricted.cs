@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_deck_limit_content_restricted")]
+[MemoryTable(nameof(EntityMBattleNpcDeckLimitContentRestricted))]
 public class EntityMBattleNpcDeckLimitContentRestricted
 {
     [Key(0)]

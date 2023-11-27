@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_scene_battle")]
+[MemoryTable(nameof(EntityMQuestSceneBattle))]
 public class EntityMQuestSceneBattle
 {
     [Key(0)]

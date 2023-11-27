@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_facebook")]
+[MemoryTable(nameof(EntityIUserFacebook))]
 public class EntityIUserFacebook
 {
     [Key(0)]

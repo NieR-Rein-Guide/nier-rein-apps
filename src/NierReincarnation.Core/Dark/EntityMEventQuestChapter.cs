@@ -2,9 +2,8 @@
 
 namespace NierReincarnation.Core.Dark;
 
-// Dark.EntityMEventQuestChapter
 [MessagePackObject]
-[MemoryTable("m_event_quest_chapter")]
+[MemoryTable(nameof(EntityMEventQuestChapter))]
 public class EntityMEventQuestChapter
 {
     [Key(0)]

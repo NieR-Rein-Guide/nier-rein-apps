@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_rebirth")]
+[MemoryTable(nameof(EntityMCharacterRebirth))]
 public class EntityMCharacterRebirth
 {
     [Key(0)]

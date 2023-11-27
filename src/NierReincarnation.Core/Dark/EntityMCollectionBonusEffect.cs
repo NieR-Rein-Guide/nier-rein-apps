@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_collection_bonus_effect")]
+[MemoryTable(nameof(EntityMCollectionBonusEffect))]
 public class EntityMCollectionBonusEffect
 {
     [Key(0)]

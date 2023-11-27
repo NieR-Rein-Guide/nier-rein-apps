@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_skill_fire_act_condition_skill_category_type")]
+[MemoryTable(nameof(EntityMBattleSkillFireActConditionSkillCategoryType))]
 public class EntityMBattleSkillFireActConditionSkillCategoryType
 {
     [Key(0)]

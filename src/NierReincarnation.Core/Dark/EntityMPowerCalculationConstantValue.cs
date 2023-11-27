@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_power_calculation_constant_value")]
+[MemoryTable(nameof(EntityMPowerCalculationConstantValue))]
 public class EntityMPowerCalculationConstantValue
 {
     [Key(0)]

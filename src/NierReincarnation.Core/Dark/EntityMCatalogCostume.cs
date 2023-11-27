@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_catalog_costume")]
+[MemoryTable(nameof(EntityMCatalogCostume))]
 public class EntityMCatalogCostume
 {
     [Key(0)]

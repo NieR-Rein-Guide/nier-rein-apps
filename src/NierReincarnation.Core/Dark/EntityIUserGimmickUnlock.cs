@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_gimmick_unlock")]
+[MemoryTable(nameof(EntityIUserGimmickUnlock))]
 public class EntityIUserGimmickUnlock
 {
     [Key(0)]

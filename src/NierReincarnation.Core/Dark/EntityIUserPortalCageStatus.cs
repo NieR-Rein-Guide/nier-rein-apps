@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_portal_cage_status")]
+[MemoryTable(nameof(EntityIUserPortalCageStatus))]
 public class EntityIUserPortalCageStatus
 {
     [Key(0)]

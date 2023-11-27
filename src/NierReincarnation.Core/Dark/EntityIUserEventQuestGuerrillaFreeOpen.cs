@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_event_quest_guerrilla_free_open")]
+[MemoryTable(nameof(EntityIUserEventQuestGuerrillaFreeOpen))]
 public class EntityIUserEventQuestGuerrillaFreeOpen
 {
     [Key(0)]

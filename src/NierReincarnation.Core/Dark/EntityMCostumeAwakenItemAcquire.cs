@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_awaken_item_acquire")]
+[MemoryTable(nameof(EntityMCostumeAwakenItemAcquire))]
 public class EntityMCostumeAwakenItemAcquire
 {
     [Key(0)]

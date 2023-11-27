@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_action_attack_ignore_vitality")]
+[MemoryTable(nameof(EntityMSkillBehaviourActionAttackIgnoreVitality))]
 public class EntityMSkillBehaviourActionAttackIgnoreVitality
 {
     [Key(0)]

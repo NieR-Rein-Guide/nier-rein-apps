@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_enemy_size_type_config")]
+[MemoryTable(nameof(EntityMBattleEnemySizeTypeConfig))]
 public class EntityMBattleEnemySizeTypeConfig
 {
     [Key(0)]

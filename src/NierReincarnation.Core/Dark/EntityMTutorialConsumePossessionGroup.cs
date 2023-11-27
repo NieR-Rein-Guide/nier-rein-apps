@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_tutorial_consume_possession_group")]
+[MemoryTable(nameof(EntityMTutorialConsumePossessionGroup))]
 public class EntityMTutorialConsumePossessionGroup
 {
     [Key(0)]

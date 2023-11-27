@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_abnormal_behaviour_action_override_evasion_value")]
+[MemoryTable(nameof(EntityMSkillAbnormalBehaviourActionOverrideEvasionValue))]
 public class EntityMSkillAbnormalBehaviourActionOverrideEvasionValue
 {
     [Key(0)]

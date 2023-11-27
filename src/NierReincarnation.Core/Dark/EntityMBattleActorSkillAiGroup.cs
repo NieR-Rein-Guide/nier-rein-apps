@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_actor_skill_ai_group")]
+[MemoryTable(nameof(EntityMBattleActorSkillAiGroup))]
 public class EntityMBattleActorSkillAiGroup
 {
     [Key(0)]

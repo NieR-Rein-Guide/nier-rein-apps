@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_campaign_target_group")]
+[MemoryTable(nameof(EntityMQuestCampaignTargetGroup))]
 public class EntityMQuestCampaignTargetGroup
 {
     [Key(0)]

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_deck_restriction_group")]
+[MemoryTable(nameof(EntityMQuestDeckRestrictionGroup))]
 public class EntityMQuestDeckRestrictionGroup
 {
     [Key(0)]

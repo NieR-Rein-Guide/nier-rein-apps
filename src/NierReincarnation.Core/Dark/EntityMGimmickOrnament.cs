@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_gimmick_ornament")]
+[MemoryTable(nameof(EntityMGimmickOrnament))]
 public class EntityMGimmickOrnament
 {
     [Key(0)]

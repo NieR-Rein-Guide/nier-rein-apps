@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_cooltime_behaviour_group")]
+[MemoryTable(nameof(EntityMSkillCooltimeBehaviourGroup))]
 public class EntityMSkillCooltimeBehaviourGroup
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_pvp_reward")]
+[MemoryTable(nameof(EntityMPvpReward))]
 public class EntityMPvpReward
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_library_movie_unlock_condition")]
+[MemoryTable(nameof(EntityMLibraryMovieUnlockCondition))]
 public class EntityMLibraryMovieUnlockCondition
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_bgm_set")]
+[MemoryTable(nameof(EntityMBattleBgmSet))]
 public class EntityMBattleBgmSet
 {
     [Key(0)]

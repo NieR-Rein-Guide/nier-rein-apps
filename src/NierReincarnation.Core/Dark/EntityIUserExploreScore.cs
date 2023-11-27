@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_explore_score")]
+[MemoryTable(nameof(EntityIUserExploreScore))]
 public class EntityIUserExploreScore
 {
     [Key(0)]

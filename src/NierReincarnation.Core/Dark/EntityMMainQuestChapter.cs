@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_main_quest_chapter")]
+[MemoryTable(nameof(EntityMMainQuestChapter))]
 public class EntityMMainQuestChapter
 {
     [Key(0)]

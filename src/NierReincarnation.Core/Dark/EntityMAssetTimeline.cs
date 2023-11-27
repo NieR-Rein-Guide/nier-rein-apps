@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_asset_timeline")]
+[MemoryTable(nameof(EntityMAssetTimeline))]
 public class EntityMAssetTimeline
 {
     [Key(0)]

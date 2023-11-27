@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_ability_behaviour_action_bless")]
+[MemoryTable(nameof(EntityMAbilityBehaviourActionBless))]
 public class EntityMAbilityBehaviourActionBless
 {
     [Key(0)]

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_release_condition_list")]
+[MemoryTable(nameof(EntityMQuestReleaseConditionList))]
 public class EntityMQuestReleaseConditionList
 {
     [Key(0)]

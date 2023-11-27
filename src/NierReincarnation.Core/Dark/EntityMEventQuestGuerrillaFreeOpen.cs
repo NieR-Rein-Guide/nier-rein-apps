@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_guerrilla_free_open")]
+[MemoryTable(nameof(EntityMEventQuestGuerrillaFreeOpen))]
 public class EntityMEventQuestGuerrillaFreeOpen
 {
     [Key(0)]

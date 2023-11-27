@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_action_attack_main_weapon_attribute")]
+[MemoryTable(nameof(EntityMSkillBehaviourActionAttackMainWeaponAttribute))]
 public class EntityMSkillBehaviourActionAttackMainWeaponAttribute
 {
     [Key(0)]

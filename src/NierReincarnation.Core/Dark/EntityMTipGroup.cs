@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_tip_group")]
+[MemoryTable(nameof(EntityMTipGroup))]
 public class EntityMTipGroup
 {
     [Key(0)]

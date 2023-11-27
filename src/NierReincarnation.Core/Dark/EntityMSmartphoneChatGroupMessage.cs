@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_smartphone_chat_group_message")]
+[MemoryTable(nameof(EntityMSmartphoneChatGroupMessage))]
 public class EntityMSmartphoneChatGroupMessage
 {
     [Key(0)]

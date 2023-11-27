@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_dokan")]
+[MemoryTable(nameof(EntityIUserDokan))]
 public class EntityIUserDokan
 {
     [Key(0)]

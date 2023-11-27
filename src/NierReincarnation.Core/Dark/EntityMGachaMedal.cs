@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_gacha_medal")]
+[MemoryTable(nameof(EntityMGachaMedal))]
 public class EntityMGachaMedal
 {
     [Key(0)]

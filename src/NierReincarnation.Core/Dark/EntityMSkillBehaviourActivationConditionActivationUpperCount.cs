@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_activation_condition_activation_upper_count")]
+[MemoryTable(nameof(EntityMSkillBehaviourActivationConditionActivationUpperCount))]
 public class EntityMSkillBehaviourActivationConditionActivationUpperCount
 {
     [Key(0)]

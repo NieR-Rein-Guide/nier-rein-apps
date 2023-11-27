@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_casttime")]
+[MemoryTable(nameof(EntityMSkillCasttime))]
 public class EntityMSkillCasttime
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_parts_group_note")]
+[MemoryTable(nameof(EntityIUserPartsGroupNote))]
 public class EntityIUserPartsGroupNote
 {
     [Key(0)]

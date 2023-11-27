@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_portal_cage_character_group")]
+[MemoryTable(nameof(EntityMPortalCageCharacterGroup))]
 public class EntityMPortalCageCharacterGroup
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_pvp_season_grouping")]
+[MemoryTable(nameof(EntityMPvpSeasonGrouping))]
 public class EntityMPvpSeasonGrouping
 {
     [Key(0)]

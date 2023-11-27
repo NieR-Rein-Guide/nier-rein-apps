@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_action_buff")]
+[MemoryTable(nameof(EntityMSkillBehaviourActionBuff))]
 public class EntityMSkillBehaviourActionBuff
 {
     [Key(0)]

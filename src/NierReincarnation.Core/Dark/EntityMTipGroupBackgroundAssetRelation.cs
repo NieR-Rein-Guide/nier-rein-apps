@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_tip_group_background_asset_relation")]
+[MemoryTable(nameof(EntityMTipGroupBackgroundAssetRelation))]
 public class EntityMTipGroupBackgroundAssetRelation
 {
     [Key(0)]

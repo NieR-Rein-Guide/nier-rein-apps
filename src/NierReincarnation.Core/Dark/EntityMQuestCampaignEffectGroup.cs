@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_campaign_effect_group")]
+[MemoryTable(nameof(EntityMQuestCampaignEffectGroup))]
 public class EntityMQuestCampaignEffectGroup
 {
     [Key(0)]

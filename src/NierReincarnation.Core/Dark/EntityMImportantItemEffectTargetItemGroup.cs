@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_important_item_effect_target_item_group")]
+[MemoryTable(nameof(EntityMImportantItemEffectTargetItemGroup))]
 public class EntityMImportantItemEffectTargetItemGroup
 {
     [Key(0)]

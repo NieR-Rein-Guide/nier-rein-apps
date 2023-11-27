@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_costume_awaken_status_up")]
+[MemoryTable(nameof(EntityMBattleNpcCostumeAwakenStatusUp))]
 public class EntityMBattleNpcCostumeAwakenStatusUp
 {
     [Key(0)]

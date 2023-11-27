@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_release_condition_big_hunt_score")]
+[MemoryTable(nameof(EntityMQuestReleaseConditionBigHuntScore))]
 public class EntityMQuestReleaseConditionBigHuntScore
 {
     [Key(0)]

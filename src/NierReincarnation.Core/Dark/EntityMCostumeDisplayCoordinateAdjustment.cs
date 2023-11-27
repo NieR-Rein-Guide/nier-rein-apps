@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_display_coordinate_adjustment")]
+[MemoryTable(nameof(EntityMCostumeDisplayCoordinateAdjustment))]
 public class EntityMCostumeDisplayCoordinateAdjustment
 {
     [Key(0)]

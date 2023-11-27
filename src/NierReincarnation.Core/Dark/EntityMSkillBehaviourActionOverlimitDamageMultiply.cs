@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_action_overlimit_damage_multiply")]
+[MemoryTable(nameof(EntityMSkillBehaviourActionOverlimitDamageMultiply))]
 public class EntityMSkillBehaviourActionOverlimitDamageMultiply
 {
     public int SkillBehaviourActionId { get; set; }

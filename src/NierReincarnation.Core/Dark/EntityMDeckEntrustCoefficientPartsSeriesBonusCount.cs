@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_deck_entrust_coefficient_parts_series_bonus_count")]
+[MemoryTable(nameof(EntityMDeckEntrustCoefficientPartsSeriesBonusCount))]
 public class EntityMDeckEntrustCoefficientPartsSeriesBonusCount
 {
     [Key(0)]

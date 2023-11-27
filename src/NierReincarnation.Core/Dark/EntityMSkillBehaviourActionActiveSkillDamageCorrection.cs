@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_action_active_skill_damage_correction")]
+[MemoryTable(nameof(EntityMSkillBehaviourActionActiveSkillDamageCorrection))]
 public class EntityMSkillBehaviourActionActiveSkillDamageCorrection
 {
     [Key(0)]

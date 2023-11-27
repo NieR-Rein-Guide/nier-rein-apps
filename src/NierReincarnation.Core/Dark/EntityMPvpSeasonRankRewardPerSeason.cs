@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_pvp_season_rank_reward_per_season")]
+[MemoryTable(nameof(EntityMPvpSeasonRankRewardPerSeason))]
 public class EntityMPvpSeasonRankRewardPerSeason
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_pvp_win_streak_count_effect")]
+[MemoryTable(nameof(EntityMPvpWinStreakCountEffect))]
 public class EntityMPvpWinStreakCountEffect
 {
     [Key(0)]

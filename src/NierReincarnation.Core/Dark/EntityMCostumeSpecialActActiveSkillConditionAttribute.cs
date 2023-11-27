@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_special_act_active_skill_condition_attribute")]
+[MemoryTable(nameof(EntityMCostumeSpecialActActiveSkillConditionAttribute))]
 public class EntityMCostumeSpecialActActiveSkillConditionAttribute
 {
     [Key(0)]

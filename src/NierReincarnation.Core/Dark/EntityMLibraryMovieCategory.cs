@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_library_movie_category")]
+[MemoryTable(nameof(EntityMLibraryMovieCategory))]
 public class EntityMLibraryMovieCategory
 {
     [Key(0)]

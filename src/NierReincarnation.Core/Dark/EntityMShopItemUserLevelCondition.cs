@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_shop_item_user_level_condition")]
+[MemoryTable(nameof(EntityMShopItemUserLevelCondition))]
 public class EntityMShopItemUserLevelCondition
 {
     [Key(0)]

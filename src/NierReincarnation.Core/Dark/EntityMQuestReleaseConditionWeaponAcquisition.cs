@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_release_condition_weapon_acquisition")]
+[MemoryTable(nameof(EntityMQuestReleaseConditionWeaponAcquisition))]
 public class EntityMQuestReleaseConditionWeaponAcquisition
 {
     [Key(0)]

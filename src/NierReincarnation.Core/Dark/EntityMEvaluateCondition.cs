@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_evaluate_condition")]
+[MemoryTable(nameof(EntityMEvaluateCondition))]
 public class EntityMEvaluateCondition
 {
     [Key(0)]

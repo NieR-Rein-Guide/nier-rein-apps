@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_field_effect_decrease_point")]
+[MemoryTable(nameof(EntityMFieldEffectDecreasePoint))]
 public class EntityMFieldEffectDecreasePoint
 {
     [Key(0)]

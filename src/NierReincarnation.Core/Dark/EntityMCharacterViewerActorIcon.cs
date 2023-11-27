@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_viewer_actor_icon")]
+[MemoryTable(nameof(EntityMCharacterViewerActorIcon))]
 public class EntityMCharacterViewerActorIcon
 {
     [Key(0)]

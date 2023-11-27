@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_abnormal_behaviour_action_override_hit_effect")]
+[MemoryTable(nameof(EntityMSkillAbnormalBehaviourActionOverrideHitEffect))]
 public class EntityMSkillAbnormalBehaviourActionOverrideHitEffect
 {
     [Key(0)]

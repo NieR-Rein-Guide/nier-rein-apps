@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_important_item_effect_drop_rate")]
+[MemoryTable(nameof(EntityMImportantItemEffectDropRate))]
 public class EntityMImportantItemEffectDropRate
 {
     [Key(0)]

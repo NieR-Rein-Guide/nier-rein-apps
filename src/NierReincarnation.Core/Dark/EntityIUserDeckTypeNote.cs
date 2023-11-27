@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_deck_type_note")]
+[MemoryTable(nameof(EntityIUserDeckTypeNote))]
 public class EntityIUserDeckTypeNote
 {
     [Key(0)]

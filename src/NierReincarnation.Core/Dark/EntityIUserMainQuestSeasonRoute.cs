@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_main_quest_season_route")]
+[MemoryTable(nameof(EntityIUserMainQuestSeasonRoute))]
 public class EntityIUserMainQuestSeasonRoute
 {
     [Key(0)]

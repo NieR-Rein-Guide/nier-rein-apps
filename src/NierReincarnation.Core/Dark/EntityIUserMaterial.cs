@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_material")]
+[MemoryTable(nameof(EntityIUserMaterial))]
 public class EntityIUserMaterial
 {
     [Key(0)]

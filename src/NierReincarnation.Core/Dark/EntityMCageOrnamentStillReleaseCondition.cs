@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_cage_ornament_still_release_condition")]
+[MemoryTable(nameof(EntityMCageOrnamentStillReleaseCondition))]
 public class EntityMCageOrnamentStillReleaseCondition
 {
     [Key(0)]

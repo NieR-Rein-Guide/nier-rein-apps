@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_override_hit_effect_condition_damage_attribute")]
+[MemoryTable(nameof(EntityMOverrideHitEffectConditionDamageAttribute))]
 public class EntityMOverrideHitEffectConditionDamageAttribute
 {
     [Key(0)]

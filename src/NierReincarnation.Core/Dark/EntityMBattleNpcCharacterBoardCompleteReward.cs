@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_character_board_complete_reward")]
+[MemoryTable(nameof(EntityMBattleNpcCharacterBoardCompleteReward))]
 public class EntityMBattleNpcCharacterBoardCompleteReward
 {
     [Key(0)]

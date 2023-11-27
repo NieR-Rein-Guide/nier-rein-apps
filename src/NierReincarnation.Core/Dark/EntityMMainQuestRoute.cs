@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_main_quest_route")]
+[MemoryTable(nameof(EntityMMainQuestRoute))]
 public class EntityMMainQuestRoute
 {
     [Key(0)]

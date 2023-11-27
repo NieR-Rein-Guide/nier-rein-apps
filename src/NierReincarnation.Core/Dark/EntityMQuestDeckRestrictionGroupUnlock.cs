@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_deck_restriction_group_unlock")]
+[MemoryTable(nameof(EntityMQuestDeckRestrictionGroupUnlock))]
 public class EntityMQuestDeckRestrictionGroupUnlock
 {
     [Key(0)]

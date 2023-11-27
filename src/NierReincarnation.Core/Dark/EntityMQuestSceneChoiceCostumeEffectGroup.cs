@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_scene_choice_costume_effect_group")]
+[MemoryTable(nameof(EntityMQuestSceneChoiceCostumeEffectGroup))]
 public class EntityMQuestSceneChoiceCostumeEffectGroup
 {
     [Key(0)]

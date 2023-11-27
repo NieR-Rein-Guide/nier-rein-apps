@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_webview_mission_title_text")]
+[MemoryTable(nameof(EntityMWebviewMissionTitleText))]
 public class EntityMWebviewMissionTitleText
 {
     [Key(0)]

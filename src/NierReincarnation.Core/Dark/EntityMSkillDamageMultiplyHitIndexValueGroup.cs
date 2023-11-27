@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_damage_multiply_hit_index_value_group")]
+[MemoryTable(nameof(EntityMSkillDamageMultiplyHitIndexValueGroup))]
 public class EntityMSkillDamageMultiplyHitIndexValueGroup
 {
     [Key(0)]

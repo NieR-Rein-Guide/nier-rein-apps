@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_action_extend_buff_cooltime")]
+[MemoryTable(nameof(EntityMSkillBehaviourActionExtendBuffCooltime))]
 public class EntityMSkillBehaviourActionExtendBuffCooltime
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_deck_entrust_coefficient_attribute")]
+[MemoryTable(nameof(EntityMDeckEntrustCoefficientAttribute))]
 public class EntityMDeckEntrustCoefficientAttribute
 {
     [Key(0)]

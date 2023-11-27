@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_big_hunt_progress_status")]
+[MemoryTable(nameof(EntityIUserBigHuntProgressStatus))]
 public class EntityIUserBigHuntProgressStatus
 {
     [Key(0)]

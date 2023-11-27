@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_labyrinth_mob")]
+[MemoryTable(nameof(EntityMEventQuestLabyrinthMob))]
 public class EntityMEventQuestLabyrinthMob
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_big_hunt_score_reward_group")]
+[MemoryTable(nameof(EntityMBigHuntScoreRewardGroup))]
 public class EntityMBigHuntScoreRewardGroup
 {
     [Key(0)]

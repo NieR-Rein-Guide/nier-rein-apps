@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_board_condition_detail")]
+[MemoryTable(nameof(EntityMCharacterBoardConditionDetail))]
 public class EntityMCharacterBoardConditionDetail
 {
     [Key(0)]

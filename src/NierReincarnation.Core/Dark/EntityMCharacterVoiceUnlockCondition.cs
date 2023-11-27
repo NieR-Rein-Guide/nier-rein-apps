@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_voice_unlock_condition")]
+[MemoryTable(nameof(EntityMCharacterVoiceUnlockCondition))]
 public class EntityMCharacterVoiceUnlockCondition
 {
     [Key(0)]

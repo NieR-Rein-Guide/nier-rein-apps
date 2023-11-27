@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_pickup_reward_group")]
+[MemoryTable(nameof(EntityMQuestPickupRewardGroup))]
 public class EntityMQuestPickupRewardGroup
 {
     [Key(0)]

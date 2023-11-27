@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_special_end_act")]
+[MemoryTable(nameof(EntityMBattleNpcSpecialEndAct))]
 public class EntityMBattleNpcSpecialEndAct
 {
     [Key(0)]

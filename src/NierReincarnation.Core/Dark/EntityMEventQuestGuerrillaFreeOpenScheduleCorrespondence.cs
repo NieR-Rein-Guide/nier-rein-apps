@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_guerrilla_free_open_schedule_correspondence")]
+[MemoryTable(nameof(EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondence))]
 public class EntityMEventQuestGuerrillaFreeOpenScheduleCorrespondence
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_damage_multiply_abnormal_attached_value_group")]
+[MemoryTable(nameof(EntityMSkillDamageMultiplyAbnormalAttachedValueGroup))]
 public class EntityMSkillDamageMultiplyAbnormalAttachedValueGroup
 {
     [Key(0)]

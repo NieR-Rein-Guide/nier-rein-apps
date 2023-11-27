@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_costume_lottery_effect_pending")]
+[MemoryTable(nameof(EntityMBattleNpcCostumeLotteryEffectPending))]
 public class EntityMBattleNpcCostumeLotteryEffectPending
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_character_viewer_field")]
+[MemoryTable(nameof(EntityMBattleNpcCharacterViewerField))]
 public class EntityMBattleNpcCharacterViewerField
 {
     [Key(0)]

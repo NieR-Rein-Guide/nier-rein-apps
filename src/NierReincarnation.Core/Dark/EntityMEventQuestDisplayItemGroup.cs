@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_display_item_group")]
+[MemoryTable(nameof(EntityMEventQuestDisplayItemGroup))]
 public class EntityMEventQuestDisplayItemGroup
 {
     [Key(0)]

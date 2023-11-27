@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_mission_clear_condition_value_view")]
+[MemoryTable(nameof(EntityMMissionClearConditionValueView))]
 public class EntityMMissionClearConditionValueView
 {
     [Key(0)]

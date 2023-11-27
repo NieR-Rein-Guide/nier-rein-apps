@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_big_hunt_boss")]
+[MemoryTable(nameof(EntityMBigHuntBoss))]
 public class EntityMBigHuntBoss
 {
     [Key(0)]

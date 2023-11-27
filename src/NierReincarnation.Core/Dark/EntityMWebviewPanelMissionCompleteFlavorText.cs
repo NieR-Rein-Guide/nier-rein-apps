@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_webview_panel_mission_complete_flavor_text")]
+[MemoryTable(nameof(EntityMWebviewPanelMissionCompleteFlavorText))]
 public class EntityMWebviewPanelMissionCompleteFlavorText
 {
     [Key(0)]

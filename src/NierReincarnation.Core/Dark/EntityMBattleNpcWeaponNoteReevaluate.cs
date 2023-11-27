@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_weapon_note_reevaluate")]
+[MemoryTable(nameof(EntityMBattleNpcWeaponNoteReevaluate))]
 public class EntityMBattleNpcWeaponNoteReevaluate
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_event_trigger_behaviour_wave_start")]
+[MemoryTable(nameof(EntityMBattleEventTriggerBehaviourWaveStart))]
 public class EntityMBattleEventTriggerBehaviourWaveStart
 {
     [Key(0)]

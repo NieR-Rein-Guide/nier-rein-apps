@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_reserve_ui_type")]
+[MemoryTable(nameof(EntityMSkillReserveUiType))]
 public class EntityMSkillReserveUiType
 {
     [Key(0)]

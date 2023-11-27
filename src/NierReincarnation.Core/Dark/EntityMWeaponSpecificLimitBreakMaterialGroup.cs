@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_weapon_specific_limit_break_material_group")]
+[MemoryTable(nameof(EntityMWeaponSpecificLimitBreakMaterialGroup))]
 public class EntityMWeaponSpecificLimitBreakMaterialGroup
 {
     [Key(0)]

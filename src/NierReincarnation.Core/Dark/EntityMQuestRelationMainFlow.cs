@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_relation_main_flow")]
+[MemoryTable(nameof(EntityMQuestRelationMainFlow))]
 public class EntityMQuestRelationMainFlow
 {
     [Key(0)]

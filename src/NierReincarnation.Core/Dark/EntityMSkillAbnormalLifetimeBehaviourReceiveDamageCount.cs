@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_abnormal_lifetime_behaviour_receive_damage_count")]
+[MemoryTable(nameof(EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCount))]
 public class EntityMSkillAbnormalLifetimeBehaviourReceiveDamageCount
 {
     [Key(0)]

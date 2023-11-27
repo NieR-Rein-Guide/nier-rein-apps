@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_cooltime_advance_value_on_default_skill_group")]
+[MemoryTable(nameof(EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup))]
 public class EntityMSkillCooltimeAdvanceValueOnDefaultSkillGroup
 {
     [Key(0)]

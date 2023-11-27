@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_remove_buff_filter_status_kind")]
+[MemoryTable(nameof(EntityMSkillRemoveBuffFilterStatusKind))]
 public class EntityMSkillRemoveBuffFilterStatusKind
 {
     [Key(0)]

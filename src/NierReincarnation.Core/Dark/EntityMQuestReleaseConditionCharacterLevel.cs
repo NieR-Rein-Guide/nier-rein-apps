@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_release_condition_character_level")]
+[MemoryTable(nameof(EntityMQuestReleaseConditionCharacterLevel))]
 public class EntityMQuestReleaseConditionCharacterLevel
 {
     [Key(0)]

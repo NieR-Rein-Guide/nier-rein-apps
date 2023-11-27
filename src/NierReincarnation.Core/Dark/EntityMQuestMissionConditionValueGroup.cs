@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_mission_condition_value_group")]
+[MemoryTable(nameof(EntityMQuestMissionConditionValueGroup))]
 public class EntityMQuestMissionConditionValueGroup
 {
     [Key(0)]

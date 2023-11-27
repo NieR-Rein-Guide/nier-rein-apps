@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("entity_m_quest_scene_picture_book_replace")]
+[MemoryTable(nameof(EntityMQuestScenePictureBookReplace))]
 public class EntityMQuestScenePictureBookReplace
 {
     [Key(0)]

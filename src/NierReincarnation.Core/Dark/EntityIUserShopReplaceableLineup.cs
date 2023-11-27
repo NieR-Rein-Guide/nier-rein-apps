@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_shop_replaceable_lineup")]
+[MemoryTable(nameof(EntityIUserShopReplaceableLineup))]
 public class EntityIUserShopReplaceableLineup
 {
     [Key(0)]

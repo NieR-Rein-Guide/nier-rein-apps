@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_quest_limit_content_status")]
+[MemoryTable(nameof(EntityIUserQuestLimitContentStatus))]
 public class EntityIUserQuestLimitContentStatus
 {
     [Key(0)]

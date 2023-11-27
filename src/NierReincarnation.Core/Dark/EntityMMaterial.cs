@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_material")]
+[MemoryTable(nameof(EntityMMaterial))]
 public class EntityMMaterial
 {
     [Key(0)]

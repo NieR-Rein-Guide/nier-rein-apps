@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_big_hunt_boss_grade_group")]
+[MemoryTable(nameof(EntityMBigHuntBossGradeGroup))]
 public class EntityMBigHuntBossGradeGroup
 {
     [Key(0)]

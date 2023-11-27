@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_link")]
+[MemoryTable(nameof(EntityMEventQuestLink))]
 public class EntityMEventQuestLink
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_limited_open_text_group")]
+[MemoryTable(nameof(EntityMLimitedOpenTextGroup))]
 public class EntityMLimitedOpenTextGroup
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_possession_auto_convert")]
+[MemoryTable(nameof(EntityIUserPossessionAutoConvert))]
 public class EntityIUserPossessionAutoConvert
 {
     [Key(0)]

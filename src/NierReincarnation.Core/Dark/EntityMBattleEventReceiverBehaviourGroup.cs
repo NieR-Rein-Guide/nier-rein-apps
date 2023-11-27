@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_event_receiver_behaviour_group")]
+[MemoryTable(nameof(EntityMBattleEventReceiverBehaviourGroup))]
 public class EntityMBattleEventReceiverBehaviourGroup
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_parts_rarity")]
+[MemoryTable(nameof(EntityMPartsRarity))]
 public class EntityMPartsRarity
 {
     [Key(0)]

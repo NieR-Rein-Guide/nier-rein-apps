@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_abnormal_behaviour_action_buff_resistance")]
+[MemoryTable(nameof(EntityMSkillAbnormalBehaviourActionBuffResistance))]
 public class EntityMSkillAbnormalBehaviourActionBuffResistance
 {
     [Key(0)]

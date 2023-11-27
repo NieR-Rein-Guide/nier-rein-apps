@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_default_skill_group")]
+[MemoryTable(nameof(EntityMCostumeDefaultSkillGroup))]
 public class EntityMCostumeDefaultSkillGroup
 {
     [Key(0)]

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_companion_ability_group")]
+[MemoryTable(nameof(EntityMCompanionAbilityGroup))]
 public class EntityMCompanionAbilityGroup
 {
     [Key(0)]

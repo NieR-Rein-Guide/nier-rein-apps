@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_weapon_evolution_group")]
+[MemoryTable(nameof(EntityMWeaponEvolutionGroup))]
 public class EntityMWeaponEvolutionGroup
 {
     [Key(0)]

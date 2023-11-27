@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_companion_enhanced")]
+[MemoryTable(nameof(EntityMCompanionEnhanced))]
 public class EntityMCompanionEnhanced
 {
     [Key(0)]

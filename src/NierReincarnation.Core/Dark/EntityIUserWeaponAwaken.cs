@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_weapon_awaken")]
+[MemoryTable(nameof(EntityIUserWeaponAwaken))]
 public class EntityIUserWeaponAwaken
 {
     [Key(0)]

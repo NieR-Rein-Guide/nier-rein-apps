@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_side_story_quest")]
+[MemoryTable(nameof(EntityIUserSideStoryQuest))]
 public class EntityIUserSideStoryQuest
 {
     [Key(0)]

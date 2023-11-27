@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_parts_status_sub")]
+[MemoryTable(nameof(EntityIUserPartsStatusSub))]
 public class EntityIUserPartsStatusSub
 {
     [Key(0)]

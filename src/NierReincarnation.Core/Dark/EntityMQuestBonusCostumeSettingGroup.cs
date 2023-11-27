@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_bonus_costume_setting_group")]
+[MemoryTable(nameof(EntityMQuestBonusCostumeSettingGroup))]
 public class EntityMQuestBonusCostumeSettingGroup
 {
     [Key(0)]

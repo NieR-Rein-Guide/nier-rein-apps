@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_stained_glass")]
+[MemoryTable(nameof(EntityMStainedGlass))]
 public class EntityMStainedGlass
 {
     [Key(0)]

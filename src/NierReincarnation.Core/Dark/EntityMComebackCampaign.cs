@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_comeback_campaign")]
+[MemoryTable(nameof(EntityMComebackCampaign))]
 public class EntityMComebackCampaign
 {
     [Key(0)]

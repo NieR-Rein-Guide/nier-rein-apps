@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_explore_unlock_condition")]
+[MemoryTable(nameof(EntityMExploreUnlockCondition))]
 public class EntityMExploreUnlockCondition
 {
     [Key(0)]

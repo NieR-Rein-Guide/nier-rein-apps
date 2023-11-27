@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_big_hunt_damage_threshold_group")]
+[MemoryTable(nameof(EntityMBattleBigHuntDamageThresholdGroup))]
 public class EntityMBattleBigHuntDamageThresholdGroup
 {
     [Key(0)]

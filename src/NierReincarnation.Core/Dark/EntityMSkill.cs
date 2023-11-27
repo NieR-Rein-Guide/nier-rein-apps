@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill")]
+[MemoryTable(nameof(EntityMSkill))]
 public class EntityMSkill
 {
     [Key(0)]

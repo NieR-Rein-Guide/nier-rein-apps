@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_quest_auto_orbit")]
+[MemoryTable(nameof(EntityIUserQuestAutoOrbit))]
 public class EntityIUserQuestAutoOrbit
 {
     [Key(0)]

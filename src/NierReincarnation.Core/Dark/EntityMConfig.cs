@@ -2,9 +2,8 @@
 
 namespace NierReincarnation.Core.Dark;
 
-// Dark.EntityMConfig
 [MessagePackObject]
-[MemoryTable("m_config")]
+[MemoryTable(nameof(EntityMConfig))]
 public class EntityMConfig
 {
     [Key(0)]

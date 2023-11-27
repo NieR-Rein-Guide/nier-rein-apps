@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_board_panel_release_reward_group")]
+[MemoryTable(nameof(EntityMCharacterBoardPanelReleaseRewardGroup))]
 public class EntityMCharacterBoardPanelReleaseRewardGroup
 {
     [Key(0)]

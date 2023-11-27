@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_parts_status_main")]
+[MemoryTable(nameof(EntityMPartsStatusMain))]
 public class EntityMPartsStatusMain
 {
     [Key(0)]

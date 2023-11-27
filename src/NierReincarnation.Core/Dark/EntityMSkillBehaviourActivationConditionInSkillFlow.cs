@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_activation_condition_in_skill_flow")]
+[MemoryTable(nameof(EntityMSkillBehaviourActivationConditionInSkillFlow))]
 public class EntityMSkillBehaviourActivationConditionInSkillFlow
 {
     [Key(0)]

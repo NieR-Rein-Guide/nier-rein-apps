@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_big_hunt_weekly_max_score")]
+[MemoryTable(nameof(EntityIUserBigHuntWeeklyMaxScore))]
 public class EntityIUserBigHuntWeeklyMaxScore
 {
     [Key(0)]

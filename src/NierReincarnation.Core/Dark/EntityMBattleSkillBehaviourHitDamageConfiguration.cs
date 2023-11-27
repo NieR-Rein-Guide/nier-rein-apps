@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_skill_behaviour_hit_damage_configuration")]
+[MemoryTable(nameof(EntityMBattleSkillBehaviourHitDamageConfiguration))]
 public class EntityMBattleSkillBehaviourHitDamageConfiguration
 {
     [Key(0)]

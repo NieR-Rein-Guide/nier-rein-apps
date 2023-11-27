@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_weapon_awaken_status_up_group")]
+[MemoryTable(nameof(EntityMWeaponAwakenStatusUpGroup))]
 public class EntityMWeaponAwakenStatusUpGroup
 {
     [Key(0)]

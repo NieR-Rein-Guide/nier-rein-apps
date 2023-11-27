@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_display_switch")]
+[MemoryTable(nameof(EntityMCharacterDisplaySwitch))]
 public class EntityMCharacterDisplaySwitch
 {
     [Key(0)]

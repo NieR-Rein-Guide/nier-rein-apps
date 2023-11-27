@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_release_condition_quest_challenge")]
+[MemoryTable(nameof(EntityMQuestReleaseConditionQuestChallenge))]
 public class EntityMQuestReleaseConditionQuestChallenge
 {
     [Key(0)]

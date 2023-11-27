@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_combo_calculation_setting")]
+[MemoryTable(nameof(EntityMComboCalculationSetting))]
 public class EntityMComboCalculationSetting
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_asset_data_setting")]
+[MemoryTable(nameof(EntityMAssetDataSetting))]
 public class EntityMAssetDataSetting
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_stained_glass_status_up_target_group")]
+[MemoryTable(nameof(EntityMStainedGlassStatusUpTargetGroup))]
 public class EntityMStainedGlassStatusUpTargetGroup
 {
     [Key(0)]

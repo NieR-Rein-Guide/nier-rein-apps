@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_consumable_item_effect")]
+[MemoryTable(nameof(EntityMConsumableItemEffect))]
 public class EntityMConsumableItemEffect
 {
     [Key(0)]

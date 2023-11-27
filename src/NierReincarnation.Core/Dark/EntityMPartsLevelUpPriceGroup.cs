@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_parts_level_up_price_group")]
+[MemoryTable(nameof(EntityMPartsLevelUpPriceGroup))]
 public class EntityMPartsLevelUpPriceGroup
 {
     [Key(0)]

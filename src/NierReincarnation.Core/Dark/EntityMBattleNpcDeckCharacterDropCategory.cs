@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_deck_character_drop_category")]
+[MemoryTable(nameof(EntityMBattleNpcDeckCharacterDropCategory))]
 public class EntityMBattleNpcDeckCharacterDropCategory
 {
     [Key(0)]

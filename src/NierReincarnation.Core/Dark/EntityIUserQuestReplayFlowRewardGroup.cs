@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_quest_replay_flow_reward_group")]
+[MemoryTable(nameof(EntityIUserQuestReplayFlowRewardGroup))]
 public class EntityIUserQuestReplayFlowRewardGroup
 {
     [Key(0)]

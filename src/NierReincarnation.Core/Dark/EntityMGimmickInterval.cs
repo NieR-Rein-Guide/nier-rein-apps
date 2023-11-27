@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_gimmick_interval")]
+[MemoryTable(nameof(EntityMGimmickInterval))]
 public class EntityMGimmickInterval
 {
     [Key(0)]

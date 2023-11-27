@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_cage_memory")]
+[MemoryTable(nameof(EntityMCageMemory))]
 public class EntityMCageMemory
 {
     [Key(0)]

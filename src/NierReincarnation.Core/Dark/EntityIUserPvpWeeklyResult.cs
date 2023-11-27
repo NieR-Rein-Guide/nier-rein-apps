@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_pvp_weekly_result")]
+[MemoryTable(nameof(EntityIUserPvpWeeklyResult))]
 public class EntityIUserPvpWeeklyResult
 {
     [Key(0)]

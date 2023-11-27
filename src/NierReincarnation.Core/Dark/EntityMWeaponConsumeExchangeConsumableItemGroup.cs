@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_weapon_consume_exchange_consumable_item_group")]
+[MemoryTable(nameof(EntityMWeaponConsumeExchangeConsumableItemGroup))]
 public class EntityMWeaponConsumeExchangeConsumableItemGroup
 {
     [Key(0)]

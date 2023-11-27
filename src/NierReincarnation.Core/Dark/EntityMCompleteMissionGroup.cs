@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_complete_mission_group")]
+[MemoryTable(nameof(EntityMCompleteMissionGroup))]
 public class EntityMCompleteMissionGroup
 {
     [Key(0)]

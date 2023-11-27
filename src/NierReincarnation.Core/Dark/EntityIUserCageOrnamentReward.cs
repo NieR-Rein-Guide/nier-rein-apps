@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_cage_ornament_reward")]
+[MemoryTable(nameof(EntityIUserCageOrnamentReward))]
 public class EntityIUserCageOrnamentReward
 {
     [Key(0)]

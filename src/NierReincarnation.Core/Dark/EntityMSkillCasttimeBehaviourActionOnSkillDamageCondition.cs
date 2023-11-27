@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_casttime_behaviour_action_on_skill_damage_condition")]
+[MemoryTable(nameof(EntityMSkillCasttimeBehaviourActionOnSkillDamageCondition))]
 public class EntityMSkillCasttimeBehaviourActionOnSkillDamageCondition
 {
     [Key(0)]

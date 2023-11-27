@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_mom_point_banner")]
+[MemoryTable(nameof(EntityMMomPointBanner))]
 public class EntityMMomPointBanner
 {
     [Key(0)]

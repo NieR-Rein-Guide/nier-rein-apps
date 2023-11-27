@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_activation_condition_wave_number")]
+[MemoryTable(nameof(EntityMSkillBehaviourActivationConditionWaveNumber))]
 public class EntityMSkillBehaviourActivationConditionWaveNumber
 {
     [Key(0)]

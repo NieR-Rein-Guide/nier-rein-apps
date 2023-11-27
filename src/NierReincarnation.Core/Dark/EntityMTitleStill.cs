@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_title_still")]
+[MemoryTable(nameof(EntityMTitleStill))]
 public class EntityMTitleStill
 {
     [Key(0)]

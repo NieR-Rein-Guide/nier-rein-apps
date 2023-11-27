@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_headup_display_view")]
+[MemoryTable(nameof(EntityMHeadupDisplayView))]
 public class EntityMHeadupDisplayView
 {
     [Key(0)]

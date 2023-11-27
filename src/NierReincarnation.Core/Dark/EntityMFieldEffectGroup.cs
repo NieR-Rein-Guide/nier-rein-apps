@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_field_effect_group")]
+[MemoryTable(nameof(EntityMFieldEffectGroup))]
 public class EntityMFieldEffectGroup
 {
     [Key(0)]

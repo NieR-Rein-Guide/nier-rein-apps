@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_proper_attribute_hp_bonus")]
+[MemoryTable(nameof(EntityMCostumeProperAttributeHpBonus))]
 public class EntityMCostumeProperAttributeHpBonus
 {
     [Key(0)]

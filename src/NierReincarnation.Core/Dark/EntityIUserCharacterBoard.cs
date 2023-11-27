@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_character_board")]
+[MemoryTable(nameof(EntityIUserCharacterBoard))]
 public class EntityIUserCharacterBoard
 {
     [Key(0)]

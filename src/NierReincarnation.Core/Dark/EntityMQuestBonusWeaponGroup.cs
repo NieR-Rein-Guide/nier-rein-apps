@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_bonus_weapon_group")]
+[MemoryTable(nameof(EntityMQuestBonusWeaponGroup))]
 public class EntityMQuestBonusWeaponGroup
 {
     [Key(0)]

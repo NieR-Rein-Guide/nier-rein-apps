@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_platform_payment")]
+[MemoryTable(nameof(EntityMPlatformPayment))]
 public class EntityMPlatformPayment
 {
     [Key(0)]

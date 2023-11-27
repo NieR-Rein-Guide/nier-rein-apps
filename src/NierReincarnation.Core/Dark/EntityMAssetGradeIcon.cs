@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_asset_grade_icon")]
+[MemoryTable(nameof(EntityMAssetGradeIcon))]
 public class EntityMAssetGradeIcon
 {
     [Key(0)]

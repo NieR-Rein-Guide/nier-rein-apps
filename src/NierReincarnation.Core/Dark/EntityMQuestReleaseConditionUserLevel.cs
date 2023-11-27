@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_release_condition_user_level")]
+[MemoryTable(nameof(EntityMQuestReleaseConditionUserLevel))]
 public class EntityMQuestReleaseConditionUserLevel
 {
     [Key(0)]

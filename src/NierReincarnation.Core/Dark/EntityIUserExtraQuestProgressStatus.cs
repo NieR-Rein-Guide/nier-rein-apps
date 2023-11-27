@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_extra_quest_progress_status")]
+[MemoryTable(nameof(EntityIUserExtraQuestProgressStatus))]
 public class EntityIUserExtraQuestProgressStatus
 {
     [Key(0)]

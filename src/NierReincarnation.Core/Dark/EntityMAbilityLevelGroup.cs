@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_ability_level_group")]
+[MemoryTable(nameof(EntityMAbilityLevelGroup))]
 public class EntityMAbilityLevelGroup
 {
     [Key(0)]

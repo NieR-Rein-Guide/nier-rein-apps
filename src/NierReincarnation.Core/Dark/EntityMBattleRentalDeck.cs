@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_rental_deck")]
+[MemoryTable(nameof(EntityMBattleRentalDeck))]
 public class EntityMBattleRentalDeck
 {
     [Key(0)]

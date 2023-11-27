@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_material_sale_obtain_possession")]
+[MemoryTable(nameof(EntityMMaterialSaleObtainPossession))]
 public class EntityMMaterialSaleObtainPossession
 {
     [Key(0)]

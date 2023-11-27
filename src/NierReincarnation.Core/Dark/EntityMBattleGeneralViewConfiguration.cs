@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_general_view_configuration")]
+[MemoryTable(nameof(EntityMBattleGeneralViewConfiguration))]
 public class EntityMBattleGeneralViewConfiguration
 {
     [Key(0)]

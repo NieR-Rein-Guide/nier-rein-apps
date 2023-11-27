@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_board_ability_max_level")]
+[MemoryTable(nameof(EntityMCharacterBoardAbilityMaxLevel))]
 public class EntityMCharacterBoardAbilityMaxLevel
 {
     [Key(0)]

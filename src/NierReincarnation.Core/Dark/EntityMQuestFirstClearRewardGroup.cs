@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_first_clear_reward_group")]
+[MemoryTable(nameof(EntityMQuestFirstClearRewardGroup))]
 public class EntityMQuestFirstClearRewardGroup
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_list_setting_ability_group")]
+[MemoryTable(nameof(EntityMListSettingAbilityGroup))]
 public class EntityMListSettingAbilityGroup
 {
     [Key(0)]

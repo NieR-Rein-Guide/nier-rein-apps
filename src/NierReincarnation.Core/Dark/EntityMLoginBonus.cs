@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_login_bonus")]
+[MemoryTable(nameof(EntityMLoginBonus))]
 public class EntityMLoginBonus
 {
     [Key(0)]

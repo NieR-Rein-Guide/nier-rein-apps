@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_companion_duplication_exchange_possession_group")]
+[MemoryTable(nameof(EntityMCompanionDuplicationExchangePossessionGroup))]
 public class EntityMCompanionDuplicationExchangePossessionGroup
 {
     [Key(0)]

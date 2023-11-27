@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_auto_organization_condition")]
+[MemoryTable(nameof(EntityMCostumeAutoOrganizationCondition))]
 public class EntityMCostumeAutoOrganizationCondition
 {
     [Key(0)]

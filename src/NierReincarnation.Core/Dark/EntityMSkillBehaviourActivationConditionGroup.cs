@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_activation_condition_group")]
+[MemoryTable(nameof(EntityMSkillBehaviourActivationConditionGroup))]
 public class EntityMSkillBehaviourActivationConditionGroup
 {
     [Key(0)]

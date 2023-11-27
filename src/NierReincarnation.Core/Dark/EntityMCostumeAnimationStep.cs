@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_animation_step")]
+[MemoryTable(nameof(EntityMCostumeAnimationStep))]
 public class EntityMCostumeAnimationStep
 {
     [Key(0)]

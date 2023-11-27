@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_weapon_skill_group")]
+[MemoryTable(nameof(EntityMWeaponSkillGroup))]
 public class EntityMWeaponSkillGroup
 {
     [Key(0)]

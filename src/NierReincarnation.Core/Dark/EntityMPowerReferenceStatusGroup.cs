@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_power_reference_status_group")]
+[MemoryTable(nameof(EntityMPowerReferenceStatusGroup))]
 public class EntityMPowerReferenceStatusGroup
 {
     [Key(0)]

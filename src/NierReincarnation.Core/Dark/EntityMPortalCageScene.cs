@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_portal_cage_scene")]
+[MemoryTable(nameof(EntityMPortalCageScene))]
 public class EntityMPortalCageScene
 {
     [Key(0)]

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_release_condition_deck_power")]
+[MemoryTable(nameof(EntityMQuestReleaseConditionDeckPower))]
 public class EntityMQuestReleaseConditionDeckPower
 {
     [Key(0)]

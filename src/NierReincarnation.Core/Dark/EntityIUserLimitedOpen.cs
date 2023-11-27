@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_limited_open")]
+[MemoryTable(nameof(EntityIUserLimitedOpen))]
 public class EntityIUserLimitedOpen
 {
     [Key(0)]

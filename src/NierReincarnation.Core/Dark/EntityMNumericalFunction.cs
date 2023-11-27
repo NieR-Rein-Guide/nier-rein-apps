@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_numerical_function")]
+[MemoryTable(nameof(EntityMNumericalFunction))]
 public class EntityMNumericalFunction
 {
     [Key(0)]

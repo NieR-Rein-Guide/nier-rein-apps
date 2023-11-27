@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_base_status")]
+[MemoryTable(nameof(EntityMCostumeBaseStatus))]
 public class EntityMCostumeBaseStatus
 {
     [Key(0)]

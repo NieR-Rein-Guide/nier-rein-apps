@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_damage_multiply_detail_specified_costume_type")]
+[MemoryTable(nameof(EntityMSkillDamageMultiplyDetailSpecifiedCostumeType))]
 public class EntityMSkillDamageMultiplyDetailSpecifiedCostumeType
 {
     public int SkillDamageMultiplyDetailId { get; set; }

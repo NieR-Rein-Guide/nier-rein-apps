@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_awaken_price_group")]
+[MemoryTable(nameof(EntityMCostumeAwakenPriceGroup))]
 public class EntityMCostumeAwakenPriceGroup
 {
     [Key(0)]

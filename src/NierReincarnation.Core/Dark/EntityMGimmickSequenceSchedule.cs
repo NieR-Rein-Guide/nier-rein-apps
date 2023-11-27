@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_gimmick_sequence_schedule")]
+[MemoryTable(nameof(EntityMGimmickSequenceSchedule))]
 public class EntityMGimmickSequenceSchedule
 {
     [Key(0)]

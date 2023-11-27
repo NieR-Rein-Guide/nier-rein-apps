@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_big_hunt_boss_grade_group_attribute")]
+[MemoryTable(nameof(EntityMBigHuntBossGradeGroupAttribute))]
 public class EntityMBigHuntBossGradeGroupAttribute
 {
     [Key(0)]

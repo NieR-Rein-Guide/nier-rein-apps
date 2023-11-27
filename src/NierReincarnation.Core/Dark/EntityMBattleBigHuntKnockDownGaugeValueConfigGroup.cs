@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_big_hunt_knock_down_gauge_value_config_group")]
+[MemoryTable(nameof(EntityMBattleBigHuntKnockDownGaugeValueConfigGroup))]
 public class EntityMBattleBigHuntKnockDownGaugeValueConfigGroup
 {
     [Key(0)]

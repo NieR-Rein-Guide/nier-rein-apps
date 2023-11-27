@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_platform_payment_price")]
+[MemoryTable(nameof(EntityMPlatformPaymentPrice))]
 public class EntityMPlatformPaymentPrice
 {
     [Key(0)]

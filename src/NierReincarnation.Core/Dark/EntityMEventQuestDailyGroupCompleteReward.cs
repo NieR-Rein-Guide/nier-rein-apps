@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_daily_group_complete_reward")]
+[MemoryTable(nameof(EntityMEventQuestDailyGroupCompleteReward))]
 public class EntityMEventQuestDailyGroupCompleteReward
 {
     [Key(0)]

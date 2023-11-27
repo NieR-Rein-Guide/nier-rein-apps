@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_appeal_dialog")]
+[MemoryTable(nameof(EntityMAppealDialog))]
 public class EntityMAppealDialog
 {
     [Key(0)]

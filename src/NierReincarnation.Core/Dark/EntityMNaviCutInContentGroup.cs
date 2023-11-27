@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_navi_cut_in_content_group")]
+[MemoryTable(nameof(EntityMNaviCutInContentGroup))]
 public class EntityMNaviCutInContentGroup
 {
     [Key(0)]

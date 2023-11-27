@@ -4,7 +4,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_maintenance_group")]
+[MemoryTable(nameof(EntityMMaintenanceGroup))]
 public class EntityMMaintenanceGroup
 {
     [Key(0)]

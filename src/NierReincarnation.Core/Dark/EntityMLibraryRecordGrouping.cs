@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_library_record_grouping")]
+[MemoryTable(nameof(EntityMLibraryRecordGrouping))]
 public class EntityMLibraryRecordGrouping
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_numerical_parameter_map")]
+[MemoryTable(nameof(EntityMNumericalParameterMap))]
 public class EntityMNumericalParameterMap
 {
     [Key(0)]

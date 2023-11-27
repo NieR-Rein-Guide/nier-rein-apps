@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_labyrinth_quest_effect_description_ability")]
+[MemoryTable(nameof(EntityMEventQuestLabyrinthQuestEffectDescriptionAbility))]
 public class EntityMEventQuestLabyrinthQuestEffectDescriptionAbility
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_board_condition_ignore")]
+[MemoryTable(nameof(EntityMCharacterBoardConditionIgnore))]
 public class EntityMCharacterBoardConditionIgnore
 {
     [Key(0)]

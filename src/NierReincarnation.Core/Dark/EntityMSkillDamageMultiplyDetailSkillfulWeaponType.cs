@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_damage_multiply_detail_skillful_weapon_type")]
+[MemoryTable(nameof(EntityMSkillDamageMultiplyDetailSkillfulWeaponType))]
 public class EntityMSkillDamageMultiplyDetailSkillfulWeaponType
 {
     [Key(0)]

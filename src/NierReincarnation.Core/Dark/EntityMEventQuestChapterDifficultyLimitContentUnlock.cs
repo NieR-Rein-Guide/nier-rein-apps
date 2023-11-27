@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_chapter_difficulty_limit_content_unlock")]
+[MemoryTable(nameof(EntityMEventQuestChapterDifficultyLimitContentUnlock))]
 public class EntityMEventQuestChapterDifficultyLimitContentUnlock
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_event_trigger_behaviour_battle_start")]
+[MemoryTable(nameof(EntityMBattleEventTriggerBehaviourBattleStart))]
 public class EntityMBattleEventTriggerBehaviourBattleStart
 {
     [Key(0)]

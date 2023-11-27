@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_pvp_background")]
+[MemoryTable(nameof(EntityMPvpBackground))]
 public class EntityMPvpBackground
 {
     [Key(0)]

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_big_hunt_quest_score_coefficient")]
+[MemoryTable(nameof(EntityMBigHuntQuestScoreCoefficient))]
 public class EntityMBigHuntQuestScoreCoefficient
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_tower_accumulation_reward_group")]
+[MemoryTable(nameof(EntityMEventQuestTowerAccumulationRewardGroup))]
 public class EntityMEventQuestTowerAccumulationRewardGroup
 {
     [Key(0)]

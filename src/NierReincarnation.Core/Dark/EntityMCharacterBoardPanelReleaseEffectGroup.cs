@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_character_board_panel_release_effect_group")]
+[MemoryTable(nameof(EntityMCharacterBoardPanelReleaseEffectGroup))]
 public class EntityMCharacterBoardPanelReleaseEffectGroup
 {
     [Key(0)]

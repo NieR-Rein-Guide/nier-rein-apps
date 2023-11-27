@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_event_quest_limit_content")]
+[MemoryTable(nameof(EntityMEventQuestLimitContent))]
 public class EntityMEventQuestLimitContent
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_character_costume_level_bonus")]
+[MemoryTable(nameof(EntityMBattleNpcCharacterCostumeLevelBonus))]
 public class EntityMBattleNpcCharacterCostumeLevelBonus
 {
     [Key(0)]

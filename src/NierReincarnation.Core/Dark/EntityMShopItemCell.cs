@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_shop_item_cell")]
+[MemoryTable(nameof(EntityMShopItemCell))]
 public class EntityMShopItemCell
 {
     [Key(0)]

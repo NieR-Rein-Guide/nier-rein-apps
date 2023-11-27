@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_skill_behaviour_action_attack_hp_ratio")]
+[MemoryTable(nameof(EntityMSkillBehaviourActionAttackHpRatio))]
 public class EntityMSkillBehaviourActionAttackHpRatio
 {
     [Key(0)]

@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_battle_npc_costume_active_skill")]
+[MemoryTable(nameof(EntityMBattleNpcCostumeActiveSkill))]
 public class EntityMBattleNpcCostumeActiveSkill
 {
     [Key(0)]

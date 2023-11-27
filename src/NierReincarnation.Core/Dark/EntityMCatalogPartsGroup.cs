@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_catalog_parts_group")]
+[MemoryTable(nameof(EntityMCatalogPartsGroup))]
 public class EntityMCatalogPartsGroup
 {
     [Key(0)]

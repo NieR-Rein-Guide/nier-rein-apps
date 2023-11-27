@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_weapon_specific_enhance")]
+[MemoryTable(nameof(EntityMWeaponSpecificEnhance))]
 public class EntityMWeaponSpecificEnhance
 {
     [Key(0)]

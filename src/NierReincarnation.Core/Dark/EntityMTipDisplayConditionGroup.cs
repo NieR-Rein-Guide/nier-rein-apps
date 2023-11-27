@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_tip_display_condition_group")]
+[MemoryTable(nameof(EntityMTipDisplayConditionGroup))]
 public class EntityMTipDisplayConditionGroup
 {
     [Key(0)]

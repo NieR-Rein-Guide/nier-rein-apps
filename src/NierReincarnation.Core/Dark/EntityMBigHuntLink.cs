@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_big_hunt_link")]
+[MemoryTable(nameof(EntityMBigHuntLink))]
 public class EntityMBigHuntLink
 {
     [Key(0)]

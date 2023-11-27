@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_awaken_ability")]
+[MemoryTable(nameof(EntityMCostumeAwakenAbility))]
 public class EntityMCostumeAwakenAbility
 {
     [Key(0)]

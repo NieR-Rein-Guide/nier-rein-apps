@@ -3,7 +3,7 @@
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_display_attribute_group")]
+[MemoryTable(nameof(EntityMQuestDisplayAttributeGroup))]
 public class EntityMQuestDisplayAttributeGroup
 {
     [Key(0)]

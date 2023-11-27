@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("i_user_parts_preset_tag")]
+[MemoryTable(nameof(EntityIUserPartsPresetTag))]
 public class EntityIUserPartsPresetTag
 {
     [Key(0)]

@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_quest_display_enemy_thumbnail_replace")]
+[MemoryTable(nameof(EntityMQuestDisplayEnemyThumbnailReplace))]
 public class EntityMQuestDisplayEnemyThumbnailReplace
 {
     [Key(0)]

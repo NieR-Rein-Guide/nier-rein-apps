@@ -3,7 +3,7 @@ using NierReincarnation.Core.MasterMemory;
 namespace NierReincarnation.Core.Dark;
 
 [MessagePackObject]
-[MemoryTable("m_costume_limit_break_material_rarity_group")]
+[MemoryTable(nameof(EntityMCostumeLimitBreakMaterialRarityGroup))]
 public class EntityMCostumeLimitBreakMaterialRarityGroup
 {
     [Key(0)]
