@@ -10,4 +10,7 @@ public class EntityIUserShopReplaceableLineupTable : TableBase<EntityIUserShopRe
     {
         primaryIndexSelector = element => (element.UserId, element.SlotNumber);
     }
+
+    public RangeView<EntityIUserShopReplaceableLineup> FindRangeByUserIdAndSlotNumber(ValueTuple<long, int> min, ValueTuple<long, int> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(long, int)>.Default, min, max, ascendant);
 }

@@ -12,4 +12,6 @@ public class EntityMMainQuestChapterTable : TableBase<EntityMMainQuestChapter>
     }
 
     public EntityMMainQuestChapter FindByMainQuestChapterId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
+
+    public bool TryFindByMainQuestChapterId(int key, out EntityMMainQuestChapter result) => TryFindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key, out result);
 }

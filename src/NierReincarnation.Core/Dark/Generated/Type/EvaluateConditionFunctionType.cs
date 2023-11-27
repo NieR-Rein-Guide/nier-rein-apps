@@ -13,5 +13,6 @@ public enum EvaluateConditionFunctionType
     MISSION_CLEAR = 8,
     QUEST_MISSION_CLEAR = 9,
     OTHER_GIMMICK_BIT_COUNT = 10,
-    QUEST_SCENE_CHOICE = 11
+    QUEST_SCENE_CHOICE = 11,
+    QUEST_NOT_CLEAR = 12
 }

@@ -13,13 +13,13 @@ public class EntityMSkillDamageMultiplyAbnormalAttachedValueGroup
     public int SkillDamageMultiplyAbnormalAttachedValueGroupIndex { get; set; }
 
     [Key(2)]
-    public int PolarityConditionType { get; set; }
+    public DamageMultiplyAbnormalAttachedPolarityConditionType PolarityConditionType { get; set; }
 
     [Key(3)]
     public int SkillAbnormalTypeIdCondition { get; set; }
 
     [Key(4)]
-    public int TargetType { get; set; }
+    public DamageMultiplyAbnormalAttachedTargetType TargetType { get; set; }
 
     [Key(5)]
     public int DamageMultiplyCoefficientValuePermil { get; set; }

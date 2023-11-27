@@ -10,7 +10,7 @@ public class EntityMSkillDamageMultiplyDetailSkillfulWeaponType
     public int SkillDamageMultiplyDetailId { get; set; }
 
     [Key(1)]
-    public int ConditionTargetType { get; set; }
+    public DamageMultiplySkillfulWeaponConditionTargetType ConditionTargetType { get; set; }
 
     [Key(2)]
     public WeaponType WeaponType { get; set; }

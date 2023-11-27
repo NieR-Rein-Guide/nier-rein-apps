@@ -10,13 +10,13 @@ public class EntityMSkillDamageMultiplyDetailBuffAttached
     public int SkillDamageMultiplyDetailId { get; set; }
 
     [Key(1)]
-    public int BuffAttachedTargetType { get; set; }
+    public DamageMultiplyBuffAttachedConditionTargetType BuffAttachedTargetType { get; set; }
 
     [Key(2)]
-    public int TargetBuffType { get; set; }
+    public DamageMultiplyBuffAttachedTargetBuffType TargetBuffType { get; set; }
 
     [Key(3)]
-    public int TargetStatusKindType { get; set; }
+    public DamageMultiplyBuffAttachedTargetStatusKindType TargetStatusKindType { get; set; }
 
     [Key(4)]
     public int DamageMultiplyCoefficientValuePermil { get; set; }

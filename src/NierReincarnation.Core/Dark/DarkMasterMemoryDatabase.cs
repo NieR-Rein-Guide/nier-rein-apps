@@ -865,6 +865,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMQuestSceneOutgameBlendshapeMotionTable EntityMQuestSceneOutgameBlendshapeMotionTable { get; private set; }
 
+    public EntityMQuestScenePictureBookReplaceTable EntityMQuestScenePictureBookReplaceTable { get; private set; }
+
     public EntityMQuestScheduleTable EntityMQuestScheduleTable { get; private set; }
 
     public EntityMQuestScheduleCorrespondenceTable EntityMQuestScheduleCorrespondenceTable { get; private set; }
@@ -1005,6 +1007,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMSkillBehaviourActionHpRatioDamageTable EntityMSkillBehaviourActionHpRatioDamageTable { get; private set; }
 
+    public EntityMSkillBehaviourActionOverlimitDamageMultiplyTable EntityMSkillBehaviourActionOverlimitDamageMultiplyTable { get; private set; }
+
     public EntityMSkillBehaviourActionRecoveryTable EntityMSkillBehaviourActionRecoveryTable { get; private set; }
 
     public EntityMSkillBehaviourActionRecoveryPointCorrectionTable EntityMSkillBehaviourActionRecoveryPointCorrectionTable { get; private set; }
@@ -1075,7 +1079,11 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable { get; private set; }
 
+    public EntityMSkillDamageMultiplyDetailSpecifiedCostumeTypeTable EntityMSkillDamageMultiplyDetailSpecifiedCostumeTypeTable { get; private set; }
+
     public EntityMSkillDamageMultiplyHitIndexValueGroupTable EntityMSkillDamageMultiplyHitIndexValueGroupTable { get; private set; }
+
+    public EntityMSkillDamageMultiplyTargetSpecifiedCostumeGroupTable EntityMSkillDamageMultiplyTargetSpecifiedCostumeGroupTable { get; private set; }
 
     public EntityMSkillDetailTable EntityMSkillDetailTable { get; private set; }
 
@@ -1635,6 +1643,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMQuestSceneChoiceWeaponEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneChoiceWeaponEffectGroup[], EntityMQuestSceneChoiceWeaponEffectGroupTable>(data => new EntityMQuestSceneChoiceWeaponEffectGroupTable(data)));
         EntityMQuestSceneNotConfirmTitleDialogTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneNotConfirmTitleDialog[], EntityMQuestSceneNotConfirmTitleDialogTable>(data => new EntityMQuestSceneNotConfirmTitleDialogTable(data)));
         EntityMQuestSceneOutgameBlendshapeMotionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSceneOutgameBlendshapeMotion[], EntityMQuestSceneOutgameBlendshapeMotionTable>(data => new EntityMQuestSceneOutgameBlendshapeMotionTable(data)));
+        EntityMQuestScenePictureBookReplaceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestScenePictureBookReplace[], EntityMQuestScenePictureBookReplaceTable>(data => new EntityMQuestScenePictureBookReplaceTable(data)));
         EntityMQuestScheduleTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestSchedule[], EntityMQuestScheduleTable>(data => new EntityMQuestScheduleTable(data)));
         EntityMQuestScheduleCorrespondenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestScheduleCorrespondence[], EntityMQuestScheduleCorrespondenceTable>(data => new EntityMQuestScheduleCorrespondenceTable(data)));
         EntityMReportTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMReport[], EntityMReportTable>(data => new EntityMReportTable(data)));
@@ -1705,6 +1714,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMSkillBehaviourActionDefaultSkillLotteryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionDefaultSkillLottery[], EntityMSkillBehaviourActionDefaultSkillLotteryTable>(data => new EntityMSkillBehaviourActionDefaultSkillLotteryTable(data)));
         EntityMSkillBehaviourActionExtendBuffCooltimeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionExtendBuffCooltime[], EntityMSkillBehaviourActionExtendBuffCooltimeTable>(data => new EntityMSkillBehaviourActionExtendBuffCooltimeTable(data)));
         EntityMSkillBehaviourActionHpRatioDamageTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionHpRatioDamage[], EntityMSkillBehaviourActionHpRatioDamageTable>(data => new EntityMSkillBehaviourActionHpRatioDamageTable(data)));
+        EntityMSkillBehaviourActionOverlimitDamageMultiplyTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionOverlimitDamageMultiply[], EntityMSkillBehaviourActionOverlimitDamageMultiplyTable>(data => new EntityMSkillBehaviourActionOverlimitDamageMultiplyTable(data)));
         EntityMSkillBehaviourActionRecoveryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRecovery[], EntityMSkillBehaviourActionRecoveryTable>(data => new EntityMSkillBehaviourActionRecoveryTable(data)));
         EntityMSkillBehaviourActionRecoveryPointCorrectionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRecoveryPointCorrection[], EntityMSkillBehaviourActionRecoveryPointCorrectionTable>(data => new EntityMSkillBehaviourActionRecoveryPointCorrectionTable(data)));
         EntityMSkillBehaviourActionRemoveAbnormalTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillBehaviourActionRemoveAbnormal[], EntityMSkillBehaviourActionRemoveAbnormalTable>(data => new EntityMSkillBehaviourActionRemoveAbnormalTable(data)));
@@ -1740,7 +1750,9 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMSkillDamageMultiplyDetailCriticalTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyDetailCritical[], EntityMSkillDamageMultiplyDetailCriticalTable>(data => new EntityMSkillDamageMultiplyDetailCriticalTable(data)));
         EntityMSkillDamageMultiplyDetailHitIndexTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyDetailHitIndex[], EntityMSkillDamageMultiplyDetailHitIndexTable>(data => new EntityMSkillDamageMultiplyDetailHitIndexTable(data)));
         EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyDetailSkillfulWeaponType[], EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable>(data => new EntityMSkillDamageMultiplyDetailSkillfulWeaponTypeTable(data)));
+        EntityMSkillDamageMultiplyDetailSpecifiedCostumeTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyDetailSpecifiedCostumeType[], EntityMSkillDamageMultiplyDetailSpecifiedCostumeTypeTable>(data => new EntityMSkillDamageMultiplyDetailSpecifiedCostumeTypeTable(data)));
         EntityMSkillDamageMultiplyHitIndexValueGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyHitIndexValueGroup[], EntityMSkillDamageMultiplyHitIndexValueGroupTable>(data => new EntityMSkillDamageMultiplyHitIndexValueGroupTable(data)));
+        EntityMSkillDamageMultiplyTargetSpecifiedCostumeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDamageMultiplyTargetSpecifiedCostumeGroup[], EntityMSkillDamageMultiplyTargetSpecifiedCostumeGroupTable>(data => new EntityMSkillDamageMultiplyTargetSpecifiedCostumeGroupTable(data)));
         EntityMSkillDetailTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillDetail[], EntityMSkillDetailTable>(data => new EntityMSkillDetailTable(data)));
         EntityMSkillLevelGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillLevelGroup[], EntityMSkillLevelGroupTable>(data => new EntityMSkillLevelGroupTable(data)));
         EntityMSkillRemoveAbnormalTargetAbnormalGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMSkillRemoveAbnormalTargetAbnormalGroup[], EntityMSkillRemoveAbnormalTargetAbnormalGroupTable>(data => new EntityMSkillRemoveAbnormalTargetAbnormalGroupTable(data)));

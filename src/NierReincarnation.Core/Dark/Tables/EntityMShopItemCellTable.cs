@@ -10,4 +10,7 @@ public class EntityMShopItemCellTable : TableBase<EntityMShopItemCell>
     {
         primaryIndexSelector = element => (element.ShopItemCellId, element.StepNumber);
     }
+
+    public RangeView<EntityMShopItemCell> FindRangeByShopItemCellIdAndStepNumber(ValueTuple<int, int> min, ValueTuple<int, int> max, bool ascendant = true) =>
+        FindUniqueRangeCore(data, primaryIndexSelector, Comparer<(int, int)>.Default, min, max, ascendant);
 }

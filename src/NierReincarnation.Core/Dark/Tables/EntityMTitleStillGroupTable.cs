@@ -10,4 +10,6 @@ public class EntityMTitleStillGroupTable : TableBase<EntityMTitleStillGroup>
     {
         primaryIndexSelector = element => element.TitleStillGroupId;
     }
+
+    public EntityMTitleStillGroup FindByTitleStillGroupId(int key) => FindUniqueCore(data, primaryIndexSelector, Comparer<int>.Default, key);
 }

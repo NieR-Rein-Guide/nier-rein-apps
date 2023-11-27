@@ -8,5 +8,6 @@ public enum DamageMultiplyDetailType
     HIT_INDEX = 3,
     ABNORMAL_ATTACHED = 4,
     SKILLFUL_WEAPON_TYPE = 5,
-    BUFF_ATTACHED = 6
+    BUFF_ATTACHED = 6,
+    SPECIFIED_COSTUME = 7
 }

@@ -13,4 +13,7 @@ public class EntityMMainQuestSequenceGroupTable : TableBase<EntityMMainQuestSequ
 
     public EntityMMainQuestSequenceGroup FindByMainQuestSequenceGroupIdAndDifficultyType(ValueTuple<int, DifficultyType> key) =>
         FindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key);
+
+    public bool TryFindByMainQuestSequenceGroupIdAndDifficultyType(ValueTuple<int, DifficultyType> key, out EntityMMainQuestSequenceGroup result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<(int, DifficultyType)>.Default, key, out result);
 }
