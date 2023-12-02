@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NierReincarnation.Db.Database.Models;
 using NierReincarnation.Db.Models;
+using Npgsql;
 
 namespace NierReincarnation.Db.Database;
 
-internal class PostgreDbContext : DbContext
+internal class PostgreDbContext(DbConfig dbConfig) : DbContext
 {
-    private readonly string _connectionString;
+    private readonly string _connectionString = $"Server={dbConfig.Server};Port={dbConfig.Port};Database={dbConfig.Database};User Id={dbConfig.User};Password={dbConfig.Password};Include Error Detail=true";
 
     public DbSet<Notification> Notifications { get; set; }
 
@@ -76,11 +77,6 @@ internal class PostgreDbContext : DbContext
 
     public DbSet<Remnant> Remnants { get; set; }
 
-    public PostgreDbContext(DbConfig dbConfig)
-    {
-        _connectionString = $"Server={dbConfig.Server};Port={dbConfig.Port};Database={dbConfig.Database};User Id={dbConfig.User};Password={dbConfig.Password};Include Error Detail=true";
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<CharacterRankBonus>().HasKey(c => new { c.CharacterId, c.RankBonusId, c.RankBonusLevel });
@@ -129,7 +125,10 @@ internal class PostgreDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_connectionString)
+        NpgsqlDataSourceBuilder npgsqlDataSourceBuilder = new(_connectionString);
+        npgsqlDataSourceBuilder.EnableDynamicJson();
+
+        optionsBuilder.UseNpgsql(npgsqlDataSourceBuilder.Build())
             .UseSnakeCaseNamingConvention()
             .EnableSensitiveDataLogging();
     }

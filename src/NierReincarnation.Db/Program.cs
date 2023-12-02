@@ -77,15 +77,16 @@ public static class Program
         var dbConfig = GetDbConfig();
 
         _postgreDbContext = new PostgreDbContext(dbConfig);
-        List<Notification> notifications = new();
+        List<Notification> notifications = [];
 
         try
         {
             notifications = await _postgreDbContext.Notifications.ToListAsync();
         }
         catch (Exception) { }
-        _postgreDbContext.Database.EnsureDeleted();
-        _postgreDbContext.Database.EnsureCreated();
+        await _postgreDbContext.Database.EnsureDeletedAsync();
+        _postgreDbContext = new PostgreDbContext(dbConfig);
+        await _postgreDbContext.Database.EnsureCreatedAsync();
 
         // Save notifications from old db
         if (notifications.Count > 0)
@@ -218,7 +219,7 @@ public static class Program
     private static async Task AddCharactersAsync()
     {
         WriteLineWithTimestamp("Characters");
-        ConcurrentBag<Character> dbEntities = new();
+        ConcurrentBag<Character> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCharacterTable.All, darkCharacter =>
         {
             var defaultCostumeId = CalculatorCostume.ActorAssetId(darkCharacter.DefaultCostumeId);
@@ -231,10 +232,10 @@ public static class Program
                 CharacterSlug = Slugify(characterName),
                 Name = characterName,
                 ImagePath = $"ui/actor/{defaultCostumeId}/{defaultCostumeId}_01_actor_icon.png",
-                CharacterStories = GetCharacterStories(darkCharacter.CharacterId).ToArray(),
-                ExStories = GetExStories(darkCharacter.CharacterId).ToArray(),
-                RodStories = GetRodStories(darkCharacter.CharacterId).ToArray(),
-                HiddenStories = GetHiddenStories(darkCharacter.CharacterId).ToArray()
+                CharacterStories = [.. GetCharacterStories(darkCharacter.CharacterId)],
+                ExStories = [.. GetExStories(darkCharacter.CharacterId)],
+                RodStories = [.. GetRodStories(darkCharacter.CharacterId)],
+                HiddenStories = [.. GetHiddenStories(darkCharacter.CharacterId)]
             };
             dbEntities.Add(dbCharacter);
         });
@@ -245,7 +246,7 @@ public static class Program
 
     private static List<StoryItem> GetCharacterStories(int characterId)
     {
-        List<StoryItem> stories = new();
+        List<StoryItem> stories = [];
 
         foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterCharacterTable.All
             .Where(x => x.CharacterId == characterId)
@@ -281,7 +282,7 @@ public static class Program
 
     private static List<StoryItem> GetExStories(int characterId)
     {
-        List<StoryItem> stories = new();
+        List<StoryItem> stories = [];
 
         foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterCharacterTable.All
             .Where(x => x.CharacterId == characterId)
@@ -313,7 +314,7 @@ public static class Program
 
     private static List<StoryItem> GetRodStories(int characterId)
     {
-        List<StoryItem> stories = new();
+        List<StoryItem> stories = [];
 
         foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterCharacterTable.All
             .Where(x => x.CharacterId == characterId)
@@ -341,7 +342,7 @@ public static class Program
 
     private static List<HiddenStoryItem> GetHiddenStories(int characterId)
     {
-        List<HiddenStoryItem> stories = new();
+        List<HiddenStoryItem> stories = [];
 
         foreach (var darkReport in MasterDb.EntityMReportTable.All
                 .Where(x => x.CharacterId == characterId))
@@ -366,7 +367,7 @@ public static class Program
     private static async Task AddCharacterRankBonusesAsync()
     {
         WriteLineWithTimestamp("Character Rank Bonuses");
-        ConcurrentBag<CharacterRankBonus> dbEntities = new();
+        ConcurrentBag<CharacterRankBonus> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCharacterTable.All, darkCharacter =>
         {
             var defaultCostumeId = CalculatorCostume.ActorAssetId(darkCharacter.DefaultCostumeId);
@@ -375,8 +376,8 @@ public static class Program
             foreach (var darkCharacterRankBonus in MasterDb.EntityMCharacterLevelBonusAbilityGroupTable.All
                 .Where(x => x.CharacterLevelBonusAbilityGroupId == darkCharacter.CharacterLevelBonusAbilityGroupId))
             {
-                List<DataAbilityStatus> statusList = new();
-                List<DataSkill> skillList = new();
+                List<DataAbilityStatus> statusList = [];
+                List<DataSkill> skillList = [];
                 var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkCharacterRankBonus.AbilityId, darkCharacterRankBonus.AbilityLevel);
                 CalculatorAbility.CreateDataAbilityBehaviours(abilityDetail.AbilityBehaviourGroupId, statusList, skillList);
                 (StatusKindType statusKind, int amount) = GetStatus(statusList[0].StatusChangeValue);
@@ -400,7 +401,7 @@ public static class Program
 
     private static async Task AddCharacterDebrisAsync()
     {
-        ConcurrentBag<CharacterRankBonus> dbEntities = new();
+        ConcurrentBag<CharacterRankBonus> dbEntities = [];
         var dbCharacters = await _postgreDbContext.Characters.ToListAsync();
         Parallel.ForEach(MasterDb.EntityMMissionRewardTable.All.Where(x => x.PossessionType == PossessionType.THOUGHT), darkMissionReward =>
         {
@@ -430,7 +431,7 @@ public static class Program
     private static async Task AddCostumeEmblemsAsync()
     {
         WriteLineWithTimestamp("Costume Emblems");
-        ConcurrentBag<Emblem> dbEntities = new();
+        ConcurrentBag<Emblem> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCostumeTable.All.Select(x => x.CostumeEmblemAssetId).Distinct(), darkEmblemId =>
         {
             if (darkEmblemId <= 0) return;
@@ -455,7 +456,7 @@ public static class Program
     private static async Task AddCostumesAsync()
     {
         WriteLineWithTimestamp("Costumes");
-        ConcurrentBag<Costume> dbEntities = new();
+        ConcurrentBag<Costume> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCostumeTable.All, darkCostume =>
         {
             if (darkCostume.CostumeId >= 100000) return;
@@ -501,8 +502,8 @@ public static class Program
 
     private static async Task AddCostumeSkillsAsync()
     {
-        ConcurrentBag<CostumeSkill> dbSkillEntities = new();
-        ConcurrentBag<CostumeSkillLink> dbSkillLinksEntities = new();
+        ConcurrentBag<CostumeSkill> dbSkillEntities = [];
+        ConcurrentBag<CostumeSkillLink> dbSkillLinksEntities = [];
         Parallel.ForEach(MasterDb.EntityMCostumeTable.All, darkCostume =>
         {
             if (darkCostume.CostumeId >= 100000) return;
@@ -553,8 +554,8 @@ public static class Program
 
     private static async Task AddCostumeAbilitiesAsync()
     {
-        ConcurrentBag<CostumeAbility> dbAbilityEntities = new();
-        ConcurrentBag<CostumeAbilityLink> dbAbilityLinksEntities = new();
+        ConcurrentBag<CostumeAbility> dbAbilityEntities = [];
+        ConcurrentBag<CostumeAbilityLink> dbAbilityLinksEntities = [];
         object lockObject = new();
         Parallel.ForEach(MasterDb.EntityMCostumeTable.All, darkCostume =>
         {
@@ -652,20 +653,20 @@ public static class Program
 
     private static async Task AddCostumeStatsAsync()
     {
-        ConcurrentBag<CostumeStat> dbEntities = new();
+        ConcurrentBag<CostumeStat> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCostumeTable.All, darkCostume =>
         {
             if (darkCostume.CostumeId >= 100000) return;
             var status = CalculatorCostume.GetDataCostumeStatus(darkCostume);
 
-            List<int> lvls = new()
-            {
+            List<int> lvls =
+            [
                 CalculatorCostume.GetMaxLevel(darkCostume, 0, 0),
                 CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount(), 0),
                 CalculatorCostume.GetMaxLevel(darkCostume, Config.GetCostumeLimitBreakAvailableCount(), Config.GetCharacterRebirthAvailableCount())
-            };
+            ];
             List<int> awakeningSteps = Enumerable.Range(0, Config.GetCostumeAwakenAvailableCount() + 1).ToList();
-            List<int> limitBreaks = new() { 0, Config.GetCostumeLimitBreakAvailableCount(), Config.GetCostumeLimitBreakAvailableCount() };
+            List<int> limitBreaks = [0, Config.GetCostumeLimitBreakAvailableCount(), Config.GetCostumeLimitBreakAvailableCount()];
 
             MasterDb.EntityMCostumeAwakenTable.TryFindByCostumeId(darkCostume.CostumeId, out var darkCostumeAwaken);
             var costumeAwakenEffects = MasterDb.EntityMCostumeAwakenEffectGroupTable.All
@@ -708,10 +709,11 @@ public static class Program
 
     private static List<DataAbility> GetCostumeAbilities(DataAbility[] costumeAbilities, IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, int awakeningStep)
     {
-        List<DataAbility> abilities = new();
-
-        // Add standard abilities
-        abilities.AddRange(costumeAbilities);
+        List<DataAbility> abilities =
+        [
+            // Add standard abilities
+            .. costumeAbilities,
+        ];
 
         // Add awakening abilities
         foreach (var costumeAwakenEffect in costumeAwakenEffects.Where(x => x.CostumeAwakenEffectType == CostumeAwakenEffectType.ABILITY && x.AwakenStep <= awakeningStep))
@@ -754,7 +756,7 @@ public static class Program
     private static async Task AddWeaponsAsync()
     {
         WriteLineWithTimestamp("Weapons");
-        ConcurrentBag<Weapon> dbEntities = new();
+        ConcurrentBag<Weapon> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMWeaponTable.All.ToList(), darkWeapon =>
         {
             if (darkWeapon.WeaponId >= 8000000) return;
@@ -804,8 +806,8 @@ public static class Program
     private static async Task AddWeaponSkillsAsync()
     {
         object lockObject = new();
-        ConcurrentBag<WeaponSkill> dbSkillEntities = new();
-        ConcurrentBag<WeaponSkillLink> dbSkillLinksEntities = new();
+        ConcurrentBag<WeaponSkill> dbSkillEntities = [];
+        ConcurrentBag<WeaponSkillLink> dbSkillLinksEntities = [];
         Parallel.ForEach(MasterDb.EntityMWeaponTable.All.ToList(), darkWeapon =>
         {
             if (darkWeapon.WeaponId >= 8000000) return;
@@ -870,8 +872,8 @@ public static class Program
     private static async Task AddWeaponAbilitiesAsync()
     {
         object lockObject = new();
-        ConcurrentBag<WeaponAbility> dbAbilityEntities = new();
-        ConcurrentBag<WeaponAbilityLink> dbAbilityLinkEntities = new();
+        ConcurrentBag<WeaponAbility> dbAbilityEntities = [];
+        ConcurrentBag<WeaponAbilityLink> dbAbilityLinkEntities = [];
         Parallel.ForEach(MasterDb.EntityMWeaponTable.All.ToList(), darkWeapon =>
         {
             if (darkWeapon.WeaponId >= 8000000) return;
@@ -982,16 +984,16 @@ public static class Program
 
     private static async Task AddWeaponStatsAsync()
     {
-        ConcurrentBag<WeaponStat> dbEntities = new();
+        ConcurrentBag<WeaponStat> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMWeaponTable.All.ToList(), darkWeapon =>
         {
             if (darkWeapon.WeaponId >= 8000000) return;
 
             var darkWeaponAwaken = MasterDb.EntityMWeaponAwakenTable.FindByWeaponId(darkWeapon.WeaponId);
 
-            List<int> lvls = new() { CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, 0, 0), CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount(), 0) };
-            List<int> limitBreaks = new() { 0, 0, Config.GetWeaponLimitBreakAvailableCount() };
-            List<bool> isRefined = new() { false, false, true };
+            List<int> lvls = [CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, 0, 0), CalculatorWeapon.GetWeaponMaxLevel(darkWeapon, Config.GetWeaponLimitBreakAvailableCount(), 0)];
+            List<int> limitBreaks = [0, 0, Config.GetWeaponLimitBreakAvailableCount()];
+            List<bool> isRefined = [false, false, true];
 
             if (darkWeaponAwaken != null)
             {
@@ -1027,19 +1029,22 @@ public static class Program
 
     private static async Task AddWeaponStoriesAsync()
     {
-        ConcurrentBag<WeaponStory> dbStoryEntities = new();
-        ConcurrentBag<WeaponStoryLink> dbStoryLinkEntities = new();
+        ConcurrentBag<WeaponStory> dbStoryEntities = [];
+        ConcurrentBag<WeaponStoryLink> dbStoryLinkEntities = [];
         Parallel.ForEach(MasterDb.EntityMWeaponTable.All.ToList(), darkWeapon =>
         {
             if (darkWeapon.WeaponId >= 8000000) return;
 
             var assetId = CalculatorWeapon.ActorAssetId(darkWeapon);
+            var darkWeaponStoryReleaseConditionGroups = MasterDb.EntityMWeaponStoryReleaseConditionGroupTable.All
+            .Where(x => x.WeaponStoryReleaseConditionGroupId == darkWeapon.WeaponStoryReleaseConditionGroupId)
+            .OrderByDescending(x => x.StoryIndex);
 
-            foreach (var weaponStory in LocalizationExtensions.Localizations.Where(x => x.Key.StartsWith($"weapon.story.{assetId}.")).ToArray())
+            foreach (var darkWeaponStoryReleaseConditionGroup in darkWeaponStoryReleaseConditionGroups)
             {
                 WeaponStory dbWeaponStory = new()
                 {
-                    Story = weaponStory.Value
+                    Story = $"weapon.story.{assetId.StringId}.{darkWeaponStoryReleaseConditionGroup.StoryIndex}".Localize()
                 };
                 dbStoryEntities.Add(dbWeaponStory);
                 dbStoryLinkEntities.Add(new WeaponStoryLink
@@ -1062,7 +1067,7 @@ public static class Program
     private static async Task AddCompanionsAsync()
     {
         WriteLineWithTimestamp("Companions");
-        ConcurrentBag<Companion> dbEntities = new();
+        ConcurrentBag<Companion> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCompanionTable.All, darkCompanion =>
         {
             if (darkCompanion.CompanionId >= 8000000) return;
@@ -1094,8 +1099,8 @@ public static class Program
     private static async Task AddCompanionSkillsAsync()
     {
         object lockObject = new();
-        ConcurrentBag<CompanionSkill> dbSkillEntities = new();
-        ConcurrentBag<CompanionSkillLink> dbSkillLinksEntities = new();
+        ConcurrentBag<CompanionSkill> dbSkillEntities = [];
+        ConcurrentBag<CompanionSkillLink> dbSkillLinksEntities = [];
         Parallel.ForEach(MasterDb.EntityMCompanionTable.All, darkCompanion =>
         {
             if (darkCompanion.CompanionId >= 8000000) return;
@@ -1154,8 +1159,8 @@ public static class Program
     private static async Task AddCompanionAbilitiesAsync()
     {
         object lockObject = new();
-        ConcurrentBag<CompanionAbility> dbAbilityEntities = new();
-        ConcurrentBag<CompanionAbilityLink> dbAbilityLinksEntities = new();
+        ConcurrentBag<CompanionAbility> dbAbilityEntities = [];
+        ConcurrentBag<CompanionAbilityLink> dbAbilityLinksEntities = [];
         Parallel.ForEach(MasterDb.EntityMCompanionTable.All, darkCompanion =>
         {
             if (darkCompanion.CompanionId >= 8000000) return;
@@ -1209,13 +1214,13 @@ public static class Program
 
     private static async Task AddCompanionStatsAsync()
     {
-        ConcurrentBag<CompanionStat> dbEntities = new();
+        ConcurrentBag<CompanionStat> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCompanionTable.All, darkCompanion =>
         {
             if (darkCompanion.CompanionId >= 8000000) return;
 
             var status = CalculatorCompanion.GetDataCompanionStatus(darkCompanion);
-            int[] lvls = new[] { 1, 50 };
+            int[] lvls = [1, 50];
 
             for (var i = 0; i < lvls.Length; i++)
             {
@@ -1245,8 +1250,8 @@ public static class Program
     private static async Task AddMemoirsAsync()
     {
         WriteLineWithTimestamp("Memoirs");
-        ConcurrentBag<MemoirSeries> dbSeriesEntities = new();
-        ConcurrentBag<Memoir> dbPartsEntities = new();
+        ConcurrentBag<MemoirSeries> dbSeriesEntities = [];
+        ConcurrentBag<Memoir> dbPartsEntities = [];
         Parallel.ForEach(MasterDb.EntityMPartsSeriesTable.All, darkMemoirSeries =>
         {
             var abilityGroup = CalculatorMemory.GetEntityMPartsSeriesBonusAbilityGroup(darkMemoirSeries.PartsSeriesBonusAbilityGroupId, CalculatorMemory.kMaxBonusSetCount);
@@ -1294,7 +1299,7 @@ public static class Program
     private static async Task AddDebrisAsync()
     {
         WriteLineWithTimestamp("Debris");
-        ConcurrentBag<Thought> dbEntities = new();
+        ConcurrentBag<Thought> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMThoughtTable.All, darkThought =>
         {
             var darkCatalogThought = MasterDb.EntityMCatalogThoughtTable.All.FirstOrDefault(x => x.ThoughtId == darkThought.ThoughtId);
@@ -1325,12 +1330,12 @@ public static class Program
     private static async Task AddEventsAsync()
     {
         WriteLineWithTimestamp("Events");
-        ConcurrentBag<Event> dbEntities = new();
+        ConcurrentBag<Event> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMEventQuestChapterTable.All
             .Where(x => x.EventQuestType == EventQuestType.MARATHON && x.StartDatetime < DateTimeOffset.UtcNow.AddYears(1).ToUnixTimeMilliseconds())
             .OrderBy(x => x.SortOrder), darkEventQuestChapter =>
             {
-                List<StoryItem> items = new();
+                List<StoryItem> items = [];
                 foreach (var darkEventQuestSequenceGroup in MasterDb.EntityMEventQuestSequenceGroupTable.All.Where(x => x.EventQuestSequenceGroupId == darkEventQuestChapter.EventQuestSequenceGroupId))
                 {
                     var darkEventQuestSequences = MasterDb.EntityMEventQuestSequenceTable.All
@@ -1359,7 +1364,7 @@ public static class Program
                     StartDate = CalculatorDateTime.FromUnixTime(darkEventQuestChapter.StartDatetime),
                     EndDate = CalculatorDateTime.FromUnixTime(darkEventQuestChapter.EndDatetime),
                     ImagePath = $"ui/quest/en/banner/event_banner_{darkEventQuestChapter.EventQuestChapterId}",
-                    Stories = items.ToArray()
+                    Stories = [.. items]
                 });
             });
 
@@ -1385,7 +1390,7 @@ public static class Program
 
     private static async Task AddMainQuestSeasonsAsync()
     {
-        ConcurrentBag<MainQuestSeason> dbEntities = new();
+        ConcurrentBag<MainQuestSeason> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMMainQuestSeasonTable.All.OrderBy(x => x.SortOrder), darkMainQuestSeason =>
         {
             dbEntities.Add(new MainQuestSeason
@@ -1402,7 +1407,7 @@ public static class Program
 
     private static async Task AddMainQuestRoutesAsync()
     {
-        ConcurrentBag<MainQuestRoute> dbEntities = new();
+        ConcurrentBag<MainQuestRoute> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMMainQuestRouteTable.All.OrderBy(x => x.SortOrder), darkMainQuestRoute =>
         {
             dbEntities.Add(new MainQuestRoute
@@ -1420,14 +1425,14 @@ public static class Program
 
     private static async Task AddMainQuestChaptersAsync()
     {
-        ConcurrentBag<MainQuestChapter> dbEntities = new();
+        ConcurrentBag<MainQuestChapter> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMMainQuestSeasonTable.All.OrderBy(x => x.SortOrder), darkMainQuestSeason =>
         {
             foreach (var darkMainQuestRoute in MasterDb.EntityMMainQuestRouteTable.All.Where(x => x.MainQuestSeasonId == darkMainQuestSeason.MainQuestSeasonId).OrderBy(x => x.SortOrder))
             {
                 foreach (var darkMainQuestChapter in MasterDb.EntityMMainQuestChapterTable.All.Where(x => x.MainQuestRouteId == darkMainQuestRoute.MainQuestRouteId).OrderBy(x => x.MainQuestRouteId).ThenBy(x => x.SortOrder))
                 {
-                    List<StoryItem> items = new();
+                    List<StoryItem> items = [];
                     (string chatperNumber, string chapterTitle) = CalculatorQuest.GetMainQuestChapterText(darkMainQuestChapter.MainQuestRouteId, darkMainQuestChapter.SortOrder);
                     var darkMainQuestSequenceGroup = MasterDb.EntityMMainQuestSequenceGroupTable.FindByMainQuestSequenceGroupIdAndDifficultyType((darkMainQuestChapter.MainQuestSequenceGroupId, DifficultyType.NORMAL));
                     var darkMainQuestSequences = MasterDb.EntityMMainQuestSequenceTable.All.Where(x => x.MainQuestSequenceId == darkMainQuestSequenceGroup.MainQuestSequenceId).OrderBy(x => x.SortOrder);
@@ -1453,12 +1458,12 @@ public static class Program
                         ChapterNumber = chatperNumber,
                         ChapterTitle = chapterTitle,
                         Order = darkMainQuestChapter.SortOrder,
-                        Stories = items.ToArray()
+                        Stories = [.. items]
                     });
 
                     foreach (var darkLibraryMainQuestGroup in MasterDb.EntityMLibraryMainQuestGroupTable.All.Where(x => x.MainQuestChapterId == darkMainQuestChapter.MainQuestChapterId).OrderBy(x => x.SortOrder))
                     {
-                        items = new();
+                        items = [];
                         chapterTitle = CalculatorQuest.GetMainQuestChapterTextWithTextAssetId(darkMainQuestChapter.MainQuestRouteId, darkMainQuestChapter.SortOrder, darkLibraryMainQuestGroup.ChapterTextAssetId);
                         foreach (var darkLibraryMainQuestStory in MasterDb.EntityMLibraryMainQuestStoryTable.FindByLibraryMainQuestGroupId(darkLibraryMainQuestGroup.LibraryMainQuestGroupId))
                         {
@@ -1476,7 +1481,7 @@ public static class Program
                             RouteId = darkMainQuestChapter.MainQuestRouteId,
                             ChapterTitle = chapterTitle,
                             Order = darkMainQuestChapter.SortOrder + (darkLibraryMainQuestGroup.ChapterTextAssetId * 0.1M),
-                            Stories = items.ToArray(),
+                            Stories = [.. items],
                             ChapterTextAssetId = darkLibraryMainQuestGroup.ChapterTextAssetId
                         });
                     }
@@ -1490,10 +1495,10 @@ public static class Program
 
     private static async Task AddCardStoriesAsync()
     {
-        ConcurrentBag<CardStory> dbEntities = new();
+        ConcurrentBag<CardStory> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMWebviewMissionTable.All.OrderBy(x => x.WebviewMissionId), darkWebviewMission =>
         {
-            List<StoryItem> items = new();
+            List<StoryItem> items = [];
             var darkWebviewMissionTitleText = MasterDb.EntityMWebviewMissionTitleTextTable.FindByWebviewMissionTitleTextIdAndLanguageType((darkWebviewMission.TitleTextId, LanguageType.EN));
             foreach (var darkWebviewPanelMission in MasterDb.EntityMWebviewPanelMissionTable.All.Where(x => x.WebviewPanelMissionId == darkWebviewMission.WebviewMissionTargetId).OrderBy(x => x.Page))
             {
@@ -1512,7 +1517,7 @@ public static class Program
             {
                 Id = darkWebviewMission.WebviewMissionId,
                 Name = darkWebviewMissionTitleText.Text,
-                Stories = items.ToArray()
+                Stories = [.. items]
             });
         });
 
@@ -1522,7 +1527,7 @@ public static class Program
 
     private static async Task AddLostArchiveStoriesAsync()
     {
-        ConcurrentBag<LostArchive> dbEntities = new();
+        ConcurrentBag<LostArchive> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMCageMemoryTable.All.OrderBy(x => x.SortOrder), darkCageMemory =>
         {
             dbEntities.Add(new LostArchive
@@ -1542,7 +1547,7 @@ public static class Program
 
     private static async Task AddRemnantStoriesAsync()
     {
-        ConcurrentBag<Remnant> dbEntities = new();
+        ConcurrentBag<Remnant> dbEntities = [];
         Parallel.ForEach(MasterDb.EntityMStainedGlassTable.All.OrderBy(x => x.SortOrder), darkRemnant =>
         {
             var remnantName = $"stained.glass.title.{darkRemnant.TitleTextId}".Localize();
