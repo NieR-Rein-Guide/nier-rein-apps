@@ -15,7 +15,7 @@ public class FetchMissionsCommand : AbstractDbQueryCommand<FetchMissionsCommandA
         var darkMissionGroup = arg.Entity ?? MasterDb.EntityMMissionGroupTable.FindByMissionGroupId(arg.EntityId);
         if (darkMissionGroup == null) return Task.FromResult<List<Mission>>(null);
 
-        List<Mission> missions = new();
+        List<Mission> missions = [];
 
         foreach (var darkMission in MasterDb.EntityMMissionTable.All.Where(x => x.MissionGroupId == darkMissionGroup.MissionGroupId).OrderBy(x => x.SortOrderInMissionGroup))
         {

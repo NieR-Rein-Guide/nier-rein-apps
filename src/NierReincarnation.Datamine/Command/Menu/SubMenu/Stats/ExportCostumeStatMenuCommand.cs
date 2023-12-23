@@ -14,8 +14,8 @@ public class ExportCostumeStatMenuCommand : AbstractMenuCommand<ExportCostumeSta
         Costume costume = await new FetchCostumeCommand().ExecuteAsync(new FetchCostumeCommandArg
         {
             EntityId = arg.CostumeId,
-            Awakenings = new[] { 0, 5 },
-            KarmaRarityTypes = new[] { RarityType.RARE, RarityType.S_RARE, RarityType.SS_RARE }
+            Awakenings = [0, 5],
+            KarmaRarityTypes = [RarityType.RARE, RarityType.S_RARE, RarityType.SS_RARE]
         });
 
         Console.WriteLine(costume);

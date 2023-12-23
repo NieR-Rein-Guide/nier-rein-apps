@@ -19,15 +19,15 @@ public class ExportCompanionStoriesMenuCommand : AbstractMenuCommand
     private static TextMenu BuildStoriesMenu()
     {
         TextMenu textMenu = MenuExtensions.GetTextMenu();
-        List<TextMenuItem> menuItems = new()
-        {
+        List<TextMenuItem> menuItems =
+        [
             new TextMenuItem
             {
                 Id = "0",
                 Text = "Go Back",
                 Command = new ExportStoriesMenuCommand()
             }
-        };
+        ];
 
         int i = 1;
         foreach (var darkCompanion in MasterDb.EntityMCompanionTable.All.OrderBy(x => CalculatorCompanion.CompanionName(x.CompanionId).Split(":").ElementAtOrDefault(0)))

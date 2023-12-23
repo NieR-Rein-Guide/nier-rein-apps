@@ -14,7 +14,7 @@ public class FetchLoginBonusRewardsCommand : AbstractDbQueryCommand<FetchLoginBo
         var darkLoginBonus = arg.Entity ?? MasterDb.EntityMLoginBonusTable.FindByLoginBonusId(arg.EntityId);
         if (darkLoginBonus == null) return Task.FromResult<List<Reward>>(null);
 
-        List<Reward> rewards = new();
+        List<Reward> rewards = [];
 
         foreach (var darkLoginBonusReward in MasterDb.EntityMLoginBonusStampTable.All.Where(x => x.LoginBonusId == darkLoginBonus.LoginBonusId))
         {

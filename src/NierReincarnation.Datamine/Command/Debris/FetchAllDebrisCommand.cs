@@ -6,7 +6,7 @@ public class FetchAllDebrisCommand : AbstractDbQueryCommand<FetchAllDebrisComman
 {
     public override async Task<List<Debris>> ExecuteAsync(FetchAllDebrisCommandArg arg)
     {
-        List<Debris> debris = new();
+        List<Debris> debris = [];
         foreach (var darkDebris in MasterDb.EntityMThoughtTable.All)
         {
             var debri = await new FetchDebrisCommand().ExecuteAsync(new FetchDebrisByDebrisCommandArg

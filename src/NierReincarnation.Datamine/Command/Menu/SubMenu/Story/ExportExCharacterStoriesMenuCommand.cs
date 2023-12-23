@@ -20,15 +20,15 @@ public class ExportExCharacterStoriesMenuCommand : AbstractMenuCommand
     private static TextMenu BuildStoriesMenu()
     {
         TextMenu textMenu = MenuExtensions.GetTextMenu();
-        List<TextMenuItem> menuItems = new()
-        {
+        List<TextMenuItem> menuItems =
+        [
             new TextMenuItem
             {
                 Id = "0",
                 Text = "Go Back",
                 Command = new ExportStoriesMenuCommand()
             }
-        };
+        ];
 
         int i = 1;
         foreach (var darkEventQuestChapter in MasterDb.EntityMEventQuestChapterTable.All.Where(x => x.EventQuestType == EventQuestType.END_CONTENTS).OrderBy(x => x.SortOrder))

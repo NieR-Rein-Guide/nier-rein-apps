@@ -17,7 +17,7 @@ public class ExportGachasMenuCommand : AbstractMenuCommand<ExportGachasCommandAr
 
     public override async Task ExecuteAsync(ExportGachasCommandArg arg)
     {
-        List<GachaModel> gachas = new();
+        List<GachaModel> gachas = [];
         string filePath = Path.Combine(Constants.DataPath, "gacha.json");
 
         if (File.Exists(filePath))

@@ -12,7 +12,7 @@ public class ExportMemoirStoryMenuCommand : AbstractMenuCommand<ExportMemoirStor
 
     public override Task ExecuteAsync(ExportMemoirStoryMenuCommandArg arg)
     {
-        List<string> memoirNames = new();
+        List<string> memoirNames = [];
         var darkMemoirSeries = MasterDb.EntityMPartsSeriesTable.FindByPartsSeriesId(arg.PartsSeriesId);
         var memoirSeriesName = CalculatorMemory.MemorySeriesName(darkMemoirSeries.PartsSeriesId);
 

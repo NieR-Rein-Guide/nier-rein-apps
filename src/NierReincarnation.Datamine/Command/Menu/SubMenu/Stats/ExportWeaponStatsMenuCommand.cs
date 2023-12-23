@@ -22,15 +22,15 @@ public class ExportWeaponStatsMenuCommand : AbstractMenuCommand<ExportWeaponStat
     private static TextMenu BuildMenu(WeaponType weaponType)
     {
         TextMenu textMenu = MenuExtensions.GetTextMenu();
-        List<TextMenuItem> menuItems = new()
-        {
+        List<TextMenuItem> menuItems =
+        [
             new TextMenuItem
             {
                 Id = "0",
                 Text = "Go Back",
                 Command = new ExportWeaponTypeStatsMenuCommand()
             }
-        };
+        ];
 
         int i = 1;
         foreach (var darkWeapon in MasterDb.EntityMWeaponTable.All.Where(x => x.WeaponType == weaponType))

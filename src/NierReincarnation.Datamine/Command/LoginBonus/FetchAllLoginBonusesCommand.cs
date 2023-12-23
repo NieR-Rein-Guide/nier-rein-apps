@@ -6,7 +6,7 @@ public class FetchAllLoginBonusesCommand : AbstractDbQueryCommand<FetchAllLoginB
 {
     public override async Task<List<LoginBonus>> ExecuteAsync(FetchAllLoginBonusesCommandArg arg)
     {
-        List<LoginBonus> loginBonuses = new();
+        List<LoginBonus> loginBonuses = [];
         foreach (var darkLoginBonus in MasterDb.EntityMLoginBonusTable.All)
         {
             var loginBonus = await new FetchLoginBonusCommand().ExecuteAsync(new FetchLoginBonusCommandArg

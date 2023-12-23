@@ -29,7 +29,7 @@ public class CostumeKarmaStats : CostumeKarmaItem
     public override string ToString()
     {
         StringBuilder stringBuilder = new();
-        List<string> stats = new();
+        List<string> stats = [];
 
         if (AgilityFlat != 0)
         {

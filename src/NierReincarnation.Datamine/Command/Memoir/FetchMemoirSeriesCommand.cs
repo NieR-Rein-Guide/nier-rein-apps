@@ -22,7 +22,7 @@ public class FetchMemoirSeriesCommand : AbstractDbQueryCommand<FetchMemoirSeries
                 FromDate = arg.FromDate,
                 ToDate = arg.ToDate
             })
-            : new List<Memoir>();
+            : [];
 
         if (!arg.IncludeEmptySeries && memoirs.Count == 0) return null;
 

@@ -6,7 +6,7 @@ public class FetchAllMemoirSeriesCommand : AbstractDbQueryCommand<FetchAllMemoir
 {
     public override async Task<List<MemoirSeries>> ExecuteAsync(FetchAllMemoirSeriesCommandArg arg)
     {
-        List<MemoirSeries> memoirSerieses = new();
+        List<MemoirSeries> memoirSerieses = [];
         foreach (var darkMemoirSeries in MasterDb.EntityMPartsSeriesTable.All)
         {
             var memoirSeries = await new FetchMemoirSeriesCommand().ExecuteAsync(new FetchMemoirSeriesCommandArg

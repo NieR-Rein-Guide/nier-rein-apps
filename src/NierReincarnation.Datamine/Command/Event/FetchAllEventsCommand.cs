@@ -10,7 +10,7 @@ public class FetchAllEventsCommand : AbstractDbQueryCommand<FetchAllEventsComman
 {
     public override async Task<List<Event>> ExecuteAsync(FetchAllEventsCommandArg arg)
     {
-        List<Event> events = new();
+        List<Event> events = [];
 
         foreach (var darkEventChapter in MasterDb.EntityMEventQuestChapterTable.All.OrderBy(x => x.StartDatetime))
         {
@@ -18,7 +18,7 @@ public class FetchAllEventsCommand : AbstractDbQueryCommand<FetchAllEventsComman
             if (arg.FromDate > CalculatorDateTime.FromUnixTime(darkEventChapter.StartDatetime)) continue;
             if (arg.ToDate < CalculatorDateTime.FromUnixTime(darkEventChapter.StartDatetime)) continue;
 
-            Dictionary<DifficultyType, List<EventQuest>> eventQuestsByDifficulty = new();
+            Dictionary<DifficultyType, List<EventQuest>> eventQuestsByDifficulty = [];
 
             if (arg.IncludeQuests)
             {

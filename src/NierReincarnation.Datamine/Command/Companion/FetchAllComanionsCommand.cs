@@ -6,7 +6,7 @@ public class FetchAllComanionsCommand : AbstractDbQueryCommand<FetchAllComanions
 {
     public override async Task<List<Companion>> ExecuteAsync(FetchAllComanionsCommandArg arg)
     {
-        List<Companion> companions = new();
+        List<Companion> companions = [];
         foreach (var darkCompanion in MasterDb.EntityMCompanionTable.All)
         {
             var companion = await new FetchComanionCommand().ExecuteAsync(new FetchComanionCommandArg

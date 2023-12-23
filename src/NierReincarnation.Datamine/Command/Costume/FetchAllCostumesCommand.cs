@@ -6,7 +6,7 @@ public class FetchAllCostumesCommand : AbstractDbQueryCommand<FetchAllCostumesCo
 {
     public override async Task<List<Costume>> ExecuteAsync(FetchAllCostumesCommandArg arg)
     {
-        List<Costume> costumes = new();
+        List<Costume> costumes = [];
         foreach (var darkCostume in MasterDb.EntityMCostumeTable.All)
         {
             var costume = await new FetchCostumeCommand().ExecuteAsync(new FetchCostumeCommandArg

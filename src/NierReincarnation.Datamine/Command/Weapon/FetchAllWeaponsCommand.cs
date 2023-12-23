@@ -6,7 +6,7 @@ public class FetchAllWeaponsCommand : AbstractDbQueryCommand<FetchAllWeaponsComm
 {
     public override async Task<List<Weapon>> ExecuteAsync(FetchAllWeaponsCommandArg arg)
     {
-        List<Weapon> weapons = new();
+        List<Weapon> weapons = [];
         foreach (var darkWeapon in MasterDb.EntityMWeaponTable.All)
         {
             var weapon = await new FetchWeaponCommand().ExecuteAsync(new FetchWeaponCommandArg

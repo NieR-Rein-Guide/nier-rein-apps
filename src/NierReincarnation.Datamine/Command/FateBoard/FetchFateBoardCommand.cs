@@ -22,7 +22,7 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
             Name = string.Format(UserInterfaceTextKey.Quest.kEventChapterTitle, darkEventChapter.NameEventQuestTextId).Localize(),
             StartDateTimeOffset = CalculatorDateTime.FromUnixTime(darkEventChapter.StartDatetime),
             EndDateTimeOffset = CalculatorDateTime.FromUnixTime(darkEventChapter.EndDatetime),
-            Seasons = new()
+            Seasons = []
         };
 
         foreach (var darkLabyrinthSeason in MasterDb.EntityMEventQuestLabyrinthSeasonTable.FindByEventQuestChapterId(darkEventChapter.EventQuestChapterId).OrderBy(x => x.SeasonNumber))
@@ -40,7 +40,7 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
                 SeasonNumber = darkLabyrinthSeason.SeasonNumber,
                 StartDateTimeOffset = CalculatorDateTime.FromUnixTime(darkLabyrinthSeason.StartDatetime),
                 EndDateTimeOffset = CalculatorDateTime.FromUnixTime(darkLabyrinthSeason.EndDatetime),
-                Stages = new()
+                Stages = []
             };
             fateBoard.Seasons.Add(fateBoardSeason);
 
@@ -53,7 +53,7 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
                 });
 
                 var darkLabyrinthStages = arg.OnlyLastStage
-                    ? new List<EntityMEventQuestLabyrinthStage> { MasterDb.EntityMEventQuestLabyrinthStageTable.FindByEventQuestChapterId(darkLabyrinthSeason.EventQuestChapterId).OrderBy(x => x.StageOrder).Last() }
+                    ? [MasterDb.EntityMEventQuestLabyrinthStageTable.FindByEventQuestChapterId(darkLabyrinthSeason.EventQuestChapterId).OrderBy(x => x.StageOrder).Last()]
                     : MasterDb.EntityMEventQuestLabyrinthStageTable.FindByEventQuestChapterId(darkLabyrinthSeason.EventQuestChapterId).OrderBy(x => x.StageOrder).ToList();
 
                 foreach (var darkLabyrinthStage in darkLabyrinthStages)
@@ -61,7 +61,7 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
                     FateBoardStage fateBoardStage = new()
                     {
                         StageNumber = darkLabyrinthStage.StageOrder,
-                        Difficulties = new()
+                        Difficulties = []
                     };
                     fateBoardSeason.Stages.Add(fateBoardStage);
 
@@ -75,8 +75,8 @@ public class FetchFateBoardCommand : AbstractDbQueryCommand<FetchFateBoardComman
                     {
                         DifficultyType = darkDifficulty,
                         Quests = stageQuests,
-                        Treasures = new(),
-                        MissionRewards = new()
+                        Treasures = [],
+                        MissionRewards = []
                     };
                     fateBoardStage.Difficulties.Add(fateBoardDifficulty);
 

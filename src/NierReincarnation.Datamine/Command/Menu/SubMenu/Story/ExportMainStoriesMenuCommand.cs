@@ -19,15 +19,15 @@ public class ExportMainStoriesMenuCommand : AbstractMenuCommand
     private static TextMenu BuildStoriesMenu()
     {
         TextMenu textMenu = MenuExtensions.GetTextMenu();
-        List<TextMenuItem> menuItems = new()
-        {
+        List<TextMenuItem> menuItems =
+        [
             new TextMenuItem
             {
                 Id = "0",
                 Text = "Go Back",
                 Command = new ExportStoriesMenuCommand()
             }
-        };
+        ];
 
         int i = 1;
         foreach (var darkMainQuestChapter in MasterDb.EntityMMainQuestChapterTable.All.OrderBy(x => x.MainQuestRouteId).ThenBy(x => x.SortOrder))

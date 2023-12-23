@@ -17,7 +17,7 @@ public class FetchCostumeStatsCommand : AbstractDbQueryCommand<FetchCostumeStats
         var darkCostume = arg.Entity ?? MasterDb.EntityMCostumeTable.FindByCostumeId(arg.EntityId);
         if (darkCostume == null) return Task.FromResult<List<CostumeStats>>(null);
 
-        List<CostumeStats> costumeStats = new();
+        List<CostumeStats> costumeStats = [];
         MasterDb.EntityMCostumeAwakenTable.TryFindByCostumeId(darkCostume.CostumeId, out EntityMCostumeAwaken darkCostumeAwaken);
         var darkCostumeAwakenEffectGroups = MasterDb.EntityMCostumeAwakenEffectGroupTable
             .FindByCostumeAwakenEffectGroupIdAndCostumeAwakenEffectType((darkCostumeAwaken.CostumeAwakenEffectGroupId, CostumeAwakenEffectType.STATUS_UP));

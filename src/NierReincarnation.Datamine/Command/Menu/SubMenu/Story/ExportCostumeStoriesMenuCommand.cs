@@ -21,15 +21,15 @@ public class ExportCostumeStoriesMenuCommand : AbstractMenuCommand<ExportCostume
     private static TextMenu BuildStoriesMenu(int characterId)
     {
         TextMenu textMenu = MenuExtensions.GetTextMenu();
-        List<TextMenuItem> menuItems = new()
-        {
+        List<TextMenuItem> menuItems =
+        [
             new TextMenuItem
             {
                 Id = "0",
                 Text = "Go Back",
                 Command = new ExportCharacterCostumeStoriesMenuCommand()
             }
-        };
+        ];
 
         int i = 1;
         foreach (var darkCostume in MasterDb.EntityMCostumeTable.FindByCharacterId(characterId))

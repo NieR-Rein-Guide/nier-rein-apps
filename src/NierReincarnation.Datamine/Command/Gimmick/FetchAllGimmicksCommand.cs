@@ -11,7 +11,7 @@ public class FetchAllGimmicksCommand : AbstractDbQueryCommand<FetchAllGimmicksCo
 {
     public override Task<List<Gimmick>> ExecuteAsync(FetchAllGimmicksCommandArg arg)
     {
-        List<Gimmick> gimmicks = new();
+        List<Gimmick> gimmicks = [];
 
         MasterDb.EntityMGimmickOrnamentTable.All.OrderBy(x => x.ChapterId).ThenBy(x => x.SortOrder).AsParallel().ForAll(darkGimmickOrnament =>
         {
@@ -111,7 +111,7 @@ public class FetchAllGimmicksCommand : AbstractDbQueryCommand<FetchAllGimmicksCo
 
     private List<string> GetClearConditions(int clearEvaluateConditionId)
     {
-        List<string> conditions = new();
+        List<string> conditions = [];
 
         if (clearEvaluateConditionId == 0) return conditions;
 

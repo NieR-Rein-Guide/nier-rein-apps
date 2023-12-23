@@ -9,7 +9,7 @@ public class FetchAllMaintenancesCommand : AbstractDbQueryCommand<FetchAllMainte
 {
     public override Task<List<Maintenance>> ExecuteAsync(FetchAllMaintenancesCommandArg arg)
     {
-        List<Maintenance> maintenances = new();
+        List<Maintenance> maintenances = [];
 
         foreach (var darkMaintenance in MasterDb.EntityMMaintenanceTable.All
             .OrderBy(x => x.StartDatetime))

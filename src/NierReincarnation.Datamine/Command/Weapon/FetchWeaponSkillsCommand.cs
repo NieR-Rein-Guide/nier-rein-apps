@@ -15,7 +15,7 @@ public class FetchWeaponSkillsCommand : AbstractDbQueryCommand<FetchWeaponSkills
         var darkWeapon = arg.Entity ?? MasterDb.EntityMWeaponTable.FindByWeaponId(arg.EntityId);
         if (darkWeapon == null) return Task.FromResult<List<WeaponSkill>>(null);
 
-        List<WeaponSkill> weaponSkills = new();
+        List<WeaponSkill> weaponSkills = [];
         var evolution = CalculatorWeapon.GetWeaponEvolutionGroupIdAndEvolutionOrder(darkWeapon.WeaponId);
         var skillGroups = CalculatorMasterData.GetEntityMWeaponSkillGroups(darkWeapon.WeaponSkillGroupId).OrderBy(x => x.SlotNumber);
 

@@ -24,7 +24,7 @@ public class ExportShopsMenuCommand : AbstractMenuCommand
 
             Console.WriteLine($"{shopStr} ({darkShop.ShopType.ToFormattedStr()}) {darkShop.ToFormattedDateStr()}".ToBold());
 
-            List<int> terms = new();
+            List<int> terms = [];
             bool skipItemDate = darkShopItemCellGroups.All(x => x.ShopItemCellTermId > 0);
             foreach (var darkShopItemCellGroup in darkShopItemCellGroups.OrderBy(x => skipItemDate ? x.SortOrder : x.ShopItemCellTermId).ThenBy(x => x.SortOrder))
             {

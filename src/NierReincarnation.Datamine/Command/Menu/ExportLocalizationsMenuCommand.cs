@@ -29,7 +29,7 @@ public class ExportLocalizationsMenuCommand : AbstractMenuCommand<ExportLocaliza
 
     private static async Task ExportLocalizations(ExportLocalizationsMenuCommandArg arg, SystemLanguage language)
     {
-        Dictionary<string, string> result = new();
+        Dictionary<string, string> result = [];
 
         // Locate the directory
         string path = Path.Combine(Constants.LocalizationsPath, language.ToPath());
@@ -79,7 +79,7 @@ public class ExportLocalizationsMenuCommand : AbstractMenuCommand<ExportLocaliza
     private static Task WriteJsonFile(string filePath, Dictionary<string, string> result)
     {
         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-        Dictionary<string, string> jsonResult = new();
+        Dictionary<string, string> jsonResult = [];
 
         foreach (var kv in result.OrderBy(x => x.Key))
         {

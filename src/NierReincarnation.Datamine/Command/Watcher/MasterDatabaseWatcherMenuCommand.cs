@@ -4,11 +4,11 @@ using NierReincarnation.Core.Dark.EntryPoint;
 
 namespace NierReincarnation.Datamine.Command;
 
-public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<MasterDatabaseWatcherMenuCommandArg, WatcherResult>
+public class MasterDatabaseWatcherMenuCommand(MasterDatabaseWatcherMenuCommandArg arg) : AbstractWatcherMenuCommand<MasterDatabaseWatcherMenuCommandArg, WatcherResult>(arg)
 {
     private static readonly object _lockObj = new();
 
-    private static readonly int[] _hours = { /* 1, 2, 3, 4, 5, 14, */ 15, 16, 17, 18, 19, /* 20, 21, 22, 23 */ };
+    private static readonly int[] _hours = [/* 1, 2, 3, 4, 5, 14, */ 15, 16, 17, 18, 19, /* 20, 21, 22, 23 */];
 
     private const int _batchSize = 10000;
 
@@ -24,18 +24,14 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
 
     public override TimeSpan Interval => TimeSpan.FromMinutes(10);
 
-    public MasterDatabaseWatcherMenuCommand(MasterDatabaseWatcherMenuCommandArg arg) : base(arg)
-    {
-    }
-
     public override async Task<WatcherResult> ExecuteAsync(MasterDatabaseWatcherMenuCommandArg arg)
     {
         string okText = StringValue.QuickRead("WARNING!!! Do NOT use this without an active VPN. Type OK to continue:");
         if (!okText.Equals("OK", StringComparison.Ordinal)) return new WatcherResult(true);
 
         HttpClient httpClient = new();
-        List<string> masterVersions = new();
-        Dictionary<string, byte[]> masterVersionsFound = new();
+        List<string> masterVersions = [];
+        Dictionary<string, byte[]> masterVersionsFound = [];
 
         var serverTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
         var serverTime = DateTimeOffset.UtcNow.Add(serverTimeZone.BaseUtcOffset);
@@ -43,7 +39,7 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
 
         int[] months = new[] { twoDaysAgo.Month, serverTime.Month }.Distinct().ToArray();
 
-        Dictionary<int, int[]> days = new();
+        Dictionary<int, int[]> days = [];
 
         if (months.Length == 2)
         {
@@ -73,7 +69,7 @@ public class MasterDatabaseWatcherMenuCommand : AbstractWatcherMenuCommand<Maste
             }
         }
 
-        List<List<string>> batches = new();
+        List<List<string>> batches = [];
         for (int i = 0; i < masterVersions.Count; i += _batchSize)
         {
             List<string> batch = masterVersions.SkipLast(i).TakeLast(_batchSize).ToList();

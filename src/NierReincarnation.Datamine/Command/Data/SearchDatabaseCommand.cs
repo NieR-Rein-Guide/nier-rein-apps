@@ -8,7 +8,7 @@ public class SearchDatabaseCommand : AbstractDbQueryCommand<SearchDatabaseComman
 {
     public override Task<List<string>> ExecuteAsync(SearchDatabaseCommandArg arg)
     {
-        List<string> found = new();
+        List<string> found = [];
         if (!arg.IsValid()) return Task.FromResult(found);
 
         foreach (var tableProp in typeof(DarkMasterMemoryDatabase).GetProperties())

@@ -15,7 +15,7 @@ public class FetchCostumeAbilitiesCommand : AbstractDbQueryCommand<FetchCostumeA
         var darkCostume = arg.Entity ?? MasterDb.EntityMCostumeTable.FindByCostumeId(arg.EntityId);
         if (darkCostume == null) return Task.FromResult<List<CostumeAbility>>(null);
 
-        List<CostumeAbility> costumeAbilities = new();
+        List<CostumeAbility> costumeAbilities = [];
         foreach (var abilityGroup in CalculatorMasterData.GetEntityCostumeAbilityGroupList(darkCostume.CostumeAbilityGroupId).OrderBy(x => x.SlotNumber))
         {
             var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(abilityGroup.AbilityId, CalculatorAbility.MAX_LEVEL);

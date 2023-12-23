@@ -34,7 +34,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllCostumesCommand().ExecuteAsync(new FetchAllCostumesCommandArg
         {
-            Awakenings = new[] { 0, 5 },
+            Awakenings = [0, 5],
             FromDate = DateTimeExtensions.Yesterday
         });
     }
@@ -233,7 +233,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     {
         return await new FetchAllGimmicksCommand().ExecuteAsync(new FetchAllGimmicksCommandArg
         {
-            GimmickTypes = new[] { GimmickType.REPORT }
+            GimmickTypes = [GimmickType.REPORT]
         });
     }
 
@@ -244,7 +244,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
         if (hiddenStories.Count > 0)
         {
-            List<string> uniqueNames = new();
+            List<string> uniqueNames = [];
             Console.WriteLine("Hidden Stories".ToHeader2());
 
             foreach (var hiddenStoryGroup in hiddenStories.OrderBy(x => x.ProgressStartDateTimeOffset).GroupBy(x => x.ProgressStartDateTimeOffset))

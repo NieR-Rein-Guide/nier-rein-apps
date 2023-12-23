@@ -17,7 +17,7 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
 
     private static int DbRevision => OctoManager.DbRevision;
 
-    private readonly List<string> FoldersToExport = new() { "2d", "audio", "character_select", "minigame", "text", "timeline", "ui", "voice" };
+    private readonly List<string> FoldersToExport = ["2d", "audio", "character_select", "minigame", "text", "timeline", "ui", "voice"];
 
     public override async Task ExecuteAsync()
     {
@@ -45,15 +45,15 @@ public class ExportAssetsResourcesMenuCommand : AbstractMenuCommand
         await new ExportResourcesCommand().ExecuteAsync(new ExportResourcesCommandArg
         {
             DownloadPath = Constants.ResourcesPath,
-            Filters = new List<EntityExportFilter>
-                {
+            Filters =
+                [
                     new EntityExportFilter
                     {
                         FilterType = EntityExportFilterType.IsExactly,
                         FilterText = "tag.txt",
                         IsMatch = false
                     }
-                }
+                ]
         });
 
         // Update revision and save changes

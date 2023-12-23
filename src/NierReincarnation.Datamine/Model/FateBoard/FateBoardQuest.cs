@@ -17,6 +17,6 @@ public class FateBoardQuest : EventQuest
         RecommendedForce = eventQuest.RecommendedForce;
         FirstClearRewards = eventQuest.FirstClearRewards;
         PickupRewards = eventQuest.PickupRewards;
-        SeasonRewards = new();
+        SeasonRewards = [];
     }
 }

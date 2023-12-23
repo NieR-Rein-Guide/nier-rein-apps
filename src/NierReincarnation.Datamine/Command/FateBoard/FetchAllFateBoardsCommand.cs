@@ -7,7 +7,7 @@ public class FetchAllFateBoardsCommand : AbstractDbQueryCommand<FetchAllFateBoar
 {
     public override async Task<List<FateBoard>> ExecuteAsync(FetchAllFateBoardsCommandArg arg)
     {
-        List<FateBoard> fateBoards = new();
+        List<FateBoard> fateBoards = [];
 
         foreach (var darkEventChapter in MasterDb.EntityMEventQuestChapterTable.All
             .Where(x => x.EventQuestType == EventQuestType.LABYRINTH)

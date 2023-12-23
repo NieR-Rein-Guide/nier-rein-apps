@@ -7,7 +7,7 @@ public class FetchAllMoviesCommand : AbstractDbQueryCommand<FetchAllMoviesComman
 {
     public override Task<List<Movie>> ExecuteAsync(FetchAllMoviesCommandArg arg)
     {
-        List<Movie> movies = new();
+        List<Movie> movies = [];
 
         foreach (var darkLibraryMovie in MasterDb.EntityMLibraryMovieTable.All)
         {

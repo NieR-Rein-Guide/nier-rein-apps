@@ -48,8 +48,8 @@ public abstract class AbstractExportCommand : IAsyncCommand<BaseExportEntityComm
         ProgressBar progressBar = new() { MaxValue = items.Count(), UnitOfMeasurement = string.Empty, LabelText = "Downloading" };
         progressBar.Display();
 
-        List<string> fileList = new();
-        List<string> errors = new();
+        List<string> fileList = [];
+        List<string> errors = [];
 
         var tasks = items.Select(x =>
         {

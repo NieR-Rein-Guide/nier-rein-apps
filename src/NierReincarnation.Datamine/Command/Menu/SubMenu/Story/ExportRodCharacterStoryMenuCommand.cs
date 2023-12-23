@@ -13,7 +13,7 @@ public class ExportRodCharacterStoryMenuCommand : AbstractMenuCommand<ExportRodC
 
     public override Task ExecuteAsync(ExportRodCharacterStoryMenuCommandArg arg)
     {
-        List<string> texts = new();
+        List<string> texts = [];
         var characterName = string.Empty;
         var counter = 0;
 

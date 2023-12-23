@@ -6,7 +6,7 @@ public class FetchAllMissionGroupsCommand : AbstractDbQueryCommand<FetchAllMissi
 {
     public override async Task<List<MissionGroup>> ExecuteAsync(FetchAllMissionGroupsCommandArg arg)
     {
-        List<MissionGroup> missionGroups = new();
+        List<MissionGroup> missionGroups = [];
         foreach (var darkMissionGroup in MasterDb.EntityMMissionGroupTable.All)
         {
             var missionGroup = await new FetchMissionGroupCommand().ExecuteAsync(new FetchMissionGroupCommandArg

@@ -14,7 +14,7 @@ public class ExportHiddenStoryMenuCommand : AbstractMenuCommand<ExportHiddenStor
 
     public override Task ExecuteAsync(ExportHiddenStoryMenuCommandArg arg)
     {
-        List<HiddenStoryRecord> texts = new();
+        List<HiddenStoryRecord> texts = [];
         var characterSymbolName = string.Empty;
 
         foreach (var reportId in arg.ReportIds)

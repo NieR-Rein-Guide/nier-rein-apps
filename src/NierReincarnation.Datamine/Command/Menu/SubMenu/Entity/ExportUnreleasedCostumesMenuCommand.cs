@@ -16,7 +16,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
     public override Task ExecuteAsync()
     {
         Console.WriteLine();
-        Dictionary<string, List<string>> unreleasedCostumes = new();
+        Dictionary<string, List<string>> unreleasedCostumes = [];
         Dictionary<string, string> currentCharacters = GetCurrentCharacters();
         Dictionary<string, string> currentCostumes = GetCurrentCostumes();
 
@@ -36,7 +36,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
                 string unreleasedCostumeStr = $"{matchCharacter} ({matchCostumeId})";
                 if (!unreleasedCostumes.ContainsKey(unreleasedCostumeStr))
                 {
-                    unreleasedCostumes[unreleasedCostumeStr] = new();
+                    unreleasedCostumes[unreleasedCostumeStr] = [];
                 }
 
                 string itemName = asset.Replace(")", "\\");
@@ -73,7 +73,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
 
     private static Dictionary<string, string> GetCurrentCharacters()
     {
-        Dictionary<string, string> result = new();
+        Dictionary<string, string> result = [];
 
         foreach (var darkCostume in MasterDb.EntityMCostumeTable.All)
         {
@@ -90,7 +90,7 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
 
     private static Dictionary<string, string> GetCurrentCostumes()
     {
-        Dictionary<string, string> result = new();
+        Dictionary<string, string> result = [];
 
         foreach (var costume in MasterDb.EntityMCostumeTable.All)
         {

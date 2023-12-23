@@ -7,7 +7,7 @@ public class FetchAllRemnantsCommand : AbstractDbQueryCommand<FetchAllRemnantsCo
 {
     public override async Task<List<Remnant>> ExecuteAsync(FetchAllRemnantsCommandArg arg)
     {
-        List<Remnant> remnants = new();
+        List<Remnant> remnants = [];
 
         foreach (var darkRemnant in MasterDb.EntityMStainedGlassTable.All)
         {

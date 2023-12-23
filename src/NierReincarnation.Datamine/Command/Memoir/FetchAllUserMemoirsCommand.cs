@@ -9,7 +9,7 @@ public class FetchAllUserMemoirsCommand : AbstractDbQueryCommand<FetchAllUserMem
 {
     public override Task<List<UserMemoir>> ExecuteAsync(FetchAllUserMemoirsCommandArg arg)
     {
-        List<UserMemoir> userMemoirs = new();
+        List<UserMemoir> userMemoirs = [];
 
         foreach (var darkUserMemoir in UserDb.EntityIUserPartsTable.All)
         {
@@ -20,7 +20,7 @@ public class FetchAllUserMemoirsCommand : AbstractDbQueryCommand<FetchAllUserMem
 
             if (darkUserMemoirData != null)
             {
-                var setAbilities = CalculatorMemory.CreateMemorySeriesBonusDataAbility(new[] { darkUserMemoirData })
+                var setAbilities = CalculatorMemory.CreateMemorySeriesBonusDataAbility([darkUserMemoirData])
                     .OrderBy(x => x.AbilityLevel);
 
                 userMemoirs.Add(new UserMemoir(darkUserMemoirData)

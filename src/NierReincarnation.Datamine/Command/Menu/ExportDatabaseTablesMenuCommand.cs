@@ -44,7 +44,7 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand<ExportDatabas
     private static async Task ExportMasterDb()
     {
         string emptyString = string.Concat(Enumerable.Repeat(" ", 80));
-        List<string> exportedTables = new();
+        List<string> exportedTables = [];
 
         await Parallel.ForEachAsync(typeof(DarkMasterMemoryDatabase).GetProperties(), new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (tableProp, _) =>
         {
@@ -80,7 +80,7 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand<ExportDatabas
     private static async Task ExportUserDb()
     {
         string emptyString = string.Concat(Enumerable.Repeat(" ", 80));
-        List<string> exportedTables = new();
+        List<string> exportedTables = [];
 
         await Parallel.ForEachAsync(typeof(DarkUserMemoryDatabase).GetProperties(), new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (tableProp, _) =>
         {
@@ -126,7 +126,7 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand<ExportDatabas
             Version = Path.GetFileNameWithoutExtension(latestLocalDbFileName).Split(".").FirstOrDefault()
         };
         string emptyString = string.Concat(Enumerable.Repeat(" ", 80));
-        List<string> exportedTables = new();
+        List<string> exportedTables = [];
 
         await Parallel.ForEachAsync(typeof(DarkMasterMemoryDatabase).GetProperties(), new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount }, async (tableProp, _) =>
         {

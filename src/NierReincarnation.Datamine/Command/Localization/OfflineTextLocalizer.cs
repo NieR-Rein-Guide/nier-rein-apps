@@ -7,7 +7,7 @@ public static class OfflineTextLocalizer
 {
     public static IDictionary<string, string> Create(SystemLanguage lang = SystemLanguage.English)
     {
-        Dictionary<string, string> result = new();
+        Dictionary<string, string> result = [];
 
         string filePath = Path.Combine(Constants.LocalizationsPath, lang.ToPath(), $"{Constants.AllLocalizationsFile}.txt");
 

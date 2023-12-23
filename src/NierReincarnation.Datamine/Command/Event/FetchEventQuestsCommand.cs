@@ -11,7 +11,7 @@ public class FetchEventQuestsCommand : AbstractDbQueryCommand<FetchEventQuestsCo
 {
     public override Task<List<EventQuest>> ExecuteAsync(FetchEventQuestsCommandArg arg)
     {
-        List<EventQuest> eventQuests = new();
+        List<EventQuest> eventQuests = [];
 
         var darkEventQuestChapter = MasterDb.EntityMEventQuestChapterTable.FindByEventQuestChapterId(arg.EventQuestChapterId);
 
@@ -38,7 +38,7 @@ public class FetchEventQuestsCommand : AbstractDbQueryCommand<FetchEventQuestsCo
                 EndDateTimeOffset = darkQuestSchedule != null ? CalculatorDateTime.FromUnixTime(darkQuestSchedule.EndDatetime) : null,
                 RecommendedForce = darkQuest.RecommendedDeckPower,
                 FirstClearRewards = GetQuestFirstClearRewards(darkQuest.QuestFirstClearRewardGroupId),
-                PickupRewards = arg.IncludePickupRewards ? GetQuestPickupRewards(darkQuest.QuestPickupRewardGroupId) : new()
+                PickupRewards = arg.IncludePickupRewards ? GetQuestPickupRewards(darkQuest.QuestPickupRewardGroupId) : []
             });
         }
 
@@ -62,7 +62,7 @@ public class FetchEventQuestsCommand : AbstractDbQueryCommand<FetchEventQuestsCo
 
     private List<Reward> GetQuestFirstClearRewards(int questFirstClearRewardGroupId)
     {
-        List<Reward> rewards = new();
+        List<Reward> rewards = [];
 
         var darkQuestFirstClearRewardGroups = MasterDb.EntityMQuestFirstClearRewardGroupTable.All
             .Where(x => x.QuestFirstClearRewardType == QuestFirstClearRewardType.NORMAL &&
@@ -84,7 +84,7 @@ public class FetchEventQuestsCommand : AbstractDbQueryCommand<FetchEventQuestsCo
 
     private List<Reward> GetQuestPickupRewards(int questPickupRewardGroupId)
     {
-        List<Reward> rewards = new();
+        List<Reward> rewards = [];
 
         var darkQuestPickupRewardGroups = MasterDb.EntityMQuestPickupRewardGroupTable.All
                 .Where(x => x.QuestPickupRewardGroupId == questPickupRewardGroupId)

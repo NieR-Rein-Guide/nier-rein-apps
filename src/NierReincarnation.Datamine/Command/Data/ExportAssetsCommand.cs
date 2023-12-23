@@ -10,7 +10,7 @@ public class ExportAssetsCommand : AbstractExportCommand
 {
     public override string FileExt => ".asset";
 
-    private List<string> ExportedFiles { get; } = new();
+    private List<string> ExportedFiles { get; } = [];
 
     public override string GetDownloadUrl(Item item) => DataManager.GenerateAssetBundleUrl(item);
 
@@ -35,7 +35,7 @@ public class ExportAssetsCommand : AbstractExportCommand
     {
         ExportedFiles.Clear();
         var assetsDic = GetAssetsToExport(arg);
-        List<string> errors = new();
+        List<string> errors = [];
 
         ProgressBar progressBar = new() { MaxValue = assetsDic.Count, UnitOfMeasurement = string.Empty, LabelText = "Exporting" };
         progressBar.Display();
@@ -108,10 +108,10 @@ public class ExportAssetsCommand : AbstractExportCommand
 
     private static Dictionary<Object, string> GetAssetsToExport(BaseExportEntityCommandArg arg)
     {
-        Dictionary<Object, string> assetsDic = new();
-        List<(PPtr<Object>, string)> containers = new();
-        List<Object> assetFileList = new();
-        List<string> assetNames = new();
+        Dictionary<Object, string> assetsDic = [];
+        List<(PPtr<Object>, string)> containers = [];
+        List<Object> assetFileList = [];
+        List<string> assetNames = [];
 
         // Load assets
         foreach (var folderToExport in arg.FoldersToExport)

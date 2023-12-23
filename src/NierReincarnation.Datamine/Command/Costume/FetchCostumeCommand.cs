@@ -90,7 +90,7 @@ public class FetchCostumeCommand : AbstractDbQueryCommand<FetchCostumeCommandArg
         return await new FetchCostumeKarmaSlotsCommand().ExecuteAsync(new FetchCostumeKarmaSlotsCommandArg
         {
             Entity = darkCostume,
-            KarmaSlots = new[] { 1, 2, 3 },
+            KarmaSlots = [1, 2, 3],
             KarmaRarityTypes = arg.KarmaRarityTypes
         });
     }
@@ -110,7 +110,7 @@ public class FetchCostumeCommandArg : AbstractEntityCommandWithDatesArg<EntityMC
 
     public bool IncludeKarmaSlots { get; init; } = true;
 
-    public RarityType[] KarmaRarityTypes { get; init; } = new[] { RarityType.SS_RARE };
+    public RarityType[] KarmaRarityTypes { get; init; } = [RarityType.SS_RARE];
 
     public override bool IsValid()
     {

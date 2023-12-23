@@ -146,7 +146,7 @@ public static class Program
                 Text = "Export Localizations",
                 Command = new ExportLocalizationsMenuCommand(new ExportLocalizationsMenuCommandArg
                 {
-                    Languages = new[] { SystemLanguage.English, SystemLanguage.Japanese },
+                    Languages = [SystemLanguage.English, SystemLanguage.Japanese],
                     //Inclusions = new List<string>
                     //{
                     //    "ability", "character", "costume_emblem", "companion", "costume", "parts", "thought", "weapon", "weapon_story", "skill", "story_character"
@@ -168,7 +168,7 @@ public static class Program
                 Text = "Export Gachas",
                 Command = new ExportGachasMenuCommand(new ExportGachasCommandArg
                 {
-                    GachaLabelTypes = new List<GachaLabelType> { GachaLabelType.PREMIUM }
+                    GachaLabelTypes = [GachaLabelType.PREMIUM]
                 })
             },
             new TextMenuItem

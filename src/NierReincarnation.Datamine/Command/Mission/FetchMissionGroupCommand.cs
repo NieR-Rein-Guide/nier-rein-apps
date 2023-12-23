@@ -21,7 +21,7 @@ public class FetchMissionGroupCommand : AbstractDbQueryCommand<FetchMissionGroup
                 FromDate = arg.FromDate,
                 ToDate = arg.ToDate
             })
-            : new List<Mission>();
+            : [];
 
         if (!arg.IncludeEmptyMissionGroups && missions.Count == 0) return null;
 

@@ -19,15 +19,15 @@ public class ExportCharacterCostumeStatsMenuCommand : AbstractMenuCommand
     private static TextMenu BuildMenu()
     {
         TextMenu textMenu = MenuExtensions.GetTextMenu();
-        List<TextMenuItem> menuItems = new()
-        {
+        List<TextMenuItem> menuItems =
+        [
             new TextMenuItem
             {
                 Id = "0",
                 Text = "Go Back",
                 Command = new ExportStatsMenuCommand()
             }
-        };
+        ];
 
         int i = 1;
         foreach (var darkCharacter in MasterDb.EntityMCharacterTable.All.OrderBy(x => x.SortOrder))

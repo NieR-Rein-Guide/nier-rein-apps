@@ -14,7 +14,7 @@ public class FetchWeaponAbilitiesCommand : AbstractDbQueryCommand<FetchWeaponAbi
         var darkWeapon = arg.Entity ?? MasterDb.EntityMWeaponTable.FindByWeaponId(arg.EntityId);
         if (darkWeapon == null) return Task.FromResult<List<WeaponAbility>>(null);
 
-        List<WeaponAbility> weaponAbilities = new();
+        List<WeaponAbility> weaponAbilities = [];
         foreach (var abilityGroup in CalculatorMasterData.GetEntityMWeaponAbilityGroupList(darkWeapon.WeaponAbilityGroupId).OrderBy(x => x.SlotNumber))
         {
             if (!arg.IncludeBarrierAbility && abilityGroup.SlotNumber == 3) continue;

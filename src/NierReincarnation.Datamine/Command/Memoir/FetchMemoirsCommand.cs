@@ -13,8 +13,8 @@ public class FetchMemoirsCommand : AbstractDbQueryCommand<FetchMemoirsCommandArg
         var darkMemoirSeries = arg.Entity ?? MasterDb.EntityMPartsSeriesTable.FindByPartsSeriesId(arg.EntityId);
         if (darkMemoirSeries == null) return Task.FromResult<List<Memoir>>(null);
 
-        List<Memoir> memoirs = new();
-        List<int> memoirGroupIds = new();
+        List<Memoir> memoirs = [];
+        List<int> memoirGroupIds = [];
 
         foreach (var darkMemoir in MasterDb.EntityMPartsTable.All.OrderByDescending(x => x.RarityType).ThenBy(x => x.PartsId))
         {
