@@ -20,8 +20,8 @@ public class PlayerRegistrationMap
 
     public static string GenerateActiveKey()
     {
-        var serverAddress = KernelState.NetworkConfig.ServerAddress;
-        var port = KernelState.NetworkConfig.ServerPort;
+        var serverAddress = KernelState.NetworkConfig?.ServerAddress;
+        var port = KernelState.NetworkConfig?.ServerPort ?? 0;
 
         return GenerateKey(serverAddress, port);
     }
