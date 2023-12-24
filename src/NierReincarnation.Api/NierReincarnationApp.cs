@@ -23,8 +23,6 @@ public static class NierReincarnationApp
 {
     private const int RetryCount = 3;
 
-    public static NotificationContext Notifications { get; } = new NotificationContext();
-
     public static AssetContext Assets { get; } = new AssetContext();
 
     public static bool IsSetup { get; set; }

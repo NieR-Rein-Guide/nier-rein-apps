@@ -6,8 +6,6 @@ public class NierReinContexts
 {
     //public DarkClient Client { get; } = new DarkClient();
 
-    //public NotificationContext Notifications { get; } = new NotificationContext();
-
     //public GachaContext Gacha { get; }
 
     public BattleContext Battles { get; } = new BattleContext();

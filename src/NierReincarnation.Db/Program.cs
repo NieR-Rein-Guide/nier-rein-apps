@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using NierReincarnation.Api;
+using NierReincarnation.Api.Model;
+using NierReincarnation.Api.Service;
 using NierReincarnation.Core.Dark;
 using NierReincarnation.Core.Dark.Calculator;
 using NierReincarnation.Core.Dark.Calculator.Database;
@@ -187,26 +188,33 @@ public static class Program
     private static async Task AddNotifications()
     {
         WriteLineWithTimestamp("Notifications");
-        await foreach (var darkNotification in NierReincarnationApp.Notifications.GetAllNotifications())
-        {
-            var darkNotificationDetails = await NierReincarnationApp.Notifications.GetNotification(darkNotification.informationId);
-            if (darkNotificationDetails == null) continue;
 
-            // Get or create db notification
-            var dbNotification = _postgreDbContext.Notifications.FirstOrDefault(x => x.NotificationId == darkNotification.informationId);
+        // Get all notices
+        var noticesListItems = await NoticeService.GetNoticesAsync((InformationType[])Enum.GetValues(typeof(InformationType)), 0, 100);
+
+        foreach (var noticeListItem in noticesListItems)
+        {
+            // Get notice details
+            var noticeDetails = await NoticeService.GetNoticeAsync(noticeListItem.InformationId);
+
+            if (noticeDetails is null) continue;
+
+            // Get or create db notice
+            var dbNotification = _postgreDbContext.Notifications.FirstOrDefault(x => x.NotificationId == noticeListItem.InformationId);
 
             if (dbNotification == null)
             {
-                dbNotification = new() { NotificationId = darkNotification.informationId };
+                dbNotification = new() { NotificationId = noticeListItem.InformationId };
                 _postgreDbContext.Notifications.Add(dbNotification);
             }
 
-            // Update details
-            dbNotification.InformationType = darkNotification.informationType.ToString();
-            dbNotification.Title = darkNotification.title;
-            dbNotification.Body = darkNotificationDetails?.body ?? string.Empty;
-            dbNotification.ReleaseTime = CalculatorDateTime.FromUnixTime(darkNotification.publishStartDatetime);
-            dbNotification.ThumbnailPath = darkNotification.thumbnailImagePath;
+            // Set details
+            dbNotification.InformationType = noticeListItem.InformationType.ToString();
+            dbNotification.Title = noticeDetails.Title;
+            dbNotification.Body = noticeDetails.Body;
+            dbNotification.ReleaseTime = noticeDetails.PublishDateTime;
+            dbNotification.PostscriptDateTime = noticeDetails.PostscriptDateTime;
+            dbNotification.ThumbnailPath = noticeListItem.ThumbnailImagePath;
         }
 
         await _postgreDbContext.SaveChangesAsync();

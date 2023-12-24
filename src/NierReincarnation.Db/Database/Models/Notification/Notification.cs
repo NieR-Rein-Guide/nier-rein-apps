@@ -15,7 +15,9 @@ internal class Notification
 
     public string Body { get; set; }
 
-    public DateTimeOffset? ReleaseTime { get; set; }
+    public DateTimeOffset ReleaseTime { get; set; }
+
+    public DateTimeOffset? PostscriptDateTime { get; set; }
 
     public string ThumbnailPath { get; set; }
 }

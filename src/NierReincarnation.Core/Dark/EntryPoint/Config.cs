@@ -74,13 +74,17 @@ public static class Config
         public static readonly string KoPagePath = "/ko";
 
         // CUSTOM
-        public static string NotificationGetUrl => IsGlobal
+        public static string NoticeListGetUrl => IsGlobal
             ? "https://api-web.app.nierreincarnation.com/api/information/list/get"
             : "https://api-web.app.nierreincarnation.jp/api/information/list/get";
 
-        public static string NotificationDetailUrl => IsGlobal
+        public static string NoticeDetailsGetUrl => IsGlobal
             ? "https://api-web.app.nierreincarnation.com/api/information/detail/get"
             : "https://api-web.app.nierreincarnation.jp/api/information/detail/get";
+
+        public static string NoticeBannersGetUrl => IsGlobal
+            ? "https://api-web.app.nierreincarnation.com/api/information/banner/list/get"
+            : "https://api-web.app.nierreincarnation.jp/api/information/banner/list/get";
 
         public static string MakeMasterDataUrl(string masterVersion)
         {
