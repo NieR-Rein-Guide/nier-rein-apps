@@ -83,7 +83,7 @@ public abstract class AbstractExportCommand : IAsyncCommand<BaseExportEntityComm
                 // Download item
                 HttpClient client = new()
                 {
-                    Timeout = Program.AppSettings.Timeout
+                    Timeout = Timeout.InfiniteTimeSpan
                 };
 
                 HttpResponseMessage response;

@@ -21,9 +21,8 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
         Console.WriteLine($"DB Revision: {AppSettings.DbRevision}");
         Console.WriteLine($"Working Directory: {AppSettings.WorkingfDir}");
         Console.WriteLine($"Date Format: {(AppSettings.UseDiscordDates ? "Discord" : "Normal")}");
-        Console.WriteLine($"Asset Download Timeout: {AppSettings.Timeout}");
         Console.WriteLine($"Asset Auto Copy: {(AppSettings.AutoCopyAssets ? "Yes" : "No")}");
-        Console.WriteLine($"Operation Mode: {(AppSettings.IsOfflineMode? "Offline" : "Online")}");
+        Console.WriteLine($"Operation Mode: {(AppSettings.IsOfflineMode ? "Offline" : "Online")}");
         Console.WriteLine();
 
         BuildSubMenu().Display();
@@ -37,62 +36,47 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
 
         textMenu.AddItems(new List<TextMenuItem>
         {
-            new TextMenuItem
-            {
+            new() {
                 Id = "0",
                 Text = "Go Back",
                 Command = new GoBackMenuCommand()
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "1",
                 Text = "Remove Account",
                 Command = new RemoveAccountMenuCommand(new UpdateConfigurationCommandArg { Reset = true })
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "2",
                 Text = "Set Database Revision",
                 Command = new UpdateDbRevisionMenuCommand(new UpdateConfigurationCommandArg { Reset = true })
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "3",
                 Text = "Set App Version",
                 Command = new UpdateAppVersionMenuCommand(new UpdateConfigurationCommandArg { Reset = true })
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "4",
                 Text = "Set Working Directory",
                 Command = new UpdateWorkingDirMenuCommand(new UpdateConfigurationCommandArg())
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "5",
                 Text = "Set Region",
                 Command = new UpdateSystemRegionMenuCommand(new UpdateConfigurationCommandArg() { Reset = true } )
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "6",
                 Text = "Set Date Format",
                 Command = new UpdateDateFormatMenuCommand(new UpdateConfigurationCommandArg())
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "7",
-                Text = "Set Asset Download Timeout",
-                Command = new UpdateAssetDownloadTimeoutMenuCommand(new UpdateConfigurationCommandArg())
-            },
-            new TextMenuItem
-            {
-                Id = "8",
                 Text = "Set Asset Auto Copy Behavior",
                 Command = new UpdateAssetAutoCopyMenuCommand(new UpdateConfigurationCommandArg())
             },
-            new TextMenuItem
-            {
+            new() {
                 Id = "9",
                 Text = "Set Operation Mode",
                 Command = new ToggleOperatingModeMenuCommand(new UpdateConfigurationCommandArg())

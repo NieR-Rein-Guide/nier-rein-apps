@@ -29,9 +29,6 @@ public static class Program
         [Option("autocopy", Required = false, Default = false, HelpText = "Automatically copy assets to main folder")]
         public bool AutoCopyAssets { get; set; }
 
-        [Option("timeout", Required = false, HelpText = "Timeout for asset downloads")]
-        public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(2);
-
         [Option("region", Required = false, Default = SystemRegion.GL, HelpText = "Game region")]
         public SystemRegion SystemRegion { get; set; } = SystemRegion.GL;
 
