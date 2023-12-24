@@ -77,6 +77,11 @@ public class ConfigurationMenuCommand : AbstractMenuCommand
                 Command = new UpdateAssetAutoCopyMenuCommand(new UpdateConfigurationCommandArg())
             },
             new() {
+                Id = "8",
+                Text = "Refresh Localization Cache",
+                Command = new RefreshLocalizationCacheMenuCommand(new UpdateConfigurationCommandArg())
+            },
+            new() {
                 Id = "9",
                 Text = "Set Operation Mode",
                 Command = new ToggleOperatingModeMenuCommand(new UpdateConfigurationCommandArg())

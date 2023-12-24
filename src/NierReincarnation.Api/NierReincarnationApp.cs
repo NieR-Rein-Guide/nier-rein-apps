@@ -1,7 +1,7 @@
 ﻿using Grpc.Core;
 using NierReincarnation.Api.Authentication;
 using NierReincarnation.Api.Exceptions;
-using NierReincarnation.Context;
+using NierReincarnation.Api.Service;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
 using NierReincarnation.Core.Adam.Framework.Resource;
@@ -22,8 +22,6 @@ namespace NierReincarnation;
 public static class NierReincarnationApp
 {
     private const int RetryCount = 3;
-
-    public static AssetContext Assets { get; } = new AssetContext();
 
     public static bool IsSetup { get; set; }
 
@@ -64,7 +62,7 @@ public static class NierReincarnationApp
         await SetupMasterAndUserDataAsync(args);
     }
 
-    public static async Task LoadLocalizations(SystemLanguage lang)
+    public static async Task LoadLocalizations(SystemLanguage lang, bool skipExistingFiles = true)
     {
         if (!IsInitialized)
         {
@@ -72,8 +70,7 @@ public static class NierReincarnationApp
         }
 
         // Update text assets and load localizations
-        AssetContext assetContext = new();
-        await assetContext.DownloadTextAssets(lang);
+        await AssetService.DownloadTextAssetsAsync(lang, skipExistingFiles);
 
         LocalizationExtensions.Localizations = TextLocalizer.Create(lang);
     }
