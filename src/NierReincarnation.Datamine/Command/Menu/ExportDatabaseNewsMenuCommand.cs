@@ -1,4 +1,6 @@
-﻿using NierReincarnation.Core.Dark.Generated.Type;
+﻿using NierReincarnation.Core.Dark.Calculator.Outgame;
+using NierReincarnation.Core.Dark.Generated.Type;
+using NierReincarnation.Core.Subsystem.Calculator.Outgame;
 using NierReincarnation.Datamine.Extension;
 using NierReincarnation.Datamine.Model;
 
@@ -17,12 +19,13 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
         await WriteCostumesAsync();
         await WriteWeaponsAsync();
+        WriteUpcomingKarma();
         await WriteDebrisAsync();
         await WriteCompanionsAsync();
         await WriteMemoirSeriesAsync();
         await WriteRemnantsAsync();
         await WriteEventsAsync();
-        WriteHiddenStoriesAsync();
+        //await WriteHiddenStoriesAsync();
         await WriteLoginBonusesAsync();
         await WriteMissionGroupsAsync();
         await WriteFateBoardsAsync();
@@ -82,6 +85,57 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
     }
 
     #endregion Weapons
+
+    #region Karma
+
+    private static Dictionary<string, long> GetUpcomingKarma()
+    {
+        Dictionary<string, long> upcomingKarma = [];
+
+        foreach (var darkCostumeKarmaSchedule in MasterDb.EntityMCostumeLotteryEffectReleaseScheduleTable.All
+            .Where(x => CalculatorDateTime.FromUnixTime(x.ReleaseDatetime) > DateTimeExtensions.Now)
+            .OrderBy(x => x.ReleaseDatetime))
+        {
+            var darkCostumeKarma = MasterDb.EntityMCostumeLotteryEffectTable.All
+                .FirstOrDefault(x => x.CostumeLotteryEffectReleaseScheduleId == darkCostumeKarmaSchedule.CostumeLotteryEffectReleaseScheduleId);
+
+            if (darkCostumeKarma is null) continue;
+
+            MasterDb.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostumeKarma.CostumeId, out var darkCostumeCatalog);
+            var darkTermCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCostumeCatalog?.CatalogTermId ?? 0);
+
+            if (darkTermCatalog is not null && darkTermCatalog.StartDatetime != darkCostumeKarmaSchedule.ReleaseDatetime)
+            {
+                upcomingKarma.Add(CalculatorCostume.CostumeName(darkCostumeKarma.CostumeId), darkCostumeKarmaSchedule.ReleaseDatetime);
+            }
+        }
+
+        return upcomingKarma;
+    }
+
+    private static void WriteUpcomingKarma()
+    {
+        var upcomingKarma = GetUpcomingKarma();
+
+        if (upcomingKarma.Count > 0)
+        {
+            Console.WriteLine("Upcoming Karma".ToHeader2());
+
+            foreach (var upcomingKarmaGroup in upcomingKarma.OrderBy(x => x.Value).GroupBy(x => x.Value))
+            {
+                Console.WriteLine(upcomingKarmaGroup.Key.ToFormattedDate());
+
+                foreach (var upcomingKarmaCostume in upcomingKarmaGroup)
+                {
+                    Console.WriteLine(upcomingKarmaCostume.Key.ToListItem());
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+    }
+
+    #endregion Karma
 
     #region Debris
 
@@ -237,7 +291,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         });
     }
 
-    private static async void WriteHiddenStoriesAsync()
+    private static async Task WriteHiddenStoriesAsync()
     {
         var hiddenStories = await GetHiddenStoriesAsync();
         hiddenStories.RemoveAll(x => x.ProgressStartDateTimeOffset < DateTimeExtensions.Yesterday);
