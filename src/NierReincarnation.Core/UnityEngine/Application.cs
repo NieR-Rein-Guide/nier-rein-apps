@@ -49,9 +49,13 @@ public static class Application
 
     static Application()
     {
-        Directory.CreateDirectory(DataPath);
-        Directory.CreateDirectory(PersistentDataPath);
-        Directory.CreateDirectory(ApkPath);
-        Directory.CreateDirectory(SharedPrefsPath);
+        try
+        {
+            Directory.CreateDirectory(DataPath);
+            Directory.CreateDirectory(PersistentDataPath);
+            Directory.CreateDirectory(ApkPath);
+            Directory.CreateDirectory(SharedPrefsPath);
+        }
+        catch { }
     }
 }

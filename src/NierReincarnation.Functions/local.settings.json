@@ -3,6 +3,10 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "WEBSITE_TIME_ZONE": "Pacific Standard Time",
+    "OnPeakCron": "30 * 17-18 * * 1-5", // Every minute on the 30th second
+    "OffPeakCron": "0 */15 * * * *", // Every 15 minutes on the 0th second
+    "SystemRegion": 1, // Global
     "DiscordWebHookUrl": "",
     "DiscordPingRoleId": ""
   }

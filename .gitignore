@@ -352,3 +352,5 @@ MigrationBackup/
 # Db and user configuration files
 /src/NierReincarnation.Db/config/dbConfig.json
 /src/NierReincarnation.Db/config/userConfig.json
+src/NierReincarnation.Functions/Properties/serviceDependencies.NierReincarnation - Zip Deploy.json
+src/NierReincarnation.Functions/Properties/ServiceDependencies/NierReincarnation - Zip Deploy

@@ -1,4 +1,5 @@
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using NierReincarnation.Core.Adam.Framework.Resource;
 using NierReincarnation.Core.Dark.EntryPoint;
@@ -7,6 +8,7 @@ using NierReincarnation.Core.Octo.Data;
 using NierReincarnation.Core.Octo.Proto;
 using NierReincarnation.Core.UnityEngine;
 using ProtoBuf;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -17,8 +19,7 @@ public class AssetDbFunctions
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    private static int CurrentGlobalAssetDbRevision;
-    private static int CurrentJpAssetDbRevision;
+    private static int CurrentAssetDbRevision;
 
     public AssetDbFunctions(IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory)
     {
@@ -26,37 +27,58 @@ public class AssetDbFunctions
         _httpClient = httpClientFactory.CreateClient();
     }
 
-    [Function(nameof(CheckGlobalAssetsOffPeak))] // Every 15 minutes on the 0th second during off-peak time window
-    public async Task CheckGlobalAssetsOffPeak([TimerTrigger("0 */15 * * * *")] FunctionContext context)
+    [Function(nameof(CheckOffPeak))]
+    public async Task CheckOffPeak([TimerTrigger("%OffPeakCron%")] FunctionContext context)
     {
-        await CheckAndNotifyRevisionChangesAsync(SystemRegion.GL);
-        _logger.LogInformation($"{nameof(CheckGlobalAssetsOffPeak)} executed at: {DateTime.Now} with revision {CurrentGlobalAssetDbRevision}");
+        await CheckAndNotifyRevisionChangesAsync();
+        _logger.LogInformation($"{nameof(CheckOffPeak)} executed at: {DateTime.Now} with revision {CurrentAssetDbRevision}");
     }
 
-    [Function(nameof(CheckGlobalAssetsOnPeak))] // Every minute on the 30th second during on-peak time window on weekdays
-    public async Task CheckGlobalAssetsOnPeak([TimerTrigger("30 * 1-2 * * 1-5")] FunctionContext context)
+    [Function(nameof(CheckOnPeak))]
+    public async Task CheckOnPeak([TimerTrigger("%OnPeakCron%")] FunctionContext context)
     {
-        await CheckAndNotifyRevisionChangesAsync(SystemRegion.GL);
-        _logger.LogInformation($"{nameof(CheckGlobalAssetsOnPeak)} executed at: {DateTime.Now} with revision {CurrentGlobalAssetDbRevision}");
+        await CheckAndNotifyRevisionChangesAsync();
+        _logger.LogInformation($"{nameof(CheckOnPeak)} executed at: {DateTime.Now} with revision {CurrentAssetDbRevision}");
     }
 
-    [Function(nameof(CheckJpAssetsOffPeak))] // Every 15 minutes on the 15th second during off-peak time window
-    public async Task CheckJpAssetsOffPeak([TimerTrigger("15 */15 * * * *")] FunctionContext context)
+    [Function(nameof(CheckNow))]
+    public async Task<HttpResponseData> CheckNow([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestData req,
+        FunctionContext executionContext)
     {
-        await CheckAndNotifyRevisionChangesAsync(SystemRegion.JP);
-        _logger.LogInformation($"{nameof(CheckJpAssetsOffPeak)} executed at: {DateTime.Now} with revision {CurrentJpAssetDbRevision}");
+        await CheckAndNotifyRevisionChangesAsync();
+
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+        response.WriteString(CurrentAssetDbRevision.ToString());
+
+        return response;
     }
 
-    private async Task CheckAndNotifyRevisionChangesAsync(SystemRegion systemRegion)
+    [Function(nameof(SendNotification))]
+    public async Task<HttpResponseData> SendNotification([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestData req,
+        FunctionContext executionContext, string content)
+    {
+        if (!string.IsNullOrWhiteSpace(content))
+        {
+            await SendDiscordNotification(content);
+        }
+
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+        response.WriteString("OK");
+
+        return response;
+    }
+
+    private async Task CheckAndNotifyRevisionChangesAsync()
     {
         // Initialize
-        Application.SystemRegion = systemRegion;
+        Application.SystemRegion = Enum.Parse<SystemRegion>(Environment.GetEnvironmentVariable("SystemRegion")!);
         OctoFullSettings octoSettings = DarkOctoSetupper.CreateSetting();
         AESCrypt crypt = new(SHA256.HashData(Encoding.UTF8.GetBytes(octoSettings.A)));
-        int currentAssetDbRevision = GetCurrentAssetDbRevision(systemRegion);
 
         // Send request
-        HttpRequestMessage req = new(HttpMethod.Get, Config.Octo.Url + $"v2/pub/a/{octoSettings.AppId}/v/{octoSettings.Version}/list/{currentAssetDbRevision}");
+        HttpRequestMessage req = new(HttpMethod.Get, Config.Octo.Url + $"v2/pub/a/{octoSettings.AppId}/v/{octoSettings.Version}/list/{CurrentAssetDbRevision}");
         req.Headers.Add("Accept", $"application/x-protobuf,x-octo-app/{octoSettings.AppId}");
         req.Headers.Add("X-OCTO-KEY", $"{octoSettings.ClientSecretKey}");
         HttpResponseMessage res = await _httpClient.SendAsync(req);
@@ -64,7 +86,7 @@ public class AssetDbFunctions
         // Handle response
         if (!res.IsSuccessStatusCode)
         {
-            _logger.LogError($"Error while fetching {systemRegion} asset list: {res.ReasonPhrase} - {res.StatusCode}");
+            _logger.LogError($"Error while fetching {Application.SystemRegion} asset list: {res.ReasonPhrase} - {res.StatusCode}");
             return;
         }
 
@@ -75,13 +97,13 @@ public class AssetDbFunctions
         Database db = Serializer.Deserialize<Database>(memoryStream);
 
         // If db revision changed, send Discord notification
-        if (currentAssetDbRevision != 0 && currentAssetDbRevision < db.Revision)
+        if (CurrentAssetDbRevision != 0 && CurrentAssetDbRevision < db.Revision)
         {
-            await SendDiscordNotification(systemRegion, currentAssetDbRevision, db.Revision);
+            await SendDiscordNotification($"<@&{Environment.GetEnvironmentVariable("DiscordPingRoleId")}> {Application.SystemRegion} asset database updated: {CurrentAssetDbRevision} -> {db.Revision}");
         }
 
         // Update db revision
-        UpdateCurrentAssetDbRevision(systemRegion, db.Revision);
+        CurrentAssetDbRevision = db.Revision;
     }
 
     private static byte[] DecryptAes(AESCrypt crypt, byte[] bytes)
@@ -94,26 +116,12 @@ public class AssetDbFunctions
         return crypt.Decrypt(ms);
     }
 
-    private static int GetCurrentAssetDbRevision(SystemRegion systemRegion) => systemRegion == SystemRegion.GL ? CurrentGlobalAssetDbRevision : CurrentJpAssetDbRevision;
-
-    private static void UpdateCurrentAssetDbRevision(SystemRegion systemRegion, int revision)
-    {
-        if (systemRegion == SystemRegion.GL)
-        {
-            CurrentGlobalAssetDbRevision = revision;
-        }
-        else
-        {
-            CurrentJpAssetDbRevision = revision;
-        }
-    }
-
-    private async Task SendDiscordNotification(SystemRegion systemRegion, int fromRevision, int toRevision)
+    private async Task SendDiscordNotification(string content)
     {
         string payload = @$"
             {{
                 ""username"": ""Mama"",
-                ""content"": ""<@&{Environment.GetEnvironmentVariable("DiscordPingRoleId")}> {systemRegion} asset database updated: {fromRevision} -> {toRevision}""
+                ""content"": ""{content}""
             }}";
         HttpContent httpContent = new StringContent(payload, Encoding.UTF8, "application/json");
         await _httpClient.PostAsync(Environment.GetEnvironmentVariable("DiscordWebHookUrl"), httpContent);
