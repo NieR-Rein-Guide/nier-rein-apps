@@ -5,7 +5,7 @@ namespace NierReincarnation.Core.AssetStudio;
 /// </summary>
 public class AssetsManager
 {
-    public List<TextAsset> TextAssets = new();
+    public List<TextAsset> TextAssets = [];
 
     public void LoadFiles(params string[] files)
     {
@@ -49,7 +49,7 @@ public class AssetsManager
         }
     }
 
-    private void LoadBundleFile(FileReader reader)
+    public void LoadBundleFile(FileReader reader)
     {
         BundleFile bundleFile = new(reader);
         foreach (var fileStream in bundleFile.FileStreams)

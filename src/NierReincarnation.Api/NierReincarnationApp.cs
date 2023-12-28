@@ -1,7 +1,7 @@
 ﻿using Grpc.Core;
 using NierReincarnation.Api.Authentication;
 using NierReincarnation.Api.Exceptions;
-using NierReincarnation.Api.Service;
+using NierReincarnation.Api.Localizations;
 using NierReincarnation.Core.Adam.Framework.Network;
 using NierReincarnation.Core.Adam.Framework.Network.Interceptors;
 using NierReincarnation.Core.Adam.Framework.Resource;
@@ -62,17 +62,16 @@ public static class NierReincarnationApp
         await SetupMasterAndUserDataAsync(args);
     }
 
-    public static async Task LoadLocalizations(SystemLanguage lang, bool skipExistingFiles = true)
+    public static async Task LoadLocalizations(SystemLanguage lang, bool skipExistingFiles = true, bool isInMemory = false)
     {
         if (!IsInitialized)
         {
             throw new ApiException("Cannot load localizations because the application is not initialized");
         }
 
-        // Update text assets and load localizations
-        await AssetService.DownloadTextAssetsAsync(lang, skipExistingFiles);
-
-        LocalizationExtensions.Localizations = TextLocalizer.Create(lang);
+        LocalizationExtensions.Localizations = isInMemory
+            ? await new InMemoryTextLocalizer().CreateAsync(lang)
+            : await new PhysicalTextLocalizer(skipExistingFiles).CreateAsync(lang);
     }
 
     public static void ResetApplication()

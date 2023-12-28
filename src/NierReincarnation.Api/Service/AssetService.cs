@@ -9,19 +9,19 @@ namespace NierReincarnation.Api.Service;
 
 public static class AssetService
 {
-    private static readonly Func<DataManager, IEnumerable<Item>> GetAssets = manager => manager.GetAllAssetBundleNames().Select(n => manager.GetAssetBundleItemByName(n));
+    public static readonly Func<DataManager, IEnumerable<Item>> GetAssets = manager => manager.GetAllAssetBundleNames().Select(n => manager.GetAssetBundleItemByName(n));
 
-    private static readonly Func<DataManager, IEnumerable<Item>> GetResources = manager => manager.GetAllResourceNames().Select(n => manager.GetResourceItemByName(n));
+    public static readonly Func<DataManager, IEnumerable<Item>> GetResources = manager => manager.GetAllResourceNames().Select(n => manager.GetResourceItemByName(n));
 
-    private static readonly Func<Item, SystemLanguage, bool> TextAssets = (asset, lang) => asset.name.StartsWith(GetTextAssetPrefix(lang));
+    public static readonly Func<Item, SystemLanguage, bool> IsTextAsset = (asset, lang) => asset.name.StartsWith(GetTextAssetPrefix(lang));
 
     private static readonly Func<Item, bool> SelectAll = _ => true;
 
     public static async Task DownloadAssetsAsync(Func<Item, bool>? itemSelector = null, bool skipExistingFiles = true) =>
-        await DownloadFileSet(Path.Combine("v1", $"{DarkOctoSetupper.CreateSetting().AppId}", "assets"), true, GetAssets, itemSelector ?? SelectAll, skipExistingFiles);
+        await DownloadFileSetAsync(Path.Combine("v1", $"{DarkOctoSetupper.CreateSetting().AppId}", "assets"), true, GetAssets, itemSelector ?? SelectAll, skipExistingFiles);
 
     public static async Task DownloadResourcesAsync(Func<Item, bool>? itemSelector = null, bool skipExistingFiles = true) =>
-        await DownloadFileSet("resources", false, GetResources, itemSelector ?? SelectAll, skipExistingFiles);
+        await DownloadFileSetAsync("resources", false, GetResources, itemSelector ?? SelectAll, skipExistingFiles);
 
     public static int GetAssetSize(Func<Item, bool> itemSelector) => CalculateTotalSize(GetAssets, itemSelector);
 
@@ -31,11 +31,11 @@ public static class AssetService
 
     public static int GetResourceCount(Func<Item, bool> itemSelector) => GetAssetCount(GetResources, itemSelector);
 
-    public static async Task DownloadTextAssetsAsync(SystemLanguage language, bool skipExistingFiles = true) => await DownloadAssetsAsync(i => TextAssets(i, language));
+    public static async Task DownloadTextAssetsAsync(SystemLanguage language, bool skipExistingFiles = true) => await DownloadAssetsAsync(i => IsTextAsset(i, language), skipExistingFiles);
 
     #region Internal
 
-    private static async Task DownloadFileSet(string folder, bool isAssetBundle, Func<DataManager, IEnumerable<Item>> getItemsFunc,
+    private static async Task DownloadFileSetAsync(string folder, bool isAssetBundle, Func<DataManager, IEnumerable<Item>> getItemsFunc,
         Func<Item, bool> itemSelector, bool skipExistingFiles = true)
     {
         // Ensure target folder
@@ -45,11 +45,11 @@ public static class AssetService
         HttpClient httpClient = new() { Timeout = Timeout.InfiniteTimeSpan };
         var dataManager = (DataManager)OctoManager.Database;
 
-        var tasks = getItemsFunc(dataManager).Where(itemSelector).Select(x => ProcessSingleAsset(x, targetDir, isAssetBundle, httpClient, dataManager, skipExistingFiles));
+        var tasks = getItemsFunc(dataManager).Where(itemSelector).Select(x => ProcessSingleAssetAsync(x, targetDir, isAssetBundle, httpClient, dataManager, skipExistingFiles));
         await Task.WhenAll(tasks);
     }
 
-    private static async Task ProcessSingleAsset(Item item, string targetDir, bool isAssetBundle,
+    private static async Task ProcessSingleAssetAsync(Item item, string targetDir, bool isAssetBundle,
         HttpClient httpClient, DataManager dataManager, bool skipExistingFile = true)
     {
         string targetPath = Path.Combine(targetDir, item.name.Replace(')', '/'));
@@ -79,11 +79,23 @@ public static class AssetService
             return;
         }
 
+        // Decrypt file
+        var content = await DownloadAssetAsync(item, isAssetBundle, httpClient, dataManager);
+
+        // Write file
+        Directory.CreateDirectory(Path.GetDirectoryName(targetPath));
+
+        await using var output = File.Create(targetPath);
+        output.Write(content);
+    }
+
+    public static async Task<byte[]> DownloadAssetAsync(Item item, bool isAssetBundle, HttpClient httpClient, DataManager dataManager)
+    {
         // Download file
         var url = isAssetBundle ? dataManager.GenerateAssetBundleUrl(item) : dataManager.GenerateResourceUrl(item);
         var res = await httpClient.GetAsync(url);
 
-        if (!res.IsSuccessStatusCode) return;
+        if (!res.IsSuccessStatusCode) return [];
 
         // Decrypt file
         var content = await res.Content.ReadAsByteArrayAsync();
@@ -95,11 +107,7 @@ public static class AssetService
             content = outputBuffer;
         }
 
-        // Write file
-        Directory.CreateDirectory(Path.GetDirectoryName(targetPath));
-
-        await using var output = File.Create(targetPath);
-        output.Write(content);
+        return content;
     }
 
     private static string GetTextAssetPrefix(SystemLanguage language)
