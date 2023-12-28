@@ -96,17 +96,18 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
             .Where(x => CalculatorDateTime.FromUnixTime(x.ReleaseDatetime) > DateTimeExtensions.Now)
             .OrderBy(x => x.ReleaseDatetime))
         {
-            var darkCostumeKarma = MasterDb.EntityMCostumeLotteryEffectTable.All
-                .FirstOrDefault(x => x.CostumeLotteryEffectReleaseScheduleId == darkCostumeKarmaSchedule.CostumeLotteryEffectReleaseScheduleId);
-
-            if (darkCostumeKarma is null) continue;
-
-            MasterDb.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostumeKarma.CostumeId, out var darkCostumeCatalog);
-            var darkTermCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCostumeCatalog?.CatalogTermId ?? 0);
-
-            if (darkTermCatalog is not null && darkTermCatalog.StartDatetime != darkCostumeKarmaSchedule.ReleaseDatetime)
+            foreach (var darkCostumeId in MasterDb.EntityMCostumeLotteryEffectTable.All
+                .Where(x => x.CostumeLotteryEffectReleaseScheduleId == darkCostumeKarmaSchedule.CostumeLotteryEffectReleaseScheduleId)
+                .Select(x => x.CostumeId)
+                .Distinct())
             {
-                upcomingKarma.Add(CalculatorCostume.CostumeName(darkCostumeKarma.CostumeId), darkCostumeKarmaSchedule.ReleaseDatetime);
+                MasterDb.EntityMCatalogCostumeTable.TryFindByCostumeId(darkCostumeId, out var darkCostumeCatalog);
+                var darkTermCatalog = MasterDb.EntityMCatalogTermTable.FindByCatalogTermId(darkCostumeCatalog?.CatalogTermId ?? 0);
+
+                if (darkTermCatalog is not null && darkTermCatalog.StartDatetime != darkCostumeKarmaSchedule.ReleaseDatetime)
+                {
+                    upcomingKarma.Add(CalculatorCostume.CostumeName(darkCostumeId), darkCostumeKarmaSchedule.ReleaseDatetime);
+                }
             }
         }
 
