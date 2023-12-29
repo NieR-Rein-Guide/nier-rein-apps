@@ -9,13 +9,12 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
     <ItemGroup>
-	    <ProjectReference Include="..\NierReincarnation.Api\NierReincarnation.Api.csproj" Condition="'$(Configuration)' == 'Debug' And Exists('..\NierReincarnation.Api\NierReincarnation.Api.csproj')" />
-        <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.20.0" />
-        <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
-        <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" Version="4.3.0" />
-        <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.16.4" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-        <PackageReference Include="NierReincarnation.Api" Version="1.1.0" />
+		<ProjectReference Include="..\NierReincarnation.Functions.Common\NierReincarnation.Functions.Common.csproj" />
+		<PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.20.0" />
+		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
+		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" Version="4.3.0" />
+		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.16.4" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     </ItemGroup>
     <ItemGroup>
         <None Update="host.json">

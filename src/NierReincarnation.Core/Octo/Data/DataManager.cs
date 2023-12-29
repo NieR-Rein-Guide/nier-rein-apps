@@ -22,6 +22,9 @@ public class DataManager : IDatabase
 
     public int Revision { get; set; }
 
+    // Custom
+    public DataManager() { }
+
     internal DataManager(int appId, int version, AESCrypt crypt)
     {
         _version = version;
@@ -171,7 +174,7 @@ public class DataManager : IDatabase
         ResourceUrlFormat = null;
     }
 
-    private void SetUrls(Database db)
+    public void SetUrls(Database db)
     {
         if (_urlFormat == db.UrlFormat)
             return;

@@ -38,10 +38,7 @@ public static class ApplicationApi
 
     public static bool IsReviewEnvironment()
     {
-        if (ContextApi.ActiveContext?.Application?.OctoInfo == null)
-            throw new InvalidOperationException("OctoInfo is not set.");
-
-        return ContextApi.ActiveContext.Application.OctoInfo.IsReviewEnvironment;
+        return ContextApi.ActiveContext?.Application?.OctoInfo?.IsReviewEnvironment ?? false;
     }
 
     public static string GetReviewUrlFormat()

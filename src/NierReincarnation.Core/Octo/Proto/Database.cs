@@ -22,9 +22,9 @@ public class Database
 
     public Database()
     {
-        AssetBundleList = new List<Data>();
-        TagName = new List<string>();
-        ResourceList = new List<Data>();
+        AssetBundleList = [];
+        TagName = [];
+        ResourceList = [];
         UrlFormat = string.Empty;
     }
 }

@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetStudioUtility", "src\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation.Functions", "src\NierReincarnation.Functions\NierReincarnation.Functions.csproj", "{C9D694D6-2A00-453E-9139-8823B80B4EAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NierReincarnation.CodeAnalysis", "src\NierReincarnation.CodeAnalysis\NierReincarnation.CodeAnalysis.csproj", "{F2E78B2D-60EB-4289-AD7E-2DBE67C34506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NierReincarnation.CodeAnalysis", "src\NierReincarnation.CodeAnalysis\NierReincarnation.CodeAnalysis.csproj", "{F2E78B2D-60EB-4289-AD7E-2DBE67C34506}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Functions", "5. Functions", "{D8C7E0C2-1C98-4D12-8FCB-0DC1B92CBE2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NierReincarnation.Functions.Common", "src\NierReincarnation.Functions.Common\NierReincarnation.Functions.Common.csproj", "{774E7C7E-62E2-4B9A-B834-C807758D2C73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,10 @@ Global
 		{F2E78B2D-60EB-4289-AD7E-2DBE67C34506}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2E78B2D-60EB-4289-AD7E-2DBE67C34506}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2E78B2D-60EB-4289-AD7E-2DBE67C34506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774E7C7E-62E2-4B9A-B834-C807758D2C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774E7C7E-62E2-4B9A-B834-C807758D2C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774E7C7E-62E2-4B9A-B834-C807758D2C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774E7C7E-62E2-4B9A-B834-C807758D2C73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,8 +77,9 @@ Global
 		{259D56DA-1964-41FA-8DA8-FB800793C05B} = {0533A24F-25AE-4809-8A5F-1BFFCA4D1528}
 		{3BDDA088-EAA4-4DBD-9C1C-4223DFD7D079} = {0533A24F-25AE-4809-8A5F-1BFFCA4D1528}
 		{E5064D48-7650-4BDC-87F1-0DB8E0CA1B12} = {11630C88-D5D0-49AC-88D0-CE3922260EE9}
-		{C9D694D6-2A00-453E-9139-8823B80B4EAA} = {0533A24F-25AE-4809-8A5F-1BFFCA4D1528}
+		{C9D694D6-2A00-453E-9139-8823B80B4EAA} = {D8C7E0C2-1C98-4D12-8FCB-0DC1B92CBE2C}
 		{F2E78B2D-60EB-4289-AD7E-2DBE67C34506} = {0533A24F-25AE-4809-8A5F-1BFFCA4D1528}
+		{774E7C7E-62E2-4B9A-B834-C807758D2C73} = {D8C7E0C2-1C98-4D12-8FCB-0DC1B92CBE2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93B10AC4-88B0-4540-933C-08FD862162D4}

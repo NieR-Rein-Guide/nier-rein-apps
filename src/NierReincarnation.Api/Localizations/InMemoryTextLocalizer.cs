@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 
 namespace NierReincarnation.Api.Localizations;
 
-public class InMemoryTextLocalizer : BaseTextLocalizer
+public class InMemoryTextLocalizer(DataManager? dataManager = null, List<Item>? items = null, int batchSize = 2048) : BaseTextLocalizer
 {
     public override async Task<Dictionary<string, string>> CreateAsync(SystemLanguage lang = SystemLanguage.English)
     {
@@ -23,15 +23,21 @@ public class InMemoryTextLocalizer : BaseTextLocalizer
     private async Task<List<byte[]>> DownloadAssetsAsync(SystemLanguage lang)
     {
         ConcurrentBag<byte[]> byteList = [];
-        DataManager dataManager = (DataManager)OctoManager.Database;
+        dataManager ??= (DataManager)OctoManager.Database;
         using HttpClient httpClient = new() { Timeout = Timeout.InfiniteTimeSpan };
 
-        var tasks = AssetService.GetAssets(dataManager)
+        var tasks = (items ?? AssetService.GetAssets(dataManager))
             .Where(x => AssetService.IsTextAsset(x, lang))
             .Select(DownloadAssetAsync)
             .ToList();
 
-        await Task.WhenAll(tasks);
+        for (int i = 0; i < tasks.Count; i+= batchSize)
+        {
+            List<Task> currentBatch = tasks.Skip(i).Take(batchSize).ToList();
+
+            await Task.WhenAll(currentBatch);
+            await Task.Delay(100);
+        }
 
         async Task DownloadAssetAsync(Item textAsset)
         {
