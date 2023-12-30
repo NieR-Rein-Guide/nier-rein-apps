@@ -506,6 +506,7 @@ public static class Program
         await AddCostumeSkillsAsync();
         await AddCostumeAbilitiesAsync();
         await AddCostumeStatsAsync();
+        await AddCostumeKarmaAsync();
     }
 
     private static async Task AddCostumeSkillsAsync()
@@ -714,6 +715,90 @@ public static class Program
         _postgreDbContext.CostumeStats.AddRange(dbEntities);
         await _postgreDbContext.SaveChangesAsync();
     }
+
+    private static async Task AddCostumeKarmaAsync()
+    {
+        ConcurrentBag<CostumeKarmaSlot> dbKarmaSlots = [];
+        Parallel.ForEach(MasterDb.EntityMCostumeTable.All, darkCostume =>
+        {
+            if (darkCostume.CostumeId >= 100000) return;
+
+            foreach (var darkCostumeKarmaSlot in MasterDb.EntityMCostumeLotteryEffectTable.All.Where(x => x.CostumeId == darkCostume.CostumeId).OrderBy(x => x.SlotNumber))
+            {
+                if (!MasterDb.EntityMCostumeLotteryEffectReleaseScheduleTable.TryFindByCostumeLotteryEffectReleaseScheduleId(
+                    darkCostumeKarmaSlot.CostumeLotteryEffectReleaseScheduleId, out var darkCostumeKarmaReleaseSchedule)) continue;
+
+                CostumeKarmaSlot dbKarmaSlot = new()
+                {
+                    CostumeId = darkCostume.CostumeId,
+                    Order = darkCostumeKarmaSlot.SlotNumber,
+                    ReleaseTime = CalculatorDateTime.FromUnixTime(darkCostumeKarmaReleaseSchedule.ReleaseDatetime),
+                    KarmaItems = []
+                };
+                ConcurrentBag<CostumeKarmaItem> dbKarmaItems = [];
+
+                var darkCostumeKarmaSlotOdds = MasterDb.EntityMCostumeLotteryEffectOddsGroupTable
+                    .FindByCostumeLotteryEffectOddsGroupId(darkCostumeKarmaSlot.CostumeLotteryEffectOddsGroupId);
+
+                foreach (var darkCostumeKarmaSlotOdd in darkCostumeKarmaSlotOdds.OrderByDescending(x => x.RarityType).ThenBy(x => x.OddsNumber))
+                {
+                    CostumeKarmaItem dbKarmaItem = new()
+                    {
+                        Rarity = darkCostumeKarmaSlotOdd.RarityType.ToString(),
+                        Order = darkCostumeKarmaSlotOdd.OddsNumber
+                    };
+
+                    if (darkCostumeKarmaSlotOdd.CostumeLotteryEffectType == CostumeLotteryEffectType.ABILITY)
+                    {
+                        var darkCostumeKarmaSlotAbility = MasterDb.EntityMCostumeLotteryEffectTargetAbilityTable
+                            .FindByCostumeLotteryEffectTargetAbilityId(darkCostumeKarmaSlotOdd.CostumeLotteryEffectTargetId);
+
+                        var abilityDetail = CalculatorMasterData.GetEntityMAbilityDetail(darkCostumeKarmaSlotAbility.AbilityId, darkCostumeKarmaSlotAbility.AbilityLevel);
+                        var assetId = $"{abilityDetail.AssetCategoryId:D3}{abilityDetail.AssetVariationId:D3}";
+
+                        dbKarmaItem.Text = CalculatorAbility.GetDescriptionLong(abilityDetail.DescriptionAbilityTextId);
+                        dbKarmaItem.ImagePath = $"ui/ability/ability{assetId}/ability{assetId}_lottery_effect.png";
+                    }
+                    else if (darkCostumeKarmaSlotOdd.CostumeLotteryEffectType == CostumeLotteryEffectType.STATUS_UP)
+                    {
+                        List<string> statusUps = MasterDb.EntityMCostumeLotteryEffectTargetStatusUpTable
+                            .FindByCostumeLotteryEffectTargetStatusUpId(darkCostumeKarmaSlotOdd.CostumeLotteryEffectTargetId)
+                            .Select(x => $"{ToStatusString(x.StatusKindType)} {(IsPercentageStatus(x.StatusKindType, x.StatusCalculationType) ? $"{x.EffectValue / 10}%" : x.EffectValue.ToString())}")
+                            .ToList();
+
+                        dbKarmaItem.Text = string.Join(", ", statusUps);
+                        dbKarmaItem.ImagePath = "ui/costume_lottery_effect/icon/status.png";
+                    }
+
+                    dbKarmaItems.Add(dbKarmaItem);
+                }
+
+                dbKarmaSlot.KarmaItems = [.. dbKarmaItems];
+                dbKarmaSlots.Add(dbKarmaSlot);
+            }
+        });
+
+        _postgreDbContext.CostumeKarmaSlots.AddRange(dbKarmaSlots);
+        await _postgreDbContext.SaveChangesAsync();
+    }
+
+    private static string ToStatusString(StatusKindType statusKindType)
+    {
+        return statusKindType switch
+        {
+            StatusKindType.AGILITY => "Agility",
+            StatusKindType.ATTACK => "Attack",
+            StatusKindType.HP => "HP",
+            StatusKindType.VITALITY => "Defense",
+            StatusKindType.CRITICAL_ATTACK => "Critical Damage",
+            StatusKindType.CRITICAL_RATIO => "Critical Rate",
+            StatusKindType.EVASION_RATIO => "Evasion Rate",
+            _ => "Unknown"
+        };
+    }
+
+    private static bool IsPercentageStatus(StatusKindType statusKindType, StatusCalculationType statusCalculationType) =>
+        statusKindType == StatusKindType.CRITICAL_ATTACK || statusKindType == StatusKindType.CRITICAL_RATIO || statusCalculationType == StatusCalculationType.MULTIPLY;
 
     private static List<DataAbility> GetCostumeAbilities(DataAbility[] costumeAbilities, IEnumerable<EntityMCostumeAwakenEffectGroup> costumeAwakenEffects, int awakeningStep)
     {

@@ -27,6 +27,8 @@ internal class PostgreDbContext(DbConfig dbConfig) : DbContext
 
     public DbSet<CostumeStat> CostumeStats { get; set; }
 
+    public DbSet<CostumeKarmaSlot> CostumeKarmaSlots { get; set; }
+
     public DbSet<Emblem> Emblems { get; set; }
 
     public DbSet<Weapon> Weapons { get; set; }
@@ -83,6 +85,7 @@ internal class PostgreDbContext(DbConfig dbConfig) : DbContext
         modelBuilder.Entity<CostumeAbility>().HasKey(a => new { a.AbilityId, a.AbilityLevel });
         modelBuilder.Entity<CostumeSkill>().HasKey(a => new { a.SkillId, a.SkillLevel });
         modelBuilder.Entity<CostumeStat>().HasKey(a => new { a.CostumeId, a.Level, a.AwakeningStep });
+        modelBuilder.Entity<CostumeKarmaSlot>().HasKey(a => new { a.CostumeId, a.Order });
         modelBuilder.Entity<Weapon>().HasAlternateKey(a => new { a.EvolutionGroupId, a.EvolutionOrder });
         modelBuilder.Entity<WeaponSkill>().HasKey(a => new { a.SkillId, a.SkillLevel });
         modelBuilder.Entity<WeaponAbility>().HasKey(a => new { a.AbilityId, a.AbilityLevel });
@@ -101,10 +104,11 @@ internal class PostgreDbContext(DbConfig dbConfig) : DbContext
         modelBuilder.Entity<CompanionSkillLink>().HasKey(a => new { a.CompanionId, a.CompanionLevel, a.SkillId, a.SkillLevel });
         modelBuilder.Entity<CompanionAbilityLink>().HasKey(a => new { a.CompanionId, a.CompanionLevel, a.AbilityId, a.AbilityLevel });
 
-        modelBuilder.Entity<CostumeAbility>().HasMany(c => c.Costume).WithOne(c => c.CostumeAbility);
+        modelBuilder.Entity<CostumeAbility>().HasMany(c => c.AbilityLinks).WithOne(c => c.CostumeAbility);
         modelBuilder.Entity<Costume>().HasMany(c => c.Abilities).WithOne(c => c.Costume);
-        modelBuilder.Entity<CostumeSkill>().HasMany(c => c.Costume).WithOne(c => c.CostumeSkill);
+        modelBuilder.Entity<CostumeSkill>().HasMany(c => c.SkillLinks).WithOne(c => c.CostumeSkill);
         modelBuilder.Entity<Costume>().HasMany(c => c.Skills).WithOne(c => c.Costume);
+        modelBuilder.Entity<Costume>().HasMany(c => c.KarmaSlots).WithOne(c => c.Costume);
         modelBuilder.Entity<Weapon>().HasMany(c => c.Stories).WithOne(c => c.Weapon);
         modelBuilder.Entity<WeaponStory>().HasMany(c => c.Weapons).WithOne(c => c.Story);
         modelBuilder.Entity<Weapon>().HasMany(c => c.Skills).WithOne(c => c.Weapon);

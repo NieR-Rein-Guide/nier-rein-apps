@@ -54,4 +54,6 @@ internal class Costume
     public virtual ICollection<CostumeAbilityLink> Abilities { get; set; }
 
     public virtual ICollection<CostumeStat> Stats { get; set; }
+
+    public virtual ICollection<CostumeKarmaSlot> KarmaSlots { get; set; }
 }
