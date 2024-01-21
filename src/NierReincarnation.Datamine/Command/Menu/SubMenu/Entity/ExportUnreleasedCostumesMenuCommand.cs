@@ -28,22 +28,23 @@ public class ExportUnreleasedCostumesMenuCommand : AbstractMenuCommand
             {
                 string matchCostumeId = match.Groups[0].Value;
 
-                if (matchCostumeId.Equals("ch000000")) continue;
-                if (matchCostumeId.EndsWith("050")) continue;
+                // Invalid, stunned Yudil, playable 2-star
+                if (matchCostumeId.Equals("ch000000") || matchCostumeId.Equals("ch050001") || matchCostumeId.EndsWith("050")) continue;
                 if (currentCostumes.ContainsKey(matchCostumeId)) continue;
                 string matchCharacter = currentCharacters.TryGetValue(matchCostumeId[..^3], out string matchExistingCharacter) ? matchExistingCharacter : "Unknown";
 
                 string unreleasedCostumeStr = $"{matchCharacter} ({matchCostumeId})";
-                if (!unreleasedCostumes.ContainsKey(unreleasedCostumeStr))
+                if (!unreleasedCostumes.TryGetValue(unreleasedCostumeStr, out List<string> costumeFiles))
                 {
-                    unreleasedCostumes[unreleasedCostumeStr] = [];
+                    costumeFiles = [];
+                    unreleasedCostumes[unreleasedCostumeStr] = costumeFiles;
                 }
 
                 string itemName = asset.Replace(")", "\\");
 
-                if (!unreleasedCostumes[unreleasedCostumeStr].Contains(itemName))
+                if (!costumeFiles.Contains(itemName))
                 {
-                    unreleasedCostumes[unreleasedCostumeStr].Add(itemName);
+                    costumeFiles.Add(itemName);
                 }
             }
         }
