@@ -78,6 +78,8 @@ public static partial class UserInterfaceTextKey
         public static readonly string kBonusDropTextKey = "quest.Bonus.Drop";
         public static readonly string kBonusExpTextKey = "quest.Bonus.Exp";
         public static readonly string kMainSeasonTitle = "quest.main.season_title.{0}";
+        public static readonly string kMainDefaultRouteSeasonTitle = "quest.main.default_route.season_title.{0}";
+        public static readonly string kMainAnotherRouteSeasonTitle = "quest.main.another_route.season_title.{0}";
         public static readonly string kMainChapterNumber = "quest.main.chapter_number.{0}.{1}.{2}";
         public static readonly string kMainChapterTitle = "quest.main.chapter_title.{0}.{1}.{2}";
         public static readonly string kEventChapterTitle = "quest.event.chapter_title.{0}";

@@ -633,6 +633,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMMainQuestRouteTable EntityMMainQuestRouteTable { get; private set; }
 
+    public EntityMMainQuestRouteAnotherReplayFlowUnlockConditionTable EntityMMainQuestRouteAnotherReplayFlowUnlockConditionTable { get; private set; }
+
     public EntityMMainQuestSeasonTable EntityMMainQuestSeasonTable { get; private set; }
 
     public EntityMMainQuestSequenceTable EntityMMainQuestSequenceTable { get; private set; }
@@ -1527,6 +1529,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMMainQuestChapterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestChapter[], EntityMMainQuestChapterTable>(data => new EntityMMainQuestChapterTable(data)));
         EntityMMainQuestPortalCageCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestPortalCageCharacter[], EntityMMainQuestPortalCageCharacterTable>(data => new EntityMMainQuestPortalCageCharacterTable(data)));
         EntityMMainQuestRouteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestRoute[], EntityMMainQuestRouteTable>(data => new EntityMMainQuestRouteTable(data)));
+        EntityMMainQuestRouteAnotherReplayFlowUnlockConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestRouteAnotherReplayFlowUnlockCondition[], EntityMMainQuestRouteAnotherReplayFlowUnlockConditionTable>(data => new EntityMMainQuestRouteAnotherReplayFlowUnlockConditionTable(data)));
         EntityMMainQuestSeasonTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSeason[], EntityMMainQuestSeasonTable>(data => new EntityMMainQuestSeasonTable(data)));
         EntityMMainQuestSequenceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSequence[], EntityMMainQuestSequenceTable>(data => new EntityMMainQuestSequenceTable(data)));
         EntityMMainQuestSequenceGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMMainQuestSequenceGroup[], EntityMMainQuestSequenceGroupTable>(data => new EntityMMainQuestSequenceGroupTable(data)));
