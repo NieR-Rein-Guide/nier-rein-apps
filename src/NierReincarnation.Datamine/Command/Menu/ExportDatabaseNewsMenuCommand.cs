@@ -25,7 +25,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         await WriteMemoirSeriesAsync();
         await WriteRemnantsAsync();
         await WriteEventsAsync();
-        //await WriteHiddenStoriesAsync();
+        await WriteHiddenStoriesAsync();
         await WriteLoginBonusesAsync();
         await WriteMissionGroupsAsync();
         await WriteFateBoardsAsync();
@@ -106,7 +106,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
 
                 if (darkTermCatalog is not null && darkTermCatalog.StartDatetime != darkCostumeKarmaSchedule.ReleaseDatetime)
                 {
-                    upcomingKarma.Add(CalculatorCostume.CostumeName(darkCostumeId), darkCostumeKarmaSchedule.ReleaseDatetime);
+                    upcomingKarma.TryAdd(CalculatorCostume.CostumeName(darkCostumeId), darkCostumeKarmaSchedule.ReleaseDatetime);
                 }
             }
         }
