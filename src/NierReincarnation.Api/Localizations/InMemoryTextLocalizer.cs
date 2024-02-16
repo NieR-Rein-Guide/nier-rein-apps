@@ -26,6 +26,8 @@ public class InMemoryTextLocalizer(DataManager? dataManager = null, List<Item>? 
         dataManager ??= (DataManager)OctoManager.Database;
         using HttpClient httpClient = new() { Timeout = Timeout.InfiniteTimeSpan };
 
+        OctoManager.StartDbUpdate(null, true, 0);
+
         var tasks = (items ?? AssetService.GetAssets(dataManager))
             .Where(x => AssetService.IsTextAsset(x, lang))
             .Select(DownloadAssetAsync)

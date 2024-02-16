@@ -18,7 +18,7 @@ public static class Application
 
     public static string UnityVersion { get; }
 
-    public static string Version { get; set; } = "3.2.0";
+    public static string Version { get; set; } = "3.6.0";
 
     public static string Identifier => "com.square_enix.android_googleplay.nierspww";
 
