@@ -28,7 +28,7 @@ public class ExportDatabaseNewsMenuCommand : AbstractMenuCommand
         await WriteHiddenStoriesAsync();
         await WriteLoginBonusesAsync();
         await WriteMissionGroupsAsync();
-        await WriteFateBoardsAsync();
+        //await WriteFateBoardsAsync();
     }
 
     #region Costumes
