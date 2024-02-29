@@ -135,12 +135,12 @@ public class MasterDataDownloader
         res = await httpClient.SendAsync(req, cancellationToken);
         if (!res.IsSuccessStatusCode) return (InvalidSize, false, null);
 
-        var acceptRangeHeader = res.Headers.GetValues(HttpResponseHeaderAcceptRange).FirstOrDefault();
+        res.Headers.TryGetValues(HttpResponseHeaderAcceptRange, out var acceptRangeHeaders);
 
         MemoryStream data = new();
         await res.Content.CopyToAsync(data, cancellationToken);
 
-        return (contentLength, acceptRangeHeader == HttpResponseHeaderAcceptRangeValue, data.ToArray());
+        return (contentLength, acceptRangeHeaders?.Any(x => x == HttpResponseHeaderAcceptRangeValue) == true, data.ToArray());
     }
 
     private static async Task<(bool, byte[])> TryGetMasterDataCacheAsync(string version, int contentLength, byte[] headContent)
