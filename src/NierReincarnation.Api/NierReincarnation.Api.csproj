@@ -5,10 +5,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <Version>1.1.1</Version>
+        <Version>1.1.2</Version>
         <Authors>BillyCool, onepiecefreak</Authors>
         <Description>API to interact with NieR Re[in]carnation data</Description>
-        <Copyright>2023</Copyright>
+        <Copyright>2024</Copyright>
         <PackageProjectUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</PackageProjectUrl>
         <RepositoryUrl>https://github.com/NieR-Rein-Guide/nier-rein-apps</RepositoryUrl>
         <PackageTags>NieR;Re[in]carnation;Reincarnation;API</PackageTags>
@@ -17,7 +17,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\NierReincarnation.Core\NierReincarnation.Core.csproj" Condition="'$(Configuration)' == 'Debug' And Exists('..\NierReincarnation.Core\NierReincarnation.Core.csproj')" />
-		<PackageReference Include="NierReincarnation.Core" Version="1.2.1" />
+		<PackageReference Include="NierReincarnation.Core" Version="1.2.2" />
 	</ItemGroup>
 
 </Project>
