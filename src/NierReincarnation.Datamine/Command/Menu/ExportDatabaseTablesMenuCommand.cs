@@ -90,7 +90,7 @@ public class ExportDatabaseTablesMenuCommand : AbstractMenuCommand<ExportDatabas
             Console.Write($"\r{emptyString}");
             Console.Write($"\rChecking {tableProp.Name}");
             var filePath = Path.Combine(Constants.DatabasePath, $"{tableProp.Name}.json");
-            var tempFilePath = Path.Combine(Constants.DatabasePath, Constants.TempFolder, $"{DataManager.Revision}", $"{tableProp.Name}.json");
+            var tempFilePath = Path.Combine(Constants.DatabasePath, Constants.TempFolder, $"{DatabaseDefine.Master.Version}", $"{tableProp.Name}.json");
             var tableValue = tableProp.GetValue(DatabaseDefine.User, null);
             var allValue = allProp.GetValue(tableValue, null);
 

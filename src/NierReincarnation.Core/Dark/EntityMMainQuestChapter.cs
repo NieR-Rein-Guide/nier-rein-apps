@@ -23,4 +23,10 @@ public class EntityMMainQuestChapter
 
     [Key(5)]
     public long StartDatetime { get; set; }
+
+    [Key(6)]
+    public bool IsInvisibleInLibrary { get; set; }
+
+    [Key(7)]
+    public int JoinLibraryChapterId { get; set; }
 }

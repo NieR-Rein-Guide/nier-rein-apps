@@ -27,6 +27,7 @@ public static partial class UserInterfaceTextKey
         public static readonly string kTopRepairResult = "ui.Outgame.Menu.Top.Repair.Result";
         public static readonly string kHelpTitle = "ui.Outgame.Menu.Help.Title";
         public static readonly string kTutorialTitle = "ui.Outgame.Menu.Tutorial.Title";
+        public static readonly string kTutorialDeleteCostumeTitle = "ui.Outgame.Menu.Tutorial.DeleteCostume.Title";
         public static readonly string kTopAccount = "ui.Outgame.Menu.Top.Account";
         public static readonly string kTopDataDescription = "ui.Outgame.Menu.Top.Data.Description";
         public static readonly string kTopDataAttention = "ui.Outgame.Menu.Top.Data.Attention";

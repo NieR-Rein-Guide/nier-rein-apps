@@ -11,6 +11,7 @@ public static partial class UserInterfaceTextKey
         public static readonly string kConfirmStartErrorRestrictionProperAttributeType = "ui.Outgame.Quest.Confirmation.Start.Error.RestrictionProperAttributeType";
         public static readonly string kConfirmationErrorStaminaLack = "ui.Outgame.Quest.Confirmation.Error.Stamina.Lack";
         public static readonly string kConfirmStartErrorQuestDifficultyUnopened = "ui.Outgame.Quest.Confirmation.Error.QuestDifficulty.Unopened";
+        public static readonly string kConfirmStartErrorDeckEmpty = "ui.Outgame.Quest.Confirmation.Start.Error.DeckEmpty";
         public static readonly string kEventQuestHoldTermTemplate = "ui.Outgame.Quest.Event.HoldTerm.Template";
         public static readonly string kEventQuestPlayCountOver = "ui.Outgame.Quest.PlayCount.Over";
         public static readonly string kEventQuestTitle = "ui.Outgame.Quest.Event";

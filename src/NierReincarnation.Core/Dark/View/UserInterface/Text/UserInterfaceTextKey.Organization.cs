@@ -38,6 +38,7 @@ public static partial class UserInterfaceTextKey
         public static readonly string kErrorRestrictionCharacterTextKey = "ui.Outgame.Organization.Error.RestrictionCharacter";
         public static readonly string kErrorRestrictionCostumeTextKey = "ui.Outgame.Organization.Error.RestrictionCostume";
         public static readonly string kErrorRestrictionProperAttributeTextKey = "ui.Outgame.Organization.Error.RestrictionProperAttribute";
+        public static readonly string kErrorRestrictionForbiddenCharacterTextKey = "ui.Outgame.Organization.Error.RestrictionForbiddenCharacter";
         public static readonly string kErrorRestrictionLimitContentCostume = "ui.Outgame.Organization.Error.LimitContentCostume";
         public static readonly string kErrorRestrictionLimitContentWeapon = "ui.Outgame.Organization.Error.LimitContentWeapon";
         public static readonly string kErrorRestrictionLimitContentCompanion = "ui.Outgame.Organization.Error.LimitContentCompanion";

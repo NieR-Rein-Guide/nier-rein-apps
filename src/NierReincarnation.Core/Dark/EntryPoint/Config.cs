@@ -86,6 +86,8 @@ public static class Config
             ? "https://api-web.app.nierreincarnation.com/api/information/banner/list/get"
             : "https://api-web.app.nierreincarnation.jp/api/information/banner/list/get";
 
+        public static string MakeFullWebViewUrl(string path) => MakeWebViewUrl(string.Empty, path);
+
         public static string MakeMasterDataUrl(string masterVersion)
         {
             var urlFormat = ApplicationApi.IsReviewEnvironment()

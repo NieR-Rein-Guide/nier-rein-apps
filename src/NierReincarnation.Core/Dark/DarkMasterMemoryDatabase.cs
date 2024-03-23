@@ -159,6 +159,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMBattleNpcDeckLimitContentBackupRestoredTable EntityMBattleNpcDeckLimitContentBackupRestoredTable { get; private set; }
 
+    public EntityMBattleNpcDeckLimitContentDeletedCharacterTable EntityMBattleNpcDeckLimitContentDeletedCharacterTable { get; private set; }
+
     public EntityMBattleNpcDeckLimitContentRestrictedTable EntityMBattleNpcDeckLimitContentRestrictedTable { get; private set; }
 
     public EntityMBattleNpcDeckPartsGroupTable EntityMBattleNpcDeckPartsGroupTable { get; private set; }
@@ -409,7 +411,11 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMCostumeDefaultSkillLotteryGroupTable EntityMCostumeDefaultSkillLotteryGroupTable { get; private set; }
 
+    public EntityMCostumeDeleteTable EntityMCostumeDeleteTable { get; private set; }
+
     public EntityMCostumeDisplayCoordinateAdjustmentTable EntityMCostumeDisplayCoordinateAdjustmentTable { get; private set; }
+
+    public EntityMCostumeDisplaySwitchTable EntityMCostumeDisplaySwitchTable { get; private set; }
 
     public EntityMCostumeDuplicationExchangePossessionGroupTable EntityMCostumeDuplicationExchangePossessionGroupTable { get; private set; }
 
@@ -615,6 +621,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMLibraryRecordGroupingTable EntityMLibraryRecordGroupingTable { get; private set; }
 
+    public EntityMLibraryStoryGroupTable EntityMLibraryStoryGroupTable { get; private set; }
+
     public EntityMLimitedOpenTextTable EntityMLimitedOpenTextTable { get; private set; }
 
     public EntityMLimitedOpenTextGroupTable EntityMLimitedOpenTextGroupTable { get; private set; }
@@ -809,6 +817,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
 
     public EntityMQuestCampaignTargetItemGroupTable EntityMQuestCampaignTargetItemGroupTable { get; private set; }
 
+    public EntityMQuestDeckMultiRestrictionGroupTable EntityMQuestDeckMultiRestrictionGroupTable { get; private set; }
+
     public EntityMQuestDeckRestrictionGroupTable EntityMQuestDeckRestrictionGroupTable { get; private set; }
 
     public EntityMQuestDeckRestrictionGroupUnlockTable EntityMQuestDeckRestrictionGroupUnlockTable { get; private set; }
@@ -818,6 +828,8 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
     public EntityMQuestDisplayEnemyThumbnailReplaceTable EntityMQuestDisplayEnemyThumbnailReplaceTable { get; private set; }
 
     public EntityMQuestFirstClearRewardGroupTable EntityMQuestFirstClearRewardGroupTable { get; private set; }
+
+    public EntityMQuestFirstClearRewardSwitchTable EntityMQuestFirstClearRewardSwitchTable { get; private set; }
 
     public EntityMQuestMissionTable EntityMQuestMissionTable { get; private set; }
 
@@ -1291,6 +1303,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMBattleNpcDeckCharacterDropCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacterDropCategory[], EntityMBattleNpcDeckCharacterDropCategoryTable>(data => new EntityMBattleNpcDeckCharacterDropCategoryTable(data)));
         EntityMBattleNpcDeckCharacterTypeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckCharacterType[], EntityMBattleNpcDeckCharacterTypeTable>(data => new EntityMBattleNpcDeckCharacterTypeTable(data)));
         EntityMBattleNpcDeckLimitContentBackupRestoredTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckLimitContentBackupRestored[], EntityMBattleNpcDeckLimitContentBackupRestoredTable>(data => new EntityMBattleNpcDeckLimitContentBackupRestoredTable(data)));
+        EntityMBattleNpcDeckLimitContentDeletedCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckLimitContentDeletedCharacter[], EntityMBattleNpcDeckLimitContentDeletedCharacterTable>(data => new EntityMBattleNpcDeckLimitContentDeletedCharacterTable(data)));
         EntityMBattleNpcDeckLimitContentBackupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckLimitContentBackup[], EntityMBattleNpcDeckLimitContentBackupTable>(data => new EntityMBattleNpcDeckLimitContentBackupTable(data)));
         EntityMBattleNpcDeckLimitContentRestrictedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckLimitContentRestricted[], EntityMBattleNpcDeckLimitContentRestrictedTable>(data => new EntityMBattleNpcDeckLimitContentRestrictedTable(data)));
         EntityMBattleNpcDeckPartsGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMBattleNpcDeckPartsGroup[], EntityMBattleNpcDeckPartsGroupTable>(data => new EntityMBattleNpcDeckPartsGroupTable(data)));
@@ -1417,7 +1430,9 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMCostumeCollectionBonusGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeCollectionBonusGroup[], EntityMCostumeCollectionBonusGroupTable>(data => new EntityMCostumeCollectionBonusGroupTable(data)));
         EntityMCostumeDefaultSkillGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDefaultSkillGroup[], EntityMCostumeDefaultSkillGroupTable>(data => new EntityMCostumeDefaultSkillGroupTable(data)));
         EntityMCostumeDefaultSkillLotteryGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDefaultSkillLotteryGroup[], EntityMCostumeDefaultSkillLotteryGroupTable>(data => new EntityMCostumeDefaultSkillLotteryGroupTable(data)));
+        EntityMCostumeDeleteTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDelete[], EntityMCostumeDeleteTable>(data => new EntityMCostumeDeleteTable(data)));
         EntityMCostumeDisplayCoordinateAdjustmentTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDisplayCoordinateAdjustment[], EntityMCostumeDisplayCoordinateAdjustmentTable>(data => new EntityMCostumeDisplayCoordinateAdjustmentTable(data)));
+        EntityMCostumeDisplaySwitchTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDisplaySwitch[], EntityMCostumeDisplaySwitchTable>(data => new EntityMCostumeDisplaySwitchTable(data)));
         EntityMCostumeDuplicationExchangePossessionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeDuplicationExchangePossessionGroup[], EntityMCostumeDuplicationExchangePossessionGroupTable>(data => new EntityMCostumeDuplicationExchangePossessionGroupTable(data)));
         EntityMCostumeEmblemTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeEmblem[], EntityMCostumeEmblemTable>(data => new EntityMCostumeEmblemTable(data)));
         EntityMCostumeEnhancedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMCostumeEnhanced[], EntityMCostumeEnhancedTable>(data => new EntityMCostumeEnhancedTable(data)));
@@ -1520,6 +1535,7 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMLibraryMovieCategoryTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMovieCategory[], EntityMLibraryMovieCategoryTable>(data => new EntityMLibraryMovieCategoryTable(data)));
         EntityMLibraryMovieUnlockConditionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryMovieUnlockCondition[], EntityMLibraryMovieUnlockConditionTable>(data => new EntityMLibraryMovieUnlockConditionTable(data)));
         EntityMLibraryRecordGroupingTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryRecordGrouping[], EntityMLibraryRecordGroupingTable>(data => new EntityMLibraryRecordGroupingTable(data)));
+        EntityMLibraryStoryGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLibraryStoryGroup[], EntityMLibraryStoryGroupTable>(data => new EntityMLibraryStoryGroupTable(data)));
         EntityMLimitedOpenTextTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLimitedOpenText[], EntityMLimitedOpenTextTable>(data => new EntityMLimitedOpenTextTable(data)));
         EntityMLimitedOpenTextGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMLimitedOpenTextGroup[], EntityMLimitedOpenTextGroupTable>(data => new EntityMLimitedOpenTextGroupTable(data)));
         EntityMListSettingAbilityGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMListSettingAbilityGroup[], EntityMListSettingAbilityGroupTable>(data => new EntityMListSettingAbilityGroupTable(data)));
@@ -1617,11 +1633,13 @@ public sealed class DarkMasterMemoryDatabase : MemoryDatabaseBase
         EntityMQuestCampaignEffectGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignEffectGroup[], EntityMQuestCampaignEffectGroupTable>(data => new EntityMQuestCampaignEffectGroupTable(data)));
         EntityMQuestCampaignTargetGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignTargetGroup[], EntityMQuestCampaignTargetGroupTable>(data => new EntityMQuestCampaignTargetGroupTable(data)));
         EntityMQuestCampaignTargetItemGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestCampaignTargetItemGroup[], EntityMQuestCampaignTargetItemGroupTable>(data => new EntityMQuestCampaignTargetItemGroupTable(data)));
+        EntityMQuestDeckMultiRestrictionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDeckMultiRestrictionGroup[], EntityMQuestDeckMultiRestrictionGroupTable>(data => new EntityMQuestDeckMultiRestrictionGroupTable(data)));
         EntityMQuestDeckRestrictionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDeckRestrictionGroup[], EntityMQuestDeckRestrictionGroupTable>(data => new EntityMQuestDeckRestrictionGroupTable(data)));
         EntityMQuestDeckRestrictionGroupUnlockTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDeckRestrictionGroupUnlock[], EntityMQuestDeckRestrictionGroupUnlockTable>(data => new EntityMQuestDeckRestrictionGroupUnlockTable(data)));
         EntityMQuestDisplayAttributeGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDisplayAttributeGroup[], EntityMQuestDisplayAttributeGroupTable>(data => new EntityMQuestDisplayAttributeGroupTable(data)));
         EntityMQuestDisplayEnemyThumbnailReplaceTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestDisplayEnemyThumbnailReplace[], EntityMQuestDisplayEnemyThumbnailReplaceTable>(data => new EntityMQuestDisplayEnemyThumbnailReplaceTable(data)));
         EntityMQuestFirstClearRewardGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestFirstClearRewardGroup[], EntityMQuestFirstClearRewardGroupTable>(data => new EntityMQuestFirstClearRewardGroupTable(data)));
+        EntityMQuestFirstClearRewardSwitchTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestFirstClearRewardSwitch[], EntityMQuestFirstClearRewardSwitchTable>(data => new EntityMQuestFirstClearRewardSwitchTable(data)));
         EntityMQuestMissionTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMission[], EntityMQuestMissionTable>(data => new EntityMQuestMissionTable(data)));
         EntityMQuestMissionConditionValueGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMissionConditionValueGroup[], EntityMQuestMissionConditionValueGroupTable>(data => new EntityMQuestMissionConditionValueGroupTable(data)));
         EntityMQuestMissionGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityMQuestMissionGroup[], EntityMQuestMissionGroupTable>(data => new EntityMQuestMissionGroupTable(data)));

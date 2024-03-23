@@ -216,6 +216,12 @@ public sealed class DarkUserDatabaseBuilder : DatabaseBuilderBase
         return this;
     }
 
+    public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserDeckLimitContentDeletedCharacter> dataSource)
+    {
+        AppendCore(dataSource, x => (x.UserId, x.UserDeckNumber, x.UserDeckCharacterNumber), Comparer<(long, int, int)>.Default);
+        return this;
+    }
+
     public DarkUserDatabaseBuilder Append(IEnumerable<EntityIUserDeckLimitContentRestricted> dataSource)
     {
         AppendCore(dataSource, x => (x.UserId, x.EventQuestChapterId, x.QuestId, x.DeckRestrictedUuid), Comparer<(long, int, int, string)>.Default);

@@ -73,6 +73,8 @@ public class DarkUserMemoryDatabase : MemoryDatabaseBase
 
     public EntityIUserDeckCharacterDressupCostumeTable EntityIUserDeckCharacterDressupCostumeTable { get; private set; }
 
+    public EntityIUserDeckLimitContentDeletedCharacterTable EntityIUserDeckLimitContentDeletedCharacterTable { get; private set; }
+
     public EntityIUserDeckLimitContentRestrictedTable EntityIUserDeckLimitContentRestrictedTable { get; private set; }
 
     public EntityIUserDeckPartsGroupTable EntityIUserDeckPartsGroupTable { get; private set; }
@@ -258,6 +260,7 @@ public class DarkUserMemoryDatabase : MemoryDatabaseBase
         EntityIUserDeckTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeck[], EntityIUserDeckTable>(data => new EntityIUserDeckTable(data)));
         EntityIUserDeckCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckCharacter[], EntityIUserDeckCharacterTable>(data => new EntityIUserDeckCharacterTable(data)));
         EntityIUserDeckCharacterDressupCostumeTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckCharacterDressupCostume[], EntityIUserDeckCharacterDressupCostumeTable>(data => new EntityIUserDeckCharacterDressupCostumeTable(data)));
+        EntityIUserDeckLimitContentDeletedCharacterTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckLimitContentDeletedCharacter[], EntityIUserDeckLimitContentDeletedCharacterTable>(data => new EntityIUserDeckLimitContentDeletedCharacterTable(data)));
         EntityIUserDeckLimitContentRestrictedTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckLimitContentRestricted[], EntityIUserDeckLimitContentRestrictedTable>(data => new EntityIUserDeckLimitContentRestrictedTable(data)));
         EntityIUserDeckPartsGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckPartsGroup[], EntityIUserDeckPartsGroupTable>(data => new EntityIUserDeckPartsGroupTable(data)));
         EntityIUserDeckSubWeaponGroupTable = ExtractTableData(header, databaseBinary, options, new Func<EntityIUserDeckSubWeaponGroup[], EntityIUserDeckSubWeaponGroupTable>(data => new EntityIUserDeckSubWeaponGroupTable(data)));

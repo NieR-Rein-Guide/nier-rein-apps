@@ -12,4 +12,7 @@ public class EntityMTutorialUnlockConditionTable : TableBase<EntityMTutorialUnlo
     }
 
     public EntityMTutorialUnlockCondition FindByTutorialType(TutorialType key) => FindUniqueCore(data, primaryIndexSelector, Comparer<TutorialType>.Default, key);
+
+    public bool TryFindByTutorialType(TutorialType key, out EntityMTutorialUnlockCondition result) =>
+        TryFindUniqueCore(data, primaryIndexSelector, Comparer<TutorialType>.Default, key, out result);
 }
