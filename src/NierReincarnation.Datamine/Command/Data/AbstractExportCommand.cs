@@ -51,7 +51,7 @@ public abstract class AbstractExportCommand : IAsyncCommand<BaseExportEntityComm
         List<string> fileList = [];
         List<string> errors = [];
 
-        var tasks = items.Select(x =>
+        var downloadTasks = items.Select(x =>
         {
             string itemName = x.name.Replace(")", "\\") + FileExt;
 
@@ -62,7 +62,30 @@ public abstract class AbstractExportCommand : IAsyncCommand<BaseExportEntityComm
             return DownloadItem(x, itemName);
         });
 
-        await Task.WhenAll(tasks);
+        List<Task> taskQueue = [];
+        SemaphoreSlim semaphore = new(200);
+
+        foreach (var downloadTask in downloadTasks)
+        {
+            // Wait until a slot is available
+            await semaphore.WaitAsync();
+
+            // Start the task and add it to the queue
+            taskQueue.Add(Task.Run(async () =>
+            {
+                try
+                {
+                    await downloadTask;
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
+            }));
+        }
+
+        // Wait for task queue to complete
+        await Task.WhenAll(taskQueue);
 
         LogErrors(errors);
 
